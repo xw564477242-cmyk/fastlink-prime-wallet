@@ -32,7 +32,7 @@ function HomePage() {
   const actions = [
     { icon: ArrowDownToLine, label: "Deposit", href: "/assets" as const },
     { icon: ArrowUpFromLine, label: "Withdraw", href: "/assets" as const },
-    { icon: ArrowLeftRight, label: "Convert", href: "/convert" as const },
+    { icon: ArrowLeftRight, label: "Convert", href: "/assets" as const },
     { icon: QrCode, label: "Pay", href: "/pay" as const },
     { icon: Send, label: "Transfer", href: "/pay" as const },
     { icon: CreditCard, label: "Cards", href: "/cards" as const },
