@@ -9,10 +9,15 @@ import {
   Eye,
   EyeOff,
   TrendingUp,
+  TrendingDown,
   Plus,
   ChevronRight,
+  Landmark,
+  PiggyBank,
+  Coins,
 } from "lucide-react";
 import { useState } from "react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
