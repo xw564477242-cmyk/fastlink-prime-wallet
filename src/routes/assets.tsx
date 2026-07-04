@@ -551,19 +551,32 @@ function FundCardPanel({ sym }: { sym: string }) {
   );
 }
 
+type TokenOpt = { sym: string; name: string; networks: string[] };
+
+const CREATABLE: TokenOpt[] = [
+  { sym: "SOL", name: "Solana", networks: ["Solana"] },
+  { sym: "TON", name: "Toncoin", networks: ["TON"] },
+  { sym: "MATIC", name: "Polygon", networks: ["Polygon", "ERC20"] },
+  { sym: "XRP", name: "Ripple", networks: ["XRP Ledger"] },
+  { sym: "DAI", name: "Dai", networks: ["ERC20", "Polygon", "BEP20"] },
+  { sym: "ARB", name: "Arbitrum", networks: ["Arbitrum"] },
+  { sym: "USDT", name: "Tether", networks: ["TRC20", "ERC20", "BEP20", "Polygon"] },
+];
+
 function CreatePanel() {
   const [q, setQ] = useState("");
-  const list = [
-    { sym: "SOL", name: "Solana" },
-    { sym: "TON", name: "Toncoin" },
-    { sym: "MATIC", name: "Polygon" },
-    { sym: "XRP", name: "Ripple" },
-    { sym: "DAI", name: "Dai" },
-    { sym: "ARB", name: "Arbitrum" },
-  ].filter((a) => (a.sym + a.name).toLowerCase().includes(q.toLowerCase()));
+  const [picked, setPicked] = useState<TokenOpt | null>(null);
+  const list = CREATABLE.filter((a) =>
+    (a.sym + a.name).toLowerCase().includes(q.toLowerCase()),
+  );
+
+  if (picked) {
+    return <CreateForm token={picked} onBack={() => setPicked(null)} />;
+  }
+
   return (
     <>
-      <PanelHeader title="Create Wallet" desc="Add a new digital asset wallet to your portfolio" />
+      <PanelHeader title="Create Wallet" desc="Choose the digital asset to add to your portfolio" />
       <div className="flex items-center gap-2 rounded-2xl bg-surface px-4 py-2.5">
         <Search className="h-4 w-4 text-muted-foreground" />
         <input
@@ -577,6 +590,7 @@ function CreatePanel() {
         {list.map((a) => (
           <button
             key={a.sym}
+            onClick={() => setPicked(a)}
             className="flex w-full items-center gap-3 rounded-2xl bg-surface p-4 text-left active:scale-[0.98]"
           >
             <div className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 font-display text-xs font-bold text-primary">
@@ -584,12 +598,223 @@ function CreatePanel() {
             </div>
             <div className="flex-1">
               <p className="text-sm font-semibold">{a.name}</p>
-              <p className="text-[11px] text-muted-foreground">{a.sym}</p>
+              <p className="text-[11px] text-muted-foreground">
+                {a.sym} · {a.networks.length} network{a.networks.length > 1 ? "s" : ""}
+              </p>
             </div>
             <Plus className="h-4 w-4 text-primary" />
           </button>
         ))}
+        {list.length === 0 && (
+          <p className="py-6 text-center text-xs text-muted-foreground">No matching tokens</p>
+        )}
       </div>
     </>
   );
 }
+
+function CreateForm({ token, onBack }: { token: TokenOpt; onBack: () => void }) {
+  const [network, setNetwork] = useState(token.networks[0]);
+  const [alias, setAlias] = useState(`My ${token.sym} Wallet`);
+  const [type, setType] = useState<"custodial" | "self">("custodial");
+  const [autoConvert, setAutoConvert] = useState(true);
+  const [memo, setMemo] = useState(true);
+  const [initial, setInitial] = useState("");
+  const [source, setSource] = useState<"empty" | "convert" | "deposit">("empty");
+
+  const aliasError =
+    alias.trim().length === 0
+      ? "Alias is required"
+      : alias.length > 40
+        ? "Max 40 characters"
+        : null;
+  const initialError =
+    initial && (isNaN(Number(initial)) || Number(initial) < 0) ? "Enter a valid amount" : null;
+  const canSubmit = !aliasError && !initialError;
+
+  return (
+    <>
+      <SheetHeader className="mb-4 text-left">
+        <button
+          onClick={onBack}
+          className="mb-2 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-muted-foreground"
+        >
+          <ChevronDown className="h-3.5 w-3.5 rotate-90" /> Back
+        </button>
+        <SheetTitle className="flex items-center gap-2 font-display text-xl">
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/15 font-bold text-primary text-xs">
+            {token.sym.slice(0, 3)}
+          </span>
+          Create {token.name} Wallet
+        </SheetTitle>
+        <SheetDescription className="text-xs">
+          Configure the chain and initial parameters for your new wallet.
+        </SheetDescription>
+      </SheetHeader>
+
+      <div className="space-y-4">
+        {/* Network */}
+        <Field label="Chain / Network" hint="Deposits sent on other networks may be lost">
+          <div className="flex flex-wrap gap-2">
+            {token.networks.map((n) => (
+              <button
+                key={n}
+                onClick={() => setNetwork(n)}
+                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${network === n ? "bg-primary text-primary-foreground" : "bg-surface text-muted-foreground"}`}
+              >
+                {n}
+              </button>
+            ))}
+          </div>
+        </Field>
+
+        {/* Alias */}
+        <Field label="Wallet Alias" hint={aliasError ?? `${alias.length}/40`} error={!!aliasError}>
+          <input
+            value={alias}
+            maxLength={40}
+            onChange={(e) => setAlias(e.target.value)}
+            placeholder="e.g. Travel USDT"
+            className="w-full rounded-2xl bg-surface px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
+          />
+        </Field>
+
+        {/* Wallet type */}
+        <Field label="Wallet Type">
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { k: "custodial", l: "Custodial", d: "Managed by FastLink" },
+              { k: "self", l: "Self-Custody", d: "You hold the keys" },
+            ].map((o) => (
+              <button
+                key={o.k}
+                onClick={() => setType(o.k as "custodial" | "self")}
+                className={`rounded-2xl p-3 text-left ${type === o.k ? "bg-primary/15 ring-1 ring-primary" : "bg-surface"}`}
+              >
+                <p className="text-xs font-semibold">{o.l}</p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground">{o.d}</p>
+              </button>
+            ))}
+          </div>
+        </Field>
+
+        {/* Initial funding */}
+        <Field label="Initial Funding" hint={initialError ?? "Optional"} error={!!initialError}>
+          <div className="rounded-2xl bg-surface p-4">
+            <div className="flex items-center gap-2">
+              <input
+                value={initial}
+                onChange={(e) => setInitial(e.target.value)}
+                inputMode="decimal"
+                placeholder="0.00"
+                className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none"
+              />
+              <span className="text-sm font-semibold">{token.sym}</span>
+            </div>
+            <div className="mt-3 grid grid-cols-3 gap-1.5">
+              {[
+                { k: "empty", l: "Empty" },
+                { k: "convert", l: "From USDT" },
+                { k: "deposit", l: "External" },
+              ].map((o) => (
+                <button
+                  key={o.k}
+                  onClick={() => setSource(o.k as typeof source)}
+                  className={`rounded-full py-1.5 text-[11px] font-semibold ${source === o.k ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground"}`}
+                >
+                  {o.l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </Field>
+
+        {/* Toggles */}
+        <div className="space-y-2 rounded-2xl bg-surface p-4">
+          <ToggleRow
+            label="Auto-convert dust to USDT"
+            desc="Sweep small balances into your USDT wallet"
+            value={autoConvert}
+            onChange={setAutoConvert}
+          />
+          <div className="h-px bg-border" />
+          <ToggleRow
+            label="Require memo/tag on deposit"
+            desc="Extra safety for exchange transfers"
+            value={memo}
+            onChange={setMemo}
+          />
+        </div>
+
+        <div className="flex items-start gap-2 rounded-2xl border border-border/60 bg-surface/40 p-3">
+          <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
+          <p className="text-[11px] text-muted-foreground">
+            Your {token.sym} wallet will be created on <span className="font-semibold text-foreground">{network}</span>. Network can't be changed later.
+          </p>
+        </div>
+
+        <button
+          disabled={!canSubmit}
+          onClick={onBack}
+          className="w-full rounded-2xl bg-gradient-primary py-4 font-display text-sm font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
+        >
+          Create Wallet
+        </button>
+      </div>
+    </>
+  );
+}
+
+function Field({
+  label,
+  hint,
+  error,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  error?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <div className="mb-2 flex items-center justify-between">
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+        {hint && (
+          <p className={`text-[10px] ${error ? "text-destructive" : "text-muted-foreground"}`}>{hint}</p>
+        )}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function ToggleRow({
+  label,
+  desc,
+  value,
+  onChange,
+}: {
+  label: string;
+  desc: string;
+  value: boolean;
+  onChange: (v: boolean) => void;
+}) {
+  return (
+    <div className="flex items-center gap-3 py-1">
+      <div className="min-w-0 flex-1">
+        <p className="text-xs font-semibold">{label}</p>
+        <p className="text-[10px] text-muted-foreground">{desc}</p>
+      </div>
+      <button
+        onClick={() => onChange(!value)}
+        className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${value ? "bg-primary" : "bg-muted"}`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${value ? "translate-x-4" : "translate-x-0.5"}`}
+        />
+      </button>
+    </div>
+  );
+}
+
