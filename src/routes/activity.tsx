@@ -72,7 +72,24 @@ function ActivityPage() {
           </div>
         </div>
 
+        {/* Search */}
+        <div className="mt-5 flex items-center gap-2 rounded-2xl bg-surface px-4 py-3">
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search merchant, city, type…"
+            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+          />
+          {query && (
+            <button onClick={() => setQuery("")} className="text-muted-foreground">
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
         {/* Filter tabs */}
+
         <div className="mt-6 flex gap-2 overflow-x-auto">
           {(["All", "Card", "ATM", "Transfer"] as Kind[]).map((k) => (
             <button
