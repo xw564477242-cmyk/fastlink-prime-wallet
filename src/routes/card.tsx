@@ -157,3 +157,31 @@ function Detail({ label, value, copyable }: { label: string; value: string; copy
     </div>
   );
 }
+
+function CardAction({
+  onClick,
+  label,
+  icon,
+  active,
+}: {
+  onClick: () => void;
+  label: string;
+  icon: React.ReactNode;
+  active?: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="flex flex-col items-center gap-2 rounded-2xl bg-surface py-4 text-[11px] font-medium active:scale-95"
+    >
+      <div
+        className={`grid h-10 w-10 place-items-center rounded-full ${
+          active ? "bg-accent/20 text-accent" : "bg-primary/15 text-primary"
+        }`}
+      >
+        {icon}
+      </div>
+      {label}
+    </button>
+  );
+}
