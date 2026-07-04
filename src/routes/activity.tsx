@@ -32,7 +32,18 @@ const iconFor = (k: string) =>
 
 function ActivityPage() {
   const [filter, setFilter] = useState<Kind>("All");
-  const filtered = items.filter((i) => filter === "All" || i.kind === filter);
+  const [query, setQuery] = useState("");
+  const filtered = items.filter((i) => {
+    const okKind = filter === "All" || i.kind === filter;
+    const q = query.trim().toLowerCase();
+    const okQuery =
+      !q ||
+      i.merchant.toLowerCase().includes(q) ||
+      i.city.toLowerCase().includes(q) ||
+      i.kind.toLowerCase().includes(q);
+    return okKind && okQuery;
+  });
+
 
   const totalSpend = items
     .filter((i) => i.amount < 0)
