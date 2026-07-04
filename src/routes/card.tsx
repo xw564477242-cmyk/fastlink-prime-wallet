@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { Snowflake, Sun, Eye, EyeOff, Copy, Settings2, Wifi } from "lucide-react";
+import { Snowflake, Sun, Eye, EyeOff, Copy, KeyRound, Wifi, Sparkles } from "lucide-react";
 import { useState } from "react";
+
 
 export const Route = createFileRoute("/card")({
   head: () => ({
