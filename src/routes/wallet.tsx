@@ -180,3 +180,29 @@ function WalletPage() {
     </MobileShell>
   );
 }
+
+function AllocationRow({
+  color,
+  sym,
+  name,
+  pct,
+  value,
+}: {
+  color: string;
+  sym: string;
+  name: string;
+  pct: string;
+  value: string;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className={`h-2.5 w-2.5 rounded-full ${color}`} />
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-medium">{sym}</p>
+        <p className="truncate text-[10px] text-muted-foreground">{name}</p>
+      </div>
+      <p className="text-xs font-semibold tabular-nums">{pct}</p>
+      <p className="w-24 text-right text-xs text-muted-foreground tabular-nums">{value}</p>
+    </div>
+  );
+}
