@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as PayRouteImport } from './routes/pay'
 import { Route as ConvertRouteImport } from './routes/convert'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConvertRoute = ConvertRouteImport.update({
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,22 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assets' | '/convert' | '/profile'
+  fullPaths: '/' | '/assets' | '/convert' | '/pay' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assets' | '/convert' | '/profile'
-  id: '__root__' | '/' | '/assets' | '/convert' | '/profile'
+  to: '/' | '/assets' | '/convert' | '/pay' | '/profile'
+  id: '__root__' | '/' | '/assets' | '/convert' | '/pay' | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssetsRoute: typeof AssetsRoute
   ConvertRoute: typeof ConvertRoute
+  PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
 }
 
@@ -76,6 +86,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/convert': {
@@ -106,6 +123,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssetsRoute: AssetsRoute,
   ConvertRoute: ConvertRoute,
+  PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,
 }
 export const routeTree = rootRouteImport
