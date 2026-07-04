@@ -1,820 +1,236 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   ArrowDownToLine,
   ArrowUpFromLine,
   ArrowLeftRight,
-  TrendingUp,
-  TrendingDown,
-  Search,
-  Plus,
   CreditCard,
-  ChevronDown,
-  X,
-  Info,
-  RefreshCw,
+  Plane,
+  Wallet,
+  Sparkles,
+  ChevronRight,
+  Plus,
+  Eye,
+  EyeOff,
 } from "lucide-react";
-import { useState, useMemo } from "react";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet";
-
-type DigitalAsset = {
-  sym: string;
-  name: string;
-  bal: string;
-  usd: string;
-  chg: number;
-  color: string;
-  networks: string[];
-};
-
-type FiatAsset = {
-  sym: string;
-  name: string;
-  bal: string;
-  flag: string;
-};
-
-const digital: DigitalAsset[] = [
-  { sym: "USDT", name: "Tether", bal: "10,204.15", usd: "$10,204.15", chg: 0.01, color: "from-emerald-500 to-teal-500", networks: ["TRC20", "ERC20", "BEP20", "Polygon"] },
-  { sym: "USDC", name: "USD Coin", bal: "4,120.00", usd: "$4,120.00", chg: 0.0, color: "from-sky-500 to-blue-600", networks: ["ERC20", "Solana", "BEP20"] },
-  { sym: "BTC", name: "Bitcoin", bal: "0.0821", usd: "$5,320.40", chg: 1.42, color: "from-amber-500 to-orange-600", networks: ["Bitcoin", "Lightning"] },
-  { sym: "ETH", name: "Ethereum", bal: "0.482", usd: "$1,842.20", chg: -0.86, color: "from-indigo-500 to-purple-600", networks: ["ERC20", "Arbitrum", "Optimism"] },
-];
-
-const fiat: FiatAsset[] = [
-  { sym: "USD", name: "US Dollar", bal: "5,240.00", flag: "🇺🇸" },
-  { sym: "EUR", name: "Euro", bal: "2,180.50", flag: "🇪🇺" },
-  { sym: "HKD", name: "HK Dollar", bal: "1,148.20", flag: "🇭🇰" },
-];
-
-const fiatSymbols = fiat.map((f) => f.sym);
-const digitalSymbols = digital.map((d) => d.sym);
-
-// convert rates (mock) — 1 unit source -> target
-const rates: Record<string, Record<string, number>> = {
-  USDT: { EUR: 0.9187, USD: 1.0, HKD: 7.82, USDC: 0.9998, BTC: 0.0000155, ETH: 0.000262 },
-  USDC: { EUR: 0.9185, USD: 1.0, HKD: 7.82, USDT: 1.0002 },
-  BTC: { USDT: 64500, USD: 64500, EUR: 59254 },
-  ETH: { USDT: 3820, USD: 3820, EUR: 3510 },
-  USD: { USDT: 1.0, USDC: 1.0, EUR: 0.9187, HKD: 7.82, BTC: 0.0000155, ETH: 0.000262 },
-  EUR: { USDT: 1.088, USDC: 1.088, USD: 1.088, HKD: 8.51, BTC: 0.0000169 },
-  HKD: { USDT: 0.128, USD: 0.128, EUR: 0.1175 },
-};
-
-type ActionKind =
-  | { kind: "deposit"; sym: string }
-  | { kind: "withdraw"; sym: string }
-  | { kind: "convert"; from: string; to: string }
-  | { kind: "fund-card"; sym: string }
-  | { kind: "create" }
-  | null;
+import { useState } from "react";
 
 export const Route = createFileRoute("/assets")({
   head: () => ({
     meta: [
-      { title: "FastLink — Wallets" },
-      { name: "description", content: "Digital assets, fiat wallets and instant conversion." },
+      { title: "FastLink — Assets" },
+      { name: "description", content: "Digital stablecoins, multi-currency fiat and card balances in one dashboard." },
     ],
   }),
   component: AssetsPage,
 });
 
-function AssetsPage() {
-  const [tab, setTab] = useState<"digital" | "fiat">("digital");
-  const [action, setAction] = useState<ActionKind>(null);
-  const [query, setQuery] = useState("");
+const digital = [
+  { sym: "USDT", name: "Tether", bal: "10,204.15", usd: "10,204.15", change: "+0.01%" },
+  { sym: "USDC", name: "USD Coin", bal: "4,120.00", usd: "4,120.00", change: "0.00%" },
+];
 
-  const filteredDigital = useMemo(
-    () => digital.filter((a) => (a.sym + a.name).toLowerCase().includes(query.toLowerCase())),
-    [query],
-  );
-  const filteredFiat = useMemo(
-    () => fiat.filter((a) => (a.sym + a.name).toLowerCase().includes(query.toLowerCase())),
-    [query],
-  );
+const fiat = [
+  { sym: "USD", name: "US Dollar", bal: "5,240.00", flag: "🇺🇸", usd: "5,240.00" },
+  { sym: "SGD", name: "Singapore Dollar", bal: "3,180.40", flag: "🇸🇬", usd: "2,352.94" },
+  { sym: "MYR", name: "Malaysian Ringgit", bal: "8,420.10", flag: "🇲🇾", usd: "1,782.30" },
+  { sym: "EUR", name: "Euro", bal: "2,180.50", flag: "🇪🇺", usd: "2,373.23" },
+];
+
+const cardBal = [
+  { key: "virtual", label: "Virtual Card", last4: "4829", icon: Sparkles, bal: "1,842.60", tint: "from-primary/20 to-primary/5", stripe: "bg-primary" },
+  { key: "physical", label: "Physical Card", last4: "9130", icon: Wallet, bal: "620.40", tint: "from-accent/20 to-accent/5", stripe: "bg-accent" },
+  { key: "travel", label: "Travel Card", last4: "2246", icon: Plane, bal: "980.00", tint: "from-sky-500/20 to-sky-500/5", stripe: "bg-sky-400" },
+];
+
+function AssetsPage() {
+  const [hidden, setHidden] = useState(false);
+  const hide = (s: string) => (hidden ? "•••••" : s);
 
   return (
     <MobileShell>
-      <StatusBar title="Wallets" />
+      <StatusBar title="Assets" />
+
+      {/* Portfolio header */}
       <div className="px-6 pt-4">
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="font-display text-2xl font-bold">My Wallets</h1>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              Portfolio Value · USD
+            </p>
+            <div className="mt-2 flex items-baseline gap-2">
+              <p className="font-display text-4xl font-bold tabular-nums">
+                {hidden ? "••••••" : "$29,715.62"}
+              </p>
+              <button onClick={() => setHidden((v) => !v)} className="text-muted-foreground">
+                {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </button>
+            </div>
             <p className="mt-1 text-xs text-muted-foreground">
-              Total portfolio · <span className="text-foreground font-semibold">$28,412.90</span>
+              <span className="text-primary">+$412.90</span> · past 30 days
             </p>
           </div>
-          <button
-            onClick={() => setAction({ kind: "create" })}
-            className="inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-2 text-xs font-semibold text-primary active:scale-95"
-          >
-            <Plus className="h-3.5 w-3.5" /> Add Asset
-          </button>
         </div>
 
-        {/* Allocation */}
-        <div className="mt-5 rounded-3xl bg-surface p-5">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Asset Allocation</p>
-          <div className="mt-3 flex h-2.5 w-full overflow-hidden rounded-full bg-muted">
-            <div className="h-full w-[52%] bg-primary" />
-            <div className="h-full w-[18%] bg-sky-500" />
-            <div className="h-full w-[30%] bg-accent" />
-          </div>
-          <div className="mt-3 grid grid-cols-3 gap-2 text-[10px]">
-            <Legend dot="bg-primary" label="USDT" pct="52%" />
-            <Legend dot="bg-sky-500" label="USDC" pct="18%" />
-            <Legend dot="bg-accent" label="Fiat" pct="30%" />
-          </div>
+        {/* Composition bar */}
+        <div className="mt-5 flex h-1.5 w-full overflow-hidden rounded-full bg-muted">
+          <div className="h-full w-[48%] bg-primary" />
+          <div className="h-full w-[40%] bg-accent" />
+          <div className="h-full w-[12%] bg-sky-400" />
         </div>
-
-        {/* Global quick actions */}
-        <div className="mt-5 grid grid-cols-3 gap-2">
-          <ActionBtn onClick={() => setAction({ kind: "deposit", sym: "USDT" })} icon={ArrowDownToLine} label="Deposit" />
-          <ActionBtn onClick={() => setAction({ kind: "withdraw", sym: "USDT" })} icon={ArrowUpFromLine} label="Withdraw" />
-          <ActionBtn onClick={() => setAction({ kind: "convert", from: "USDT", to: "EUR" })} icon={ArrowLeftRight} label="Convert" />
-        </div>
-
-        {/* Tabs */}
-        <div className="mt-6 flex gap-2 rounded-full bg-surface p-1">
-          {[
-            { k: "digital", l: "Digital Assets" },
-            { k: "fiat", l: "Fiat Wallets" },
-          ].map((t) => (
-            <button
-              key={t.k}
-              onClick={() => setTab(t.k as "digital" | "fiat")}
-              className={`flex-1 rounded-full py-2 text-xs font-semibold transition-colors ${tab === t.k ? "bg-primary text-primary-foreground" : "text-muted-foreground"}`}
-            >
-              {t.l}
-            </button>
-          ))}
-        </div>
-
-        <div className="mt-4 flex items-center gap-2 rounded-2xl bg-surface px-4 py-2.5">
-          <Search className="h-4 w-4 text-muted-foreground" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search asset"
-            className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-          />
-          {query && (
-            <button onClick={() => setQuery("")} className="text-muted-foreground">
-              <X className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </div>
-
-        <div className="mt-4 space-y-3">
-          {tab === "digital"
-            ? filteredDigital.map((a) => (
-                <DigitalRow key={a.sym} a={a} onAction={setAction} />
-              ))
-            : filteredFiat.map((a) => (
-                <FiatRow key={a.sym} a={a} onAction={setAction} />
-              ))}
-
-          {tab === "digital" && (
-            <button
-              onClick={() => setAction({ kind: "create" })}
-              className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-border/60 bg-surface/40 py-4 text-xs font-semibold text-muted-foreground active:scale-[0.98]"
-            >
-              <Plus className="h-4 w-4" /> Create new wallet
-            </button>
-          )}
+        <div className="mt-2 grid grid-cols-3 text-[10px] uppercase tracking-widest text-muted-foreground">
+          <span><span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-primary align-middle" />Digital 48%</span>
+          <span><span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-accent align-middle" />Fiat 40%</span>
+          <span className="text-right sm:text-left"><span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-sky-400 align-middle" />Cards 12%</span>
         </div>
       </div>
 
-      <ActionSheet action={action} onOpenChange={(o) => !o && setAction(null)} setAction={setAction} />
+      {/* Section 1: Digital Assets */}
+      <Section index="01" title="Digital Assets" hint={`$${hide("14,324.15")}`} action={{ label: "Add", to: "/convert" as const }}>
+        <div className="space-y-2 px-6">
+          {digital.map((a) => (
+            <div key={a.sym} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 p-4">
+              <StablecoinBadge sym={a.sym} />
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold">{a.sym}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{a.name}</p>
+                </div>
+                <p className="mt-0.5 text-[11px] tabular-nums text-muted-foreground">
+                  {hide(a.bal)} {a.sym}
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-semibold tabular-nums">${hide(a.usd)}</p>
+                <p className="text-[10px] tabular-nums text-primary">{a.change}</p>
+              </div>
+            </div>
+          ))}
+          <div className="grid grid-cols-3 gap-2 pt-1">
+            <MiniAction to="/pay" icon={ArrowDownToLine} label="Deposit" />
+            <MiniAction to="/pay" icon={ArrowUpFromLine} label="Withdraw" />
+            <MiniAction to="/convert" icon={ArrowLeftRight} label="Convert" />
+          </div>
+        </div>
+      </Section>
+
+      {/* Section 2: Fiat Wallets */}
+      <Section index="02" title="Fiat Wallets" hint="4 currencies" action={{ label: "Add", to: "/convert" as const }}>
+        <div className="space-y-2 px-6">
+          {fiat.map((a) => (
+            <div key={a.sym} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 p-4">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-background text-lg">
+                {a.flag}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-semibold">{a.sym}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{a.name}</p>
+                </div>
+                <p className="mt-0.5 text-[11px] tabular-nums text-muted-foreground">
+                  {hide(a.bal)} {a.sym}
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-semibold tabular-nums">${hide(a.usd)}</p>
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">USD eq.</p>
+              </div>
+            </div>
+          ))}
+          <button className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-border/60 py-3 text-[11px] font-semibold text-muted-foreground">
+            <Plus className="h-3.5 w-3.5" /> Open new currency wallet
+          </button>
+        </div>
+      </Section>
+
+      {/* Section 3: Card Balances */}
+      <Section index="03" title="Card Balances" hint={`$${hide("3,443.00")}`} action={{ label: "Manage", to: "/cards" as const }}>
+        <div className="space-y-2 px-6">
+          {cardBal.map((c) => {
+            const Icon = c.icon;
+            return (
+              <Link
+                key={c.key}
+                to="/cards"
+                className={`flex items-center gap-3 overflow-hidden rounded-2xl border border-border/60 bg-gradient-to-r ${c.tint} p-4 active:scale-[0.99]`}
+              >
+                <div className={`h-11 w-1 shrink-0 rounded-full ${c.stripe}`} />
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-background/60 backdrop-blur">
+                  <Icon className="h-4.5 w-4.5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-semibold">{c.label}</p>
+                  <p translate="no" className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+                    •••• {c.last4}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold tabular-nums">${hide(c.bal)}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Available</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* Footer meta */}
+      <div className="mx-6 mt-8 mb-4 flex items-center justify-between border-t border-border/60 pt-4 text-[10px] uppercase tracking-widest text-muted-foreground">
+        <span>FastLink Global · Treasury</span>
+        <span translate="no">v1.4 · SGT</span>
+      </div>
     </MobileShell>
   );
 }
 
-function DigitalRow({ a, onAction }: { a: DigitalAsset; onAction: (a: ActionKind) => void }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="rounded-2xl bg-surface">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center gap-3 p-4 text-left"
-      >
-        <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gradient-to-br ${a.color} font-display text-xs font-bold text-white`}>
-          {a.sym.slice(0, 3)}
-        </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold">{a.name}</p>
-          <p className="text-[11px] text-muted-foreground tabular-nums">{a.bal} {a.sym}</p>
-        </div>
-        <div className="text-right">
-          <p className="text-sm font-semibold tabular-nums">{a.usd}</p>
-          <p className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums ${a.chg >= 0 ? "text-primary" : "text-destructive"}`}>
-            {a.chg >= 0 ? <TrendingUp className="h-3 w-3" /> : <TrendingDown className="h-3 w-3" />}
-            {a.chg >= 0 ? "+" : ""}{a.chg.toFixed(2)}%
-          </p>
-        </div>
-        <ChevronDown className={`ml-1 h-4 w-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
-      {open && (
-        <div className="grid grid-cols-4 gap-1.5 border-t border-border/60 p-3">
-          <RowAction icon={ArrowDownToLine} label="Deposit" onClick={() => onAction({ kind: "deposit", sym: a.sym })} />
-          <RowAction icon={ArrowUpFromLine} label="Withdraw" onClick={() => onAction({ kind: "withdraw", sym: a.sym })} />
-          <RowAction icon={ArrowLeftRight} label="Convert" onClick={() => onAction({ kind: "convert", from: a.sym, to: "EUR" })} />
-          <RowAction icon={Plus} label="Create" onClick={() => onAction({ kind: "create" })} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function FiatRow({ a, onAction }: { a: FiatAsset; onAction: (a: ActionKind) => void }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="rounded-2xl bg-surface">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="flex w-full items-center gap-3 p-4 text-left"
-      >
-        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-muted text-lg">{a.flag}</div>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold">{a.name}</p>
-          <p className="text-[11px] text-muted-foreground">{a.sym}</p>
-        </div>
-        <p className="text-sm font-semibold tabular-nums">{a.bal}</p>
-        <ChevronDown className={`ml-1 h-4 w-4 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
-      {open && (
-        <div className="grid grid-cols-3 gap-1.5 border-t border-border/60 p-3">
-          <RowAction icon={CreditCard} label="Fund Card" onClick={() => onAction({ kind: "fund-card", sym: a.sym })} />
-          <RowAction icon={ArrowLeftRight} label="To Crypto" onClick={() => onAction({ kind: "convert", from: a.sym, to: "USDT" })} />
-          <RowAction icon={ArrowDownToLine} label="Deposit" onClick={() => onAction({ kind: "deposit", sym: a.sym })} />
-        </div>
-      )}
-    </div>
-  );
-}
-
-function RowAction({ icon: Icon, label, onClick }: { icon: React.ComponentType<{ className?: string }>; label: string; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex flex-col items-center gap-1 rounded-xl bg-background/60 py-2.5 text-[10px] font-medium active:scale-95"
-    >
-      <Icon className="h-4 w-4 text-primary" />
-      {label}
-    </button>
-  );
-}
-
-function ActionBtn({ onClick, icon: Icon, label }: { onClick: () => void; icon: React.ComponentType<{ className?: string }>; label: string }) {
-  return (
-    <button onClick={onClick} className="flex flex-col items-center gap-2 rounded-2xl bg-surface py-4 active:scale-95">
-      <div className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 text-primary">
-        <Icon className="h-5 w-5" />
-      </div>
-      <span className="text-[11px] font-medium">{label}</span>
-    </button>
-  );
-}
-
-function Legend({ dot, label, pct }: { dot: string; label: string; pct: string }) {
-  return (
-    <div className="flex items-center gap-1.5">
-      <span className={`h-2 w-2 rounded-full ${dot}`} />
-      <span className="text-muted-foreground">{label}</span>
-      <span className="ml-auto tabular-nums font-semibold text-foreground">{pct}</span>
-    </div>
-  );
-}
-
-// ============= Action Sheet =============
-
-function ActionSheet({
-  action,
-  onOpenChange,
-  setAction,
-}: {
-  action: ActionKind;
-  onOpenChange: (open: boolean) => void;
-  setAction: (a: ActionKind) => void;
-}) {
-  return (
-    <Sheet open={!!action} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="mx-auto max-w-md rounded-t-3xl border-border/60 bg-background p-0">
-        <div className="mx-auto mt-3 h-1 w-10 rounded-full bg-muted" />
-        <div className="px-6 pb-8 pt-4">
-          {action?.kind === "deposit" && <DepositPanel sym={action.sym} />}
-          {action?.kind === "withdraw" && <WithdrawPanel sym={action.sym} />}
-          {action?.kind === "convert" && (
-            <ConvertPanel from={action.from} to={action.to} setAction={setAction} />
-          )}
-          {action?.kind === "fund-card" && <FundCardPanel sym={action.sym} />}
-          {action?.kind === "create" && <CreatePanel />}
-        </div>
-      </SheetContent>
-    </Sheet>
-  );
-}
-
-function PanelHeader({ title, desc }: { title: string; desc: string }) {
-  return (
-    <SheetHeader className="mb-4 text-left">
-      <SheetTitle className="font-display text-xl">{title}</SheetTitle>
-      <SheetDescription className="text-xs">{desc}</SheetDescription>
-    </SheetHeader>
-  );
-}
-
-function DepositPanel({ sym }: { sym: string }) {
-  const asset = digital.find((d) => d.sym === sym);
-  const networks = asset?.networks ?? ["Bank Transfer", "SEPA", "SWIFT"];
-  const [net, setNet] = useState(networks[0]);
-  return (
-    <>
-      <PanelHeader title={`Deposit ${sym}`} desc={asset ? "Send crypto to the address below" : "Fund your fiat wallet"} />
-      <div className="space-y-3">
-        <div>
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Network</p>
-          <div className="flex flex-wrap gap-2">
-            {networks.map((n) => (
-              <button
-                key={n}
-                onClick={() => setNet(n)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${net === n ? "bg-primary text-primary-foreground" : "bg-surface text-muted-foreground"}`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="rounded-2xl bg-surface p-5 text-center">
-          <div className="mx-auto grid h-40 w-40 place-items-center rounded-xl bg-white p-2">
-            <div className="h-full w-full bg-[conic-gradient(#0f172a_0deg,#0f172a_10deg,transparent_10deg_20deg,#0f172a_20deg_35deg,transparent_35deg_50deg,#0f172a_50deg_60deg)] bg-[length:12px_12px]" />
-          </div>
-          <p className="mt-3 truncate font-mono text-xs">T9zK…c3aE2v · {net}</p>
-          <p className="mt-1 text-[10px] text-muted-foreground">Min. deposit 1 {sym} · ~1 min</p>
-        </div>
-        <button className="w-full rounded-2xl bg-gradient-primary py-4 font-display text-sm font-semibold text-primary-foreground shadow-glow active:scale-[0.98]">
-          Copy Address
-        </button>
-      </div>
-    </>
-  );
-}
-
-function WithdrawPanel({ sym }: { sym: string }) {
-  const asset = digital.find((d) => d.sym === sym);
-  const networks = asset?.networks ?? ["Bank Transfer", "SEPA", "SWIFT"];
-  const [net, setNet] = useState(networks[0]);
-  const [amount, setAmount] = useState("");
-  const [addr, setAddr] = useState("");
-  return (
-    <>
-      <PanelHeader title={`Withdraw ${sym}`} desc="Send to an external address or bank" />
-      <div className="space-y-3">
-        <div>
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Network</p>
-          <div className="flex flex-wrap gap-2">
-            {networks.map((n) => (
-              <button
-                key={n}
-                onClick={() => setNet(n)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${net === n ? "bg-primary text-primary-foreground" : "bg-surface text-muted-foreground"}`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="rounded-2xl bg-surface p-4">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Address</p>
-          <input
-            value={addr}
-            onChange={(e) => setAddr(e.target.value)}
-            placeholder="Paste destination"
-            className="mt-1 w-full bg-transparent font-mono text-sm outline-none"
-          />
-        </div>
-        <div className="rounded-2xl bg-surface p-4">
-          <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span>Amount</span>
-            <span>Fee 0.1 {sym}</span>
-          </div>
-          <div className="mt-1 flex items-center gap-2">
-            <input
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              inputMode="decimal"
-              placeholder="0.00"
-              className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none"
-            />
-            <span className="text-sm font-semibold">{sym}</span>
-          </div>
-        </div>
-        <button className="w-full rounded-2xl bg-gradient-primary py-4 font-display text-sm font-semibold text-primary-foreground shadow-glow active:scale-[0.98]">
-          Withdraw {sym}
-        </button>
-      </div>
-    </>
-  );
-}
-
-function ConvertPanel({ from: initFrom, to: initTo, setAction }: { from: string; to: string; setAction: (a: ActionKind) => void }) {
-  const [from, setFrom] = useState(initFrom);
-  const [to, setTo] = useState(initTo);
-  const [amount, setAmount] = useState("500");
-  const rate = rates[from]?.[to] ?? 1;
-  const parsed = parseFloat(amount || "0") || 0;
-  const result = (parsed * rate).toFixed(from === "BTC" || from === "ETH" ? 4 : 2);
-  const allSymbols = [...digitalSymbols, ...fiatSymbols];
-
-  return (
-    <>
-      <PanelHeader title="Convert" desc="Instant zero-fee swap between crypto and fiat" />
-      <div className="relative space-y-2">
-        <SwapCard label="You pay" symbol={from} onSymbol={setFrom} value={amount} onChange={setAmount} options={allSymbols} />
-        <button
-          onClick={() => { const f = from; setFrom(to); setTo(f); }}
-          className="absolute left-1/2 top-1/2 z-10 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-background bg-primary text-primary-foreground shadow-glow"
-        >
-          <ArrowLeftRight className="h-4 w-4" />
-        </button>
-        <SwapCard label="You receive" symbol={to} onSymbol={setTo} value={result} readOnly options={allSymbols} />
-      </div>
-      <div className="mt-4 rounded-2xl bg-surface p-4">
-        <div className="flex items-center justify-between text-xs">
-          <span className="inline-flex items-center gap-2 text-muted-foreground">
-            <RefreshCw className="h-3.5 w-3.5" /> Rate
-          </span>
-          <span className="tabular-nums font-semibold">1 {from} ≈ {rate} {to}</span>
-        </div>
-        <div className="my-3 h-px bg-border" />
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">Network fee</span>
-          <span className="tabular-nums font-semibold text-primary">Free</span>
-        </div>
-      </div>
-      <div className="mt-3 flex items-start gap-2 rounded-2xl border border-border/60 bg-surface/40 p-3">
-        <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
-        <p className="text-[11px] text-muted-foreground">
-          Rate locked for 10s. Converted funds credit to your {to} wallet instantly.
-        </p>
-      </div>
-      <button
-        onClick={() => setAction(null)}
-        className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98]"
-      >
-        Convert {parsed.toFixed(2)} {from}
-      </button>
-    </>
-  );
-}
-
-function SwapCard({
-  label, symbol, onSymbol, value, onChange, readOnly, options,
-}: {
-  label: string; symbol: string; onSymbol: (s: string) => void;
-  value: string; onChange?: (v: string) => void; readOnly?: boolean; options: string[];
-}) {
-  return (
-    <div className="rounded-3xl bg-surface p-5">
-      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <div className="mt-3 flex items-center gap-3">
-        <input
-          value={value}
-          onChange={(e) => onChange?.(e.target.value)}
-          readOnly={readOnly}
-          inputMode="decimal"
-          className="min-w-0 flex-1 bg-transparent font-display text-3xl font-bold tabular-nums outline-none"
-        />
-        <select
-          value={symbol}
-          onChange={(e) => onSymbol(e.target.value)}
-          className="shrink-0 rounded-full bg-background px-3 py-2 text-sm font-semibold outline-none"
-        >
-          {options.map((o) => (
-            <option key={o} value={o}>{o}</option>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
-}
-
-function FundCardPanel({ sym }: { sym: string }) {
-  const [amount, setAmount] = useState("");
-  return (
-    <>
-      <PanelHeader title={`Fund Card from ${sym}`} desc="Move balance to your FastLink Platinum card" />
-      <div className="space-y-3">
-        <div className="rounded-3xl bg-gradient-visa p-5 text-white shadow-card">
-          <p className="text-[10px] uppercase tracking-widest text-white/60">Platinum · •••• 4829</p>
-          <p className="mt-2 font-display text-lg font-semibold tabular-nums">$1,842.60</p>
-        </div>
-        <div className="rounded-2xl bg-surface p-4">
-          <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-muted-foreground">
-            <span>Amount</span>
-            <span>Balance {sym}</span>
-          </div>
-          <div className="mt-1 flex items-center gap-2">
-            <input
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              inputMode="decimal"
-              placeholder="0.00"
-              className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none"
-            />
-            <span className="text-sm font-semibold">{sym}</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-4 gap-2">
-          {["50", "100", "500", "Max"].map((q) => (
-            <button
-              key={q}
-              onClick={() => setAmount(q === "Max" ? "1000" : q)}
-              className="rounded-full bg-surface py-2 text-xs font-semibold text-muted-foreground active:scale-95"
-            >
-              {q}
-            </button>
-          ))}
-        </div>
-        <button className="w-full rounded-2xl bg-gradient-primary py-4 font-display text-sm font-semibold text-primary-foreground shadow-glow active:scale-[0.98]">
-          Fund Card
-        </button>
-      </div>
-    </>
-  );
-}
-
-type TokenOpt = { sym: string; name: string; networks: string[] };
-
-const CREATABLE: TokenOpt[] = [
-  { sym: "SOL", name: "Solana", networks: ["Solana"] },
-  { sym: "TON", name: "Toncoin", networks: ["TON"] },
-  { sym: "MATIC", name: "Polygon", networks: ["Polygon", "ERC20"] },
-  { sym: "XRP", name: "Ripple", networks: ["XRP Ledger"] },
-  { sym: "DAI", name: "Dai", networks: ["ERC20", "Polygon", "BEP20"] },
-  { sym: "ARB", name: "Arbitrum", networks: ["Arbitrum"] },
-  { sym: "USDT", name: "Tether", networks: ["TRC20", "ERC20", "BEP20", "Polygon"] },
-];
-
-function CreatePanel() {
-  const [q, setQ] = useState("");
-  const [picked, setPicked] = useState<TokenOpt | null>(null);
-  const list = CREATABLE.filter((a) =>
-    (a.sym + a.name).toLowerCase().includes(q.toLowerCase()),
-  );
-
-  if (picked) {
-    return <CreateForm token={picked} onBack={() => setPicked(null)} />;
-  }
-
-  return (
-    <>
-      <PanelHeader title="Create Wallet" desc="Choose the digital asset to add to your portfolio" />
-      <div className="flex items-center gap-2 rounded-2xl bg-surface px-4 py-2.5">
-        <Search className="h-4 w-4 text-muted-foreground" />
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Search token"
-          className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-        />
-      </div>
-      <div className="mt-3 max-h-72 space-y-2 overflow-y-auto">
-        {list.map((a) => (
-          <button
-            key={a.sym}
-            onClick={() => setPicked(a)}
-            className="flex w-full items-center gap-3 rounded-2xl bg-surface p-4 text-left active:scale-[0.98]"
-          >
-            <div className="grid h-10 w-10 place-items-center rounded-full bg-primary/15 font-display text-xs font-bold text-primary">
-              {a.sym.slice(0, 3)}
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-semibold">{a.name}</p>
-              <p className="text-[11px] text-muted-foreground">
-                {a.sym} · {a.networks.length} network{a.networks.length > 1 ? "s" : ""}
-              </p>
-            </div>
-            <Plus className="h-4 w-4 text-primary" />
-          </button>
-        ))}
-        {list.length === 0 && (
-          <p className="py-6 text-center text-xs text-muted-foreground">No matching tokens</p>
-        )}
-      </div>
-    </>
-  );
-}
-
-function CreateForm({ token, onBack }: { token: TokenOpt; onBack: () => void }) {
-  const [network, setNetwork] = useState(token.networks[0]);
-  const [alias, setAlias] = useState(`My ${token.sym} Wallet`);
-  const [type, setType] = useState<"custodial" | "self">("custodial");
-  const [autoConvert, setAutoConvert] = useState(true);
-  const [memo, setMemo] = useState(true);
-  const [initial, setInitial] = useState("");
-  const [source, setSource] = useState<"empty" | "convert" | "deposit">("empty");
-
-  const aliasError =
-    alias.trim().length === 0
-      ? "Alias is required"
-      : alias.length > 40
-        ? "Max 40 characters"
-        : null;
-  const initialError =
-    initial && (isNaN(Number(initial)) || Number(initial) < 0) ? "Enter a valid amount" : null;
-  const canSubmit = !aliasError && !initialError;
-
-  return (
-    <>
-      <SheetHeader className="mb-4 text-left">
-        <button
-          onClick={onBack}
-          className="mb-2 inline-flex w-fit items-center gap-1 text-[11px] font-medium text-muted-foreground"
-        >
-          <ChevronDown className="h-3.5 w-3.5 rotate-90" /> Back
-        </button>
-        <SheetTitle className="flex items-center gap-2 font-display text-xl">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/15 font-bold text-primary text-xs">
-            {token.sym.slice(0, 3)}
-          </span>
-          Create {token.name} Wallet
-        </SheetTitle>
-        <SheetDescription className="text-xs">
-          Configure the chain and initial parameters for your new wallet.
-        </SheetDescription>
-      </SheetHeader>
-
-      <div className="space-y-4">
-        {/* Network */}
-        <Field label="Chain / Network" hint="Deposits sent on other networks may be lost">
-          <div className="flex flex-wrap gap-2">
-            {token.networks.map((n) => (
-              <button
-                key={n}
-                onClick={() => setNetwork(n)}
-                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${network === n ? "bg-primary text-primary-foreground" : "bg-surface text-muted-foreground"}`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
-        </Field>
-
-        {/* Alias */}
-        <Field label="Wallet Alias" hint={aliasError ?? `${alias.length}/40`} error={!!aliasError}>
-          <input
-            value={alias}
-            maxLength={40}
-            onChange={(e) => setAlias(e.target.value)}
-            placeholder="e.g. Travel USDT"
-            className="w-full rounded-2xl bg-surface px-4 py-3 text-sm outline-none placeholder:text-muted-foreground"
-          />
-        </Field>
-
-        {/* Wallet type */}
-        <Field label="Wallet Type">
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { k: "custodial", l: "Custodial", d: "Managed by FastLink" },
-              { k: "self", l: "Self-Custody", d: "You hold the keys" },
-            ].map((o) => (
-              <button
-                key={o.k}
-                onClick={() => setType(o.k as "custodial" | "self")}
-                className={`rounded-2xl p-3 text-left ${type === o.k ? "bg-primary/15 ring-1 ring-primary" : "bg-surface"}`}
-              >
-                <p className="text-xs font-semibold">{o.l}</p>
-                <p className="mt-0.5 text-[10px] text-muted-foreground">{o.d}</p>
-              </button>
-            ))}
-          </div>
-        </Field>
-
-        {/* Initial funding */}
-        <Field label="Initial Funding" hint={initialError ?? "Optional"} error={!!initialError}>
-          <div className="rounded-2xl bg-surface p-4">
-            <div className="flex items-center gap-2">
-              <input
-                value={initial}
-                onChange={(e) => setInitial(e.target.value)}
-                inputMode="decimal"
-                placeholder="0.00"
-                className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none"
-              />
-              <span className="text-sm font-semibold">{token.sym}</span>
-            </div>
-            <div className="mt-3 grid grid-cols-3 gap-1.5">
-              {[
-                { k: "empty", l: "Empty" },
-                { k: "convert", l: "From USDT" },
-                { k: "deposit", l: "External" },
-              ].map((o) => (
-                <button
-                  key={o.k}
-                  onClick={() => setSource(o.k as typeof source)}
-                  className={`rounded-full py-1.5 text-[11px] font-semibold ${source === o.k ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground"}`}
-                >
-                  {o.l}
-                </button>
-              ))}
-            </div>
-          </div>
-        </Field>
-
-        {/* Toggles */}
-        <div className="space-y-2 rounded-2xl bg-surface p-4">
-          <ToggleRow
-            label="Auto-convert dust to USDT"
-            desc="Sweep small balances into your USDT wallet"
-            value={autoConvert}
-            onChange={setAutoConvert}
-          />
-          <div className="h-px bg-border" />
-          <ToggleRow
-            label="Require memo/tag on deposit"
-            desc="Extra safety for exchange transfers"
-            value={memo}
-            onChange={setMemo}
-          />
-        </div>
-
-        <div className="flex items-start gap-2 rounded-2xl border border-border/60 bg-surface/40 p-3">
-          <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
-          <p className="text-[11px] text-muted-foreground">
-            Your {token.sym} wallet will be created on <span className="font-semibold text-foreground">{network}</span>. Network can't be changed later.
-          </p>
-        </div>
-
-        <button
-          disabled={!canSubmit}
-          onClick={onBack}
-          className="w-full rounded-2xl bg-gradient-primary py-4 font-display text-sm font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
-        >
-          Create Wallet
-        </button>
-      </div>
-    </>
-  );
-}
-
-function Field({
-  label,
+function Section({
+  index,
+  title,
   hint,
-  error,
+  action,
   children,
 }: {
-  label: string;
+  index: string;
+  title: string;
   hint?: string;
-  error?: boolean;
+  action?: { label: string; to: "/convert" | "/cards" };
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <div className="mb-2 flex items-center justify-between">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-        {hint && (
-          <p className={`text-[10px] ${error ? "text-destructive" : "text-muted-foreground"}`}>{hint}</p>
+    <section className="mt-8">
+      <div className="mb-3 flex items-end justify-between px-6">
+        <div className="flex items-center gap-3">
+          <span translate="no" className="font-mono text-[10px] font-semibold tracking-widest text-primary">
+            {index}
+          </span>
+          <h2 className="font-display text-lg font-bold">{title}</h2>
+          {hint && <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{hint}</span>}
+        </div>
+        {action && (
+          <Link to={action.to} className="inline-flex items-center gap-0.5 text-[11px] font-semibold text-primary">
+            {action.label} <ChevronRight className="h-3 w-3" />
+          </Link>
         )}
       </div>
       {children}
-    </div>
+    </section>
   );
 }
 
-function ToggleRow({
-  label,
-  desc,
-  value,
-  onChange,
-}: {
-  label: string;
-  desc: string;
-  value: boolean;
-  onChange: (v: boolean) => void;
-}) {
+function MiniAction({ to, icon: Icon, label }: { to: "/pay" | "/convert"; icon: React.ComponentType<{ className?: string }>; label: string }) {
   return (
-    <div className="flex items-center gap-3 py-1">
-      <div className="min-w-0 flex-1">
-        <p className="text-xs font-semibold">{label}</p>
-        <p className="text-[10px] text-muted-foreground">{desc}</p>
-      </div>
-      <button
-        onClick={() => onChange(!value)}
-        className={`relative h-6 w-10 shrink-0 rounded-full transition-colors ${value ? "bg-primary" : "bg-muted"}`}
-      >
-        <span
-          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform ${value ? "translate-x-4" : "translate-x-0.5"}`}
-        />
-      </button>
-    </div>
+    <Link to={to} className="flex flex-col items-center gap-1.5 rounded-2xl bg-surface/60 py-3 text-[11px] font-medium active:scale-95">
+      <Icon className="h-4 w-4 text-primary" />
+      {label}
+    </Link>
   );
 }
 
+function StablecoinBadge({ sym }: { sym: string }) {
+  const color = sym === "USDT" ? "bg-primary/15 text-primary" : "bg-sky-500/15 text-sky-400";
+  return (
+    <div className={`grid h-11 w-11 shrink-0 place-items-center rounded-2xl font-display text-[10px] font-bold ${color}`}>
+      {sym}
+    </div>
+  );
+}
