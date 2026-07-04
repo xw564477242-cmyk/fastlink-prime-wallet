@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as CardsRouteImport } from './routes/cards'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const ConvertRoute = ConvertRouteImport.update({
   path: '/convert',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CardsRoute = CardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AssetsRoute = AssetsRouteImport.update({
   id: '/assets',
   path: '/assets',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
   '/convert': typeof ConvertRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
   '/convert': typeof ConvertRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
@@ -59,21 +67,23 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
   '/convert': typeof ConvertRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/assets' | '/convert' | '/pay' | '/profile'
+  fullPaths: '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/assets' | '/convert' | '/pay' | '/profile'
-  id: '__root__' | '/' | '/assets' | '/convert' | '/pay' | '/profile'
+  to: '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
+  id: '__root__' | '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssetsRoute: typeof AssetsRoute
+  CardsRoute: typeof CardsRoute
   ConvertRoute: typeof ConvertRoute
   PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
@@ -102,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConvertRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cards': {
+      id: '/cards'
+      path: '/cards'
+      fullPath: '/cards'
+      preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/assets': {
       id: '/assets'
       path: '/assets'
@@ -122,6 +139,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssetsRoute: AssetsRoute,
+  CardsRoute: CardsRoute,
   ConvertRoute: ConvertRoute,
   PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,
