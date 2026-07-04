@@ -209,3 +209,52 @@ function HomePage() {
     </MobileShell>
   );
 }
+
+function BalanceStat({
+  label,
+  value,
+  icon,
+  tone,
+}: {
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+  tone: "primary" | "muted" | "accent";
+}) {
+  const toneClass =
+    tone === "primary"
+      ? "bg-primary text-primary-foreground"
+      : tone === "accent"
+      ? "bg-accent/20 text-accent"
+      : "bg-muted text-foreground";
+  return (
+    <div className="rounded-2xl bg-background/40 p-3 backdrop-blur">
+      <div className="flex items-center gap-1.5">
+        <div className={`grid h-5 w-5 place-items-center rounded-full ${toneClass}`}>{icon}</div>
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
+      </div>
+      <p className="mt-2 font-display text-base font-semibold tabular-nums">{value}</p>
+    </div>
+  );
+}
+
+function TreasuryStat({
+  label,
+  value,
+  icon: Icon,
+  accent,
+}: {
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ className?: string }>;
+  accent?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl bg-background/40 p-3">
+      <Icon className={`h-3.5 w-3.5 ${accent ? "text-accent" : "text-primary"}`} />
+      <p className="mt-2 text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+      <p className="mt-0.5 text-sm font-semibold tabular-nums">{value}</p>
+    </div>
+  );
+}
+
