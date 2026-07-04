@@ -1,11 +1,10 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Wallet, ArrowLeftRight, QrCode, CreditCard, User } from "lucide-react";
+import { Home, Wallet, QrCode, CreditCard, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/assets", label: "Assets", icon: Wallet },
-  { to: "/convert", label: "Convert", icon: ArrowLeftRight },
+  { to: "/assets", label: "Wallets", icon: Wallet },
   { to: "/pay", label: "Pay", icon: QrCode },
   { to: "/cards", label: "Cards", icon: CreditCard },
   { to: "/profile", label: "Profile", icon: User },
