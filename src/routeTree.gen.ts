@@ -9,30 +9,36 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as CardRouteImport } from './routes/card'
-import { Route as ActivityRouteImport } from './routes/activity'
+import { Route as PayRouteImport } from './routes/pay'
+import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as CardsRouteImport } from './routes/cards'
+import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 
-const WalletRoute = WalletRouteImport.update({
-  id: '/wallet',
-  path: '/wallet',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CardRoute = CardRouteImport.update({
-  id: '/card',
-  path: '/card',
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ActivityRoute = ActivityRouteImport.update({
-  id: '/activity',
-  path: '/activity',
+const ConvertRoute = ConvertRouteImport.update({
+  id: '/convert',
+  path: '/convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardsRoute = CardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssetsRoute = AssetsRouteImport.update({
+  id: '/assets',
+  path: '/assets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -43,51 +49,48 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/activity': typeof ActivityRoute
-  '/card': typeof CardRoute
+  '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
+  '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
-  '/wallet': typeof WalletRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/activity': typeof ActivityRoute
-  '/card': typeof CardRoute
+  '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
+  '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
-  '/wallet': typeof WalletRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/activity': typeof ActivityRoute
-  '/card': typeof CardRoute
+  '/assets': typeof AssetsRoute
+  '/cards': typeof CardsRoute
+  '/convert': typeof ConvertRoute
+  '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
-  '/wallet': typeof WalletRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/activity' | '/card' | '/profile' | '/wallet'
+  fullPaths: '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/activity' | '/card' | '/profile' | '/wallet'
-  id: '__root__' | '/' | '/activity' | '/card' | '/profile' | '/wallet'
+  to: '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
+  id: '__root__' | '/' | '/assets' | '/cards' | '/convert' | '/pay' | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ActivityRoute: typeof ActivityRoute
-  CardRoute: typeof CardRoute
+  AssetsRoute: typeof AssetsRoute
+  CardsRoute: typeof CardsRoute
+  ConvertRoute: typeof ConvertRoute
+  PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
-  WalletRoute: typeof WalletRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wallet': {
-      id: '/wallet'
-      path: '/wallet'
-      fullPath: '/wallet'
-      preLoaderRoute: typeof WalletRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -95,18 +98,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/card': {
-      id: '/card'
-      path: '/card'
-      fullPath: '/card'
-      preLoaderRoute: typeof CardRouteImport
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/activity': {
-      id: '/activity'
-      path: '/activity'
-      fullPath: '/activity'
-      preLoaderRoute: typeof ActivityRouteImport
+    '/convert': {
+      id: '/convert'
+      path: '/convert'
+      fullPath: '/convert'
+      preLoaderRoute: typeof ConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cards': {
+      id: '/cards'
+      path: '/cards'
+      fullPath: '/cards'
+      preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assets': {
+      id: '/assets'
+      path: '/assets'
+      fullPath: '/assets'
+      preLoaderRoute: typeof AssetsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -121,10 +138,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ActivityRoute: ActivityRoute,
-  CardRoute: CardRoute,
+  AssetsRoute: AssetsRoute,
+  CardsRoute: CardsRoute,
+  ConvertRoute: ConvertRoute,
+  PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,
-  WalletRoute: WalletRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
