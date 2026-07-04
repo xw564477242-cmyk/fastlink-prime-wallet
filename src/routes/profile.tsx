@@ -51,22 +51,43 @@ function ProfilePage() {
           </div>
         </div>
 
-        {/* KYC card */}
-        <div className="mt-5 rounded-2xl bg-surface p-5">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-widest text-muted-foreground">KYC Status</p>
-              <p className="mt-1 font-display text-lg font-semibold text-primary">Verified</p>
+        {/* KYC + Security */}
+        <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="rounded-2xl bg-surface p-4">
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">KYC Level</p>
+              <BadgeCheck className="h-4 w-4 text-primary" />
             </div>
-            <ShieldCheck className="h-8 w-8 text-primary" />
+            <p className="mt-2 font-display text-lg font-semibold">Tier 2</p>
+            <p className="text-[10px] text-primary">Verified · Advanced</p>
+            <div className="mt-3 flex gap-1">
+              <span className="h-1 flex-1 rounded-full bg-primary" />
+              <span className="h-1 flex-1 rounded-full bg-primary" />
+              <span className="h-1 flex-1 rounded-full bg-muted" />
+            </div>
           </div>
-          <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-muted">
-            <div className="h-full w-[80%] rounded-full bg-gradient-primary" />
+          <div className="rounded-2xl bg-surface p-4">
+            <div className="flex items-center justify-between">
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Security Score</p>
+              <ShieldCheck className="h-4 w-4 text-accent" />
+            </div>
+            <div className="mt-2 flex items-baseline gap-1">
+              <p className="font-display text-lg font-semibold">86</p>
+              <span className="text-[10px] text-muted-foreground">/ 100</span>
+            </div>
+            <p className="text-[10px] text-accent">Strong</p>
+            <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
+              <div className="h-full w-[86%] rounded-full bg-gradient-to-r from-primary to-accent" />
+            </div>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">
-            Upgrade to Tier 3 to unlock unlimited card spend.
+        </div>
+
+        <div className="mt-3 rounded-2xl bg-surface p-4">
+          <p className="text-xs text-muted-foreground">
+            Enable biometric login to reach a score of 100 and unlock Tier 3 KYC benefits.
           </p>
         </div>
+
 
         {/* Menu */}
         <div className="mt-5 space-y-3">

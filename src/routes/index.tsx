@@ -9,10 +9,15 @@ import {
   Eye,
   EyeOff,
   TrendingUp,
+  TrendingDown,
   Plus,
   ChevronRight,
+  Landmark,
+  PiggyBank,
+  Coins,
 } from "lucide-react";
 import { useState } from "react";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,31 +83,60 @@ function HomePage() {
           <TrendingUp className="h-3 w-3" /> +2.4% today
         </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl bg-background/40 p-4 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <div className="grid h-7 w-7 place-items-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
-                ₮
-              </div>
-              <span className="text-xs text-muted-foreground">USDT</span>
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          <BalanceStat
+            label="USDT"
+            value={hidden ? "••••" : "10,204.15"}
+            icon={<span className="text-[10px] font-bold">₮</span>}
+            tone="primary"
+          />
+          <BalanceStat
+            label="Available"
+            value={hidden ? "••••" : "$8,562.40"}
+            icon={<PiggyBank className="h-3.5 w-3.5" />}
+            tone="muted"
+          />
+          <BalanceStat
+            label="Today Spend"
+            value={hidden ? "••••" : "$142.24"}
+            icon={<TrendingDown className="h-3.5 w-3.5" />}
+            tone="accent"
+          />
+        </div>
+      </div>
+
+      {/* Treasury Dashboard */}
+      <div className="mx-6 mt-6 rounded-3xl border border-border/60 bg-surface p-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="grid h-8 w-8 place-items-center rounded-full bg-primary/15 text-primary">
+              <Landmark className="h-4 w-4" />
             </div>
-            <p className="mt-2 font-display text-lg font-semibold">
-              {hidden ? "••••" : "10,204.15"}
-            </p>
+            <div>
+              <p className="font-display text-sm font-semibold">Treasury Dashboard</p>
+              <p className="text-[10px] text-muted-foreground">Yield · APY 5.82%</p>
+            </div>
           </div>
-          <div className="rounded-2xl bg-background/40 p-4 backdrop-blur">
-            <div className="flex items-center gap-2">
-              <div className="grid h-7 w-7 place-items-center rounded-full bg-[#2775ca] text-white text-[10px] font-bold">
-                $
-              </div>
-              <span className="text-xs text-muted-foreground">USDC</span>
-            </div>
-            <p className="mt-2 font-display text-lg font-semibold">
-              {hidden ? "••••" : "2,643.14"}
-            </p>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        </div>
+        <div className="mt-4 grid grid-cols-3 gap-3">
+          <TreasuryStat label="Staked" value="$4,285" icon={Coins} />
+          <TreasuryStat label="Earned (30d)" value="$62.14" icon={TrendingUp} accent />
+          <TreasuryStat label="Idle" value="$8,562" icon={PiggyBank} />
+        </div>
+        <div className="mt-4">
+          <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+            <span>Allocation</span>
+            <span>67% deployed</span>
+          </div>
+          <div className="mt-1.5 flex h-1.5 w-full overflow-hidden rounded-full bg-muted">
+            <div className="h-full w-[33%] bg-primary" />
+            <div className="h-full w-[34%] bg-accent" />
+            <div className="h-full w-[33%] bg-muted-foreground/40" />
           </div>
         </div>
       </div>
+
 
       {/* Quick actions */}
       <div className="mx-6 mt-6 grid grid-cols-4 gap-2">
@@ -175,3 +209,52 @@ function HomePage() {
     </MobileShell>
   );
 }
+
+function BalanceStat({
+  label,
+  value,
+  icon,
+  tone,
+}: {
+  label: string;
+  value: string;
+  icon: React.ReactNode;
+  tone: "primary" | "muted" | "accent";
+}) {
+  const toneClass =
+    tone === "primary"
+      ? "bg-primary text-primary-foreground"
+      : tone === "accent"
+      ? "bg-accent/20 text-accent"
+      : "bg-muted text-foreground";
+  return (
+    <div className="rounded-2xl bg-background/40 p-3 backdrop-blur">
+      <div className="flex items-center gap-1.5">
+        <div className={`grid h-5 w-5 place-items-center rounded-full ${toneClass}`}>{icon}</div>
+        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
+      </div>
+      <p className="mt-2 font-display text-base font-semibold tabular-nums">{value}</p>
+    </div>
+  );
+}
+
+function TreasuryStat({
+  label,
+  value,
+  icon: Icon,
+  accent,
+}: {
+  label: string;
+  value: string;
+  icon: React.ComponentType<{ className?: string }>;
+  accent?: boolean;
+}) {
+  return (
+    <div className="rounded-2xl bg-background/40 p-3">
+      <Icon className={`h-3.5 w-3.5 ${accent ? "text-accent" : "text-primary"}`} />
+      <p className="mt-2 text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+      <p className="mt-0.5 text-sm font-semibold tabular-nums">{value}</p>
+    </div>
+  );
+}
+

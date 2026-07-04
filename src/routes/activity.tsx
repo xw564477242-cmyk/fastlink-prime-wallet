@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { CreditCard, Landmark, ArrowLeftRight, Filter } from "lucide-react";
+import { CreditCard, Landmark, ArrowLeftRight, Filter, Search, X } from "lucide-react";
 import { useState } from "react";
+
 
 export const Route = createFileRoute("/activity")({
   head: () => ({
@@ -31,7 +32,18 @@ const iconFor = (k: string) =>
 
 function ActivityPage() {
   const [filter, setFilter] = useState<Kind>("All");
-  const filtered = items.filter((i) => filter === "All" || i.kind === filter);
+  const [query, setQuery] = useState("");
+  const filtered = items.filter((i) => {
+    const okKind = filter === "All" || i.kind === filter;
+    const q = query.trim().toLowerCase();
+    const okQuery =
+      !q ||
+      i.merchant.toLowerCase().includes(q) ||
+      i.city.toLowerCase().includes(q) ||
+      i.kind.toLowerCase().includes(q);
+    return okKind && okQuery;
+  });
+
 
   const totalSpend = items
     .filter((i) => i.amount < 0)
@@ -60,7 +72,24 @@ function ActivityPage() {
           </div>
         </div>
 
+        {/* Search */}
+        <div className="mt-5 flex items-center gap-2 rounded-2xl bg-surface px-4 py-3">
+          <Search className="h-4 w-4 text-muted-foreground" />
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search merchant, city, type…"
+            className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+          />
+          {query && (
+            <button onClick={() => setQuery("")} className="text-muted-foreground">
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+
         {/* Filter tabs */}
+
         <div className="mt-6 flex gap-2 overflow-x-auto">
           {(["All", "Card", "ATM", "Transfer"] as Kind[]).map((k) => (
             <button

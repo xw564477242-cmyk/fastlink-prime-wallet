@@ -76,8 +76,27 @@ function WalletPage() {
           </div>
         </div>
 
+        {/* Asset Allocation */}
+        <div className="mt-6 rounded-3xl bg-surface p-5">
+          <div className="flex items-center justify-between">
+            <p className="font-display text-sm font-semibold">Asset Allocation</p>
+            <span className="text-[10px] uppercase tracking-widest text-muted-foreground">3 assets</span>
+          </div>
+          <div className="mt-3 flex h-2 w-full overflow-hidden rounded-full bg-muted">
+            <div className="h-full w-[62%] bg-primary" />
+            <div className="h-full w-[22%] bg-[#2775ca]" />
+            <div className="h-full w-[16%] bg-accent" />
+          </div>
+          <div className="mt-4 space-y-2.5">
+            <AllocationRow color="bg-primary" sym="USDT" name="Tether USD" pct="62%" value="$10,204.15" />
+            <AllocationRow color="bg-[#2775ca]" sym="USDC" name="USD Coin" pct="22%" value="$2,643.14" />
+            <AllocationRow color="bg-accent" sym="USD" name="Fiat Cash" pct="16%" value="$1,842.60" />
+          </div>
+        </div>
+
         {/* Assets */}
         <div className="mt-6 flex gap-2 rounded-full bg-surface p-1">
+
           {(["USDT", "USDC"] as const).map((k) => (
             <button
               key={k}
@@ -159,5 +178,31 @@ function WalletPage() {
         </div>
       </div>
     </MobileShell>
+  );
+}
+
+function AllocationRow({
+  color,
+  sym,
+  name,
+  pct,
+  value,
+}: {
+  color: string;
+  sym: string;
+  name: string;
+  pct: string;
+  value: string;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className={`h-2.5 w-2.5 rounded-full ${color}`} />
+      <div className="min-w-0 flex-1">
+        <p className="text-sm font-medium">{sym}</p>
+        <p className="truncate text-[10px] text-muted-foreground">{name}</p>
+      </div>
+      <p className="text-xs font-semibold tabular-nums">{pct}</p>
+      <p className="w-24 text-right text-xs text-muted-foreground tabular-nums">{value}</p>
+    </div>
   );
 }
