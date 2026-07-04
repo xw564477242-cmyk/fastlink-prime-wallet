@@ -1,10 +1,11 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Wallet, QrCode, CreditCard, User } from "lucide-react";
+import { Home, Layers, ArrowLeftRight, QrCode, CreditCard, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/assets", label: "Wallets", icon: Wallet },
+  { to: "/assets", label: "Assets", icon: Layers },
+  { to: "/convert", label: "Convert", icon: ArrowLeftRight },
   { to: "/pay", label: "Pay", icon: QrCode },
   { to: "/cards", label: "Cards", icon: CreditCard },
   { to: "/profile", label: "Profile", icon: User },
@@ -17,7 +18,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground">
       <div className="flex-1 overflow-y-auto pb-28">{children}</div>
       <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-border/60 bg-surface/95 backdrop-blur-xl">
-        <div className="grid w-full grid-cols-5">
+        <div className="grid w-full grid-cols-6">
           {tabs.map((t) => {
             const active = pathname === t.to;
             const Icon = t.icon;
