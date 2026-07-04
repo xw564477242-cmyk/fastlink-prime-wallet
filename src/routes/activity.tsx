@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { CreditCard, Landmark, ArrowLeftRight, Filter } from "lucide-react";
+import { CreditCard, Landmark, ArrowLeftRight, Filter, Search, X } from "lucide-react";
 import { useState } from "react";
+
 
 export const Route = createFileRoute("/activity")({
   head: () => ({
