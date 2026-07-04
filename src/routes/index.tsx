@@ -4,26 +4,23 @@ import {
   ArrowDownToLine,
   ArrowUpFromLine,
   ArrowLeftRight,
+  QrCode,
   CreditCard,
+  Send,
   Bell,
   Eye,
   EyeOff,
   TrendingUp,
-  TrendingDown,
-  Plus,
   ChevronRight,
-  Landmark,
-  PiggyBank,
-  Coins,
+  Sparkles,
 } from "lucide-react";
 import { useState } from "react";
-
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "FastLink — Home" },
-      { name: "description", content: "Your USDT wallet balance and quick actions." },
+      { name: "description", content: "Global USDT wallet and premium U Card dashboard." },
     ],
   }),
   component: HomePage,
@@ -33,26 +30,27 @@ function HomePage() {
   const [hidden, setHidden] = useState(false);
 
   const actions = [
-    { icon: ArrowDownToLine, label: "Deposit", href: "/wallet" },
-    { icon: ArrowUpFromLine, label: "Withdraw", href: "/wallet" },
-    { icon: ArrowLeftRight, label: "Transfer", href: "/wallet" },
-    { icon: CreditCard, label: "Card", href: "/card" },
+    { icon: ArrowDownToLine, label: "Deposit", href: "/assets" as const },
+    { icon: ArrowUpFromLine, label: "Withdraw", href: "/assets" as const },
+    { icon: ArrowLeftRight, label: "Convert", href: "/convert" as const },
+    { icon: QrCode, label: "Pay", href: "/pay" as const },
+    { icon: Send, label: "Transfer", href: "/pay" as const },
+    { icon: CreditCard, label: "Cards", href: "/cards" as const },
   ];
 
   const recent = [
-    { name: "Card Spend · Starbucks", amount: -6.85, time: "Today, 09:12", pos: false },
-    { name: "USDT Deposit · TRC20", amount: 500.0, time: "Yesterday", pos: true },
-    { name: "ATM Withdrawal · Dubai", amount: -200.0, time: "2 Jul", pos: false },
-    { name: "Transfer from Alex", amount: 120.0, time: "1 Jul", pos: true },
+    { name: "Apple Pay · Uniqlo", amount: -48.2, time: "Today, 14:02", pos: false },
+    { name: "USDT Deposit · TRC20", amount: 500.0, time: "Today, 09:12", pos: true },
+    { name: "Convert USDT → EUR", amount: -200.0, time: "Yesterday", pos: false },
+    { name: "Transfer from Alex", amount: 120.0, time: "2 Jul", pos: true },
   ];
 
   return (
     <MobileShell>
       <StatusBar />
-      {/* Header */}
       <div className="flex items-center justify-between px-6 pt-4">
         <div className="flex items-center gap-3">
-          <div className="grid h-11 w-11 place-items-center rounded-full bg-gradient-primary text-primary-foreground font-bold shadow-glow">
+          <div translate="no" className="grid h-11 w-11 place-items-center rounded-full bg-gradient-primary font-bold text-primary-foreground shadow-glow">
             FL
           </div>
           <div className="min-w-0">
@@ -66,7 +64,7 @@ function HomePage() {
         </button>
       </div>
 
-      {/* Balance card */}
+      {/* Balance */}
       <div className="mx-6 mt-6 overflow-hidden rounded-3xl bg-gradient-card p-6 shadow-card">
         <div className="flex items-center justify-between">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Total Balance</p>
@@ -74,72 +72,21 @@ function HomePage() {
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="font-display text-4xl font-bold tracking-tight">
-            {hidden ? "••••••" : "$12,847.29"}
-          </span>
+        <div className="mt-3 font-display text-4xl font-bold tracking-tight">
+          {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-xs font-medium text-primary">
-          <TrendingUp className="h-3 w-3" /> +2.4% today
+          <TrendingUp className="h-3 w-3" /> +3.8% this week
         </div>
-
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <BalanceStat
-            label="USDT"
-            value={hidden ? "••••" : "10,204.15"}
-            icon={<span className="text-[10px] font-bold">₮</span>}
-            tone="primary"
-          />
-          <BalanceStat
-            label="Available"
-            value={hidden ? "••••" : "$8,562.40"}
-            icon={<PiggyBank className="h-3.5 w-3.5" />}
-            tone="muted"
-          />
-          <BalanceStat
-            label="Today Spend"
-            value={hidden ? "••••" : "$142.24"}
-            icon={<TrendingDown className="h-3.5 w-3.5" />}
-            tone="accent"
-          />
+          <MiniStat label="Digital" value={hidden ? "••••" : "$19,844"} />
+          <MiniStat label="Fiat" value={hidden ? "••••" : "$8,568"} />
+          <MiniStat label="Card" value={hidden ? "••••" : "$1,842"} tone="accent" />
         </div>
       </div>
-
-      {/* Treasury Dashboard */}
-      <div className="mx-6 mt-6 rounded-3xl border border-border/60 bg-surface p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="grid h-8 w-8 place-items-center rounded-full bg-primary/15 text-primary">
-              <Landmark className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="font-display text-sm font-semibold">Treasury Dashboard</p>
-              <p className="text-[10px] text-muted-foreground">Yield · APY 5.82%</p>
-            </div>
-          </div>
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
-        </div>
-        <div className="mt-4 grid grid-cols-3 gap-3">
-          <TreasuryStat label="Staked" value="$4,285" icon={Coins} />
-          <TreasuryStat label="Earned (30d)" value="$62.14" icon={TrendingUp} accent />
-          <TreasuryStat label="Idle" value="$8,562" icon={PiggyBank} />
-        </div>
-        <div className="mt-4">
-          <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-            <span>Allocation</span>
-            <span>67% deployed</span>
-          </div>
-          <div className="mt-1.5 flex h-1.5 w-full overflow-hidden rounded-full bg-muted">
-            <div className="h-full w-[33%] bg-primary" />
-            <div className="h-full w-[34%] bg-accent" />
-            <div className="h-full w-[33%] bg-muted-foreground/40" />
-          </div>
-        </div>
-      </div>
-
 
       {/* Quick actions */}
-      <div className="mx-6 mt-6 grid grid-cols-4 gap-2">
+      <div className="mx-6 mt-6 grid grid-cols-3 gap-2">
         {actions.map((a) => (
           <Link
             key={a.label}
@@ -154,107 +101,67 @@ function HomePage() {
         ))}
       </div>
 
-      {/* Card shortcut */}
+      {/* Virtual card preview */}
       <Link
-        to="/card"
-        className="mx-6 mt-6 flex items-center gap-4 rounded-3xl bg-gradient-visa p-5 shadow-card"
+        to="/cards"
+        className="mx-6 mt-6 block overflow-hidden rounded-3xl bg-gradient-visa p-5 shadow-card"
       >
-        <div className="flex-1 min-w-0">
-          <p className="text-[10px] uppercase tracking-widest text-white/60">U Card · Virtual</p>
-          <p className="mt-1 font-display text-lg font-semibold text-white">•••• 4829</p>
-          <p className="mt-1 text-xs text-white/70">Tap to manage card</p>
+        <div className="flex items-start justify-between text-white">
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-white/60">Virtual · Platinum</p>
+            <p className="mt-1 font-display text-lg font-semibold">•••• 4829</p>
+          </div>
+          <Sparkles className="h-4 w-4 text-white/80" />
         </div>
-        <div className="text-white/80">
-          <ChevronRight className="h-5 w-5" />
+        <div className="mt-6 flex items-end justify-between text-white">
+          <div>
+            <p className="text-[9px] uppercase tracking-widest text-white/60">Available</p>
+            <p className="text-sm font-semibold tabular-nums">$1,842.60</p>
+          </div>
+          <p translate="no" className="font-display text-base font-bold italic">VISA</p>
         </div>
       </Link>
 
-      {/* Recent activity */}
+      {/* Recent */}
       <div className="mx-6 mt-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-base font-semibold">Recent Activity</h3>
-          <Link to="/activity" className="text-xs text-primary">
-            See all
-          </Link>
+          <Link to="/pay" className="text-xs text-primary">See all</Link>
         </div>
         <div className="mt-3 space-y-2">
           {recent.map((t) => (
-            <div
-              key={t.name}
-              className="flex items-center gap-3 rounded-2xl bg-surface p-4"
-            >
-              <div
-                className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${
-                  t.pos ? "bg-primary/15 text-primary" : "bg-muted text-foreground"
-                }`}
-              >
-                {t.pos ? <Plus className="h-5 w-5" /> : <CreditCard className="h-5 w-5" />}
+            <div key={t.name} className="flex items-center gap-3 rounded-2xl bg-surface p-4">
+              <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${t.pos ? "bg-primary/15 text-primary" : "bg-muted text-foreground"}`}>
+                {t.pos ? <ArrowDownToLine className="h-5 w-5" /> : <ArrowUpFromLine className="h-5 w-5" />}
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{t.name}</p>
                 <p className="text-xs text-muted-foreground">{t.time}</p>
               </div>
-              <p
-                className={`shrink-0 text-sm font-semibold tabular-nums ${
-                  t.pos ? "text-primary" : "text-foreground"
-                }`}
-              >
-                {t.pos ? "+" : ""}
-                {t.amount.toFixed(2)} $
+              <p className={`shrink-0 text-sm font-semibold tabular-nums ${t.pos ? "text-primary" : "text-foreground"}`}>
+                {t.pos ? "+" : ""}{t.amount.toFixed(2)}
               </p>
             </div>
           ))}
         </div>
       </div>
+
+      <div className="mx-6 mt-6 flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 p-4">
+        <div>
+          <p className="text-xs font-semibold">Earn 5.82% APY on idle USDT</p>
+          <p className="mt-0.5 text-[10px] text-muted-foreground">FastLink Treasury · Auto-yield</p>
+        </div>
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+      </div>
     </MobileShell>
   );
 }
 
-function BalanceStat({
-  label,
-  value,
-  icon,
-  tone,
-}: {
-  label: string;
-  value: string;
-  icon: React.ReactNode;
-  tone: "primary" | "muted" | "accent";
-}) {
-  const toneClass =
-    tone === "primary"
-      ? "bg-primary text-primary-foreground"
-      : tone === "accent"
-      ? "bg-accent/20 text-accent"
-      : "bg-muted text-foreground";
+function MiniStat({ label, value, tone }: { label: string; value: string; tone?: "accent" }) {
   return (
     <div className="rounded-2xl bg-background/40 p-3 backdrop-blur">
-      <div className="flex items-center gap-1.5">
-        <div className={`grid h-5 w-5 place-items-center rounded-full ${toneClass}`}>{icon}</div>
-        <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</span>
-      </div>
-      <p className="mt-2 font-display text-base font-semibold tabular-nums">{value}</p>
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
+      <p className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}>{value}</p>
     </div>
   );
 }
-
-function TreasuryStat({
-  label,
-  value,
-  icon: Icon,
-  accent,
-}: {
-  label: string;
-  value: string;
-  icon: React.ComponentType<{ className?: string }>;
-  accent?: boolean;
-}) {
-  return (
-    <div className="rounded-2xl bg-background/40 p-3">
-      <Icon className={`h-3.5 w-3.5 ${accent ? "text-accent" : "text-primary"}`} />
-      <p className="mt-2 text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p className="mt-0.5 text-sm font-semibold tabular-nums">{value}</p>
-    </div>
-  );
-}
-
