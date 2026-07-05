@@ -84,8 +84,8 @@ function HomePage() {
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat label="Digital" value={hidden ? "••••" : "$19,844"} />
-          <MiniStat label="Fiat" value={hidden ? "••••" : "$8,568"} />
+          <MiniStat label="数字资产" value={hidden ? "••••" : "$19,844"} />
+          <MiniStat label="法币" value={hidden ? "••••" : "$8,568"} />
           <MiniStat label="Card" value={hidden ? "••••" : "$1,842"} tone="accent" />
         </div>
       </div>
