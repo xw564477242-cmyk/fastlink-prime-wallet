@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   ChevronRight,
@@ -10,6 +10,7 @@ import {
   LogOut,
   Globe,
   Bell,
+  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
@@ -105,6 +106,24 @@ function ProfilePage() {
           <Section title="Preferences">
             <Row icon={Globe} label="Language" hint="English" />
             <Row icon={Bell} label="Notifications" />
+          </Section>
+
+          <Section title="Agent Integrations">
+            <Link
+              to="/connect"
+              className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
+            >
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+                <Sparkles className="h-4 w-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">Connect ChatGPT or Claude</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  Use FastLink from your AI assistant
+                </p>
+              </div>
+              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </Link>
           </Section>
 
           <Section title="Help">
