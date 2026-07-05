@@ -101,6 +101,20 @@ function HomePage() {
         ))}
       </div>
 
+      {/* Core flow */}
+      <div className="mx-6 mt-6 rounded-3xl border border-primary/30 bg-primary/5 p-5">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">FastLink Core Flow</p>
+        <div className="mt-3 flex items-center justify-between gap-1 text-[11px] font-semibold">
+          <FlowStep label="USDT Deposit" to="/deposit" />
+          <FlowArrow />
+          <FlowStep label="Convert" to="/convert" />
+          <FlowArrow />
+          <FlowStep label="Fund Card" to="/cards" />
+          <FlowArrow />
+          <FlowStep label="Spend" to="/pay" />
+        </div>
+      </div>
+
       {/* Virtual card preview */}
       <Link
         to="/cards"
