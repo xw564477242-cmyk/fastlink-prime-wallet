@@ -265,12 +265,32 @@ function CardsPage() {
             <Detail label="Expiry" value={current.exp} />
             <Detail label="CVV" value={showCvv ? current.cvv : "•••"} />
             <Detail label="PIN" value={showPin ? current.pin.split("").join(" ") : "• • • •"} />
-            <Detail label="Issuer" value="FastLink Global · Visa" />
+            <Detail label="Issuer" value="Licensed partner institution" />
           </div>
         </div>
 
-        <p className="mt-6 mb-2 text-center text-[10px] uppercase tracking-widest text-muted-foreground">
-          Issued by FastLink Global Ltd. · Visa Principal Member
+        {/* Physical Card Application */}
+        <div className="mt-4 rounded-2xl border border-accent/30 bg-accent/5 p-5">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="font-display text-sm font-bold">Apply for Physical Card</p>
+                <span className="rounded-full border border-accent/40 bg-accent/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-widest text-accent">
+                  Pending KYC
+                </span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                Get a contactless FastLink card delivered to your address after KYC approval.
+              </p>
+            </div>
+          </div>
+          <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+            Start Application
+          </button>
+        </div>
+
+        <p className="mt-6 mb-2 text-center text-[10px] leading-relaxed tracking-wide text-muted-foreground">
+          Issued by licensed partner financial institution. FastLink provides wallet and card program services.
         </p>
       </div>
     </MobileShell>
