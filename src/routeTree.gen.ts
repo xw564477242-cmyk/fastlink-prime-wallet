@@ -21,6 +21,7 @@ import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
 import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -86,6 +87,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AssetsFiatRoute = AssetsFiatRouteImport.update({
+  id: '/fiat',
+  path: '/fiat',
+  getParentRoute: () => AssetsRoute,
+} as any)
 const AssetsDigitalRoute = AssetsDigitalRouteImport.update({
   id: '/digital',
   path: '/digital',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/assets/digital': typeof AssetsDigitalRoute
+  '/assets/fiat': typeof AssetsFiatRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesByTo {
@@ -144,6 +151,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/assets/digital': typeof AssetsDigitalRoute
+  '/assets/fiat': typeof AssetsFiatRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRoutesById {
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/assets/digital': typeof AssetsDigitalRoute
+  '/assets/fiat': typeof AssetsFiatRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
 }
 export interface FileRouteTypes {
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/assets/digital'
+    | '/assets/fiat'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/assets/digital'
+    | '/assets/fiat'
     | '/.mcp/invoke-tool/$tool'
   id:
     | '__root__'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/assets/digital'
+    | '/assets/fiat'
     | '/.mcp/invoke-tool/$tool'
   fileRoutesById: FileRoutesById
 }
@@ -326,6 +338,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/assets/fiat': {
+      id: '/assets/fiat'
+      path: '/fiat'
+      fullPath: '/assets/fiat'
+      preLoaderRoute: typeof AssetsFiatRouteImport
+      parentRoute: typeof AssetsRoute
+    }
     '/assets/digital': {
       id: '/assets/digital'
       path: '/digital'
@@ -359,10 +378,12 @@ declare module '@tanstack/react-router' {
 
 interface AssetsRouteChildren {
   AssetsDigitalRoute: typeof AssetsDigitalRoute
+  AssetsFiatRoute: typeof AssetsFiatRoute
 }
 
 const AssetsRouteChildren: AssetsRouteChildren = {
   AssetsDigitalRoute: AssetsDigitalRoute,
+  AssetsFiatRoute: AssetsFiatRoute,
 }
 
 const AssetsRouteWithChildren =
