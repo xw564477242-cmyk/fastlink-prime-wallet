@@ -77,13 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "FastLink — Global USDT Wallet & U Card" },
-      { name: "description", content: "FastLink is a premium global USDT wallet and U Card platform. Deposit, transfer, and spend crypto worldwide." },
+      { title: "FastLink — Home" },
+      { name: "description", content: "Global USDT wallet and premium U Card dashboard." },
       { name: "theme-color", content: "#0e1420" },
-      { property: "og:title", content: "FastLink — Global USDT Wallet & U Card" },
-      { property: "og:description", content: "Premium global USDT wallet and U Card platform." },
+      { property: "og:title", content: "FastLink — Home" },
+      { property: "og:description", content: "Global USDT wallet and premium U Card dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "FastLink — Home" },
+      { name: "twitter:description", content: "Global USDT wallet and premium U Card dashboard." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png" },
     ],
     links: [
       {
