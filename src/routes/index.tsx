@@ -46,9 +46,6 @@ function HomePage() {
     { name: "Transfer from Alex", amount: 120.0, time: "2 Jul", pos: true },
   ];
 
-  const cardBalances = [
-    { label: "Virtual", last4: "4829", balance: 1842.6, icon: Sparkles, tone: "bg-primary" },
-    { label: "Physical", last4: "9130", balance: 620.4, icon: Wallet, tone: "bg-accent" },
     { label: "Travel", last4: "2246", balance: 980.0, icon: Plane, tone: "bg-sky-400" },
   ];
 
