@@ -227,7 +227,7 @@ function CardsPage() {
               </div>
               <div>
                 <p className="text-sm font-semibold">Card Funding</p>
-                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">From USDT wallet</p>
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">From USDT Wallet → Card Balance</p>
               </div>
             </div>
           </div>
