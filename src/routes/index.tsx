@@ -46,8 +46,7 @@ function HomePage() {
     { name: "Transfer from Alex", amount: 120.0, time: "2 Jul", pos: true },
   ];
 
-    { label: "Travel", last4: "2246", balance: 980.0, icon: Plane, tone: "bg-sky-400" },
-  ];
+
 
   return (
     <MobileShell>
