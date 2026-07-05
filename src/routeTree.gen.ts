@@ -13,6 +13,7 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
 import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
@@ -38,6 +39,11 @@ const McpRoute = McpRouteImport.update({
 const ConvertRoute = ConvertRouteImport.update({
   id: '/convert',
   path: '/convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectRoute = ConnectRouteImport.update({
+  id: '/connect',
+  path: '/connect',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CardsRoute = CardsRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/cards': typeof CardsRoute
+  '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/mcp': typeof McpRoute
   '/pay': typeof PayRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/cards': typeof CardsRoute
+  '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/mcp': typeof McpRoute
   '/pay': typeof PayRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/assets': typeof AssetsRoute
   '/cards': typeof CardsRoute
+  '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/mcp': typeof McpRoute
   '/pay': typeof PayRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assets'
     | '/cards'
+    | '/connect'
     | '/convert'
     | '/mcp'
     | '/pay'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assets'
     | '/cards'
+    | '/connect'
     | '/convert'
     | '/mcp'
     | '/pay'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/'
     | '/assets'
     | '/cards'
+    | '/connect'
     | '/convert'
     | '/mcp'
     | '/pay'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AssetsRoute: typeof AssetsRoute
   CardsRoute: typeof CardsRoute
+  ConnectRoute: typeof ConnectRoute
   ConvertRoute: typeof ConvertRoute
   McpRoute: typeof McpRoute
   PayRoute: typeof PayRoute
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       path: '/convert'
       fullPath: '/convert'
       preLoaderRoute: typeof ConvertRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/connect': {
+      id: '/connect'
+      path: '/connect'
+      fullPath: '/connect'
+      preLoaderRoute: typeof ConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cards': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AssetsRoute: AssetsRoute,
   CardsRoute: CardsRoute,
+  ConnectRoute: ConnectRoute,
   ConvertRoute: ConvertRoute,
   McpRoute: McpRoute,
   PayRoute: PayRoute,
