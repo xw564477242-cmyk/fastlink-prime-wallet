@@ -217,7 +217,7 @@ function Section({
   );
 }
 
-function MiniAction({ to, icon: Icon, label }: { to: "/pay" | "/convert"; icon: React.ComponentType<{ className?: string }>; label: string }) {
+function MiniAction({ to, icon: Icon, label }: { to: "/deposit" | "/withdraw" | "/convert" | "/pay"; icon: React.ComponentType<{ className?: string }>; label: string }) {
   return (
     <Link to={to} className="flex flex-col items-center gap-1.5 rounded-2xl bg-surface/60 py-3 text-[11px] font-medium active:scale-95">
       <Icon className="h-4 w-4 text-primary" />
