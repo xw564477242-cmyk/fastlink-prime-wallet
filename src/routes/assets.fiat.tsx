@@ -27,7 +27,7 @@ function FiatWalletsPage() {
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground">
           <ChevronLeft className="h-4 w-4" /> Home
         </Link>
-        <Link to="/assets" className="text-xs font-semibold text-primary">All Assets</Link>
+        <Link to="/assets/cards" className="text-xs font-semibold text-primary">Cards →</Link>
       </div>
 
       <div className="px-6 pt-4">
