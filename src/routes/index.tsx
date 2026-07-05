@@ -179,3 +179,15 @@ function MiniStat({ label, value, tone }: { label: string; value: string; tone?:
     </div>
   );
 }
+
+function FlowStep({ label, to }: { label: string; to: "/deposit" | "/convert" | "/cards" | "/pay" }) {
+  return (
+    <Link to={to} className="flex-1 rounded-xl bg-background/60 px-2 py-2 text-center leading-tight active:scale-95">
+      {label}
+    </Link>
+  );
+}
+
+function FlowArrow() {
+  return <span className="text-primary/60">›</span>;
+}
