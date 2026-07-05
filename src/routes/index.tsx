@@ -108,7 +108,7 @@ function HomePage() {
         ))}
       </div>
 
-      </Link>
+
 
       {/* Recent */}
       <div className="mx-6 mt-6">
