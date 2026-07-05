@@ -17,6 +17,7 @@ import {
   Plane,
 } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,14 +31,15 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const [hidden, setHidden] = useState(false);
+  const { t } = useLang();
 
   const actions = [
-    { icon: ArrowDownToLine, label: "Deposit", href: "/deposit" as const },
-    { icon: ArrowUpFromLine, label: "Withdraw", href: "/withdraw" as const },
-    { icon: ArrowLeftRight, label: "Convert", href: "/convert" as const },
-    { icon: QrCode, label: "Pay", href: "/pay" as const },
-    { icon: Send, label: "Transfer", href: "/transfer" as const },
-    { icon: CreditCard, label: "Cards", href: "/cards" as const },
+    { icon: ArrowDownToLine, label: t("home.deposit"), href: "/deposit" as const },
+    { icon: ArrowUpFromLine, label: t("home.withdraw"), href: "/withdraw" as const },
+    { icon: ArrowLeftRight, label: t("home.convert"), href: "/convert" as const },
+    { icon: QrCode, label: t("home.pay"), href: "/pay" as const },
+    { icon: Send, label: t("home.transfer"), href: "/transfer" as const },
+    { icon: CreditCard, label: t("home.cards"), href: "/cards" as const },
   ];
 
   const recent = [
