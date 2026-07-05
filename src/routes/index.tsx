@@ -10,12 +10,9 @@ import {
   Bell,
   Eye,
   EyeOff,
-  
   ChevronRight,
-  Sparkles,
-  Wallet,
-  Plane,
 } from "lucide-react";
+
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
 
@@ -49,11 +46,7 @@ function HomePage() {
     { name: "Transfer from Alex", amount: 120.0, time: "2 Jul", pos: true },
   ];
 
-  const cardBalances = [
-    { label: "Virtual", last4: "4829", balance: 1842.6, icon: Sparkles, tone: "bg-primary" },
-    { label: "Physical", last4: "9130", balance: 620.4, icon: Wallet, tone: "bg-accent" },
-    { label: "Travel", last4: "2246", balance: 980.0, icon: Plane, tone: "bg-sky-400" },
-  ];
+
 
   return (
     <MobileShell>
@@ -108,59 +101,7 @@ function HomePage() {
         ))}
       </div>
 
-      {/* Card Balance Summary */}
-      <div className="mx-6 mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
-        <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("home.cardBalanceSummary")}</p>
-          <Link to="/cards" className="text-xs font-semibold text-primary">{t("home.manage")}</Link>
-        </div>
-        <div className="mt-4 space-y-3">
-          {cardBalances.map((c) => {
-            const Icon = c.icon;
-            return (
-              <Link
-                key={c.label}
-                to="/cards"
-                className="flex items-center justify-between rounded-2xl bg-background/60 p-4 active:scale-[0.98] transition-transform"
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`grid h-9 w-9 place-items-center rounded-full ${c.tone}/15 text-white`}>
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold">{c.label}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground">•••• {c.last4}</p>
-                  </div>
-                </div>
-                <p className="text-sm font-semibold tabular-nums">
-                  {hidden ? "••••" : `$${c.balance.toLocaleString(undefined, { minimumFractionDigits: 2 })}`}
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
 
-      {/* Virtual card preview */}
-      <Link
-        to="/cards"
-        className="mx-6 mt-6 block overflow-hidden rounded-3xl bg-gradient-visa p-5 shadow-card"
-      >
-        <div className="flex items-start justify-between text-white">
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-white/60">Virtual · Platinum</p>
-            <p className="mt-1 font-display text-lg font-semibold">•••• 4829</p>
-          </div>
-          <Sparkles className="h-4 w-4 text-white/80" />
-        </div>
-        <div className="mt-6 flex items-end justify-between text-white">
-          <div>
-            <p className="text-[9px] uppercase tracking-widest text-white/60">Available</p>
-            <p className="text-sm font-semibold tabular-nums">$1,842.60</p>
-          </div>
-          <p translate="no" className="font-display text-base font-bold italic">VISA</p>
-        </div>
-      </Link>
 
       {/* Recent */}
       <div className="mx-6 mt-6">
