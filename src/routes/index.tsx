@@ -111,8 +111,8 @@ function HomePage() {
       {/* Card Balance Summary */}
       <div className="mx-6 mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
         <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Card Balance Summary</p>
-          <Link to="/cards" className="text-xs font-semibold text-primary">Manage</Link>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("home.cardBalanceSummary")}</p>
+          <Link to="/cards" className="text-xs font-semibold text-primary">{t("home.manage")}</Link>
         </div>
         <div className="mt-4 space-y-3">
           {cardBalances.map((c) => {
@@ -165,8 +165,8 @@ function HomePage() {
       {/* Recent */}
       <div className="mx-6 mt-6">
         <div className="flex items-center justify-between">
-          <h3 className="font-display text-base font-semibold">Recent Activity</h3>
-          <Link to="/pay" className="text-xs text-primary">See all</Link>
+          <h3 className="font-display text-base font-semibold">{t("home.recent")}</h3>
+          <Link to="/pay" className="text-xs text-primary">{t("home.seeAll")}</Link>
         </div>
         <div className="mt-3 space-y-2">
           {recent.map((t) => (
