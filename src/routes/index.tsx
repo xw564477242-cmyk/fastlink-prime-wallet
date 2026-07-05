@@ -197,11 +197,13 @@ function HomePage() {
   );
 }
 
-function MiniStat({ label, value, tone }: { label: string; value: string; tone?: "accent" }) {
+function MiniStat({ to, label, value, tone }: { to: "/assets/digital" | "/assets/fiat" | "/assets/cards"; label: string; value: string; tone?: "accent" }) {
   return (
-    <div className="rounded-2xl bg-background/40 p-3 backdrop-blur">
+    <Link to={to} className="group rounded-2xl bg-background/40 p-3 text-left backdrop-blur transition-all active:scale-95 hover:bg-background/60">
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
       <p className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}>{value}</p>
-    </div>
+      <p className="mt-1 text-[9px] uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100">View →</p>
+    </Link>
   );
 }
+
