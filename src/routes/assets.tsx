@@ -107,8 +107,8 @@ function AssetsPage() {
             </div>
           ))}
           <div className="grid grid-cols-3 gap-2 pt-1">
-            <MiniAction to="/pay" icon={ArrowDownToLine} label="Deposit" />
-            <MiniAction to="/pay" icon={ArrowUpFromLine} label="Withdraw" />
+            <MiniAction to="/deposit" icon={ArrowDownToLine} label="Deposit" />
+            <MiniAction to="/withdraw" icon={ArrowUpFromLine} label="Withdraw" />
             <MiniAction to="/convert" icon={ArrowLeftRight} label="Convert" />
           </div>
         </div>
