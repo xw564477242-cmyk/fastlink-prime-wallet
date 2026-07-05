@@ -10,7 +10,7 @@ import {
   Bell,
   Eye,
   EyeOff,
-  TrendingUp,
+  
   ChevronRight,
   Sparkles,
   Wallet,
