@@ -11,7 +11,10 @@ import {
   Globe,
   Bell,
   Sparkles,
+  Check,
 } from "lucide-react";
+import { useState } from "react";
+import { useLang, LANG_OPTIONS, type Lang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -24,12 +27,15 @@ export const Route = createFileRoute("/profile")({
 });
 
 function ProfilePage() {
+  const { lang, setLang, t } = useLang();
+  const [langOpen, setLangOpen] = useState(false);
+  const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
   return (
     <MobileShell>
-      <StatusBar title="Profile" />
+      <StatusBar title={t("profile.title")} />
 
       <div className="px-6 pt-4">
-        <h1 className="font-display text-2xl font-bold">Profile</h1>
+        <h1 className="font-display text-2xl font-bold">{t("profile.title")}</h1>
 
         {/* User card */}
         <div className="mt-5 rounded-3xl bg-gradient-card p-6 shadow-card">
@@ -104,7 +110,39 @@ function ProfilePage() {
           </Section>
 
           <Section title="Preferences">
-            <Row icon={Globe} label="Language" hint="English" />
+            <button
+              onClick={() => setLangOpen((v) => !v)}
+              className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
+            >
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+                <Globe className="h-4 w-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium">{t("profile.language")}</p>
+                <p className="truncate text-xs text-muted-foreground">{current.native}</p>
+              </div>
+              <ChevronRight className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${langOpen ? "rotate-90" : ""}`} />
+            </button>
+            {langOpen && (
+              <div className="bg-background/40 px-2 py-2">
+                {LANG_OPTIONS.map((opt) => {
+                  const on = opt.code === lang;
+                  return (
+                    <button
+                      key={opt.code}
+                      onClick={() => {
+                        setLang(opt.code as Lang);
+                        setLangOpen(false);
+                      }}
+                      className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm transition-colors ${on ? "bg-primary/10 text-primary" : "text-foreground active:bg-muted/40"}`}
+                    >
+                      <span className="font-medium">{opt.native}</span>
+                      {on && <Check className="h-4 w-4" />}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
             <Row icon={Bell} label="Notifications" />
           </Section>
 

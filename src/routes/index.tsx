@@ -17,6 +17,7 @@ import {
   Plane,
 } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,14 +31,15 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const [hidden, setHidden] = useState(false);
+  const { t } = useLang();
 
   const actions = [
-    { icon: ArrowDownToLine, label: "Deposit", href: "/deposit" as const },
-    { icon: ArrowUpFromLine, label: "Withdraw", href: "/withdraw" as const },
-    { icon: ArrowLeftRight, label: "Convert", href: "/convert" as const },
-    { icon: QrCode, label: "Pay", href: "/pay" as const },
-    { icon: Send, label: "Transfer", href: "/transfer" as const },
-    { icon: CreditCard, label: "Cards", href: "/cards" as const },
+    { icon: ArrowDownToLine, label: t("home.deposit"), href: "/deposit" as const },
+    { icon: ArrowUpFromLine, label: t("home.withdraw"), href: "/withdraw" as const },
+    { icon: ArrowLeftRight, label: t("home.convert"), href: "/convert" as const },
+    { icon: QrCode, label: t("home.pay"), href: "/pay" as const },
+    { icon: Send, label: t("home.transfer"), href: "/transfer" as const },
+    { icon: CreditCard, label: t("home.cards"), href: "/cards" as const },
   ];
 
   const recent = [
@@ -62,7 +64,7 @@ function HomePage() {
             FL
           </div>
           <div className="min-w-0">
-            <p className="text-xs text-muted-foreground">Welcome back</p>
+            <p className="text-xs text-muted-foreground">{t("home.welcome")}</p>
             <p className="truncate text-sm font-semibold">Daniel Chen</p>
           </div>
         </div>
@@ -75,7 +77,7 @@ function HomePage() {
       {/* Balance */}
       <div className="mx-6 mt-6 overflow-hidden rounded-3xl bg-gradient-card p-6 shadow-card">
         <div className="flex items-center justify-between">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Total Balance</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("home.totalBalance")}</p>
           <button onClick={() => setHidden((v) => !v)} className="text-muted-foreground">
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
@@ -84,9 +86,9 @@ function HomePage() {
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat label="数字资产" value={hidden ? "••••" : "$19,844"} />
-          <MiniStat label="法币" value={hidden ? "••••" : "$8,568"} />
-          <MiniStat label="Card" value={hidden ? "••••" : "$1,842"} tone="accent" />
+          <MiniStat label={t("home.digital")} value={hidden ? "••••" : "$19,844"} />
+          <MiniStat label={t("home.fiat")} value={hidden ? "••••" : "$8,568"} />
+          <MiniStat label={t("home.card")} value={hidden ? "••••" : "$1,842"} tone="accent" />
         </div>
       </div>
 
@@ -109,8 +111,8 @@ function HomePage() {
       {/* Card Balance Summary */}
       <div className="mx-6 mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
         <div className="flex items-center justify-between">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Card Balance Summary</p>
-          <Link to="/cards" className="text-xs font-semibold text-primary">Manage</Link>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("home.cardBalanceSummary")}</p>
+          <Link to="/cards" className="text-xs font-semibold text-primary">{t("home.manage")}</Link>
         </div>
         <div className="mt-4 space-y-3">
           {cardBalances.map((c) => {
@@ -163,8 +165,8 @@ function HomePage() {
       {/* Recent */}
       <div className="mx-6 mt-6">
         <div className="flex items-center justify-between">
-          <h3 className="font-display text-base font-semibold">Recent Activity</h3>
-          <Link to="/pay" className="text-xs text-primary">See all</Link>
+          <h3 className="font-display text-base font-semibold">{t("home.recent")}</h3>
+          <Link to="/pay" className="text-xs text-primary">{t("home.seeAll")}</Link>
         </div>
         <div className="mt-3 space-y-2">
           {recent.map((t) => (

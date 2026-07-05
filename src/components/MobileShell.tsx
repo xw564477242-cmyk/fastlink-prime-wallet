@@ -1,31 +1,34 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Home, Layers, ArrowLeftRight, QrCode, CreditCard, User } from "lucide-react";
 import type { ReactNode } from "react";
+import { useLang } from "@/lib/i18n";
 
 const tabs = [
-  { to: "/", label: "Home", icon: Home },
-  { to: "/assets", label: "Assets", icon: Layers },
-  { to: "/convert", label: "Convert", icon: ArrowLeftRight },
-  { to: "/pay", label: "Pay", icon: QrCode },
-  { to: "/cards", label: "Cards", icon: CreditCard },
-  { to: "/profile", label: "Profile", icon: User },
+  { to: "/", key: "nav.home", icon: Home },
+  { to: "/assets", key: "nav.assets", icon: Layers },
+  { to: "/convert", key: "nav.convert", icon: ArrowLeftRight },
+  { to: "/pay", key: "nav.pay", icon: QrCode },
+  { to: "/cards", key: "nav.cards", icon: CreditCard },
+  { to: "/profile", key: "nav.profile", icon: User },
 ] as const;
 
 export function MobileShell({ children }: { children: ReactNode }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { t } = useLang();
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground">
       <div className="flex-1 overflow-y-auto pb-28">{children}</div>
       <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-border/60 bg-surface/95 backdrop-blur-xl">
         <div className="grid w-full grid-cols-6">
-          {tabs.map((t) => {
-            const active = pathname === t.to;
-            const Icon = t.icon;
+          {tabs.map((tab) => {
+            const active = pathname === tab.to;
+            const Icon = tab.icon;
+            const label = t(tab.key);
             return (
               <Link
-                key={t.to}
-                to={t.to}
+                key={tab.to}
+                to={tab.to}
                 className="flex flex-col items-center gap-1 py-3 text-[9px] font-medium transition-colors"
               >
                 <div
@@ -36,7 +39,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
                   <Icon className="h-4.5 w-4.5" strokeWidth={active ? 2.5 : 2} />
                 </div>
                 <span className={active ? "text-primary" : "text-muted-foreground"}>
-                  {t.label}
+                  {label}
                 </span>
               </Link>
             );
