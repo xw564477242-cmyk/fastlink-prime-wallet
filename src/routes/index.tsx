@@ -86,9 +86,9 @@ function HomePage() {
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat label={t("home.digital")} value={hidden ? "••••" : "$19,844"} />
-          <MiniStat label={t("home.fiat")} value={hidden ? "••••" : "$8,568"} />
-          <MiniStat label={t("home.card")} value={hidden ? "••••" : "$1,842"} tone="accent" />
+          <MiniStat to="/assets/digital" label={t("home.digital")} value={hidden ? "••••" : "$19,844"} />
+          <MiniStat to="/assets/fiat" label={t("home.fiat")} value={hidden ? "••••" : "$8,568"} />
+          <MiniStat to="/assets/cards" label={t("home.card")} value={hidden ? "••••" : "$1,842"} tone="accent" />
         </div>
       </div>
 
