@@ -83,9 +83,6 @@ function HomePage() {
         <div className="mt-3 font-display text-4xl font-bold tracking-tight">
           {hidden ? "••••••" : "$28,412.90"}
         </div>
-        <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-xs font-medium text-primary">
-          <TrendingUp className="h-3 w-3" /> +3.8% this week
-        </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
           <MiniStat label="Digital" value={hidden ? "••••" : "$19,844"} />
           <MiniStat label="Fiat" value={hidden ? "••••" : "$8,568"} />
