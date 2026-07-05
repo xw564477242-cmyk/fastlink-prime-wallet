@@ -30,11 +30,11 @@ function HomePage() {
   const [hidden, setHidden] = useState(false);
 
   const actions = [
-    { icon: ArrowDownToLine, label: "Deposit", href: "/assets" as const },
-    { icon: ArrowUpFromLine, label: "Withdraw", href: "/assets" as const },
-    { icon: ArrowLeftRight, label: "Convert", href: "/assets" as const },
+    { icon: ArrowDownToLine, label: "Deposit", href: "/deposit" as const },
+    { icon: ArrowUpFromLine, label: "Withdraw", href: "/withdraw" as const },
+    { icon: ArrowLeftRight, label: "Convert", href: "/convert" as const },
     { icon: QrCode, label: "Pay", href: "/pay" as const },
-    { icon: Send, label: "Transfer", href: "/pay" as const },
+    { icon: Send, label: "Transfer", href: "/transfer" as const },
     { icon: CreditCard, label: "Cards", href: "/cards" as const },
   ];
 
@@ -101,6 +101,20 @@ function HomePage() {
         ))}
       </div>
 
+      {/* Core flow */}
+      <div className="mx-6 mt-6 rounded-3xl border border-primary/30 bg-primary/5 p-5">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">FastLink Core Flow</p>
+        <div className="mt-3 flex items-center justify-between gap-1 text-[11px] font-semibold">
+          <FlowStep label="USDT Deposit" to="/deposit" />
+          <FlowArrow />
+          <FlowStep label="Convert" to="/convert" />
+          <FlowArrow />
+          <FlowStep label="Fund Card" to="/cards" />
+          <FlowArrow />
+          <FlowStep label="Spend" to="/pay" />
+        </div>
+      </div>
+
       {/* Virtual card preview */}
       <Link
         to="/cards"
@@ -164,4 +178,16 @@ function MiniStat({ label, value, tone }: { label: string; value: string; tone?:
       <p className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}>{value}</p>
     </div>
   );
+}
+
+function FlowStep({ label, to }: { label: string; to: "/deposit" | "/convert" | "/cards" | "/pay" }) {
+  return (
+    <Link to={to} className="flex-1 rounded-xl bg-background/60 px-2 py-2 text-center leading-tight active:scale-95">
+      {label}
+    </Link>
+  );
+}
+
+function FlowArrow() {
+  return <span className="text-primary/60">›</span>;
 }

@@ -9,9 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WithdrawRouteImport } from './routes/withdraw'
+import { Route as TransferRouteImport } from './routes/transfer'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
+import { Route as MerchantPayRouteImport } from './routes/merchant-pay'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ConvertRouteImport } from './routes/convert'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
@@ -21,6 +25,16 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 
+const WithdrawRoute = WithdrawRouteImport.update({
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransferRoute = TransferRouteImport.update({
+  id: '/transfer',
+  path: '/transfer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -31,9 +45,19 @@ const PayRoute = PayRouteImport.update({
   path: '/pay',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MerchantPayRoute = MerchantPayRouteImport.update({
+  id: '/merchant-pay',
+  path: '/merchant-pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepositRoute = DepositRouteImport.update({
+  id: '/deposit',
+  path: '/deposit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConvertRoute = ConvertRouteImport.update({
@@ -86,9 +110,13 @@ export interface FileRoutesByFullPath {
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
+  '/deposit': typeof DepositRoute
   '/mcp': typeof McpRoute
+  '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/transfer': typeof TransferRoute
+  '/withdraw': typeof WithdrawRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -99,9 +127,13 @@ export interface FileRoutesByTo {
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
+  '/deposit': typeof DepositRoute
   '/mcp': typeof McpRoute
+  '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/transfer': typeof TransferRoute
+  '/withdraw': typeof WithdrawRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -113,9 +145,13 @@ export interface FileRoutesById {
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
+  '/deposit': typeof DepositRoute
   '/mcp': typeof McpRoute
+  '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
   '/profile': typeof ProfileRoute
+  '/transfer': typeof TransferRoute
+  '/withdraw': typeof WithdrawRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -128,9 +164,13 @@ export interface FileRouteTypes {
     | '/cards'
     | '/connect'
     | '/convert'
+    | '/deposit'
     | '/mcp'
+    | '/merchant-pay'
     | '/pay'
     | '/profile'
+    | '/transfer'
+    | '/withdraw'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -141,9 +181,13 @@ export interface FileRouteTypes {
     | '/cards'
     | '/connect'
     | '/convert'
+    | '/deposit'
     | '/mcp'
+    | '/merchant-pay'
     | '/pay'
     | '/profile'
+    | '/transfer'
+    | '/withdraw'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -154,9 +198,13 @@ export interface FileRouteTypes {
     | '/cards'
     | '/connect'
     | '/convert'
+    | '/deposit'
     | '/mcp'
+    | '/merchant-pay'
     | '/pay'
     | '/profile'
+    | '/transfer'
+    | '/withdraw'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/.mcp/invoke-tool/$tool'
@@ -168,9 +216,13 @@ export interface RootRouteChildren {
   CardsRoute: typeof CardsRoute
   ConnectRoute: typeof ConnectRoute
   ConvertRoute: typeof ConvertRoute
+  DepositRoute: typeof DepositRoute
   McpRoute: typeof McpRoute
+  MerchantPayRoute: typeof MerchantPayRoute
   PayRoute: typeof PayRoute
   ProfileRoute: typeof ProfileRoute
+  TransferRoute: typeof TransferRoute
+  WithdrawRoute: typeof WithdrawRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
@@ -178,6 +230,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/withdraw': {
+      id: '/withdraw'
+      path: '/withdraw'
+      fullPath: '/withdraw'
+      preLoaderRoute: typeof WithdrawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfer': {
+      id: '/transfer'
+      path: '/transfer'
+      fullPath: '/transfer'
+      preLoaderRoute: typeof TransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -192,11 +258,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PayRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/merchant-pay': {
+      id: '/merchant-pay'
+      path: '/merchant-pay'
+      fullPath: '/merchant-pay'
+      preLoaderRoute: typeof MerchantPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mcp': {
       id: '/mcp'
       path: '/mcp'
       fullPath: '/mcp'
       preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/deposit': {
+      id: '/deposit'
+      path: '/deposit'
+      fullPath: '/deposit'
+      preLoaderRoute: typeof DepositRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/convert': {
@@ -264,9 +344,13 @@ const rootRouteChildren: RootRouteChildren = {
   CardsRoute: CardsRoute,
   ConnectRoute: ConnectRoute,
   ConvertRoute: ConvertRoute,
+  DepositRoute: DepositRoute,
   McpRoute: McpRoute,
+  MerchantPayRoute: MerchantPayRoute,
   PayRoute: PayRoute,
   ProfileRoute: ProfileRoute,
+  TransferRoute: TransferRoute,
+  WithdrawRoute: WithdrawRoute,
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
