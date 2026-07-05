@@ -10,12 +10,9 @@ import {
   Bell,
   Eye,
   EyeOff,
-  
   ChevronRight,
-  Sparkles,
-  Wallet,
-  Plane,
 } from "lucide-react";
+
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
 
