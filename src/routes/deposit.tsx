@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Copy, QrCode, ShieldAlert, Clock, CheckCircle2, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
