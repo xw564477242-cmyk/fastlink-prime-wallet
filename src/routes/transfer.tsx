@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Send, User, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -24,12 +25,19 @@ const BALANCES: Record<Cur, number> = {
 };
 
 function TransferPage() {
+  const navigate = useNavigate();
   const [recipient, setRecipient] = useState("");
   const [currency, setCurrency] = useState<Cur>("USDT");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [modal, setModal] = useState<ActionState>("idle");
   const amt = Number(amount) || 0;
+
+  const confirm = () => {
+    setModal("pending");
+    setTimeout(() => setModal("success"), 1100);
+  };
 
   return (
     <MobileShell>
@@ -125,12 +133,38 @@ function TransferPage() {
         </div>
 
         <button
+          onClick={() => setModal("review")}
           disabled={!recipient || amt <= 0}
           className="mt-5 mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow disabled:opacity-50"
         >
           <Send className="h-4 w-4" /> Review Transfer
         </button>
       </div>
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title={modal === "success" ? "Transfer sent" : "Confirm transfer"}
+        description={
+          modal === "success"
+            ? `${amt.toFixed(2)} ${currency} delivered instantly.`
+            : `Send ${amt.toFixed(2)} ${currency} to ${recipient}.`
+        }
+        rows={[
+          { label: "To", value: recipient || "—" },
+          { label: "Amount", value: `${amt.toFixed(2)} ${currency}` },
+          { label: "Fee", value: "0.00" },
+          { label: "Note", value: note || "—" },
+        ]}
+        confirmLabel="Send Now"
+        onConfirm={confirm}
+        successLabel="Back to Home"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/" });
+        }}
+      />
     </MobileShell>
   );
 }

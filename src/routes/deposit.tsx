@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Copy, QrCode, ShieldAlert, Clock, CheckCircle2, ChevronDown } from "lucide-react";
 import { useState } from "react";
 
@@ -20,9 +21,11 @@ const NETWORKS = [
 ] as const;
 
 function DepositPage() {
+  const navigate = useNavigate();
   const [network, setNetwork] = useState<(typeof NETWORKS)[number]["key"]>("TRC20");
   const [copied, setCopied] = useState(false);
   const [assetOpen, setAssetOpen] = useState(false);
+  const [modal, setModal] = useState<ActionState>("idle");
   const net = NETWORKS.find((n) => n.key === network)!;
 
   const copy = async () => {
@@ -124,10 +127,29 @@ function DepositPage() {
           </div>
         </div>
 
-        <button className="mt-5 mb-2 w-full rounded-2xl border border-primary/40 bg-primary/10 py-3 font-display text-sm font-semibold text-primary">
+        <button
+          onClick={() => {
+            setModal("pending");
+            setTimeout(() => setModal("success"), 900);
+          }}
+          className="mt-5 mb-2 w-full rounded-2xl border border-primary/40 bg-primary/10 py-3 font-display text-sm font-semibold text-primary"
+        >
           I have completed deposit
         </button>
       </div>
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title="Deposit received"
+        description={`Your ${network} deposit will credit after network confirmation.`}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }

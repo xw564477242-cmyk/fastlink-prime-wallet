@@ -1,5 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { ArrowDown, RefreshCw, Info, ChevronDown, Zap, Shield } from "lucide-react";
 import { useState, useMemo } from "react";
 
@@ -39,15 +40,22 @@ const pairs = [
 ];
 
 function ConvertPage() {
+  const navigate = useNavigate();
   const [amount, setAmount] = useState("500");
   const [from, setFrom] = useState("USDT");
   const [to, setTo] = useState("SGD");
   const [pickerFor, setPickerFor] = useState<"from" | "to" | null>(null);
+  const [modal, setModal] = useState<ActionState>("idle");
 
   const rate = useMemo(() => usdRate[to] / usdRate[from], [from, to]);
   const parsed = parseFloat(amount || "0") || 0;
   const result = (parsed * rate).toFixed(2);
   const swap = () => { const f = from; setFrom(to); setTo(f); };
+
+  const confirm = () => {
+    setModal("pending");
+    setTimeout(() => setModal("success"), 1000);
+  };
 
   return (
     <MobileShell>
@@ -91,7 +99,11 @@ function ConvertPage() {
           </p>
         </div>
 
-        <button className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98]">
+        <button
+          onClick={() => setModal("review")}
+          disabled={parsed <= 0 || from === to}
+          className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
+        >
           Convert {parsed.toFixed(2)} {from} → {result} {to}
         </button>
 
@@ -136,6 +148,31 @@ function ConvertPage() {
           }}
         />
       )}
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title={modal === "success" ? "Converted" : "Confirm conversion"}
+        description={
+          modal === "success"
+            ? `${parsed.toFixed(2)} ${from} converted to ${result} ${to}.`
+            : `Convert at 1 ${from} = ${rate.toFixed(4)} ${to}`
+        }
+        rows={[
+          { label: "You send", value: `${parsed.toFixed(2)} ${from}` },
+          { label: "You receive", value: `${result} ${to}` },
+          { label: "Rate", value: `1 ${from} = ${rate.toFixed(4)} ${to}` },
+          { label: "Fee", value: "Free" },
+        ]}
+        confirmLabel="Convert Now"
+        onConfirm={confirm}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }

@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   ChevronRight,
@@ -12,6 +12,7 @@ import {
   Bell,
   Sparkles,
   Check,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 import { useLang, LANG_OPTIONS, type Lang } from "@/lib/i18n";
@@ -28,8 +29,16 @@ export const Route = createFileRoute("/profile")({
 
 function ProfilePage() {
   const { lang, setLang, t } = useLang();
+  const navigate = useNavigate();
   const [langOpen, setLangOpen] = useState(false);
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
+
+  const logout = () => {
+    try {
+      localStorage.removeItem("fastlink.session");
+    } catch {}
+    navigate({ to: "/auth" });
+  };
   return (
     <MobileShell>
       <StatusBar title={t("profile.title")} />
@@ -100,7 +109,8 @@ function ProfilePage() {
         <div className="mt-5 space-y-3">
           <Section title="Account">
             <Row icon={UserRound} label="Personal Information" hint="Name, address, phone" />
-            <Row icon={BadgeCheck} label="KYC & Verification" hint="Tier 2 · Verified" />
+            <RowLink to="/kyc" icon={BadgeCheck} label="KYC & Verification" hint="Tier 2 · Verified" />
+            <RowLink to="/history" icon={Receipt} label="Transaction History" hint="Deposits, transfers, cards" />
           </Section>
 
           <Section title="Security">
@@ -166,7 +176,18 @@ function ProfilePage() {
 
           <Section title="Help">
             <Row icon={LifeBuoy} label="Support Center" hint="24/7 chat" />
-            <Row icon={LogOut} label="Log Out" danger />
+            <button
+              onClick={logout}
+              className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
+            >
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-destructive/15 text-destructive">
+                <LogOut className="h-4 w-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-destructive">Log Out</p>
+              </div>
+              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </button>
           </Section>
         </div>
 
@@ -226,5 +247,30 @@ function Row({
       </div>
       <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
     </button>
+  );
+}
+
+function RowLink({
+  to,
+  icon: Icon,
+  label,
+  hint,
+}: {
+  to: "/kyc" | "/history";
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  hint?: string;
+}) {
+  return (
+    <Link to={to} className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40">
+      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
+        <Icon className="h-4 w-4" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <p className="truncate text-sm font-medium">{label}</p>
+        {hint && <p className="truncate text-xs text-muted-foreground">{hint}</p>}
+      </div>
+      <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+    </Link>
   );
 }

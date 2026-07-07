@@ -15,10 +15,13 @@ import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as PayRouteImport } from './routes/pay'
 import { Route as MerchantPayRouteImport } from './routes/merchant-pay'
 import { Route as McpRouteImport } from './routes/mcp'
+import { Route as KycRouteImport } from './routes/kyc'
+import { Route as HistoryRouteImport } from './routes/history'
 import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ConvertRouteImport } from './routes/convert'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
 import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
@@ -74,6 +77,16 @@ const McpRoute = McpRouteImport.update({
   path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KycRoute = KycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DepositRoute = DepositRouteImport.update({
   id: '/deposit',
   path: '/deposit',
@@ -92,6 +105,11 @@ const ConnectRoute = ConnectRouteImport.update({
 const CardsRoute = CardsRouteImport.update({
   id: '/cards',
   path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -220,10 +238,13 @@ const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/deposit': typeof DepositRoute
+  '/history': typeof HistoryRoute
+  '/kyc': typeof KycRoute
   '/mcp': typeof McpRoute
   '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
@@ -256,10 +277,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/deposit': typeof DepositRoute
+  '/history': typeof HistoryRoute
+  '/kyc': typeof KycRoute
   '/mcp': typeof McpRoute
   '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
@@ -293,10 +317,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
   '/deposit': typeof DepositRoute
+  '/history': typeof HistoryRoute
+  '/kyc': typeof KycRoute
   '/mcp': typeof McpRoute
   '/merchant-pay': typeof MerchantPayRoute
   '/pay': typeof PayRoute
@@ -331,10 +358,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/cards'
     | '/connect'
     | '/convert'
     | '/deposit'
+    | '/history'
+    | '/kyc'
     | '/mcp'
     | '/merchant-pay'
     | '/pay'
@@ -367,10 +397,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/cards'
     | '/connect'
     | '/convert'
     | '/deposit'
+    | '/history'
+    | '/kyc'
     | '/mcp'
     | '/merchant-pay'
     | '/pay'
@@ -403,10 +436,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/auth'
     | '/cards'
     | '/connect'
     | '/convert'
     | '/deposit'
+    | '/history'
+    | '/kyc'
     | '/mcp'
     | '/merchant-pay'
     | '/pay'
@@ -440,10 +476,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRoute
   CardsRoute: typeof CardsRoute
   ConnectRoute: typeof ConnectRoute
   ConvertRoute: typeof ConvertRoute
   DepositRoute: typeof DepositRoute
+  HistoryRoute: typeof HistoryRoute
+  KycRoute: typeof KycRoute
   McpRoute: typeof McpRoute
   MerchantPayRoute: typeof MerchantPayRoute
   PayRoute: typeof PayRoute
@@ -515,6 +554,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kyc': {
+      id: '/kyc'
+      path: '/kyc'
+      fullPath: '/kyc'
+      preLoaderRoute: typeof KycRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/deposit': {
       id: '/deposit'
       path: '/deposit'
@@ -541,6 +594,13 @@ declare module '@tanstack/react-router' {
       path: '/cards'
       fullPath: '/cards'
       preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -734,10 +794,13 @@ const ApiCardIdRouteWithChildren = ApiCardIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthRoute: AuthRoute,
   CardsRoute: CardsRoute,
   ConnectRoute: ConnectRoute,
   ConvertRoute: ConvertRoute,
   DepositRoute: DepositRoute,
+  HistoryRoute: HistoryRoute,
+  KycRoute: KycRoute,
   McpRoute: McpRoute,
   MerchantPayRoute: MerchantPayRoute,
   PayRoute: PayRoute,
