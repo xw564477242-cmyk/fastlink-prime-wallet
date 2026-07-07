@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy } from "lucide-react";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
+import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/pay")({
