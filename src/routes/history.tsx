@@ -62,8 +62,8 @@ function HistoryPage() {
 
   const rows = useMemo(
     () =>
-      TXNS.filter((t) => filter === "all" || t.kind === filter).filter(
-        (t) => !q || `${tx.title} ${t.subtitle}`.toLowerCase().includes(q.toLowerCase()),
+      TXNS.filter((row) => filter === "all" || row.kind === filter).filter(
+        (row) => !q || `${row.title} ${row.subtitle}`.toLowerCase().includes(q.toLowerCase()),
       ),
     [filter, q],
   );
