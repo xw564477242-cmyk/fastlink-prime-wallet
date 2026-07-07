@@ -179,7 +179,7 @@ function QrGraphic({ label }: { label: string }) {
   );
 }
 
-function ReceivePanel() {
+function ReceivePanel({ onShare }: { onShare: () => void }) {
   return (
     <>
       <PanelTitle title="Receive QR" desc="Share to accept payments in any currency" />
@@ -191,7 +191,7 @@ function ReceivePanel() {
           <Copy className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
       </div>
-      <button className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onShare} className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Share QR
       </button>
     </>
