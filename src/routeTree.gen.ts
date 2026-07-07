@@ -25,14 +25,20 @@ import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
 import { Route as AssetsCardsRouteImport } from './routes/assets.cards'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as ApiCardsIndexRouteImport } from './routes/api/cards/index'
 import { Route as ApiKycSubmitRouteImport } from './routes/api/kyc/submit'
 import { Route as ApiKycStatusRouteImport } from './routes/api/kyc/status'
+import { Route as ApiCardsVirtualRouteImport } from './routes/api/cards/virtual'
+import { Route as ApiCardsPhysicalRouteImport } from './routes/api/cards/physical'
 import { Route as ApiCardListRouteImport } from './routes/api/card/list'
 import { Route as ApiCardCreateVirtualRouteImport } from './routes/api/card/create-virtual'
 import { Route as ApiCardApplyPhysicalRouteImport } from './routes/api/card/apply-physical'
 import { Route as ApiCardIdRouteImport } from './routes/api/card/$id'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as ApiPublicWebhooksThreddRouteImport } from './routes/api/public/webhooks/thredd'
+import { Route as ApiCardsIdUnfreezeRouteImport } from './routes/api/cards/$id/unfreeze'
+import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
+import { Route as ApiCardsIdFreezeRouteImport } from './routes/api/cards/$id/freeze'
 import { Route as ApiCardIdUnfreezeRouteImport } from './routes/api/card/$id/unfreeze'
 import { Route as ApiCardIdTransactionsRouteImport } from './routes/api/card/$id/transactions'
 import { Route as ApiCardIdFundRouteImport } from './routes/api/card/$id/fund'
@@ -120,6 +126,11 @@ const Char91DotmcpChar93ListToolsRoute =
     path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiCardsIndexRoute = ApiCardsIndexRouteImport.update({
+  id: '/api/cards/',
+  path: '/api/cards/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiKycSubmitRoute = ApiKycSubmitRouteImport.update({
   id: '/api/kyc/submit',
   path: '/api/kyc/submit',
@@ -128,6 +139,16 @@ const ApiKycSubmitRoute = ApiKycSubmitRouteImport.update({
 const ApiKycStatusRoute = ApiKycStatusRouteImport.update({
   id: '/api/kyc/status',
   path: '/api/kyc/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsVirtualRoute = ApiCardsVirtualRouteImport.update({
+  id: '/api/cards/virtual',
+  path: '/api/cards/virtual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsPhysicalRoute = ApiCardsPhysicalRouteImport.update({
+  id: '/api/cards/physical',
+  path: '/api/cards/physical',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiCardListRoute = ApiCardListRouteImport.update({
@@ -159,6 +180,21 @@ const Char91DotmcpChar93InvokeToolToolRoute =
 const ApiPublicWebhooksThreddRoute = ApiPublicWebhooksThreddRouteImport.update({
   id: '/api/public/webhooks/thredd',
   path: '/api/public/webhooks/thredd',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsIdUnfreezeRoute = ApiCardsIdUnfreezeRouteImport.update({
+  id: '/api/cards/$id/unfreeze',
+  path: '/api/cards/$id/unfreeze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsIdFundRoute = ApiCardsIdFundRouteImport.update({
+  id: '/api/cards/$id/fund',
+  path: '/api/cards/$id/fund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsIdFreezeRoute = ApiCardsIdFreezeRouteImport.update({
+  id: '/api/cards/$id/freeze',
+  path: '/api/cards/$id/freeze',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiCardIdUnfreezeRoute = ApiCardIdUnfreezeRouteImport.update({
@@ -204,12 +240,18 @@ export interface FileRoutesByFullPath {
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
   '/api/card/create-virtual': typeof ApiCardCreateVirtualRoute
   '/api/card/list': typeof ApiCardListRoute
+  '/api/cards/physical': typeof ApiCardsPhysicalRoute
+  '/api/cards/virtual': typeof ApiCardsVirtualRoute
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
+  '/api/cards/': typeof ApiCardsIndexRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
+  '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
+  '/api/cards/$id/fund': typeof ApiCardsIdFundRoute
+  '/api/cards/$id/unfreeze': typeof ApiCardsIdUnfreezeRoute
   '/api/public/webhooks/thredd': typeof ApiPublicWebhooksThreddRoute
 }
 export interface FileRoutesByTo {
@@ -234,12 +276,18 @@ export interface FileRoutesByTo {
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
   '/api/card/create-virtual': typeof ApiCardCreateVirtualRoute
   '/api/card/list': typeof ApiCardListRoute
+  '/api/cards/physical': typeof ApiCardsPhysicalRoute
+  '/api/cards/virtual': typeof ApiCardsVirtualRoute
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
+  '/api/cards': typeof ApiCardsIndexRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
+  '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
+  '/api/cards/$id/fund': typeof ApiCardsIdFundRoute
+  '/api/cards/$id/unfreeze': typeof ApiCardsIdUnfreezeRoute
   '/api/public/webhooks/thredd': typeof ApiPublicWebhooksThreddRoute
 }
 export interface FileRoutesById {
@@ -265,12 +313,18 @@ export interface FileRoutesById {
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
   '/api/card/create-virtual': typeof ApiCardCreateVirtualRoute
   '/api/card/list': typeof ApiCardListRoute
+  '/api/cards/physical': typeof ApiCardsPhysicalRoute
+  '/api/cards/virtual': typeof ApiCardsVirtualRoute
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
+  '/api/cards/': typeof ApiCardsIndexRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
+  '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
+  '/api/cards/$id/fund': typeof ApiCardsIdFundRoute
+  '/api/cards/$id/unfreeze': typeof ApiCardsIdUnfreezeRoute
   '/api/public/webhooks/thredd': typeof ApiPublicWebhooksThreddRoute
 }
 export interface FileRouteTypes {
@@ -297,12 +351,18 @@ export interface FileRouteTypes {
     | '/api/card/apply-physical'
     | '/api/card/create-virtual'
     | '/api/card/list'
+    | '/api/cards/physical'
+    | '/api/cards/virtual'
     | '/api/kyc/status'
     | '/api/kyc/submit'
+    | '/api/cards/'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
+    | '/api/cards/$id/freeze'
+    | '/api/cards/$id/fund'
+    | '/api/cards/$id/unfreeze'
     | '/api/public/webhooks/thredd'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -327,12 +387,18 @@ export interface FileRouteTypes {
     | '/api/card/apply-physical'
     | '/api/card/create-virtual'
     | '/api/card/list'
+    | '/api/cards/physical'
+    | '/api/cards/virtual'
     | '/api/kyc/status'
     | '/api/kyc/submit'
+    | '/api/cards'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
+    | '/api/cards/$id/freeze'
+    | '/api/cards/$id/fund'
+    | '/api/cards/$id/unfreeze'
     | '/api/public/webhooks/thredd'
   id:
     | '__root__'
@@ -357,12 +423,18 @@ export interface FileRouteTypes {
     | '/api/card/apply-physical'
     | '/api/card/create-virtual'
     | '/api/card/list'
+    | '/api/cards/physical'
+    | '/api/cards/virtual'
     | '/api/kyc/status'
     | '/api/kyc/submit'
+    | '/api/cards/'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
+    | '/api/cards/$id/freeze'
+    | '/api/cards/$id/fund'
+    | '/api/cards/$id/unfreeze'
     | '/api/public/webhooks/thredd'
   fileRoutesById: FileRoutesById
 }
@@ -388,8 +460,14 @@ export interface RootRouteChildren {
   ApiCardApplyPhysicalRoute: typeof ApiCardApplyPhysicalRoute
   ApiCardCreateVirtualRoute: typeof ApiCardCreateVirtualRoute
   ApiCardListRoute: typeof ApiCardListRoute
+  ApiCardsPhysicalRoute: typeof ApiCardsPhysicalRoute
+  ApiCardsVirtualRoute: typeof ApiCardsVirtualRoute
   ApiKycStatusRoute: typeof ApiKycStatusRoute
   ApiKycSubmitRoute: typeof ApiKycSubmitRoute
+  ApiCardsIndexRoute: typeof ApiCardsIndexRoute
+  ApiCardsIdFreezeRoute: typeof ApiCardsIdFreezeRoute
+  ApiCardsIdFundRoute: typeof ApiCardsIdFundRoute
+  ApiCardsIdUnfreezeRoute: typeof ApiCardsIdUnfreezeRoute
   ApiPublicWebhooksThreddRoute: typeof ApiPublicWebhooksThreddRoute
 }
 
@@ -507,6 +585,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/cards/': {
+      id: '/api/cards/'
+      path: '/api/cards'
+      fullPath: '/api/cards/'
+      preLoaderRoute: typeof ApiCardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/kyc/submit': {
       id: '/api/kyc/submit'
       path: '/api/kyc/submit'
@@ -519,6 +604,20 @@ declare module '@tanstack/react-router' {
       path: '/api/kyc/status'
       fullPath: '/api/kyc/status'
       preLoaderRoute: typeof ApiKycStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/virtual': {
+      id: '/api/cards/virtual'
+      path: '/api/cards/virtual'
+      fullPath: '/api/cards/virtual'
+      preLoaderRoute: typeof ApiCardsVirtualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/physical': {
+      id: '/api/cards/physical'
+      path: '/api/cards/physical'
+      fullPath: '/api/cards/physical'
+      preLoaderRoute: typeof ApiCardsPhysicalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/card/list': {
@@ -561,6 +660,27 @@ declare module '@tanstack/react-router' {
       path: '/api/public/webhooks/thredd'
       fullPath: '/api/public/webhooks/thredd'
       preLoaderRoute: typeof ApiPublicWebhooksThreddRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/$id/unfreeze': {
+      id: '/api/cards/$id/unfreeze'
+      path: '/api/cards/$id/unfreeze'
+      fullPath: '/api/cards/$id/unfreeze'
+      preLoaderRoute: typeof ApiCardsIdUnfreezeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/$id/fund': {
+      id: '/api/cards/$id/fund'
+      path: '/api/cards/$id/fund'
+      fullPath: '/api/cards/$id/fund'
+      preLoaderRoute: typeof ApiCardsIdFundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/$id/freeze': {
+      id: '/api/cards/$id/freeze'
+      path: '/api/cards/$id/freeze'
+      fullPath: '/api/cards/$id/freeze'
+      preLoaderRoute: typeof ApiCardsIdFreezeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/card/$id/unfreeze': {
@@ -635,8 +755,14 @@ const rootRouteChildren: RootRouteChildren = {
   ApiCardApplyPhysicalRoute: ApiCardApplyPhysicalRoute,
   ApiCardCreateVirtualRoute: ApiCardCreateVirtualRoute,
   ApiCardListRoute: ApiCardListRoute,
+  ApiCardsPhysicalRoute: ApiCardsPhysicalRoute,
+  ApiCardsVirtualRoute: ApiCardsVirtualRoute,
   ApiKycStatusRoute: ApiKycStatusRoute,
   ApiKycSubmitRoute: ApiKycSubmitRoute,
+  ApiCardsIndexRoute: ApiCardsIndexRoute,
+  ApiCardsIdFreezeRoute: ApiCardsIdFreezeRoute,
+  ApiCardsIdFundRoute: ApiCardsIdFundRoute,
+  ApiCardsIdUnfreezeRoute: ApiCardsIdUnfreezeRoute,
   ApiPublicWebhooksThreddRoute: ApiPublicWebhooksThreddRoute,
 }
 export const routeTree = rootRouteImport
