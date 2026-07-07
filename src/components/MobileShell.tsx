@@ -5,7 +5,7 @@ import { useLang } from "@/lib/i18n";
 
 const tabs = [
   { to: "/", key: "nav.home", icon: Home },
-  { to: "/assets/digital", key: "nav.assets", icon: Layers },
+  { to: "/assets", key: "nav.assets", icon: Layers },
   { to: "/convert", key: "nav.convert", icon: ArrowLeftRight },
   { to: "/pay", key: "nav.pay", icon: QrCode },
   { to: "/cards", key: "nav.cards", icon: CreditCard },

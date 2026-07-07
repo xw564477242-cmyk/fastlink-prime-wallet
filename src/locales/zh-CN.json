@@ -5,7 +5,6 @@
   "nav.pay": "支付",
   "nav.cards": "卡片",
   "nav.profile": "我的",
-
   "common.confirm": "确认",
   "common.cancel": "取消",
   "common.close": "关闭",
@@ -35,7 +34,6 @@
   "common.copied": "已复制",
   "common.viewHistory": "查看历史",
   "common.backHome": "返回首页",
-
   "home.welcome": "欢迎回来",
   "home.totalBalance": "总资产",
   "home.digital": "数字资产",
@@ -51,7 +49,6 @@
   "home.seeAll": "查看全部",
   "home.earnCta": "闲置 USDT 年化收益 5.82%",
   "home.earnSub": "FastLink 理财 · 自动生息",
-
   "journey.title": "开启 FastLink 之旅",
   "journey.step.register": "注册",
   "journey.step.kyc": "完成身份认证",
@@ -60,11 +57,9 @@
   "journey.step.fund": "充值卡片",
   "journey.step.pay": "刷卡消费",
   "journey.step.history": "查看交易",
-
   "assets.digital.title": "数字资产",
   "assets.fiat.title": "法币资产",
   "assets.cards.title": "卡片余额",
-
   "deposit.title": "充值",
   "deposit.step": "步骤 01 / 03",
   "deposit.h1": "充值加密货币",
@@ -82,7 +77,6 @@
   "deposit.onlyUsdt": "当前仅支持 USDT，更多资产即将上线。",
   "deposit.modalTitle": "充值已提交",
   "deposit.modalDesc": "您的 {network} 充值将在网络确认后到账。",
-
   "withdraw.title": "提现",
   "withdraw.step": "步骤 01 / 02",
   "withdraw.h1": "提取加密货币",
@@ -99,7 +93,6 @@
   "withdraw.modalConfirmDesc": "通过 {network} 网络向外部钱包发送 {amount} USDT。",
   "withdraw.modalSuccessDesc": "已在 {network} 上广播，可在历史中查看进度。",
   "withdraw.confirmBtn": "确认并发送",
-
   "transfer.title": "转账",
   "transfer.tag": "用户之间 · 即时 · 免手续费",
   "transfer.h1": "转账给 FastLink 用户",
@@ -115,7 +108,6 @@
   "transfer.modalConfirmDesc": "向 {to} 发送 {amount} {currency}。",
   "transfer.modalSuccessDesc": "{amount} {currency} 已即时到账。",
   "transfer.sendNow": "立即发送",
-
   "convert.title": "兑换",
   "convert.tag": "FastLink 兑换台",
   "convert.h1": "即时兑换",
@@ -127,7 +119,6 @@
   "convert.receive": "收到",
   "convert.modalSuccessTitle": "兑换成功",
   "convert.modalConfirmTitle": "确认兑换",
-
   "pay.title": "支付中心",
   "pay.tag": "FastLink 支付中心",
   "pay.h1": "全球收付款",
@@ -147,7 +138,6 @@
   "pay.searchPh": "搜索支付",
   "pay.cardCta": "刷卡支付",
   "pay.cardCtaSub": "模拟商户 POS 感应",
-
   "cards.title": "卡片",
   "cards.h1": "我的卡片",
   "cards.virtual": "虚拟卡",
@@ -160,7 +150,6 @@
   "cards.status.active": "已激活",
   "cards.status.frozen": "已冻结",
   "cards.recent": "最近消费",
-
   "history.title": "历史",
   "history.h1": "交易记录",
   "history.filter.all": "全部",
@@ -170,7 +159,6 @@
   "history.filter.convert": "兑换",
   "history.filter.card": "卡片",
   "history.empty": "没有符合筛选的交易。",
-
   "kyc.title": "身份认证",
   "kyc.tag": "身份验证",
   "kyc.h1": "完成身份认证",
@@ -189,7 +177,6 @@
   "kyc.doc.passport": "护照",
   "kyc.doc.id_card": "身份证",
   "kyc.doc.driver_license": "驾照",
-
   "profile.title": "我的",
   "profile.language": "语言",
   "profile.section.account": "账户",
@@ -223,7 +210,6 @@
   "profile.securityScore": "安全评分",
   "profile.strong": "强",
   "profile.biometricHint": "启用生物识别登录，将安全评分提升至 100 并解锁 Tier 3。",
-
   "auth.signIn": "登录",
   "auth.register": "注册",
   "auth.welcomeBack": "欢迎回来",
@@ -234,5 +220,13 @@
   "auth.email": "邮箱",
   "auth.password": "密码",
   "auth.wait": "请稍候…",
-  "auth.demo": "演示模式 — 任意邮箱与密码均可登录。"
+  "auth.demo": "演示模式 — 任意邮箱与密码均可登录。",
+  "assets.title": "资产",
+  "assets.tag": "全部资产",
+  "assets.h1": "我的资产",
+  "assets.totalHint": "数字资产 + 法币 + 卡片余额",
+  "assets.categories": "资产分类",
+  "assets.digital.sub": "USDT · USDC · BTC · ETH",
+  "assets.fiat.sub": "USD · SGD · MYR · EUR",
+  "assets.cards.sub": "虚拟卡 · 实体卡 · 旅行卡"
 }

@@ -22,6 +22,7 @@ export function LanguageSwitcher({ compact = true }: { compact?: boolean }) {
       <button
         onClick={() => setOpen((v) => !v)}
         aria-label="Language"
+        translate="no"
         className="flex h-11 items-center gap-1.5 rounded-full bg-surface px-3 text-xs font-semibold"
       >
         <Globe className="h-4 w-4" />

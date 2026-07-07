@@ -5,7 +5,6 @@
   "nav.pay": "Pay",
   "nav.cards": "Cards",
   "nav.profile": "Profile",
-
   "common.confirm": "Confirm",
   "common.cancel": "Cancel",
   "common.close": "Close",
@@ -35,7 +34,6 @@
   "common.copied": "Copied",
   "common.viewHistory": "View History",
   "common.backHome": "Back to Home",
-
   "home.welcome": "Welcome back",
   "home.totalBalance": "Total Balance",
   "home.digital": "Digital",
@@ -51,7 +49,6 @@
   "home.seeAll": "See all",
   "home.earnCta": "Earn 5.82% APY on idle USDT",
   "home.earnSub": "FastLink Treasury · Auto-yield",
-
   "journey.title": "Get started with FastLink",
   "journey.step.register": "Register",
   "journey.step.kyc": "Complete KYC",
@@ -60,11 +57,9 @@
   "journey.step.fund": "Fund Card",
   "journey.step.pay": "Pay with Card",
   "journey.step.history": "View history",
-
   "assets.digital.title": "Digital Assets",
   "assets.fiat.title": "Fiat Assets",
   "assets.cards.title": "Card Balances",
-
   "deposit.title": "Deposit",
   "deposit.step": "Step 01 / 03",
   "deposit.h1": "Deposit Crypto",
@@ -82,7 +77,6 @@
   "deposit.onlyUsdt": "Only USDT is supported in this deposit flow. More assets coming soon.",
   "deposit.modalTitle": "Deposit received",
   "deposit.modalDesc": "Your {network} deposit will credit after network confirmation.",
-
   "withdraw.title": "Withdraw",
   "withdraw.step": "Step 01 / 02",
   "withdraw.h1": "Withdraw Crypto",
@@ -99,7 +93,6 @@
   "withdraw.modalConfirmDesc": "Send {amount} USDT via {network} to your external wallet.",
   "withdraw.modalSuccessDesc": "Broadcasting on {network}. Track progress in History.",
   "withdraw.confirmBtn": "Confirm & Send",
-
   "transfer.title": "Transfer",
   "transfer.tag": "Peer · Instant · Zero fee",
   "transfer.h1": "Send to a FastLink User",
@@ -115,7 +108,6 @@
   "transfer.modalConfirmDesc": "Send {amount} {currency} to {to}.",
   "transfer.modalSuccessDesc": "{amount} {currency} delivered instantly.",
   "transfer.sendNow": "Send Now",
-
   "convert.title": "Convert",
   "convert.tag": "FastLink FX Desk",
   "convert.h1": "Convert",
@@ -127,7 +119,6 @@
   "convert.receive": "Receive",
   "convert.modalSuccessTitle": "Conversion complete",
   "convert.modalConfirmTitle": "Confirm conversion",
-
   "pay.title": "Pay Center",
   "pay.tag": "FastLink Pay Center",
   "pay.h1": "Move money globally",
@@ -147,7 +138,6 @@
   "pay.searchPh": "Search payments",
   "pay.cardCta": "Pay with Card",
   "pay.cardCtaSub": "Simulate a merchant terminal tap",
-
   "cards.title": "Cards",
   "cards.h1": "My Cards",
   "cards.virtual": "Virtual",
@@ -160,7 +150,6 @@
   "cards.status.active": "Active",
   "cards.status.frozen": "Frozen",
   "cards.recent": "Recent Spend",
-
   "history.title": "History",
   "history.h1": "Transactions",
   "history.filter.all": "All",
@@ -170,7 +159,6 @@
   "history.filter.convert": "Convert",
   "history.filter.card": "Card",
   "history.empty": "No transactions match your filter.",
-
   "kyc.title": "KYC Verification",
   "kyc.tag": "Identity Verification",
   "kyc.h1": "Verify your identity",
@@ -189,7 +177,6 @@
   "kyc.doc.passport": "Passport",
   "kyc.doc.id_card": "ID card",
   "kyc.doc.driver_license": "Driver license",
-
   "profile.title": "Profile",
   "profile.language": "Language",
   "profile.section.account": "Account",
@@ -223,7 +210,6 @@
   "profile.securityScore": "Security Score",
   "profile.strong": "Strong",
   "profile.biometricHint": "Enable biometric login to reach a score of 100 and unlock Tier 3 KYC benefits.",
-
   "auth.signIn": "Sign In",
   "auth.register": "Register",
   "auth.welcomeBack": "Welcome back",
@@ -234,5 +220,13 @@
   "auth.email": "Email",
   "auth.password": "Password",
   "auth.wait": "Please wait…",
-  "auth.demo": "Demo mode — any email and password is accepted."
+  "auth.demo": "Demo mode — any email and password is accepted.",
+  "assets.title": "Assets",
+  "assets.tag": "All Assets",
+  "assets.h1": "My Assets",
+  "assets.totalHint": "Digital + Fiat + Card balances",
+  "assets.categories": "Asset Categories",
+  "assets.digital.sub": "USDT · USDC · BTC · ETH",
+  "assets.fiat.sub": "USD · SGD · MYR · EUR",
+  "assets.cards.sub": "Virtual · Physical · Travel"
 }
