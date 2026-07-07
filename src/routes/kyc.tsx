@@ -91,7 +91,7 @@ function KycPage() {
         ) : (
           <div className="mt-5 space-y-4">
             {step === 0 && (
-              <StepCard title="{t("kyc.docType")}" icon={<IdCard className="h-4 w-4" />}>
+              <StepCard title={t("kyc.docType")} icon={<IdCard className="h-4 w-4" />}>
                 <div className="grid grid-cols-3 gap-2">
                   {(["passport", "id_card", "driver_license"] as const).map((d) => (
                     <button
