@@ -127,10 +127,29 @@ function DepositPage() {
           </div>
         </div>
 
-        <button className="mt-5 mb-2 w-full rounded-2xl border border-primary/40 bg-primary/10 py-3 font-display text-sm font-semibold text-primary">
+        <button
+          onClick={() => {
+            setModal("pending");
+            setTimeout(() => setModal("success"), 900);
+          }}
+          className="mt-5 mb-2 w-full rounded-2xl border border-primary/40 bg-primary/10 py-3 font-display text-sm font-semibold text-primary"
+        >
           I have completed deposit
         </button>
       </div>
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title="Deposit received"
+        description={`Your ${network} deposit will credit after network confirmation.`}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }
