@@ -102,6 +102,8 @@ function HomePage() {
         ))}
       </div>
 
+      <JourneyBanner />
+
 
 
       {/* Recent */}
