@@ -23,7 +23,6 @@ import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
 import { Route as CardPayRouteImport } from './routes/card-pay'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AssetsRouteImport } from './routes/assets'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
 import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
@@ -119,30 +118,25 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssetsRoute = AssetsRouteImport.update({
-  id: '/assets',
-  path: '/assets',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsFiatRoute = AssetsFiatRouteImport.update({
-  id: '/fiat',
-  path: '/fiat',
-  getParentRoute: () => AssetsRoute,
+  id: '/assets/fiat',
+  path: '/assets/fiat',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsDigitalRoute = AssetsDigitalRouteImport.update({
-  id: '/digital',
-  path: '/digital',
-  getParentRoute: () => AssetsRoute,
+  id: '/assets/digital',
+  path: '/assets/digital',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsCardsRoute = AssetsCardsRouteImport.update({
-  id: '/cards',
-  path: '/cards',
-  getParentRoute: () => AssetsRoute,
+  id: '/assets/cards',
+  path: '/assets/cards',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
@@ -250,7 +244,6 @@ const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/assets': typeof AssetsRouteWithChildren
   '/auth': typeof AuthRoute
   '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
@@ -291,7 +284,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/assets': typeof AssetsRouteWithChildren
   '/auth': typeof AuthRoute
   '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
@@ -333,7 +325,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/assets': typeof AssetsRouteWithChildren
   '/auth': typeof AuthRoute
   '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
@@ -376,7 +367,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/assets'
     | '/auth'
     | '/card-pay'
     | '/cards'
@@ -417,7 +407,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/assets'
     | '/auth'
     | '/card-pay'
     | '/cards'
@@ -458,7 +447,6 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/assets'
     | '/auth'
     | '/card-pay'
     | '/cards'
@@ -500,7 +488,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AssetsRoute: typeof AssetsRouteWithChildren
   AuthRoute: typeof AuthRoute
   CardPayRoute: typeof CardPayRoute
   CardsRoute: typeof CardsRoute
@@ -517,6 +504,9 @@ export interface RootRouteChildren {
   WithdrawRoute: typeof WithdrawRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  AssetsCardsRoute: typeof AssetsCardsRoute
+  AssetsDigitalRoute: typeof AssetsDigitalRoute
+  AssetsFiatRoute: typeof AssetsFiatRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiCardIdRoute: typeof ApiCardIdRouteWithChildren
   ApiCardApplyPhysicalRoute: typeof ApiCardApplyPhysicalRoute
@@ -633,13 +623,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assets': {
-      id: '/assets'
-      path: '/assets'
-      fullPath: '/assets'
-      preLoaderRoute: typeof AssetsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -649,24 +632,24 @@ declare module '@tanstack/react-router' {
     }
     '/assets/fiat': {
       id: '/assets/fiat'
-      path: '/fiat'
+      path: '/assets/fiat'
       fullPath: '/assets/fiat'
       preLoaderRoute: typeof AssetsFiatRouteImport
-      parentRoute: typeof AssetsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/assets/digital': {
       id: '/assets/digital'
-      path: '/digital'
+      path: '/assets/digital'
       fullPath: '/assets/digital'
       preLoaderRoute: typeof AssetsDigitalRouteImport
-      parentRoute: typeof AssetsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/assets/cards': {
       id: '/assets/cards'
-      path: '/cards'
+      path: '/assets/cards'
       fullPath: '/assets/cards'
       preLoaderRoute: typeof AssetsCardsRouteImport
-      parentRoute: typeof AssetsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
@@ -811,21 +794,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AssetsRouteChildren {
-  AssetsCardsRoute: typeof AssetsCardsRoute
-  AssetsDigitalRoute: typeof AssetsDigitalRoute
-  AssetsFiatRoute: typeof AssetsFiatRoute
-}
-
-const AssetsRouteChildren: AssetsRouteChildren = {
-  AssetsCardsRoute: AssetsCardsRoute,
-  AssetsDigitalRoute: AssetsDigitalRoute,
-  AssetsFiatRoute: AssetsFiatRoute,
-}
-
-const AssetsRouteWithChildren =
-  AssetsRoute._addFileChildren(AssetsRouteChildren)
-
 interface ApiCardIdRouteChildren {
   ApiCardIdFreezeRoute: typeof ApiCardIdFreezeRoute
   ApiCardIdFundRoute: typeof ApiCardIdFundRoute
@@ -846,7 +814,6 @@ const ApiCardIdRouteWithChildren = ApiCardIdRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AssetsRoute: AssetsRouteWithChildren,
   AuthRoute: AuthRoute,
   CardPayRoute: CardPayRoute,
   CardsRoute: CardsRoute,
@@ -864,6 +831,9 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  AssetsCardsRoute: AssetsCardsRoute,
+  AssetsDigitalRoute: AssetsDigitalRoute,
+  AssetsFiatRoute: AssetsFiatRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiCardIdRoute: ApiCardIdRouteWithChildren,
   ApiCardApplyPhysicalRoute: ApiCardApplyPhysicalRoute,
