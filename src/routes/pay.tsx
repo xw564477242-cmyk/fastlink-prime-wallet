@@ -34,8 +34,18 @@ const history = [
 ];
 
 function PayPage() {
+  const navigate = useNavigate();
   const [mode, setMode] = useState<Mode>("receive");
   const [q, setQ] = useState("");
+  const [modal, setModal] = useState<{ state: ActionState; title: string; desc: string }>({
+    state: "idle",
+    title: "",
+    desc: "",
+  });
+  const run = (title: string, desc: string) => {
+    setModal({ state: "pending", title, desc });
+    setTimeout(() => setModal({ state: "success", title, desc }), 1000);
+  };
   const filtered = history.filter((h) => (h.name + h.type).toLowerCase().includes(q.toLowerCase()));
 
   return (
