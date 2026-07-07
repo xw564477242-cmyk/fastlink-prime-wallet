@@ -21,9 +21,11 @@ const NETWORKS = [
 ] as const;
 
 function DepositPage() {
+  const navigate = useNavigate();
   const [network, setNetwork] = useState<(typeof NETWORKS)[number]["key"]>("TRC20");
   const [copied, setCopied] = useState(false);
   const [assetOpen, setAssetOpen] = useState(false);
+  const [modal, setModal] = useState<ActionState>("idle");
   const net = NETWORKS.find((n) => n.key === network)!;
 
   const copy = async () => {
