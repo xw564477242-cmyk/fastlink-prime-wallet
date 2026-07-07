@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { Mail, Lock, User, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
+  const { t } = useLang();
   const navigate = useNavigate();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("daniel@fastlink.app");
@@ -36,16 +38,16 @@ function AuthPage() {
 
   return (
     <MobileShell>
-      <StatusBar title={mode === "login" ? "Sign In" : "Register"} />
+      <StatusBar title={t(mode === "login" ? "auth.signIn" : "auth.register")} />
       <div className="px-6 pt-6">
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
           FL
         </div>
         <h1 className="mt-4 text-center font-display text-2xl font-bold">
-          {mode === "login" ? "Welcome back" : "Create your account"}
+          {t(mode === "login" ? "auth.welcomeBack" : "auth.createAccount")}
         </h1>
         <p className="mt-1 text-center text-xs text-muted-foreground">
-          {mode === "login" ? "Sign in to continue to FastLink." : "Join the FastLink global wallet."}
+          {t(mode === "login" ? "auth.subSignIn" : "auth.subRegister")}
         </p>
 
         <div className="mt-6 flex gap-2 rounded-2xl bg-surface p-1 text-xs font-semibold">
@@ -55,21 +57,21 @@ function AuthPage() {
               onClick={() => setMode(m)}
               className={`flex-1 rounded-xl py-2 transition-colors ${mode === m ? "bg-background text-primary shadow" : "text-muted-foreground"}`}
             >
-              {m === "login" ? "Sign In" : "Register"}
+              {t(m === "login" ? "auth.signIn" : "auth.register")}
             </button>
           ))}
         </div>
 
         <div className="mt-5 space-y-3">
           {mode === "register" && (
-            <Field icon={<User className="h-4 w-4" />} value={name} onChange={setName} placeholder="Full name" />
+            <Field icon={<User className="h-4 w-4" />} value={name} onChange={setName} placeholder={t("auth.fullName")} />
           )}
-          <Field icon={<Mail className="h-4 w-4" />} value={email} onChange={setEmail} placeholder="Email" />
+          <Field icon={<Mail className="h-4 w-4" />} value={email} onChange={setEmail} placeholder={t("auth.email")} />
           <Field
             icon={<Lock className="h-4 w-4" />}
             value={password}
             onChange={setPassword}
-            placeholder="Password"
+            placeholder={t("auth.password")}
             type="password"
           />
         </div>
@@ -81,13 +83,13 @@ function AuthPage() {
         >
           {status === "pending" && <Loader2 className="h-4 w-4 animate-spin" />}
           {status === "success" && <CheckCircle2 className="h-4 w-4" />}
-          {status === "idle" && (mode === "login" ? "Sign In" : "Create Account")}
-          {status === "pending" && "Please wait…"}
-          {status === "success" && "Success"}
+          {status === "idle" && t(mode === "login" ? "auth.signIn" : "auth.createAccount")}
+          {status === "pending" && t("auth.wait")}
+          {status === "success" && t("common.success")}
         </button>
 
         <p className="mt-4 text-center text-[11px] text-muted-foreground">
-          Demo mode — any email and password is accepted.
+          {t("auth.demo")}
         </p>
       </div>
     </MobileShell>

@@ -3,6 +3,7 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { ArrowDown, RefreshCw, Info, ChevronDown, Zap, Shield } from "lucide-react";
 import { useState, useMemo } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/convert")({
   head: () => ({
@@ -40,6 +41,7 @@ const pairs = [
 ];
 
 function ConvertPage() {
+  const { t } = useLang();
   const navigate = useNavigate();
   const [amount, setAmount] = useState("500");
   const [from, setFrom] = useState("USDT");
@@ -59,17 +61,17 @@ function ConvertPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="Convert" />
+      <StatusBar title={t("convert.title")} />
       <div className="px-6 pt-4">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              FastLink FX Desk
+              {t("convert.tag")}
             </p>
-            <h1 className="mt-1 font-display text-2xl font-bold">Convert</h1>
+            <h1 className="mt-1 font-display text-2xl font-bold">{t("convert.h1")}</h1>
           </div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold text-primary">
-            <Zap className="h-3 w-3" /> Live · 0 fee
+            <Zap className="h-3 w-3" /> {t("convert.live")}
           </div>
         </div>
 

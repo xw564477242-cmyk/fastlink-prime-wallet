@@ -16,6 +16,7 @@ import {
 
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,10 +63,13 @@ function HomePage() {
             <p className="truncate text-sm font-semibold">Daniel Chen</p>
           </div>
         </div>
-        <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
-          <Bell className="h-5 w-5" />
-          <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-accent" />
-        </button>
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
+            <Bell className="h-5 w-5" />
+            <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-accent" />
+          </button>
+        </div>
       </div>
 
       {/* Balance */}
@@ -132,8 +136,8 @@ function HomePage() {
 
       <div className="mx-6 mt-6 flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 p-4">
         <div>
-          <p className="text-xs font-semibold">Earn 5.82% APY on idle USDT</p>
-          <p className="mt-0.5 text-[10px] text-muted-foreground">FastLink Treasury · Auto-yield</p>
+          <p className="text-xs font-semibold">{t("home.earnCta")}</p>
+          <p className="mt-0.5 text-[10px] text-muted-foreground">{t("home.earnSub")}</p>
         </div>
         <ChevronRight className="h-4 w-4 text-muted-foreground" />
       </div>
