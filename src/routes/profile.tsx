@@ -109,7 +109,8 @@ function ProfilePage() {
         <div className="mt-5 space-y-3">
           <Section title="Account">
             <Row icon={UserRound} label="Personal Information" hint="Name, address, phone" />
-            <Row icon={BadgeCheck} label="KYC & Verification" hint="Tier 2 · Verified" />
+            <RowLink to="/kyc" icon={BadgeCheck} label="KYC & Verification" hint="Tier 2 · Verified" />
+            <RowLink to="/history" icon={Receipt} label="Transaction History" hint="Deposits, transfers, cards" />
           </Section>
 
           <Section title="Security">
