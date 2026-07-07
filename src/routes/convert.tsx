@@ -148,6 +148,31 @@ function ConvertPage() {
           }}
         />
       )}
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title={modal === "success" ? "Converted" : "Confirm conversion"}
+        description={
+          modal === "success"
+            ? `${parsed.toFixed(2)} ${from} converted to ${result} ${to}.`
+            : `Convert at 1 ${from} = ${rate.toFixed(4)} ${to}`
+        }
+        rows={[
+          { label: "You send", value: `${parsed.toFixed(2)} ${from}` },
+          { label: "You receive", value: `${result} ${to}` },
+          { label: "Rate", value: `1 ${from} = ${rate.toFixed(4)} ${to}` },
+          { label: "Fee", value: "Free" },
+        ]}
+        confirmLabel="Convert Now"
+        onConfirm={confirm}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }
