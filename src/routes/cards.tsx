@@ -58,7 +58,9 @@ function CardsPage() {
         if (cancelled) return;
         setCards(data.cards);
         setActiveId(data.cards[0]?.cardId ?? null);
-        setAliases(Object.fromEntries(data.cards.map((c) => [c.cardId, c.alias ?? c.label ?? ""])) as Record<string, string>);
+        setAliases(
+          Object.fromEntries(data.cards.map((c) => [c.cardId, c.alias ?? typeMeta[c.type].label])) as Record<string, string>,
+        );
       } finally {
         if (!cancelled) setLoading(false);
       }
