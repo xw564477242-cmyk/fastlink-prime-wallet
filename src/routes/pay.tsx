@@ -141,6 +141,19 @@ function PayPage() {
           </div>
         </div>
       </div>
+
+      <ActionModal
+        open={modal.state !== "idle"}
+        onClose={() => setModal({ state: "idle", title: "", desc: "" })}
+        state={modal.state}
+        title={modal.title}
+        description={modal.desc}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal({ state: "idle", title: "", desc: "" });
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }
