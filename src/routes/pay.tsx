@@ -210,7 +210,7 @@ function PayQrPanel() {
   );
 }
 
-function ScanPanel() {
+function ScanPanel({ onOpen }: { onOpen: () => void }) {
   return (
     <>
       <PanelTitle title="Scan QR" desc="Point at Alipay, WeChat, UPI, or FastLink codes" />
@@ -218,14 +218,14 @@ function ScanPanel() {
         <Scan className="h-14 w-14 text-primary" />
         <div className="absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-primary shadow-glow" />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onOpen} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Open Camera
       </button>
     </>
   );
 }
 
-function TransferPanel() {
+function TransferPanel({ onSend }: { onSend: () => void }) {
   return (
     <>
       <PanelTitle title="Transfer" desc="Send to another FastLink user instantly" />
@@ -234,14 +234,14 @@ function TransferPanel() {
         <FormRow label="Amount" value="120.00 USDT" big />
         <FormRow label="Note" value="Dinner Friday" />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onSend} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Send Transfer
       </button>
     </>
   );
 }
 
-function MerchantPanel() {
+function MerchantPanel({ onCheckout }: { onCheckout: () => void }) {
   return (
     <>
       <PanelTitle title="Merchant Pay" desc="Pay online checkouts and in-store terminals" />
@@ -252,14 +252,14 @@ function MerchantPanel() {
           </button>
         ))}
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onCheckout} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Continue to checkout
       </button>
     </>
   );
 }
 
-function PayoutPanel() {
+function PayoutPanel({ onReview }: { onReview: () => void }) {
   return (
     <>
       <PanelTitle title="Payout" desc="Send to any bank account worldwide" />
@@ -268,7 +268,7 @@ function PayoutPanel() {
         <FormRow label="Beneficiary" value="Daniel Chen · HSBC ····3211" />
         <FormRow label="Amount" value="1,200.00 USD" big />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onReview} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Review Payout
       </button>
     </>
