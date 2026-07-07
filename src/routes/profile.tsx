@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   ChevronRight,
@@ -12,6 +12,7 @@ import {
   Bell,
   Sparkles,
   Check,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 import { useLang, LANG_OPTIONS, type Lang } from "@/lib/i18n";
