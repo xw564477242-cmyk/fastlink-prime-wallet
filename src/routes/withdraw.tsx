@@ -133,12 +133,38 @@ function WithdrawPage() {
         </div>
 
         <button
+          onClick={() => setModal("review")}
           disabled={!address || amt <= 0}
           className="mt-5 mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow disabled:opacity-50"
         >
           <ArrowUpFromLine className="h-4 w-4" /> Review Withdrawal
         </button>
       </div>
+
+      <ActionModal
+        open={modal !== "idle"}
+        onClose={() => setModal("idle")}
+        state={modal}
+        title={modal === "success" ? "Withdrawal submitted" : "Confirm withdrawal"}
+        description={
+          modal === "success"
+            ? `Broadcasting on ${network}. Track progress in History.`
+            : `Send ${amt.toFixed(2)} USDT via ${network} to your external wallet.`
+        }
+        rows={[
+          { label: "To", value: <span className="font-mono">{address.slice(0, 6)}…{address.slice(-4)}</span> },
+          { label: "Amount", value: `${amt.toFixed(2)} USDT` },
+          { label: "Fee", value: `${net.fee} USDT` },
+          { label: "You receive", value: `${receive.toFixed(2)} USDT` },
+        ]}
+        confirmLabel="Confirm & Send"
+        onConfirm={confirm}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal("idle");
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }
