@@ -99,7 +99,11 @@ function ConvertPage() {
           </p>
         </div>
 
-        <button className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98]">
+        <button
+          onClick={() => setModal("review")}
+          disabled={parsed <= 0 || from === to}
+          className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
+        >
           Convert {parsed.toFixed(2)} {from} → {result} {to}
         </button>
 
