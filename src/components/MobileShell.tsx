@@ -29,6 +29,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
               <Link
                 key={tab.to}
                 to={tab.to}
+                translate="no"
                 className="flex flex-col items-center gap-1 py-3 text-[9px] font-medium transition-colors"
               >
                 <div
