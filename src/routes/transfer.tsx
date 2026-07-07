@@ -3,7 +3,6 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Send, User, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/transfer")({
   head: () => ({
@@ -26,7 +25,6 @@ const BALANCES: Record<Cur, number> = {
 };
 
 function TransferPage() {
-  const { t } = useLang();
   const navigate = useNavigate();
   const [recipient, setRecipient] = useState("");
   const [currency, setCurrency] = useState<Cur>("USDT");
@@ -43,20 +41,20 @@ function TransferPage() {
 
   return (
     <MobileShell>
-      <StatusBar title={t("transfer.title")} />
+      <StatusBar title="Transfer" />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("transfer.tag")}</p>
-        <h1 className="mt-1 font-display text-2xl font-bold">{t("transfer.h1")}</h1>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Peer · Instant · Zero fee</p>
+        <h1 className="mt-1 font-display text-2xl font-bold">Send to a FastLink User</h1>
 
         {/* Recipient */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.recipient")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Recipient</p>
           <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <User className="h-4 w-4 text-muted-foreground" />
             <input
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
-              placeholder={t("transfer.recipientPh")}
+              placeholder="FastLink ID / phone / email"
               className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/60"
             />
           </div>
@@ -64,7 +62,7 @@ function TransferPage() {
 
         {/* Currency */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.currency")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Currency</p>
           <button
             onClick={() => setPickerOpen((v) => !v)}
             className="flex w-full items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3"
@@ -98,8 +96,8 @@ function TransferPage() {
         {/* Amount */}
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.amount")}</p>
-            <button onClick={() => setAmount(String(BALANCES[currency]))} className="text-[10px] font-semibold text-primary">{t("common.max")}</button>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Amount</p>
+            <button onClick={() => setAmount(String(BALANCES[currency]))} className="text-[10px] font-semibold text-primary">MAX</button>
           </div>
           <div className="flex items-baseline gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <input
@@ -120,7 +118,7 @@ function TransferPage() {
             value={note}
             onChange={(e) => setNote(e.target.value)}
             maxLength={80}
-            placeholder={t("transfer.notePh")}
+            placeholder="What's this for?"
             className="w-full rounded-2xl border border-border/60 bg-surface/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground/60"
           />
         </div>
@@ -139,7 +137,7 @@ function TransferPage() {
           disabled={!recipient || amt <= 0}
           className="mt-5 mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow disabled:opacity-50"
         >
-          <Send className="h-4 w-4" /> {t("transfer.reviewCta")}
+          <Send className="h-4 w-4" /> Review Transfer
         </button>
       </div>
 
@@ -147,11 +145,11 @@ function TransferPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={t(modal === "success" ? "transfer.modalSuccessTitle" : "transfer.modalConfirmTitle")}
+        title={modal === "success" ? "Transfer sent" : "Confirm transfer"}
         description={
           modal === "success"
-            ? t("transfer.modalSuccessDesc", { amount: amt.toFixed(2), currency })
-            : t("transfer.modalConfirmDesc", { amount: amt.toFixed(2), currency, to: recipient })
+            ? `${amt.toFixed(2)} ${currency} delivered instantly.`
+            : `Send ${amt.toFixed(2)} ${currency} to ${recipient}.`
         }
         rows={[
           { label: "To", value: recipient || "—" },
@@ -159,9 +157,9 @@ function TransferPage() {
           { label: "Fee", value: "0.00" },
           { label: "Note", value: note || "—" },
         ]}
-        confirmLabel={t("transfer.sendNow")}
+        confirmLabel="Send Now"
         onConfirm={confirm}
-        successLabel={t("common.backHome")}
+        successLabel="Back to Home"
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/" });

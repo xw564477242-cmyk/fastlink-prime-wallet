@@ -1,6 +1,4 @@
-import { useLang } from "@/lib/i18n";
 import { createFileRoute } from "@tanstack/react-router";
-
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   Snowflake,
@@ -38,7 +36,6 @@ const typeMeta: Record<CardType, { label: string; tag: string; icon: typeof Spar
 };
 
 function CardsPage() {
-  const { t } = useLang();
   const [cards, setCards] = useState<ThreddCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -186,7 +183,7 @@ function CardsPage() {
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               FastLink Card Center
             </p>
-            <h1 className="mt-1 font-display text-2xl font-bold">{t("cards.h1")}</h1>
+            <h1 className="mt-1 font-display text-2xl font-bold">My Cards</h1>
           </div>
           <button
             onClick={async () => {

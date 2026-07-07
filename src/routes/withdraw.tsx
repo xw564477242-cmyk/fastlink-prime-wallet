@@ -3,7 +3,6 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { ShieldAlert, Clock, ChevronDown, ArrowUpFromLine } from "lucide-react";
 import { useState } from "react";
-import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/withdraw")({
   head: () => ({
@@ -24,7 +23,6 @@ const NETWORKS = [
 const AVAILABLE = 10204.15;
 
 function WithdrawPage() {
-  const { t } = useLang();
   const navigate = useNavigate();
   const [network, setNetwork] = useState<(typeof NETWORKS)[number]["key"]>("TRC20");
   const [address, setAddress] = useState("");
@@ -41,15 +39,15 @@ function WithdrawPage() {
 
   return (
     <MobileShell>
-      <StatusBar title={t("withdraw.title")} />
+      <StatusBar title="Withdraw" />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("withdraw.step")}</p>
-        <h1 className="mt-1 font-display text-2xl font-bold">{t("withdraw.h1")}</h1>
-        <p className="mt-1 text-xs text-muted-foreground">{t("withdraw.sub")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Step 01 / 02</p>
+        <h1 className="mt-1 font-display text-2xl font-bold">Withdraw Crypto</h1>
+        <p className="mt-1 text-xs text-muted-foreground">Send USDT to an external wallet. Confirm the network before sending.</p>
 
         {/* Asset */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.asset")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Asset</p>
           <div className="flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <div className="flex items-center gap-3">
               <div className="grid h-10 w-10 place-items-center rounded-2xl bg-primary/15 font-display text-[10px] font-bold text-primary">USDT</div>
@@ -64,7 +62,7 @@ function WithdrawPage() {
 
         {/* Network */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.network")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Network</p>
           <div className="grid grid-cols-3 gap-2">
             {NETWORKS.map((n) => {
               const on = n.key === network;
@@ -84,11 +82,11 @@ function WithdrawPage() {
 
         {/* Address */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("withdraw.address")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Withdrawal Address</p>
           <input
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            placeholder={t("withdraw.placeholder", { network })}
+            placeholder={`Paste ${network} address`}
             className="w-full rounded-2xl border border-border/60 bg-surface/60 px-4 py-3 font-mono text-xs outline-none focus:border-primary"
           />
         </div>
@@ -96,8 +94,8 @@ function WithdrawPage() {
         {/* Amount */}
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.amount")}</p>
-            <button onClick={() => setAmount(String(AVAILABLE))} className="text-[10px] font-semibold text-primary">{t("common.max")}</button>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Amount</p>
+            <button onClick={() => setAmount(String(AVAILABLE))} className="text-[10px] font-semibold text-primary">MAX</button>
           </div>
           <div className="flex items-baseline gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <input
@@ -116,10 +114,10 @@ function WithdrawPage() {
 
         {/* Summary */}
         <div className="mt-5 space-y-2 rounded-2xl border border-border/60 bg-surface/60 p-4">
-          <Row label={t("deposit.networkFee")} value={`${net.fee} USDT`} />
-          <Row label={t("withdraw.arrival")} value={net.eta} icon={<Clock className="h-3.5 w-3.5" />} />
+          <Row label="Network Fee" value={`${net.fee} USDT`} />
+          <Row label="Estimated Arrival" value={net.eta} icon={<Clock className="h-3.5 w-3.5" />} />
           <div className="border-t border-border/60 pt-2">
-            <Row label={t("withdraw.receive")} value={`${receive.toFixed(2)} USDT`} bold />
+            <Row label="You will receive" value={`${receive.toFixed(2)} USDT`} bold />
           </div>
         </div>
 
@@ -127,9 +125,9 @@ function WithdrawPage() {
         <div className="mt-4 flex gap-3 rounded-2xl border border-accent/30 bg-accent/10 p-4">
           <ShieldAlert className="h-4 w-4 shrink-0 text-accent" />
           <div>
-            <p className="text-[11px] font-semibold text-accent">{t("withdraw.amlTitle")}</p>
+            <p className="text-[11px] font-semibold text-accent">AML · Travel Rule</p>
             <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-              {t("withdraw.amlDesc")}
+              Transfers over threshold amounts may require originator and beneficiary information under the FATF Travel Rule. Additional verification may be requested.
             </p>
           </div>
         </div>
@@ -139,7 +137,7 @@ function WithdrawPage() {
           disabled={!address || amt <= 0}
           className="mt-5 mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow disabled:opacity-50"
         >
-          <ArrowUpFromLine className="h-4 w-4" /> {t("withdraw.reviewCta")}
+          <ArrowUpFromLine className="h-4 w-4" /> Review Withdrawal
         </button>
       </div>
 
@@ -147,11 +145,11 @@ function WithdrawPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={t(modal === "success" ? "withdraw.modalSuccessTitle" : "withdraw.modalConfirmTitle")}
+        title={modal === "success" ? "Withdrawal submitted" : "Confirm withdrawal"}
         description={
           modal === "success"
-            ? t("withdraw.modalSuccessDesc", { network })
-            : t("withdraw.modalConfirmDesc", { amount: amt.toFixed(2), network })
+            ? `Broadcasting on ${network}. Track progress in History.`
+            : `Send ${amt.toFixed(2)} USDT via ${network} to your external wallet.`
         }
         rows={[
           { label: "To", value: <span className="font-mono">{address.slice(0, 6)}…{address.slice(-4)}</span> },
@@ -159,9 +157,9 @@ function WithdrawPage() {
           { label: "Fee", value: `${net.fee} USDT` },
           { label: "You receive", value: `${receive.toFixed(2)} USDT` },
         ]}
-        confirmLabel={t("withdraw.confirmBtn")}
+        confirmLabel="Confirm & Send"
         onConfirm={confirm}
-        successLabel={t("common.viewHistory")}
+        successLabel="View History"
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/history" });

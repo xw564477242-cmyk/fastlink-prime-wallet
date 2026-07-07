@@ -61,9 +61,9 @@ function ProfilePage() {
             </div>
           </div>
           <div className="mt-5 grid grid-cols-3 divide-x divide-border/60 text-center">
-            <Stat label={t("profile.accountId")} value="FL-8241" />
-            <Stat label={t("profile.since")} value="Mar 2024" />
-            <Stat label={t("profile.region")} value="UAE" />
+            <Stat label="Account ID" value="FL-8241" />
+            <Stat label="Since" value="Mar 2024" />
+            <Stat label="Region" value="UAE" />
           </div>
         </div>
 
@@ -71,11 +71,11 @@ function ProfilePage() {
         <div className="mt-5 grid grid-cols-2 gap-3">
           <div className="rounded-2xl bg-surface p-4">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("profile.kycLevel")}</p>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">KYC Level</p>
               <BadgeCheck className="h-4 w-4 text-primary" />
             </div>
-            <p className="mt-2 font-display text-lg font-semibold">{t("profile.tier", { n: 2 })}</p>
-            <p className="text-[10px] text-primary">{t("profile.verified")}</p>
+            <p className="mt-2 font-display text-lg font-semibold">Tier 2</p>
+            <p className="text-[10px] text-primary">Verified · Advanced</p>
             <div className="mt-3 flex gap-1">
               <span className="h-1 flex-1 rounded-full bg-primary" />
               <span className="h-1 flex-1 rounded-full bg-primary" />
@@ -84,14 +84,14 @@ function ProfilePage() {
           </div>
           <div className="rounded-2xl bg-surface p-4">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("profile.securityScore")}</p>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Security Score</p>
               <ShieldCheck className="h-4 w-4 text-accent" />
             </div>
             <div className="mt-2 flex items-baseline gap-1">
               <p className="font-display text-lg font-semibold">86</p>
               <span className="text-[10px] text-muted-foreground">/ 100</span>
             </div>
-            <p className="text-[10px] text-accent">{t("profile.strong")}</p>
+            <p className="text-[10px] text-accent">Strong</p>
             <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
               <div className="h-full w-[86%] rounded-full bg-gradient-to-r from-primary to-accent" />
             </div>
@@ -100,26 +100,26 @@ function ProfilePage() {
 
         <div className="mt-3 rounded-2xl bg-surface p-4">
           <p className="text-xs text-muted-foreground">
-            {t("profile.biometricHint")}
+            Enable biometric login to reach a score of 100 and unlock Tier 3 KYC benefits.
           </p>
         </div>
 
 
         {/* Menu */}
         <div className="mt-5 space-y-3">
-          <Section title={t("profile.section.account")}>
-            <Row icon={UserRound} label={t("profile.personalInfo")} hint={t("profile.personalInfoHint")} />
-            <RowLink to="/kyc" icon={BadgeCheck} label={t("profile.kyc")} hint={t("profile.kycHint")} />
-            <RowLink to="/history" icon={Receipt} label={t("profile.txHistory")} hint={t("profile.txHistoryHint")} />
+          <Section title="Account">
+            <Row icon={UserRound} label="Personal Information" hint="Name, address, phone" />
+            <RowLink to="/kyc" icon={BadgeCheck} label="KYC & Verification" hint="Tier 2 · Verified" />
+            <RowLink to="/history" icon={Receipt} label="Transaction History" hint="Deposits, transfers, cards" />
           </Section>
 
-          <Section title={t("profile.section.security")}>
-            <Row icon={Lock} label={t("profile.changePwd")} />
-            <Row icon={ShieldCheck} label={t("profile.twoFA")} hint={t("profile.twoFAHint")} />
-            <Row icon={Bell} label={t("profile.loginAlerts")} hint={t("profile.loginAlertsHint")} />
+          <Section title="Security">
+            <Row icon={Lock} label="Change Password" />
+            <Row icon={ShieldCheck} label="Two-Factor Authentication" hint="Enabled" />
+            <Row icon={Bell} label="Login Alerts" hint="On" />
           </Section>
 
-          <Section title={t("profile.section.preferences")}>
+          <Section title="Preferences">
             <button
               onClick={() => setLangOpen((v) => !v)}
               className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
@@ -153,10 +153,10 @@ function ProfilePage() {
                 })}
               </div>
             )}
-            <Row icon={Bell} label={t("profile.notifications")} />
+            <Row icon={Bell} label="Notifications" />
           </Section>
 
-          <Section title={t("profile.section.integrations")}>
+          <Section title="Agent Integrations">
             <Link
               to="/connect"
               className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
@@ -165,17 +165,17 @@ function ProfilePage() {
                 <Sparkles className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">{t("profile.connectAI")}</p>
+                <p className="truncate text-sm font-medium">Connect ChatGPT or Claude</p>
                 <p className="truncate text-xs text-muted-foreground">
-                  {t("profile.connectAISub")}
+                  Use FastLink from your AI assistant
                 </p>
               </div>
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
             </Link>
           </Section>
 
-          <Section title={t("profile.section.help")}>
-            <Row icon={LifeBuoy} label={t("profile.support")} hint={t("profile.supportHint")} />
+          <Section title="Help">
+            <Row icon={LifeBuoy} label="Support Center" hint="24/7 chat" />
             <button
               onClick={logout}
               className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
@@ -184,7 +184,7 @@ function ProfilePage() {
                 <LogOut className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-destructive">{t("profile.logout")}</p>
+                <p className="truncate text-sm font-medium text-destructive">Log Out</p>
               </div>
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
             </button>

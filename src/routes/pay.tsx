@@ -3,7 +3,6 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/pay")({
   head: () => ({
@@ -17,13 +16,13 @@ export const Route = createFileRoute("/pay")({
 
 type Mode = "receive" | "pay-qr" | "scan" | "transfer" | "merchant" | "payout";
 
-const modes: { key: Mode; labelKey: string; icon: React.ComponentType<{ className?: string }>; subKey: string }[] = [
-  { key: "receive", labelKey: "pay.mode.receive", icon: Download, subKey: "pay.mode.receiveSub" },
-  { key: "pay-qr", labelKey: "pay.mode.payqr", icon: QrCode, subKey: "pay.mode.payqrSub" },
-  { key: "scan", labelKey: "pay.mode.scan", icon: Scan, subKey: "pay.mode.scanSub" },
-  { key: "transfer", labelKey: "pay.mode.transfer", icon: Send, subKey: "pay.mode.transferSub" },
-  { key: "merchant", labelKey: "pay.mode.merchant", icon: Store, subKey: "pay.mode.merchantSub" },
-  { key: "payout", labelKey: "pay.mode.payout", icon: Banknote, subKey: "pay.mode.payoutSub" },
+const modes: { key: Mode; label: string; icon: React.ComponentType<{ className?: string }>; sub: string }[] = [
+  { key: "receive", label: "Receive QR", icon: Download, sub: "Get paid" },
+  { key: "pay-qr", label: "Pay QR", icon: QrCode, sub: "Show to pay" },
+  { key: "scan", label: "Scan QR", icon: Scan, sub: "Alipay · WeChat · UPI" },
+  { key: "transfer", label: "Transfer", icon: Send, sub: "Between FastLink users" },
+  { key: "merchant", label: "Merchant Pay", icon: Store, sub: "In-store & online" },
+  { key: "payout", label: "Payout", icon: Banknote, sub: "To bank · SWIFT · SEPA" },
 ];
 
 const history = [
@@ -35,7 +34,6 @@ const history = [
 ];
 
 function PayPage() {
-  const { t } = useLang();
   const navigate = useNavigate();
   const [mode, setMode] = useState<Mode>("receive");
   const [q, setQ] = useState("");
@@ -52,12 +50,12 @@ function PayPage() {
 
   return (
     <MobileShell>
-      <StatusBar title={t("pay.title")} />
+      <StatusBar title="Pay Center" />
       <div className="px-6 pt-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          {t("pay.tag")}
+          FastLink Pay Center
         </p>
-        <h1 className="mt-1 font-display text-2xl font-bold">{t("pay.h1")}</h1>
+        <h1 className="mt-1 font-display text-2xl font-bold">Move money globally</h1>
 
         {/* Mode grid */}
         <div className="mt-5 grid grid-cols-3 gap-2">
@@ -73,8 +71,8 @@ function PayPage() {
                 <div className={`grid h-9 w-9 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}>
                   <Icon className="h-4.5 w-4.5" />
                 </div>
-                <span className="text-[11px] font-semibold">{t(m.labelKey)}</span>
-                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{t(m.subKey)}</span>
+                <span className="text-[11px] font-semibold">{m.label}</span>
+                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{m.sub}</span>
               </button>
             );
           })}
@@ -99,9 +97,9 @@ function PayPage() {
             <CreditCard className="h-4 w-4" />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold">{t("pay.cardCta")}</p>
+            <p className="text-sm font-semibold">Pay with Card</p>
             <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-              {t("pay.cardCtaSub")}
+              Simulate a merchant terminal tap
             </p>
           </div>
           <ChevronRight className="h-4 w-4 text-primary" />
@@ -112,7 +110,7 @@ function PayPage() {
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span translate="no" className="font-mono text-[10px] font-semibold tracking-widest text-primary">04</span>
-              <h2 className="font-display text-lg font-bold">{t("pay.history")}</h2>
+              <h2 className="font-display text-lg font-bold">History</h2>
             </div>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
           </div>
@@ -121,7 +119,7 @@ function PayPage() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder={t("pay.searchPh")}
+              placeholder="Search payments"
               className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
             />
           </div>
@@ -150,7 +148,7 @@ function PayPage() {
         state={modal.state}
         title={modal.title}
         description={modal.desc}
-        successLabel={t("common.viewHistory")}
+        successLabel="View History"
         onSuccess={() => {
           setModal({ state: "idle", title: "", desc: "" });
           navigate({ to: "/history" });

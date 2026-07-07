@@ -3,7 +3,6 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Copy, QrCode, ShieldAlert, Clock, CheckCircle2, ChevronDown } from "lucide-react";
 import { useState } from "react";
-import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/deposit")({
   head: () => ({
@@ -22,7 +21,6 @@ const NETWORKS = [
 ] as const;
 
 function DepositPage() {
-  const { t } = useLang();
   const navigate = useNavigate();
   const [network, setNetwork] = useState<(typeof NETWORKS)[number]["key"]>("TRC20");
   const [copied, setCopied] = useState(false);
@@ -40,15 +38,15 @@ function DepositPage() {
 
   return (
     <MobileShell>
-      <StatusBar title={t("deposit.title")} />
+      <StatusBar title="Deposit" />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("deposit.step")}</p>
-        <h1 className="mt-1 font-display text-2xl font-bold">{t("deposit.h1")}</h1>
-        <p className="mt-1 text-xs text-muted-foreground">{t("deposit.sub")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Step 01 / 03</p>
+        <h1 className="mt-1 font-display text-2xl font-bold">Deposit Crypto</h1>
+        <p className="mt-1 text-xs text-muted-foreground">Send USDT to your FastLink address. Funds credit after network confirmation.</p>
 
         {/* Asset selector */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.asset")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Asset</p>
           <button
             onClick={() => setAssetOpen((v) => !v)}
             className="flex w-full items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3"
@@ -64,14 +62,14 @@ function DepositPage() {
           </button>
           {assetOpen && (
             <p className="mt-2 rounded-xl bg-muted/40 px-3 py-2 text-[10px] text-muted-foreground">
-              {t("deposit.onlyUsdt")}
+              Only USDT is supported in this deposit flow. More assets coming soon.
             </p>
           )}
         </div>
 
         {/* Network selector */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.network")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Network</p>
           <div className="grid grid-cols-3 gap-2">
             {NETWORKS.map((n) => {
               const on = n.key === network;
@@ -87,7 +85,7 @@ function DepositPage() {
               );
             })}
           </div>
-          <p className="mt-2 text-[10px] text-muted-foreground">{t("deposit.selected", { name: net.name })}</p>
+          <p className="mt-2 text-[10px] text-muted-foreground">Selected: {net.name}</p>
         </div>
 
         {/* QR + address */}
@@ -97,7 +95,7 @@ function DepositPage() {
               <QrCode className="h-20 w-20 text-primary" strokeWidth={1.2} />
             </div>
           </div>
-          <p className="mt-4 text-center text-[10px] uppercase tracking-widest text-muted-foreground">{t("deposit.qrLabel", { network })}</p>
+          <p className="mt-4 text-center text-[10px] uppercase tracking-widest text-muted-foreground">Your {network} Deposit Address</p>
           <div translate="no" className="mt-2 break-all rounded-2xl bg-background/60 px-4 py-3 text-center font-mono text-xs">
             {net.addr}
           </div>
@@ -106,25 +104,25 @@ function DepositPage() {
             className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
           >
             {copied ? <CheckCircle2 className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-            {copied ? t("common.copied") : t("deposit.copyAddress")}
+            {copied ? "Copied" : "Copy Address"}
           </button>
         </div>
 
         {/* Meta */}
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <MetaCell icon={<CheckCircle2 className="h-4 w-4" />} label={t("deposit.confirmations")} value={net.confirms} />
-          <MetaCell icon={<Clock className="h-4 w-4" />} label={t("deposit.eta")} value={net.eta} />
-          <MetaCell label={t("deposit.min")} value="1 USDT" />
-          <MetaCell label={t("deposit.networkFee")} value={net.fee} />
+          <MetaCell icon={<CheckCircle2 className="h-4 w-4" />} label="Confirmations" value={net.confirms} />
+          <MetaCell icon={<Clock className="h-4 w-4" />} label="Arrival ETA" value={net.eta} />
+          <MetaCell label="Min. Deposit" value="1 USDT" />
+          <MetaCell label="Network Fee" value={net.fee} />
         </div>
 
         {/* Risk */}
         <div className="mt-4 flex gap-3 rounded-2xl border border-accent/30 bg-accent/10 p-4">
           <ShieldAlert className="h-4 w-4 shrink-0 text-accent" />
           <div>
-            <p className="text-[11px] font-semibold text-accent">{t("deposit.risk")}</p>
+            <p className="text-[11px] font-semibold text-accent">Risk Notice</p>
             <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
-              {t("deposit.riskDesc", { network })}
+              Send only USDT on the {network} network to this address. Sending any other asset or using a different network will result in permanent loss.
             </p>
           </div>
         </div>
@@ -136,7 +134,7 @@ function DepositPage() {
           }}
           className="mt-5 mb-2 w-full rounded-2xl border border-primary/40 bg-primary/10 py-3 font-display text-sm font-semibold text-primary"
         >
-          {t("deposit.completed")}
+          I have completed deposit
         </button>
       </div>
 
@@ -144,9 +142,9 @@ function DepositPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={t("deposit.modalTitle")}
-        description={t("deposit.modalDesc", { network })}
-        successLabel={t("common.viewHistory")}
+        title="Deposit received"
+        description={`Your ${network} deposit will credit after network confirmation.`}
+        successLabel="View History"
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/history" });

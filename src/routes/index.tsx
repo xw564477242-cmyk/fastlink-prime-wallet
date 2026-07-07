@@ -16,7 +16,6 @@ import {
 
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,16 +59,13 @@ function HomePage() {
           </div>
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">{t("home.welcome")}</p>
-            <p translate="no" className="truncate text-sm font-semibold">Daniel Chen</p>
+            <p className="truncate text-sm font-semibold">Daniel Chen</p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <LanguageSwitcher />
-          <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-accent" />
-          </button>
-        </div>
+        <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
+          <Bell className="h-5 w-5" />
+          <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-accent" />
+        </button>
       </div>
 
       {/* Balance */}
@@ -80,7 +76,7 @@ function HomePage() {
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
-        <div translate="no" className="mt-3 font-display text-4xl font-bold tracking-tight">
+        <div className="mt-3 font-display text-4xl font-bold tracking-tight">
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
@@ -136,8 +132,8 @@ function HomePage() {
 
       <div className="mx-6 mt-6 flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 p-4">
         <div>
-          <p className="text-xs font-semibold">{t("home.earnCta")}</p>
-          <p className="mt-0.5 text-[10px] text-muted-foreground">{t("home.earnSub")}</p>
+          <p className="text-xs font-semibold">Earn 5.82% APY on idle USDT</p>
+          <p className="mt-0.5 text-[10px] text-muted-foreground">FastLink Treasury · Auto-yield</p>
         </div>
         <ChevronRight className="h-4 w-4 text-muted-foreground" />
       </div>
@@ -147,19 +143,11 @@ function HomePage() {
 
 function MiniStat({ to, label, value, tone }: { to: "/assets/digital" | "/assets/fiat" | "/assets/cards"; label: string; value: string; tone?: "accent" }) {
   return (
-    <Link
-      to={to}
-      translate="no"
-      className="group relative flex flex-col rounded-2xl border border-border/60 bg-background/50 p-3 text-left backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-background/80 hover:shadow-glow active:scale-[0.97]"
-    >
-      <div className="flex items-center justify-between">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-        <ChevronRight className="h-3.5 w-3.5 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:text-primary" />
-      </div>
+    <Link to={to} className="group rounded-2xl bg-background/40 p-3 text-left backdrop-blur transition-all active:scale-95 hover:bg-background/60">
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
       <p className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}>{value}</p>
-      <p className="mt-1 text-[9px] font-semibold uppercase tracking-widest text-primary opacity-80 group-hover:opacity-100">View →</p>
+      <p className="mt-1 text-[9px] uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100">View →</p>
     </Link>
   );
 }
-
 

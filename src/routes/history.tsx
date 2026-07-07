@@ -9,7 +9,6 @@ import {
   Search,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/history")({
   head: () => ({
@@ -50,36 +49,39 @@ const ICONS: Record<Kind, typeof ArrowDownToLine> = {
   card: CreditCard,
 };
 
-const FILTERS: Array<{ key: "all" | Kind }> = [
-  { key: "all" }, { key: "deposit" }, { key: "withdraw" },
-  { key: "transfer" }, { key: "convert" }, { key: "card" },
+const FILTERS: Array<{ key: "all" | Kind; label: string }> = [
+  { key: "all", label: "All" },
+  { key: "deposit", label: "Deposit" },
+  { key: "withdraw", label: "Withdraw" },
+  { key: "transfer", label: "Transfer" },
+  { key: "convert", label: "Convert" },
+  { key: "card", label: "Card" },
 ];
 
 function HistoryPage() {
-  const { t } = useLang();
   const [filter, setFilter] = useState<(typeof FILTERS)[number]["key"]>("all");
   const [q, setQ] = useState("");
 
   const rows = useMemo(
     () =>
-      TXNS.filter((row) => filter === "all" || row.kind === filter).filter(
-        (row) => !q || `${row.title} ${row.subtitle}`.toLowerCase().includes(q.toLowerCase()),
+      TXNS.filter((t) => filter === "all" || t.kind === filter).filter(
+        (t) => !q || `${t.title} ${t.subtitle}`.toLowerCase().includes(q.toLowerCase()),
       ),
     [filter, q],
   );
 
   return (
     <MobileShell>
-      <StatusBar title={t("history.title")} />
+      <StatusBar title="History" />
       <div className="px-6 pt-4">
-        <h1 className="font-display text-2xl font-bold">{t("history.h1")}</h1>
+        <h1 className="font-display text-2xl font-bold">Transactions</h1>
 
         <div className="mt-4 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-2.5">
           <Search className="h-4 w-4 text-muted-foreground" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder={t("common.search")}
+            placeholder="Search"
             className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/60"
           />
         </div>
@@ -93,42 +95,42 @@ function HistoryPage() {
                 onClick={() => setFilter(f.key)}
                 className={`shrink-0 rounded-full border px-3 py-1.5 text-[11px] font-semibold ${on ? "border-primary bg-primary/10 text-primary" : "border-border/60 bg-surface/60 text-muted-foreground"}`}
               >
-                {t(`history.filter.${f.key}`)}
+                {f.label}
               </button>
             );
           })}
         </div>
 
         <div className="mt-4 space-y-2">
-          {rows.map((tx) => {
-            const Icon = ICONS[tx.kind];
-            const pos = tx.amount > 0;
+          {rows.map((t) => {
+            const Icon = ICONS[t.kind];
+            const pos = t.amount > 0;
             return (
-              <div key={tx.id} className="flex items-center gap-3 rounded-2xl bg-surface p-4">
+              <div key={t.id} className="flex items-center gap-3 rounded-2xl bg-surface p-4">
                 <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${pos ? "bg-primary/15 text-primary" : "bg-muted text-foreground"}`}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium">{tx.title}</p>
+                  <p className="truncate text-sm font-medium">{t.title}</p>
                   <p className="truncate text-xs text-muted-foreground">
-                    {tx.subtitle} · {tx.time}
+                    {t.subtitle} · {t.time}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className={`text-sm font-semibold tabular-nums ${pos ? "text-primary" : "text-foreground"}`}>
                     {pos ? "+" : ""}
-                    {tx.amount.toFixed(2)} {tx.currency}
+                    {t.amount.toFixed(2)} {t.currency}
                   </p>
                   <p
                     className={`text-[10px] uppercase tracking-widest ${
-                      tx.status === "pending"
+                      t.status === "pending"
                         ? "text-accent"
-                        : tx.status === "failed"
+                        : t.status === "failed"
                           ? "text-destructive"
                           : "text-muted-foreground"
                     }`}
                   >
-                    {tx.status === "pending" ? t("common.pending") : tx.status === "failed" ? t("common.failed") : t("common.completed")}
+                    {t.status}
                   </p>
                 </div>
               </div>
@@ -136,7 +138,7 @@ function HistoryPage() {
           })}
           {rows.length === 0 && (
             <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-xs text-muted-foreground">
-              {t("history.empty")}
+              No transactions match your filter.
             </div>
           )}
         </div>
