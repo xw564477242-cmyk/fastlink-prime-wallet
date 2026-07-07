@@ -176,7 +176,18 @@ function ProfilePage() {
 
           <Section title="Help">
             <Row icon={LifeBuoy} label="Support Center" hint="24/7 chat" />
-            <Row icon={LogOut} label="Log Out" danger />
+            <button
+              onClick={logout}
+              className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
+            >
+              <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-destructive/15 text-destructive">
+                <LogOut className="h-4 w-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-destructive">Log Out</p>
+              </div>
+              <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+            </button>
           </Section>
         </div>
 
