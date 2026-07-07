@@ -80,7 +80,7 @@ function HomePage() {
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
-        <div className="mt-3 font-display text-4xl font-bold tracking-tight">
+        <div translate="no" className="mt-3 font-display text-4xl font-bold tracking-tight">
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
