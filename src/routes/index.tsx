@@ -149,6 +149,7 @@ function MiniStat({ to, label, value, tone }: { to: "/assets/digital" | "/assets
   return (
     <Link
       to={to}
+      translate="no"
       className="group relative flex flex-col rounded-2xl border border-border/60 bg-background/50 p-3 text-left backdrop-blur transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:bg-background/80 hover:shadow-glow active:scale-[0.97]"
     >
       <div className="flex items-center justify-between">
