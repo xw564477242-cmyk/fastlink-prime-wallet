@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { BadgeCheck, IdCard, Camera, MapPin, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/kyc")({
   head: () => ({
@@ -17,6 +18,7 @@ type Step = 0 | 1 | 2 | 3;
 type Status = "not_started" | "pending" | "approved";
 
 function KycPage() {
+  const { t } = useLang();
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>(0);
   const [status, setStatus] = useState<Status>("not_started");
@@ -33,12 +35,12 @@ function KycPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="KYC Verification" />
+      <StatusBar title={t("kyc.title")} />
       <div className="px-6 pt-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Identity Verification
+          {t("kyc.tag")}
         </p>
-        <h1 className="mt-1 font-display text-2xl font-bold">Verify your identity</h1>
+        <h1 className="mt-1 font-display text-2xl font-bold">{t("kyc.h1")}</h1>
 
         {/* Status pill */}
         <div className="mt-4 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
@@ -50,7 +52,7 @@ function KycPage() {
             <BadgeCheck className="h-4 w-4 text-muted-foreground" />
           )}
           <span className="text-xs font-semibold capitalize">
-            {status === "not_started" ? "Not started" : status}
+            {t(`kyc.status.${status}`)}
           </span>
         </div>
 
@@ -67,29 +69,29 @@ function KycPage() {
         {status === "approved" ? (
           <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6 text-center">
             <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
-            <h2 className="mt-3 font-display text-lg font-bold">Verified · Tier 2</h2>
+            <h2 className="mt-3 font-display text-lg font-bold">{t("kyc.approvedTitle")}</h2>
             <p className="mt-1 text-xs text-muted-foreground">
-              You now have full access to cards, transfers and withdrawals.
+              {t("kyc.approvedSub")}
             </p>
             <button
               onClick={() => navigate({ to: "/" })}
               className="mt-5 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              Back to Home
+              {t("common.backHome")}
             </button>
           </div>
         ) : status === "pending" ? (
           <div className="mt-8 rounded-2xl border border-border/60 bg-surface/60 p-6 text-center">
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-accent" />
-            <h2 className="mt-3 font-display text-base font-semibold">Reviewing…</h2>
+            <h2 className="mt-3 font-display text-base font-semibold">{t("kyc.reviewing")}</h2>
             <p className="mt-1 text-xs text-muted-foreground">
-              We're verifying your documents. This usually takes a moment in demo mode.
+              {t("kyc.reviewingSub")}
             </p>
           </div>
         ) : (
           <div className="mt-5 space-y-4">
             {step === 0 && (
-              <StepCard title="Choose document type" icon={<IdCard className="h-4 w-4" />}>
+              <StepCard title="{t("kyc.docType")}" icon={<IdCard className="h-4 w-4" />}>
                 <div className="grid grid-cols-3 gap-2">
                   {(["passport", "id_card", "driver_license"] as const).map((d) => (
                     <button
@@ -97,7 +99,7 @@ function KycPage() {
                       onClick={() => setDocType(d)}
                       className={`rounded-2xl border p-3 text-xs font-semibold ${docType === d ? "border-primary bg-primary/10 text-primary" : "border-border/60 bg-surface/60"}`}
                     >
-                      {d.replace("_", " ")}
+                      {t(`kyc.doc.${d}`)}
                     </button>
                   ))}
                 </div>

@@ -1,3 +1,4 @@
+import { useLang } from "@/lib/i18n";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ChevronLeft, Plus, ArrowLeftRight } from "lucide-react";
@@ -20,9 +21,10 @@ const fiat = [
 ];
 
 function FiatWalletsPage() {
+  const { t } = useLang();
   return (
     <MobileShell>
-      <StatusBar title="Fiat Wallets" />
+      <StatusBar title={t("assets.fiat.title")} />
       <div className="flex items-center justify-between px-6 pt-2">
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground">
           <ChevronLeft className="h-4 w-4" /> Home

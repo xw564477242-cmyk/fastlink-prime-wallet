@@ -17,13 +17,13 @@ export const Route = createFileRoute("/pay")({
 
 type Mode = "receive" | "pay-qr" | "scan" | "transfer" | "merchant" | "payout";
 
-const modes: { key: Mode; label: string; icon: React.ComponentType<{ className?: string }>; sub: string }[] = [
-  { key: "receive", label: "Receive QR", icon: Download, sub: "Get paid" },
-  { key: "pay-qr", label: "Pay QR", icon: QrCode, sub: "Show to pay" },
-  { key: "scan", label: "Scan QR", icon: Scan, sub: "Alipay · WeChat · UPI" },
-  { key: "transfer", label: "Transfer", icon: Send, sub: "Between FastLink users" },
-  { key: "merchant", label: "Merchant Pay", icon: Store, sub: "In-store & online" },
-  { key: "payout", label: "Payout", icon: Banknote, sub: "To bank · SWIFT · SEPA" },
+const modes: { key: Mode; labelKey: string; icon: React.ComponentType<{ className?: string }>; subKey: string }[] = [
+  { key: "receive", labelKey: "pay.mode.receive", icon: Download, subKey: "pay.mode.receiveSub" },
+  { key: "pay-qr", labelKey: "pay.mode.payqr", icon: QrCode, subKey: "pay.mode.payqrSub" },
+  { key: "scan", labelKey: "pay.mode.scan", icon: Scan, subKey: "pay.mode.scanSub" },
+  { key: "transfer", labelKey: "pay.mode.transfer", icon: Send, subKey: "pay.mode.transferSub" },
+  { key: "merchant", labelKey: "pay.mode.merchant", icon: Store, subKey: "pay.mode.merchantSub" },
+  { key: "payout", labelKey: "pay.mode.payout", icon: Banknote, subKey: "pay.mode.payoutSub" },
 ];
 
 const history = [
@@ -73,8 +73,8 @@ function PayPage() {
                 <div className={`grid h-9 w-9 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}>
                   <Icon className="h-4.5 w-4.5" />
                 </div>
-                <span className="text-[11px] font-semibold">{m.label}</span>
-                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{m.sub}</span>
+                <span className="text-[11px] font-semibold">{t(m.labelKey)}</span>
+                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{t(m.subKey)}</span>
               </button>
             );
           })}

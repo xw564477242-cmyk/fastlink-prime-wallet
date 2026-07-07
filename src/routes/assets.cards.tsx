@@ -1,3 +1,4 @@
+import { useLang } from "@/lib/i18n";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ChevronLeft, Sparkles, Wallet, Plane, Plus } from "lucide-react";
@@ -19,9 +20,10 @@ const cardBal = [
 ];
 
 function CardAccountsPage() {
+  const { t } = useLang();
   return (
     <MobileShell>
-      <StatusBar title="Card Accounts" />
+      <StatusBar title={t("assets.cards.title")} />
       <div className="flex items-center justify-between px-6 pt-2">
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground">
           <ChevronLeft className="h-4 w-4" /> Home
