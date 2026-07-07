@@ -21,6 +21,7 @@ import { Route as DepositRouteImport } from './routes/deposit'
 import { Route as ConvertRouteImport } from './routes/convert'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as CardsRouteImport } from './routes/cards'
+import { Route as CardPayRouteImport } from './routes/card-pay'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
@@ -105,6 +106,11 @@ const ConnectRoute = ConnectRouteImport.update({
 const CardsRoute = CardsRouteImport.update({
   id: '/cards',
   path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CardPayRoute = CardPayRouteImport.update({
+  id: '/card-pay',
+  path: '/card-pay',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -239,6 +245,7 @@ const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
@@ -278,6 +285,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
@@ -318,6 +326,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/card-pay': typeof CardPayRoute
   '/cards': typeof CardsRoute
   '/connect': typeof ConnectRoute
   '/convert': typeof ConvertRoute
@@ -359,6 +368,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/card-pay'
     | '/cards'
     | '/connect'
     | '/convert'
@@ -398,6 +408,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/card-pay'
     | '/cards'
     | '/connect'
     | '/convert'
@@ -437,6 +448,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/card-pay'
     | '/cards'
     | '/connect'
     | '/convert'
@@ -477,6 +489,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  CardPayRoute: typeof CardPayRoute
   CardsRoute: typeof CardsRoute
   ConnectRoute: typeof ConnectRoute
   ConvertRoute: typeof ConvertRoute
@@ -594,6 +607,13 @@ declare module '@tanstack/react-router' {
       path: '/cards'
       fullPath: '/cards'
       preLoaderRoute: typeof CardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/card-pay': {
+      id: '/card-pay'
+      path: '/card-pay'
+      fullPath: '/card-pay'
+      preLoaderRoute: typeof CardPayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -795,6 +815,7 @@ const ApiCardIdRouteWithChildren = ApiCardIdRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  CardPayRoute: CardPayRoute,
   CardsRoute: CardsRoute,
   ConnectRoute: ConnectRoute,
   ConvertRoute: ConvertRoute,
