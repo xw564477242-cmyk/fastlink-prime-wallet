@@ -25,12 +25,19 @@ const BALANCES: Record<Cur, number> = {
 };
 
 function TransferPage() {
+  const navigate = useNavigate();
   const [recipient, setRecipient] = useState("");
   const [currency, setCurrency] = useState<Cur>("USDT");
   const [amount, setAmount] = useState("");
   const [note, setNote] = useState("");
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [modal, setModal] = useState<ActionState>("idle");
   const amt = Number(amount) || 0;
+
+  const confirm = () => {
+    setModal("pending");
+    setTimeout(() => setModal("success"), 1100);
+  };
 
   return (
     <MobileShell>
