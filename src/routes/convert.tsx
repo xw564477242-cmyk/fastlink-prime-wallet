@@ -40,15 +40,22 @@ const pairs = [
 ];
 
 function ConvertPage() {
+  const navigate = useNavigate();
   const [amount, setAmount] = useState("500");
   const [from, setFrom] = useState("USDT");
   const [to, setTo] = useState("SGD");
   const [pickerFor, setPickerFor] = useState<"from" | "to" | null>(null);
+  const [modal, setModal] = useState<ActionState>("idle");
 
   const rate = useMemo(() => usdRate[to] / usdRate[from], [from, to]);
   const parsed = parseFloat(amount || "0") || 0;
   const result = (parsed * rate).toFixed(2);
   const swap = () => { const f = from; setFrom(to); setTo(f); };
+
+  const confirm = () => {
+    setModal("pending");
+    setTimeout(() => setModal("success"), 1000);
+  };
 
   return (
     <MobileShell>
