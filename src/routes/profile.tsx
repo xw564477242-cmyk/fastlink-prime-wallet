@@ -29,8 +29,16 @@ export const Route = createFileRoute("/profile")({
 
 function ProfilePage() {
   const { lang, setLang, t } = useLang();
+  const navigate = useNavigate();
   const [langOpen, setLangOpen] = useState(false);
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
+
+  const logout = () => {
+    try {
+      localStorage.removeItem("fastlink.session");
+    } catch {}
+    navigate({ to: "/auth" });
+  };
   return (
     <MobileShell>
       <StatusBar title={t("profile.title")} />
