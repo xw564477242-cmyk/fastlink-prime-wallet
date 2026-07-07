@@ -1,6 +1,6 @@
 // KYC / Customer service.
 
-import { isMockMode, threddFetch } from "./thredd.client";
+import { isMockMode, threddFetch } from "./thredd.http";
 import { threddMock } from "./thredd.mock";
 import type { KycStatus, KycSubmission, ThreddCustomer } from "./thredd.types";
 

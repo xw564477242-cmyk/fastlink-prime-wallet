@@ -1,7 +1,7 @@
 // Card service — wraps the Thredd HTTP client with card-level operations.
 // Falls back to an in-memory mock when THREDD_MOCK=true or no API key is set.
 
-import { isMockMode, threddFetch } from "./thredd.client";
+import { isMockMode, threddFetch } from "./thredd.http";
 import { threddMock } from "./thredd.mock";
 import type { ThreddCard, ThreddCardDetail, ThreddCardTxn } from "./thredd.types";
 
