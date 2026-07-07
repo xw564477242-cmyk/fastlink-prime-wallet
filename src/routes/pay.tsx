@@ -1,6 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy } from "lucide-react";
+import { ActionModal, type ActionState } from "@/components/ActionModal";
+import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy, CreditCard } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/pay")({
@@ -33,8 +34,18 @@ const history = [
 ];
 
 function PayPage() {
+  const navigate = useNavigate();
   const [mode, setMode] = useState<Mode>("receive");
   const [q, setQ] = useState("");
+  const [modal, setModal] = useState<{ state: ActionState; title: string; desc: string }>({
+    state: "idle",
+    title: "",
+    desc: "",
+  });
+  const run = (title: string, desc: string) => {
+    setModal({ state: "pending", title, desc });
+    setTimeout(() => setModal({ state: "success", title, desc }), 1000);
+  };
   const filtered = history.filter((h) => (h.name + h.type).toLowerCase().includes(q.toLowerCase()));
 
   return (
@@ -69,13 +80,30 @@ function PayPage() {
 
         {/* Panel */}
         <div className="mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
-          {mode === "receive" && <ReceivePanel />}
+          {mode === "receive" && <ReceivePanel onShare={() => run("QR shared", "Your receive code is ready to accept payments.")} />}
           {mode === "pay-qr" && <PayQrPanel />}
-          {mode === "scan" && <ScanPanel />}
-          {mode === "transfer" && <TransferPanel />}
-          {mode === "merchant" && <MerchantPanel />}
-          {mode === "payout" && <PayoutPanel />}
+          {mode === "scan" && <ScanPanel onOpen={() => run("Scan complete", "QR decoded. Ready to confirm the payment.")} />}
+          {mode === "transfer" && <TransferPanel onSend={() => run("Transfer sent", "120.00 USDT delivered to @mei.fl.")} />}
+          {mode === "merchant" && <MerchantPanel onCheckout={() => run("Payment approved", "Merchant checkout completed.")} />}
+          {mode === "payout" && <PayoutPanel onReview={() => run("Payout submitted", "1,200.00 USD sent via SWIFT.")} />}
         </div>
+
+        {/* Pay with Card CTA */}
+        <Link
+          to="/card-pay"
+          className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/40 bg-primary/10 p-4 active:scale-[0.99]"
+        >
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground">
+            <CreditCard className="h-4 w-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold">Pay with Card</p>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Simulate a merchant terminal tap
+            </p>
+          </div>
+          <ChevronRight className="h-4 w-4 text-primary" />
+        </Link>
 
         {/* History */}
         <div className="mt-8">
@@ -113,6 +141,19 @@ function PayPage() {
           </div>
         </div>
       </div>
+
+      <ActionModal
+        open={modal.state !== "idle"}
+        onClose={() => setModal({ state: "idle", title: "", desc: "" })}
+        state={modal.state}
+        title={modal.title}
+        description={modal.desc}
+        successLabel="View History"
+        onSuccess={() => {
+          setModal({ state: "idle", title: "", desc: "" });
+          navigate({ to: "/history" });
+        }}
+      />
     </MobileShell>
   );
 }
@@ -138,7 +179,7 @@ function QrGraphic({ label }: { label: string }) {
   );
 }
 
-function ReceivePanel() {
+function ReceivePanel({ onShare }: { onShare: () => void }) {
   return (
     <>
       <PanelTitle title="Receive QR" desc="Share to accept payments in any currency" />
@@ -150,7 +191,7 @@ function ReceivePanel() {
           <Copy className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
       </div>
-      <button className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onShare} className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Share QR
       </button>
     </>
@@ -169,7 +210,7 @@ function PayQrPanel() {
   );
 }
 
-function ScanPanel() {
+function ScanPanel({ onOpen }: { onOpen: () => void }) {
   return (
     <>
       <PanelTitle title="Scan QR" desc="Point at Alipay, WeChat, UPI, or FastLink codes" />
@@ -177,14 +218,14 @@ function ScanPanel() {
         <Scan className="h-14 w-14 text-primary" />
         <div className="absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-primary shadow-glow" />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onOpen} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Open Camera
       </button>
     </>
   );
 }
 
-function TransferPanel() {
+function TransferPanel({ onSend }: { onSend: () => void }) {
   return (
     <>
       <PanelTitle title="Transfer" desc="Send to another FastLink user instantly" />
@@ -193,14 +234,14 @@ function TransferPanel() {
         <FormRow label="Amount" value="120.00 USDT" big />
         <FormRow label="Note" value="Dinner Friday" />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onSend} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Send Transfer
       </button>
     </>
   );
 }
 
-function MerchantPanel() {
+function MerchantPanel({ onCheckout }: { onCheckout: () => void }) {
   return (
     <>
       <PanelTitle title="Merchant Pay" desc="Pay online checkouts and in-store terminals" />
@@ -211,14 +252,14 @@ function MerchantPanel() {
           </button>
         ))}
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onCheckout} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Continue to checkout
       </button>
     </>
   );
 }
 
-function PayoutPanel() {
+function PayoutPanel({ onReview }: { onReview: () => void }) {
   return (
     <>
       <PanelTitle title="Payout" desc="Send to any bank account worldwide" />
@@ -227,7 +268,7 @@ function PayoutPanel() {
         <FormRow label="Beneficiary" value="Daniel Chen · HSBC ····3211" />
         <FormRow label="Amount" value="1,200.00 USD" big />
       </div>
-      <button className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button onClick={onReview} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
         Review Payout
       </button>
     </>
