@@ -23,12 +23,19 @@ const NETWORKS = [
 const AVAILABLE = 10204.15;
 
 function WithdrawPage() {
+  const navigate = useNavigate();
   const [network, setNetwork] = useState<(typeof NETWORKS)[number]["key"]>("TRC20");
   const [address, setAddress] = useState("");
   const [amount, setAmount] = useState("");
+  const [modal, setModal] = useState<ActionState>("idle");
   const net = NETWORKS.find((n) => n.key === network)!;
   const amt = Number(amount) || 0;
   const receive = Math.max(0, amt - net.fee);
+
+  const confirm = () => {
+    setModal("pending");
+    setTimeout(() => setModal("success"), 1200);
+  };
 
   return (
     <MobileShell>
