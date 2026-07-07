@@ -60,7 +60,7 @@ function HomePage() {
           </div>
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">{t("home.welcome")}</p>
-            <p className="truncate text-sm font-semibold">Daniel Chen</p>
+            <p translate="no" className="truncate text-sm font-semibold">Daniel Chen</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
