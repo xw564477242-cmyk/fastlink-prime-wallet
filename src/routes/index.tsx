@@ -107,7 +107,7 @@ function HomePage() {
       <div className="mx-6 mt-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-base font-semibold">{t("home.recent")}</h3>
-          <Link to="/pay" className="text-xs text-primary">{t("home.seeAll")}</Link>
+          <Link to="/history" className="text-xs text-primary">{t("home.seeAll")}</Link>
         </div>
         <div className="mt-3 space-y-2">
           {recent.map((t) => (
