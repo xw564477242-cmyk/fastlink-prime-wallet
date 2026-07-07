@@ -136,8 +136,8 @@ function HomePage() {
 
       <div className="mx-6 mt-6 flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 p-4">
         <div>
-          <p className="text-xs font-semibold">Earn 5.82% APY on idle USDT</p>
-          <p className="mt-0.5 text-[10px] text-muted-foreground">FastLink Treasury · Auto-yield</p>
+          <p className="text-xs font-semibold">{t("home.earnCta")}</p>
+          <p className="mt-0.5 text-[10px] text-muted-foreground">{t("home.earnSub")}</p>
         </div>
         <ChevronRight className="h-4 w-4 text-muted-foreground" />
       </div>
