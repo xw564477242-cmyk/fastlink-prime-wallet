@@ -80,13 +80,30 @@ function PayPage() {
 
         {/* Panel */}
         <div className="mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
-          {mode === "receive" && <ReceivePanel />}
+          {mode === "receive" && <ReceivePanel onShare={() => run("QR shared", "Your receive code is ready to accept payments.")} />}
           {mode === "pay-qr" && <PayQrPanel />}
-          {mode === "scan" && <ScanPanel />}
-          {mode === "transfer" && <TransferPanel />}
-          {mode === "merchant" && <MerchantPanel />}
-          {mode === "payout" && <PayoutPanel />}
+          {mode === "scan" && <ScanPanel onOpen={() => run("Scan complete", "QR decoded. Ready to confirm the payment.")} />}
+          {mode === "transfer" && <TransferPanel onSend={() => run("Transfer sent", "120.00 USDT delivered to @mei.fl.")} />}
+          {mode === "merchant" && <MerchantPanel onCheckout={() => run("Payment approved", "Merchant checkout completed.")} />}
+          {mode === "payout" && <PayoutPanel onReview={() => run("Payout submitted", "1,200.00 USD sent via SWIFT.")} />}
         </div>
+
+        {/* Pay with Card CTA */}
+        <Link
+          to="/card-pay"
+          className="mt-6 flex items-center gap-3 rounded-2xl border border-primary/40 bg-primary/10 p-4 active:scale-[0.99]"
+        >
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-primary text-primary-foreground">
+            <CreditCard className="h-4 w-4" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-sm font-semibold">Pay with Card</p>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              Simulate a merchant terminal tap
+            </p>
+          </div>
+          <ChevronRight className="h-4 w-4 text-primary" />
+        </Link>
 
         {/* History */}
         <div className="mt-8">
