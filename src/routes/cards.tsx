@@ -221,26 +221,22 @@ function CardsPage() {
             <h1 className="mt-1 font-display text-2xl font-bold">My Cards</h1>
           </div>
           <button
-            onClick={async () => {
-              setBusy(true);
-              try {
-                const res = await fetch("/api/card/create-virtual", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ alias: "New Virtual" }),
-                });
-                const data = (await res.json()) as { card: ThreddCard };
-                setCards((cs) => [...cs, data.card]);
-                setActiveId(data.card.cardId);
-              } finally {
-                setBusy(false);
-              }
-            }}
-            className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary"
+            onClick={issueNewVirtual}
+            disabled={busy}
+            className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
           >
             <Plus className="h-3.5 w-3.5" /> Issue new
           </button>
         </div>
+
+        {error && (
+          <div className="mt-3 flex items-start justify-between gap-3 rounded-2xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-[12px] text-destructive">
+            <span className="leading-snug">{error}</span>
+            <button onClick={() => setError(null)} className="text-[11px] font-semibold uppercase tracking-widest">
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {/* Card type selector */}
         <div className="mt-5 grid grid-cols-3 gap-2">
