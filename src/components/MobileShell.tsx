@@ -17,7 +17,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
   const { t } = useLang();
 
   return (
-    <div className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground">
+    <div translate="no" className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground">
       <div className="flex-1 overflow-y-auto pb-28">{children}</div>
       <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-border/60 bg-surface/95 backdrop-blur-xl">
         <div className="grid w-full grid-cols-6">
