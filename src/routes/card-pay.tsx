@@ -3,6 +3,7 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { CreditCard, Wifi, Store } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/card-pay")({
   head: () => ({
@@ -23,6 +24,7 @@ const MERCHANTS = [
 
 function CardPayPage() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [merchant, setMerchant] = useState(MERCHANTS[0]);
   const [modal, setModal] = useState<ActionState>("idle");
 
@@ -33,17 +35,14 @@ function CardPayPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="Pay with Card" />
+      <StatusBar title={t("page.cardPay")} />
       <div className="px-6 pt-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Merchant Checkout
+          {t("cp.tag")}
         </p>
-        <h1 className="mt-1 font-display text-2xl font-bold">Tap to Pay</h1>
-        <p className="mt-1 text-xs text-muted-foreground">
-          Simulate a contactless card payment at a merchant terminal.
-        </p>
+        <h1 className="mt-1 font-display text-2xl font-bold">{t("cp.title")}</h1>
+        <p className="mt-1 text-xs text-muted-foreground">{t("cp.desc")}</p>
 
-        {/* Merchant list */}
         <div className="mt-5 space-y-2">
           {MERCHANTS.map((m) => {
             const on = m.name === merchant.name;
@@ -57,30 +56,29 @@ function CardPayPage() {
                   <Store className="h-4 w-4" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-semibold">{m.name}</p>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{m.category}</p>
+                  <p translate="no" className="truncate text-sm font-semibold">{m.name}</p>
+                  <p translate="no" className="text-[10px] uppercase tracking-widest text-muted-foreground">{m.category}</p>
                 </div>
-                <p className="font-semibold tabular-nums">${m.amount.toFixed(2)}</p>
+                <p translate="no" className="font-semibold tabular-nums">${m.amount.toFixed(2)}</p>
               </button>
             );
           })}
         </div>
 
-        {/* Terminal */}
         <div className="mt-6 rounded-3xl border border-border/60 bg-surface/60 p-6 text-center">
           <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-primary/10 text-primary">
             <Wifi className="h-9 w-9 rotate-90" />
           </div>
-          <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground">Amount due</p>
-          <p className="mt-1 font-display text-3xl font-bold tabular-nums">${merchant.amount.toFixed(2)}</p>
-          <p className="mt-1 text-xs text-muted-foreground">{merchant.name}</p>
+          <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground">{t("cp.amountDue")}</p>
+          <p translate="no" className="mt-1 font-display text-3xl font-bold tabular-nums">${merchant.amount.toFixed(2)}</p>
+          <p translate="no" className="mt-1 text-xs text-muted-foreground">{merchant.name}</p>
         </div>
 
         <button
           onClick={pay}
           className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
         >
-          <CreditCard className="h-4 w-4" /> Tap Virtual Card to Pay
+          <CreditCard className="h-4 w-4" /> {t("cp.tapPay")}
         </button>
       </div>
 
@@ -88,20 +86,20 @@ function CardPayPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={modal === "success" ? "Payment approved" : "Confirm payment"}
+        title={modal === "success" ? t("cp.approved") : t("cp.confirmTitle")}
         description={
           modal === "success"
-            ? `Paid $${merchant.amount.toFixed(2)} to ${merchant.name}.`
-            : `Charge $${merchant.amount.toFixed(2)} to your Virtual Card •• 4829.`
+            ? t("cp.paidTo", { amt: merchant.amount.toFixed(2), name: merchant.name })
+            : t("cp.charge", { amt: merchant.amount.toFixed(2) })
         }
         rows={[
-          { label: "Merchant", value: merchant.name },
-          { label: "Amount", value: `$${merchant.amount.toFixed(2)}` },
-          { label: "Card", value: "Virtual •• 4829" },
+          { label: t("cp.merchant"), value: <span translate="no">{merchant.name}</span> },
+          { label: t("common.amount"), value: <span translate="no">${merchant.amount.toFixed(2)}</span> },
+          { label: t("cp.card"), value: <span translate="no">Virtual •• 4829</span> },
         ]}
-        confirmLabel="Pay Now"
+        confirmLabel={t("cp.payNow")}
         onConfirm={pay}
-        successLabel="View History"
+        successLabel={t("common.viewHistory")}
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/history" });

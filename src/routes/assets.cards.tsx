@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ChevronLeft, Sparkles, Wallet, Plane, Plus } from "lucide-react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/assets/cards")({
   head: () => ({
@@ -13,28 +14,29 @@ export const Route = createFileRoute("/assets/cards")({
 });
 
 const cardBal = [
-  { key: "virtual", label: "Virtual Card", last4: "4829", icon: Sparkles, bal: "1,842.60", tint: "from-primary/20 to-primary/5", stripe: "bg-primary", status: "Active" },
-  { key: "physical", label: "Physical Card", last4: "9130", icon: Wallet, bal: "620.40", tint: "from-accent/20 to-accent/5", stripe: "bg-accent", status: "Active" },
-  { key: "travel", label: "Travel Card", last4: "2246", icon: Plane, bal: "980.00", tint: "from-sky-500/20 to-sky-500/5", stripe: "bg-sky-400", status: "Active" },
+  { key: "virtual", labelKey: "card.virtual", last4: "4829", icon: Sparkles, bal: "1,842.60", tint: "from-primary/20 to-primary/5", stripe: "bg-primary" },
+  { key: "physical", labelKey: "card.physical", last4: "9130", icon: Wallet, bal: "620.40", tint: "from-accent/20 to-accent/5", stripe: "bg-accent" },
+  { key: "travel", labelKey: "card.travel", last4: "2246", icon: Plane, bal: "980.00", tint: "from-sky-500/20 to-sky-500/5", stripe: "bg-sky-400" },
 ];
 
 function CardAccountsPage() {
+  const { t } = useLang();
   return (
     <MobileShell>
-      <StatusBar title="Card Accounts" />
+      <StatusBar title={t("assets.cards.title")} />
       <div className="flex items-center justify-between px-6 pt-2">
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground">
-          <ChevronLeft className="h-4 w-4" /> Home
+          <ChevronLeft className="h-4 w-4" /> {t("nav.home")}
         </Link>
-        <Link to="/cards" className="text-xs font-semibold text-primary">Manage Cards</Link>
+        <Link to="/cards" className="text-xs font-semibold text-primary">{t("assets.cards.manage")}</Link>
       </div>
 
       <div className="px-6 pt-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Total · Card Balance
+          {t("assets.cards.total")}
         </p>
-        <p className="mt-2 font-display text-4xl font-bold tabular-nums">$3,443.00</p>
-        <p className="mt-1 text-xs text-muted-foreground">{cardBal.length} cards</p>
+        <p translate="no" className="mt-2 font-display text-4xl font-bold tabular-nums">$3,443.00</p>
+        <p className="mt-1 text-xs text-muted-foreground">{t("assets.cards.count", { n: cardBal.length })}</p>
       </div>
 
       <div className="mt-6 space-y-2 px-6">
@@ -51,20 +53,20 @@ function CardAccountsPage() {
                 <Icon className="h-4.5 w-4.5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold">{c.label}</p>
+                <p className="text-sm font-semibold">{t(c.labelKey)}</p>
                 <p translate="no" className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-                  •••• {c.last4} · {c.status}
+                  •••• {c.last4} · <span translate="yes">{t("card.status.active")}</span>
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-semibold tabular-nums">${c.bal}</p>
-                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Available</p>
+                <p translate="no" className="text-sm font-semibold tabular-nums">${c.bal}</p>
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.available")}</p>
               </div>
             </Link>
           );
         })}
         <Link to="/cards" className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-border/60 py-3 text-[11px] font-semibold text-muted-foreground">
-          <Plus className="h-3.5 w-3.5" /> Apply for new card
+          <Plus className="h-3.5 w-3.5" /> {t("assets.cards.apply")}
         </Link>
       </div>
       <div className="h-8" />

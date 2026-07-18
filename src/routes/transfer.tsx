@@ -3,6 +3,7 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { Send, User, ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/transfer")({
   head: () => ({
@@ -26,6 +27,7 @@ const BALANCES: Record<Cur, number> = {
 
 function TransferPage() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [recipient, setRecipient] = useState("");
   const [currency, setCurrency] = useState<Cur>("USDT");
   const [amount, setAmount] = useState("");
@@ -41,36 +43,34 @@ function TransferPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="Transfer" />
+      <StatusBar title={t("page.transfer")} />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Peer · Instant · Zero fee</p>
-        <h1 className="mt-1 font-display text-2xl font-bold">Send to a FastLink User</h1>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("transfer.tag")}</p>
+        <h1 className="mt-1 font-display text-2xl font-bold">{t("transfer.title")}</h1>
 
-        {/* Recipient */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Recipient</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.recipient")}</p>
           <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <User className="h-4 w-4 text-muted-foreground" />
             <input
               value={recipient}
               onChange={(e) => setRecipient(e.target.value)}
-              placeholder="FastLink ID / phone / email"
+              placeholder={t("transfer.recipientPh")}
               className="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground/60"
             />
           </div>
         </div>
 
-        {/* Currency */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Currency</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.currency")}</p>
           <button
             onClick={() => setPickerOpen((v) => !v)}
             className="flex w-full items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3"
           >
             <div>
-              <p className="text-sm font-semibold">{currency}</p>
+              <p translate="no" className="text-sm font-semibold">{currency}</p>
               <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-                Balance {BALANCES[currency].toLocaleString()} {currency}
+                {t("transfer.balanceLine", { n: BALANCES[currency].toLocaleString(), c: currency })}
               </p>
             </div>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -80,24 +80,20 @@ function TransferPage() {
               {CURRENCIES.map((c) => (
                 <button
                   key={c}
-                  onClick={() => {
-                    setCurrency(c);
-                    setPickerOpen(false);
-                  }}
+                  onClick={() => { setCurrency(c); setPickerOpen(false); }}
                   className={`rounded-2xl border py-2 text-xs font-semibold ${c === currency ? "border-primary bg-primary/10 text-primary" : "border-border/60 bg-surface/60"}`}
                 >
-                  {c}
+                  <span translate="no">{c}</span>
                 </button>
               ))}
             </div>
           )}
         </div>
 
-        {/* Amount */}
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Amount</p>
-            <button onClick={() => setAmount(String(BALANCES[currency]))} className="text-[10px] font-semibold text-primary">MAX</button>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.amount")}</p>
+            <button onClick={() => setAmount(String(BALANCES[currency]))} className="text-[10px] font-semibold text-primary">{t("common.max")}</button>
           </div>
           <div className="flex items-baseline gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <input
@@ -107,29 +103,27 @@ function TransferPage() {
               placeholder="0.00"
               className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none placeholder:text-muted-foreground/40"
             />
-            <span className="text-xs font-semibold text-muted-foreground">{currency}</span>
+            <span translate="no" className="text-xs font-semibold text-muted-foreground">{currency}</span>
           </div>
         </div>
 
-        {/* Note */}
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">Note (optional)</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.noteOptional")}</p>
           <input
             value={note}
             onChange={(e) => setNote(e.target.value)}
             maxLength={80}
-            placeholder="What's this for?"
+            placeholder={t("transfer.notePh")}
             className="w-full rounded-2xl border border-border/60 bg-surface/60 px-4 py-3 text-sm outline-none placeholder:text-muted-foreground/60"
           />
         </div>
 
-        {/* Review panel */}
         <div className="mt-5 space-y-2 rounded-2xl border border-border/60 bg-surface/60 p-4">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Review</p>
-          <Row label="To" value={recipient || "—"} />
-          <Row label="Amount" value={`${amt.toFixed(2)} ${currency}`} />
-          <Row label="Fee" value="0.00" />
-          <Row label="Arrival" value="Instant" />
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.review")}</p>
+          <Row label={t("common.to")} value={recipient || "—"} />
+          <Row label={t("common.amount")} value={`${amt.toFixed(2)} ${currency}`} />
+          <Row label={t("common.fee")} value="0.00" />
+          <Row label={t("convert.arrival")} value={t("common.instant")} />
         </div>
 
         <button
@@ -137,7 +131,7 @@ function TransferPage() {
           disabled={!recipient || amt <= 0}
           className="mt-5 mb-2 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow disabled:opacity-50"
         >
-          <Send className="h-4 w-4" /> Review Transfer
+          <Send className="h-4 w-4" /> {t("transfer.reviewBtn")}
         </button>
       </div>
 
@@ -145,21 +139,21 @@ function TransferPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={modal === "success" ? "Transfer sent" : "Confirm transfer"}
+        title={modal === "success" ? t("transfer.sentTitle") : t("transfer.confirmTitle")}
         description={
           modal === "success"
-            ? `${amt.toFixed(2)} ${currency} delivered instantly.`
-            : `Send ${amt.toFixed(2)} ${currency} to ${recipient}.`
+            ? t("transfer.sentDesc", { a: amt.toFixed(2), c: currency })
+            : t("transfer.confirmDesc", { a: amt.toFixed(2), c: currency, to: recipient })
         }
         rows={[
-          { label: "To", value: recipient || "—" },
-          { label: "Amount", value: `${amt.toFixed(2)} ${currency}` },
-          { label: "Fee", value: "0.00" },
-          { label: "Note", value: note || "—" },
+          { label: t("common.to"), value: recipient || "—" },
+          { label: t("common.amount"), value: <span translate="no">{amt.toFixed(2)} {currency}</span> },
+          { label: t("common.fee"), value: "0.00" },
+          { label: t("common.note"), value: note || "—" },
         ]}
-        confirmLabel="Send Now"
+        confirmLabel={t("transfer.sendNow")}
         onConfirm={confirm}
-        successLabel="Back to Home"
+        successLabel={t("common.backHome")}
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/" });
@@ -173,7 +167,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-[11px] text-muted-foreground">{label}</span>
-      <span className="text-xs font-semibold tabular-nums">{value}</span>
+      <span translate="no" className="text-xs font-semibold tabular-nums">{value}</span>
     </div>
   );
 }
