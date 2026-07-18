@@ -46,6 +46,24 @@ function CardsPage() {
   const [aliases, setAliases] = useState<Record<string, string>>({});
   const [funding, setFunding] = useState("100");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function callJson<T>(url: string, init?: RequestInit): Promise<T> {
+    const res = await fetch(url, init);
+    const data = (await res.json().catch(() => ({}))) as T & { error?: string };
+    if (!res.ok) throw new Error(data.error ?? `Request failed (${res.status})`);
+    return data as T;
+  }
+  function withErr(fn: () => Promise<void>) {
+    return async () => {
+      setError(null);
+      try {
+        await fn();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Something went wrong");
+      }
+    };
+  }
 
   const current = useMemo(() => cards.find((c) => c.cardId === activeId) ?? cards[0], [cards, activeId]);
 
@@ -53,14 +71,15 @@ function CardsPage() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/card/list");
-        const data = (await res.json()) as { cards: ThreddCard[] };
+        const data = await callJson<{ cards: ThreddCard[] }>("/api/card/list");
         if (cancelled) return;
         setCards(data.cards);
         setActiveId(data.cards[0]?.cardId ?? null);
         setAliases(
           Object.fromEntries(data.cards.map((c) => [c.cardId, c.alias ?? typeMeta[c.type].label])) as Record<string, string>,
         );
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load cards");
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -78,93 +97,122 @@ function CardsPage() {
   }, [activeId]);
 
   async function refreshCard(cardId: string) {
-    const res = await fetch(`/api/card/${cardId}`);
-    const data = (await res.json()) as { card: ThreddCard };
-    setCards((cs) => cs.map((c) => (c.cardId === cardId ? { ...c, ...data.card } : c)));
+    try {
+      const data = await callJson<{ card: ThreddCard }>(`/api/card/${cardId}`);
+      setCards((cs) => cs.map((c) => (c.cardId === cardId ? { ...c, ...data.card } : c)));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Refresh failed");
+    }
   }
 
-  async function toggleFreeze() {
+  const toggleFreeze = withErr(async () => {
     if (!current || busy) return;
     setBusy(true);
     try {
       const url = current.status === "frozen" ? `/api/card/${current.cardId}/unfreeze` : `/api/card/${current.cardId}/freeze`;
-      const res = await fetch(url, { method: "POST" });
-      const data = (await res.json()) as { card: ThreddCard };
+      const data = await callJson<{ card: ThreddCard }>(url, { method: "POST" });
       setCards((cs) => cs.map((c) => (c.cardId === current.cardId ? { ...c, ...data.card } : c)));
     } finally {
       setBusy(false);
     }
-  }
+  });
 
-  async function togglePin() {
+  const togglePin = withErr(async () => {
     if (!current) return;
     if (showPin) {
       setShowPin(false);
       return;
     }
     if (!pin) {
-      const res = await fetch(`/api/card/${current.cardId}`);
-      const data = (await res.json()) as { card: { pin: string } };
+      const data = await callJson<{ card: { pin: string } }>(`/api/card/${current.cardId}`);
       setPin(data.card.pin);
     }
     setShowPin(true);
-  }
+  });
 
-  async function toggleCvv() {
+  const toggleCvv = withErr(async () => {
     if (!current) return;
     if (showCvv) {
       setShowCvv(false);
       return;
     }
     if (!cvv) {
-      const res = await fetch(`/api/card/${current.cardId}`);
-      const data = (await res.json()) as { card: { cvv: string } };
+      const data = await callJson<{ card: { cvv: string } }>(`/api/card/${current.cardId}`);
       setCvv(data.card.cvv);
     }
     setShowCvv(true);
-  }
+  });
 
-  async function fund() {
+  const fund = withErr(async () => {
     if (!current || busy) return;
     const amount = Number(funding);
-    if (!Number.isFinite(amount) || amount <= 0) return;
+    if (!Number.isFinite(amount) || amount <= 0) {
+      setError("Enter a valid amount");
+      return;
+    }
     setBusy(true);
     try {
-      const res = await fetch(`/api/card/${current.cardId}/fund`, {
+      const data = await callJson<{ card: ThreddCard }>(`/api/card/${current.cardId}/fund`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
       });
-      const data = (await res.json()) as { card: ThreddCard };
       setCards((cs) => cs.map((c) => (c.cardId === current.cardId ? { ...c, ...data.card } : c)));
     } finally {
       setBusy(false);
     }
-  }
+  });
 
-  async function applyPhysical() {
+  const applyPhysical = withErr(async () => {
     if (busy) return;
     setBusy(true);
     try {
-      const res = await fetch("/api/card/apply-physical", {
+      const data = await callJson<{ card: ThreddCard }>("/api/card/apply-physical", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ shippingAddress: "1 Marina Blvd, Singapore", alias: "Physical Card" }),
       });
-      const data = (await res.json()) as { card: ThreddCard };
       setCards((cs) => [...cs, data.card]);
       setActiveId(data.card.cardId);
     } finally {
       setBusy(false);
     }
-  }
+  });
+
+  const issueNewVirtual = withErr(async () => {
+    setBusy(true);
+    try {
+      const data = await callJson<{ card: ThreddCard }>("/api/card/create-virtual", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ alias: "New Virtual" }),
+      });
+      setCards((cs) => [...cs, data.card]);
+      setActiveId(data.card.cardId);
+    } finally {
+      setBusy(false);
+    }
+  });
 
   if (loading || !current) {
     return (
       <MobileShell>
         <StatusBar title="Card Center" />
-        <div className="flex h-[60vh] items-center justify-center text-muted-foreground">
-          <Loader2 className="h-6 w-6 animate-spin" />
+        <div className="flex h-[60vh] flex-col items-center justify-center gap-3 px-6 text-center text-muted-foreground">
+          {loading ? (
+            <Loader2 className="h-6 w-6 animate-spin" />
+          ) : (
+            <>
+              <p className="text-sm">{error ?? "No cards yet."}</p>
+              <button
+                onClick={issueNewVirtual}
+                disabled={busy}
+                className="rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[12px] font-semibold text-primary disabled:opacity-60"
+              >
+                Issue your first virtual card
+              </button>
+            </>
+          )}
         </div>
       </MobileShell>
     );
@@ -186,26 +234,22 @@ function CardsPage() {
             <h1 className="mt-1 font-display text-2xl font-bold">My Cards</h1>
           </div>
           <button
-            onClick={async () => {
-              setBusy(true);
-              try {
-                const res = await fetch("/api/card/create-virtual", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ alias: "New Virtual" }),
-                });
-                const data = (await res.json()) as { card: ThreddCard };
-                setCards((cs) => [...cs, data.card]);
-                setActiveId(data.card.cardId);
-              } finally {
-                setBusy(false);
-              }
-            }}
-            className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary"
+            onClick={issueNewVirtual}
+            disabled={busy}
+            className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
           >
             <Plus className="h-3.5 w-3.5" /> Issue new
           </button>
         </div>
+
+        {error && (
+          <div className="mt-3 flex items-start justify-between gap-3 rounded-2xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-[12px] text-destructive">
+            <span className="leading-snug">{error}</span>
+            <button onClick={() => setError(null)} className="text-[11px] font-semibold uppercase tracking-widest">
+              Dismiss
+            </button>
+          </div>
+        )}
 
         {/* Card type selector */}
         <div className="mt-5 grid grid-cols-3 gap-2">

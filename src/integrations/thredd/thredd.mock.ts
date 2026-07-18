@@ -1,4 +1,6 @@
-// In-memory mock implementation of the Thredd API for local development.
+// Persistent mock implementation of the Thredd API.
+// State lives in Supabase (mock_cards, mock_card_txns) so that Cloudflare
+// Worker cold starts / isolate churn don't lose issued cards or balances.
 // Enabled when THREDD_MOCK=true or when THREDD_API_KEY is not configured.
 
 import type {
@@ -8,77 +10,67 @@ import type {
   ThreddCardDetail,
   ThreddCardTxn,
   ThreddCustomer,
-  CardType,
 } from "./thredd.types";
-
-const customers = new Map<string, ThreddCustomer>();
-const cards = new Map<string, ThreddCardDetail>();
-const txns = new Map<string, ThreddCardTxn[]>();
 
 function id(prefix: string) {
   return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
 }
 
-function seed() {
-  if (customers.size > 0) return;
-  const cust: ThreddCustomer = {
-    customerId: "cus_demo",
-    email: "daniel@fastlink.app",
-    firstName: "Daniel",
-    lastName: "Chen",
-    kycStatus: "approved",
-    createdAt: new Date().toISOString(),
-  };
-  customers.set(cust.customerId, cust);
+// Dynamic import — this module is transitively reachable from route files,
+// so `client.server` must NOT be a top-level import (would leak into client
+// bundle graph). Loading inside async fns keeps it server-only.
+async function db() {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  return supabaseAdmin;
+}
 
-  const presets: Array<{ type: CardType; last4: string; exp: string; bal: number; limit: number; alias: string }> = [
-    { type: "virtual", last4: "4829", exp: "08/29", bal: 1842.6, limit: 5000, alias: "Daily Spend" },
-    { type: "physical", last4: "9130", exp: "11/28", bal: 620.4, limit: 10000, alias: "Wallet Card" },
-    { type: "travel", last4: "2246", exp: "03/30", bal: 980.0, limit: 7500, alias: "Trip Card" },
-  ];
-  for (const p of presets) {
-    const cardId = id("card");
-    const detail: ThreddCardDetail = {
-      cardId,
-      customerId: cust.customerId,
-      type: p.type,
-      status: "active",
-      last4: p.last4,
-      expiry: p.exp,
-      brand: "VISA",
-      alias: p.alias,
-      balance: p.bal,
-      currency: "USD",
-      dailyLimit: p.limit,
-      createdAt: new Date().toISOString(),
-      pan: `4829 3819 4432 ${p.last4}`,
-      cvv: String(Math.floor(100 + Math.random() * 900)),
-      pin: String(Math.floor(1000 + Math.random() * 9000)),
-    };
-    cards.set(cardId, detail);
-    txns.set(cardId, [
-      {
-        id: id("txn"),
-        cardId,
-        amount: -24.5,
-        currency: "USD",
-        merchant: "Starbucks",
-        category: "Food & Drink",
-        status: "cleared",
-        timestamp: new Date(Date.now() - 3600_000).toISOString(),
-      },
-      {
-        id: id("txn"),
-        cardId,
-        amount: -128.9,
-        currency: "USD",
-        merchant: "Apple Store",
-        category: "Shopping",
-        status: "settled",
-        timestamp: new Date(Date.now() - 86_400_000).toISOString(),
-      },
-    ]);
-  }
+type CardRow = {
+  card_id: string;
+  customer_id: string;
+  type: string;
+  status: string;
+  last4: string;
+  expiry: string;
+  brand: string;
+  alias: string | null;
+  balance: number;
+  currency: string;
+  daily_limit: number;
+  pan: string;
+  cvv: string;
+  pin: string;
+  created_at: string;
+};
+
+type TxnRow = {
+  id: string;
+  card_id: string;
+  amount: number;
+  currency: string;
+  merchant: string;
+  category: string;
+  status: string;
+  timestamp: string;
+};
+
+function rowToDetail(r: CardRow): ThreddCardDetail {
+  return {
+    cardId: r.card_id,
+    customerId: r.customer_id,
+    type: r.type as ThreddCardDetail["type"],
+    status: r.status as ThreddCardDetail["status"],
+    last4: r.last4,
+    expiry: r.expiry,
+    brand: r.brand as ThreddCardDetail["brand"],
+    alias: r.alias ?? undefined,
+    balance: Number(r.balance),
+    currency: r.currency,
+    dailyLimit: Number(r.daily_limit),
+    createdAt: r.created_at,
+    pan: r.pan,
+    cvv: r.cvv,
+    pin: r.pin,
+  };
 }
 
 function stripSecrets(c: ThreddCardDetail): ThreddCard {
@@ -86,41 +78,52 @@ function stripSecrets(c: ThreddCardDetail): ThreddCard {
   return rest;
 }
 
+function rowToTxn(r: TxnRow): ThreddCardTxn {
+  return {
+    id: r.id,
+    cardId: r.card_id,
+    amount: Number(r.amount),
+    currency: r.currency,
+    merchant: r.merchant,
+    category: r.category,
+    status: r.status as ThreddCardTxn["status"],
+    timestamp: r.timestamp,
+  };
+}
+
+async function getCardRow(cardId: string): Promise<CardRow> {
+  const supabase = await db();
+  const { data, error } = await supabase.from("mock_cards").select("*").eq("card_id", cardId).maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) throw new Error("card_not_found");
+  return data as CardRow;
+}
+
 export const threddMock = {
+  // ---- Customers / KYC (stateless demo stubs) --------------------------------
   async createCustomer(input: { email: string; firstName: string; lastName: string }): Promise<ThreddCustomer> {
-    seed();
-    const c: ThreddCustomer = {
+    return {
       customerId: id("cus"),
       ...input,
       kycStatus: "not_started",
       createdAt: new Date().toISOString(),
     };
-    customers.set(c.customerId, c);
-    return c;
   },
   async submitKyc(input: KycSubmission): Promise<{ customerId: string; status: KycStatus }> {
-    seed();
-    const c = customers.get(input.customerId);
-    if (!c) throw new Error("customer_not_found");
-    c.kycStatus = "pending";
-    // simulate async approval
-    setTimeout(() => {
-      c.kycStatus = "approved";
-    }, 500);
-    return { customerId: c.customerId, status: c.kycStatus };
+    return { customerId: input.customerId, status: "pending" };
   },
   async getKycStatus(customerId: string): Promise<{ customerId: string; status: KycStatus }> {
-    seed();
-    const c = customers.get(customerId) ?? customers.get("cus_demo")!;
-    return { customerId: c.customerId, status: c.kycStatus };
+    return { customerId, status: "approved" };
   },
+
+  // ---- Cards (persisted) -----------------------------------------------------
   async createVirtualCard(input: { customerId: string; alias?: string; currency?: string }): Promise<ThreddCard> {
-    seed();
+    const supabase = await db();
     const cardId = id("card");
     const last4 = String(Math.floor(1000 + Math.random() * 9000));
-    const detail: ThreddCardDetail = {
-      cardId,
-      customerId: input.customerId,
+    const row: CardRow = {
+      card_id: cardId,
+      customer_id: input.customerId,
       type: "virtual",
       status: "active",
       last4,
@@ -129,27 +132,28 @@ export const threddMock = {
       alias: input.alias ?? "Virtual Card",
       balance: 0,
       currency: input.currency ?? "USD",
-      dailyLimit: 5000,
-      createdAt: new Date().toISOString(),
+      daily_limit: 5000,
       pan: `4829 3819 4432 ${last4}`,
       cvv: String(Math.floor(100 + Math.random() * 900)),
       pin: String(Math.floor(1000 + Math.random() * 9000)),
+      created_at: new Date().toISOString(),
     };
-    cards.set(cardId, detail);
-    txns.set(cardId, []);
-    return stripSecrets(detail);
+    const { error } = await supabase.from("mock_cards").insert(row);
+    if (error) throw new Error(error.message);
+    return stripSecrets(rowToDetail(row));
   },
+
   async createPhysicalCardRequest(input: {
     customerId: string;
     shippingAddress: string;
     alias?: string;
   }): Promise<ThreddCard> {
-    seed();
+    const supabase = await db();
     const cardId = id("card");
     const last4 = String(Math.floor(1000 + Math.random() * 9000));
-    const detail: ThreddCardDetail = {
-      cardId,
-      customerId: input.customerId,
+    const row: CardRow = {
+      card_id: cardId,
+      customer_id: input.customerId,
       type: "physical",
       status: "pending",
       last4,
@@ -158,60 +162,93 @@ export const threddMock = {
       alias: input.alias ?? "Physical Card",
       balance: 0,
       currency: "USD",
-      dailyLimit: 10000,
-      createdAt: new Date().toISOString(),
+      daily_limit: 10000,
       pan: `4829 3819 4432 ${last4}`,
       cvv: String(Math.floor(100 + Math.random() * 900)),
       pin: String(Math.floor(1000 + Math.random() * 9000)),
+      created_at: new Date().toISOString(),
     };
-    cards.set(cardId, detail);
-    txns.set(cardId, []);
-    return stripSecrets(detail);
+    const { error } = await supabase.from("mock_cards").insert(row);
+    if (error) throw new Error(error.message);
+    return stripSecrets(rowToDetail(row));
   },
+
   async getCardList(customerId: string): Promise<ThreddCard[]> {
-    seed();
-    return Array.from(cards.values())
-      .filter((c) => c.customerId === customerId)
-      .map(stripSecrets);
+    const supabase = await db();
+    const { data, error } = await supabase
+      .from("mock_cards")
+      .select("*")
+      .eq("customer_id", customerId)
+      .order("created_at", { ascending: true });
+    if (error) throw new Error(error.message);
+    return (data as CardRow[]).map((r) => stripSecrets(rowToDetail(r)));
   },
+
   async getCardDetail(cardId: string): Promise<ThreddCardDetail> {
-    seed();
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
-    return c;
+    return rowToDetail(await getCardRow(cardId));
   },
+
   async freezeCard(cardId: string): Promise<ThreddCard> {
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
-    c.status = "frozen";
-    return stripSecrets(c);
+    const supabase = await db();
+    const { data, error } = await supabase
+      .from("mock_cards")
+      .update({ status: "frozen" })
+      .eq("card_id", cardId)
+      .select("*")
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!data) throw new Error("card_not_found");
+    return stripSecrets(rowToDetail(data as CardRow));
   },
+
   async unfreezeCard(cardId: string): Promise<ThreddCard> {
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
-    c.status = "active";
-    return stripSecrets(c);
+    const supabase = await db();
+    const { data, error } = await supabase
+      .from("mock_cards")
+      .update({ status: "active" })
+      .eq("card_id", cardId)
+      .select("*")
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!data) throw new Error("card_not_found");
+    return stripSecrets(rowToDetail(data as CardRow));
   },
+
   async getPin(cardId: string): Promise<{ pin: string }> {
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
-    return { pin: c.pin };
+    const r = await getCardRow(cardId);
+    return { pin: r.pin };
   },
+
   async getCvv(cardId: string): Promise<{ cvv: string }> {
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
-    return { cvv: c.cvv };
+    const r = await getCardRow(cardId);
+    return { cvv: r.cvv };
   },
+
   async fundCard(cardId: string, amount: number): Promise<ThreddCard> {
-    const c = cards.get(cardId);
-    if (!c) throw new Error("card_not_found");
     if (!Number.isFinite(amount) || amount <= 0) throw new Error("invalid_amount");
-    c.balance = Number((c.balance + amount).toFixed(2));
-    return stripSecrets(c);
+    const supabase = await db();
+    const current = await getCardRow(cardId);
+    const newBalance = Number((Number(current.balance) + amount).toFixed(2));
+    const { data, error } = await supabase
+      .from("mock_cards")
+      .update({ balance: newBalance })
+      .eq("card_id", cardId)
+      .select("*")
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!data) throw new Error("card_not_found");
+    return stripSecrets(rowToDetail(data as CardRow));
   },
+
   async getCardTransactions(cardId: string): Promise<ThreddCardTxn[]> {
-    seed();
-    return txns.get(cardId) ?? [];
+    const supabase = await db();
+    const { data, error } = await supabase
+      .from("mock_card_txns")
+      .select("*")
+      .eq("card_id", cardId)
+      .order("timestamp", { ascending: false });
+    if (error) throw new Error(error.message);
+    return (data as TxnRow[]).map(rowToTxn);
   },
 };
 
