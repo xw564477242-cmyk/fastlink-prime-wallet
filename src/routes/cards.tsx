@@ -46,6 +46,24 @@ function CardsPage() {
   const [aliases, setAliases] = useState<Record<string, string>>({});
   const [funding, setFunding] = useState("100");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function callJson<T>(url: string, init?: RequestInit): Promise<T> {
+    const res = await fetch(url, init);
+    const data = (await res.json().catch(() => ({}))) as T & { error?: string };
+    if (!res.ok) throw new Error(data.error ?? `Request failed (${res.status})`);
+    return data as T;
+  }
+  function withErr(fn: () => Promise<void>) {
+    return async () => {
+      setError(null);
+      try {
+        await fn();
+      } catch (e) {
+        setError(e instanceof Error ? e.message : "Something went wrong");
+      }
+    };
+  }
 
   const current = useMemo(() => cards.find((c) => c.cardId === activeId) ?? cards[0], [cards, activeId]);
 
