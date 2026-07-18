@@ -33,9 +33,9 @@ type CardRow = {
   expiry: string;
   brand: string;
   alias: string | null;
-  balance: number | string;
+  balance: number;
   currency: string;
-  daily_limit: number | string;
+  daily_limit: number;
   pan: string;
   cvv: string;
   pin: string;
