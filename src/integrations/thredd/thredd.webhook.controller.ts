@@ -13,8 +13,10 @@ export function getWebhookSecret(): string {
 
 export function verifyWebhookSignature(rawBody: string, signature: string | null): boolean {
   const secret = getWebhookSecret();
-  // In mock/dev mode, allow if no secret is set.
-  if (!secret) return true;
+  // Fail closed: without a configured secret, webhooks are NEVER accepted.
+  // The webhook route must reject with 503 in that case so that an
+  // unconfigured deploy cannot be spoofed.
+  if (!secret) return false;
   if (!signature) return false;
   const expected = createHmac("sha256", secret).update(rawBody).digest("hex");
   const a = Buffer.from(signature);
