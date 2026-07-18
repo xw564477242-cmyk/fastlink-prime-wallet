@@ -49,7 +49,8 @@ function CardsPage() {
   const [error, setError] = useState<string | null>(null);
 
   async function callJson<T>(url: string, init?: RequestInit): Promise<T> {
-    const res = await fetch(url, init);
+    const { authFetch } = await import("@/lib/authFetch");
+    const res = await authFetch(url, init);
     const data = (await res.json().catch(() => ({}))) as T & { error?: string };
     if (!res.ok) throw new Error(data.error ?? `Request failed (${res.status})`);
     return data as T;
@@ -124,8 +125,8 @@ function CardsPage() {
       return;
     }
     if (!pin) {
-      const data = await callJson<{ card: { pin: string } }>(`/api/card/${current.cardId}`);
-      setPin(data.card.pin);
+      const data = await callJson<{ pin: string }>(`/api/card/${current.cardId}/pin`);
+      setPin(data.pin);
     }
     setShowPin(true);
   });
@@ -137,8 +138,8 @@ function CardsPage() {
       return;
     }
     if (!cvv) {
-      const data = await callJson<{ card: { cvv: string } }>(`/api/card/${current.cardId}`);
-      setCvv(data.card.cvv);
+      const data = await callJson<{ cvv: string }>(`/api/card/${current.cardId}/cvv`);
+      setCvv(data.cvv);
     }
     setShowCvv(true);
   });

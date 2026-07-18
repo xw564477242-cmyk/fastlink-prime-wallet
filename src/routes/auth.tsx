@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { Mail, Lock, User, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -16,22 +17,44 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [email, setEmail] = useState("daniel@fastlink.app");
-  const [password, setPassword] = useState("demo1234");
-  const [name, setName] = useState("Daniel Chen");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [status, setStatus] = useState<"idle" | "pending" | "success">("idle");
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const submit = async () => {
+    setErrorMsg(null);
+    if (!email || !password) {
+      setErrorMsg("Email and password are required.");
+      return;
+    }
+    if (password.length < 8) {
+      setErrorMsg("Password must be at least 8 characters.");
+      return;
+    }
     setStatus("pending");
-    await new Promise((r) => setTimeout(r, 900));
     try {
-      localStorage.setItem(
-        "fastlink.session",
-        JSON.stringify({ email, name: mode === "register" ? name : "Daniel Chen", at: Date.now() }),
-      );
-    } catch {}
-    setStatus("success");
-    setTimeout(() => navigate({ to: "/" }), 700);
+      if (mode === "register") {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: { full_name: name || undefined },
+          },
+        });
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      }
+      setStatus("success");
+      setTimeout(() => navigate({ to: "/" }), 600);
+    } catch (e) {
+      setStatus("idle");
+      setErrorMsg(e instanceof Error ? e.message : "Authentication failed");
+    }
   };
 
   return (
@@ -86,8 +109,15 @@ function AuthPage() {
           {status === "success" && "Success"}
         </button>
 
+        {errorMsg && (
+          <p className="mt-3 rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-center text-[11px] text-destructive">
+            {errorMsg}
+          </p>
+        )}
         <p className="mt-4 text-center text-[11px] text-muted-foreground">
-          Demo mode — any email and password is accepted.
+          {mode === "register"
+            ? "Create an account to sync your wallet across devices."
+            : "Sign in with your FastLink account."}
         </p>
       </div>
     </MobileShell>

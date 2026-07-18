@@ -39,14 +39,17 @@ import { Route as ApiCardCreateVirtualRouteImport } from './routes/api/card/crea
 import { Route as ApiCardApplyPhysicalRouteImport } from './routes/api/card/apply-physical'
 import { Route as ApiCardIdRouteImport } from './routes/api/card/$id'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as ApiPublicWebhooksThreddRouteImport } from './routes/api/public/webhooks/thredd'
 import { Route as ApiCardsIdUnfreezeRouteImport } from './routes/api/cards/$id/unfreeze'
 import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
 import { Route as ApiCardsIdFreezeRouteImport } from './routes/api/cards/$id/freeze'
 import { Route as ApiCardIdUnfreezeRouteImport } from './routes/api/card/$id/unfreeze'
 import { Route as ApiCardIdTransactionsRouteImport } from './routes/api/card/$id/transactions'
+import { Route as ApiCardIdPinRouteImport } from './routes/api/card/$id/pin'
 import { Route as ApiCardIdFundRouteImport } from './routes/api/card/$id/fund'
 import { Route as ApiCardIdFreezeRouteImport } from './routes/api/card/$id/freeze'
+import { Route as ApiCardIdCvvRouteImport } from './routes/api/card/$id/cvv'
 
 const WithdrawRoute = WithdrawRouteImport.update({
   id: '/withdraw',
@@ -201,6 +204,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebhooksThreddRoute = ApiPublicWebhooksThreddRouteImport.update({
   id: '/api/public/webhooks/thredd',
   path: '/api/public/webhooks/thredd',
@@ -231,6 +239,11 @@ const ApiCardIdTransactionsRoute = ApiCardIdTransactionsRouteImport.update({
   path: '/transactions',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
+const ApiCardIdPinRoute = ApiCardIdPinRouteImport.update({
+  id: '/pin',
+  path: '/pin',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
 const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
   id: '/fund',
   path: '/fund',
@@ -239,6 +252,11 @@ const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
 const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
   id: '/freeze',
   path: '/freeze',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardIdCvvRoute = ApiCardIdCvvRouteImport.update({
+  id: '/cvv',
+  path: '/cvv',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
 
@@ -263,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -273,8 +292,10 @@ export interface FileRoutesByFullPath {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards/': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -303,6 +324,7 @@ export interface FileRoutesByTo {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -313,8 +335,10 @@ export interface FileRoutesByTo {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -344,6 +368,7 @@ export interface FileRoutesById {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -354,8 +379,10 @@ export interface FileRoutesById {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards/': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -386,6 +413,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -396,8 +424,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards/'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -426,6 +456,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -436,8 +467,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -466,6 +499,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -476,8 +510,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards/'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -507,6 +543,7 @@ export interface RootRouteChildren {
   AssetsCardsRoute: typeof AssetsCardsRoute
   AssetsDigitalRoute: typeof AssetsDigitalRoute
   AssetsFiatRoute: typeof AssetsFiatRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiCardIdRoute: typeof ApiCardIdRouteWithChildren
   ApiCardApplyPhysicalRoute: typeof ApiCardApplyPhysicalRoute
@@ -735,6 +772,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/webhooks/thredd': {
       id: '/api/public/webhooks/thredd'
       path: '/api/public/webhooks/thredd'
@@ -777,6 +821,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCardIdTransactionsRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
+    '/api/card/$id/pin': {
+      id: '/api/card/$id/pin'
+      path: '/pin'
+      fullPath: '/api/card/$id/pin'
+      preLoaderRoute: typeof ApiCardIdPinRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
     '/api/card/$id/fund': {
       id: '/api/card/$id/fund'
       path: '/fund'
@@ -791,19 +842,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCardIdFreezeRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
+    '/api/card/$id/cvv': {
+      id: '/api/card/$id/cvv'
+      path: '/cvv'
+      fullPath: '/api/card/$id/cvv'
+      preLoaderRoute: typeof ApiCardIdCvvRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
   }
 }
 
 interface ApiCardIdRouteChildren {
+  ApiCardIdCvvRoute: typeof ApiCardIdCvvRoute
   ApiCardIdFreezeRoute: typeof ApiCardIdFreezeRoute
   ApiCardIdFundRoute: typeof ApiCardIdFundRoute
+  ApiCardIdPinRoute: typeof ApiCardIdPinRoute
   ApiCardIdTransactionsRoute: typeof ApiCardIdTransactionsRoute
   ApiCardIdUnfreezeRoute: typeof ApiCardIdUnfreezeRoute
 }
 
 const ApiCardIdRouteChildren: ApiCardIdRouteChildren = {
+  ApiCardIdCvvRoute: ApiCardIdCvvRoute,
   ApiCardIdFreezeRoute: ApiCardIdFreezeRoute,
   ApiCardIdFundRoute: ApiCardIdFundRoute,
+  ApiCardIdPinRoute: ApiCardIdPinRoute,
   ApiCardIdTransactionsRoute: ApiCardIdTransactionsRoute,
   ApiCardIdUnfreezeRoute: ApiCardIdUnfreezeRoute,
 }
@@ -834,6 +896,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssetsCardsRoute: AssetsCardsRoute,
   AssetsDigitalRoute: AssetsDigitalRoute,
   AssetsFiatRoute: AssetsFiatRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiCardIdRoute: ApiCardIdRouteWithChildren,
   ApiCardApplyPhysicalRoute: ApiCardApplyPhysicalRoute,
