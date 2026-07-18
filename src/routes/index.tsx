@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { JourneyBanner } from "@/components/JourneyBanner";
+
 import {
   ArrowDownToLine,
   ArrowUpFromLine,
@@ -102,7 +102,7 @@ function HomePage() {
         ))}
       </div>
 
-      <JourneyBanner />
+      
 
 
 
