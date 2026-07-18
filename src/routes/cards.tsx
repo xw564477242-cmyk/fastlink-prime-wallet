@@ -71,14 +71,15 @@ function CardsPage() {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch("/api/card/list");
-        const data = (await res.json()) as { cards: ThreddCard[] };
+        const data = await callJson<{ cards: ThreddCard[] }>("/api/card/list");
         if (cancelled) return;
         setCards(data.cards);
         setActiveId(data.cards[0]?.cardId ?? null);
         setAliases(
           Object.fromEntries(data.cards.map((c) => [c.cardId, c.alias ?? typeMeta[c.type].label])) as Record<string, string>,
         );
+      } catch (e) {
+        if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load cards");
       } finally {
         if (!cancelled) setLoading(false);
       }
