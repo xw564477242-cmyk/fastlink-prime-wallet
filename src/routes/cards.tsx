@@ -198,8 +198,21 @@ function CardsPage() {
     return (
       <MobileShell>
         <StatusBar title="Card Center" />
-        <div className="flex h-[60vh] items-center justify-center text-muted-foreground">
-          <Loader2 className="h-6 w-6 animate-spin" />
+        <div className="flex h-[60vh] flex-col items-center justify-center gap-3 px-6 text-center text-muted-foreground">
+          {loading ? (
+            <Loader2 className="h-6 w-6 animate-spin" />
+          ) : (
+            <>
+              <p className="text-sm">{error ?? "No cards yet."}</p>
+              <button
+                onClick={issueNewVirtual}
+                disabled={busy}
+                className="rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-[12px] font-semibold text-primary disabled:opacity-60"
+              >
+                Issue your first virtual card
+              </button>
+            </>
+          )}
         </div>
       </MobileShell>
     );
