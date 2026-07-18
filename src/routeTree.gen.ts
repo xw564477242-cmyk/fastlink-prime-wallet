@@ -39,6 +39,7 @@ import { Route as ApiCardCreateVirtualRouteImport } from './routes/api/card/crea
 import { Route as ApiCardApplyPhysicalRouteImport } from './routes/api/card/apply-physical'
 import { Route as ApiCardIdRouteImport } from './routes/api/card/$id'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 import { Route as ApiPublicWebhooksThreddRouteImport } from './routes/api/public/webhooks/thredd'
 import { Route as ApiCardsIdUnfreezeRouteImport } from './routes/api/cards/$id/unfreeze'
 import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
@@ -203,6 +204,11 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicWebhooksThreddRoute = ApiPublicWebhooksThreddRouteImport.update({
   id: '/api/public/webhooks/thredd',
   path: '/api/public/webhooks/thredd',
@@ -275,6 +281,7 @@ export interface FileRoutesByFullPath {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -317,6 +324,7 @@ export interface FileRoutesByTo {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -360,6 +368,7 @@ export interface FileRoutesById {
   '/assets/cards': typeof AssetsCardsRoute
   '/assets/digital': typeof AssetsDigitalRoute
   '/assets/fiat': typeof AssetsFiatRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/api/card/$id': typeof ApiCardIdRouteWithChildren
   '/api/card/apply-physical': typeof ApiCardApplyPhysicalRoute
@@ -404,6 +413,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -446,6 +456,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | '/assets/cards'
     | '/assets/digital'
     | '/assets/fiat'
+    | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/api/card/$id'
     | '/api/card/apply-physical'
@@ -531,6 +543,7 @@ export interface RootRouteChildren {
   AssetsCardsRoute: typeof AssetsCardsRoute
   AssetsDigitalRoute: typeof AssetsDigitalRoute
   AssetsFiatRoute: typeof AssetsFiatRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   ApiCardIdRoute: typeof ApiCardIdRouteWithChildren
   ApiCardApplyPhysicalRoute: typeof ApiCardApplyPhysicalRoute
@@ -759,6 +772,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/webhooks/thredd': {
       id: '/api/public/webhooks/thredd'
       path: '/api/public/webhooks/thredd'
@@ -876,6 +896,7 @@ const rootRouteChildren: RootRouteChildren = {
   AssetsCardsRoute: AssetsCardsRoute,
   AssetsDigitalRoute: AssetsDigitalRoute,
   AssetsFiatRoute: AssetsFiatRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   ApiCardIdRoute: ApiCardIdRouteWithChildren,
   ApiCardApplyPhysicalRoute: ApiCardApplyPhysicalRoute,
