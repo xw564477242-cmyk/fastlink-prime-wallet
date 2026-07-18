@@ -45,7 +45,7 @@ type CardRow = {
 type TxnRow = {
   id: string;
   card_id: string;
-  amount: number | string;
+  amount: number;
   currency: string;
   merchant: string;
   category: string;
