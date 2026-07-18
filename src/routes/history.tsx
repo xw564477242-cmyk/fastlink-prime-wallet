@@ -119,9 +119,9 @@ function HistoryPage() {
                   </p>
                   <p
                     className={`text-[10px] uppercase tracking-widest ${
-                      tx.status === "pending"
+                      (tx.status as string) === "pending"
                         ? "text-accent"
-                        : tx.status === "failed"
+                        : (tx.status as string) === "failed"
                           ? "text-destructive"
                           : "text-muted-foreground"
                     }`}
