@@ -76,10 +76,10 @@ function HomePage() {
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
-        <div className="mt-3 font-display text-4xl font-bold tracking-tight">
+        <div className="mt-3 font-display text-4xl font-bold tracking-tight" translate="no">
           {hidden ? "••••••" : "$28,412.90"}
         </div>
-        <div className="mt-5 grid grid-cols-3 gap-2">
+        <div className="mt-5 grid grid-cols-3 gap-2" translate="no">
           <MiniStat to="/assets/digital" label={t("home.digital")} value={hidden ? "••••" : "$19,844"} />
           <MiniStat to="/assets/fiat" label={t("home.fiat")} value={hidden ? "••••" : "$8,568"} />
           <MiniStat to="/assets/cards" label={t("home.card")} value={hidden ? "••••" : "$1,842"} tone="accent" />
