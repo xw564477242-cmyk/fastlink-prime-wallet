@@ -45,8 +45,10 @@ import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
 import { Route as ApiCardsIdFreezeRouteImport } from './routes/api/cards/$id/freeze'
 import { Route as ApiCardIdUnfreezeRouteImport } from './routes/api/card/$id/unfreeze'
 import { Route as ApiCardIdTransactionsRouteImport } from './routes/api/card/$id/transactions'
+import { Route as ApiCardIdPinRouteImport } from './routes/api/card/$id/pin'
 import { Route as ApiCardIdFundRouteImport } from './routes/api/card/$id/fund'
 import { Route as ApiCardIdFreezeRouteImport } from './routes/api/card/$id/freeze'
+import { Route as ApiCardIdCvvRouteImport } from './routes/api/card/$id/cvv'
 
 const WithdrawRoute = WithdrawRouteImport.update({
   id: '/withdraw',
@@ -231,6 +233,11 @@ const ApiCardIdTransactionsRoute = ApiCardIdTransactionsRouteImport.update({
   path: '/transactions',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
+const ApiCardIdPinRoute = ApiCardIdPinRouteImport.update({
+  id: '/pin',
+  path: '/pin',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
 const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
   id: '/fund',
   path: '/fund',
@@ -239,6 +246,11 @@ const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
 const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
   id: '/freeze',
   path: '/freeze',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardIdCvvRoute = ApiCardIdCvvRouteImport.update({
+  id: '/cvv',
+  path: '/cvv',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
 
@@ -273,8 +285,10 @@ export interface FileRoutesByFullPath {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards/': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -313,8 +327,10 @@ export interface FileRoutesByTo {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -354,8 +370,10 @@ export interface FileRoutesById {
   '/api/kyc/status': typeof ApiKycStatusRoute
   '/api/kyc/submit': typeof ApiKycSubmitRoute
   '/api/cards/': typeof ApiCardsIndexRoute
+  '/api/card/$id/cvv': typeof ApiCardIdCvvRoute
   '/api/card/$id/freeze': typeof ApiCardIdFreezeRoute
   '/api/card/$id/fund': typeof ApiCardIdFundRoute
+  '/api/card/$id/pin': typeof ApiCardIdPinRoute
   '/api/card/$id/transactions': typeof ApiCardIdTransactionsRoute
   '/api/card/$id/unfreeze': typeof ApiCardIdUnfreezeRoute
   '/api/cards/$id/freeze': typeof ApiCardsIdFreezeRoute
@@ -396,8 +414,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards/'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -436,8 +456,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -476,8 +498,10 @@ export interface FileRouteTypes {
     | '/api/kyc/status'
     | '/api/kyc/submit'
     | '/api/cards/'
+    | '/api/card/$id/cvv'
     | '/api/card/$id/freeze'
     | '/api/card/$id/fund'
+    | '/api/card/$id/pin'
     | '/api/card/$id/transactions'
     | '/api/card/$id/unfreeze'
     | '/api/cards/$id/freeze'
@@ -777,6 +801,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCardIdTransactionsRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
+    '/api/card/$id/pin': {
+      id: '/api/card/$id/pin'
+      path: '/pin'
+      fullPath: '/api/card/$id/pin'
+      preLoaderRoute: typeof ApiCardIdPinRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
     '/api/card/$id/fund': {
       id: '/api/card/$id/fund'
       path: '/fund'
@@ -791,19 +822,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCardIdFreezeRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
+    '/api/card/$id/cvv': {
+      id: '/api/card/$id/cvv'
+      path: '/cvv'
+      fullPath: '/api/card/$id/cvv'
+      preLoaderRoute: typeof ApiCardIdCvvRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
   }
 }
 
 interface ApiCardIdRouteChildren {
+  ApiCardIdCvvRoute: typeof ApiCardIdCvvRoute
   ApiCardIdFreezeRoute: typeof ApiCardIdFreezeRoute
   ApiCardIdFundRoute: typeof ApiCardIdFundRoute
+  ApiCardIdPinRoute: typeof ApiCardIdPinRoute
   ApiCardIdTransactionsRoute: typeof ApiCardIdTransactionsRoute
   ApiCardIdUnfreezeRoute: typeof ApiCardIdUnfreezeRoute
 }
 
 const ApiCardIdRouteChildren: ApiCardIdRouteChildren = {
+  ApiCardIdCvvRoute: ApiCardIdCvvRoute,
   ApiCardIdFreezeRoute: ApiCardIdFreezeRoute,
   ApiCardIdFundRoute: ApiCardIdFundRoute,
+  ApiCardIdPinRoute: ApiCardIdPinRoute,
   ApiCardIdTransactionsRoute: ApiCardIdTransactionsRoute,
   ApiCardIdUnfreezeRoute: ApiCardIdUnfreezeRoute,
 }
