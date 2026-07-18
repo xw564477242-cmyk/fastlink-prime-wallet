@@ -97,86 +97,102 @@ function CardsPage() {
   }, [activeId]);
 
   async function refreshCard(cardId: string) {
-    const res = await fetch(`/api/card/${cardId}`);
-    const data = (await res.json()) as { card: ThreddCard };
-    setCards((cs) => cs.map((c) => (c.cardId === cardId ? { ...c, ...data.card } : c)));
+    try {
+      const data = await callJson<{ card: ThreddCard }>(`/api/card/${cardId}`);
+      setCards((cs) => cs.map((c) => (c.cardId === cardId ? { ...c, ...data.card } : c)));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Refresh failed");
+    }
   }
 
-  async function toggleFreeze() {
+  const toggleFreeze = withErr(async () => {
     if (!current || busy) return;
     setBusy(true);
     try {
       const url = current.status === "frozen" ? `/api/card/${current.cardId}/unfreeze` : `/api/card/${current.cardId}/freeze`;
-      const res = await fetch(url, { method: "POST" });
-      const data = (await res.json()) as { card: ThreddCard };
+      const data = await callJson<{ card: ThreddCard }>(url, { method: "POST" });
       setCards((cs) => cs.map((c) => (c.cardId === current.cardId ? { ...c, ...data.card } : c)));
     } finally {
       setBusy(false);
     }
-  }
+  });
 
-  async function togglePin() {
+  const togglePin = withErr(async () => {
     if (!current) return;
     if (showPin) {
       setShowPin(false);
       return;
     }
     if (!pin) {
-      const res = await fetch(`/api/card/${current.cardId}`);
-      const data = (await res.json()) as { card: { pin: string } };
+      const data = await callJson<{ card: { pin: string } }>(`/api/card/${current.cardId}`);
       setPin(data.card.pin);
     }
     setShowPin(true);
-  }
+  });
 
-  async function toggleCvv() {
+  const toggleCvv = withErr(async () => {
     if (!current) return;
     if (showCvv) {
       setShowCvv(false);
       return;
     }
     if (!cvv) {
-      const res = await fetch(`/api/card/${current.cardId}`);
-      const data = (await res.json()) as { card: { cvv: string } };
+      const data = await callJson<{ card: { cvv: string } }>(`/api/card/${current.cardId}`);
       setCvv(data.card.cvv);
     }
     setShowCvv(true);
-  }
+  });
 
-  async function fund() {
+  const fund = withErr(async () => {
     if (!current || busy) return;
     const amount = Number(funding);
-    if (!Number.isFinite(amount) || amount <= 0) return;
+    if (!Number.isFinite(amount) || amount <= 0) {
+      setError("Enter a valid amount");
+      return;
+    }
     setBusy(true);
     try {
-      const res = await fetch(`/api/card/${current.cardId}/fund`, {
+      const data = await callJson<{ card: ThreddCard }>(`/api/card/${current.cardId}/fund`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ amount }),
       });
-      const data = (await res.json()) as { card: ThreddCard };
       setCards((cs) => cs.map((c) => (c.cardId === current.cardId ? { ...c, ...data.card } : c)));
     } finally {
       setBusy(false);
     }
-  }
+  });
 
-  async function applyPhysical() {
+  const applyPhysical = withErr(async () => {
     if (busy) return;
     setBusy(true);
     try {
-      const res = await fetch("/api/card/apply-physical", {
+      const data = await callJson<{ card: ThreddCard }>("/api/card/apply-physical", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ shippingAddress: "1 Marina Blvd, Singapore", alias: "Physical Card" }),
       });
-      const data = (await res.json()) as { card: ThreddCard };
       setCards((cs) => [...cs, data.card]);
       setActiveId(data.card.cardId);
     } finally {
       setBusy(false);
     }
-  }
+  });
+
+  const issueNewVirtual = withErr(async () => {
+    setBusy(true);
+    try {
+      const data = await callJson<{ card: ThreddCard }>("/api/card/create-virtual", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ alias: "New Virtual" }),
+      });
+      setCards((cs) => [...cs, data.card]);
+      setActiveId(data.card.cardId);
+    } finally {
+      setBusy(false);
+    }
+  });
 
   if (loading || !current) {
     return (
