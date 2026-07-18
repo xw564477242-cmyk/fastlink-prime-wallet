@@ -14,7 +14,101 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      mock_card_txns: {
+        Row: {
+          amount: number
+          card_id: string
+          category: string
+          currency: string
+          id: string
+          merchant: string
+          status: string
+          timestamp: string
+        }
+        Insert: {
+          amount: number
+          card_id: string
+          category: string
+          currency?: string
+          id: string
+          merchant: string
+          status: string
+          timestamp?: string
+        }
+        Update: {
+          amount?: number
+          card_id?: string
+          category?: string
+          currency?: string
+          id?: string
+          merchant?: string
+          status?: string
+          timestamp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mock_card_txns_card_id_fkey"
+            columns: ["card_id"]
+            isOneToOne: false
+            referencedRelation: "mock_cards"
+            referencedColumns: ["card_id"]
+          },
+        ]
+      }
+      mock_cards: {
+        Row: {
+          alias: string | null
+          balance: number
+          brand: string
+          card_id: string
+          created_at: string
+          currency: string
+          customer_id: string
+          cvv: string
+          daily_limit: number
+          expiry: string
+          last4: string
+          pan: string
+          pin: string
+          status: string
+          type: string
+        }
+        Insert: {
+          alias?: string | null
+          balance?: number
+          brand?: string
+          card_id: string
+          created_at?: string
+          currency?: string
+          customer_id: string
+          cvv: string
+          daily_limit?: number
+          expiry: string
+          last4: string
+          pan: string
+          pin: string
+          status: string
+          type: string
+        }
+        Update: {
+          alias?: string | null
+          balance?: number
+          brand?: string
+          card_id?: string
+          created_at?: string
+          currency?: string
+          customer_id?: string
+          cvv?: string
+          daily_limit?: number
+          expiry?: string
+          last4?: string
+          pan?: string
+          pin?: string
+          status?: string
+          type?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
