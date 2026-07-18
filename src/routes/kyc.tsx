@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { BadgeCheck, IdCard, Camera, MapPin, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/kyc")({
   head: () => ({
@@ -18,6 +19,7 @@ type Status = "not_started" | "pending" | "approved";
 
 function KycPage() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [step, setStep] = useState<Step>(0);
   const [status, setStatus] = useState<Status>("not_started");
   const [docType, setDocType] = useState<"passport" | "id_card" | "driver_license">("passport");
@@ -33,14 +35,13 @@ function KycPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="KYC Verification" />
+      <StatusBar title={t("page.kyc")} />
       <div className="px-6 pt-4">
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Identity Verification
+          {t("kyc.tag")}
         </p>
-        <h1 className="mt-1 font-display text-2xl font-bold">Verify your identity</h1>
+        <h1 className="mt-1 font-display text-2xl font-bold">{t("kyc.title")}</h1>
 
-        {/* Status pill */}
         <div className="mt-4 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
           {status === "approved" ? (
             <CheckCircle2 className="h-4 w-4 text-primary" />
@@ -49,12 +50,9 @@ function KycPage() {
           ) : (
             <BadgeCheck className="h-4 w-4 text-muted-foreground" />
           )}
-          <span className="text-xs font-semibold capitalize">
-            {status === "not_started" ? "Not started" : status}
-          </span>
+          <span className="text-xs font-semibold">{t(`kyc.status.${status}`)}</span>
         </div>
 
-        {/* Progress */}
         <div className="mt-4 flex gap-1">
           {[0, 1, 2, 3].map((i) => (
             <span
@@ -67,29 +65,25 @@ function KycPage() {
         {status === "approved" ? (
           <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-6 text-center">
             <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
-            <h2 className="mt-3 font-display text-lg font-bold">Verified · Tier 2</h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              You now have full access to cards, transfers and withdrawals.
-            </p>
+            <h2 className="mt-3 font-display text-lg font-bold">{t("kyc.verifiedTier2")}</h2>
+            <p className="mt-1 text-xs text-muted-foreground">{t("kyc.verifiedDesc")}</p>
             <button
               onClick={() => navigate({ to: "/" })}
               className="mt-5 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              Back to Home
+              {t("common.backHome")}
             </button>
           </div>
         ) : status === "pending" ? (
           <div className="mt-8 rounded-2xl border border-border/60 bg-surface/60 p-6 text-center">
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-accent" />
-            <h2 className="mt-3 font-display text-base font-semibold">Reviewing…</h2>
-            <p className="mt-1 text-xs text-muted-foreground">
-              We're verifying your documents. This usually takes a moment in demo mode.
-            </p>
+            <h2 className="mt-3 font-display text-base font-semibold">{t("kyc.reviewing")}</h2>
+            <p className="mt-1 text-xs text-muted-foreground">{t("kyc.reviewingDesc")}</p>
           </div>
         ) : (
           <div className="mt-5 space-y-4">
             {step === 0 && (
-              <StepCard title="Choose document type" icon={<IdCard className="h-4 w-4" />}>
+              <StepCard title={t("kyc.chooseDoc")} icon={<IdCard className="h-4 w-4" />}>
                 <div className="grid grid-cols-3 gap-2">
                   {(["passport", "id_card", "driver_license"] as const).map((d) => (
                     <button
@@ -97,14 +91,14 @@ function KycPage() {
                       onClick={() => setDocType(d)}
                       className={`rounded-2xl border p-3 text-xs font-semibold ${docType === d ? "border-primary bg-primary/10 text-primary" : "border-border/60 bg-surface/60"}`}
                     >
-                      {d.replace("_", " ")}
+                      {t(`kyc.doc.${d}`)}
                     </button>
                   ))}
                 </div>
               </StepCard>
             )}
             {step === 1 && (
-              <StepCard title="Document number" icon={<IdCard className="h-4 w-4" />}>
+              <StepCard title={t("kyc.docNumber")} icon={<IdCard className="h-4 w-4" />}>
                 <input
                   value={docNumber}
                   onChange={(e) => setDocNumber(e.target.value)}
@@ -113,17 +107,17 @@ function KycPage() {
               </StepCard>
             )}
             {step === 2 && (
-              <StepCard title="Selfie check" icon={<Camera className="h-4 w-4" />}>
+              <StepCard title={t("kyc.selfie")} icon={<Camera className="h-4 w-4" />}>
                 <button
                   onClick={() => setSelfie(true)}
                   className={`w-full rounded-2xl border py-6 text-sm font-semibold ${selfie ? "border-primary bg-primary/10 text-primary" : "border-dashed border-border/60 bg-surface/60"}`}
                 >
-                  {selfie ? "Selfie captured ✓" : "Tap to simulate selfie"}
+                  {selfie ? t("kyc.selfieCaptured") : t("kyc.selfieTap")}
                 </button>
               </StepCard>
             )}
             {step === 3 && (
-              <StepCard title="Address" icon={<MapPin className="h-4 w-4" />}>
+              <StepCard title={t("kyc.address")} icon={<MapPin className="h-4 w-4" />}>
                 <input
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -138,7 +132,7 @@ function KycPage() {
                   onClick={() => setStep((s) => (s - 1) as Step)}
                   className="flex-1 rounded-2xl border border-border/60 bg-surface/60 py-3 text-sm font-semibold"
                 >
-                  Back
+                  {t("common.back")}
                 </button>
               )}
               {step < 3 ? (
@@ -146,14 +140,14 @@ function KycPage() {
                   onClick={() => setStep((s) => (s + 1) as Step)}
                   className="flex-1 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
                 >
-                  Continue
+                  {t("common.continue")}
                 </button>
               ) : (
                 <button
                   onClick={submit}
                   className="flex-1 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
                 >
-                  Submit for Review
+                  {t("kyc.submit")}
                 </button>
               )}
             </div>
@@ -164,15 +158,7 @@ function KycPage() {
   );
 }
 
-function StepCard({
-  title,
-  icon,
-  children,
-}: {
-  title: string;
-  icon: React.ReactNode;
-  children: React.ReactNode;
-}) {
+function StepCard({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="rounded-2xl border border-border/60 bg-surface/40 p-4">
       <div className="mb-3 flex items-center gap-2 text-xs font-semibold text-muted-foreground">

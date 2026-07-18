@@ -1,5 +1,6 @@
 import { CheckCircle2, Loader2, X } from "lucide-react";
 import type { ReactNode } from "react";
+import { useLang } from "@/lib/i18n";
 
 export type ActionState = "idle" | "review" | "pending" | "success";
 
@@ -10,9 +11,9 @@ export function ActionModal({
   title,
   description,
   rows,
-  confirmLabel = "Confirm",
+  confirmLabel,
   onConfirm,
-  successLabel = "Done",
+  successLabel,
   onSuccess,
 }: {
   open: boolean;
@@ -26,6 +27,7 @@ export function ActionModal({
   successLabel?: string;
   onSuccess?: () => void;
 }) {
+  const { t } = useLang();
   if (!open) return null;
   return (
     <div
@@ -49,14 +51,14 @@ export function ActionModal({
               onClick={onSuccess ?? onClose}
               className="mt-6 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
             >
-              {successLabel}
+              {successLabel ?? t("common.done")}
             </button>
           </div>
         ) : state === "pending" ? (
           <div className="py-8 text-center">
             <Loader2 className="mx-auto h-10 w-10 animate-spin text-accent" />
-            <h3 className="mt-3 font-display text-base font-semibold">Processing…</h3>
-            <p className="mt-1 text-xs text-muted-foreground">Please wait a moment.</p>
+            <h3 className="mt-3 font-display text-base font-semibold">{t("common.processing")}</h3>
+            <p className="mt-1 text-xs text-muted-foreground">{t("common.pleaseWait")}</p>
           </div>
         ) : (
           <>
@@ -86,13 +88,13 @@ export function ActionModal({
                 onClick={onClose}
                 className="flex-1 rounded-2xl border border-border/60 bg-surface/60 py-3 text-sm font-semibold"
               >
-                Cancel
+                {t("common.cancel")}
               </button>
               <button
                 onClick={onConfirm}
                 className="flex-1 rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
               >
-                {confirmLabel}
+                {confirmLabel ?? t("common.confirm")}
               </button>
             </div>
           </>

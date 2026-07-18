@@ -3,6 +3,7 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { Mail, Lock, User, Loader2, CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [mode, setMode] = useState<"login" | "register">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,24 +27,14 @@ function AuthPage() {
 
   const submit = async () => {
     setErrorMsg(null);
-    if (!email || !password) {
-      setErrorMsg("Email and password are required.");
-      return;
-    }
-    if (password.length < 8) {
-      setErrorMsg("Password must be at least 8 characters.");
-      return;
-    }
+    if (!email || !password) { setErrorMsg(t("auth.err.required")); return; }
+    if (password.length < 8) { setErrorMsg(t("auth.err.password")); return; }
     setStatus("pending");
     try {
       if (mode === "register") {
         const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: window.location.origin,
-            data: { full_name: name || undefined },
-          },
+          email, password,
+          options: { emailRedirectTo: window.location.origin, data: { full_name: name || undefined } },
         });
         if (error) throw error;
       } else {
@@ -53,22 +45,22 @@ function AuthPage() {
       setTimeout(() => navigate({ to: "/" }), 600);
     } catch (e) {
       setStatus("idle");
-      setErrorMsg(e instanceof Error ? e.message : "Authentication failed");
+      setErrorMsg(e instanceof Error ? e.message : t("auth.err.failed"));
     }
   };
 
   return (
     <MobileShell>
-      <StatusBar title={mode === "login" ? "Sign In" : "Register"} />
+      <StatusBar title={mode === "login" ? t("page.auth.signIn") : t("page.auth.register")} />
       <div className="px-6 pt-6">
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
+        <div translate="no" className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
           FL
         </div>
         <h1 className="mt-4 text-center font-display text-2xl font-bold">
-          {mode === "login" ? "Welcome back" : "Create your account"}
+          {mode === "login" ? t("auth.welcome") : t("auth.create")}
         </h1>
         <p className="mt-1 text-center text-xs text-muted-foreground">
-          {mode === "login" ? "Sign in to continue to FastLink." : "Join the FastLink global wallet."}
+          {mode === "login" ? t("auth.signInDesc") : t("auth.registerDesc")}
         </p>
 
         <div className="mt-6 flex gap-2 rounded-2xl bg-surface p-1 text-xs font-semibold">
@@ -78,23 +70,17 @@ function AuthPage() {
               onClick={() => setMode(m)}
               className={`flex-1 rounded-xl py-2 transition-colors ${mode === m ? "bg-background text-primary shadow" : "text-muted-foreground"}`}
             >
-              {m === "login" ? "Sign In" : "Register"}
+              {m === "login" ? t("auth.signInTab") : t("auth.registerTab")}
             </button>
           ))}
         </div>
 
         <div className="mt-5 space-y-3">
           {mode === "register" && (
-            <Field icon={<User className="h-4 w-4" />} value={name} onChange={setName} placeholder="Full name" />
+            <Field icon={<User className="h-4 w-4" />} value={name} onChange={setName} placeholder={t("auth.fullName")} />
           )}
-          <Field icon={<Mail className="h-4 w-4" />} value={email} onChange={setEmail} placeholder="Email" />
-          <Field
-            icon={<Lock className="h-4 w-4" />}
-            value={password}
-            onChange={setPassword}
-            placeholder="Password"
-            type="password"
-          />
+          <Field icon={<Mail className="h-4 w-4" />} value={email} onChange={setEmail} placeholder={t("auth.email")} />
+          <Field icon={<Lock className="h-4 w-4" />} value={password} onChange={setPassword} placeholder={t("auth.password")} type="password" />
         </div>
 
         <button
@@ -104,9 +90,9 @@ function AuthPage() {
         >
           {status === "pending" && <Loader2 className="h-4 w-4 animate-spin" />}
           {status === "success" && <CheckCircle2 className="h-4 w-4" />}
-          {status === "idle" && (mode === "login" ? "Sign In" : "Create Account")}
-          {status === "pending" && "Please wait…"}
-          {status === "success" && "Success"}
+          {status === "idle" && (mode === "login" ? t("auth.signInBtn") : t("auth.createBtn"))}
+          {status === "pending" && t("common.processing")}
+          {status === "success" && t("common.success")}
         </button>
 
         {errorMsg && (
@@ -115,27 +101,15 @@ function AuthPage() {
           </p>
         )}
         <p className="mt-4 text-center text-[11px] text-muted-foreground">
-          {mode === "register"
-            ? "Create an account to sync your wallet across devices."
-            : "Sign in with your FastLink account."}
+          {mode === "register" ? t("auth.registerFooter") : t("auth.signInFooter")}
         </p>
       </div>
     </MobileShell>
   );
 }
 
-function Field({
-  icon,
-  value,
-  onChange,
-  placeholder,
-  type = "text",
-}: {
-  icon: React.ReactNode;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder: string;
-  type?: string;
+function Field({ icon, value, onChange, placeholder, type = "text" }: {
+  icon: React.ReactNode; value: string; onChange: (v: string) => void; placeholder: string; type?: string;
 }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">

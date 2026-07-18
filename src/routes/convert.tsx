@@ -3,6 +3,7 @@ import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
 import { ArrowDown, RefreshCw, Info, ChevronDown, Zap, Shield } from "lucide-react";
 import { useState, useMemo } from "react";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/convert")({
   head: () => ({
@@ -14,33 +15,29 @@ export const Route = createFileRoute("/convert")({
   component: ConvertPage,
 });
 
-type Currency = { sym: string; name: string; kind: "digital" | "fiat"; flag?: string };
+type Currency = { sym: string; kind: "digital" | "fiat"; flag?: string };
 
 const currencies: Currency[] = [
-  { sym: "USDT", name: "Tether", kind: "digital" },
-  { sym: "USDC", name: "USD Coin", kind: "digital" },
-  { sym: "USD", name: "US Dollar", kind: "fiat", flag: "🇺🇸" },
-  { sym: "SGD", name: "Singapore Dollar", kind: "fiat", flag: "🇸🇬" },
-  { sym: "MYR", name: "Malaysian Ringgit", kind: "fiat", flag: "🇲🇾" },
-  { sym: "EUR", name: "Euro", kind: "fiat", flag: "🇪🇺" },
+  { sym: "USDT", kind: "digital" },
+  { sym: "USDC", kind: "digital" },
+  { sym: "USD", kind: "fiat", flag: "🇺🇸" },
+  { sym: "SGD", kind: "fiat", flag: "🇸🇬" },
+  { sym: "MYR", kind: "fiat", flag: "🇲🇾" },
+  { sym: "EUR", kind: "fiat", flag: "🇪🇺" },
 ];
 
-// mock USD-anchored rates
 const usdRate: Record<string, number> = {
   USDT: 1.0, USDC: 1.0, USD: 1.0, SGD: 1.352, MYR: 4.72, EUR: 0.9187,
 };
 
 const pairs = [
-  ["USDT", "SGD"],
-  ["USDT", "MYR"],
-  ["USDT", "EUR"],
-  ["USD", "USDT"],
-  ["EUR", "USDT"],
-  ["SGD", "MYR"],
+  ["USDT", "SGD"], ["USDT", "MYR"], ["USDT", "EUR"],
+  ["USD", "USDT"], ["EUR", "USDT"], ["SGD", "MYR"],
 ];
 
 function ConvertPage() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [amount, setAmount] = useState("500");
   const [from, setFrom] = useState("USDT");
   const [to, setTo] = useState("SGD");
@@ -59,44 +56,42 @@ function ConvertPage() {
 
   return (
     <MobileShell>
-      <StatusBar title="Convert" />
+      <StatusBar title={t("page.convert")} />
       <div className="px-6 pt-4">
         <div className="flex items-start justify-between">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              FastLink FX Desk
+              {t("convert.deskTag")}
             </p>
-            <h1 className="mt-1 font-display text-2xl font-bold">Convert</h1>
+            <h1 className="mt-1 font-display text-2xl font-bold">{t("page.convert")}</h1>
           </div>
           <div className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold text-primary">
-            <Zap className="h-3 w-3" /> Live · 0 fee
+            <Zap className="h-3 w-3" /> {t("convert.liveFee")}
           </div>
         </div>
 
         <div className="relative mt-6 space-y-2">
-          <FxCard label="You send" symbol={from} onPick={() => setPickerFor("from")} value={amount} onChange={setAmount} balance="10,204.15" />
+          <FxCard label={t("convert.youSend")} symbol={from} onPick={() => setPickerFor("from")} value={amount} onChange={setAmount} balance="10,204.15" />
           <button
             onClick={swap}
             className="absolute left-1/2 top-1/2 z-10 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-background bg-primary text-primary-foreground shadow-glow active:scale-95"
           >
             <ArrowDown className="h-5 w-5" />
           </button>
-          <FxCard label="You receive" symbol={to} onPick={() => setPickerFor("to")} value={result} readOnly balance={to === "SGD" ? "3,180.40" : "—"} />
+          <FxCard label={t("convert.youReceive")} symbol={to} onPick={() => setPickerFor("to")} value={result} readOnly balance={to === "SGD" ? "3,180.40" : "—"} />
         </div>
 
         <div className="mt-5 rounded-2xl border border-border/60 bg-surface/60 p-4">
-          <RateRow icon={RefreshCw} label="Mid-market rate" value={`1 ${from} = ${rate.toFixed(4)} ${to}`} />
+          <RateRow icon={RefreshCw} label={t("convert.midRate")} value={`1 ${from} = ${rate.toFixed(4)} ${to}`} />
           <div className="my-3 h-px bg-border" />
-          <RateRow label="Network fee" value="Free" accent />
-          <RateRow label="FX spread" value="0.00%" accent />
-          <RateRow label="Arrival" value="Instant" />
+          <RateRow label={t("convert.networkFee")} value={t("common.free")} accent />
+          <RateRow label={t("convert.fxSpread")} value="0.00%" accent />
+          <RateRow label={t("convert.arrival")} value={t("common.instant")} />
         </div>
 
         <div className="mt-4 flex items-start gap-2 rounded-2xl border border-border/60 bg-surface/40 p-3">
           <Info className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" />
-          <p className="text-[11px] text-muted-foreground">
-            Rate locked for <span translate="no">10s</span>. FastLink Treasury settles across 30+ currencies with a single click — no wire, no correspondent bank.
-          </p>
+          <p className="text-[11px] text-muted-foreground">{t("convert.lockedNote")}</p>
         </div>
 
         <button
@@ -104,13 +99,12 @@ function ConvertPage() {
           disabled={parsed <= 0 || from === to}
           className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
         >
-          Convert {parsed.toFixed(2)} {from} → {result} {to}
+          <span translate="no">{t("convert.cta", { a: parsed.toFixed(2), from, b: result, to })}</span>
         </button>
 
-        {/* Quick pairs */}
         <div className="mt-8">
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Popular pairs
+            {t("convert.popularPairs")}
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2">
             {pairs.map(([a, b]) => {
@@ -121,8 +115,8 @@ function ConvertPage() {
                   onClick={() => { setFrom(a); setTo(b); }}
                   className="rounded-2xl border border-border/60 bg-surface/60 p-3 text-left active:scale-95"
                 >
-                  <p className="font-mono text-xs font-semibold">{a} → {b}</p>
-                  <p className="mt-1 text-[10px] tabular-nums text-muted-foreground">
+                  <p translate="no" className="font-mono text-xs font-semibold">{a} → {b}</p>
+                  <p translate="no" className="mt-1 text-[10px] tabular-nums text-muted-foreground">
                     1 = {r.toFixed(4)}
                   </p>
                 </button>
@@ -133,9 +127,7 @@ function ConvertPage() {
 
         <div className="mt-6 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/40 p-4">
           <Shield className="h-4 w-4 text-primary" />
-          <p className="text-[11px] text-muted-foreground">
-            All conversions cleared through <span className="font-semibold text-foreground">FastLink Global Ltd.</span> · Regulated MSO
-          </p>
+          <p className="text-[11px] text-muted-foreground">{t("convert.regulated")}</p>
         </div>
       </div>
 
@@ -153,21 +145,21 @@ function ConvertPage() {
         open={modal !== "idle"}
         onClose={() => setModal("idle")}
         state={modal}
-        title={modal === "success" ? "Converted" : "Confirm conversion"}
+        title={modal === "success" ? t("convert.successTitle") : t("convert.confirmTitle")}
         description={
           modal === "success"
-            ? `${parsed.toFixed(2)} ${from} converted to ${result} ${to}.`
-            : `Convert at 1 ${from} = ${rate.toFixed(4)} ${to}`
+            ? t("convert.successDesc", { a: parsed.toFixed(2), from, b: result, to })
+            : t("convert.confirmDesc", { from, r: rate.toFixed(4), to })
         }
         rows={[
-          { label: "You send", value: `${parsed.toFixed(2)} ${from}` },
-          { label: "You receive", value: `${result} ${to}` },
-          { label: "Rate", value: `1 ${from} = ${rate.toFixed(4)} ${to}` },
-          { label: "Fee", value: "Free" },
+          { label: t("convert.youSend"), value: <span translate="no">{parsed.toFixed(2)} {from}</span> },
+          { label: t("convert.youReceive"), value: <span translate="no">{result} {to}</span> },
+          { label: t("common.rate"), value: <span translate="no">1 {from} = {rate.toFixed(4)} {to}</span> },
+          { label: t("common.fee"), value: t("common.free") },
         ]}
-        confirmLabel="Convert Now"
+        confirmLabel={t("convert.confirmBtn")}
         onConfirm={confirm}
-        successLabel="View History"
+        successLabel={t("common.viewHistory")}
         onSuccess={() => {
           setModal("idle");
           navigate({ to: "/history" });
@@ -188,7 +180,7 @@ function FxCard({
     <div className="rounded-3xl border border-border/60 bg-surface/60 p-5">
       <div className="flex items-center justify-between text-[10px] uppercase tracking-widest text-muted-foreground">
         <span>{label}</span>
-        <span>Bal · {balance}</span>
+        <span translate="no">Bal · {balance}</span>
       </div>
       <div className="mt-3 flex items-center gap-3">
         <input
@@ -203,7 +195,7 @@ function FxCard({
           className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-background px-3 py-2 text-sm font-semibold"
         >
           {c?.flag && <span className="text-base leading-none">{c.flag}</span>}
-          {symbol}
+          <span translate="no">{symbol}</span>
           <ChevronDown className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -218,29 +210,26 @@ function RateRow({ label, value, icon: Icon, accent }: { label: string; value: s
         {Icon && <Icon className="h-3.5 w-3.5" />}
         {label}
       </span>
-      <span className={`tabular-nums font-semibold ${accent ? "text-primary" : ""}`}>{value}</span>
+      <span translate="no" className={`tabular-nums font-semibold ${accent ? "text-primary" : ""}`}>{value}</span>
     </div>
   );
 }
 
 function CurrencyPicker({ onClose, onPick }: { onClose: () => void; onPick: (s: string) => void }) {
+  const { t } = useLang();
   const digital = currencies.filter((c) => c.kind === "digital");
   const fiat = currencies.filter((c) => c.kind === "fiat");
   return (
     <div className="fixed inset-x-0 bottom-0 top-0 z-50 mx-auto flex max-w-md items-end bg-black/60 backdrop-blur-sm" onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()} className="w-full rounded-t-3xl border-t border-border/60 bg-background p-6">
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-muted" />
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Digital</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("convert.pickerDigital")}</p>
         <div className="mt-2 space-y-1">
-          {digital.map((c) => (
-            <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />
-          ))}
+          {digital.map((c) => <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />)}
         </div>
-        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Fiat</p>
+        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("convert.pickerFiat")}</p>
         <div className="mt-2 space-y-1">
-          {fiat.map((c) => (
-            <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />
-          ))}
+          {fiat.map((c) => <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />)}
         </div>
       </div>
     </div>
@@ -248,14 +237,15 @@ function CurrencyPicker({ onClose, onPick }: { onClose: () => void; onPick: (s: 
 }
 
 function PickerRow({ c, onPick }: { c: Currency; onPick: () => void }) {
+  const { t } = useLang();
   return (
     <button onClick={onPick} className="flex w-full items-center gap-3 rounded-2xl p-3 text-left hover:bg-surface active:scale-[0.98]">
       <div className="grid h-9 w-9 place-items-center rounded-xl bg-surface text-sm">
-        {c.flag ?? <span className="font-mono text-[10px] font-bold text-primary">{c.sym.slice(0, 3)}</span>}
+        {c.flag ?? <span translate="no" className="font-mono text-[10px] font-bold text-primary">{c.sym.slice(0, 3)}</span>}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold">{c.sym}</p>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{c.name}</p>
+        <p translate="no" className="text-sm font-semibold">{c.sym}</p>
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t(`cur.${c.sym}`)}</p>
       </div>
     </button>
   );
