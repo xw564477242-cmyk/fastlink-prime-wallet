@@ -59,7 +59,7 @@ function HomePage() {
           </div>
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">{t("home.welcome")}</p>
-            <p className="truncate text-sm font-semibold">Daniel Chen</p>
+            <p translate="no" className="truncate text-sm font-semibold">Daniel Chen</p>
           </div>
         </div>
         <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
