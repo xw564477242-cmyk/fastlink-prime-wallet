@@ -109,8 +109,15 @@ function AuthPage() {
           {status === "success" && "Success"}
         </button>
 
+        {errorMsg && (
+          <p className="mt-3 rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-center text-[11px] text-destructive">
+            {errorMsg}
+          </p>
+        )}
         <p className="mt-4 text-center text-[11px] text-muted-foreground">
-          Demo mode — any email and password is accepted.
+          {mode === "register"
+            ? "Create an account to sync your wallet across devices."
+            : "Sign in with your FastLink account."}
         </p>
       </div>
     </MobileShell>
