@@ -17,12 +17,16 @@ export function MobileShell({ children }: { children: ReactNode }) {
   const { t } = useLang();
 
   return (
-    <div translate="no" className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground">
+    <div
+      translate="no"
+      className="mx-auto flex min-h-screen w-full max-w-md flex-col bg-background text-foreground"
+    >
       <div className="flex-1 overflow-y-auto pb-28">{children}</div>
       <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-border/60 bg-surface/95 backdrop-blur-xl">
         <div className="grid w-full grid-cols-6">
           {tabs.map((tab) => {
-            const active = pathname === tab.to;
+            const active =
+              tab.to === "/assets/digital" ? pathname.startsWith("/assets/") : pathname === tab.to;
             const Icon = tab.icon;
             const label = t(tab.key);
             return (
@@ -38,9 +42,7 @@ export function MobileShell({ children }: { children: ReactNode }) {
                 >
                   <Icon className="h-4.5 w-4.5" strokeWidth={active ? 2.5 : 2} />
                 </div>
-                <span className={active ? "text-primary" : "text-muted-foreground"}>
-                  {label}
-                </span>
+                <span className={active ? "text-primary" : "text-muted-foreground"}>{label}</span>
               </Link>
             );
           })}
@@ -54,8 +56,14 @@ export function MobileShell({ children }: { children: ReactNode }) {
 export function StatusBar({ title, right }: { title?: string; right?: ReactNode }) {
   return (
     <div className="flex items-center justify-between px-6 pt-6 pb-2">
-      <div translate="no" className="text-xs font-medium tabular-nums text-muted-foreground">9:41</div>
-      {title && <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{title}</div>}
+      <div translate="no" className="text-xs font-medium tabular-nums text-muted-foreground">
+        9:41
+      </div>
+      {title && (
+        <div className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          {title}
+        </div>
+      )}
       <div className="flex items-center gap-1 text-muted-foreground">
         <div className="h-1.5 w-1.5 rounded-full bg-primary" />
         <div className="h-1.5 w-4 rounded-sm border border-current" />

@@ -9,7 +9,10 @@ export const Route = createFileRoute("/transfer")({
   head: () => ({
     meta: [
       { title: "FastLink — Transfer" },
-      { name: "description", content: "Instant fee-free transfers between FastLink users by ID, phone or email." },
+      {
+        name: "description",
+        content: "Instant fee-free transfers between FastLink users by ID, phone or email.",
+      },
     ],
   }),
   component: TransferPage,
@@ -45,11 +48,15 @@ function TransferPage() {
     <MobileShell>
       <StatusBar title={t("page.transfer")} />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("transfer.tag")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {t("transfer.tag")}
+        </p>
         <h1 className="mt-1 font-display text-2xl font-bold">{t("transfer.title")}</h1>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.recipient")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("transfer.recipient")}
+          </p>
           <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <User className="h-4 w-4 text-muted-foreground" />
             <input
@@ -62,13 +69,17 @@ function TransferPage() {
         </div>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.currency")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.currency")}
+          </p>
           <button
             onClick={() => setPickerOpen((v) => !v)}
             className="flex w-full items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3"
           >
             <div>
-              <p translate="no" className="text-sm font-semibold">{currency}</p>
+              <p translate="no" className="text-sm font-semibold">
+                {currency}
+              </p>
               <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                 {t("transfer.balanceLine", { n: BALANCES[currency].toLocaleString(), c: currency })}
               </p>
@@ -80,7 +91,10 @@ function TransferPage() {
               {CURRENCIES.map((c) => (
                 <button
                   key={c}
-                  onClick={() => { setCurrency(c); setPickerOpen(false); }}
+                  onClick={() => {
+                    setCurrency(c);
+                    setPickerOpen(false);
+                  }}
                   className={`rounded-2xl border py-2 text-xs font-semibold ${c === currency ? "border-primary bg-primary/10 text-primary" : "border-border/60 bg-surface/60"}`}
                 >
                   <span translate="no">{c}</span>
@@ -92,8 +106,15 @@ function TransferPage() {
 
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.amount")}</p>
-            <button onClick={() => setAmount(String(BALANCES[currency]))} className="text-[10px] font-semibold text-primary">{t("common.max")}</button>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              {t("common.amount")}
+            </p>
+            <button
+              onClick={() => setAmount(String(BALANCES[currency]))}
+              className="text-[10px] font-semibold text-primary"
+            >
+              {t("common.max")}
+            </button>
           </div>
           <div className="flex items-baseline gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <input
@@ -103,12 +124,16 @@ function TransferPage() {
               placeholder="0.00"
               className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none placeholder:text-muted-foreground/40"
             />
-            <span translate="no" className="text-xs font-semibold text-muted-foreground">{currency}</span>
+            <span translate="no" className="text-xs font-semibold text-muted-foreground">
+              {currency}
+            </span>
           </div>
         </div>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("transfer.noteOptional")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("transfer.noteOptional")}
+          </p>
           <input
             value={note}
             onChange={(e) => setNote(e.target.value)}
@@ -119,7 +144,9 @@ function TransferPage() {
         </div>
 
         <div className="mt-5 space-y-2 rounded-2xl border border-border/60 bg-surface/60 p-4">
-          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.review")}</p>
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.review")}
+          </p>
           <Row label={t("common.to")} value={recipient || "—"} />
           <Row label={t("common.amount")} value={`${amt.toFixed(2)} ${currency}`} />
           <Row label={t("common.fee")} value="0.00" />
@@ -147,7 +174,14 @@ function TransferPage() {
         }
         rows={[
           { label: t("common.to"), value: recipient || "—" },
-          { label: t("common.amount"), value: <span translate="no">{amt.toFixed(2)} {currency}</span> },
+          {
+            label: t("common.amount"),
+            value: (
+              <span translate="no">
+                {amt.toFixed(2)} {currency}
+              </span>
+            ),
+          },
           { label: t("common.fee"), value: "0.00" },
           { label: t("common.note"), value: note || "—" },
         ]}
@@ -167,7 +201,9 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-[11px] text-muted-foreground">{label}</span>
-      <span translate="no" className="text-xs font-semibold tabular-nums">{value}</span>
+      <span translate="no" className="text-xs font-semibold tabular-nums">
+        {value}
+      </span>
     </div>
   );
 }

@@ -87,8 +87,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "FastLink — Home" },
       { name: "twitter:description", content: "Global USDT wallet and premium U Card dashboard." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png" },
+      {
+        property: "og:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png",
+      },
+      {
+        name: "twitter:image",
+        content:
+          "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1cf7d8ad-b24d-41af-92b2-cb6da4a9881c/id-preview-7ce9dbab--cc264c85-ff17-48ff-9f3c-f2d8837f704a.lovable.app-1783233446256.png",
+      },
     ],
     links: [
       {
@@ -97,7 +105,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
+      },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),

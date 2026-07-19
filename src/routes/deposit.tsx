@@ -9,16 +9,40 @@ export const Route = createFileRoute("/deposit")({
   head: () => ({
     meta: [
       { title: "FastLink — Deposit" },
-      { name: "description", content: "Deposit USDT to your FastLink wallet via TRC20, ERC20 or BEP20." },
+      {
+        name: "description",
+        content: "Deposit USDT to your FastLink wallet via TRC20, ERC20 or BEP20.",
+      },
     ],
   }),
   component: DepositPage,
 });
 
 const NETWORKS = [
-  { key: "TRC20", name: "Tron · TRC20", fee: "0 USDT", eta: "~1 min", confirms: "1 / 1", addr: "TQn9Y2khDD95J42FQtQTdwVVR5NNXA1QoP" },
-  { key: "ERC20", name: "Ethereum · ERC20", fee: "≈ 3.20 USDT", eta: "~3 min", confirms: "12 / 12", addr: "0x8B2F7A4d1e9A0c8Bf3d7C1A4E9F0B2D5C7A1B4E9" },
-  { key: "BEP20", name: "BNB Smart Chain · BEP20", fee: "≈ 0.20 USDT", eta: "~30 sec", confirms: "15 / 15", addr: "0x3F1D8E2A9C4B6D5F7E0A1C3D2B5F8E9A4C6D1B2F" },
+  {
+    key: "TRC20",
+    name: "Tron · TRC20",
+    fee: "0 USDT",
+    eta: "~1 min",
+    confirms: "1 / 1",
+    addr: "TQn9Y2khDD95J42FQtQTdwVVR5NNXA1QoP",
+  },
+  {
+    key: "ERC20",
+    name: "Ethereum · ERC20",
+    fee: "≈ 3.20 USDT",
+    eta: "~3 min",
+    confirms: "12 / 12",
+    addr: "0x8B2F7A4d1e9A0c8Bf3d7C1A4E9F0B2D5C7A1B4E9",
+  },
+  {
+    key: "BEP20",
+    name: "BNB Smart Chain · BEP20",
+    fee: "≈ 0.20 USDT",
+    eta: "~30 sec",
+    confirms: "15 / 15",
+    addr: "0x3F1D8E2A9C4B6D5F7E0A1C3D2B5F8E9A4C6D1B2F",
+  },
 ] as const;
 
 function DepositPage() {
@@ -35,28 +59,44 @@ function DepositPage() {
       await navigator.clipboard.writeText(net.addr);
       setCopied(true);
       setTimeout(() => setCopied(false), 1500);
-    } catch {}
+    } catch {
+      // Clipboard access may be blocked by the browser.
+    }
   };
 
   return (
     <MobileShell>
       <StatusBar title={t("page.deposit")} />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("deposit.step")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {t("deposit.step")}
+        </p>
         <h1 className="mt-1 font-display text-2xl font-bold">{t("deposit.title")}</h1>
         <p className="mt-1 text-xs text-muted-foreground">{t("deposit.desc")}</p>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.asset")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.asset")}
+          </p>
           <button
             onClick={() => setAssetOpen((v) => !v)}
             className="flex w-full items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3"
           >
             <div className="flex items-center gap-3">
-              <div translate="no" className="grid h-10 w-10 place-items-center rounded-2xl bg-primary/15 font-display text-[10px] font-bold text-primary">USDT</div>
+              <div
+                translate="no"
+                className="grid h-10 w-10 place-items-center rounded-2xl bg-primary/15 font-display text-[10px] font-bold text-primary"
+              >
+                USDT
+              </div>
               <div className="text-left">
                 <p className="text-sm font-semibold">{t("deposit.tether")}</p>
-                <p translate="no" className="text-[10px] uppercase tracking-widest text-muted-foreground">USDT · Stablecoin</p>
+                <p
+                  translate="no"
+                  className="text-[10px] uppercase tracking-widest text-muted-foreground"
+                >
+                  USDT · Stablecoin
+                </p>
               </div>
             </div>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -69,7 +109,9 @@ function DepositPage() {
         </div>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.network")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.network")}
+          </p>
           <div className="grid grid-cols-3 gap-2">
             {NETWORKS.map((n) => {
               const on = n.key === network;
@@ -79,13 +121,22 @@ function DepositPage() {
                   onClick={() => setNetwork(n.key)}
                   className={`rounded-2xl border p-3 text-left transition-colors ${on ? "border-primary bg-primary/10" : "border-border/60 bg-surface/60"}`}
                 >
-                  <p translate="no" className={`text-xs font-semibold ${on ? "text-primary" : ""}`}>{n.key}</p>
-                  <p translate="no" className="mt-0.5 text-[9px] uppercase tracking-widest text-muted-foreground">{n.eta}</p>
+                  <p translate="no" className={`text-xs font-semibold ${on ? "text-primary" : ""}`}>
+                    {n.key}
+                  </p>
+                  <p
+                    translate="no"
+                    className="mt-0.5 text-[9px] uppercase tracking-widest text-muted-foreground"
+                  >
+                    {n.eta}
+                  </p>
                 </button>
               );
             })}
           </div>
-          <p className="mt-2 text-[10px] text-muted-foreground">{t("deposit.selected", { name: net.name })}</p>
+          <p className="mt-2 text-[10px] text-muted-foreground">
+            {t("deposit.selected", { name: net.name })}
+          </p>
         </div>
 
         <div className="mt-5 rounded-3xl border border-border/60 bg-surface/60 p-5">
@@ -94,8 +145,13 @@ function DepositPage() {
               <QrCode className="h-20 w-20 text-primary" strokeWidth={1.2} />
             </div>
           </div>
-          <p className="mt-4 text-center text-[10px] uppercase tracking-widest text-muted-foreground">{t("deposit.yourAddress", { net: network })}</p>
-          <div translate="no" className="mt-2 break-all rounded-2xl bg-background/60 px-4 py-3 text-center font-mono text-xs">
+          <p className="mt-4 text-center text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("deposit.yourAddress", { net: network })}
+          </p>
+          <div
+            translate="no"
+            className="mt-2 break-all rounded-2xl bg-background/60 px-4 py-3 text-center font-mono text-xs"
+          >
             {net.addr}
           </div>
           <button
@@ -108,8 +164,16 @@ function DepositPage() {
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-2">
-          <MetaCell icon={<CheckCircle2 className="h-4 w-4" />} label={t("deposit.confirmations")} value={net.confirms} />
-          <MetaCell icon={<Clock className="h-4 w-4" />} label={t("deposit.arrivalEta")} value={net.eta} />
+          <MetaCell
+            icon={<CheckCircle2 className="h-4 w-4" />}
+            label={t("deposit.confirmations")}
+            value={net.confirms}
+          />
+          <MetaCell
+            icon={<Clock className="h-4 w-4" />}
+            label={t("deposit.arrivalEta")}
+            value={net.eta}
+          />
           <MetaCell label={t("deposit.minDeposit")} value="1 USDT" />
           <MetaCell label={t("deposit.networkFee")} value={net.fee} />
         </div>
@@ -151,14 +215,24 @@ function DepositPage() {
   );
 }
 
-function MetaCell({ icon, label, value }: { icon?: React.ReactNode; label: string; value: string }) {
+function MetaCell({
+  icon,
+  label,
+  value,
+}: {
+  icon?: React.ReactNode;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="rounded-2xl border border-border/60 bg-surface/60 p-3">
       <div className="flex items-center gap-1.5 text-muted-foreground">
         {icon}
         <p className="text-[10px] uppercase tracking-widest">{label}</p>
       </div>
-      <p translate="no" className="mt-1 text-sm font-semibold tabular-nums">{value}</p>
+      <p translate="no" className="mt-1 text-sm font-semibold tabular-nums">
+        {value}
+      </p>
     </div>
   );
 }

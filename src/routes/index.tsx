@@ -52,12 +52,17 @@ function HomePage() {
       <StatusBar />
       <div className="flex items-center justify-between px-6 pt-4">
         <div className="flex items-center gap-3">
-          <div translate="no" className="grid h-11 w-11 place-items-center rounded-full bg-gradient-primary font-bold text-primary-foreground shadow-glow">
+          <div
+            translate="no"
+            className="grid h-11 w-11 place-items-center rounded-full bg-gradient-primary font-bold text-primary-foreground shadow-glow"
+          >
             FL
           </div>
           <div className="min-w-0">
             <p className="text-xs text-muted-foreground">{t("home.welcome")}</p>
-            <p translate="no" className="truncate text-sm font-semibold">Daniel Chen</p>
+            <p translate="no" className="truncate text-sm font-semibold">
+              Daniel Chen
+            </p>
           </div>
         </div>
         <button className="relative grid h-11 w-11 place-items-center rounded-full bg-surface">
@@ -68,7 +73,9 @@ function HomePage() {
 
       <div className="mx-6 mt-6 overflow-hidden rounded-3xl bg-gradient-card p-6 shadow-card">
         <div className="flex items-center justify-between">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("home.totalBalance")}</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">
+            {t("home.totalBalance")}
+          </p>
           <button onClick={() => setHidden((v) => !v)} className="text-muted-foreground">
             {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
@@ -77,9 +84,18 @@ function HomePage() {
           {hidden ? "••••••" : "$28,412.90"}
         </div>
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat to="/assets/digital" label={t("home.digital")} value={hidden ? "••••" : "$19,844"} />
+          <MiniStat
+            to="/assets/digital"
+            label={t("home.digital")}
+            value={hidden ? "••••" : "$19,844"}
+          />
           <MiniStat to="/assets/fiat" label={t("home.fiat")} value={hidden ? "••••" : "$8,568"} />
-          <MiniStat to="/assets/cards" label={t("home.card")} value={hidden ? "••••" : "$1,842"} tone="accent" />
+          <MiniStat
+            to="/assets/cards"
+            label={t("home.card")}
+            value={hidden ? "••••" : "$1,842"}
+            tone="accent"
+          />
         </div>
       </div>
 
@@ -101,20 +117,32 @@ function HomePage() {
       <div className="mx-6 mt-6">
         <div className="flex items-center justify-between">
           <h3 className="font-display text-base font-semibold">{t("home.recent")}</h3>
-          <Link to="/history" className="text-xs text-primary">{t("home.seeAll")}</Link>
+          <Link to="/history" className="text-xs text-primary">
+            {t("home.seeAll")}
+          </Link>
         </div>
         <div className="mt-3 space-y-2">
           {recent.map((row) => (
             <div key={row.name} className="flex items-center gap-3 rounded-2xl bg-surface p-4">
-              <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${row.pos ? "bg-primary/15 text-primary" : "bg-muted text-foreground"}`}>
-                {row.pos ? <ArrowDownToLine className="h-5 w-5" /> : <ArrowUpFromLine className="h-5 w-5" />}
+              <div
+                className={`grid h-10 w-10 shrink-0 place-items-center rounded-full ${row.pos ? "bg-primary/15 text-primary" : "bg-muted text-foreground"}`}
+              >
+                {row.pos ? (
+                  <ArrowDownToLine className="h-5 w-5" />
+                ) : (
+                  <ArrowUpFromLine className="h-5 w-5" />
+                )}
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{row.name}</p>
                 <p className="text-xs text-muted-foreground">{row.time}</p>
               </div>
-              <p translate="no" className={`shrink-0 text-sm font-semibold tabular-nums ${row.pos ? "text-primary" : "text-foreground"}`}>
-                {row.pos ? "+" : ""}{row.amount.toFixed(2)}
+              <p
+                translate="no"
+                className={`shrink-0 text-sm font-semibold tabular-nums ${row.pos ? "text-primary" : "text-foreground"}`}
+              >
+                {row.pos ? "+" : ""}
+                {row.amount.toFixed(2)}
               </p>
             </div>
           ))}
@@ -132,12 +160,32 @@ function HomePage() {
   );
 }
 
-function MiniStat({ to, label, value, tone }: { to: "/assets/digital" | "/assets/fiat" | "/assets/cards"; label: string; value: string; tone?: "accent" }) {
+function MiniStat({
+  to,
+  label,
+  value,
+  tone,
+}: {
+  to: "/assets/digital" | "/assets/fiat" | "/assets/cards";
+  label: string;
+  value: string;
+  tone?: "accent";
+}) {
   return (
-    <Link to={to} className="group rounded-2xl bg-background/40 p-3 text-left backdrop-blur transition-all active:scale-95 hover:bg-background/60">
+    <Link
+      to={to}
+      className="group rounded-2xl bg-background/40 p-3 text-left backdrop-blur transition-all active:scale-95 hover:bg-background/60"
+    >
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p translate="no" className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}>{value}</p>
-      <p className="mt-1 text-[9px] uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100">→</p>
+      <p
+        translate="no"
+        className={`mt-1 font-display text-sm font-semibold tabular-nums ${tone === "accent" ? "text-accent" : ""}`}
+      >
+        {value}
+      </p>
+      <p className="mt-1 text-[9px] uppercase tracking-widest text-primary opacity-70 group-hover:opacity-100">
+        →
+      </p>
     </Link>
   );
 }

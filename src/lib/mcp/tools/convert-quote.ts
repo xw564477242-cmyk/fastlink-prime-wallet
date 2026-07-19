@@ -2,7 +2,13 @@ import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
 
 const USD_RATES: Record<string, number> = {
-  USDT: 1, USDC: 1, USD: 1, SGD: 0.74, MYR: 0.21, EUR: 1.08, HKD: 0.128,
+  USDT: 1,
+  USDC: 1,
+  USD: 1,
+  SGD: 0.74,
+  MYR: 0.21,
+  EUR: 1.08,
+  HKD: 0.128,
 };
 
 export default defineTool({
@@ -22,7 +28,12 @@ export default defineTool({
     const toRate = USD_RATES[t];
     if (!fromRate || !toRate) {
       return {
-        content: [{ type: "text", text: `Unsupported currency. Supported: ${Object.keys(USD_RATES).join(", ")}` }],
+        content: [
+          {
+            type: "text",
+            text: `Unsupported currency. Supported: ${Object.keys(USD_RATES).join(", ")}`,
+          },
+        ],
         isError: true,
       };
     }
@@ -30,7 +41,12 @@ export default defineTool({
     const result = amount * rate;
     const out = { from: f, to: t, amount, rate, result, fee: 0 };
     return {
-      content: [{ type: "text", text: `${amount} ${f} ≈ ${result.toFixed(4)} ${t} (rate ${rate.toFixed(6)}, zero fee)` }],
+      content: [
+        {
+          type: "text",
+          text: `${amount} ${f} ≈ ${result.toFixed(4)} ${t} (rate ${rate.toFixed(6)}, zero fee)`,
+        },
+      ],
       structuredContent: out,
     };
   },

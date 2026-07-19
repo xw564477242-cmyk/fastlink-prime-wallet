@@ -1,7 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
-  ChevronRight, UserRound, ShieldCheck, BadgeCheck, Lock, LifeBuoy, LogOut, Globe, Bell, Sparkles, Check, Receipt,
+  ChevronRight,
+  UserRound,
+  ShieldCheck,
+  BadgeCheck,
+  Lock,
+  LifeBuoy,
+  LogOut,
+  Globe,
+  Bell,
+  Sparkles,
+  Check,
+  Receipt,
 } from "lucide-react";
 import { useState } from "react";
 import { useLang, LANG_OPTIONS, type Lang } from "@/lib/i18n";
@@ -23,7 +34,11 @@ function ProfilePage() {
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
 
   const logout = () => {
-    try { localStorage.removeItem("fastlink.session"); } catch {}
+    try {
+      localStorage.removeItem("fastlink.session");
+    } catch {
+      // Continue to the sign-in screen even when storage is unavailable.
+    }
     navigate({ to: "/auth" });
   };
 
@@ -36,12 +51,19 @@ function ProfilePage() {
 
         <div className="mt-5 rounded-3xl bg-gradient-card p-6 shadow-card">
           <div className="flex items-center gap-4">
-            <div translate="no" className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-primary font-display text-xl font-bold text-primary-foreground shadow-glow">
+            <div
+              translate="no"
+              className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-primary font-display text-xl font-bold text-primary-foreground shadow-glow"
+            >
               DC
             </div>
             <div className="min-w-0 flex-1">
-              <p translate="no" className="truncate font-display text-lg font-semibold">Daniel Chen</p>
-              <p translate="no" className="truncate text-xs text-muted-foreground">daniel.chen@fastlink.io</p>
+              <p translate="no" className="truncate font-display text-lg font-semibold">
+                Daniel Chen
+              </p>
+              <p translate="no" className="truncate text-xs text-muted-foreground">
+                daniel.chen@fastlink.io
+              </p>
               <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
                 <BadgeCheck className="h-3 w-3" /> {t("profile.kycVerified")}
               </div>
@@ -57,7 +79,9 @@ function ProfilePage() {
         <div className="mt-5 grid grid-cols-2 gap-3">
           <div className="rounded-2xl bg-surface p-4">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("profile.kycLevel")}</p>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                {t("profile.kycLevel")}
+              </p>
               <BadgeCheck className="h-4 w-4 text-primary" />
             </div>
             <p className="mt-2 font-display text-lg font-semibold">{t("profile.kycTier")}</p>
@@ -70,12 +94,18 @@ function ProfilePage() {
           </div>
           <div className="rounded-2xl bg-surface p-4">
             <div className="flex items-center justify-between">
-              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("profile.secScore")}</p>
+              <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                {t("profile.secScore")}
+              </p>
               <ShieldCheck className="h-4 w-4 text-accent" />
             </div>
             <div className="mt-2 flex items-baseline gap-1">
-              <p translate="no" className="font-display text-lg font-semibold">86</p>
-              <span translate="no" className="text-[10px] text-muted-foreground">/ 100</span>
+              <p translate="no" className="font-display text-lg font-semibold">
+                86
+              </p>
+              <span translate="no" className="text-[10px] text-muted-foreground">
+                / 100
+              </span>
             </div>
             <p className="text-[10px] text-accent">{t("profile.secStrong")}</p>
             <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
@@ -90,9 +120,23 @@ function ProfilePage() {
 
         <div className="mt-5 space-y-3">
           <Section title={t("profile.account")}>
-            <Row icon={UserRound} label={t("profile.personalInfo")} hint={t("profile.personalHint")} />
-            <RowLink to="/kyc" icon={BadgeCheck} label={t("profile.kycVerification")} hint={t("profile.kycHint")} />
-            <RowLink to="/history" icon={Receipt} label={t("profile.txHistory")} hint={t("profile.txHint")} />
+            <Row
+              icon={UserRound}
+              label={t("profile.personalInfo")}
+              hint={t("profile.personalHint")}
+            />
+            <RowLink
+              to="/kyc"
+              icon={BadgeCheck}
+              label={t("profile.kycVerification")}
+              hint={t("profile.kycHint")}
+            />
+            <RowLink
+              to="/history"
+              icon={Receipt}
+              label={t("profile.txHistory")}
+              hint={t("profile.txHint")}
+            />
           </Section>
 
           <Section title={t("profile.security")}>
@@ -111,9 +155,13 @@ function ProfilePage() {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{t("profile.language")}</p>
-                <p translate="no" className="truncate text-xs text-muted-foreground">{current.native}</p>
+                <p translate="no" className="truncate text-xs text-muted-foreground">
+                  {current.native}
+                </p>
               </div>
-              <ChevronRight className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${langOpen ? "rotate-90" : ""}`} />
+              <ChevronRight
+                className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${langOpen ? "rotate-90" : ""}`}
+              />
             </button>
             {langOpen && (
               <div className="bg-background/40 px-2 py-2">
@@ -122,10 +170,15 @@ function ProfilePage() {
                   return (
                     <button
                       key={opt.code}
-                      onClick={() => { setLang(opt.code as Lang); setLangOpen(false); }}
+                      onClick={() => {
+                        setLang(opt.code as Lang);
+                        setLangOpen(false);
+                      }}
                       className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm transition-colors ${on ? "bg-primary/10 text-primary" : "text-foreground active:bg-muted/40"}`}
                     >
-                      <span translate="no" className="font-medium">{opt.native}</span>
+                      <span translate="no" className="font-medium">
+                        {opt.native}
+                      </span>
                       {on && <Check className="h-4 w-4" />}
                     </button>
                   );
@@ -136,13 +189,18 @@ function ProfilePage() {
           </Section>
 
           <Section title={t("profile.agent")}>
-            <Link to="/connect" className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40">
+            <Link
+              to="/connect"
+              className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
+            >
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
                 <Sparkles className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">{t("profile.connectAi")}</p>
-                <p className="truncate text-xs text-muted-foreground">{t("profile.connectAiHint")}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {t("profile.connectAiHint")}
+                </p>
               </div>
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
             </Link>
@@ -158,7 +216,9 @@ function ProfilePage() {
                 <LogOut className="h-4 w-4" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-destructive">{t("profile.logout")}</p>
+                <p className="truncate text-sm font-medium text-destructive">
+                  {t("profile.logout")}
+                </p>
               </div>
               <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
             </button>
@@ -177,7 +237,9 @@ function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="px-2">
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p translate="no" className="mt-1 text-xs font-semibold">{value}</p>
+      <p translate="no" className="mt-1 text-xs font-semibold">
+        {value}
+      </p>
     </div>
   );
 }
@@ -195,16 +257,28 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Row({ icon: Icon, label, hint, danger }: {
-  icon: React.ComponentType<{ className?: string }>; label: string; hint?: string; danger?: boolean;
+function Row({
+  icon: Icon,
+  label,
+  hint,
+  danger,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  hint?: string;
+  danger?: boolean;
 }) {
   return (
     <button className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40">
-      <div className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${danger ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-primary"}`}>
+      <div
+        className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${danger ? "bg-destructive/15 text-destructive" : "bg-primary/15 text-primary"}`}
+      >
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
-        <p className={`truncate text-sm font-medium ${danger ? "text-destructive" : ""}`}>{label}</p>
+        <p className={`truncate text-sm font-medium ${danger ? "text-destructive" : ""}`}>
+          {label}
+        </p>
         {hint && <p className="truncate text-xs text-muted-foreground">{hint}</p>}
       </div>
       <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -212,8 +286,16 @@ function Row({ icon: Icon, label, hint, danger }: {
   );
 }
 
-function RowLink({ to, icon: Icon, label, hint }: {
-  to: "/kyc" | "/history"; icon: React.ComponentType<{ className?: string }>; label: string; hint?: string;
+function RowLink({
+  to,
+  icon: Icon,
+  label,
+  hint,
+}: {
+  to: "/kyc" | "/history";
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  hint?: string;
 }) {
   return (
     <Link to={to} className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40">

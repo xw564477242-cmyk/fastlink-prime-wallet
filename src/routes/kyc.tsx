@@ -8,7 +8,10 @@ export const Route = createFileRoute("/kyc")({
   head: () => ({
     meta: [
       { title: "FastLink — KYC Verification" },
-      { name: "description", content: "Complete identity verification to unlock FastLink features." },
+      {
+        name: "description",
+        content: "Complete identity verification to unlock FastLink features.",
+      },
     ],
   }),
   component: KycPage,
@@ -158,7 +161,15 @@ function KycPage() {
   );
 }
 
-function StepCard({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) {
+function StepCard({
+  title,
+  icon,
+  children,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-2xl border border-border/60 bg-surface/40 p-4">
       <div className="mb-3 flex items-center gap-2 text-xs font-semibold text-muted-foreground">

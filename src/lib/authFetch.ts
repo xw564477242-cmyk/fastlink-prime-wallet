@@ -4,7 +4,10 @@
 // active session (the server will then respond 401, as intended).
 import { supabase } from "@/integrations/supabase/client";
 
-export async function authFetch(input: RequestInfo | URL, init: RequestInit = {}): Promise<Response> {
+export async function authFetch(
+  input: RequestInfo | URL,
+  init: RequestInit = {},
+): Promise<Response> {
   const { data } = await supabase.auth.getSession();
   const token = data.session?.access_token;
   const headers = new Headers(init.headers);

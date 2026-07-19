@@ -6,9 +6,16 @@ import { threddMock } from "./thredd.mock";
 import type { ThreddCard, ThreddCardDetail, ThreddCardTxn } from "./thredd.types";
 
 export const cardService = {
-  createVirtualCard(input: { customerId: string; alias?: string; currency?: string }): Promise<ThreddCard> {
+  createVirtualCard(input: {
+    customerId: string;
+    alias?: string;
+    currency?: string;
+  }): Promise<ThreddCard> {
     if (isMockMode()) return threddMock.createVirtualCard(input);
-    return threddFetch<ThreddCard>("/v1/cards/virtual", { method: "POST", body: JSON.stringify(input) });
+    return threddFetch<ThreddCard>("/v1/cards/virtual", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
   },
   createPhysicalCardRequest(input: {
     customerId: string;
@@ -16,7 +23,10 @@ export const cardService = {
     alias?: string;
   }): Promise<ThreddCard> {
     if (isMockMode()) return threddMock.createPhysicalCardRequest(input);
-    return threddFetch<ThreddCard>("/v1/cards/physical", { method: "POST", body: JSON.stringify(input) });
+    return threddFetch<ThreddCard>("/v1/cards/physical", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
   },
   getCardList(customerId: string): Promise<ThreddCard[]> {
     if (isMockMode()) return threddMock.getCardList(customerId);

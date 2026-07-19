@@ -27,14 +27,24 @@ function AuthPage() {
 
   const submit = async () => {
     setErrorMsg(null);
-    if (!email || !password) { setErrorMsg(t("auth.err.required")); return; }
-    if (password.length < 8) { setErrorMsg(t("auth.err.password")); return; }
+    if (!email || !password) {
+      setErrorMsg(t("auth.err.required"));
+      return;
+    }
+    if (password.length < 8) {
+      setErrorMsg(t("auth.err.password"));
+      return;
+    }
     setStatus("pending");
     try {
       if (mode === "register") {
         const { error } = await supabase.auth.signUp({
-          email, password,
-          options: { emailRedirectTo: window.location.origin, data: { full_name: name || undefined } },
+          email,
+          password,
+          options: {
+            emailRedirectTo: window.location.origin,
+            data: { full_name: name || undefined },
+          },
         });
         if (error) throw error;
       } else {
@@ -53,7 +63,10 @@ function AuthPage() {
     <MobileShell>
       <StatusBar title={mode === "login" ? t("page.auth.signIn") : t("page.auth.register")} />
       <div className="px-6 pt-6">
-        <div translate="no" className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow">
+        <div
+          translate="no"
+          className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-primary font-display text-lg font-bold text-primary-foreground shadow-glow"
+        >
           FL
         </div>
         <h1 className="mt-4 text-center font-display text-2xl font-bold">
@@ -77,10 +90,26 @@ function AuthPage() {
 
         <div className="mt-5 space-y-3">
           {mode === "register" && (
-            <Field icon={<User className="h-4 w-4" />} value={name} onChange={setName} placeholder={t("auth.fullName")} />
+            <Field
+              icon={<User className="h-4 w-4" />}
+              value={name}
+              onChange={setName}
+              placeholder={t("auth.fullName")}
+            />
           )}
-          <Field icon={<Mail className="h-4 w-4" />} value={email} onChange={setEmail} placeholder={t("auth.email")} />
-          <Field icon={<Lock className="h-4 w-4" />} value={password} onChange={setPassword} placeholder={t("auth.password")} type="password" />
+          <Field
+            icon={<Mail className="h-4 w-4" />}
+            value={email}
+            onChange={setEmail}
+            placeholder={t("auth.email")}
+          />
+          <Field
+            icon={<Lock className="h-4 w-4" />}
+            value={password}
+            onChange={setPassword}
+            placeholder={t("auth.password")}
+            type="password"
+          />
         </div>
 
         <button
@@ -108,8 +137,18 @@ function AuthPage() {
   );
 }
 
-function Field({ icon, value, onChange, placeholder, type = "text" }: {
-  icon: React.ReactNode; value: string; onChange: (v: string) => void; placeholder: string; type?: string;
+function Field({
+  icon,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  icon: React.ReactNode;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder: string;
+  type?: string;
 }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">

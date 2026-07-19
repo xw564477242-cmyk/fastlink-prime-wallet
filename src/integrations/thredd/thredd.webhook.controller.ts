@@ -26,19 +26,30 @@ export function verifyWebhookSignature(rawBody: string, signature: string | null
 }
 
 export interface WebhookHandlers {
-  cardCreated?: (data: Extract<ThreddWebhookEvent, { type: "card.created" }>["data"]) => Promise<void> | void;
+  cardCreated?: (
+    data: Extract<ThreddWebhookEvent, { type: "card.created" }>["data"],
+  ) => Promise<void> | void;
   cardStatusChanged?: (
     data: Extract<ThreddWebhookEvent, { type: "card.status_changed" }>["data"],
   ) => Promise<void> | void;
-  authorization?: (data: Extract<ThreddWebhookEvent, { type: "authorization" }>["data"]) => Promise<void> | void;
-  clearing?: (data: Extract<ThreddWebhookEvent, { type: "clearing" }>["data"]) => Promise<void> | void;
-  settlement?: (data: Extract<ThreddWebhookEvent, { type: "settlement" }>["data"]) => Promise<void> | void;
+  authorization?: (
+    data: Extract<ThreddWebhookEvent, { type: "authorization" }>["data"],
+  ) => Promise<void> | void;
+  clearing?: (
+    data: Extract<ThreddWebhookEvent, { type: "clearing" }>["data"],
+  ) => Promise<void> | void;
+  settlement?: (
+    data: Extract<ThreddWebhookEvent, { type: "settlement" }>["data"],
+  ) => Promise<void> | void;
   kycStatusChanged?: (
     data: Extract<ThreddWebhookEvent, { type: "kyc.status_changed" }>["data"],
   ) => Promise<void> | void;
 }
 
-export async function dispatchWebhookEvent(event: ThreddWebhookEvent, handlers: WebhookHandlers): Promise<void> {
+export async function dispatchWebhookEvent(
+  event: ThreddWebhookEvent,
+  handlers: WebhookHandlers,
+): Promise<void> {
   switch (event.type) {
     case "card.created":
       await handlers.cardCreated?.(event.data);

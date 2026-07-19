@@ -5,9 +5,16 @@ import { threddMock } from "./thredd.mock";
 import type { KycStatus, KycSubmission, ThreddCustomer } from "./thredd.types";
 
 export const kycService = {
-  createCustomer(input: { email: string; firstName: string; lastName: string }): Promise<ThreddCustomer> {
+  createCustomer(input: {
+    email: string;
+    firstName: string;
+    lastName: string;
+  }): Promise<ThreddCustomer> {
     if (isMockMode()) return threddMock.createCustomer(input);
-    return threddFetch<ThreddCustomer>("/v1/customers", { method: "POST", body: JSON.stringify(input) });
+    return threddFetch<ThreddCustomer>("/v1/customers", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
   },
   submitKyc(input: KycSubmission): Promise<{ customerId: string; status: KycStatus }> {
     if (isMockMode()) return threddMock.submitKyc(input);

@@ -9,111 +9,51 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WithdrawRouteImport } from './routes/withdraw'
-import { Route as TransferRouteImport } from './routes/transfer'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as PayRouteImport } from './routes/pay'
-import { Route as MerchantPayRouteImport } from './routes/merchant-pay'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as KycRouteImport } from './routes/kyc'
-import { Route as HistoryRouteImport } from './routes/history'
-import { Route as DepositRouteImport } from './routes/deposit'
-import { Route as ConvertRouteImport } from './routes/convert'
-import { Route as ConnectRouteImport } from './routes/connect'
-import { Route as CardsRouteImport } from './routes/cards'
-import { Route as CardPayRouteImport } from './routes/card-pay'
-import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
-import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
-import { Route as AssetsCardsRouteImport } from './routes/assets.cards'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CardPayRouteImport } from './routes/card-pay'
+import { Route as CardsRouteImport } from './routes/cards'
+import { Route as ConnectRouteImport } from './routes/connect'
+import { Route as ConvertRouteImport } from './routes/convert'
+import { Route as DepositRouteImport } from './routes/deposit'
+import { Route as HistoryRouteImport } from './routes/history'
+import { Route as KycRouteImport } from './routes/kyc'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as MerchantPayRouteImport } from './routes/merchant-pay'
+import { Route as PayRouteImport } from './routes/pay'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as TransferRouteImport } from './routes/transfer'
+import { Route as WithdrawRouteImport } from './routes/withdraw'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as ApiCardsIndexRouteImport } from './routes/api/cards/index'
-import { Route as ApiKycSubmitRouteImport } from './routes/api/kyc/submit'
-import { Route as ApiKycStatusRouteImport } from './routes/api/kyc/status'
-import { Route as ApiCardsVirtualRouteImport } from './routes/api/cards/virtual'
-import { Route as ApiCardsPhysicalRouteImport } from './routes/api/cards/physical'
-import { Route as ApiCardListRouteImport } from './routes/api/card/list'
-import { Route as ApiCardCreateVirtualRouteImport } from './routes/api/card/create-virtual'
-import { Route as ApiCardApplyPhysicalRouteImport } from './routes/api/card/apply-physical'
-import { Route as ApiCardIdRouteImport } from './routes/api/card/$id'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AssetsCardsRouteImport } from './routes/assets.cards'
+import { Route as AssetsDigitalRouteImport } from './routes/assets.digital'
+import { Route as AssetsFiatRouteImport } from './routes/assets.fiat'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as ApiPublicWebhooksThreddRouteImport } from './routes/api/public/webhooks/thredd'
-import { Route as ApiCardsIdUnfreezeRouteImport } from './routes/api/cards/$id/unfreeze'
-import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
-import { Route as ApiCardsIdFreezeRouteImport } from './routes/api/cards/$id/freeze'
-import { Route as ApiCardIdUnfreezeRouteImport } from './routes/api/card/$id/unfreeze'
-import { Route as ApiCardIdTransactionsRouteImport } from './routes/api/card/$id/transactions'
-import { Route as ApiCardIdPinRouteImport } from './routes/api/card/$id/pin'
-import { Route as ApiCardIdFundRouteImport } from './routes/api/card/$id/fund'
-import { Route as ApiCardIdFreezeRouteImport } from './routes/api/card/$id/freeze'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as ApiCardIdRouteImport } from './routes/api/card/$id'
+import { Route as ApiCardApplyPhysicalRouteImport } from './routes/api/card/apply-physical'
+import { Route as ApiCardCreateVirtualRouteImport } from './routes/api/card/create-virtual'
+import { Route as ApiCardListRouteImport } from './routes/api/card/list'
+import { Route as ApiCardsIndexRouteImport } from './routes/api/cards/index'
+import { Route as ApiCardsPhysicalRouteImport } from './routes/api/cards/physical'
+import { Route as ApiCardsVirtualRouteImport } from './routes/api/cards/virtual'
+import { Route as ApiKycStatusRouteImport } from './routes/api/kyc/status'
+import { Route as ApiKycSubmitRouteImport } from './routes/api/kyc/submit'
 import { Route as ApiCardIdCvvRouteImport } from './routes/api/card/$id/cvv'
+import { Route as ApiCardIdFreezeRouteImport } from './routes/api/card/$id/freeze'
+import { Route as ApiCardIdFundRouteImport } from './routes/api/card/$id/fund'
+import { Route as ApiCardIdPinRouteImport } from './routes/api/card/$id/pin'
+import { Route as ApiCardIdTransactionsRouteImport } from './routes/api/card/$id/transactions'
+import { Route as ApiCardIdUnfreezeRouteImport } from './routes/api/card/$id/unfreeze'
+import { Route as ApiCardsIdFreezeRouteImport } from './routes/api/cards/$id/freeze'
+import { Route as ApiCardsIdFundRouteImport } from './routes/api/cards/$id/fund'
+import { Route as ApiCardsIdUnfreezeRouteImport } from './routes/api/cards/$id/unfreeze'
+import { Route as ApiPublicWebhooksThreddRouteImport } from './routes/api/public/webhooks/thredd'
 
-const WithdrawRoute = WithdrawRouteImport.update({
-  id: '/withdraw',
-  path: '/withdraw',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TransferRoute = TransferRouteImport.update({
-  id: '/transfer',
-  path: '/transfer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PayRoute = PayRouteImport.update({
-  id: '/pay',
-  path: '/pay',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MerchantPayRoute = MerchantPayRouteImport.update({
-  id: '/merchant-pay',
-  path: '/merchant-pay',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KycRoute = KycRouteImport.update({
-  id: '/kyc',
-  path: '/kyc',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HistoryRoute = HistoryRouteImport.update({
-  id: '/history',
-  path: '/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DepositRoute = DepositRouteImport.update({
-  id: '/deposit',
-  path: '/deposit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConvertRoute = ConvertRouteImport.update({
-  id: '/convert',
-  path: '/convert',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ConnectRoute = ConnectRouteImport.update({
-  id: '/connect',
-  path: '/connect',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CardsRoute = CardsRouteImport.update({
-  id: '/cards',
-  path: '/cards',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CardPayRoute = CardPayRouteImport.update({
-  id: '/card-pay',
-  path: '/card-pay',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -121,14 +61,86 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const CardPayRoute = CardPayRouteImport.update({
+  id: '/card-pay',
+  path: '/card-pay',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssetsFiatRoute = AssetsFiatRouteImport.update({
-  id: '/assets/fiat',
-  path: '/assets/fiat',
+const CardsRoute = CardsRouteImport.update({
+  id: '/cards',
+  path: '/cards',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConnectRoute = ConnectRouteImport.update({
+  id: '/connect',
+  path: '/connect',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConvertRoute = ConvertRouteImport.update({
+  id: '/convert',
+  path: '/convert',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DepositRoute = DepositRouteImport.update({
+  id: '/deposit',
+  path: '/deposit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HistoryRoute = HistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KycRoute = KycRouteImport.update({
+  id: '/kyc',
+  path: '/kyc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MerchantPayRoute = MerchantPayRouteImport.update({
+  id: '/merchant-pay',
+  path: '/merchant-pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PayRoute = PayRouteImport.update({
+  id: '/pay',
+  path: '/pay',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransferRoute = TransferRouteImport.update({
+  id: '/transfer',
+  path: '/transfer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WithdrawRoute = WithdrawRouteImport.update({
+  id: '/withdraw',
+  path: '/withdraw',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AssetsCardsRoute = AssetsCardsRouteImport.update({
+  id: '/assets/cards',
+  path: '/assets/cards',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssetsDigitalRoute = AssetsDigitalRouteImport.update({
@@ -136,66 +148,14 @@ const AssetsDigitalRoute = AssetsDigitalRouteImport.update({
   path: '/assets/digital',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AssetsCardsRoute = AssetsCardsRouteImport.update({
-  id: '/assets/cards',
-  path: '/assets/cards',
+const AssetsFiatRoute = AssetsFiatRouteImport.update({
+  id: '/assets/fiat',
+  path: '/assets/fiat',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiCardsIndexRoute = ApiCardsIndexRouteImport.update({
-  id: '/api/cards/',
-  path: '/api/cards/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiKycSubmitRoute = ApiKycSubmitRouteImport.update({
-  id: '/api/kyc/submit',
-  path: '/api/kyc/submit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiKycStatusRoute = ApiKycStatusRouteImport.update({
-  id: '/api/kyc/status',
-  path: '/api/kyc/status',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardsVirtualRoute = ApiCardsVirtualRouteImport.update({
-  id: '/api/cards/virtual',
-  path: '/api/cards/virtual',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardsPhysicalRoute = ApiCardsPhysicalRouteImport.update({
-  id: '/api/cards/physical',
-  path: '/api/cards/physical',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardListRoute = ApiCardListRouteImport.update({
-  id: '/api/card/list',
-  path: '/api/card/list',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardCreateVirtualRoute = ApiCardCreateVirtualRouteImport.update({
-  id: '/api/card/create-virtual',
-  path: '/api/card/create-virtual',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardApplyPhysicalRoute = ApiCardApplyPhysicalRouteImport.update({
-  id: '/api/card/apply-physical',
-  path: '/api/card/apply-physical',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiCardIdRoute = ApiCardIdRouteImport.update({
-  id: '/api/card/$id',
-  path: '/api/card/$id',
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
 const Char91DotmcpChar93InvokeToolToolRoute =
@@ -204,49 +164,54 @@ const Char91DotmcpChar93InvokeToolToolRoute =
     path: '/.mcp/invoke-tool/$tool',
     getParentRoute: () => rootRouteImport,
   } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
+const ApiCardIdRoute = ApiCardIdRouteImport.update({
+  id: '/api/card/$id',
+  path: '/api/card/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicWebhooksThreddRoute = ApiPublicWebhooksThreddRouteImport.update({
-  id: '/api/public/webhooks/thredd',
-  path: '/api/public/webhooks/thredd',
+const ApiCardApplyPhysicalRoute = ApiCardApplyPhysicalRouteImport.update({
+  id: '/api/card/apply-physical',
+  path: '/api/card/apply-physical',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardsIdUnfreezeRoute = ApiCardsIdUnfreezeRouteImport.update({
-  id: '/api/cards/$id/unfreeze',
-  path: '/api/cards/$id/unfreeze',
+const ApiCardCreateVirtualRoute = ApiCardCreateVirtualRouteImport.update({
+  id: '/api/card/create-virtual',
+  path: '/api/card/create-virtual',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardsIdFundRoute = ApiCardsIdFundRouteImport.update({
-  id: '/api/cards/$id/fund',
-  path: '/api/cards/$id/fund',
+const ApiCardListRoute = ApiCardListRouteImport.update({
+  id: '/api/card/list',
+  path: '/api/card/list',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardsIdFreezeRoute = ApiCardsIdFreezeRouteImport.update({
-  id: '/api/cards/$id/freeze',
-  path: '/api/cards/$id/freeze',
+const ApiCardsIndexRoute = ApiCardsIndexRouteImport.update({
+  id: '/api/cards/',
+  path: '/api/cards/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardIdUnfreezeRoute = ApiCardIdUnfreezeRouteImport.update({
-  id: '/unfreeze',
-  path: '/unfreeze',
-  getParentRoute: () => ApiCardIdRoute,
+const ApiCardsPhysicalRoute = ApiCardsPhysicalRouteImport.update({
+  id: '/api/cards/physical',
+  path: '/api/cards/physical',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardIdTransactionsRoute = ApiCardIdTransactionsRouteImport.update({
-  id: '/transactions',
-  path: '/transactions',
-  getParentRoute: () => ApiCardIdRoute,
+const ApiCardsVirtualRoute = ApiCardsVirtualRouteImport.update({
+  id: '/api/cards/virtual',
+  path: '/api/cards/virtual',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardIdPinRoute = ApiCardIdPinRouteImport.update({
-  id: '/pin',
-  path: '/pin',
-  getParentRoute: () => ApiCardIdRoute,
+const ApiKycStatusRoute = ApiKycStatusRouteImport.update({
+  id: '/api/kyc/status',
+  path: '/api/kyc/status',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
-  id: '/fund',
-  path: '/fund',
+const ApiKycSubmitRoute = ApiKycSubmitRouteImport.update({
+  id: '/api/kyc/submit',
+  path: '/api/kyc/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardIdCvvRoute = ApiCardIdCvvRouteImport.update({
+  id: '/cvv',
+  path: '/cvv',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
 const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
@@ -254,10 +219,45 @@ const ApiCardIdFreezeRoute = ApiCardIdFreezeRouteImport.update({
   path: '/freeze',
   getParentRoute: () => ApiCardIdRoute,
 } as any)
-const ApiCardIdCvvRoute = ApiCardIdCvvRouteImport.update({
-  id: '/cvv',
-  path: '/cvv',
+const ApiCardIdFundRoute = ApiCardIdFundRouteImport.update({
+  id: '/fund',
+  path: '/fund',
   getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardIdPinRoute = ApiCardIdPinRouteImport.update({
+  id: '/pin',
+  path: '/pin',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardIdTransactionsRoute = ApiCardIdTransactionsRouteImport.update({
+  id: '/transactions',
+  path: '/transactions',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardIdUnfreezeRoute = ApiCardIdUnfreezeRouteImport.update({
+  id: '/unfreeze',
+  path: '/unfreeze',
+  getParentRoute: () => ApiCardIdRoute,
+} as any)
+const ApiCardsIdFreezeRoute = ApiCardsIdFreezeRouteImport.update({
+  id: '/api/cards/$id/freeze',
+  path: '/api/cards/$id/freeze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsIdFundRoute = ApiCardsIdFundRouteImport.update({
+  id: '/api/cards/$id/fund',
+  path: '/api/cards/$id/fund',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCardsIdUnfreezeRoute = ApiCardsIdUnfreezeRouteImport.update({
+  id: '/api/cards/$id/unfreeze',
+  path: '/api/cards/$id/unfreeze',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWebhooksThreddRoute = ApiPublicWebhooksThreddRouteImport.update({
+  id: '/api/public/webhooks/thredd',
+  path: '/api/public/webhooks/thredd',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -562,95 +562,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/withdraw': {
-      id: '/withdraw'
-      path: '/withdraw'
-      fullPath: '/withdraw'
-      preLoaderRoute: typeof WithdrawRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/transfer': {
-      id: '/transfer'
-      path: '/transfer'
-      fullPath: '/transfer'
-      preLoaderRoute: typeof TransferRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pay': {
-      id: '/pay'
-      path: '/pay'
-      fullPath: '/pay'
-      preLoaderRoute: typeof PayRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/merchant-pay': {
-      id: '/merchant-pay'
-      path: '/merchant-pay'
-      fullPath: '/merchant-pay'
-      preLoaderRoute: typeof MerchantPayRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/kyc': {
-      id: '/kyc'
-      path: '/kyc'
-      fullPath: '/kyc'
-      preLoaderRoute: typeof KycRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/history': {
-      id: '/history'
-      path: '/history'
-      fullPath: '/history'
-      preLoaderRoute: typeof HistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/deposit': {
-      id: '/deposit'
-      path: '/deposit'
-      fullPath: '/deposit'
-      preLoaderRoute: typeof DepositRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/convert': {
-      id: '/convert'
-      path: '/convert'
-      fullPath: '/convert'
-      preLoaderRoute: typeof ConvertRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/connect': {
-      id: '/connect'
-      path: '/connect'
-      fullPath: '/connect'
-      preLoaderRoute: typeof ConnectRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cards': {
-      id: '/cards'
-      path: '/cards'
-      fullPath: '/cards'
-      preLoaderRoute: typeof CardsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/card-pay': {
-      id: '/card-pay'
-      path: '/card-pay'
-      fullPath: '/card-pay'
-      preLoaderRoute: typeof CardPayRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -660,39 +576,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/card-pay': {
+      id: '/card-pay'
+      path: '/card-pay'
+      fullPath: '/card-pay'
+      preLoaderRoute: typeof CardPayRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assets/fiat': {
-      id: '/assets/fiat'
-      path: '/assets/fiat'
-      fullPath: '/assets/fiat'
-      preLoaderRoute: typeof AssetsFiatRouteImport
+    '/cards': {
+      id: '/cards'
+      path: '/cards'
+      fullPath: '/cards'
+      preLoaderRoute: typeof CardsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assets/digital': {
-      id: '/assets/digital'
-      path: '/assets/digital'
-      fullPath: '/assets/digital'
-      preLoaderRoute: typeof AssetsDigitalRouteImport
+    '/connect': {
+      id: '/connect'
+      path: '/connect'
+      fullPath: '/connect'
+      preLoaderRoute: typeof ConnectRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/assets/cards': {
-      id: '/assets/cards'
-      path: '/assets/cards'
-      fullPath: '/assets/cards'
-      preLoaderRoute: typeof AssetsCardsRouteImport
+    '/convert': {
+      id: '/convert'
+      path: '/convert'
+      fullPath: '/convert'
+      preLoaderRoute: typeof ConvertRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/deposit': {
+      id: '/deposit'
+      path: '/deposit'
+      fullPath: '/deposit'
+      preLoaderRoute: typeof DepositRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/history': {
+      id: '/history'
+      path: '/history'
+      fullPath: '/history'
+      preLoaderRoute: typeof HistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kyc': {
+      id: '/kyc'
+      path: '/kyc'
+      fullPath: '/kyc'
+      preLoaderRoute: typeof KycRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/merchant-pay': {
+      id: '/merchant-pay'
+      path: '/merchant-pay'
+      fullPath: '/merchant-pay'
+      preLoaderRoute: typeof MerchantPayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pay': {
+      id: '/pay'
+      path: '/pay'
+      fullPath: '/pay'
+      preLoaderRoute: typeof PayRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transfer': {
+      id: '/transfer'
+      path: '/transfer'
+      fullPath: '/transfer'
+      preLoaderRoute: typeof TransferRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/withdraw': {
+      id: '/withdraw'
+      path: '/withdraw'
+      fullPath: '/withdraw'
+      preLoaderRoute: typeof WithdrawRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -702,74 +674,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cards/': {
-      id: '/api/cards/'
-      path: '/api/cards'
-      fullPath: '/api/cards/'
-      preLoaderRoute: typeof ApiCardsIndexRouteImport
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/kyc/submit': {
-      id: '/api/kyc/submit'
-      path: '/api/kyc/submit'
-      fullPath: '/api/kyc/submit'
-      preLoaderRoute: typeof ApiKycSubmitRouteImport
+    '/assets/cards': {
+      id: '/assets/cards'
+      path: '/assets/cards'
+      fullPath: '/assets/cards'
+      preLoaderRoute: typeof AssetsCardsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/kyc/status': {
-      id: '/api/kyc/status'
-      path: '/api/kyc/status'
-      fullPath: '/api/kyc/status'
-      preLoaderRoute: typeof ApiKycStatusRouteImport
+    '/assets/digital': {
+      id: '/assets/digital'
+      path: '/assets/digital'
+      fullPath: '/assets/digital'
+      preLoaderRoute: typeof AssetsDigitalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cards/virtual': {
-      id: '/api/cards/virtual'
-      path: '/api/cards/virtual'
-      fullPath: '/api/cards/virtual'
-      preLoaderRoute: typeof ApiCardsVirtualRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/cards/physical': {
-      id: '/api/cards/physical'
-      path: '/api/cards/physical'
-      fullPath: '/api/cards/physical'
-      preLoaderRoute: typeof ApiCardsPhysicalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/card/list': {
-      id: '/api/card/list'
-      path: '/api/card/list'
-      fullPath: '/api/card/list'
-      preLoaderRoute: typeof ApiCardListRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/card/create-virtual': {
-      id: '/api/card/create-virtual'
-      path: '/api/card/create-virtual'
-      fullPath: '/api/card/create-virtual'
-      preLoaderRoute: typeof ApiCardCreateVirtualRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/card/apply-physical': {
-      id: '/api/card/apply-physical'
-      path: '/api/card/apply-physical'
-      fullPath: '/api/card/apply-physical'
-      preLoaderRoute: typeof ApiCardApplyPhysicalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/card/$id': {
-      id: '/api/card/$id'
-      path: '/api/card/$id'
-      fullPath: '/api/card/$id'
-      preLoaderRoute: typeof ApiCardIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/assets/fiat': {
+      id: '/assets/fiat'
+      path: '/assets/fiat'
+      fullPath: '/assets/fiat'
+      preLoaderRoute: typeof AssetsFiatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.lovable/oauth/consent': {
@@ -779,60 +709,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/webhooks/thredd': {
-      id: '/api/public/webhooks/thredd'
-      path: '/api/public/webhooks/thredd'
-      fullPath: '/api/public/webhooks/thredd'
-      preLoaderRoute: typeof ApiPublicWebhooksThreddRouteImport
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cards/$id/unfreeze': {
-      id: '/api/cards/$id/unfreeze'
-      path: '/api/cards/$id/unfreeze'
-      fullPath: '/api/cards/$id/unfreeze'
-      preLoaderRoute: typeof ApiCardsIdUnfreezeRouteImport
+    '/api/card/$id': {
+      id: '/api/card/$id'
+      path: '/api/card/$id'
+      fullPath: '/api/card/$id'
+      preLoaderRoute: typeof ApiCardIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cards/$id/fund': {
-      id: '/api/cards/$id/fund'
-      path: '/api/cards/$id/fund'
-      fullPath: '/api/cards/$id/fund'
-      preLoaderRoute: typeof ApiCardsIdFundRouteImport
+    '/api/card/apply-physical': {
+      id: '/api/card/apply-physical'
+      path: '/api/card/apply-physical'
+      fullPath: '/api/card/apply-physical'
+      preLoaderRoute: typeof ApiCardApplyPhysicalRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/cards/$id/freeze': {
-      id: '/api/cards/$id/freeze'
-      path: '/api/cards/$id/freeze'
-      fullPath: '/api/cards/$id/freeze'
-      preLoaderRoute: typeof ApiCardsIdFreezeRouteImport
+    '/api/card/create-virtual': {
+      id: '/api/card/create-virtual'
+      path: '/api/card/create-virtual'
+      fullPath: '/api/card/create-virtual'
+      preLoaderRoute: typeof ApiCardCreateVirtualRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/card/$id/unfreeze': {
-      id: '/api/card/$id/unfreeze'
-      path: '/unfreeze'
-      fullPath: '/api/card/$id/unfreeze'
-      preLoaderRoute: typeof ApiCardIdUnfreezeRouteImport
-      parentRoute: typeof ApiCardIdRoute
+    '/api/card/list': {
+      id: '/api/card/list'
+      path: '/api/card/list'
+      fullPath: '/api/card/list'
+      preLoaderRoute: typeof ApiCardListRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/card/$id/transactions': {
-      id: '/api/card/$id/transactions'
-      path: '/transactions'
-      fullPath: '/api/card/$id/transactions'
-      preLoaderRoute: typeof ApiCardIdTransactionsRouteImport
-      parentRoute: typeof ApiCardIdRoute
+    '/api/cards/': {
+      id: '/api/cards/'
+      path: '/api/cards'
+      fullPath: '/api/cards/'
+      preLoaderRoute: typeof ApiCardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/card/$id/pin': {
-      id: '/api/card/$id/pin'
-      path: '/pin'
-      fullPath: '/api/card/$id/pin'
-      preLoaderRoute: typeof ApiCardIdPinRouteImport
-      parentRoute: typeof ApiCardIdRoute
+    '/api/cards/physical': {
+      id: '/api/cards/physical'
+      path: '/api/cards/physical'
+      fullPath: '/api/cards/physical'
+      preLoaderRoute: typeof ApiCardsPhysicalRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/api/card/$id/fund': {
-      id: '/api/card/$id/fund'
-      path: '/fund'
-      fullPath: '/api/card/$id/fund'
-      preLoaderRoute: typeof ApiCardIdFundRouteImport
+    '/api/cards/virtual': {
+      id: '/api/cards/virtual'
+      path: '/api/cards/virtual'
+      fullPath: '/api/cards/virtual'
+      preLoaderRoute: typeof ApiCardsVirtualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/kyc/status': {
+      id: '/api/kyc/status'
+      path: '/api/kyc/status'
+      fullPath: '/api/kyc/status'
+      preLoaderRoute: typeof ApiKycStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/kyc/submit': {
+      id: '/api/kyc/submit'
+      path: '/api/kyc/submit'
+      fullPath: '/api/kyc/submit'
+      preLoaderRoute: typeof ApiKycSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/card/$id/cvv': {
+      id: '/api/card/$id/cvv'
+      path: '/cvv'
+      fullPath: '/api/card/$id/cvv'
+      preLoaderRoute: typeof ApiCardIdCvvRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
     '/api/card/$id/freeze': {
@@ -842,12 +793,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiCardIdFreezeRouteImport
       parentRoute: typeof ApiCardIdRoute
     }
-    '/api/card/$id/cvv': {
-      id: '/api/card/$id/cvv'
-      path: '/cvv'
-      fullPath: '/api/card/$id/cvv'
-      preLoaderRoute: typeof ApiCardIdCvvRouteImport
+    '/api/card/$id/fund': {
+      id: '/api/card/$id/fund'
+      path: '/fund'
+      fullPath: '/api/card/$id/fund'
+      preLoaderRoute: typeof ApiCardIdFundRouteImport
       parentRoute: typeof ApiCardIdRoute
+    }
+    '/api/card/$id/pin': {
+      id: '/api/card/$id/pin'
+      path: '/pin'
+      fullPath: '/api/card/$id/pin'
+      preLoaderRoute: typeof ApiCardIdPinRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
+    '/api/card/$id/transactions': {
+      id: '/api/card/$id/transactions'
+      path: '/transactions'
+      fullPath: '/api/card/$id/transactions'
+      preLoaderRoute: typeof ApiCardIdTransactionsRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
+    '/api/card/$id/unfreeze': {
+      id: '/api/card/$id/unfreeze'
+      path: '/unfreeze'
+      fullPath: '/api/card/$id/unfreeze'
+      preLoaderRoute: typeof ApiCardIdUnfreezeRouteImport
+      parentRoute: typeof ApiCardIdRoute
+    }
+    '/api/cards/$id/freeze': {
+      id: '/api/cards/$id/freeze'
+      path: '/api/cards/$id/freeze'
+      fullPath: '/api/cards/$id/freeze'
+      preLoaderRoute: typeof ApiCardsIdFreezeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/$id/fund': {
+      id: '/api/cards/$id/fund'
+      path: '/api/cards/$id/fund'
+      fullPath: '/api/cards/$id/fund'
+      preLoaderRoute: typeof ApiCardsIdFundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/cards/$id/unfreeze': {
+      id: '/api/cards/$id/unfreeze'
+      path: '/api/cards/$id/unfreeze'
+      fullPath: '/api/cards/$id/unfreeze'
+      preLoaderRoute: typeof ApiCardsIdUnfreezeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/webhooks/thredd': {
+      id: '/api/public/webhooks/thredd'
+      path: '/api/public/webhooks/thredd'
+      fullPath: '/api/public/webhooks/thredd'
+      preLoaderRoute: typeof ApiPublicWebhooksThreddRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }

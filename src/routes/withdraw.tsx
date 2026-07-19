@@ -9,7 +9,10 @@ export const Route = createFileRoute("/withdraw")({
   head: () => ({
     meta: [
       { title: "FastLink — Withdraw" },
-      { name: "description", content: "Withdraw USDT from your FastLink wallet to an external address." },
+      {
+        name: "description",
+        content: "Withdraw USDT from your FastLink wallet to an external address.",
+      },
     ],
   }),
   component: WithdrawPage,
@@ -43,18 +46,29 @@ function WithdrawPage() {
     <MobileShell>
       <StatusBar title={t("page.withdraw")} />
       <div className="px-6 pt-4">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("withdraw.step")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {t("withdraw.step")}
+        </p>
         <h1 className="mt-1 font-display text-2xl font-bold">{t("withdraw.title")}</h1>
         <p className="mt-1 text-xs text-muted-foreground">{t("withdraw.desc")}</p>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.asset")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.asset")}
+          </p>
           <div className="flex items-center justify-between rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <div className="flex items-center gap-3">
-              <div translate="no" className="grid h-10 w-10 place-items-center rounded-2xl bg-primary/15 font-display text-[10px] font-bold text-primary">USDT</div>
+              <div
+                translate="no"
+                className="grid h-10 w-10 place-items-center rounded-2xl bg-primary/15 font-display text-[10px] font-bold text-primary"
+              >
+                USDT
+              </div>
               <div>
                 <p className="text-sm font-semibold">{t("deposit.tether")}</p>
-                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("withdraw.available", { n: AVAILABLE.toLocaleString() })}</p>
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                  {t("withdraw.available", { n: AVAILABLE.toLocaleString() })}
+                </p>
               </div>
             </div>
             <ChevronDown className="h-4 w-4 text-muted-foreground" />
@@ -62,7 +76,9 @@ function WithdrawPage() {
         </div>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.network")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("common.network")}
+          </p>
           <div className="grid grid-cols-3 gap-2">
             {NETWORKS.map((n) => {
               const on = n.key === network;
@@ -72,8 +88,12 @@ function WithdrawPage() {
                   onClick={() => setNetwork(n.key)}
                   className={`rounded-2xl border p-3 text-left transition-colors ${on ? "border-primary bg-primary/10" : "border-border/60 bg-surface/60"}`}
                 >
-                  <p translate="no" className={`text-xs font-semibold ${on ? "text-primary" : ""}`}>{n.key}</p>
-                  <p className="mt-0.5 text-[9px] uppercase tracking-widest text-muted-foreground">{t("withdraw.feeShort", { n: n.fee })}</p>
+                  <p translate="no" className={`text-xs font-semibold ${on ? "text-primary" : ""}`}>
+                    {n.key}
+                  </p>
+                  <p className="mt-0.5 text-[9px] uppercase tracking-widest text-muted-foreground">
+                    {t("withdraw.feeShort", { n: n.fee })}
+                  </p>
                 </button>
               );
             })}
@@ -81,7 +101,9 @@ function WithdrawPage() {
         </div>
 
         <div className="mt-5">
-          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">{t("withdraw.addr")}</p>
+          <p className="mb-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("withdraw.addr")}
+          </p>
           <input
             value={address}
             onChange={(e) => setAddress(e.target.value)}
@@ -92,8 +114,15 @@ function WithdrawPage() {
 
         <div className="mt-5">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("common.amount")}</p>
-            <button onClick={() => setAmount(String(AVAILABLE))} className="text-[10px] font-semibold text-primary">{t("common.max")}</button>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              {t("common.amount")}
+            </p>
+            <button
+              onClick={() => setAmount(String(AVAILABLE))}
+              className="text-[10px] font-semibold text-primary"
+            >
+              {t("common.max")}
+            </button>
           </div>
           <div className="flex items-baseline gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-3">
             <input
@@ -103,10 +132,15 @@ function WithdrawPage() {
               placeholder="0.00"
               className="min-w-0 flex-1 bg-transparent font-display text-2xl font-bold tabular-nums outline-none placeholder:text-muted-foreground/40"
             />
-            <span translate="no" className="text-xs font-semibold text-muted-foreground">USDT</span>
+            <span translate="no" className="text-xs font-semibold text-muted-foreground">
+              USDT
+            </span>
           </div>
           <p className="mt-2 text-[10px] text-muted-foreground">
-            {t("common.available")}: <span translate="no" className="tabular-nums text-foreground">{AVAILABLE.toLocaleString()} USDT</span>
+            {t("common.available")}:{" "}
+            <span translate="no" className="tabular-nums text-foreground">
+              {AVAILABLE.toLocaleString()} USDT
+            </span>
           </p>
         </div>
 
@@ -148,10 +182,20 @@ function WithdrawPage() {
             : t("withdraw.sendDesc", { amt: amt.toFixed(2), net: network })
         }
         rows={[
-          { label: t("common.to"), value: <span translate="no" className="font-mono">{address.slice(0, 6)}…{address.slice(-4)}</span> },
+          {
+            label: t("common.to"),
+            value: (
+              <span translate="no" className="font-mono">
+                {address.slice(0, 6)}…{address.slice(-4)}
+              </span>
+            ),
+          },
           { label: t("common.amount"), value: <span translate="no">{amt.toFixed(2)} USDT</span> },
           { label: t("common.fee"), value: <span translate="no">{net.fee} USDT</span> },
-          { label: t("withdraw.receive"), value: <span translate="no">{receive.toFixed(2)} USDT</span> },
+          {
+            label: t("withdraw.receive"),
+            value: <span translate="no">{receive.toFixed(2)} USDT</span>,
+          },
         ]}
         confirmLabel={t("withdraw.confirmSend")}
         onConfirm={confirm}
@@ -165,14 +209,29 @@ function WithdrawPage() {
   );
 }
 
-function Row({ label, value, icon, bold }: { label: string; value: string; icon?: React.ReactNode; bold?: boolean }) {
+function Row({
+  label,
+  value,
+  icon,
+  bold,
+}: {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+  bold?: boolean;
+}) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
         {icon}
         {label}
       </div>
-      <span translate="no" className={`tabular-nums ${bold ? "font-display text-base font-bold" : "text-xs font-semibold"}`}>{value}</span>
+      <span
+        translate="no"
+        className={`tabular-nums ${bold ? "font-display text-base font-bold" : "text-xs font-semibold"}`}
+      >
+        {value}
+      </span>
     </div>
   );
 }
