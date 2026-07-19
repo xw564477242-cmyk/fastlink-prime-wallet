@@ -33,13 +33,19 @@ function ProfilePage() {
   const [langOpen, setLangOpen] = useState(false);
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
 
-  const logout = () => {
+  const logout = async () => {
     try {
       localStorage.removeItem("fastlink.session");
     } catch {
       // Continue to the sign-in screen even when storage is unavailable.
     }
-    navigate({ to: "/auth" });
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      await supabase.auth.signOut();
+    } catch {
+      // Fall through to navigation even if sign-out fails.
+    }
+    navigate({ to: "/auth", replace: true });
   };
 
   return (
