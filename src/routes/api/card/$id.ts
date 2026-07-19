@@ -16,7 +16,7 @@ export const Route = createFileRoute("/api/card/$id")({
           await assertOwnsCard(params.id, customerId);
           const detail = await cardService.getCardDetail(params.id);
           // Strip sensitive fields — PAN/CVV/PIN require dedicated endpoints.
-          const { pan: _pan, cvv: _cvv, pin: _pin, ...safe } = detail as Record<string, unknown>;
+          const { pan: _pan, cvv: _cvv, pin: _pin, ...safe } = detail as unknown as Record<string, unknown>;
           return Response.json({ card: safe });
         } catch (err) {
           return toErrorResponse(err);
