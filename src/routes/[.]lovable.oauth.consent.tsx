@@ -77,13 +77,18 @@ function Consent() {
 
   return (
     <main className="mx-auto max-w-md space-y-4 p-6">
-      <h1 className="font-display text-xl font-bold">Connect {clientName} to your FastLink account</h1>
+      <h1 className="font-display text-xl font-bold">
+        Connect {clientName} to your FastLink account
+      </h1>
       <p className="text-sm text-muted-foreground">
         This will let {clientName} use FastLink tools on your behalf, including reading balances,
         pricing conversions and listing your cards.
       </p>
       {error && (
-        <p role="alert" className="rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+        <p
+          role="alert"
+          className="rounded-xl border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive"
+        >
           {error}
         </p>
       )}

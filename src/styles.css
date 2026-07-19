@@ -69,7 +69,12 @@
 
   --gradient-primary: linear-gradient(135deg, oklch(0.78 0.16 145), oklch(0.72 0.15 175));
   --gradient-card: linear-gradient(135deg, oklch(0.28 0.03 260), oklch(0.19 0.02 250));
-  --gradient-visa: linear-gradient(135deg, oklch(0.35 0.06 260) 0%, oklch(0.22 0.04 250) 50%, oklch(0.28 0.08 200) 100%);
+  --gradient-visa: linear-gradient(
+    135deg,
+    oklch(0.35 0.06 260) 0%,
+    oklch(0.22 0.04 250) 50%,
+    oklch(0.28 0.08 200) 100%
+  );
   --gradient-physical: linear-gradient(135deg, oklch(0.78 0.16 145) 0%, oklch(0.55 0.14 175) 100%);
   --shadow-glow: 0 20px 60px -20px oklch(0.78 0.16 145 / 0.4);
   --shadow-card: 0 10px 40px -10px oklch(0 0 0 / 0.5);
@@ -79,7 +84,9 @@
   * {
     border-color: var(--color-border);
   }
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100%;
   }
   body {
@@ -88,7 +95,10 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }

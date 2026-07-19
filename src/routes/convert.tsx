@@ -9,7 +9,10 @@ export const Route = createFileRoute("/convert")({
   head: () => ({
     meta: [
       { title: "FastLink — Convert" },
-      { name: "description", content: "Zero-fee conversion between stablecoins and 30+ fiat currencies." },
+      {
+        name: "description",
+        content: "Zero-fee conversion between stablecoins and 30+ fiat currencies.",
+      },
     ],
   }),
   component: ConvertPage,
@@ -27,12 +30,21 @@ const currencies: Currency[] = [
 ];
 
 const usdRate: Record<string, number> = {
-  USDT: 1.0, USDC: 1.0, USD: 1.0, SGD: 1.352, MYR: 4.72, EUR: 0.9187,
+  USDT: 1.0,
+  USDC: 1.0,
+  USD: 1.0,
+  SGD: 1.352,
+  MYR: 4.72,
+  EUR: 0.9187,
 };
 
 const pairs = [
-  ["USDT", "SGD"], ["USDT", "MYR"], ["USDT", "EUR"],
-  ["USD", "USDT"], ["EUR", "USDT"], ["SGD", "MYR"],
+  ["USDT", "SGD"],
+  ["USDT", "MYR"],
+  ["USDT", "EUR"],
+  ["USD", "USDT"],
+  ["EUR", "USDT"],
+  ["SGD", "MYR"],
 ];
 
 function ConvertPage() {
@@ -47,7 +59,11 @@ function ConvertPage() {
   const rate = useMemo(() => usdRate[to] / usdRate[from], [from, to]);
   const parsed = parseFloat(amount || "0") || 0;
   const result = (parsed * rate).toFixed(2);
-  const swap = () => { const f = from; setFrom(to); setTo(f); };
+  const swap = () => {
+    const f = from;
+    setFrom(to);
+    setTo(f);
+  };
 
   const confirm = () => {
     setModal("pending");
@@ -71,18 +87,36 @@ function ConvertPage() {
         </div>
 
         <div className="relative mt-6 space-y-2">
-          <FxCard label={t("convert.youSend")} symbol={from} onPick={() => setPickerFor("from")} value={amount} onChange={setAmount} balance="10,204.15" />
+          <FxCard
+            label={t("convert.youSend")}
+            symbol={from}
+            onPick={() => setPickerFor("from")}
+            value={amount}
+            onChange={setAmount}
+            balance="10,204.15"
+          />
           <button
             onClick={swap}
             className="absolute left-1/2 top-1/2 z-10 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-4 border-background bg-primary text-primary-foreground shadow-glow active:scale-95"
           >
             <ArrowDown className="h-5 w-5" />
           </button>
-          <FxCard label={t("convert.youReceive")} symbol={to} onPick={() => setPickerFor("to")} value={result} readOnly balance={to === "SGD" ? "3,180.40" : "—"} />
+          <FxCard
+            label={t("convert.youReceive")}
+            symbol={to}
+            onPick={() => setPickerFor("to")}
+            value={result}
+            readOnly
+            balance={to === "SGD" ? "3,180.40" : "—"}
+          />
         </div>
 
         <div className="mt-5 rounded-2xl border border-border/60 bg-surface/60 p-4">
-          <RateRow icon={RefreshCw} label={t("convert.midRate")} value={`1 ${from} = ${rate.toFixed(4)} ${to}`} />
+          <RateRow
+            icon={RefreshCw}
+            label={t("convert.midRate")}
+            value={`1 ${from} = ${rate.toFixed(4)} ${to}`}
+          />
           <div className="my-3 h-px bg-border" />
           <RateRow label={t("convert.networkFee")} value={t("common.free")} accent />
           <RateRow label={t("convert.fxSpread")} value="0.00%" accent />
@@ -99,7 +133,9 @@ function ConvertPage() {
           disabled={parsed <= 0 || from === to}
           className="mt-5 w-full rounded-2xl bg-gradient-primary py-4 font-display text-base font-semibold text-primary-foreground shadow-glow active:scale-[0.98] disabled:opacity-50"
         >
-          <span translate="no">{t("convert.cta", { a: parsed.toFixed(2), from, b: result, to })}</span>
+          <span translate="no">
+            {t("convert.cta", { a: parsed.toFixed(2), from, b: result, to })}
+          </span>
         </button>
 
         <div className="mt-8">
@@ -112,10 +148,15 @@ function ConvertPage() {
               return (
                 <button
                   key={`${a}-${b}`}
-                  onClick={() => { setFrom(a); setTo(b); }}
+                  onClick={() => {
+                    setFrom(a);
+                    setTo(b);
+                  }}
                   className="rounded-2xl border border-border/60 bg-surface/60 p-3 text-left active:scale-95"
                 >
-                  <p translate="no" className="font-mono text-xs font-semibold">{a} → {b}</p>
+                  <p translate="no" className="font-mono text-xs font-semibold">
+                    {a} → {b}
+                  </p>
                   <p translate="no" className="mt-1 text-[10px] tabular-nums text-muted-foreground">
                     1 = {r.toFixed(4)}
                   </p>
@@ -135,7 +176,8 @@ function ConvertPage() {
         <CurrencyPicker
           onClose={() => setPickerFor(null)}
           onPick={(sym) => {
-            if (pickerFor === "from") setFrom(sym); else setTo(sym);
+            if (pickerFor === "from") setFrom(sym);
+            else setTo(sym);
             setPickerFor(null);
           }}
         />
@@ -152,9 +194,30 @@ function ConvertPage() {
             : t("convert.confirmDesc", { from, r: rate.toFixed(4), to })
         }
         rows={[
-          { label: t("convert.youSend"), value: <span translate="no">{parsed.toFixed(2)} {from}</span> },
-          { label: t("convert.youReceive"), value: <span translate="no">{result} {to}</span> },
-          { label: t("common.rate"), value: <span translate="no">1 {from} = {rate.toFixed(4)} {to}</span> },
+          {
+            label: t("convert.youSend"),
+            value: (
+              <span translate="no">
+                {parsed.toFixed(2)} {from}
+              </span>
+            ),
+          },
+          {
+            label: t("convert.youReceive"),
+            value: (
+              <span translate="no">
+                {result} {to}
+              </span>
+            ),
+          },
+          {
+            label: t("common.rate"),
+            value: (
+              <span translate="no">
+                1 {from} = {rate.toFixed(4)} {to}
+              </span>
+            ),
+          },
           { label: t("common.fee"), value: t("common.free") },
         ]}
         confirmLabel={t("convert.confirmBtn")}
@@ -170,10 +233,21 @@ function ConvertPage() {
 }
 
 function FxCard({
-  label, symbol, onPick, value, onChange, readOnly, balance,
+  label,
+  symbol,
+  onPick,
+  value,
+  onChange,
+  readOnly,
+  balance,
 }: {
-  label: string; symbol: string; onPick: () => void;
-  value: string; onChange?: (v: string) => void; readOnly?: boolean; balance: string;
+  label: string;
+  symbol: string;
+  onPick: () => void;
+  value: string;
+  onChange?: (v: string) => void;
+  readOnly?: boolean;
+  balance: string;
 }) {
   const c = currencies.find((x) => x.sym === symbol);
   return (
@@ -203,14 +277,26 @@ function FxCard({
   );
 }
 
-function RateRow({ label, value, icon: Icon, accent }: { label: string; value: string; icon?: React.ComponentType<{ className?: string }>; accent?: boolean }) {
+function RateRow({
+  label,
+  value,
+  icon: Icon,
+  accent,
+}: {
+  label: string;
+  value: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  accent?: boolean;
+}) {
   return (
     <div className="flex items-center justify-between text-xs">
       <span className="inline-flex items-center gap-2 text-muted-foreground">
         {Icon && <Icon className="h-3.5 w-3.5" />}
         {label}
       </span>
-      <span translate="no" className={`tabular-nums font-semibold ${accent ? "text-primary" : ""}`}>{value}</span>
+      <span translate="no" className={`tabular-nums font-semibold ${accent ? "text-primary" : ""}`}>
+        {value}
+      </span>
     </div>
   );
 }
@@ -220,16 +306,30 @@ function CurrencyPicker({ onClose, onPick }: { onClose: () => void; onPick: (s: 
   const digital = currencies.filter((c) => c.kind === "digital");
   const fiat = currencies.filter((c) => c.kind === "fiat");
   return (
-    <div className="fixed inset-x-0 bottom-0 top-0 z-50 mx-auto flex max-w-md items-end bg-black/60 backdrop-blur-sm" onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()} className="w-full rounded-t-3xl border-t border-border/60 bg-background p-6">
+    <div
+      className="fixed inset-x-0 bottom-0 top-0 z-50 mx-auto flex max-w-md items-end bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full rounded-t-3xl border-t border-border/60 bg-background p-6"
+      >
         <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-muted" />
-        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("convert.pickerDigital")}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {t("convert.pickerDigital")}
+        </p>
         <div className="mt-2 space-y-1">
-          {digital.map((c) => <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />)}
+          {digital.map((c) => (
+            <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />
+          ))}
         </div>
-        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">{t("convert.pickerFiat")}</p>
+        <p className="mt-4 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {t("convert.pickerFiat")}
+        </p>
         <div className="mt-2 space-y-1">
-          {fiat.map((c) => <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />)}
+          {fiat.map((c) => (
+            <PickerRow key={c.sym} c={c} onPick={() => onPick(c.sym)} />
+          ))}
         </div>
       </div>
     </div>
@@ -239,13 +339,24 @@ function CurrencyPicker({ onClose, onPick }: { onClose: () => void; onPick: (s: 
 function PickerRow({ c, onPick }: { c: Currency; onPick: () => void }) {
   const { t } = useLang();
   return (
-    <button onClick={onPick} className="flex w-full items-center gap-3 rounded-2xl p-3 text-left hover:bg-surface active:scale-[0.98]">
+    <button
+      onClick={onPick}
+      className="flex w-full items-center gap-3 rounded-2xl p-3 text-left hover:bg-surface active:scale-[0.98]"
+    >
       <div className="grid h-9 w-9 place-items-center rounded-xl bg-surface text-sm">
-        {c.flag ?? <span translate="no" className="font-mono text-[10px] font-bold text-primary">{c.sym.slice(0, 3)}</span>}
+        {c.flag ?? (
+          <span translate="no" className="font-mono text-[10px] font-bold text-primary">
+            {c.sym.slice(0, 3)}
+          </span>
+        )}
       </div>
       <div className="min-w-0 flex-1">
-        <p translate="no" className="text-sm font-semibold">{c.sym}</p>
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t(`cur.${c.sym}`)}</p>
+        <p translate="no" className="text-sm font-semibold">
+          {c.sym}
+        </p>
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+          {t(`cur.${c.sym}`)}
+        </p>
       </div>
     </button>
   );

@@ -1,7 +1,18 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { ActionModal, type ActionState } from "@/components/ActionModal";
-import { QrCode, Send, Store, Banknote, Scan, Download, Search, ChevronRight, Copy, CreditCard } from "lucide-react";
+import {
+  QrCode,
+  Send,
+  Store,
+  Banknote,
+  Scan,
+  Download,
+  Search,
+  ChevronRight,
+  Copy,
+  CreditCard,
+} from "lucide-react";
 import { useState } from "react";
 import { useLang } from "@/lib/i18n";
 
@@ -9,7 +20,10 @@ export const Route = createFileRoute("/pay")({
   head: () => ({
     meta: [
       { title: "FastLink — Pay Center" },
-      { name: "description", content: "Receive, pay, scan, transfer, merchant pay and payout — one center." },
+      {
+        name: "description",
+        content: "Receive, pay, scan, transfer, merchant pay and payout — one center.",
+      },
     ],
   }),
   component: PayPage,
@@ -23,10 +37,17 @@ function PayPage() {
   const [mode, setMode] = useState<Mode>("receive");
   const [q, setQ] = useState("");
   const [modal, setModal] = useState<{ state: ActionState; title: string; desc: string }>({
-    state: "idle", title: "", desc: "",
+    state: "idle",
+    title: "",
+    desc: "",
   });
 
-  const modes: { key: Mode; label: string; icon: React.ComponentType<{ className?: string }>; sub: string }[] = [
+  const modes: {
+    key: Mode;
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    sub: string;
+  }[] = [
     { key: "receive", label: t("pay.mode.receive"), icon: Download, sub: t("pay.mode.receiveSub") },
     { key: "pay-qr", label: t("pay.mode.payQr"), icon: QrCode, sub: t("pay.mode.payQrSub") },
     { key: "scan", label: t("pay.mode.scan"), icon: Scan, sub: t("pay.mode.scanSub") },
@@ -36,10 +57,25 @@ function PayPage() {
   ];
 
   const history = [
-    { name: "Uniqlo Tokyo", type: t("pay.mode.merchant"), amount: -48.2, time: `${t("home.time.today1402")}` },
-    { name: "HSBC ····3211", type: t("pay.mode.payout"), amount: -1200.0, time: t("home.time.yesterday") },
+    {
+      name: "Uniqlo Tokyo",
+      type: t("pay.mode.merchant"),
+      amount: -48.2,
+      time: `${t("home.time.today1402")}`,
+    },
+    {
+      name: "HSBC ····3211",
+      type: t("pay.mode.payout"),
+      amount: -1200.0,
+      time: t("home.time.yesterday"),
+    },
     { name: "Alex Rivera", type: t("pay.mode.transfer"), amount: -60.0, time: t("home.time.jul2") },
-    { name: "Blue Bottle Coffee", type: t("pay.mode.payQr"), amount: -6.85, time: t("home.time.jul2") },
+    {
+      name: "Blue Bottle Coffee",
+      type: t("pay.mode.payQr"),
+      amount: -6.85,
+      time: t("home.time.jul2"),
+    },
     { name: "Mei Tan", type: t("pay.mode.receive"), amount: 240.0, time: t("home.time.jul2") },
   ];
 
@@ -68,23 +104,47 @@ function PayPage() {
                 onClick={() => setMode(m.key)}
                 className={`flex flex-col items-center gap-2 rounded-2xl border p-3 text-center transition-colors ${on ? "border-primary bg-primary/10" : "border-border/60 bg-surface/60"}`}
               >
-                <div className={`grid h-9 w-9 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}>
+                <div
+                  className={`grid h-9 w-9 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}
+                >
                   <Icon className="h-4.5 w-4.5" />
                 </div>
                 <span className="text-[11px] font-semibold">{m.label}</span>
-                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">{m.sub}</span>
+                <span className="text-[9px] uppercase tracking-widest text-muted-foreground">
+                  {m.sub}
+                </span>
               </button>
             );
           })}
         </div>
 
         <div className="mt-6 rounded-3xl border border-border/60 bg-surface/60 p-5">
-          {mode === "receive" && <ReceivePanel onShare={() => run(t("pay.toast.qrShared"), t("pay.toast.qrSharedDesc"))} />}
+          {mode === "receive" && (
+            <ReceivePanel
+              onShare={() => run(t("pay.toast.qrShared"), t("pay.toast.qrSharedDesc"))}
+            />
+          )}
           {mode === "pay-qr" && <PayQrPanel />}
-          {mode === "scan" && <ScanPanel onOpen={() => run(t("pay.toast.scanDone"), t("pay.toast.scanDoneDesc"))} />}
-          {mode === "transfer" && <TransferPanel onSend={() => run(t("pay.toast.transferSent"), t("pay.toast.transferSentDesc"))} />}
-          {mode === "merchant" && <MerchantPanel onCheckout={() => run(t("pay.toast.approved"), t("pay.toast.approvedDesc"))} />}
-          {mode === "payout" && <PayoutPanel onReview={() => run(t("pay.toast.payoutSubmitted"), t("pay.toast.payoutSubmittedDesc"))} />}
+          {mode === "scan" && (
+            <ScanPanel onOpen={() => run(t("pay.toast.scanDone"), t("pay.toast.scanDoneDesc"))} />
+          )}
+          {mode === "transfer" && (
+            <TransferPanel
+              onSend={() => run(t("pay.toast.transferSent"), t("pay.toast.transferSentDesc"))}
+            />
+          )}
+          {mode === "merchant" && (
+            <MerchantPanel
+              onCheckout={() => run(t("pay.toast.approved"), t("pay.toast.approvedDesc"))}
+            />
+          )}
+          {mode === "payout" && (
+            <PayoutPanel
+              onReview={() =>
+                run(t("pay.toast.payoutSubmitted"), t("pay.toast.payoutSubmittedDesc"))
+              }
+            />
+          )}
         </div>
 
         <Link
@@ -106,7 +166,12 @@ function PayPage() {
         <div className="mt-8">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span translate="no" className="font-mono text-[10px] font-semibold tracking-widest text-primary">04</span>
+              <span
+                translate="no"
+                className="font-mono text-[10px] font-semibold tracking-widest text-primary"
+              >
+                04
+              </span>
               <h2 className="font-display text-lg font-bold">{t("pay.history")}</h2>
             </div>
             <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -122,16 +187,29 @@ function PayPage() {
           </div>
           <div className="mt-3 space-y-2">
             {filtered.map((h) => (
-              <div key={h.name + h.time} className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 p-4">
-                <div className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${h.amount > 0 ? "bg-primary/15 text-primary" : "bg-muted"}`}>
+              <div
+                key={h.name + h.time}
+                className="flex items-center gap-3 rounded-2xl border border-border/60 bg-surface/60 p-4"
+              >
+                <div
+                  className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${h.amount > 0 ? "bg-primary/15 text-primary" : "bg-muted"}`}
+                >
                   <Send className="h-4 w-4" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p translate="no" className="truncate text-sm font-medium">{h.name}</p>
-                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{h.type} · {h.time}</p>
+                  <p translate="no" className="truncate text-sm font-medium">
+                    {h.name}
+                  </p>
+                  <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+                    {h.type} · {h.time}
+                  </p>
                 </div>
-                <p translate="no" className={`shrink-0 text-sm font-semibold tabular-nums ${h.amount > 0 ? "text-primary" : ""}`}>
-                  {h.amount > 0 ? "+" : ""}{h.amount.toFixed(2)}
+                <p
+                  translate="no"
+                  className={`shrink-0 text-sm font-semibold tabular-nums ${h.amount > 0 ? "text-primary" : ""}`}
+                >
+                  {h.amount > 0 ? "+" : ""}
+                  {h.amount.toFixed(2)}
                 </p>
               </div>
             ))}
@@ -169,7 +247,9 @@ function QrGraphic({ label }: { label: string }) {
     <div className="mx-auto grid h-44 w-44 place-items-center rounded-2xl bg-white p-2">
       <div className="h-full w-full bg-[conic-gradient(#0f172a_0deg,#0f172a_10deg,transparent_10deg_20deg,#0f172a_20deg_35deg,transparent_35deg_50deg,#0f172a_50deg_60deg,transparent_60deg_75deg,#0f172a_75deg_90deg)] bg-[length:14px_14px] relative">
         <div className="absolute inset-1/3 grid place-items-center rounded-lg bg-white">
-          <span translate="no" className="font-display text-xs font-bold text-black">{label}</span>
+          <span translate="no" className="font-display text-xs font-bold text-black">
+            {label}
+          </span>
         </div>
       </div>
     </div>
@@ -183,13 +263,20 @@ function ReceivePanel({ onShare }: { onShare: () => void }) {
       <PanelTitle title={t("pay.mode.receive")} desc={t("pay.receive.desc")} />
       <QrGraphic label="FL" />
       <div className="mt-4 rounded-2xl bg-background/60 p-3">
-        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("pay.receive.handle")}</p>
+        <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+          {t("pay.receive.handle")}
+        </p>
         <div className="mt-1 flex items-center justify-between">
-          <p translate="no" className="font-mono text-sm">@daniel.fl</p>
+          <p translate="no" className="font-mono text-sm">
+            @daniel.fl
+          </p>
           <Copy className="h-3.5 w-3.5 text-muted-foreground" />
         </div>
       </div>
-      <button onClick={onShare} className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button
+        onClick={onShare}
+        className="mt-3 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+      >
         {t("pay.receive.share")}
       </button>
     </>
@@ -216,7 +303,10 @@ function ScanPanel({ onOpen }: { onOpen: () => void }) {
         <Scan className="h-14 w-14 text-primary" />
         <div className="absolute inset-x-6 top-1/2 h-0.5 -translate-y-1/2 rounded-full bg-primary shadow-glow" />
       </div>
-      <button onClick={onOpen} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button
+        onClick={onOpen}
+        className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+      >
         {t("pay.scan.open")}
       </button>
     </>
@@ -233,7 +323,10 @@ function TransferPanel({ onSend }: { onSend: () => void }) {
         <FormRow label={t("common.amount")} value="120.00 USDT" big />
         <FormRow label={t("common.note")} value="Dinner Friday" />
       </div>
-      <button onClick={onSend} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button
+        onClick={onSend}
+        className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+      >
         {t("pay.transfer.send")}
       </button>
     </>
@@ -247,12 +340,19 @@ function MerchantPanel({ onCheckout }: { onCheckout: () => void }) {
       <PanelTitle title={t("pay.mode.merchant")} desc={t("pay.merchant.desc")} />
       <div className="grid grid-cols-2 gap-2">
         {["Shopify", "Amazon", "Uber", "Grab", "Klook", "Booking"].map((m) => (
-          <button key={m} translate="no" className="rounded-2xl border border-border/60 bg-background/60 py-3 text-xs font-semibold">
+          <button
+            key={m}
+            translate="no"
+            className="rounded-2xl border border-border/60 bg-background/60 py-3 text-xs font-semibold"
+          >
             {m}
           </button>
         ))}
       </div>
-      <button onClick={onCheckout} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button
+        onClick={onCheckout}
+        className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+      >
         {t("pay.merchant.checkout")}
       </button>
     </>
@@ -269,7 +369,10 @@ function PayoutPanel({ onReview }: { onReview: () => void }) {
         <FormRow label={t("pay.payout.beneficiary")} value="Daniel Chen · HSBC ····3211" />
         <FormRow label={t("common.amount")} value="1,200.00 USD" big />
       </div>
-      <button onClick={onReview} className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow">
+      <button
+        onClick={onReview}
+        className="mt-4 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+      >
         {t("pay.payout.review")}
       </button>
     </>
@@ -280,7 +383,12 @@ function FormRow({ label, value, big }: { label: string; value: string; big?: bo
   return (
     <div className="rounded-2xl bg-background/60 p-3">
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
-      <p translate="no" className={`mt-1 font-semibold tabular-nums ${big ? "font-display text-xl" : "text-sm"}`}>{value}</p>
+      <p
+        translate="no"
+        className={`mt-1 font-semibold tabular-nums ${big ? "font-display text-xl" : "text-sm"}`}
+      >
+        {value}
+      </p>
     </div>
   );
 }

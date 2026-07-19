@@ -93,7 +93,11 @@ function rowToTxn(r: TxnRow): ThreddCardTxn {
 
 async function getCardRow(cardId: string): Promise<CardRow> {
   const supabase = await db();
-  const { data, error } = await supabase.from("mock_cards").select("*").eq("card_id", cardId).maybeSingle();
+  const { data, error } = await supabase
+    .from("mock_cards")
+    .select("*")
+    .eq("card_id", cardId)
+    .maybeSingle();
   if (error) throw new Error(error.message);
   if (!data) throw new Error("card_not_found");
   return data as CardRow;
@@ -101,7 +105,11 @@ async function getCardRow(cardId: string): Promise<CardRow> {
 
 export const threddMock = {
   // ---- Customers / KYC (stateless demo stubs) --------------------------------
-  async createCustomer(input: { email: string; firstName: string; lastName: string }): Promise<ThreddCustomer> {
+  async createCustomer(input: {
+    email: string;
+    firstName: string;
+    lastName: string;
+  }): Promise<ThreddCustomer> {
     return {
       customerId: id("cus"),
       ...input,
@@ -117,7 +125,11 @@ export const threddMock = {
   },
 
   // ---- Cards (persisted) -----------------------------------------------------
-  async createVirtualCard(input: { customerId: string; alias?: string; currency?: string }): Promise<ThreddCard> {
+  async createVirtualCard(input: {
+    customerId: string;
+    alias?: string;
+    currency?: string;
+  }): Promise<ThreddCard> {
     const supabase = await db();
     const cardId = id("card");
     const last4 = String(Math.floor(1000 + Math.random() * 9000));

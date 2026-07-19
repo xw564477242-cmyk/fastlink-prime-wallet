@@ -44,9 +44,7 @@ export function ActionModal({
           <div className="py-6 text-center">
             <CheckCircle2 className="mx-auto h-12 w-12 text-primary" />
             <h3 className="mt-3 font-display text-lg font-bold">{title}</h3>
-            {description && (
-              <p className="mt-1 text-xs text-muted-foreground">{description}</p>
-            )}
+            {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
             <button
               onClick={onSuccess ?? onClose}
               className="mt-6 w-full rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
@@ -65,9 +63,7 @@ export function ActionModal({
             <div className="flex items-start justify-between">
               <div>
                 <h3 className="font-display text-lg font-bold">{title}</h3>
-                {description && (
-                  <p className="mt-1 text-xs text-muted-foreground">{description}</p>
-                )}
+                {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
               </div>
               <button onClick={onClose} className="text-muted-foreground">
                 <X className="h-5 w-5" />

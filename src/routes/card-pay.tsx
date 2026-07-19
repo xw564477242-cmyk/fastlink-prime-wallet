@@ -52,14 +52,25 @@ function CardPayPage() {
                 onClick={() => setMerchant(m)}
                 className={`flex w-full items-center gap-3 rounded-2xl border p-4 text-left transition-colors ${on ? "border-primary bg-primary/10" : "border-border/60 bg-surface/60"}`}
               >
-                <div className={`grid h-10 w-10 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}>
+                <div
+                  className={`grid h-10 w-10 place-items-center rounded-xl ${on ? "bg-primary text-primary-foreground" : "bg-background text-primary"}`}
+                >
                   <Store className="h-4 w-4" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p translate="no" className="truncate text-sm font-semibold">{m.name}</p>
-                  <p translate="no" className="text-[10px] uppercase tracking-widest text-muted-foreground">{m.category}</p>
+                  <p translate="no" className="truncate text-sm font-semibold">
+                    {m.name}
+                  </p>
+                  <p
+                    translate="no"
+                    className="text-[10px] uppercase tracking-widest text-muted-foreground"
+                  >
+                    {m.category}
+                  </p>
                 </div>
-                <p translate="no" className="font-semibold tabular-nums">${m.amount.toFixed(2)}</p>
+                <p translate="no" className="font-semibold tabular-nums">
+                  ${m.amount.toFixed(2)}
+                </p>
               </button>
             );
           })}
@@ -69,9 +80,15 @@ function CardPayPage() {
           <div className="mx-auto grid h-20 w-20 place-items-center rounded-full bg-primary/10 text-primary">
             <Wifi className="h-9 w-9 rotate-90" />
           </div>
-          <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground">{t("cp.amountDue")}</p>
-          <p translate="no" className="mt-1 font-display text-3xl font-bold tabular-nums">${merchant.amount.toFixed(2)}</p>
-          <p translate="no" className="mt-1 text-xs text-muted-foreground">{merchant.name}</p>
+          <p className="mt-3 text-[10px] uppercase tracking-widest text-muted-foreground">
+            {t("cp.amountDue")}
+          </p>
+          <p translate="no" className="mt-1 font-display text-3xl font-bold tabular-nums">
+            ${merchant.amount.toFixed(2)}
+          </p>
+          <p translate="no" className="mt-1 text-xs text-muted-foreground">
+            {merchant.name}
+          </p>
         </div>
 
         <button
@@ -94,7 +111,10 @@ function CardPayPage() {
         }
         rows={[
           { label: t("cp.merchant"), value: <span translate="no">{merchant.name}</span> },
-          { label: t("common.amount"), value: <span translate="no">${merchant.amount.toFixed(2)}</span> },
+          {
+            label: t("common.amount"),
+            value: <span translate="no">${merchant.amount.toFixed(2)}</span>,
+          },
           { label: t("cp.card"), value: <span translate="no">Virtual •• 4829</span> },
         ]}
         confirmLabel={t("cp.payNow")}
