@@ -21,9 +21,8 @@ import type { CardType, ThreddCard } from "@/integrations/thredd/thredd.types";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/cards")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    cardId: typeof search.cardId === "string" ? search.cardId : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { cardId?: string } =>
+    typeof search.cardId === "string" ? { cardId: search.cardId } : {},
   head: () => ({
     meta: [
       { title: "FastLink — Card Center" },
