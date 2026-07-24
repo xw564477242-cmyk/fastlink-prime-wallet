@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Loader2, Plane, Plus, Sparkles, Wallet } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import type { CardType, ThreddCard } from "@/integrations/thredd/thredd.types";
+import { backendApi, type WalletCard } from "@/lib/backend-api";
+import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/assets/cards")({
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/assets/cards")({
 });
 
 const META: Record<
-  CardType,
+  WalletCard["type"],
   { labelKey: string; icon: typeof Sparkles; tint: string; stripe: string }
 > = {
   virtual: {
@@ -41,7 +42,8 @@ const META: Record<
 
 function CardAccountsPage() {
   const { t } = useLang();
-  const [cards, setCards] = useState<ThreddCard[]>([]);
+  const { token } = useBackendSession();
+  const [cards, setCards] = useState<WalletCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,13 +51,13 @@ function CardAccountsPage() {
     let cancelled = false;
     void (async () => {
       try {
-        const { authFetch } = await import("@/lib/authFetch");
-        const response = await authFetch("/api/card/list");
-        const body = (await response.json()) as { cards?: ThreddCard[]; error?: string };
-        if (!response.ok) throw new Error(body.error ?? `Request failed (${response.status})`);
-        if (!cancelled) setCards(body.cards ?? []);
+        const rows = await backendApi.listCards(token);
+        if (!cancelled) setCards(rows);
       } catch (reason) {
-        if (!cancelled) setError(reason instanceof Error ? reason.message : t("cards.loadFailed"));
+        if (!cancelled) {
+          setCards([]);
+          setError(reason instanceof Error ? reason.message : t("cards.loadFailed"));
+        }
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -63,7 +65,7 @@ function CardAccountsPage() {
     return () => {
       cancelled = true;
     };
-  }, [t]);
+  }, [t, token]);
 
   const totals = useMemo(() => {
     const grouped = new Map<string, number>();
@@ -89,7 +91,7 @@ function CardAccountsPage() {
           {t("assets.cards.total")}
         </p>
         <div translate="no" className="mt-2 space-y-1 font-display text-4xl font-bold tabular-nums">
-          {(totals.length ? totals : [["USD", 0] as const]).map(([currency, total]) => (
+          {totals.map(([currency, total]) => (
             <p key={currency}>
               {currency}{" "}
               {total.toLocaleString(undefined, {
@@ -99,6 +101,9 @@ function CardAccountsPage() {
             </p>
           ))}
         </div>
+        {!loading && !error && totals.length === 0 && (
+          <p className="mt-2 text-sm text-muted-foreground">Unavailable</p>
+        )}
         <p className="mt-1 text-xs text-muted-foreground">
           {t("assets.cards.count", { n: cards.length })}
         </p>
@@ -112,7 +117,7 @@ function CardAccountsPage() {
         )}
         {!loading && error && (
           <div className="rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
-            {error}
+            {error} · No stale card balances displayed.
           </div>
         )}
         {!loading &&

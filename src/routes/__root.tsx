@@ -6,12 +6,16 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  useRouterState,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { Loader2, ShieldAlert } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../lib/i18n";
+import { BackendSessionProvider, useBackendSession } from "../lib/backend-session";
+import { backendRuntime } from "../lib/backend-api";
 
 function NotFoundComponent() {
   return (
@@ -138,9 +142,58 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
+        <BackendSessionProvider>
+          <SessionBoundary />
+        </BackendSessionProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );
+}
+
+function SessionBoundary() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const { checking, session, error } = useBackendSession();
+
+  if (pathname === "/auth") return <Outlet />;
+
+  if (checking) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-background text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!session) {
+    return (
+      <div className="mx-auto grid min-h-screen w-full max-w-md place-items-center bg-background px-6 text-foreground">
+        <div className="w-full rounded-3xl border border-border/60 bg-surface p-6">
+          <ShieldAlert className="h-8 w-8 text-accent" />
+          <h1 className="mt-4 font-display text-xl font-bold">Backend session required</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+            This wallet only displays data returned by the Railway Backend. Static balances,
+            Supabase client sessions, and production fallback data are disabled.
+          </p>
+          {error && (
+            <p className="mt-3 rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive">
+              {error}
+            </p>
+          )}
+          {backendRuntime.error && (
+            <p className="mt-3 rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-xs text-destructive">
+              {backendRuntime.error}
+            </p>
+          )}
+          <Link
+            to="/auth"
+            className="mt-5 flex w-full items-center justify-center rounded-2xl bg-gradient-primary py-3 font-display text-sm font-semibold text-primary-foreground shadow-glow"
+          >
+            Connect Backend session
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  return <Outlet />;
 }
