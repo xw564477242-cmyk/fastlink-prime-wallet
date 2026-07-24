@@ -5,14 +5,13 @@
 //     error logger plugins, and sandbox detection (port/host/strictPort).
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/tanstack/vite";
 import type { Plugin } from "vite";
 import { appendFile, mkdir } from "node:fs/promises";
 import { resolve } from "node:path";
 
-function localErrorCollectorFallbackPlugin(): Plugin {
+function localErrorCollectorPlugin(): Plugin {
   return {
-    name: "fastlink:error-collector-fallback",
+    name: "fastlink:error-collector",
     enforce: "pre",
     configureServer(server) {
       const outputFile = resolve(server.config.root, ".lovable/runtime-errors.log");
@@ -35,7 +34,7 @@ function localErrorCollectorFallbackPlugin(): Plugin {
           await appendFile(outputFile, `${body}\n`, "utf8");
         } catch (error) {
           server.config.logger.warn(
-            `[fastlink:error-collector-fallback] ignored collector write failure: ${
+            `[fastlink:error-collector] ignored collector write failure: ${
               error instanceof Error ? error.message : String(error)
             }`,
           );
@@ -55,6 +54,6 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    plugins: [localErrorCollectorFallbackPlugin(), mcpPlugin()],
+    plugins: [localErrorCollectorPlugin()],
   },
 });

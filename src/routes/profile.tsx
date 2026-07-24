@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useLang, LANG_OPTIONS, type Lang } from "@/lib/i18n";
+import { useBackendSession } from "@/lib/backend-session";
+import { backendRuntime } from "@/lib/backend-api";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -30,23 +32,17 @@ export const Route = createFileRoute("/profile")({
 function ProfilePage() {
   const { lang, setLang, t } = useLang();
   const navigate = useNavigate();
+  const { session, disconnect } = useBackendSession();
   const [langOpen, setLangOpen] = useState(false);
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
 
-  const logout = async () => {
-    try {
-      localStorage.removeItem("fastlink.session");
-    } catch {
-      // Continue to the sign-in screen even when storage is unavailable.
-    }
-    try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      await supabase.auth.signOut();
-    } catch {
-      // Fall through to navigation even if sign-out fails.
-    }
+  const logout = () => {
+    disconnect();
     navigate({ to: "/auth", replace: true });
   };
+
+  const actor = session?.actorId ?? "Unavailable";
+  const initials = actor === "Unavailable" ? "FL" : actor.slice(0, 2).toUpperCase();
 
   return (
     <MobileShell>
@@ -61,24 +57,24 @@ function ProfilePage() {
               translate="no"
               className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-gradient-primary font-display text-xl font-bold text-primary-foreground shadow-glow"
             >
-              DC
+              {initials}
             </div>
             <div className="min-w-0 flex-1">
               <p translate="no" className="truncate font-display text-lg font-semibold">
-                Daniel Chen
+                FastLink User
               </p>
               <p translate="no" className="truncate text-xs text-muted-foreground">
-                daniel.chen@fastlink.io
+                {actor}
               </p>
               <div className="mt-2 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                <BadgeCheck className="h-3 w-3" /> {t("profile.kycVerified")}
+                <BadgeCheck className="h-3 w-3" /> Backend verified
               </div>
             </div>
           </div>
           <div className="mt-5 grid grid-cols-3 divide-x divide-border/60 text-center">
-            <Stat label={t("profile.accountId")} value="FL-8241" />
-            <Stat label={t("profile.since")} value="Mar 2024" />
-            <Stat label={t("profile.region")} value="UAE" />
+            <Stat label={t("profile.accountId")} value={session?.customerId ?? "Unavailable"} />
+            <Stat label="Environment" value={session?.environment ?? "Unavailable"} />
+            <Stat label="Build" value={backendRuntime.buildSha} />
           </div>
         </div>
 
@@ -90,11 +86,11 @@ function ProfilePage() {
               </p>
               <BadgeCheck className="h-4 w-4 text-primary" />
             </div>
-            <p className="mt-2 font-display text-lg font-semibold">{t("profile.kycTier")}</p>
-            <p className="text-[10px] text-primary">{t("profile.kycTag")}</p>
+            <p className="mt-2 font-display text-lg font-semibold">Unavailable</p>
+            <p className="text-[10px] text-muted-foreground">No end-user KYC API</p>
             <div className="mt-3 flex gap-1">
-              <span className="h-1 flex-1 rounded-full bg-primary" />
-              <span className="h-1 flex-1 rounded-full bg-primary" />
+              <span className="h-1 flex-1 rounded-full bg-muted" />
+              <span className="h-1 flex-1 rounded-full bg-muted" />
               <span className="h-1 flex-1 rounded-full bg-muted" />
             </div>
           </div>
@@ -107,15 +103,15 @@ function ProfilePage() {
             </div>
             <div className="mt-2 flex items-baseline gap-1">
               <p translate="no" className="font-display text-lg font-semibold">
-                86
+                —
               </p>
               <span translate="no" className="text-[10px] text-muted-foreground">
-                / 100
+                / —
               </span>
             </div>
-            <p className="text-[10px] text-accent">{t("profile.secStrong")}</p>
+            <p className="text-[10px] text-muted-foreground">Unavailable</p>
             <div className="mt-3 h-1 w-full overflow-hidden rounded-full bg-muted">
-              <div className="h-full w-[86%] rounded-full bg-gradient-to-r from-primary to-accent" />
+              <div className="h-full w-0 rounded-full bg-gradient-to-r from-primary to-accent" />
             </div>
           </div>
         </div>
