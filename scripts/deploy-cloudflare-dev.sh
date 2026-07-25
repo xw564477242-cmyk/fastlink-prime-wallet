@@ -10,18 +10,24 @@ if [[ ! -f "$config" ]]; then
   exit 1
 fi
 
-if [[ -n "${CLOUDFLARE_API_TOKEN:-}" ]]; then
-  if [[ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
-    echo "BLOCKED: CLOUDFLARE_ACCOUNT_ID is required with CLOUDFLARE_API_TOKEN" >&2
-    exit 1
-  fi
-  auth_mode="api-token"
-else
-  auth_mode="wrangler-profile"
+if [[ -z "${CLOUDFLARE_API_TOKEN:-}" ]]; then
+  echo "BLOCKED: CLOUDFLARE_API_TOKEN is required" >&2
+  exit 1
+fi
+if [[ -z "${CLOUDFLARE_ACCOUNT_ID:-}" ]]; then
+  echo "BLOCKED: CLOUDFLARE_ACCOUNT_ID is required" >&2
+  exit 1
 fi
 
-echo "Deploying $worker with Wrangler CLI ($auth_mode)"
-npx --yes wrangler@4.114.0 whoami >/dev/null
+echo "Deploying $worker with Wrangler CLI (api-token)"
+auth_output="$(npx --yes wrangler@4.114.0 whoami 2>&1)" || {
+  echo "BLOCKED: Cloudflare API Token authentication failed" >&2
+  exit 1
+}
+if grep -qi "not authenticated" <<<"$auth_output"; then
+  echo "BLOCKED: Cloudflare API Token authentication failed" >&2
+  exit 1
+fi
 bash scripts/build-cloudflare-dev.sh
 
 deploy_log="$(mktemp)"
