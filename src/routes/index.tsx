@@ -35,7 +35,7 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { t } = useLang();
-  const { token, session } = useBackendSession();
+  const { session } = useBackendSession();
 
   useEffect(() => {
     let cancelled = false;
@@ -45,9 +45,9 @@ function HomePage() {
       setCards([]);
       setTransactions([]);
       try {
-        const rows = await backendApi.listCards(token);
+        const rows = await backendApi.listCards();
         const groups = await Promise.all(
-          rows.map((card) => backendApi.cardTransactions(token, card.cardId)),
+          rows.map((card) => backendApi.cardTransactions(card.cardId)),
         );
         if (cancelled) return;
         setCards(rows);
@@ -70,7 +70,7 @@ function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [session]);
 
   const cardTotals = useMemo(() => {
     const grouped = new Map<string, number>();

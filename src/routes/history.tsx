@@ -20,7 +20,7 @@ type Row = WalletCardTransaction & { last4: string };
 
 function HistoryPage() {
   const { lang, t } = useLang();
-  const { token } = useBackendSession();
+  const { session } = useBackendSession();
   const [query, setQuery] = useState("");
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,10 +33,10 @@ function HistoryPage() {
       setError(null);
       setRows([]);
       try {
-        const cards = await backendApi.listCards(token);
+        const cards = await backendApi.listCards();
         const groups = await Promise.all(
           cards.map(async (card) => {
-            const transactions = await backendApi.cardTransactions(token, card.cardId);
+            const transactions = await backendApi.cardTransactions(card.cardId);
             return transactions.map((transaction) => ({
               ...transaction,
               last4: card.last4,
@@ -58,7 +58,7 @@ function HistoryPage() {
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [session]);
 
   const filtered = useMemo(
     () =>

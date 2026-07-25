@@ -23,7 +23,11 @@ function resolveRuntime() {
     };
   }
   const apiUrl = configuredApiUrl.replace(/\/+$/, "");
-  if (configuredEnvironment === "PRODUCTION" && !apiUrl.startsWith("https://")) {
+  if (
+    configuredEnvironment === "PRODUCTION" &&
+    !apiUrl.startsWith("https://") &&
+    !apiUrl.startsWith("/")
+  ) {
     return {
       error: "Production Backend API must use HTTPS",
       apiUrl,
@@ -54,6 +58,12 @@ export type BackendSession = {
   tenantId: string;
   customerId: string;
   environment: FastLinkEnvironment;
+};
+
+export type BackendCredentials = {
+  tenantId: string;
+  email: string;
+  password: string;
 };
 
 export type WalletCard = {
@@ -130,14 +140,27 @@ function parseMessage(payload: unknown, fallback: string): string {
   return typeof message === "string" && message.trim() ? message : fallback;
 }
 
-async function request<T>(path: string, token: string, init: RequestInit = {}): Promise<T> {
+function csrfToken(): string {
+  if (typeof document === "undefined") return "";
+  const match = document.cookie
+    .split(";")
+    .map((entry) => entry.trim())
+    .find((entry) => entry.startsWith("fastlink_csrf="));
+  return match ? decodeURIComponent(match.slice("fastlink_csrf=".length)) : "";
+}
+
+async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const runtime = requireRuntime();
   const requestTraceId = traceId();
   const headers = new Headers(init.headers);
   headers.set("Accept", "application/json");
-  headers.set("Authorization", `Bearer ${token}`);
   headers.set("X-Trace-Id", requestTraceId);
   if (init.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
+  const method = (init.method ?? "GET").toUpperCase();
+  if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+    const csrf = csrfToken();
+    if (csrf) headers.set("X-CSRF-Token", csrf);
+  }
 
   const controller = new AbortController();
   const timeout = globalThis.setTimeout(() => controller.abort(), 20_000);
@@ -146,7 +169,7 @@ async function request<T>(path: string, token: string, init: RequestInit = {}): 
       ...init,
       headers,
       cache: "no-store",
-      credentials: "omit",
+      credentials: "include",
       signal: controller.signal,
     });
     const returnedTraceId = response.headers.get("x-trace-id") || requestTraceId;
@@ -238,25 +261,44 @@ function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransa
 }
 
 export const backendApi = {
-  session(token: string) {
-    return request<BackendSession>("/v1/session", token);
+  register(input: BackendCredentials) {
+    return request<BackendSession>("/v1/auth/register", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
   },
 
-  async listCards(token: string): Promise<WalletCard[]> {
-    const cards = await request<BackendCardRecord[]>("/v1/cards", token);
+  login(input: BackendCredentials) {
+    return request<BackendSession>("/v1/auth/login", {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+  },
+
+  refreshSession() {
+    return request<BackendSession>("/v1/auth/refresh", { method: "POST" });
+  },
+
+  logout() {
+    return request<void>("/v1/auth/logout", { method: "POST" });
+  },
+
+  session() {
+    return request<BackendSession>("/v1/session");
+  },
+
+  async listCards(): Promise<WalletCard[]> {
+    const cards = await request<BackendCardRecord[]>("/v1/cards");
     return cards.map(normalizeCard);
   },
 
-  async getCard(token: string, cardId: string): Promise<WalletCard> {
-    const card = await request<BackendCardRecord>(`/v1/cards/${encodeURIComponent(cardId)}`, token);
+  async getCard(cardId: string): Promise<WalletCard> {
+    const card = await request<BackendCardRecord>(`/v1/cards/${encodeURIComponent(cardId)}`);
     return normalizeCard(card);
   },
 
-  async createVirtualCard(
-    token: string,
-    input: { currency: string; alias?: string },
-  ): Promise<WalletCard> {
-    const card = await request<BackendCardRecord>("/v1/cards/virtual", token, {
+  async createVirtualCard(input: { currency: string; alias?: string }): Promise<WalletCard> {
+    const card = await request<BackendCardRecord>("/v1/cards/virtual", {
       method: "POST",
       headers: { "Idempotency-Key": traceId() },
       body: JSON.stringify(input),
@@ -264,10 +306,9 @@ export const backendApi = {
     return normalizeCard(card);
   },
 
-  async setFrozen(token: string, cardId: string, frozen: boolean): Promise<WalletCard> {
+  async setFrozen(cardId: string, frozen: boolean): Promise<WalletCard> {
     const card = await request<BackendCardRecord>(
       `/v1/cards/${encodeURIComponent(cardId)}/${frozen ? "freeze" : "unfreeze"}`,
-      token,
       {
         method: "POST",
         headers: { "Idempotency-Key": traceId() },
@@ -276,10 +317,9 @@ export const backendApi = {
     return normalizeCard(card);
   },
 
-  async cardTransactions(token: string, cardId: string): Promise<WalletCardTransaction[]> {
+  async cardTransactions(cardId: string): Promise<WalletCardTransaction[]> {
     const result = await request<{ transactions?: BackendTransactionRecord[] }>(
       `/v1/cards/${encodeURIComponent(cardId)}/transactions`,
-      token,
     );
     return (result.transactions ?? []).map(normalizeTransaction);
   },

@@ -29,7 +29,7 @@ export const Route = createFileRoute("/cards")({
 
 function CardsPage() {
   const { t } = useLang();
-  const { token, session } = useBackendSession();
+  const { session } = useBackendSession();
   const navigate = useNavigate({ from: "/cards" });
   const { cardId } = Route.useSearch();
   const [cards, setCards] = useState<WalletCard[]>([]);
@@ -48,7 +48,7 @@ function CardsPage() {
     setError(null);
     setCards([]);
     try {
-      const rows = await backendApi.listCards(token);
+      const rows = await backendApi.listCards();
       setCards(rows);
       setActiveId(
         rows.some((card) => card.cardId === activeId) ? activeId : (rows[0]?.cardId ?? null),
@@ -65,14 +65,14 @@ function CardsPage() {
     void loadCards();
     // The active URL selection is applied during the initial Backend load.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token]);
+  }, [session]);
 
   const refreshCurrent = async () => {
     if (!current) return;
     setBusy(true);
     setError(null);
     try {
-      const card = await backendApi.getCard(token, current.cardId);
+      const card = await backendApi.getCard(current.cardId);
       setCards((rows) => rows.map((row) => (row.cardId === card.cardId ? card : row)));
     } catch (reason) {
       setCards([]);
@@ -94,7 +94,7 @@ function CardsPage() {
     setBusy(true);
     setError(null);
     try {
-      const card = await backendApi.setFrozen(token, current.cardId, !frozen);
+      const card = await backendApi.setFrozen(current.cardId, !frozen);
       setCards((rows) => rows.map((row) => (row.cardId === card.cardId ? card : row)));
     } catch (reason) {
       setCards([]);
@@ -109,7 +109,7 @@ function CardsPage() {
     setBusy(true);
     setError(null);
     try {
-      const card = await backendApi.createVirtualCard(token, {
+      const card = await backendApi.createVirtualCard({
         currency: "USD",
         alias: t("cards.defaultVirtualAlias"),
       });

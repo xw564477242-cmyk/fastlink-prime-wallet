@@ -42,7 +42,7 @@ const META: Record<
 
 function CardAccountsPage() {
   const { t } = useLang();
-  const { token } = useBackendSession();
+  const { session } = useBackendSession();
   const [cards, setCards] = useState<WalletCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +51,7 @@ function CardAccountsPage() {
     let cancelled = false;
     void (async () => {
       try {
-        const rows = await backendApi.listCards(token);
+        const rows = await backendApi.listCards();
         if (!cancelled) setCards(rows);
       } catch (reason) {
         if (!cancelled) {
@@ -65,7 +65,7 @@ function CardAccountsPage() {
     return () => {
       cancelled = true;
     };
-  }, [t, token]);
+  }, [t, session]);
 
   const totals = useMemo(() => {
     const grouped = new Map<string, number>();

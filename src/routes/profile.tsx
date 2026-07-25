@@ -36,9 +36,9 @@ function ProfilePage() {
   const [langOpen, setLangOpen] = useState(false);
   const current = LANG_OPTIONS.find((o) => o.code === lang) ?? LANG_OPTIONS[0];
 
-  const logout = () => {
-    disconnect();
-    navigate({ to: "/auth", replace: true });
+  const logout = async () => {
+    await disconnect();
+    await navigate({ to: "/auth", replace: true });
   };
 
   const actor = session?.actorId ?? "Unavailable";
@@ -211,7 +211,7 @@ function ProfilePage() {
           <Section title={t("profile.help")}>
             <Row icon={LifeBuoy} label={t("profile.support")} hint={t("profile.supportHint")} />
             <button
-              onClick={logout}
+              onClick={() => void logout()}
               className="flex w-full items-center gap-3 px-5 py-4 text-left active:bg-muted/40"
             >
               <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-destructive/15 text-destructive">
