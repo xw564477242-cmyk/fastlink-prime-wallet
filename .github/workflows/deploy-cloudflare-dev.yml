@@ -1,5 +1,6 @@
 name: Deploy Prime Wallet Dev to Cloudflare
 
+# Deployment trigger: Cloudflare credentials configured 2026-07-25
 on:
   push:
     branches: [dev]
