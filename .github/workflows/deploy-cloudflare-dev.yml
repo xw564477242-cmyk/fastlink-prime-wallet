@@ -1,9 +1,7 @@
 name: Deploy Prime Wallet Dev to Cloudflare
 
-# Deployment trigger: Cloudflare credentials configured 2026-07-25
+# Manual fallback only. Automatic dev deployment uses Cloudflare Workers Builds.
 on:
-  push:
-    branches: [dev]
   workflow_dispatch:
 
 permissions:
