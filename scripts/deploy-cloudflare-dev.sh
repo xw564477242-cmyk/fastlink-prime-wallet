@@ -28,6 +28,9 @@ if grep -qi "not authenticated" <<<"$auth_output"; then
   echo "BLOCKED: Cloudflare API Token authentication failed" >&2
   exit 1
 fi
+export VITE_FASTLINK_API_URL="${VITE_FASTLINK_API_URL:-/api}"
+export VITE_FASTLINK_ENVIRONMENT="${VITE_FASTLINK_ENVIRONMENT:-SANDBOX}"
+export VITE_FASTLINK_BUILD_SHA="${VITE_FASTLINK_BUILD_SHA:-$(git rev-parse HEAD 2>/dev/null || printf unknown)}"
 bash scripts/build-cloudflare-dev.sh
 
 deploy_log="$(mktemp)"
