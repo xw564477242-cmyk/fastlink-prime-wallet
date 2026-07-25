@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "audit:production": "node scripts/verify-production-wallet.mjs",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "deploy:cloudflare:dev": "bash scripts/deploy-cloudflare-dev.sh"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
