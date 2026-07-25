@@ -1,7 +1,10 @@
 name: Deploy Prime Wallet Dev to Cloudflare
 
-# Manual fallback only. Automatic dev deployment uses Cloudflare Workers Builds.
+# One-time dev push trigger; restored to manual-only after verified deployment.
 on:
+  push:
+    branches:
+      - dev
   workflow_dispatch:
 
 permissions:
