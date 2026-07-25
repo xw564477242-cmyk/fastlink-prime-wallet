@@ -48,6 +48,18 @@ function isH3SwallowedErrorBody(body: string): boolean {
   }
 }
 
+function resolveWorkerEnvironment(env: unknown): WorkerEnvironment {
+  const direct = (env ?? {}) as WorkerEnvironment;
+  if (direct.FASTLINK_BACKEND_ORIGIN) {
+    return direct;
+  }
+
+  const runtimeGlobal = globalThis as typeof globalThis & {
+    __env__?: WorkerEnvironment;
+  };
+  return runtimeGlobal.__env__ ?? direct;
+}
+
 function requireBackendOrigin(env: WorkerEnvironment): URL {
   const configured = env.FASTLINK_BACKEND_ORIGIN?.trim();
   if (!configured) {
@@ -101,7 +113,7 @@ export default {
     try {
       const pathname = new URL(request.url).pathname;
       if (pathname === "/api" || pathname.startsWith("/api/")) {
-        return await proxyBackendRequest(request, (env ?? {}) as WorkerEnvironment);
+        return await proxyBackendRequest(request, resolveWorkerEnvironment(env));
       }
 
       const handler = await getServerEntry();
