@@ -1,7 +1,7 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package.json ./
-RUN npm install --include=dev
+RUN npm install --include=dev --legacy-peer-deps
 COPY . .
 ARG VITE_FASTLINK_API_URL
 ARG VITE_FASTLINK_ENVIRONMENT=SANDBOX
