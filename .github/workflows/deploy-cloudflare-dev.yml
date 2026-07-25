@@ -1,0 +1,47 @@
+name: Deploy Prime Wallet Dev to Cloudflare
+
+on:
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fastlink-prime-wallet-dev
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: cloudflare-prime-dev
+    env:
+      VITE_FASTLINK_API_URL: /api
+      VITE_FASTLINK_ENVIRONMENT: SANDBOX
+      VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Verify production wallet contract
+        run: bun run audit:production
+
+      - name: Build Cloudflare worker
+        run: bun run build
+
+      - name: Deploy dev worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4.114.0"
+          command: deploy --config wrangler.dev.jsonc
