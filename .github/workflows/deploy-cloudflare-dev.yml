@@ -1,7 +1,10 @@
 name: Deploy Prime Wallet Dev to Cloudflare
 
-# Manual fallback only. Automatic dev deployment uses Cloudflare Workers Builds.
+# Development-only deployment. main and Production remain frozen.
 on:
+  push:
+    branches:
+      - dev
   workflow_dispatch:
 
 permissions:
@@ -20,8 +23,10 @@ jobs:
       VITE_FASTLINK_ENVIRONMENT: SANDBOX
       VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
     steps:
-      - name: Checkout
+      - name: Checkout exact Dev commit
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
@@ -44,3 +49,11 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: "4.114.0"
           command: deploy --config wrangler.dev.jsonc
+
+      - name: Verify deployed Prime Wallet Dev
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://fastlink-prime-wallet-dev.adhesive-snowshoe.workers.dev'
+          curl --fail --silent --show-error --location --retry 6 --retry-delay 5 "$base/" >/dev/null
+          curl --fail --silent --show-error --location --retry 6 --retry-delay 5 "$base/api/health" >/dev/null
