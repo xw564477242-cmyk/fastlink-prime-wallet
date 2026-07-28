@@ -7,5 +7,6 @@
   "no_bundle": true,
   "rules": [{ "type": "ESModule", "globs": ["**/*.mjs", "**/*.js"] }],
   "assets": { "binding": "ASSETS", "directory": ".output/public" },
+  "vars": { "FASTLINK_PROXY_ID": "prime-test" },
   "observability": { "enabled": true }
 }

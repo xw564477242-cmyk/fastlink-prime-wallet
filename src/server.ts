@@ -9,6 +9,7 @@ type ServerEntry = {
 
 type WorkerEnvironment = {
   FASTLINK_BACKEND_ORIGIN?: string;
+  FASTLINK_PROXY_ID?: string;
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
@@ -100,7 +101,7 @@ async function proxyBackendRequest(request: Request, env: WorkerEnvironment): Pr
 
   const headers = new Headers(response.headers);
   headers.set("cache-control", "no-store");
-  headers.set("x-fastlink-api-proxy", "prime-dev");
+  headers.set("x-fastlink-api-proxy", env.FASTLINK_PROXY_ID?.trim() || "prime-dev");
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,

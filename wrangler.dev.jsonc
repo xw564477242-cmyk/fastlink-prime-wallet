@@ -21,7 +21,8 @@
     "directory": ".output/public"
   },
   "vars": {
-    "FASTLINK_BACKEND_ORIGIN": "https://fastlink-backend-dev-development-a.up.railway.app"
+    "FASTLINK_BACKEND_ORIGIN": "https://fastlink-backend-dev-development-a.up.railway.app",
+    "FASTLINK_PROXY_ID": "prime-dev"
   },
   "observability": {
     "enabled": true
