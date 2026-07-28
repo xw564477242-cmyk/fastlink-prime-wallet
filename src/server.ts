@@ -72,6 +72,8 @@ function proxyHeaders(request: Request, publicUrl: URL): Headers {
   const headers = new Headers(request.headers);
   for (const name of [
     "host",
+    "origin",
+    "referer",
     "forwarded",
     "x-forwarded-for",
     "x-forwarded-host",
