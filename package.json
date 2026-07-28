@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "audit:build-dependencies": "node scripts/audit-build-dependencies.mjs",
     "audit:production": "node scripts/verify-production-wallet.mjs",
     "build:cloudflare:production": "bash scripts/build-cloudflare-production.sh",
     "format": "prettier --write ."

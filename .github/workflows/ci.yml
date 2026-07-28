@@ -1,0 +1,29 @@
+name: FastLink Prime Wallet CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prime-wallet-pr-validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  production-pr-validation:
+    runs-on: ubuntu-latest
+    env:
+      FASTLINK_BUILD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - run: bun run audit:build-dependencies
+      - run: bun run audit:production
+      - run: bun run lint
+      - run: bun run build:cloudflare:production
