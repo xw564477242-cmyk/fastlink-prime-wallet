@@ -1,0 +1,62 @@
+name: Deploy Prime Wallet Production to Cloudflare
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fastlink-prime-wallet-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: vars.FASTLINK_PRODUCTION_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: cloudflare-prime-production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - run: bun install --frozen-lockfile
+      - run: bun run audit:build-dependencies
+      - run: bun run audit:production
+      - run: bun run lint
+
+      - name: Assert immutable Production targets
+        env:
+          BACKEND_ORIGIN: ${{ vars.FASTLINK_PRODUCTION_BACKEND_ORIGIN }}
+          PRIME_URL: ${{ vars.FASTLINK_PRODUCTION_PRIME_URL }}
+        run: |
+          test "$BACKEND_ORIGIN" = 'https://exquisite-surprise-production-309d.up.railway.app'
+          test "$PRIME_URL" = 'https://fastlink-prime-wallet.xw1134315560.workers.dev'
+
+      - name: Build Production package
+        env:
+          FASTLINK_BUILD_SHA: ${{ github.sha }}
+        run: bun run build:cloudflare:production
+
+      - name: Deploy Production Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_PRODUCTION_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_PRODUCTION_ACCOUNT_ID }}
+          wranglerVersion: "4.114.0"
+          command: >-
+            deploy --config wrangler.production.jsonc
+            --var FASTLINK_BACKEND_ORIGIN:${{ vars.FASTLINK_PRODUCTION_BACKEND_ORIGIN }}
+
+      - name: Verify Production Worker
+        env:
+          PRIME_URL: ${{ vars.FASTLINK_PRODUCTION_PRIME_URL }}
+        run: |
+          curl --fail --silent --show-error --retry 6 --retry-delay 5 "$PRIME_URL/" >/dev/null
+          curl --fail --silent --show-error --dump-header headers.txt --output health.json "$PRIME_URL/api/health"
+          grep -i -F 'x-fastlink-api-proxy: prime-production' headers.txt
+          grep -F '"environment":"PRODUCTION"' health.json
