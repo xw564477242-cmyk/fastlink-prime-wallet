@@ -1,6 +1,12 @@
-export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "UAT" | "PRODUCTION";
+export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
-const allowedEnvironments: FastLinkEnvironment[] = ["LOCAL", "SANDBOX", "UAT", "PRODUCTION"];
+const allowedEnvironments: FastLinkEnvironment[] = [
+  "LOCAL",
+  "SANDBOX",
+  "TEST",
+  "UAT",
+  "PRODUCTION",
+];
 
 const configuredApiUrl = (import.meta.env.VITE_FASTLINK_API_URL as string | undefined)?.trim();
 const configuredEnvironment = (import.meta.env.VITE_FASTLINK_ENVIRONMENT as string | undefined)
@@ -17,7 +23,7 @@ function resolveRuntime() {
   }
   if (!configuredEnvironment || !allowedEnvironments.includes(configuredEnvironment)) {
     return {
-      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, UAT, or PRODUCTION",
+      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, TEST, UAT, or PRODUCTION",
       apiUrl: configuredApiUrl,
       environment: configuredEnvironment,
     };

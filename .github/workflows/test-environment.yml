@@ -1,0 +1,26 @@
+name: Prime Wallet Test Environment Gate
+on:
+  push:
+    branches: [test, "feature/test-environment-*"]
+  pull_request:
+    branches: [test]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: 1.2.19 }
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - name: Build isolated Test Worker
+        env:
+          VITE_FASTLINK_API_URL: /api
+          VITE_FASTLINK_ENVIRONMENT: TEST
+          VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
+          NITRO_PRESET: cloudflare_module
+        run: bun run build
+      - run: "! grep -R -F 'exquisite-surprise-production-309d' .output"
