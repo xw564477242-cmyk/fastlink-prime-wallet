@@ -1,0 +1,66 @@
+name: Deploy Prime Wallet Test to Cloudflare
+
+on:
+  push:
+    branches: [test]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fastlink-prime-wallet-test
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: vars.FASTLINK_TEST_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: cloudflare-prime-test
+    env:
+      VITE_FASTLINK_API_URL: /api
+      VITE_FASTLINK_ENVIRONMENT: TEST
+      VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
+      NITRO_PRESET: cloudflare_module
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Assert isolated Test deployment variables
+        shell: bash
+        env:
+          BACKEND_ORIGIN: ${{ vars.FASTLINK_TEST_BACKEND_ORIGIN }}
+          PRIME_URL: ${{ vars.FASTLINK_TEST_PRIME_URL }}
+        run: |
+          test -n "$BACKEND_ORIGIN"
+          test -n "$PRIME_URL"
+          test "$BACKEND_ORIGIN" != 'https://exquisite-surprise-production-309d.up.railway.app'
+          test "$BACKEND_ORIGIN" != 'https://fastlink-backend-dev-development-a.up.railway.app'
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
+      - run: bun run build
+      - run: "! grep -R -F 'exquisite-surprise-production-309d' .output"
+
+      - name: Deploy isolated Test Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TEST_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_TEST_ACCOUNT_ID }}
+          wranglerVersion: "4.114.0"
+          command: >-
+            deploy --config wrangler.test.jsonc
+            --var FASTLINK_BACKEND_ORIGIN:${{ vars.FASTLINK_TEST_BACKEND_ORIGIN }}
+
+      - name: Verify Test Worker
+        shell: bash
+        env:
+          PRIME_URL: ${{ vars.FASTLINK_TEST_PRIME_URL }}
+        run: |
+          curl --fail --silent --show-error --location --retry 6 --retry-delay 5 "$PRIME_URL/" >/dev/null
+          curl --fail --silent --show-error --location "$PRIME_URL/api/health" >/dev/null
