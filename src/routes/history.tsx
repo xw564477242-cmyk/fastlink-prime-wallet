@@ -17,7 +17,7 @@ export const Route = createFileRoute("/history")({
   component: HistoryPage,
 });
 
-function HistoryPage() {
+export function HistoryPage() {
   const { lang, t } = useLang();
   const { session } = useBackendSession();
   const [query, setQuery] = useState("");

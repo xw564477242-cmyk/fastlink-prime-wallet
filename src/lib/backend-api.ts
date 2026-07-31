@@ -178,6 +178,22 @@ export type WalletCardTransactionQuery = {
 export const CARD_TRANSACTION_PAGE_SIZE = 25;
 export const CARD_TRANSACTION_MAX_JSON_BYTES = 65_536;
 export const CARD_TRANSACTION_MAX_CURSOR_BYTES = 16_384;
+const BASE64URL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+
+function isCanonicalBase64UrlSegment(value: string): boolean {
+  if (!value || !/^[A-Za-z0-9_-]+$/.test(value)) return false;
+  const remainder = value.length % 4;
+  if (remainder === 1) return false;
+  if (remainder === 0) return true;
+  const lastValue = BASE64URL_ALPHABET.indexOf(value[value.length - 1] ?? "");
+  return remainder === 2 ? lastValue % 16 === 0 : lastValue % 4 === 0;
+}
+
+function isCanonicalCardTransactionCursor(value: unknown): value is string {
+  if (typeof value !== "string" || value.length > CARD_TRANSACTION_MAX_CURSOR_BYTES) return false;
+  const segments = value.split(".");
+  return segments.length === 2 && segments.every(isCanonicalBase64UrlSegment);
+}
 
 export type WalletAssetAccount = {
   assetCode: string;
@@ -1484,11 +1500,7 @@ export function buildCardTransactionPath(
   if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
     throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
   }
-  if (
-    query.cursor !== undefined &&
-    (query.cursor.length > CARD_TRANSACTION_MAX_CURSOR_BYTES ||
-      !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(query.cursor))
-  ) {
+  if (query.cursor !== undefined && !isCanonicalCardTransactionCursor(query.cursor)) {
     throw new Error("Invalid card transaction cursor");
   }
   const params = new URLSearchParams({ limit: String(limit) });
@@ -1525,12 +1537,7 @@ export function normalizeCardTransactionResponse(
     limit,
     "Backend returned an invalid transaction page",
   );
-  if (
-    page.nextCursor !== null &&
-    (typeof page.nextCursor !== "string" ||
-      page.nextCursor.length > CARD_TRANSACTION_MAX_CURSOR_BYTES ||
-      !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(page.nextCursor))
-  ) {
+  if (page.nextCursor !== null && !isCanonicalCardTransactionCursor(page.nextCursor)) {
     throw new Error("Backend returned an invalid transaction cursor");
   }
   return {

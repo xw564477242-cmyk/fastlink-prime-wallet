@@ -16,6 +16,15 @@ type Deferred<T> = {
 };
 
 const originalFetch = globalThis.fetch;
+const signedCursor = (payload: string) =>
+  `${Buffer.from(payload).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
+const cursors = {
+  old: signedCursor("cursor_old"),
+  stale: signedCursor("cursor_stale"),
+  next: signedCursor("cursor_next"),
+  duplicate: signedCursor("cursor_duplicate"),
+  forward: signedCursor("cursor_forward"),
+} as const;
 let renderer: ReactTestRenderer | null = null;
 let latest: HookResult | null = null;
 const configuredTestEnvironment =
@@ -196,13 +205,13 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       installFetch(() => {
         requestCount += 1;
         return requestCount === 1
-          ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_old.signature")
+          ? pageResponse([wireTransaction("transaction:accepted.1")], cursors.old)
           : nextRead.promise;
       });
 
       await mount(session());
       expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:accepted.1"]);
-      expect(latest?.nextCursor).toBe("cursor_old.signature");
+      expect(latest?.nextCursor).toBe(cursors.old);
 
       await update(change.next, change.cardId);
       expect(latest?.transactions, change.label).toEqual([]);
@@ -225,7 +234,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
     await update(session({ customerId: "customer-card-history-hook-02" }), "card:owned.2");
     await settlePending(
       oldRead,
-      pageResponse([wireTransaction("transaction:stale-secret-success")], "cursor_stale.signature"),
+      pageResponse([wireTransaction("transaction:stale-secret-success")], cursors.stale),
     );
 
     expect(latest?.transactions).toEqual([]);
@@ -258,7 +267,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
     installFetch(() => {
       requestCount += 1;
       if (requestCount === 1) {
-        return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
+        return pageResponse([wireTransaction("transaction:accepted.1")], cursors.next);
       }
       return requestCount === 2 ? oldPage.promise : currentRead.promise;
     });
@@ -271,7 +280,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
     await update(session({ tenantId: "tenant-card-history-hook-02" }));
     await settlePending(
       oldPage,
-      pageResponse([wireTransaction("transaction:stale-page-secret")], "cursor_stale.signature"),
+      pageResponse([wireTransaction("transaction:stale-page-secret")], cursors.stale),
     );
 
     expect(latest?.transactions).toEqual([]);
@@ -287,7 +296,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
     installFetch(() => {
       requestCount += 1;
       if (requestCount === 1) {
-        return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
+        return pageResponse([wireTransaction("transaction:accepted.1")], cursors.next);
       }
       return requestCount === 2 ? oldPage.promise : currentRead.promise;
     });
@@ -319,7 +328,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
               wireTransaction("transaction:duplicate.1"),
               wireTransaction("transaction:duplicate.1"),
             ],
-            "cursor_duplicate.signature",
+            cursors.duplicate,
           ),
       },
       {
@@ -379,7 +388,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       expect(latest?.error, testCase.label).not.toBeNull();
       expect(JSON.stringify(latest), testCase.label).not.toContain(testCase.secret);
       if (testCase.label === "Provider error body") {
-        expect(latest?.error).toBe("Card transaction request failed · Trace trace-safe-provider");
+        expect(latest?.error).toBe("Card transactions are unavailable");
       }
       await unmount();
     }
@@ -390,14 +399,12 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       {
         label: "duplicate transaction ID",
         secret: "transaction:accepted.1",
-        response: () =>
-          pageResponse([wireTransaction("transaction:accepted.1")], "cursor_forward.signature"),
+        response: () => pageResponse([wireTransaction("transaction:accepted.1")], cursors.forward),
       },
       {
         label: "cursor loop",
-        secret: "cursor_next.signature",
-        response: () =>
-          pageResponse([wireTransaction("transaction:new.2")], "cursor_next.signature"),
+        secret: cursors.next,
+        response: () => pageResponse([wireTransaction("transaction:new.2")], cursors.next),
       },
       {
         label: "invalid raw JSON",
@@ -408,7 +415,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
         label: "extra internal field",
         secret: "pagination-provider-internal-secret",
         response: () =>
-          pageResponse([], "cursor_forward.signature", {
+          pageResponse([], cursors.forward, {
             providerDebug: "pagination-provider-internal-secret",
           }),
       },
@@ -429,7 +436,7 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       installFetch(() => {
         requestCount += 1;
         return requestCount === 1
-          ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature")
+          ? pageResponse([wireTransaction("transaction:accepted.1")], cursors.next)
           : testCase.response();
       });
       await mount(session());
