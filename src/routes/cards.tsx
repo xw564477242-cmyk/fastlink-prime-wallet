@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
   AlertTriangle,
+  CalendarClock,
   Copy,
   CreditCard,
   Loader2,
@@ -18,6 +19,7 @@ import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
+import { useCardRenew } from "@/hooks/use-card-renew";
 import {
   acceptsCardActionResponse,
   beginCardAction,
@@ -74,6 +76,15 @@ function CardsPage() {
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
+  const acceptRenewedCard = useCallback(
+    (card: Parameters<typeof replaceCard>[0]) => {
+      replaceCard(card);
+      selectCard(card.cardId);
+      void navigate({ search: { cardId: card.cardId }, replace: true });
+    },
+    [navigate, replaceCard, selectCard],
+  );
+  const cardRenew = useCardRenew(session, current, acceptRenewedCard);
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const cardLimits = useCardLimits(session, current?.cardId ?? null);
   const sessionKey = cardSessionScopeKey(session);
@@ -86,11 +97,12 @@ function CardsPage() {
     error: null,
   });
   const actionState = visibleCardActionState(storedActionState, actionScopeKey);
-  const busy = actionState.busy || virtualCardCreate.busy;
+  const busy = actionState.busy || virtualCardCreate.busy || cardRenew.busy;
   const error =
     listError ??
     (scopeReady ? actionState.error : null) ??
-    (virtualCardCreate.allowed ? virtualCardCreate.error : null);
+    (virtualCardCreate.allowed ? virtualCardCreate.error : null) ??
+    (cardRenew.allowed ? cardRenew.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -152,6 +164,11 @@ function CardsPage() {
       currency: "USD",
       alias: t("cards.defaultVirtualAlias"),
     });
+  };
+
+  const renewCurrent = async () => {
+    if (!scopeReady || !cardRenew.allowed || busy) return;
+    await cardRenew.submit();
   };
 
   return (
@@ -338,6 +355,14 @@ function CardsPage() {
                 label={t("cards.refresh")}
                 icon={<RefreshCw className="h-5 w-5" />}
               />
+              {cardRenew.allowed && (
+                <CardAction
+                  onClick={() => void renewCurrent()}
+                  disabled={busy}
+                  label="Renew card"
+                  icon={<CalendarClock className="h-5 w-5" />}
+                />
+              )}
             </div>
 
             <div className="mt-4 rounded-2xl border border-border/60 bg-surface/60 p-5">

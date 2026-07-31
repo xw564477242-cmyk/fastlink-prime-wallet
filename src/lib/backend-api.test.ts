@@ -91,6 +91,8 @@ describe("Card list Backend adapter", () => {
           status: "active",
           last4: "4242",
           expiry: "12/30",
+          expiryMonth: 12,
+          expiryYear: 2030,
           currency: "USD",
           alias: "Card card_1",
           balance: 123.45,
