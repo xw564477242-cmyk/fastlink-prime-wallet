@@ -10,11 +10,23 @@ import {
   Snowflake,
   Sun,
 } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { backendApi } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
+import {
+  acceptsCardActionResponse,
+  beginCardAction,
+  cardActionAllowed,
+  cardActionScopeKey,
+  cardSessionScopeKey,
+  createCardActionGate,
+  syncCardActionScope,
+  visibleCardActionState,
+  type CardAction,
+  type CardActionUiState,
+} from "@/lib/card-action-state";
 
 export const Route = createFileRoute("/cards")({
   validateSearch: (search: Record<string, unknown>): { cardId?: string } =>
@@ -47,80 +59,97 @@ function CardsPage() {
     prependCard,
     invalidate,
   } = useCardListPages(session, cardId ?? null);
-  const [busy, setBusy] = useState(false);
-  const [actionError, setActionError] = useState<string | null>(null);
-  const error = listError ?? (scopeReady ? actionError : null);
-  const actionScopeKey = session
-    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
-    : null;
-  const actionScopeRef = useRef(actionScopeKey);
-  actionScopeRef.current = actionScopeKey;
-  const actionScopeIsCurrent = (key: string | null) => actionScopeRef.current === key;
-
-  useEffect(() => {
-    setActionError(null);
-    setBusy(false);
-  }, [session]);
-
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
+  const sessionKey = cardSessionScopeKey(session);
+  const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
+  const actionGate = useRef(createCardActionGate(actionScopeKey));
+  syncCardActionScope(actionGate.current, actionScopeKey);
+  const [storedActionState, setActionState] = useState<CardActionUiState>({
+    scopeKey: actionScopeKey,
+    busy: false,
+    error: null,
+  });
+  const actionState = visibleCardActionState(storedActionState, actionScopeKey);
+  const busy = actionState.busy;
+  const error = listError ?? (scopeReady ? actionState.error : null);
+  const issueScopeReady = scopeReady && !loading && !loadingMore;
+
+  const startAction = (action: CardAction) => {
+    if (!actionScopeKey) return null;
+    const ticket = beginCardAction(actionGate.current, actionScopeKey, action);
+    setActionState({ scopeKey: actionScopeKey, busy: true, error: null });
+    return ticket;
+  };
+
+  const finishAction = (scopeKey: string) => {
+    setActionState((state) => (state.scopeKey === scopeKey ? { ...state, busy: false } : state));
+  };
 
   const refreshCurrent = async () => {
-    if (!scopeReady || !current) return;
+    if (!cardActionAllowed("refresh", scopeReady, sessionKey, current)) return;
+    const ticket = startAction("refresh");
+    if (!ticket || !actionScopeKey) return;
     const scopeKey = actionScopeKey;
-    setBusy(true);
-    setActionError(null);
     try {
       const card = await backendApi.getCard(current.cardId);
-      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) replaceCard(card);
     } catch (reason) {
-      if (actionScopeIsCurrent(scopeKey))
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey))
         invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) finishAction(scopeKey);
     }
   };
 
   const toggleFrozen = async () => {
-    if (!scopeReady || !current) return;
-    const scopeKey = actionScopeKey;
+    if (!current) return;
     const frozen = current.status === "frozen";
-    const allowed = frozen ? current.capabilities.unfreeze : current.capabilities.freeze;
-    if (!allowed) {
-      setActionError("This card operation is unavailable in the current Backend/provider state.");
+    const action: CardAction = frozen ? "unfreeze" : "freeze";
+    if (!cardActionAllowed(action, scopeReady, sessionKey, current)) {
+      setActionState({
+        scopeKey: actionScopeKey,
+        busy: false,
+        error: "This card operation is unavailable in the current Backend/provider state.",
+      });
       return;
     }
-    setBusy(true);
-    setActionError(null);
+    const ticket = startAction(action);
+    if (!ticket || !actionScopeKey) return;
+    const scopeKey = actionScopeKey;
     try {
       const card = await backendApi.setFrozen(current.cardId, !frozen);
-      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) replaceCard(card);
     } catch (reason) {
-      if (actionScopeIsCurrent(scopeKey))
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey))
         invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) finishAction(scopeKey);
     }
   };
 
   const issueVirtual = async () => {
-    if (!scopeReady) return;
+    if (!cardActionAllowed("issue", issueScopeReady, sessionKey, current)) return;
+    const ticket = startAction("issue");
+    if (!ticket || !actionScopeKey) return;
     const scopeKey = actionScopeKey;
-    setBusy(true);
-    setActionError(null);
     try {
       const card = await backendApi.createVirtualCard({
         currency: "USD",
         alias: t("cards.defaultVirtualAlias"),
       });
-      if (actionScopeIsCurrent(scopeKey)) prependCard(card);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) prependCard(card);
     } catch (reason) {
-      if (actionScopeIsCurrent(scopeKey))
-        setActionError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey))
+        setActionState({
+          scopeKey,
+          busy: true,
+          error: reason instanceof Error ? reason.message : "Railway Backend is unavailable",
+        });
     } finally {
-      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
+      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) finishAction(scopeKey);
     }
   };
 
@@ -137,7 +166,7 @@ function CardsPage() {
           </div>
           <button
             onClick={() => void issueVirtual()}
-            disabled={busy || !scopeReady}
+            disabled={busy || !cardActionAllowed("issue", issueScopeReady, sessionKey, current)}
             className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
           >
             <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}
@@ -254,7 +283,15 @@ function CardsPage() {
             <div className="mt-4 grid grid-cols-2 gap-2">
               <CardAction
                 onClick={() => void toggleFrozen()}
-                disabled={busy}
+                disabled={
+                  busy ||
+                  !cardActionAllowed(
+                    current.status === "frozen" ? "unfreeze" : "freeze",
+                    scopeReady,
+                    sessionKey,
+                    current,
+                  )
+                }
                 label={current.status === "frozen" ? t("cards.unfreeze") : t("cards.freeze")}
                 icon={
                   current.status === "frozen" ? (
