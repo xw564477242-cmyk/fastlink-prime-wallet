@@ -105,6 +105,8 @@ describe("Selected Card replacement environment, reason and request gate", () =>
       { expiryYear: 1999 },
       { expiryYear: 10000 },
       { currency: "usd" },
+      { availableBalanceMinor: "01" },
+      { availableBalanceMinor: "9223372036854775808" },
     ]) {
       expect(cardReplaceScopeKey(session(), "SANDBOX", card(mutation), "LOST")).toBeNull();
     }
@@ -380,6 +382,55 @@ describe("Selected Card replacement scope, generation and list isolation", () =>
       reset,
     );
     expect(cardReplaceView(started, nextScope).replacementCard).toBeNull();
+  });
+
+  it("allows an old completion zero writes after the same Card balance refreshes", () => {
+    const oldCard = card({ availableBalanceMinor: "2500", balance: 25 });
+    const currentCard = card({ availableBalanceMinor: "2750", balance: 27.5 });
+    const oldScope = cardReplaceScopeKey(session(), "SANDBOX", oldCard, "LOST");
+    const currentScope = cardReplaceScopeKey(session(), "SANDBOX", currentCard, "LOST");
+    const noBalanceScope = cardReplaceScopeKey(
+      session(),
+      "SANDBOX",
+      card({ availableBalanceMinor: undefined }),
+      "LOST",
+    );
+    if (!oldScope || !currentScope || !noBalanceScope) throw new Error("scopes required");
+    expect(currentScope).not.toBe(oldScope);
+    expect(noBalanceScope).not.toBe(oldScope);
+
+    const gate = createCardReplaceGate(oldScope);
+    const ticket = beginCardReplace(gate, oldScope, "LOST", () => keys[0]!);
+    if (!ticket) throw new Error("ticket required");
+    const started = cardReplaceReducer(initialCardReplaceState, {
+      type: "started",
+      scopeKey: oldScope,
+      requestKey: ticket.requestKey,
+    });
+    syncCardReplaceScope(gate, currentScope);
+    expect(acceptsCardReplaceCompletion(gate, ticket, currentScope)).toBeFalse();
+    const reset = cardReplaceReducer(started, { type: "reset", scopeKey: currentScope });
+
+    const staleReplacement = normalizeCardReplaceResponse(response(), oldCard);
+    expect(staleReplacement.availableBalanceMinor).toBe("2500");
+    expect(
+      cardReplaceReducer(reset, {
+        type: "succeeded",
+        requestKey: ticket.requestKey,
+        card: staleReplacement,
+      }),
+    ).toBe(reset);
+    expect(
+      cardReplaceReducer(reset, {
+        type: "failed",
+        requestKey: ticket.requestKey,
+        message: "stale balance error",
+      }),
+    ).toBe(reset);
+    expect(cardReplaceReducer(reset, { type: "settled", requestKey: ticket.requestKey })).toBe(
+      reset,
+    );
+    expect(cardReplaceView(started, currentScope).replacementCard).toBeNull();
   });
 
   it("rejects an older generation inside one replacement scope", () => {

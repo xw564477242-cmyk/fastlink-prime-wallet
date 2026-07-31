@@ -38,12 +38,30 @@ export const initialCardReplaceState: CardReplaceState = {
   replacementCard: null,
 };
 
+function cardReplaceBalanceScopeValue(value: unknown): string | null {
+  if (value === undefined) return null;
+  if (typeof value !== "string" || !/^(?:0|-?[1-9]\d{0,18})$/.test(value)) {
+    throw new Error("Invalid selected Card balance");
+  }
+  const amount = BigInt(value);
+  if (amount < -9_223_372_036_854_775_808n || amount > 9_223_372_036_854_775_807n) {
+    throw new Error("Invalid selected Card balance");
+  }
+  return value;
+}
+
 export function cardReplaceScopeKey(
   session: BackendSession | null,
   runtimeEnvironment: FastLinkEnvironment | undefined,
   card: WalletCard | undefined,
   reason: CardReplacementReason | undefined,
 ): string | null {
+  let availableBalanceMinor: string | null;
+  try {
+    availableBalanceMinor = cardReplaceBalanceScopeValue(card?.availableBalanceMinor);
+  } catch {
+    return null;
+  }
   if (
     !session ||
     !runtimeEnvironment ||
@@ -82,6 +100,7 @@ export function cardReplaceScopeKey(
     card.currency,
     card.alias ?? null,
     card.createdAt ?? null,
+    availableBalanceMinor,
   ]);
 }
 
