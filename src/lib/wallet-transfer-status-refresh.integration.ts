@@ -47,6 +47,7 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
     tenantId: "tenant-integration-01",
     customerId: "customer-integration-01",
     environment: testEnvironment(),
+    expiresAt: "2099-08-01T08:00:00.000Z",
     ...overrides,
   };
 }
@@ -139,7 +140,7 @@ describe(`Wallet transfer manual refresh integration safety (${testEnvironment()
     expect(ticket).not.toBeNull();
     expect(calls).toHaveLength(0);
 
-    const result = await readWalletTransferStatusSafely(context.operation);
+    const result = await readWalletTransferStatusSafely(currentSession, context.operation);
     expect(result.ok).toBe(true);
     expect(acceptsWalletTransferStatusRefreshCompletion(gate, ticket!, scopeKey)).toBe(true);
     expect(settleWalletTransferStatusRefresh(gate, ticket!, scopeKey)).toBe(true);
@@ -211,7 +212,7 @@ describe(`Wallet transfer manual refresh integration safety (${testEnvironment()
         scopeKey: initialScope!,
         requestKey: oldTicket!.requestKey,
       });
-      const pending = readWalletTransferStatusSafely(initialContext.operation);
+      const pending = readWalletTransferStatusSafely(initialSession, initialContext.operation);
 
       let currentScope = initialScope;
       if (staleCase === "actor") {
@@ -301,7 +302,7 @@ describe(`Wallet transfer manual refresh integration safety (${testEnvironment()
         ),
     );
 
-    const result = await readWalletTransferStatusSafely(operation());
+    const result = await readWalletTransferStatusSafely(session(), operation());
     expect(result).toEqual({ ok: false, message: SAFE_STATUS_REFRESH_ERROR });
     expect(calls).toHaveLength(1);
     const serialized = JSON.stringify(result);
@@ -321,7 +322,7 @@ describe(`Wallet transfer manual refresh integration safety (${testEnvironment()
           { status: 200 },
         ),
     );
-    const result = await readWalletTransferStatusSafely(operation());
+    const result = await readWalletTransferStatusSafely(session(), operation());
     expect(result).toEqual({ ok: false, message: SAFE_STATUS_REFRESH_ERROR });
     expect(calls).toHaveLength(1);
     expect((calls[0].init?.method ?? "GET").toUpperCase()).toBe("GET");

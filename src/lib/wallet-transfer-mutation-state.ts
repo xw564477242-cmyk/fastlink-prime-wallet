@@ -1,5 +1,4 @@
 import {
-  isVirtualCardCreateEnvironment,
   normalizeWalletTransferInput,
   normalizeWalletTransferSourceAccount,
   validateVirtualCardIdempotencyKey,
@@ -8,6 +7,7 @@ import {
   type WalletOperationActivity,
   type WalletTransferAccount,
   type WalletTransferInput,
+  walletTransferSessionAllowed,
 } from "./backend-api";
 
 export type WalletTransferMutationGate = {
@@ -46,13 +46,7 @@ export function walletTransferMutationScopeKey(
   source: WalletTransferAccount | null,
   input: unknown,
 ): string | null {
-  if (
-    !session ||
-    !runtimeEnvironment ||
-    session.environment !== runtimeEnvironment ||
-    !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
-    !source
-  ) {
+  if (!session || !walletTransferSessionAllowed(session, runtimeEnvironment) || !source) {
     return null;
   }
   try {
@@ -61,6 +55,7 @@ export function walletTransferMutationScopeKey(
     if (normalizedSource.status !== "active") return null;
     return JSON.stringify([
       session.actorId,
+      session.expiresAt,
       session.tenantId,
       session.customerId,
       session.environment,

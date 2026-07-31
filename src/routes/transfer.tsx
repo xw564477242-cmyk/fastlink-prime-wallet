@@ -53,6 +53,7 @@ function InternalWalletTransferPage() {
     session && source
       ? JSON.stringify([
           session.actorId,
+          session.expiresAt ?? null,
           session.tenantId,
           session.customerId,
           session.environment,

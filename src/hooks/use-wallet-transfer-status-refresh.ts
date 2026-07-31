@@ -26,12 +26,13 @@ export type WalletTransferStatusReadResult =
   | Readonly<{ ok: false; message: typeof SAFE_STATUS_REFRESH_ERROR }>;
 
 export async function readWalletTransferStatusSafely(
+  session: BackendSession,
   previous: WalletOperationActivity,
 ): Promise<WalletTransferStatusReadResult> {
   try {
     return {
       ok: true,
-      operation: await backendApi.walletTransferStatus({ previous }),
+      operation: await backendApi.walletTransferStatus(session, { previous }),
     };
   } catch {
     return { ok: false, message: SAFE_STATUS_REFRESH_ERROR };
@@ -61,12 +62,12 @@ export function useWalletTransferStatusRefresh(
   }, [scopeKey]);
 
   const refresh = useCallback(async (): Promise<boolean> => {
-    if (!scopeKey || !context) return false;
+    if (!scopeKey || !context || !session) return false;
     const ticket = beginWalletTransferStatusRefresh(gate.current, scopeKey);
     if (!ticket) return false;
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
     try {
-      const result = await readWalletTransferStatusSafely(context.operation);
+      const result = await readWalletTransferStatusSafely(session, context.operation);
       if (!acceptsWalletTransferStatusRefreshCompletion(gate.current, ticket, scopeKey)) {
         return false;
       }
@@ -91,7 +92,7 @@ export function useWalletTransferStatusRefresh(
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [context, onRefreshed, scopeKey]);
+  }, [context, onRefreshed, scopeKey, session]);
 
   return { ...view, allowed: scopeKey !== null, refresh };
 }

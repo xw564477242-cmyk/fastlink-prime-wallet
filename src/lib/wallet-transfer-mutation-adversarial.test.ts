@@ -1,10 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import {
+  WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES,
+  WALLET_TRANSFER_ACCOUNT_MAX_ITEMS,
+  WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
   buildWalletTransferRequest,
   normalizeWalletTransferAccount,
   normalizeWalletTransferAccountsResponse,
   normalizeWalletTransferInput,
   normalizeWalletTransferResponse,
+  walletTransferSessionAllowed,
   type BackendSession,
   type WalletOperationActivity,
   type WalletTransferAccount,
@@ -26,6 +30,8 @@ const now = "2026-07-31T15:30:00.000Z";
 function backendAccount(overrides: Record<string, unknown> = {}) {
   return {
     id: "account-source-01",
+    accountCode: "CUSTOMER:SOURCE:USD",
+    name: "Source Wallet",
     assetCode: "USD",
     status: "ACTIVE",
     currentBalance: "100.5",
@@ -54,6 +60,7 @@ function source(overrides: Partial<WalletTransferAccount> = {}): WalletTransferA
 function session(overrides: Partial<BackendSession> = {}): BackendSession {
   return {
     actorId: "actor-01",
+    expiresAt: "2099-08-01T08:00:00.000Z",
     tenantId: "tenant-01",
     customerId: "customer-01",
     environment: "SANDBOX",
@@ -62,7 +69,7 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
 }
 
 function response(overrides: Record<string, unknown> = {}) {
-  return {
+  return JSON.stringify({
     id: "operation-transfer-01",
     type: "INTERNAL_TRANSFER",
     status: "COMPLETED",
@@ -73,18 +80,53 @@ function response(overrides: Record<string, unknown> = {}) {
     completedAt: now,
     updatedAt: now,
     ...overrides,
-  };
+  });
 }
 
 describe("Internal Wallet transfer account and input contract", () => {
+  it("rejects hostile objects before reflection and bounds the raw account list", () => {
+    expect(WALLET_TRANSFER_ACCOUNT_MAX_ITEMS).toBe(100);
+    expect(WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES).toBe(65_536);
+    const traps = { get: 0, getPrototypeOf: 0, ownKeys: 0, getOwnPropertyDescriptor: 0 };
+    const proxy = new Proxy([backendAccount()], {
+      get() {
+        traps.get += 1;
+        throw new Error("get trap must not run");
+      },
+      getPrototypeOf() {
+        traps.getPrototypeOf += 1;
+        throw new Error("prototype trap must not run");
+      },
+      ownKeys() {
+        traps.ownKeys += 1;
+        throw new Error("ownKeys trap must not run");
+      },
+      getOwnPropertyDescriptor() {
+        traps.getOwnPropertyDescriptor += 1;
+        throw new Error("descriptor trap must not run");
+      },
+    });
+    expect(() => normalizeWalletTransferAccountsResponse(proxy as unknown as string)).toThrow();
+    expect(traps).toEqual({ get: 0, getPrototypeOf: 0, ownKeys: 0, getOwnPropertyDescriptor: 0 });
+    expect(() => normalizeWalletTransferAccountsResponse("not-json")).toThrow();
+    expect(() =>
+      normalizeWalletTransferAccountsResponse(
+        " ".repeat(WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES + 1),
+      ),
+    ).toThrow();
+    expect(() =>
+      normalizeWalletTransferAccountsResponse(
+        JSON.stringify(
+          Array.from({ length: WALLET_TRANSFER_ACCOUNT_MAX_ITEMS + 1 }, (_, index) =>
+            backendAccount({ id: `account-${index}` }),
+          ),
+        ),
+      ),
+    ).toThrow();
+  });
+
   it("accepts only ordinary own-data account records and exposes the public allowlist", () => {
-    const parsed = normalizeWalletTransferAccount(
-      backendAccount({
-        accountCode: "CUSTOMER:PRIVATE",
-        name: "Source Wallet",
-        tenantId: "tenant-private",
-      }),
-    );
+    const parsed = normalizeWalletTransferAccount(backendAccount());
     expect(parsed).toEqual(source());
     expect(Object.keys(parsed).sort()).toEqual([
       "assetCode",
@@ -100,6 +142,9 @@ describe("Internal Wallet transfer account and input contract", () => {
     expect(() => normalizeWalletTransferAccount([])).toThrow();
     expect(() =>
       normalizeWalletTransferAccount({ ...backendAccount(), status: "active" }),
+    ).toThrow();
+    expect(() =>
+      normalizeWalletTransferAccount({ ...backendAccount(), provider: "must-not-render" }),
     ).toThrow();
   });
 
@@ -124,7 +169,7 @@ describe("Internal Wallet transfer account and input contract", () => {
         return "secret";
       },
     });
-    expect(normalizeWalletTransferAccount(unknown)).toEqual(source());
+    expect(() => normalizeWalletTransferAccount(unknown)).toThrow();
     expect(reads).toBe(0);
     expect(() =>
       normalizeWalletTransferAccount(backendAccount({ currentBalance: "101" })),
@@ -135,9 +180,11 @@ describe("Internal Wallet transfer account and input contract", () => {
   });
 
   it("rejects sparse, accessor and duplicate account arrays", () => {
-    expect(normalizeWalletTransferAccountsResponse([backendAccount()])).toEqual([source()]);
+    expect(normalizeWalletTransferAccountsResponse(JSON.stringify([backendAccount()]))).toEqual([
+      source(),
+    ]);
     const sparse = new Array(1);
-    expect(() => normalizeWalletTransferAccountsResponse(sparse)).toThrow();
+    expect(() => normalizeWalletTransferAccountsResponse(sparse as unknown as string)).toThrow();
     const accessor = [backendAccount()];
     let reads = 0;
     Object.defineProperty(accessor, "0", {
@@ -147,10 +194,10 @@ describe("Internal Wallet transfer account and input contract", () => {
         return backendAccount();
       },
     });
-    expect(() => normalizeWalletTransferAccountsResponse(accessor)).toThrow();
+    expect(() => normalizeWalletTransferAccountsResponse(accessor as unknown as string)).toThrow();
     expect(reads).toBe(0);
     expect(() =>
-      normalizeWalletTransferAccountsResponse([backendAccount(), backendAccount()]),
+      normalizeWalletTransferAccountsResponse(JSON.stringify([backendAccount(), backendAccount()])),
     ).toThrow();
   });
 
@@ -218,6 +265,17 @@ describe("Internal Wallet transfer account and input contract", () => {
 });
 
 describe("Internal Wallet transfer request and response contract", () => {
+  it("bounds the raw transfer response before parsing", () => {
+    expect(WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES).toBe(16_384);
+    expect(() =>
+      normalizeWalletTransferResponse(
+        " ".repeat(WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES + 1),
+        source(),
+        { destinationAccountId: "account-destination-02", amount: "25" },
+      ),
+    ).toThrow();
+  });
+
   it("builds the exact POST path, body and canonical UUIDv4 Idempotency-Key", () => {
     const request = buildWalletTransferRequest(
       source(),
@@ -243,21 +301,11 @@ describe("Internal Wallet transfer request and response contract", () => {
     ]);
   });
 
-  it("accepts only the provider-neutral nine-field operation and executes zero unknown getters", () => {
-    let reads = 0;
-    const value = response();
-    Object.defineProperty(value, "providerReference", {
-      enumerable: true,
-      get() {
-        reads += 1;
-        return "provider-secret";
-      },
-    });
-    const operation = normalizeWalletTransferResponse(value, source(), {
+  it("accepts only bounded raw JSON and reflects no Provider or journal fields", () => {
+    const operation = normalizeWalletTransferResponse(response(), source(), {
       destinationAccountId: "account-destination-02",
       amount: "25",
     });
-    expect(reads).toBe(0);
     expect(operation).toEqual({
       id: "operation-transfer-01",
       type: "internal_transfer",
@@ -269,6 +317,14 @@ describe("Internal Wallet transfer request and response contract", () => {
       completedAt: now,
       updatedAt: now,
     });
+    expect(JSON.stringify(operation)).not.toMatch(/provider|journal|trace|secret/i);
+    expect(() =>
+      normalizeWalletTransferResponse(
+        JSON.stringify({ ...JSON.parse(response()), providerReference: "provider-secret" }),
+        source(),
+        { destinationAccountId: "account-destination-02", amount: "25" },
+      ),
+    ).toThrow();
   });
 
   it("binds the response to type, asset, amount and source-relative direction", () => {
@@ -298,12 +354,21 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
   const input = { destinationAccountId: "account-destination-02", amount: "25" };
 
   it("allows only matching SANDBOX/TEST identity, runtime and an active exact source balance", () => {
+    expect(walletTransferSessionAllowed(session(), "SANDBOX")).toBe(true);
     expect(walletTransferMutationScopeKey(session(), "SANDBOX", source(), input)).not.toBeNull();
     expect(
       walletTransferMutationScopeKey(session({ environment: "TEST" }), "TEST", source(), input),
     ).not.toBeNull();
     expect(walletTransferMutationScopeKey(session(), "TEST", source(), input)).toBeNull();
     expect(walletTransferMutationScopeKey(session(), "PRODUCTION", source(), input)).toBeNull();
+    expect(
+      walletTransferMutationScopeKey(
+        session({ expiresAt: "2020-01-01T00:00:00.000Z" }),
+        "SANDBOX",
+        source(),
+        input,
+      ),
+    ).toBeNull();
     expect(
       walletTransferMutationScopeKey(session(), "SANDBOX", source({ status: "frozen" }), input),
     ).toBeNull();
@@ -317,6 +382,7 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
     expect(original).not.toBeNull();
     const variants: Array<[BackendSession, "SANDBOX" | "TEST", WalletTransferAccount, unknown]> = [
       [session({ actorId: "actor-02" }), "SANDBOX", source(), input],
+      [session({ expiresAt: "2099-08-01T09:00:00.000Z" }), "SANDBOX", source(), input],
       [session({ tenantId: "tenant-02" }), "SANDBOX", source(), input],
       [session({ customerId: "customer-02" }), "SANDBOX", source(), input],
       [session({ environment: "TEST" }), "TEST", source(), input],

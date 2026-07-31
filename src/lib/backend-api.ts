@@ -207,6 +207,10 @@ export type WalletTransferInput = {
   amount: string;
 };
 
+export const WALLET_TRANSFER_ACCOUNT_MAX_ITEMS = 100;
+export const WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES = 65_536;
+export const WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES = 16_384;
+
 export type WalletAccountTransaction = {
   id: string;
   type: "deposit" | "withdrawal" | "transfer" | "merchant_payment" | "refund" | "fx";
@@ -332,13 +336,30 @@ function requireSandboxTestCardMutationRuntime(): void {
   }
 }
 
-function requireSandboxTestWalletRuntime(): void {
+export function walletTransferSessionAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  now = Date.now(),
+): boolean {
+  if (
+    !session ||
+    session.environment !== runtimeEnvironment ||
+    !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string"
+  ) {
+    return false;
+  }
+  const expiry = Date.parse(session.expiresAt);
+  return Number.isFinite(expiry) && expiry > now;
+}
+
+function requireSandboxTestWalletRuntime(session: BackendSession): void {
   const { environment } = requireRuntime();
-  if (!isVirtualCardCreateEnvironment(environment)) {
+  if (!walletTransferSessionAllowed(session, environment)) {
     throw new BackendApiError(
       0,
       "runtime",
-      "Wallet transfer actions are disabled outside SANDBOX and TEST",
+      "Wallet transfers require a matching, unexpired SANDBOX or TEST session",
     );
   }
 }
@@ -1819,10 +1840,12 @@ function canonicalWalletTransferAmount(value: unknown): string {
 }
 
 export function normalizeWalletTransferAccount(value: unknown): WalletTransferAccount {
-  const record = ownJsonDataRecord(
+  const record = exactTrustedJsonRecord(
     value,
     [
       "id",
+      "accountCode",
+      "name",
       "assetCode",
       "status",
       "currentBalance",
@@ -1833,6 +1856,16 @@ export function normalizeWalletTransferAccount(value: unknown): WalletTransferAc
     ],
     "Backend returned an invalid Wallet transfer account",
   );
+  if (
+    typeof record.accountCode !== "string" ||
+    !record.accountCode.trim() ||
+    record.accountCode.length > 128 ||
+    typeof record.name !== "string" ||
+    !record.name.trim() ||
+    record.name.length > 160
+  ) {
+    throw new Error("Backend returned an invalid Wallet transfer account");
+  }
   const id = walletTransferAccountId(record.id, "source account id");
   const assetCode = walletAssetCode(record.assetCode);
   if (record.status !== "ACTIVE" && record.status !== "FROZEN" && record.status !== "CLOSED") {
@@ -1902,9 +1935,22 @@ export function normalizeWalletTransferSourceAccount(value: unknown): WalletTran
   };
 }
 
-export function normalizeWalletTransferAccountsResponse(value: unknown): WalletTransferAccount[] {
-  const accounts = ownJsonArray(
-    value,
+export function normalizeWalletTransferAccountsResponse(rawJson: string): WalletTransferAccount[] {
+  if (typeof rawJson !== "string" || rawJson.length > WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an invalid Wallet transfer account list");
+  }
+  if (new TextEncoder().encode(rawJson).byteLength > WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an oversized Wallet transfer account list");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error("Backend returned an invalid Wallet transfer account list");
+  }
+  const accounts = denseTrustedJsonArray(
+    parsed,
+    WALLET_TRANSFER_ACCOUNT_MAX_ITEMS,
     "Backend returned an invalid Wallet transfer account list",
   ).map(normalizeWalletTransferAccount);
   if (new Set(accounts.map(({ id }) => id)).size !== accounts.length) {
@@ -1980,10 +2026,37 @@ export function buildWalletTransferRequest(
 }
 
 export function normalizeWalletTransferResponse(
-  value: unknown,
+  rawJson: string,
   source: WalletTransferAccount,
   input: WalletTransferInput,
 ): WalletOperationActivity {
+  if (typeof rawJson !== "string" || rawJson.length > WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an invalid Wallet transfer operation");
+  }
+  if (new TextEncoder().encode(rawJson).byteLength > WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an oversized Wallet transfer operation");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error("Backend returned an invalid Wallet transfer operation");
+  }
+  const value = exactTrustedJsonRecord(
+    parsed,
+    [
+      "id",
+      "type",
+      "status",
+      "assetCode",
+      "amount",
+      "direction",
+      "createdAt",
+      "completedAt",
+      "updatedAt",
+    ],
+    "Backend returned an invalid Wallet transfer operation",
+  );
   const normalizedSource = normalizeWalletTransferSourceAccount(source);
   const normalizedInput = normalizeWalletTransferInput(input, normalizedSource);
   const operation = normalizeWalletOperation(value);
@@ -2368,18 +2441,26 @@ export const backendApi = {
     );
   },
 
-  async walletTransferAccounts(): Promise<WalletTransferAccount[]> {
-    return normalizeWalletTransferAccountsResponse(await request<unknown>("/v1/wallet/accounts"));
+  async walletTransferAccounts(session: BackendSession): Promise<WalletTransferAccount[]> {
+    requireSandboxTestWalletRuntime(session);
+    return normalizeWalletTransferAccountsResponse(
+      await request<string>("/v1/wallet/accounts", {}, "text"),
+    );
   },
 
   async createWalletTransfer(
+    session: BackendSession,
     source: WalletTransferAccount,
     input: WalletTransferInput,
     idempotencyKey: string,
   ): Promise<WalletOperationActivity> {
-    requireSandboxTestWalletRuntime();
+    requireSandboxTestWalletRuntime(session);
     const { path, init } = buildWalletTransferRequest(source, input, idempotencyKey);
-    return normalizeWalletTransferResponse(await request<unknown>(path, init), source, input);
+    return normalizeWalletTransferResponse(
+      await request<string>(path, init, "text"),
+      source,
+      input,
+    );
   },
 
   async walletTransactions(
@@ -2415,9 +2496,10 @@ export const backendApi = {
   },
 
   async walletTransferStatus(
+    session: BackendSession,
     expectation: WalletTransferStatusExpectation,
   ): Promise<WalletOperationActivity> {
-    requireSandboxTestWalletRuntime();
+    requireSandboxTestWalletRuntime(session);
     const result = await request<string>(
       buildWalletOperationDetailPath(expectation.previous.id),
       {},
