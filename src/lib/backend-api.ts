@@ -148,6 +148,12 @@ export type WalletAccountTransactionQuery = {
   cursor?: string;
 };
 
+export type WalletTransactionDetailExpectation = {
+  transactionId: string;
+  assetCode: string;
+  amount: string;
+};
+
 export const WALLET_TRANSACTION_PAGE_SIZE = 25;
 
 type BackendCardRecord = {
@@ -582,6 +588,33 @@ function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
   };
 }
 
+export function buildWalletTransactionDetailPath(transactionId: string): string {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(transactionId)) {
+    throw new Error("Invalid Wallet transaction id");
+  }
+  return `/v1/wallet/transactions/${encodeURIComponent(transactionId)}`;
+}
+
+export function normalizeWalletTransactionDetail(
+  value: unknown,
+  expectation: WalletTransactionDetailExpectation,
+): WalletAccountTransaction {
+  buildWalletTransactionDetailPath(expectation.transactionId);
+  const expectedAssetCode = walletAssetCode(expectation.assetCode);
+  const expectedAmount = walletDecimal(expectation.amount, "transaction amount", true);
+  const detail = normalizeWalletTransaction(value);
+  if (detail.id !== expectation.transactionId) {
+    throw new Error("Backend returned a different Wallet transaction id");
+  }
+  if (detail.assetCode !== expectedAssetCode) {
+    throw new Error("Backend returned a Wallet transaction outside the selected account");
+  }
+  if (detail.amount !== expectedAmount) {
+    throw new Error("Backend returned an inconsistent Wallet transaction amount");
+  }
+  return detail;
+}
+
 export function normalizeWalletTransactionResponse(
   value: unknown,
   expectedAssetCode: string,
@@ -693,5 +726,14 @@ export const backendApi = {
     const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
     const result = await request<unknown>(buildWalletTransactionPath(query));
     return normalizeWalletTransactionResponse(result, query.assetCode, limit);
+  },
+
+  async walletTransactionDetail(
+    expectation: WalletTransactionDetailExpectation,
+  ): Promise<WalletAccountTransaction> {
+    const result = await request<unknown>(
+      buildWalletTransactionDetailPath(expectation.transactionId),
+    );
+    return normalizeWalletTransactionDetail(result, expectation);
   },
 };
