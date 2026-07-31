@@ -1052,7 +1052,9 @@ function renewableCardExpectation(card: WalletCard): {
     !Number.isInteger(card.expiryYear) ||
     card.expiryYear === undefined ||
     card.expiryYear < 2000 ||
-    card.expiryYear > 9999
+    card.expiryYear > 9999 ||
+    card.expiry !==
+      `${String(card.expiryMonth).padStart(2, "0")}/${String(card.expiryYear).slice(-2)}`
   ) {
     throw new Error("Selected Card is not renewable");
   }
@@ -1096,13 +1098,21 @@ export function normalizeCardRenewResponse(value: unknown, expectedCard: WalletC
   const status =
     record.status === "ACTIVE" ? "active" : record.status === "FROZEN" ? "frozen" : null;
   const alias = record.alias === null ? undefined : virtualCardAlias(record.alias, true);
+  const createdAt = cardRfc3339(record.createdAt);
+  const capabilities = strictCardCapabilities(record.capabilities);
   if (
     cardPublicId(record.id) !== expectation.cardId ||
     type !== expectedCard.type ||
     status !== expectedCard.status ||
     record.last4 !== expectedCard.last4 ||
     cardCurrency(record.currency) !== expectedCard.currency ||
-    alias !== expectedCard.alias
+    alias !== expectedCard.alias ||
+    (expectedCard.createdAt !== undefined && createdAt !== expectedCard.createdAt) ||
+    capabilities.freeze !== expectedCard.capabilities.freeze ||
+    capabilities.unfreeze !== expectedCard.capabilities.unfreeze ||
+    capabilities.replace !== expectedCard.capabilities.replace ||
+    capabilities.renew !== expectedCard.capabilities.renew ||
+    capabilities.updateLimits !== expectedCard.capabilities.updateLimits
   ) {
     throw new Error("Backend returned a different renewed Card");
   }
@@ -1132,8 +1142,8 @@ export function normalizeCardRenewResponse(value: unknown, expectedCard: WalletC
     alias,
     balance: expectedCard.balance,
     availableBalanceMinor: expectedCard.availableBalanceMinor,
-    createdAt: cardRfc3339(record.createdAt),
-    capabilities: strictCardCapabilities(record.capabilities),
+    createdAt,
+    capabilities,
   };
 }
 

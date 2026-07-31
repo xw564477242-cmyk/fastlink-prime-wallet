@@ -1,4 +1,5 @@
 import {
+  buildCardRenewRequest,
   isVirtualCardCreateEnvironment,
   validateVirtualCardIdempotencyKey,
   type BackendSession,
@@ -45,6 +46,7 @@ export function cardRenewScopeKey(
     !runtimeEnvironment ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string" ||
     !card ||
     (card.status !== "active" && card.status !== "frozen") ||
     card.capabilities.renew !== true ||
@@ -58,15 +60,37 @@ export function cardRenewScopeKey(
   ) {
     return null;
   }
+  const expiresAt = Date.parse(session.expiresAt);
+  if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) return null;
+  try {
+    buildCardRenewRequest(card, "a0000000-0000-4000-8000-000000000000");
+  } catch {
+    return null;
+  }
   return JSON.stringify([
     session.actorId,
+    session.expiresAt,
     session.tenantId,
     session.customerId,
     session.environment,
     runtimeEnvironment,
     card.cardId,
+    card.type,
+    card.status,
+    card.last4,
+    card.expiry,
     card.expiryYear,
     card.expiryMonth,
+    card.currency,
+    card.alias ?? null,
+    card.balance,
+    card.availableBalanceMinor ?? null,
+    card.createdAt ?? null,
+    card.capabilities.freeze,
+    card.capabilities.unfreeze,
+    card.capabilities.replace,
+    card.capabilities.renew,
+    card.capabilities.updateLimits,
   ]);
 }
 

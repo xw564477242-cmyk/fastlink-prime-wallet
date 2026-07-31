@@ -101,6 +101,20 @@ function statusCard(id: string, action: "freeze" | "unfreeze", overrides = {}) {
   };
 }
 
+function renewableCard(id: string, last4: string, alias: string, overrides = {}) {
+  return {
+    ...card(id, last4, alias),
+    capabilities: {
+      freeze: true,
+      unfreeze: false,
+      replace: false,
+      renew: true,
+      updateLimits: true,
+    },
+    ...overrides,
+  };
+}
+
 function balance(cardId: string) {
   return {
     cardId,
@@ -179,6 +193,10 @@ function statusMutationAction(
   if (init?.method !== "POST") return null;
   const match = requestPath(input).match(/\/api\/v1\/cards\/[^/]+\/(freeze|unfreeze)$/);
   return (match?.[1] as "freeze" | "unfreeze" | undefined) ?? null;
+}
+
+function isRenewMutation(input: string | URL | Request, init?: RequestInit): boolean {
+  return init?.method === "POST" && /\/api\/v1\/cards\/[^/]+\/renew$/.test(requestPath(input));
 }
 
 function selectedCardId(
@@ -639,6 +657,292 @@ describeConfigured(
       await act(flush);
       expect(postReads).toBe(1);
       expect(listReads).toBe(1);
+    });
+  },
+);
+
+describeConfigured(
+  `Mounted selected Card renewal (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
+  () => {
+    it("sends at most one bodyless POST per click with a fresh UUIDv4 and only a forward expiry", async () => {
+      const pending = [deferred<Response>(), deferred<Response>()];
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+        }
+        if (isRenewMutation(input, init)) return pending[mutationReads++]!.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+
+      await act(async () => {
+        void button("Renew card").props.onClick();
+        void button("Renew card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      await resolvePending(
+        pending[0]!,
+        json({
+          ...renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+            expiryMonth: 1,
+            expiryYear: 2031,
+          }),
+          providerOperationId: providerSecret,
+          traceId: traceSecret,
+          internalId: internalSecret,
+        }),
+      );
+      expect(pageText()).toContain("01/31");
+      expect(body()).not.toMatch(
+        /provider-create-secret|trace-create-secret|internal-create-secret/,
+      );
+
+      await act(async () => {
+        void button("Renew card").props.onClick();
+        void button("Renew card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      await resolvePending(
+        pending[1]!,
+        json(
+          renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+            expiryMonth: 2,
+            expiryYear: 2032,
+          }),
+        ),
+      );
+      expect(pageText()).toContain("02/32");
+
+      const mutations = calls.filter(({ input, init }) => isRenewMutation(input, init));
+      const keys = mutations.map(uuidHeader);
+      expect(mutations).toHaveLength(2);
+      expect(keys.every(isUuidV4)).toBeTrue();
+      expect(new Set(keys).size).toBe(2);
+      expect(mutations.every(({ init }) => init?.body === undefined)).toBeTrue();
+    });
+
+    it("allows stale success, error and finally zero writes after session, selection or unmount changes", async () => {
+      const changes: Array<{ label: string; apply: () => Promise<void> }> = [
+        { label: "actor", apply: () => rerender(session({ actorId: "actor-renew-02" })) },
+        { label: "tenant", apply: () => rerender(session({ tenantId: "tenant-renew-02" })) },
+        {
+          label: "customer",
+          apply: () => rerender(session({ customerId: "customer-renew-02" })),
+        },
+        {
+          label: "environment",
+          apply: () => rerender(session({ environment: alternateEnvironment(testEnvironment()) })),
+        },
+        {
+          label: "expiresAt",
+          apply: () => rerender(session({ expiresAt: "2099-08-01T01:00:00.000Z" })),
+        },
+        { label: "logout", apply: () => rerender(null) },
+        {
+          label: "selection",
+          apply: async () => {
+            await act(async () => {
+              button("Owned Renew Two").props.onClick();
+              await flush();
+            });
+          },
+        },
+        { label: "unmount", apply: unmount },
+      ];
+
+      for (const change of changes) {
+        const pending = deferred<Response>();
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              renewableCard("card:renew.1", "4242", "Owned Renew One"),
+              renewableCard("card:renew.2", "5252", "Owned Renew Two"),
+            ]);
+          }
+          if (isRenewMutation(input, init)) {
+            mutationReads += 1;
+            return pending.promise;
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Renew card").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, change.label).toBe(1);
+        await change.apply();
+        await resolvePending(
+          pending,
+          json({
+            ...renewableCard("card:renew.1", "4242", "Owned Renew One", {
+              expiryMonth: 1,
+              expiryYear: 2031,
+            }),
+            providerOperationId: providerSecret,
+            traceId: traceSecret,
+            internalId: internalSecret,
+          }),
+        );
+        if (change.label === "selection") {
+          await act(async () => {
+            button("Owned Renew One").props.onClick();
+            await flush();
+          });
+        }
+        expect(pageText(), change.label).not.toContain("01/31");
+        expect(body(), change.label).not.toMatch(
+          /provider-create-secret|trace-create-secret|internal-create-secret/,
+        );
+        expect(mutationReads, change.label).toBe(1);
+        await unmount();
+      }
+
+      const rejected = deferred<Response>();
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+        }
+        if (isRenewMutation(input, init)) return rejected.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Renew card").props.onClick();
+        await flush();
+      });
+      await rerender(session({ actorId: "actor-renew-error" }));
+      await rejectPending(rejected, new Error(internalSecret));
+      expect(pageText()).not.toContain("Card renewal failed");
+      expect(body()).not.toContain(internalSecret);
+    });
+
+    it("does not expose renewal for an expired session or a Card without the capability", async () => {
+      for (const mode of ["expired", "capability"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+                ...(mode === "capability"
+                  ? {
+                      capabilities: {
+                        freeze: true,
+                        unfreeze: false,
+                        replace: false,
+                        renew: false,
+                        updateLimits: true,
+                      },
+                    }
+                  : {}),
+              }),
+            ]);
+          }
+          if (isRenewMutation(input, init)) {
+            mutationReads += 1;
+            return json({});
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount(
+          mode === "expired" ? session({ expiresAt: "2026-07-31T00:00:00.000Z" }) : session(),
+        );
+        expect(pageText(), mode).not.toContain("Renew card");
+        expect(mutationReads, mode).toBe(0);
+        await unmount();
+      }
+    });
+
+    it("rejects a substituted Card, non-forward expiry or changed original public version", async () => {
+      for (const mode of ["card", "expiry", "last4", "capabilities"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+          }
+          if (isRenewMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              renewableCard(
+                mode === "card" ? "card:foreign" : "card:renew.1",
+                "4242",
+                "Owned Renew Card",
+                {
+                  expiryMonth: mode === "expiry" ? 12 : 1,
+                  expiryYear: mode === "expiry" ? 2030 : 2031,
+                  ...(mode === "last4" ? { last4: "9999" } : {}),
+                  ...(mode === "capabilities"
+                    ? {
+                        capabilities: {
+                          freeze: true,
+                          unfreeze: false,
+                          replace: true,
+                          renew: true,
+                          updateLimits: true,
+                        },
+                      }
+                    : {}),
+                },
+              ),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Renew card").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(pageText(), mode).toContain("Card renewal failed. Try again.");
+        expect(pageText(), mode).not.toMatch(/9999|card:foreign|01\/31/);
+        await act(flush);
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {
+      let mutationReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+        }
+        if (isRenewMutation(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Renew card").props.onClick();
+        void button("Renew card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Card renewal failed. Try again.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+      await act(flush);
+      expect(mutationReads).toBe(1);
     });
   },
 );

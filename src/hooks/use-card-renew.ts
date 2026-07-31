@@ -35,7 +35,11 @@ export function useCardRenew(
   const view = cardRenewView(state, scopeKey);
 
   useEffect(() => {
+    const currentGate = gate.current;
     dispatch({ type: "reset", scopeKey });
+    return () => {
+      if (currentGate.scopeKey === scopeKey) syncCardRenewScope(currentGate, null);
+    };
   }, [scopeKey]);
 
   const submit = useCallback(async (): Promise<boolean> => {
