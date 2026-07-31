@@ -23,6 +23,7 @@ const keys = ["c3333333-cccc-4ccc-8ccc-cccccccccccc", "d4444444-dddd-4ddd-9ddd-d
 
 const session = (overrides: Partial<BackendSession> = {}): BackendSession => ({
   actorId: "actor-a",
+  expiresAt: "2099-08-01T00:00:00.000Z",
   tenantId: "tenant-a",
   customerId: "customer-a",
   environment: "SANDBOX",
@@ -91,6 +92,10 @@ describe("Selected Card renew environment, capability and request gate", () => {
     ).toBeNull();
     expect(cardRenewScopeKey(session(), "SANDBOX", card({ status: "closed" }))).toBeNull();
     expect(cardRenewScopeKey(session(), "SANDBOX", card({ expiryYear: undefined }))).toBeNull();
+    expect(cardRenewScopeKey(session(), "SANDBOX", card({ expiry: "11/30" }))).toBeNull();
+    expect(
+      cardRenewScopeKey(session({ expiresAt: "2026-07-31T00:00:00.000Z" }), "SANDBOX", card()),
+    ).toBeNull();
     for (const invalidExpiry of [
       { expiryMonth: 0 },
       { expiryMonth: 13 },
@@ -226,6 +231,18 @@ describe("Selected Card renew response parser", () => {
     expect(
       normalizeCardRenewResponse(response({ alias: null }), card({ alias: undefined })).alias,
     ).toBeUndefined();
+    expect(() =>
+      normalizeCardRenewResponse(
+        response({ createdAt: "2026-08-01T12:00:00Z" }),
+        card({ createdAt: "2026-07-31T12:00:00.123456789+08:00" }),
+      ),
+    ).toThrow();
+    expect(() =>
+      normalizeCardRenewResponse(
+        response({ capabilities: { ...response().capabilities, replace: false } }),
+        expected,
+      ),
+    ).toThrow();
   });
 
   it("requires a strictly later valid expiry and exact capability booleans", () => {
@@ -319,7 +336,16 @@ describe("Selected Card renew scope and generation isolation", () => {
       [session({ tenantId: "tenant-b" }), "SANDBOX", card()],
       [session({ customerId: "customer-b" }), "SANDBOX", card()],
       [session({ environment: "TEST" }), "TEST", card()],
+      [session({ expiresAt: "2099-08-01T01:00:00.000Z" }), "SANDBOX", card()],
       [session(), "SANDBOX", card({ cardId: "card:owned.2" })],
+      [session(), "SANDBOX", card({ type: "physical" })],
+      [session(), "SANDBOX", card({ status: "frozen" })],
+      [session(), "SANDBOX", card({ last4: "1111" })],
+      [session(), "SANDBOX", card({ currency: "EUR" })],
+      [session(), "SANDBOX", card({ alias: "Secondary Card" })],
+      [session(), "SANDBOX", card({ balance: 26 })],
+      [session(), "SANDBOX", card({ availableBalanceMinor: "2600" })],
+      [session(), "SANDBOX", card({ capabilities: { ...card().capabilities, replace: false } })],
     ] as const;
 
     for (const [nextSession, runtime, nextCard] of changes) {
