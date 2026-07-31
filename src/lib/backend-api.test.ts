@@ -342,7 +342,9 @@ describe("Selected Card limits Backend adapter", () => {
 
 describe("Card transaction Backend adapter", () => {
   it("builds a selected-Card bounded cursor request", () => {
-    expect(buildCardTransactionPath("card/one")).toBe("/v1/cards/card%2Fone/transactions?limit=25");
+    expect(buildCardTransactionPath("card:one.1")).toBe(
+      "/v1/cards/card%3Aone.1/transactions?limit=25",
+    );
     expect(buildCardTransactionPath("card_1", { limit: 10, cursor: "txn_cursor-1" })).toBe(
       "/v1/cards/card_1/transactions?limit=10&cursor=txn_cursor-1",
     );
@@ -353,6 +355,9 @@ describe("Card transaction Backend adapter", () => {
       "Invalid card transaction cursor",
     );
     expect(() => buildCardTransactionPath("\n", {})).toThrow("Invalid card transaction card id");
+    expect(() => buildCardTransactionPath("card/one", {})).toThrow(
+      "Invalid card transaction card id",
+    );
   });
 
   it("keeps only explicitly allowed public transaction fields", () => {
