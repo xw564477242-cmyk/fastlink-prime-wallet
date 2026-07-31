@@ -27,6 +27,7 @@ import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
 import { useCardLimitsMutation } from "@/hooks/use-card-limits-mutation";
+import { useCardStatusMutation } from "@/hooks/use-card-status-mutation";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
 import { useCardRenew } from "@/hooks/use-card-renew";
 import { useCardReplace } from "@/hooks/use-card-replace";
@@ -153,6 +154,17 @@ export function CardsPage() {
     cardLimitsInput,
     cardLimits.replaceCurrentLimits,
   );
+  const cardStatusAction = current?.status === "frozen" ? "unfreeze" : "freeze";
+  const acceptStatusUpdate = useCallback(
+    (card: Parameters<typeof replaceCard>[0]) => replaceCard(card),
+    [replaceCard],
+  );
+  const cardStatusMutation = useCardStatusMutation(
+    session,
+    current,
+    cardStatusAction,
+    acceptStatusUpdate,
+  );
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
@@ -168,14 +180,16 @@ export function CardsPage() {
     virtualCardCreate.busy ||
     cardRenew.busy ||
     cardReplace.busy ||
-    cardLimitsMutation.busy;
+    cardLimitsMutation.busy ||
+    cardStatusMutation.busy;
   const error =
     listError ??
     (scopeReady ? actionState.error : null) ??
     (virtualCardCreate.allowed ? virtualCardCreate.error : null) ??
     (cardRenew.allowed ? cardRenew.error : null) ??
     (cardReplace.allowed ? cardReplace.error : null) ??
-    (cardLimitsMutation.allowed ? cardLimitsMutation.error : null);
+    (cardLimitsMutation.allowed ? cardLimitsMutation.error : null) ??
+    (cardStatusMutation.allowed ? cardStatusMutation.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -206,29 +220,8 @@ export function CardsPage() {
   };
 
   const toggleFrozen = async () => {
-    if (!current) return;
-    const frozen = current.status === "frozen";
-    const action: CardAction = frozen ? "unfreeze" : "freeze";
-    if (!cardActionAllowed(action, scopeReady, sessionKey, current)) {
-      setActionState({
-        scopeKey: actionScopeKey,
-        busy: false,
-        error: "This card operation is unavailable in the current Backend/provider state.",
-      });
-      return;
-    }
-    const ticket = startAction(action);
-    if (!ticket || !actionScopeKey) return;
-    const scopeKey = actionScopeKey;
-    try {
-      const card = await backendApi.setFrozen(current.cardId, !frozen);
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) replaceCard(card);
-    } catch (reason) {
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey))
-        invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
-    } finally {
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) finishAction(scopeKey);
-    }
+    if (!scopeReady || !cardStatusMutation.allowed || busy) return;
+    await cardStatusMutation.submit();
   };
 
   const issueVirtual = async () => {
@@ -426,15 +419,7 @@ export function CardsPage() {
             <div className="mt-4 grid grid-cols-2 gap-2">
               <CardAction
                 onClick={() => void toggleFrozen()}
-                disabled={
-                  busy ||
-                  !cardActionAllowed(
-                    current.status === "frozen" ? "unfreeze" : "freeze",
-                    scopeReady,
-                    sessionKey,
-                    current,
-                  )
-                }
+                disabled={busy || !cardStatusMutation.allowed}
                 label={current.status === "frozen" ? t("cards.unfreeze") : t("cards.freeze")}
                 icon={
                   current.status === "frozen" ? (

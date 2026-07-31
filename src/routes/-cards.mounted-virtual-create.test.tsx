@@ -63,7 +63,7 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
   };
 }
 
-function card(id: string, last4: string, alias: string) {
+function card(id: string, last4: string, alias: string, overrides: Record<string, unknown> = {}) {
   return {
     id,
     type: "VIRTUAL",
@@ -82,6 +82,22 @@ function card(id: string, last4: string, alias: string) {
       renew: false,
       updateLimits: true,
     },
+    ...overrides,
+  };
+}
+
+function statusCard(id: string, action: "freeze" | "unfreeze", overrides = {}) {
+  return {
+    ...card(id, "4242", "Owned Status Card"),
+    status: action === "freeze" ? "FROZEN" : "ACTIVE",
+    capabilities: {
+      freeze: action === "unfreeze",
+      unfreeze: action === "freeze",
+      replace: false,
+      renew: false,
+      updateLimits: true,
+    },
+    ...overrides,
   };
 }
 
@@ -154,6 +170,15 @@ function isCreate(input: string | URL | Request, init?: RequestInit): boolean {
 
 function isLimitsMutation(input: string | URL | Request, init?: RequestInit): boolean {
   return selectedCardId(input, "limits") !== null && init?.method === "POST";
+}
+
+function statusMutationAction(
+  input: string | URL | Request,
+  init?: RequestInit,
+): "freeze" | "unfreeze" | null {
+  if (init?.method !== "POST") return null;
+  const match = requestPath(input).match(/\/api\/v1\/cards\/[^/]+\/(freeze|unfreeze)$/);
+  return (match?.[1] as "freeze" | "unfreeze" | undefined) ?? null;
 }
 
 function selectedCardId(
@@ -290,6 +315,8 @@ beforeAll(async () => {
       t: (key: string) => {
         if (key === "cards.issueNew") return "Issue Virtual Card";
         if (key === "cards.defaultVirtualAlias") return createAlias;
+        if (key === "cards.freeze") return "Freeze";
+        if (key === "cards.unfreeze") return "Unfreeze";
         return key;
       },
     }),
@@ -612,6 +639,235 @@ describeConfigured(
       await act(flush);
       expect(postReads).toBe(1);
       expect(listReads).toBe(1);
+    });
+  },
+);
+
+describeConfigured(
+  `Mounted selected Card freeze and unfreeze (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
+  () => {
+    it("sends at most one mutation per click with a fresh UUIDv4 and strict action transition", async () => {
+      const pending = [deferred<Response>(), deferred<Response>()];
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+        }
+        const action = statusMutationAction(input, init);
+        if (action) return pending[mutationReads++]!.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Freeze").props.onClick();
+        void button("Freeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      await resolvePending(
+        pending[0]!,
+        json({
+          ...statusCard("card:status.1", "freeze"),
+          providerOperationId: providerSecret,
+          traceId: traceSecret,
+          internalId: internalSecret,
+        }),
+      );
+      expect(pageText()).toContain("FROZEN");
+      expect(body()).not.toMatch(
+        /provider-create-secret|trace-create-secret|internal-create-secret/,
+      );
+
+      await act(async () => {
+        void button("Unfreeze").props.onClick();
+        void button("Unfreeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      await resolvePending(pending[1]!, json(statusCard("card:status.1", "unfreeze")));
+      expect(pageText()).toContain("ACTIVE");
+
+      const mutations = calls.filter(({ input, init }) => statusMutationAction(input, init));
+      expect(mutations.map(({ input, init }) => statusMutationAction(input, init))).toEqual([
+        "freeze",
+        "unfreeze",
+      ]);
+      const keys = mutations.map(uuidHeader);
+      expect(keys.every(isUuidV4)).toBeTrue();
+      expect(new Set(keys).size).toBe(2);
+      expect(mutations.every(({ init }) => init?.body === undefined)).toBeTrue();
+    });
+
+    it("allows stale success, error and finally zero writes after session, selection or unmount changes", async () => {
+      const changes: Array<{ label: string; apply: () => Promise<void> }> = [
+        { label: "actor", apply: () => rerender(session({ actorId: "actor-status-02" })) },
+        { label: "tenant", apply: () => rerender(session({ tenantId: "tenant-status-02" })) },
+        {
+          label: "customer",
+          apply: () => rerender(session({ customerId: "customer-status-02" })),
+        },
+        {
+          label: "environment",
+          apply: () => rerender(session({ environment: alternateEnvironment(testEnvironment()) })),
+        },
+        {
+          label: "expiresAt",
+          apply: () => rerender(session({ expiresAt: "2099-08-01T01:00:00.000Z" })),
+        },
+        { label: "logout", apply: () => rerender(null) },
+        {
+          label: "selection-action",
+          apply: async () => {
+            await act(async () => {
+              button("Owned Frozen Two").props.onClick();
+              await flush();
+            });
+          },
+        },
+        { label: "unmount", apply: unmount },
+      ];
+
+      for (const change of changes) {
+        const pending = deferred<Response>();
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              card("card:status.1", "4242", "Owned Active One"),
+              card("card:status.2", "5252", "Owned Frozen Two", {
+                status: "FROZEN",
+                capabilities: {
+                  freeze: false,
+                  unfreeze: true,
+                  replace: false,
+                  renew: false,
+                  updateLimits: true,
+                },
+              }),
+            ]);
+          }
+          if (statusMutationAction(input, init)) {
+            mutationReads += 1;
+            return pending.promise;
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Freeze").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, change.label).toBe(1);
+        await change.apply();
+        await resolvePending(
+          pending,
+          json({
+            ...statusCard("card:status.1", "freeze", { alias: "Owned Active One" }),
+            providerOperationId: providerSecret,
+            traceId: traceSecret,
+            internalId: internalSecret,
+          }),
+        );
+        if (change.label === "selection-action") {
+          await act(async () => {
+            button("Owned Active One").props.onClick();
+            await flush();
+          });
+        }
+        expect(pageText(), change.label).not.toContain("FROZEN");
+        expect(body(), change.label).not.toMatch(
+          /provider-create-secret|trace-create-secret|internal-create-secret/,
+        );
+        expect(mutationReads, change.label).toBe(1);
+        await unmount();
+      }
+
+      const rejected = deferred<Response>();
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+        }
+        if (statusMutationAction(input, init)) return rejected.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Freeze").props.onClick();
+        await flush();
+      });
+      await rerender(session({ actorId: "actor-status-error" }));
+      await rejectPending(rejected, new Error(internalSecret));
+      expect(pageText()).not.toContain("Card status update failed");
+      expect(body()).not.toContain(internalSecret);
+    });
+
+    it("rejects a substituted Card, wrong action state or changed public Card version", async () => {
+      for (const mode of ["card", "status", "version"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+          }
+          if (statusMutationAction(input, init)) {
+            mutationReads += 1;
+            return json(
+              statusCard(mode === "card" ? "card:foreign" : "card:status.1", "freeze", {
+                ...(mode === "status" ? { status: "ACTIVE" } : {}),
+                ...(mode === "version" ? { last4: "9999" } : {}),
+              }),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Freeze").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(pageText(), mode).toContain("Card status update failed. Try again.");
+        expect(pageText(), mode).not.toMatch(/9999|card:foreign/);
+        await act(flush);
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {
+      let mutationReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+        }
+        if (statusMutationAction(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Freeze").props.onClick();
+        void button("Freeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Card status update failed. Try again.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+      await act(flush);
+      expect(mutationReads).toBe(1);
     });
   },
 );
