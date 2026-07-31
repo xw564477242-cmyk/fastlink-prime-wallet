@@ -155,7 +155,7 @@ describe("Card transaction state", () => {
     expect(failed.error).toBe(CARD_TRANSACTION_PAGINATION_ERROR);
   });
 
-  it("preserves validated current-scope rows when a transport failure occurs", () => {
+  it("preserves validated current-scope rows but closes pagination after a transport failure", () => {
     const current = {
       ...initialCardTransactionState,
       scopeKey: "scope-card-a",
@@ -173,7 +173,7 @@ describe("Card transaction state", () => {
     });
 
     expect(failed.transactions.map((item) => item.id)).toEqual(["txn-1"]);
-    expect(failed.nextCursor).toBe("retry-cursor");
+    expect(failed.nextCursor).toBeNull();
     expect(failed.error).toBe("temporary failure");
   });
 

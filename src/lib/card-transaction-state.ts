@@ -143,7 +143,7 @@ export function cardTransactionReducer(
       return {
         ...state,
         transactions: action.append ? state.transactions : [],
-        nextCursor: action.append ? state.nextCursor : null,
+        nextCursor: null,
         loading: false,
         loadingMore: false,
         error: action.message,
