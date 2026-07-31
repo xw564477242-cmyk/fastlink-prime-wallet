@@ -15,6 +15,12 @@ import { useWalletAccountHistory } from "@/hooks/use-wallet-account-history";
 import { useWalletTransactionDetail } from "@/hooks/use-wallet-transaction-detail";
 import { useWalletOperations } from "@/hooks/use-wallet-operations";
 import { useWalletOperationDetail } from "@/hooks/use-wallet-operation-detail";
+import {
+  WALLET_TRANSACTION_STATUSES,
+  WALLET_TRANSACTION_TYPES,
+  type WalletTransactionStatusFilter,
+  type WalletTransactionTypeFilter,
+} from "@/lib/backend-api";
 
 export const Route = createFileRoute("/assets/fiat")({
   head: () => ({
@@ -30,7 +36,14 @@ function WalletAccountsPage() {
   const { session } = useBackendSession();
   const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const [selectedOperationId, setSelectedOperationId] = useState<string | null>(null);
-  const { accounts, transactions, selectAccount, loadMore } = useWalletAccountHistory(session);
+  const [transactionType, setTransactionType] = useState<WalletTransactionTypeFilter | undefined>();
+  const [transactionStatus, setTransactionStatus] = useState<
+    WalletTransactionStatusFilter | undefined
+  >();
+  const { accounts, transactions, selectAccount, loadMore } = useWalletAccountHistory(session, {
+    type: transactionType,
+    status: transactionStatus,
+  });
   const selected =
     accounts.accounts.find((account) => account.assetCode === accounts.selectedAssetCode) ?? null;
   const selectedTransaction =
@@ -102,6 +115,52 @@ function WalletAccountsPage() {
         )}
 
         <h2 className="mt-6 font-display text-lg font-semibold">Account history</h2>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Type
+            <select
+              aria-label="Wallet transaction type"
+              value={transactionType ?? ""}
+              onChange={(event) => {
+                setSelectedTransactionId(null);
+                const value = event.target.value;
+                setTransactionType(
+                  value === "" ? undefined : (value as WalletTransactionTypeFilter),
+                );
+              }}
+              className="mt-1 w-full rounded-xl border border-border/60 bg-surface px-3 py-2 text-xs normal-case tracking-normal text-foreground"
+            >
+              <option value="">All types</option>
+              {WALLET_TRANSACTION_TYPES.map((value) => (
+                <option key={value} value={value}>
+                  {value.replaceAll("_", " ").toLowerCase()}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Status
+            <select
+              aria-label="Wallet transaction status"
+              value={transactionStatus ?? ""}
+              onChange={(event) => {
+                setSelectedTransactionId(null);
+                const value = event.target.value;
+                setTransactionStatus(
+                  value === "" ? undefined : (value as WalletTransactionStatusFilter),
+                );
+              }}
+              className="mt-1 w-full rounded-xl border border-border/60 bg-surface px-3 py-2 text-xs normal-case tracking-normal text-foreground"
+            >
+              <option value="">All statuses</option>
+              {WALLET_TRANSACTION_STATUSES.map((value) => (
+                <option key={value} value={value}>
+                  {value.toLowerCase()}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         {detail.loading && (
           <div className="mt-3 flex items-center gap-2 rounded-2xl bg-surface p-4 text-xs text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected transaction

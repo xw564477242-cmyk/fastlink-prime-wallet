@@ -245,8 +245,24 @@ export type WalletAccountTransactionPage = {
   nextCursor: string | null;
 };
 
+export const WALLET_TRANSACTION_TYPES = [
+  "DEPOSIT",
+  "WITHDRAWAL",
+  "TRANSFER",
+  "MERCHANT_PAYMENT",
+  "REFUND",
+  "FX",
+] as const;
+export type WalletTransactionTypeFilter = (typeof WALLET_TRANSACTION_TYPES)[number];
+
+export const WALLET_TRANSACTION_STATUSES = ["PENDING", "COMPLETED", "FAILED", "REVERSED"] as const;
+export type WalletTransactionStatusFilter = (typeof WALLET_TRANSACTION_STATUSES)[number];
+export const WALLET_TRANSACTION_FILTER_VERSION = 1;
+
 export type WalletAccountTransactionQuery = {
   assetCode: string;
+  type?: WalletTransactionTypeFilter;
+  status?: WalletTransactionStatusFilter;
   limit?: number;
   cursor?: string;
 };
@@ -403,6 +419,34 @@ function requireSandboxTestWalletBalanceRuntime(sessionEnvironment: FastLinkEnvi
   }
 }
 
+export function walletTransactionReadAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  now = Date.now(),
+): boolean {
+  if (
+    !session ||
+    session.environment !== runtimeEnvironment ||
+    (runtimeEnvironment !== "SANDBOX" && runtimeEnvironment !== "TEST") ||
+    typeof session.expiresAt !== "string"
+  ) {
+    return false;
+  }
+  const expiry = Date.parse(session.expiresAt);
+  return Number.isFinite(expiry) && expiry > now;
+}
+
+function requireSandboxTestWalletTransactionRuntime(session: BackendSession): void {
+  const { environment } = requireRuntime();
+  if (!walletTransactionReadAllowed(session, environment)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Wallet transactions are available only in a matching, unexpired SANDBOX or TEST session",
+    );
+  }
+}
+
 export function cardTransactionReadAllowed(
   sessionEnvironment: FastLinkEnvironment,
   runtimeEnvironment: FastLinkEnvironment | undefined,
@@ -463,6 +507,10 @@ async function request<T>(
   }
 
   const controller = new AbortController();
+  const externalSignal = init.signal ?? undefined;
+  const abortFromCaller = () => controller.abort();
+  if (externalSignal?.aborted) controller.abort();
+  else externalSignal?.addEventListener("abort", abortFromCaller, { once: true });
   const timeout = globalThis.setTimeout(() => controller.abort(), 20_000);
   try {
     const response = await fetch(`${runtime.apiUrl}${path}`, {
@@ -503,6 +551,7 @@ async function request<T>(
     throw new BackendApiError(0, requestTraceId, `${message} · Trace ${requestTraceId}`);
   } finally {
     globalThis.clearTimeout(timeout);
+    externalSignal?.removeEventListener("abort", abortFromCaller);
   }
 }
 
@@ -1834,6 +1883,18 @@ export function normalizeWalletBalanceResponse(rawJson: string): WalletAssetAcco
 
 export function buildWalletTransactionPath(query: WalletAccountTransactionQuery): string {
   const assetCode = walletAssetCode(query.assetCode);
+  if (
+    query.type !== undefined &&
+    !(WALLET_TRANSACTION_TYPES as readonly string[]).includes(query.type)
+  ) {
+    throw new Error("Invalid Wallet transaction type filter");
+  }
+  if (
+    query.status !== undefined &&
+    !(WALLET_TRANSACTION_STATUSES as readonly string[]).includes(query.status)
+  ) {
+    throw new Error("Invalid Wallet transaction status filter");
+  }
   const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
   if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_TRANSACTION_PAGE_SIZE) {
     throw new Error(
@@ -1847,6 +1908,8 @@ export function buildWalletTransactionPath(query: WalletAccountTransactionQuery)
     throw new Error("Invalid Wallet transaction cursor");
   }
   const params = new URLSearchParams({ assetCode, limit: String(limit) });
+  if (query.type) params.set("type", query.type);
+  if (query.status) params.set("status", query.status);
   if (query.cursor) params.set("cursor", query.cursor);
   return `/v1/wallet/transactions?${params.toString()}`;
 }
@@ -2414,6 +2477,7 @@ export function normalizeWalletTransactionResponse(
   value: unknown,
   expectedAssetCode: string,
   limit = WALLET_TRANSACTION_PAGE_SIZE,
+  expectedFilters: Pick<WalletAccountTransactionQuery, "type" | "status"> = {},
 ): WalletAccountTransactionPage {
   const assetCode = walletAssetCode(expectedAssetCode);
   if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_TRANSACTION_PAGE_SIZE) {
@@ -2440,6 +2504,18 @@ export function normalizeWalletTransactionResponse(
   const items = page.items.map(normalizeWalletTransaction);
   if (items.some((item) => item.assetCode !== assetCode)) {
     throw new Error("Backend returned a Wallet transaction outside the selected account");
+  }
+  if (
+    expectedFilters.type &&
+    items.some((item) => item.type !== expectedFilters.type?.toLowerCase())
+  ) {
+    throw new Error("Backend returned a Wallet transaction outside the selected type filter");
+  }
+  if (
+    expectedFilters.status &&
+    items.some((item) => item.status !== expectedFilters.status?.toLowerCase())
+  ) {
+    throw new Error("Backend returned a Wallet transaction outside the selected status filter");
   }
   return { items, nextCursor: page.nextCursor };
 }
@@ -2568,10 +2644,11 @@ export const backendApi = {
 
   async walletBalanceAccounts(
     sessionEnvironment: FastLinkEnvironment,
+    signal?: AbortSignal,
   ): Promise<WalletAssetAccount[]> {
     requireSandboxTestWalletBalanceRuntime(sessionEnvironment);
     return normalizeWalletBalanceResponse(
-      await request<string>(WALLET_BALANCE_SUMMARY_PATH, {}, "text"),
+      await request<string>(WALLET_BALANCE_SUMMARY_PATH, { signal }, "text"),
     );
   },
 
@@ -2598,18 +2675,25 @@ export const backendApi = {
   },
 
   async walletTransactions(
+    session: BackendSession,
     query: WalletAccountTransactionQuery,
+    signal?: AbortSignal,
   ): Promise<WalletAccountTransactionPage> {
+    requireSandboxTestWalletTransactionRuntime(session);
     const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
-    const result = await request<unknown>(buildWalletTransactionPath(query));
-    return normalizeWalletTransactionResponse(result, query.assetCode, limit);
+    const result = await request<unknown>(buildWalletTransactionPath(query), { signal });
+    return normalizeWalletTransactionResponse(result, query.assetCode, limit, query);
   },
 
   async walletTransactionDetail(
+    session: BackendSession,
     expectation: WalletTransactionDetailExpectation,
+    signal?: AbortSignal,
   ): Promise<WalletAccountTransaction> {
+    requireSandboxTestWalletTransactionRuntime(session);
     const result = await request<unknown>(
       buildWalletTransactionDetailPath(expectation.transactionId),
+      { signal },
     );
     return normalizeWalletTransactionDetail(result, expectation);
   },
