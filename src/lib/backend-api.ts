@@ -78,6 +78,8 @@ export type WalletCard = {
   status: "active" | "frozen" | "pending" | "closed" | "failed";
   last4: string;
   expiry: string;
+  expiryMonth?: number;
+  expiryYear?: number;
   currency: string;
   alias?: string;
   balance: number;
@@ -277,7 +279,7 @@ function requireRuntime(): { apiUrl: string; environment: FastLinkEnvironment } 
   };
 }
 
-function requireVirtualCardCreateRuntime(): void {
+function requireSandboxTestCardMutationRuntime(): void {
   const { environment } = requireRuntime();
   if (!isVirtualCardCreateEnvironment(environment)) {
     throw new BackendApiError(
@@ -367,6 +369,13 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     : "virtual";
   const month = Number(value.expiryMonth);
   const year = Number(value.expiryYear);
+  const expiryValid =
+    Number.isInteger(month) &&
+    month >= 1 &&
+    month <= 12 &&
+    Number.isInteger(year) &&
+    year >= 2000 &&
+    year <= 9999;
   const minor = Number(value.availableBalanceMinor ?? 0);
   const capabilities = value.capabilities ?? {};
 
@@ -375,10 +384,9 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     type,
     status: normalizeStatus(value.status),
     last4: typeof value.last4 === "string" ? value.last4 : "",
-    expiry:
-      Number.isInteger(month) && Number.isInteger(year)
-        ? `${String(month).padStart(2, "0")}/${String(year).slice(-2)}`
-        : "—",
+    expiry: expiryValid ? `${String(month).padStart(2, "0")}/${String(year).slice(-2)}` : "—",
+    expiryMonth: expiryValid ? month : undefined,
+    expiryYear: expiryValid ? year : undefined,
     currency: typeof value.currency === "string" ? value.currency : "—",
     alias: typeof value.alias === "string" ? value.alias : undefined,
     balance: Number.isFinite(minor) ? minor / 100 : 0,
@@ -619,7 +627,7 @@ export function buildVirtualCardCreateRequest(
   };
 }
 
-function virtualCardCapabilities(value: unknown): WalletCard["capabilities"] {
+function strictCardCapabilities(value: unknown): WalletCard["capabilities"] {
   const record = ownJsonDataRecord(
     value,
     ["freeze", "unfreeze", "replace", "renew", "updateLimits"],
@@ -688,12 +696,118 @@ export function normalizeVirtualCardCreateResponse(value: unknown): WalletCard {
     status: record.status.toLowerCase() as WalletCard["status"],
     last4: record.last4,
     expiry: `${String(record.expiryMonth).padStart(2, "0")}/${String(record.expiryYear).slice(-2)}`,
+    expiryMonth: record.expiryMonth,
+    expiryYear: record.expiryYear,
     currency: cardCurrency(record.currency),
     alias: virtualCardAlias(record.alias, true),
     balance: Number(availableBalanceMinor) / 100,
     availableBalanceMinor,
     createdAt: cardRfc3339(record.createdAt),
-    capabilities: virtualCardCapabilities(record.capabilities),
+    capabilities: strictCardCapabilities(record.capabilities),
+  };
+}
+
+function renewableCardExpectation(card: WalletCard): {
+  cardId: string;
+  expiryMonth: number;
+  expiryYear: number;
+} {
+  const cardId = cardPublicId(card.cardId);
+  if (
+    (card.type !== "virtual" && card.type !== "physical") ||
+    (card.status !== "active" && card.status !== "frozen") ||
+    card.capabilities.renew !== true ||
+    !/^\d{4}$/.test(card.last4) ||
+    !/^[A-Z]{3}$/.test(card.currency) ||
+    !Number.isInteger(card.expiryMonth) ||
+    card.expiryMonth === undefined ||
+    card.expiryMonth < 1 ||
+    card.expiryMonth > 12 ||
+    !Number.isInteger(card.expiryYear) ||
+    card.expiryYear === undefined ||
+    card.expiryYear < 2000 ||
+    card.expiryYear > 9999
+  ) {
+    throw new Error("Selected Card is not renewable");
+  }
+  return { cardId, expiryMonth: card.expiryMonth, expiryYear: card.expiryYear };
+}
+
+export function buildCardRenewRequest(
+  card: WalletCard,
+  idempotencyKey: string,
+): { path: string; init: RequestInit } {
+  const { cardId } = renewableCardExpectation(card);
+  return {
+    path: `/v1/cards/${encodeURIComponent(cardId)}/renew`,
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+    },
+  };
+}
+
+export function normalizeCardRenewResponse(value: unknown, expectedCard: WalletCard): WalletCard {
+  const expectation = renewableCardExpectation(expectedCard);
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "last4",
+      "expiryMonth",
+      "expiryYear",
+      "currency",
+      "alias",
+      "createdAt",
+      "capabilities",
+    ],
+    "Backend returned an invalid renewed Card",
+  );
+  const type =
+    record.type === "VIRTUAL" ? "virtual" : record.type === "PHYSICAL" ? "physical" : null;
+  const status =
+    record.status === "ACTIVE" ? "active" : record.status === "FROZEN" ? "frozen" : null;
+  const alias = record.alias === null ? undefined : virtualCardAlias(record.alias, true);
+  if (
+    cardPublicId(record.id) !== expectation.cardId ||
+    type !== expectedCard.type ||
+    status !== expectedCard.status ||
+    record.last4 !== expectedCard.last4 ||
+    cardCurrency(record.currency) !== expectedCard.currency ||
+    alias !== expectedCard.alias
+  ) {
+    throw new Error("Backend returned a different renewed Card");
+  }
+  if (
+    typeof record.expiryMonth !== "number" ||
+    !Number.isInteger(record.expiryMonth) ||
+    record.expiryMonth < 1 ||
+    record.expiryMonth > 12 ||
+    typeof record.expiryYear !== "number" ||
+    !Number.isInteger(record.expiryYear) ||
+    record.expiryYear < 2000 ||
+    record.expiryYear > 9999 ||
+    record.expiryYear < expectation.expiryYear ||
+    (record.expiryYear === expectation.expiryYear && record.expiryMonth <= expectation.expiryMonth)
+  ) {
+    throw new Error("Backend returned an invalid renewed Card expiry");
+  }
+  return {
+    cardId: expectation.cardId,
+    type,
+    status,
+    last4: expectedCard.last4,
+    expiry: `${String(record.expiryMonth).padStart(2, "0")}/${String(record.expiryYear).slice(-2)}`,
+    expiryMonth: record.expiryMonth,
+    expiryYear: record.expiryYear,
+    currency: expectedCard.currency,
+    alias,
+    balance: expectedCard.balance,
+    availableBalanceMinor: expectedCard.availableBalanceMinor,
+    createdAt: cardRfc3339(record.createdAt),
+    capabilities: strictCardCapabilities(record.capabilities),
   };
 }
 
@@ -1303,10 +1417,16 @@ export const backendApi = {
     input: VirtualCardCreateInput,
     idempotencyKey: string,
   ): Promise<WalletCard> {
-    requireVirtualCardCreateRuntime();
+    requireSandboxTestCardMutationRuntime();
     const { path, init } = buildVirtualCardCreateRequest(input, idempotencyKey);
     const card = await request<unknown>(path, init);
     return normalizeVirtualCardCreateResponse(card);
+  },
+
+  async renewCard(card: WalletCard, idempotencyKey: string): Promise<WalletCard> {
+    requireSandboxTestCardMutationRuntime();
+    const { path, init } = buildCardRenewRequest(card, idempotencyKey);
+    return normalizeCardRenewResponse(await request<unknown>(path, init), card);
   },
 
   async setFrozen(cardId: string, frozen: boolean): Promise<WalletCard> {
