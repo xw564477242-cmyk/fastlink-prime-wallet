@@ -174,291 +174,285 @@ afterEach(async () => {
 });
 
 const describeConfiguredEnvironment = configuredTestEnvironment ? describe : describe.skip;
+const hookSafetyTitle = `Selected Card transaction hook safety (${configuredTestEnvironment ?? "ENVIRONMENT_REQUIRED"})`;
 
-describeConfiguredEnvironment(
-  `Selected Card transaction hook safety (${configuredTestEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
-  () => {
-    it("hides old rows and cursor for every session and Card scope change before the new read settles", async () => {
-      const changes: Array<{ label: string; next: BackendSession; cardId?: string }> = [
-        { label: "actor", next: session({ actorId: "actor-card-history-hook-02" }) },
-        { label: "expiry", next: session({ expiresAt: "2099-08-01T09:00:00.000Z" }) },
-        { label: "tenant", next: session({ tenantId: "tenant-card-history-hook-02" }) },
-        { label: "customer", next: session({ customerId: "customer-card-history-hook-02" }) },
-        {
-          label: "environment",
-          next: session({ environment: alternateEnvironment(testEnvironment()) }),
-        },
-        { label: "Card", next: session(), cardId: "card:owned.2" },
-      ];
+describeConfiguredEnvironment(hookSafetyTitle, () => {
+  it("hides old rows and cursor for every session and Card scope change before the new read settles", async () => {
+    const changes: Array<{ label: string; next: BackendSession; cardId?: string }> = [
+      { label: "actor", next: session({ actorId: "actor-card-history-hook-02" }) },
+      { label: "expiry", next: session({ expiresAt: "2099-08-01T09:00:00.000Z" }) },
+      { label: "tenant", next: session({ tenantId: "tenant-card-history-hook-02" }) },
+      { label: "customer", next: session({ customerId: "customer-card-history-hook-02" }) },
+      {
+        label: "environment",
+        next: session({ environment: alternateEnvironment(testEnvironment()) }),
+      },
+      { label: "Card", next: session(), cardId: "card:owned.2" },
+    ];
 
-      for (const change of changes) {
-        const nextRead = deferred<Response>();
-        let requestCount = 0;
-        installFetch(() => {
-          requestCount += 1;
-          return requestCount === 1
-            ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_old.signature")
-            : nextRead.promise;
-        });
-
-        await mount(session());
-        expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:accepted.1"]);
-        expect(latest?.nextCursor).toBe("cursor_old.signature");
-
-        await update(change.next, change.cardId);
-        expect(latest?.transactions, change.label).toEqual([]);
-        expect(latest?.nextCursor, change.label).toBeNull();
-
-        if (requestCount > 1) {
-          await settlePending(nextRead, pageResponse([], null));
-        }
-        await unmount();
-      }
-    });
-
-    it("ignores stale initial success and finally after the complete scope changes", async () => {
-      const oldRead = deferred<Response>();
-      const currentRead = deferred<Response>();
-      let requestCount = 0;
-      installFetch(() => (++requestCount === 1 ? oldRead.promise : currentRead.promise));
-
-      await mount(session());
-      await update(session({ customerId: "customer-card-history-hook-02" }), "card:owned.2");
-      await settlePending(
-        oldRead,
-        pageResponse(
-          [wireTransaction("transaction:stale-secret-success")],
-          "cursor_stale.signature",
-        ),
-      );
-
-      expect(latest?.transactions).toEqual([]);
-      expect(latest?.nextCursor).toBeNull();
-      expect(JSON.stringify(latest)).not.toContain("stale-secret-success");
-      await settlePending(currentRead, pageResponse([], null));
-    });
-
-    it("ignores stale initial error and finally after the complete scope changes", async () => {
-      const oldRead = deferred<Response>();
-      const currentRead = deferred<Response>();
-      let requestCount = 0;
-      installFetch(() => (++requestCount === 1 ? oldRead.promise : currentRead.promise));
-
-      await mount(session());
-      await update(session({ actorId: "actor-card-history-hook-02" }));
-      await rejectPending(oldRead, new Error("provider-stale-initial-secret"));
-
-      expect(latest?.transactions).toEqual([]);
-      expect(latest?.nextCursor).toBeNull();
-      expect(latest?.error).toBeNull();
-      expect(JSON.stringify(latest)).not.toContain("provider-stale-initial-secret");
-      await settlePending(currentRead, pageResponse([], null));
-    });
-
-    it("ignores stale pagination success and finally after the complete scope changes", async () => {
-      const oldPage = deferred<Response>();
-      const currentRead = deferred<Response>();
+    for (const change of changes) {
+      const nextRead = deferred<Response>();
       let requestCount = 0;
       installFetch(() => {
         requestCount += 1;
-        if (requestCount === 1) {
-          return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
-        }
-        return requestCount === 2 ? oldPage.promise : currentRead.promise;
+        return requestCount === 1
+          ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_old.signature")
+          : nextRead.promise;
       });
 
       await mount(session());
-      await act(async () => {
-        void latest?.loadMore();
-        await flushHook();
-      });
-      await update(session({ tenantId: "tenant-card-history-hook-02" }));
-      await settlePending(
-        oldPage,
-        pageResponse([wireTransaction("transaction:stale-page-secret")], "cursor_stale.signature"),
-      );
+      expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:accepted.1"]);
+      expect(latest?.nextCursor).toBe("cursor_old.signature");
 
-      expect(latest?.transactions).toEqual([]);
-      expect(latest?.nextCursor).toBeNull();
-      expect(JSON.stringify(latest)).not.toContain("stale-page-secret");
-      await settlePending(currentRead, pageResponse([], null));
-    });
+      await update(change.next, change.cardId);
+      expect(latest?.transactions, change.label).toEqual([]);
+      expect(latest?.nextCursor, change.label).toBeNull();
 
-    it("ignores stale pagination error and finally after the complete scope changes", async () => {
-      const oldPage = deferred<Response>();
-      const currentRead = deferred<Response>();
-      let requestCount = 0;
-      installFetch(() => {
-        requestCount += 1;
-        if (requestCount === 1) {
-          return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
-        }
-        return requestCount === 2 ? oldPage.promise : currentRead.promise;
-      });
-
-      await mount(session());
-      await act(async () => {
-        void latest?.loadMore();
-        await flushHook();
-      });
-      await update(session({ expiresAt: "2099-08-01T09:00:00.000Z" }));
-      await rejectPending(oldPage, new Error("provider-stale-page-secret"));
-
-      expect(latest?.transactions).toEqual([]);
-      expect(latest?.nextCursor).toBeNull();
-      expect(latest?.error).toBeNull();
-      expect(JSON.stringify(latest)).not.toContain("provider-stale-page-secret");
-      await settlePending(currentRead, pageResponse([], null));
-    });
-
-    it("fails closed at the hook boundary for duplicate, invalid, oversized and internal payloads", async () => {
-      const oversizedSecret = "oversized-provider-secret".repeat(4_000);
-      const cases: Array<{ label: string; secret: string; response: () => Response }> = [
-        {
-          label: "duplicate IDs",
-          secret: "transaction:duplicate.1",
-          response: () =>
-            pageResponse(
-              [
-                wireTransaction("transaction:duplicate.1"),
-                wireTransaction("transaction:duplicate.1"),
-              ],
-              "cursor_duplicate.signature",
-            ),
-        },
-        {
-          label: "invalid raw JSON",
-          secret: "invalid-provider-secret",
-          response: () => rawResponse("{invalid-provider-secret"),
-        },
-        {
-          label: "oversized raw JSON",
-          secret: "oversized-provider-secret",
-          response: () =>
-            rawResponse(
-              JSON.stringify({
-                transactions: [],
-                nextCursor: null,
-                providerDebug: oversizedSecret,
-              }),
-            ),
-        },
-        {
-          label: "extra page field",
-          secret: "provider-internal-page-secret",
-          response: () =>
-            pageResponse([], null, { providerDebug: "provider-internal-page-secret" }),
-        },
-        {
-          label: "extra transaction field",
-          secret: "provider-internal-row-secret",
-          response: () =>
-            pageResponse(
-              [
-                {
-                  ...wireTransaction("transaction:extra.1"),
-                  providerAccount: "provider-internal-row-secret",
-                },
-              ],
-              null,
-            ),
-        },
-        {
-          label: "Provider error body",
-          secret: "provider-error-body-secret",
-          response: () =>
-            rawResponse(
-              JSON.stringify({ message: "provider-error-body-secret", providerCode: "PRIVATE_01" }),
-              502,
-              "trace-safe-provider",
-            ),
-        },
-      ];
-
-      for (const testCase of cases) {
-        installFetch(testCase.response);
-        await mount(session());
-
-        expect(latest?.transactions, testCase.label).toEqual([]);
-        expect(latest?.nextCursor, testCase.label).toBeNull();
-        expect(latest?.error, testCase.label).not.toBeNull();
-        expect(JSON.stringify(latest), testCase.label).not.toContain(testCase.secret);
-        if (testCase.label === "Provider error body") {
-          expect(latest?.error).toBe("Card transaction request failed · Trace trace-safe-provider");
-        }
-        await unmount();
+      if (requestCount > 1) {
+        await settlePending(nextRead, pageResponse([], null));
       }
+      await unmount();
+    }
+  });
+
+  it("ignores stale initial success and finally after the complete scope changes", async () => {
+    const oldRead = deferred<Response>();
+    const currentRead = deferred<Response>();
+    let requestCount = 0;
+    installFetch(() => (++requestCount === 1 ? oldRead.promise : currentRead.promise));
+
+    await mount(session());
+    await update(session({ customerId: "customer-card-history-hook-02" }), "card:owned.2");
+    await settlePending(
+      oldRead,
+      pageResponse([wireTransaction("transaction:stale-secret-success")], "cursor_stale.signature"),
+    );
+
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(JSON.stringify(latest)).not.toContain("stale-secret-success");
+    await settlePending(currentRead, pageResponse([], null));
+  });
+
+  it("ignores stale initial error and finally after the complete scope changes", async () => {
+    const oldRead = deferred<Response>();
+    const currentRead = deferred<Response>();
+    let requestCount = 0;
+    installFetch(() => (++requestCount === 1 ? oldRead.promise : currentRead.promise));
+
+    await mount(session());
+    await update(session({ actorId: "actor-card-history-hook-02" }));
+    await rejectPending(oldRead, new Error("provider-stale-initial-secret"));
+
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(latest?.error).toBeNull();
+    expect(JSON.stringify(latest)).not.toContain("provider-stale-initial-secret");
+    await settlePending(currentRead, pageResponse([], null));
+  });
+
+  it("ignores stale pagination success and finally after the complete scope changes", async () => {
+    const oldPage = deferred<Response>();
+    const currentRead = deferred<Response>();
+    let requestCount = 0;
+    installFetch(() => {
+      requestCount += 1;
+      if (requestCount === 1) {
+        return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
+      }
+      return requestCount === 2 ? oldPage.promise : currentRead.promise;
     });
 
-    it("keeps accepted rows but closes pagination for every invalid next page", async () => {
-      const cases: Array<{ label: string; secret: string; response: () => Response }> = [
-        {
-          label: "duplicate transaction ID",
-          secret: "transaction:accepted.1",
-          response: () =>
-            pageResponse([wireTransaction("transaction:accepted.1")], "cursor_forward.signature"),
-        },
-        {
-          label: "cursor loop",
-          secret: "cursor_next.signature",
-          response: () =>
-            pageResponse([wireTransaction("transaction:new.2")], "cursor_next.signature"),
-        },
-        {
-          label: "invalid raw JSON",
-          secret: "pagination-invalid-provider-secret",
-          response: () => rawResponse("{pagination-invalid-provider-secret"),
-        },
-        {
-          label: "extra internal field",
-          secret: "pagination-provider-internal-secret",
-          response: () =>
-            pageResponse([], "cursor_forward.signature", {
-              providerDebug: "pagination-provider-internal-secret",
+    await mount(session());
+    await act(async () => {
+      void latest?.loadMore();
+      await flushHook();
+    });
+    await update(session({ tenantId: "tenant-card-history-hook-02" }));
+    await settlePending(
+      oldPage,
+      pageResponse([wireTransaction("transaction:stale-page-secret")], "cursor_stale.signature"),
+    );
+
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(JSON.stringify(latest)).not.toContain("stale-page-secret");
+    await settlePending(currentRead, pageResponse([], null));
+  });
+
+  it("ignores stale pagination error and finally after the complete scope changes", async () => {
+    const oldPage = deferred<Response>();
+    const currentRead = deferred<Response>();
+    let requestCount = 0;
+    installFetch(() => {
+      requestCount += 1;
+      if (requestCount === 1) {
+        return pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature");
+      }
+      return requestCount === 2 ? oldPage.promise : currentRead.promise;
+    });
+
+    await mount(session());
+    await act(async () => {
+      void latest?.loadMore();
+      await flushHook();
+    });
+    await update(session({ expiresAt: "2099-08-01T09:00:00.000Z" }));
+    await rejectPending(oldPage, new Error("provider-stale-page-secret"));
+
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(latest?.error).toBeNull();
+    expect(JSON.stringify(latest)).not.toContain("provider-stale-page-secret");
+    await settlePending(currentRead, pageResponse([], null));
+  });
+
+  it("fails closed at the hook boundary for duplicate, invalid, oversized and internal payloads", async () => {
+    const oversizedSecret = "oversized-provider-secret".repeat(4_000);
+    const cases: Array<{ label: string; secret: string; response: () => Response }> = [
+      {
+        label: "duplicate IDs",
+        secret: "transaction:duplicate.1",
+        response: () =>
+          pageResponse(
+            [
+              wireTransaction("transaction:duplicate.1"),
+              wireTransaction("transaction:duplicate.1"),
+            ],
+            "cursor_duplicate.signature",
+          ),
+      },
+      {
+        label: "invalid raw JSON",
+        secret: "invalid-provider-secret",
+        response: () => rawResponse("{invalid-provider-secret"),
+      },
+      {
+        label: "oversized raw JSON",
+        secret: "oversized-provider-secret",
+        response: () =>
+          rawResponse(
+            JSON.stringify({
+              transactions: [],
+              nextCursor: null,
+              providerDebug: oversizedSecret,
             }),
-        },
-        {
-          label: "Provider error body",
-          secret: "pagination-provider-error-secret",
-          response: () =>
-            rawResponse(
-              JSON.stringify({ message: "pagination-provider-error-secret" }),
-              503,
-              "trace-safe-page-provider",
-            ),
-        },
-      ];
+          ),
+      },
+      {
+        label: "extra page field",
+        secret: "provider-internal-page-secret",
+        response: () => pageResponse([], null, { providerDebug: "provider-internal-page-secret" }),
+      },
+      {
+        label: "extra transaction field",
+        secret: "provider-internal-row-secret",
+        response: () =>
+          pageResponse(
+            [
+              {
+                ...wireTransaction("transaction:extra.1"),
+                providerAccount: "provider-internal-row-secret",
+              },
+            ],
+            null,
+          ),
+      },
+      {
+        label: "Provider error body",
+        secret: "provider-error-body-secret",
+        response: () =>
+          rawResponse(
+            JSON.stringify({ message: "provider-error-body-secret", providerCode: "PRIVATE_01" }),
+            502,
+            "trace-safe-provider",
+          ),
+      },
+    ];
 
-      for (const testCase of cases) {
-        let requestCount = 0;
-        installFetch(() => {
-          requestCount += 1;
-          return requestCount === 1
-            ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature")
-            : testCase.response();
-        });
-        await mount(session());
-        expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:accepted.1"]);
+    for (const testCase of cases) {
+      installFetch(testCase.response);
+      await mount(session());
 
-        await act(async () => {
-          await latest?.loadMore();
-          await flushHook();
-        });
-
-        expect(
-          latest?.transactions.map(({ id }) => id),
-          testCase.label,
-        ).toEqual(["transaction:accepted.1"]);
-        expect(latest?.nextCursor, testCase.label).toBeNull();
-        expect(latest?.error, testCase.label).not.toBeNull();
-        if (testCase.label !== "duplicate transaction ID" && testCase.label !== "cursor loop") {
-          expect(JSON.stringify(latest), testCase.label).not.toContain(testCase.secret);
-        }
-        if (testCase.label === "duplicate transaction ID" || testCase.label === "cursor loop") {
-          expect(latest?.error).toBe(CARD_TRANSACTION_PAGINATION_ERROR);
-        }
-        await unmount();
+      expect(latest?.transactions, testCase.label).toEqual([]);
+      expect(latest?.nextCursor, testCase.label).toBeNull();
+      expect(latest?.error, testCase.label).not.toBeNull();
+      expect(JSON.stringify(latest), testCase.label).not.toContain(testCase.secret);
+      if (testCase.label === "Provider error body") {
+        expect(latest?.error).toBe("Card transaction request failed · Trace trace-safe-provider");
       }
-    });
-  },
-);
+      await unmount();
+    }
+  });
+
+  it("keeps accepted rows but closes pagination for every invalid next page", async () => {
+    const cases: Array<{ label: string; secret: string; response: () => Response }> = [
+      {
+        label: "duplicate transaction ID",
+        secret: "transaction:accepted.1",
+        response: () =>
+          pageResponse([wireTransaction("transaction:accepted.1")], "cursor_forward.signature"),
+      },
+      {
+        label: "cursor loop",
+        secret: "cursor_next.signature",
+        response: () =>
+          pageResponse([wireTransaction("transaction:new.2")], "cursor_next.signature"),
+      },
+      {
+        label: "invalid raw JSON",
+        secret: "pagination-invalid-provider-secret",
+        response: () => rawResponse("{pagination-invalid-provider-secret"),
+      },
+      {
+        label: "extra internal field",
+        secret: "pagination-provider-internal-secret",
+        response: () =>
+          pageResponse([], "cursor_forward.signature", {
+            providerDebug: "pagination-provider-internal-secret",
+          }),
+      },
+      {
+        label: "Provider error body",
+        secret: "pagination-provider-error-secret",
+        response: () =>
+          rawResponse(
+            JSON.stringify({ message: "pagination-provider-error-secret" }),
+            503,
+            "trace-safe-page-provider",
+          ),
+      },
+    ];
+
+    for (const testCase of cases) {
+      let requestCount = 0;
+      installFetch(() => {
+        requestCount += 1;
+        return requestCount === 1
+          ? pageResponse([wireTransaction("transaction:accepted.1")], "cursor_next.signature")
+          : testCase.response();
+      });
+      await mount(session());
+      expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:accepted.1"]);
+
+      await act(async () => {
+        await latest?.loadMore();
+        await flushHook();
+      });
+
+      expect(
+        latest?.transactions.map(({ id }) => id),
+        testCase.label,
+      ).toEqual(["transaction:accepted.1"]);
+      expect(latest?.nextCursor, testCase.label).toBeNull();
+      expect(latest?.error, testCase.label).not.toBeNull();
+      if (testCase.label !== "duplicate transaction ID" && testCase.label !== "cursor loop") {
+        expect(JSON.stringify(latest), testCase.label).not.toContain(testCase.secret);
+      }
+      if (testCase.label === "duplicate transaction ID" || testCase.label === "cursor loop") {
+        expect(latest?.error).toBe(CARD_TRANSACTION_PAGINATION_ERROR);
+      }
+      await unmount();
+    }
+  });
+});
