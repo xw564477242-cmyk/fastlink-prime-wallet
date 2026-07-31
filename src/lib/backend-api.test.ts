@@ -190,6 +190,14 @@ describe("Card transaction Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow("Backend returned an invalid transaction status");
+    for (const status of ["settled", "Settled", "SETtLED"]) {
+      expect(() =>
+        normalizeCardTransactionResponse({
+          transactions: [{ ...publicTransaction("txn_1"), status }],
+          nextCursor: null,
+        }),
+      ).toThrow("Backend returned an invalid transaction status");
+    }
     expect(() =>
       normalizeCardTransactionResponse({
         transactions: [{ ...publicTransaction("txn_1"), amountMinor: "25.00" }],

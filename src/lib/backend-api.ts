@@ -335,9 +335,9 @@ function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransa
   if (!value || typeof value !== "object") {
     throw new Error("Backend returned an invalid transaction");
   }
-  const rawStatus = requiredString(value.status, "status", 32).toLowerCase();
+  const rawStatus = requiredString(value.status, "status", 32);
   if (
-    !["authorized", "declined", "cleared", "settled", "reversed", "refunded"].includes(rawStatus)
+    !["AUTHORIZED", "DECLINED", "CLEARED", "SETTLED", "REVERSED", "REFUNDED"].includes(rawStatus)
   ) {
     throw new Error("Backend returned an invalid transaction status");
   }
@@ -358,7 +358,7 @@ function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransa
   }
   return {
     id: requiredString(value.id, "id", 128),
-    status: rawStatus as WalletCardTransaction["status"],
+    status: rawStatus.toLowerCase() as WalletCardTransaction["status"],
     amountMinor: value.amountMinor,
     currency,
     merchant: optionalString(value.merchantName, "merchant", 160) || "Card transaction",
