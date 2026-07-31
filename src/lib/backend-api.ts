@@ -442,7 +442,7 @@ export function buildCardListPath(query: WalletCardListQuery = {}): string {
 }
 
 function cardPublicId(value: unknown): string {
-  if (typeof value !== "string" || !/^[A-Za-z0-9_-]{2,128}$/.test(value)) {
+  if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(value)) {
     throw new Error("Backend returned an invalid Card id");
   }
   return value;

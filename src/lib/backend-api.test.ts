@@ -155,8 +155,16 @@ const publicCardBalance = (cardId: string) => ({
 describe("Selected Card balance Backend adapter", () => {
   it("builds only the published scoped balance path from an exact public Card id", () => {
     expect(buildCardBalancePath("card_owned-1")).toBe("/v1/cards/card_owned-1/balance");
-    for (const id of ["", "x", "bad/id", "bad id", "bad$id", "bad:id", "x".repeat(129)]) {
+    expect(buildCardBalancePath("card:1")).toBe("/v1/cards/card%3A1/balance");
+    expect(buildCardBalancePath("card.1")).toBe("/v1/cards/card.1/balance");
+    for (const id of ["", "x", "bad/id", "bad id", "bad$id", "x".repeat(129)]) {
       expect(() => buildCardBalancePath(id)).toThrow("Backend returned an invalid Card id");
+    }
+  });
+
+  it("accepts the shared opaque colon and dot forms in returned matching Card ids", () => {
+    for (const cardId of ["card:1", "card.1"]) {
+      expect(normalizeCardBalanceResponse(publicCardBalance(cardId), cardId).cardId).toBe(cardId);
     }
   });
 
