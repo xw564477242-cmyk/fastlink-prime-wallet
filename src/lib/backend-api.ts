@@ -184,6 +184,22 @@ export type WalletAssetAccount = {
   updatedAt: string;
 };
 
+export type WalletTransferAccount = {
+  id: string;
+  assetCode: string;
+  status: "active" | "frozen" | "closed";
+  currentBalance: string;
+  postedBalance: string;
+  pendingBalance: string;
+  availableBalance: string;
+  updatedAt: string;
+};
+
+export type WalletTransferInput = {
+  destinationAccountId: string;
+  amount: string;
+};
+
 export type WalletAccountTransaction = {
   id: string;
   type: "deposit" | "withdrawal" | "transfer" | "merchant_payment" | "refund" | "fx";
@@ -302,6 +318,17 @@ function requireSandboxTestCardMutationRuntime(): void {
   const { environment } = requireRuntime();
   if (!isVirtualCardCreateEnvironment(environment)) {
     throw new BackendApiError(0, "runtime", "Card mutations are disabled outside SANDBOX and TEST");
+  }
+}
+
+function requireSandboxTestWalletMutationRuntime(): void {
+  const { environment } = requireRuntime();
+  if (!isVirtualCardCreateEnvironment(environment)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Wallet mutations are disabled outside SANDBOX and TEST",
+    );
   }
 }
 
@@ -1492,6 +1519,213 @@ function walletRfc3339(value: unknown, field: string): string {
   return value;
 }
 
+function walletTransferAccountId(value: unknown, field: string): string {
+  if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(value)) {
+    throw new Error(`Invalid Wallet transfer ${field}`);
+  }
+  return value;
+}
+
+function walletDecimalUnits(value: string): bigint {
+  const negative = value.startsWith("-");
+  const unsigned = negative ? value.slice(1) : value;
+  const [whole, fraction = ""] = unsigned.split(".");
+  const units = BigInt(`${whole}${fraction.padEnd(18, "0")}`);
+  return negative ? -units : units;
+}
+
+function canonicalWalletTransferAmount(value: unknown): string {
+  const amount = walletDecimal(value, "transfer amount", true);
+  const [whole, fraction = ""] = amount.split(".");
+  const canonicalFraction = fraction.replace(/0+$/, "");
+  const canonical = canonicalFraction ? `${whole}.${canonicalFraction}` : whole;
+  if (walletDecimalUnits(canonical) <= 0n) {
+    throw new Error("Wallet transfer amount must be positive");
+  }
+  return canonical;
+}
+
+export function normalizeWalletTransferAccount(value: unknown): WalletTransferAccount {
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "assetCode",
+      "status",
+      "currentBalance",
+      "postedBalance",
+      "pendingBalance",
+      "availableBalance",
+      "updatedAt",
+    ],
+    "Backend returned an invalid Wallet transfer account",
+  );
+  const id = walletTransferAccountId(record.id, "source account id");
+  const assetCode = walletAssetCode(record.assetCode);
+  if (record.status !== "ACTIVE" && record.status !== "FROZEN" && record.status !== "CLOSED") {
+    throw new Error("Backend returned an invalid Wallet account status");
+  }
+  const currentBalance = walletDecimal(record.currentBalance, "current balance");
+  const postedBalance = walletDecimal(record.postedBalance, "posted balance");
+  const pendingBalance = walletDecimal(record.pendingBalance, "pending balance");
+  const availableBalance = walletDecimal(record.availableBalance, "available balance");
+  if (
+    walletDecimalUnits(currentBalance) !==
+      walletDecimalUnits(postedBalance) + walletDecimalUnits(pendingBalance) ||
+    walletDecimalUnits(availableBalance) !== walletDecimalUnits(postedBalance)
+  ) {
+    throw new Error("Backend returned inconsistent Wallet account balances");
+  }
+  return {
+    id,
+    assetCode,
+    status: record.status.toLowerCase() as WalletTransferAccount["status"],
+    currentBalance,
+    postedBalance,
+    pendingBalance,
+    availableBalance,
+    updatedAt: walletRfc3339(record.updatedAt, "account updatedAt"),
+  };
+}
+
+export function normalizeWalletTransferSourceAccount(value: unknown): WalletTransferAccount {
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "assetCode",
+      "status",
+      "currentBalance",
+      "postedBalance",
+      "pendingBalance",
+      "availableBalance",
+      "updatedAt",
+    ],
+    "Invalid Wallet transfer source account",
+  );
+  if (record.status !== "active" && record.status !== "frozen" && record.status !== "closed") {
+    throw new Error("Invalid Wallet transfer source account status");
+  }
+  const currentBalance = walletDecimal(record.currentBalance, "current balance");
+  const postedBalance = walletDecimal(record.postedBalance, "posted balance");
+  const pendingBalance = walletDecimal(record.pendingBalance, "pending balance");
+  const availableBalance = walletDecimal(record.availableBalance, "available balance");
+  if (
+    walletDecimalUnits(currentBalance) !==
+      walletDecimalUnits(postedBalance) + walletDecimalUnits(pendingBalance) ||
+    walletDecimalUnits(availableBalance) !== walletDecimalUnits(postedBalance)
+  ) {
+    throw new Error("Invalid Wallet transfer source account balances");
+  }
+  return {
+    id: walletTransferAccountId(record.id, "source account id"),
+    assetCode: walletAssetCode(record.assetCode),
+    status: record.status,
+    currentBalance,
+    postedBalance,
+    pendingBalance,
+    availableBalance,
+    updatedAt: walletRfc3339(record.updatedAt, "account updatedAt"),
+  };
+}
+
+export function normalizeWalletTransferAccountsResponse(value: unknown): WalletTransferAccount[] {
+  const accounts = ownJsonArray(
+    value,
+    "Backend returned an invalid Wallet transfer account list",
+  ).map(normalizeWalletTransferAccount);
+  if (new Set(accounts.map(({ id }) => id)).size !== accounts.length) {
+    throw new Error("Backend returned duplicate Wallet account ids");
+  }
+  return accounts;
+}
+
+export function normalizeWalletTransferInput(
+  value: unknown,
+  source: WalletTransferAccount,
+): WalletTransferInput {
+  const normalizedSource = normalizeWalletTransferSourceAccount(source);
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Object.prototype
+  ) {
+    throw new Error("Invalid Wallet transfer request");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  if (
+    Object.keys(descriptors).some((field) => field !== "destinationAccountId" && field !== "amount")
+  ) {
+    throw new Error("Invalid Wallet transfer request field");
+  }
+  const destination = descriptors.destinationAccountId;
+  const amountDescriptor = descriptors.amount;
+  if (
+    !destination ||
+    !("value" in destination) ||
+    !amountDescriptor ||
+    !("value" in amountDescriptor)
+  ) {
+    throw new Error("Invalid Wallet transfer request");
+  }
+  const destinationAccountId = walletTransferAccountId(destination.value, "destination account id");
+  if (destinationAccountId === normalizedSource.id) {
+    throw new Error("Source and destination Wallet accounts must differ");
+  }
+  if (normalizedSource.status !== "active") {
+    throw new Error("Wallet transfer source account is not active");
+  }
+  const amount = canonicalWalletTransferAmount(amountDescriptor.value);
+  if (walletDecimalUnits(amount) > walletDecimalUnits(normalizedSource.availableBalance)) {
+    throw new Error("Wallet transfer amount exceeds the available balance");
+  }
+  return { destinationAccountId, amount };
+}
+
+export function buildWalletTransferRequest(
+  source: WalletTransferAccount,
+  input: WalletTransferInput,
+  idempotencyKey: string,
+): { path: "/v1/wallet/transfers"; init: RequestInit } {
+  const normalizedSource = normalizeWalletTransferSourceAccount(source);
+  const normalizedInput = normalizeWalletTransferInput(input, normalizedSource);
+  const key = validateVirtualCardIdempotencyKey(idempotencyKey);
+  return {
+    path: "/v1/wallet/transfers",
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": key },
+      body: JSON.stringify({
+        sourceAccountId: normalizedSource.id,
+        destinationAccountId: normalizedInput.destinationAccountId,
+        assetCode: normalizedSource.assetCode,
+        amount: normalizedInput.amount,
+      }),
+    },
+  };
+}
+
+export function normalizeWalletTransferResponse(
+  value: unknown,
+  source: WalletTransferAccount,
+  input: WalletTransferInput,
+): WalletOperationActivity {
+  const normalizedSource = normalizeWalletTransferSourceAccount(source);
+  const normalizedInput = normalizeWalletTransferInput(input, normalizedSource);
+  const operation = normalizeWalletOperation(value);
+  const amount = canonicalWalletTransferAmount(operation.amount);
+  if (
+    operation.type !== "internal_transfer" ||
+    operation.assetCode !== normalizedSource.assetCode ||
+    amount !== normalizedInput.amount ||
+    (operation.direction !== "outgoing" && operation.direction !== "between_own_accounts")
+  ) {
+    throw new Error("Backend returned an inconsistent Wallet transfer operation");
+  }
+  return { ...operation, amount };
+}
+
 export function buildWalletOperationPath(query: WalletOperationActivityQuery = {}): string {
   const limit = query.limit ?? WALLET_OPERATION_PAGE_SIZE;
   if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_OPERATION_PAGE_SIZE) {
@@ -1753,6 +1987,20 @@ export const backendApi = {
 
   async walletBalanceAccounts(): Promise<WalletAssetAccount[]> {
     return normalizeWalletBalanceResponse(await request<unknown>("/v1/wallet/balances"));
+  },
+
+  async walletTransferAccounts(): Promise<WalletTransferAccount[]> {
+    return normalizeWalletTransferAccountsResponse(await request<unknown>("/v1/wallet/accounts"));
+  },
+
+  async createWalletTransfer(
+    source: WalletTransferAccount,
+    input: WalletTransferInput,
+    idempotencyKey: string,
+  ): Promise<WalletOperationActivity> {
+    requireSandboxTestWalletMutationRuntime();
+    const { path, init } = buildWalletTransferRequest(source, input, idempotencyKey);
+    return normalizeWalletTransferResponse(await request<unknown>(path, init), source, input);
   },
 
   async walletTransactions(
