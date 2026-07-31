@@ -12,7 +12,14 @@ import {
   initialCardTransactionState,
 } from "./card-transaction-state";
 
-const baseScope = JSON.stringify(["actor-a", "tenant-a", "customer-a", "SANDBOX", "card:owned.1"]);
+const baseScope = JSON.stringify([
+  "actor-a",
+  "2099-08-01T08:00:00.000Z",
+  "tenant-a",
+  "customer-a",
+  "SANDBOX",
+  "card:owned.1",
+]);
 
 const transaction = (id: string): WalletCardTransaction => ({
   id,
@@ -173,11 +180,25 @@ describe("Selected-Card transaction pagination adversarial consistency", () => {
   });
 
   it("allows zero writes from stale pages and errors after every scope dimension changes", () => {
-    const dimensions = ["actor-b", "tenant-b", "customer-b", "UAT", "card:owned.9"];
+    const dimensions = [
+      "actor-b",
+      "2099-08-01T09:00:00.000Z",
+      "tenant-b",
+      "customer-b",
+      "UAT",
+      "card:owned.9",
+    ];
     const oldRequestKey = cardTransactionRequestKey(baseScope, "cursor-1", 2);
 
     for (let index = 0; index < dimensions.length; index += 1) {
-      const parts = ["actor-a", "tenant-a", "customer-a", "SANDBOX", "card:owned.1"];
+      const parts = [
+        "actor-a",
+        "2099-08-01T08:00:00.000Z",
+        "tenant-a",
+        "customer-a",
+        "SANDBOX",
+        "card:owned.1",
+      ];
       parts[index] = dimensions[index]!;
       const scopeKey = JSON.stringify(parts);
       const requestKey = cardTransactionRequestKey(scopeKey, null, index + 10);
@@ -212,25 +233,32 @@ describe("Selected-Card transaction pagination adversarial consistency", () => {
       id: "transaction:owned.9223372036854775807",
       status: "SETTLED",
       amountMinor: "-9223372036854775808",
+      authorizedAmountMinor: "0",
+      clearedAmountMinor: "0",
+      settledAmountMinor: "0",
+      reversedAmountMinor: "0",
+      refundedAmountMinor: "0",
       currency: "USD",
+      traceId: null,
       merchantName: "Coffee",
       merchantCategory: "5812",
       occurredAt: "2026-07-31T12:00:00.123456789+08:00",
     };
-    let getterExecutions = 0;
-    Object.defineProperty(record, "providerPayload", {
-      enumerable: true,
-      get() {
-        getterExecutions += 1;
-        return "secret";
-      },
-    });
-
-    const parsed = normalizeCardTransactionResponse({ transactions: [record], nextCursor: null });
+    const parsed = normalizeCardTransactionResponse(
+      JSON.stringify({ transactions: [record], nextCursor: null }),
+    );
     expect(parsed.transactions[0]?.id).toBe("transaction:owned.9223372036854775807");
     expect(parsed.transactions[0]?.amountMinor).toBe("-9223372036854775808");
     expect(parsed.transactions[0]?.timestamp).toBe("2026-07-31T12:00:00.123456789+08:00");
-    expect(getterExecutions).toBe(0);
+    expect(Object.keys(parsed.transactions[0] ?? {})).toEqual([
+      "id",
+      "status",
+      "amountMinor",
+      "currency",
+      "merchant",
+      "category",
+      "timestamp",
+    ]);
     expect(buildCardTransactionPath("card:owned.9223372036854775807")).toContain(
       "card%3Aowned.9223372036854775807",
     );

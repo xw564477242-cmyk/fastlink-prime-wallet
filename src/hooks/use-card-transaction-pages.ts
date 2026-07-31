@@ -21,6 +21,7 @@ export function useCardTransactionPages(
     session && selectedCardId
       ? JSON.stringify([
           session.actorId,
+          session.expiresAt ?? null,
           session.tenantId,
           session.customerId,
           session.environment,
@@ -37,7 +38,7 @@ export function useCardTransactionPages(
     if (!session || !selectedCardId) return;
 
     void backendApi
-      .cardTransactions(selectedCardId, { limit: CARD_TRANSACTION_PAGE_SIZE })
+      .cardTransactions(session, selectedCardId, { limit: CARD_TRANSACTION_PAGE_SIZE })
       .then((page) => {
         if (requestKey) {
           dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
@@ -52,7 +53,8 @@ export function useCardTransactionPages(
               append: false,
             })
           : undefined,
-      );
+      )
+      .finally(() => (requestKey ? dispatch({ type: "settled", requestKey }) : undefined));
 
     return () => {
       if (requestSequence.current === generation) requestSequence.current += 1;
@@ -60,7 +62,14 @@ export function useCardTransactionPages(
   }, [scopeKey, selectedCardId, session]);
 
   const loadMore = useCallback(async () => {
-    if (!scopeReady || !selectedCardId || !state.nextCursor || state.loading || state.loadingMore) {
+    if (
+      !session ||
+      !scopeReady ||
+      !selectedCardId ||
+      !state.nextCursor ||
+      state.loading ||
+      state.loadingMore
+    ) {
       return;
     }
     if (!scopeKey) return;
@@ -69,15 +78,25 @@ export function useCardTransactionPages(
     const requestKey = cardTransactionRequestKey(scopeKey, requestCursor, generation);
     dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
-      const page = await backendApi.cardTransactions(selectedCardId, {
+      const page = await backendApi.cardTransactions(session, selectedCardId, {
         limit: CARD_TRANSACTION_PAGE_SIZE,
         cursor: requestCursor,
       });
       dispatch({ type: "page", requestKey, requestCursor, page, append: true });
     } catch (reason) {
       dispatch({ type: "failed", requestKey, message: errorMessage(reason), append: true });
+    } finally {
+      dispatch({ type: "settled", requestKey });
     }
-  }, [scopeKey, scopeReady, selectedCardId, state.loading, state.loadingMore, state.nextCursor]);
+  }, [
+    session,
+    scopeKey,
+    scopeReady,
+    selectedCardId,
+    state.loading,
+    state.loadingMore,
+    state.nextCursor,
+  ]);
 
   return { ...view, loadMore };
 }

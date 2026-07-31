@@ -19,10 +19,10 @@ const transaction = (id: string): WalletCardTransaction => ({
 });
 
 describe("Card transaction state", () => {
-  it("synchronously hides transactions when actor, tenant, customer, environment or Card changes", () => {
+  it("synchronously hides transactions when actor, expiry, tenant, customer, environment or Card changes", () => {
     const previous = {
       ...initialCardTransactionState,
-      scopeKey: '["actor-a","tenant-a","customer-a","SANDBOX","card-a"]',
+      scopeKey: '["actor-a","2099-08-01T08:00:00.000Z","tenant-a","customer-a","SANDBOX","card-a"]',
       activeRequestKey: "request-7",
       transactions: [transaction("foreign-transaction")],
       nextCursor: "foreign-cursor",
@@ -32,10 +32,13 @@ describe("Card transaction state", () => {
     };
 
     expect(
-      cardTransactionViewForScope(previous, '["actor-b","tenant-b","customer-b","UAT","card-b"]'),
+      cardTransactionViewForScope(
+        previous,
+        '["actor-b","2099-08-01T09:00:00.000Z","tenant-b","customer-b","UAT","card-b"]',
+      ),
     ).toEqual({
       ...initialCardTransactionState,
-      scopeKey: '["actor-b","tenant-b","customer-b","UAT","card-b"]',
+      scopeKey: '["actor-b","2099-08-01T09:00:00.000Z","tenant-b","customer-b","UAT","card-b"]',
       loading: true,
       scopeReady: false,
     });
@@ -90,9 +93,14 @@ describe("Card transaction state", () => {
       message: "foreign failure",
       append: false,
     });
+    const staleFinally = cardTransactionReducer(current, {
+      type: "settled",
+      requestKey: "request-a",
+    });
 
     expect(stalePage).toBe(current);
     expect(staleFailure).toBe(current);
+    expect(staleFinally).toBe(current);
     expect(current.transactions).toEqual([]);
   });
 

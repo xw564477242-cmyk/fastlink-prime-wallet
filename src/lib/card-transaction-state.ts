@@ -63,7 +63,8 @@ export type CardTransactionAction =
       requestKey: string;
       message: string;
       append: boolean;
-    };
+    }
+  | { type: "settled"; requestKey: string };
 
 function paginationFailure(state: CardTransactionState): CardTransactionState {
   return {
@@ -147,5 +148,9 @@ export function cardTransactionReducer(
         loadingMore: false,
         error: action.message,
       };
+    case "settled":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, loading: false, loadingMore: false }
+        : state;
   }
 }
