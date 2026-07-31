@@ -4,11 +4,13 @@ import {
   buildCardTransactionPath,
   buildWalletTransactionDetailPath,
   buildWalletTransactionPath,
+  buildWalletOperationPath,
   normalizeCardListResponse,
   normalizeCardTransactionResponse,
   normalizeWalletBalanceResponse,
   normalizeWalletTransactionDetail,
   normalizeWalletTransactionResponse,
+  normalizeWalletOperationResponse,
 } from "./backend-api";
 
 const publicCard = (id: string) => ({
@@ -437,5 +439,132 @@ describe("Wallet transaction detail Backend adapter", () => {
         ),
       ).toThrow();
     }
+  });
+});
+
+const publicWalletOperation = (id: string) => ({
+  id,
+  type: "INTERNAL_TRANSFER",
+  status: "PENDING_SETTLEMENT",
+  assetCode: "USD",
+  amount: "25.5",
+  direction: "BETWEEN_OWN_ACCOUNTS",
+  createdAt: "2026-07-31T12:00:00.000Z",
+  completedAt: null,
+  updatedAt: "2026-07-31T12:00:01+00:00",
+  tenantId: "must-not-render",
+  customerId: "must-not-render",
+  accountId: "must-not-render",
+  provider: "THREDD",
+  journalIds: ["must-not-render"],
+  failureReason: "must-not-render",
+  raw: { secret: "must-not-render" },
+});
+
+describe("Wallet operation activity Backend adapter", () => {
+  it("builds only the real public max-25 cursor request without an asset filter", () => {
+    expect(buildWalletOperationPath()).toBe("/v1/wallet/operations?limit=25");
+    expect(buildWalletOperationPath({ limit: 10, cursor: "activity_cursor-1" })).toBe(
+      "/v1/wallet/operations?limit=10&cursor=activity_cursor-1",
+    );
+    expect(() => buildWalletOperationPath({ limit: 26 })).toThrow(
+      "Wallet operation limit must be between 1 and 25",
+    );
+    expect(() => buildWalletOperationPath({ cursor: "bad!cursor" })).toThrow(
+      "Invalid Wallet operation cursor",
+    );
+    expect(buildWalletOperationPath()).not.toContain("asset");
+  });
+
+  it("keeps exactly the public fields and canonical strings", () => {
+    const page = normalizeWalletOperationResponse({
+      items: [publicWalletOperation("operation-1")],
+      nextCursor: "activity_cursor-1",
+    });
+    expect(page).toEqual({
+      items: [
+        {
+          id: "operation-1",
+          type: "internal_transfer",
+          status: "pending_settlement",
+          assetCode: "USD",
+          amount: "25.5",
+          direction: "between_own_accounts",
+          createdAt: "2026-07-31T12:00:00.000Z",
+          completedAt: null,
+          updatedAt: "2026-07-31T12:00:01+00:00",
+        },
+      ],
+      nextCursor: "activity_cursor-1",
+    });
+    expect(JSON.stringify(page)).not.toMatch(
+      /tenantId|customerId|accountId|provider|THREDD|journal|failureReason|raw|secret|must-not-render/,
+    );
+  });
+
+  it("accepts only explicit null or RFC3339 completedAt", () => {
+    const completed = normalizeWalletOperationResponse({
+      items: [
+        {
+          ...publicWalletOperation("operation-1"),
+          completedAt: "2026-07-31T12:01:00Z",
+        },
+      ],
+      nextCursor: null,
+    });
+    expect(completed.items[0]?.completedAt).toBe("2026-07-31T12:01:00Z");
+    const { completedAt: _completedAt, ...missingCompletedAt } =
+      publicWalletOperation("operation-2");
+    expect(() =>
+      normalizeWalletOperationResponse({ items: [missingCompletedAt], nextCursor: null }),
+    ).toThrow("Backend returned an invalid Wallet operation completedAt");
+  });
+
+  it("rejects malformed enums, Decimal(36,18), timestamps and asset codes", () => {
+    for (const patch of [
+      { type: "internal_transfer" },
+      { type: "TRANSFER" },
+      { status: "Pending_Settlement" },
+      { direction: "between_own_accounts" },
+      { assetCode: "usd" },
+      { amount: "025.5" },
+      { amount: "-25.5" },
+      { amount: "1e2" },
+      { amount: "1234567890123456789" },
+      { amount: "1.1234567890123456789" },
+      { createdAt: "2026-07-31" },
+      { createdAt: "2026-02-30T12:00:00Z" },
+      { createdAt: "2026-07-31T24:00:00Z" },
+      { updatedAt: "2026-07-31 12:00:00Z" },
+      { completedAt: "2026-07-31T12:00:00" },
+    ]) {
+      expect(() =>
+        normalizeWalletOperationResponse({
+          items: [{ ...publicWalletOperation("operation-1"), ...patch }],
+          nextCursor: null,
+        }),
+      ).toThrow();
+    }
+  });
+
+  it("rejects over-limit pages, invalid cursors and duplicate ids", () => {
+    expect(() =>
+      normalizeWalletOperationResponse(
+        {
+          items: [publicWalletOperation("operation-1"), publicWalletOperation("operation-2")],
+          nextCursor: null,
+        },
+        1,
+      ),
+    ).toThrow("Backend returned an invalid Wallet operation page");
+    expect(() => normalizeWalletOperationResponse({ items: [], nextCursor: "bad!cursor" })).toThrow(
+      "Backend returned an invalid Wallet operation cursor",
+    );
+    expect(() =>
+      normalizeWalletOperationResponse({
+        items: [publicWalletOperation("operation-1"), publicWalletOperation("operation-1")],
+        nextCursor: null,
+      }),
+    ).toThrow("Backend returned duplicate Wallet operation ids");
   });
 });

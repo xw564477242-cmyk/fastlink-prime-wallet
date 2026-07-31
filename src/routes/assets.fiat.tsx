@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
   ArrowDownLeft,
+  ArrowLeftRight,
   ArrowUpRight,
   ChevronLeft,
   Loader2,
@@ -12,6 +13,7 @@ import { useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useWalletAccountHistory } from "@/hooks/use-wallet-account-history";
 import { useWalletTransactionDetail } from "@/hooks/use-wallet-transaction-detail";
+import { useWalletOperations } from "@/hooks/use-wallet-operations";
 
 export const Route = createFileRoute("/assets/fiat")({
   head: () => ({
@@ -36,6 +38,7 @@ function WalletAccountsPage() {
     selected?.assetCode ?? null,
     selectedTransaction,
   );
+  const operations = useWalletOperations(session);
 
   return (
     <MobileShell>
@@ -161,6 +164,69 @@ function WalletAccountsPage() {
             )}
           </div>
         )}
+
+        <section className="mt-8 border-t border-border/60 pt-6">
+          <h2 className="font-display text-lg font-semibold">All Wallet activity</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            This feed spans all Wallet accounts; the public contract does not support an asset
+            filter.
+          </p>
+          {operations.loading && (
+            <div className="grid h-40 place-items-center">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
+          )}
+          {!operations.loading && operations.error && (
+            <ErrorMessage message={`${operations.error} · No stale Wallet activity displayed.`} />
+          )}
+          {!operations.loading && !operations.error && (
+            <div className="mt-3 space-y-2">
+              {operations.items.map((operation) => {
+                const outgoing = operation.direction === "outgoing";
+                const incoming = operation.direction === "incoming";
+                const Icon = outgoing ? ArrowUpRight : incoming ? ArrowDownLeft : ArrowLeftRight;
+                return (
+                  <div
+                    key={operation.id}
+                    className="flex items-center gap-3 rounded-2xl bg-surface p-4"
+                  >
+                    <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-muted">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-sm font-medium">
+                        {operation.type.replaceAll("_", " ")}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {new Date(operation.createdAt).toLocaleString()} · {operation.status}
+                      </p>
+                    </div>
+                    <p translate="no" className="shrink-0 text-sm font-semibold tabular-nums">
+                      {outgoing ? "−" : incoming ? "+" : ""}
+                      {operation.amount} {operation.assetCode}
+                    </p>
+                  </div>
+                );
+              })}
+              {operations.items.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-xs text-muted-foreground">
+                  No Wallet activity returned.
+                </div>
+              )}
+              {operations.nextCursor && (
+                <button
+                  type="button"
+                  onClick={() => void operations.loadMore()}
+                  disabled={operations.loadingMore}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+                >
+                  {operations.loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}
+                  {operations.loadingMore ? "Loading more…" : "Load more activity"}
+                </button>
+              )}
+            </div>
+          )}
+        </section>
       </div>
       <div className="h-8" />
     </MobileShell>

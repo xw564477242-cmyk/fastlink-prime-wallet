@@ -154,6 +154,30 @@ export type WalletTransactionDetailExpectation = {
   amount: string;
 };
 
+export type WalletOperationActivity = {
+  id: string;
+  type: "deposit" | "internal_transfer" | "withdrawal" | "fx_conversion";
+  status: "processing" | "pending_settlement" | "completed" | "failed";
+  assetCode: string;
+  amount: string;
+  direction: "outgoing" | "incoming" | "between_own_accounts";
+  createdAt: string;
+  completedAt: string | null;
+  updatedAt: string;
+};
+
+export type WalletOperationActivityPage = {
+  items: WalletOperationActivity[];
+  nextCursor: string | null;
+};
+
+export type WalletOperationActivityQuery = {
+  limit?: number;
+  cursor?: string;
+};
+
+export const WALLET_OPERATION_PAGE_SIZE = 25;
+
 export const WALLET_TRANSACTION_PAGE_SIZE = 25;
 
 type BackendCardRecord = {
@@ -209,6 +233,23 @@ type BackendWalletTransactionRecord = {
 };
 
 type BackendWalletTransactionPageRecord = {
+  items?: unknown;
+  nextCursor?: unknown;
+};
+
+type BackendWalletOperationRecord = {
+  id?: unknown;
+  type?: unknown;
+  status?: unknown;
+  assetCode?: unknown;
+  amount?: unknown;
+  direction?: unknown;
+  createdAt?: unknown;
+  completedAt?: unknown;
+  updatedAt?: unknown;
+};
+
+type BackendWalletOperationPageRecord = {
   items?: unknown;
   nextCursor?: unknown;
 };
@@ -615,6 +656,127 @@ export function normalizeWalletTransactionDetail(
   return detail;
 }
 
+function walletRfc3339(value: unknown, field: string): string {
+  if (typeof value !== "string" || value.length > 64) {
+    throw new Error(`Backend returned an invalid Wallet operation ${field}`);
+  }
+  const match =
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-](\d{2}):(\d{2}))$/.exec(
+      value,
+    );
+  if (!match) {
+    throw new Error(`Backend returned an invalid Wallet operation ${field}`);
+  }
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  const offsetHour = Number(match[7] ?? 0);
+  const offsetMinute = Number(match[8] ?? 0);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (
+    year < 1 ||
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > (daysInMonth[month - 1] ?? 0) ||
+    hour > 23 ||
+    minute > 59 ||
+    second > 59 ||
+    offsetHour > 23 ||
+    offsetMinute > 59 ||
+    !Number.isFinite(Date.parse(value))
+  ) {
+    throw new Error(`Backend returned an invalid Wallet operation ${field}`);
+  }
+  return value;
+}
+
+export function buildWalletOperationPath(query: WalletOperationActivityQuery = {}): string {
+  const limit = query.limit ?? WALLET_OPERATION_PAGE_SIZE;
+  if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_OPERATION_PAGE_SIZE) {
+    throw new Error(`Wallet operation limit must be between 1 and ${WALLET_OPERATION_PAGE_SIZE}`);
+  }
+  if (
+    query.cursor !== undefined &&
+    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
+  ) {
+    throw new Error("Invalid Wallet operation cursor");
+  }
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (query.cursor) params.set("cursor", query.cursor);
+  return `/v1/wallet/operations?${params.toString()}`;
+}
+
+function normalizeWalletOperation(value: unknown): WalletOperationActivity {
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Wallet operation");
+  }
+  const record = value as BackendWalletOperationRecord;
+  if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
+    throw new Error("Backend returned an invalid Wallet operation id");
+  }
+  const types = ["DEPOSIT", "INTERNAL_TRANSFER", "WITHDRAWAL", "FX_CONVERSION"];
+  if (typeof record.type !== "string" || !types.includes(record.type)) {
+    throw new Error("Backend returned an invalid Wallet operation type");
+  }
+  const statuses = ["PROCESSING", "PENDING_SETTLEMENT", "COMPLETED", "FAILED"];
+  if (typeof record.status !== "string" || !statuses.includes(record.status)) {
+    throw new Error("Backend returned an invalid Wallet operation status");
+  }
+  const directions = ["OUTGOING", "INCOMING", "BETWEEN_OWN_ACCOUNTS"];
+  if (typeof record.direction !== "string" || !directions.includes(record.direction)) {
+    throw new Error("Backend returned an invalid Wallet operation direction");
+  }
+  const completedAt =
+    record.completedAt === null ? null : walletRfc3339(record.completedAt, "completedAt");
+  return {
+    id: record.id,
+    type: record.type.toLowerCase() as WalletOperationActivity["type"],
+    status: record.status.toLowerCase() as WalletOperationActivity["status"],
+    assetCode: walletAssetCode(record.assetCode),
+    amount: walletDecimal(record.amount, "operation amount", true),
+    direction: record.direction.toLowerCase() as WalletOperationActivity["direction"],
+    createdAt: walletRfc3339(record.createdAt, "createdAt"),
+    completedAt,
+    updatedAt: walletRfc3339(record.updatedAt, "updatedAt"),
+  };
+}
+
+export function normalizeWalletOperationResponse(
+  value: unknown,
+  limit = WALLET_OPERATION_PAGE_SIZE,
+): WalletOperationActivityPage {
+  if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_OPERATION_PAGE_SIZE) {
+    throw new Error(`Wallet operation limit must be between 1 and ${WALLET_OPERATION_PAGE_SIZE}`);
+  }
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Wallet operation page");
+  }
+  const page = value as BackendWalletOperationPageRecord;
+  if (!Array.isArray(page.items) || page.items.length > limit) {
+    throw new Error("Backend returned an invalid Wallet operation page");
+  }
+  if (
+    page.nextCursor !== null &&
+    (typeof page.nextCursor !== "string" ||
+      !page.nextCursor ||
+      page.nextCursor.length > 512 ||
+      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
+  ) {
+    throw new Error("Backend returned an invalid Wallet operation cursor");
+  }
+  const items = page.items.map(normalizeWalletOperation);
+  const ids = new Set(items.map((item) => item.id));
+  if (ids.size !== items.length) {
+    throw new Error("Backend returned duplicate Wallet operation ids");
+  }
+  return { items, nextCursor: page.nextCursor };
+}
+
 export function normalizeWalletTransactionResponse(
   value: unknown,
   expectedAssetCode: string,
@@ -735,5 +897,13 @@ export const backendApi = {
       buildWalletTransactionDetailPath(expectation.transactionId),
     );
     return normalizeWalletTransactionDetail(result, expectation);
+  },
+
+  async walletOperations(
+    query: WalletOperationActivityQuery = {},
+  ): Promise<WalletOperationActivityPage> {
+    const limit = query.limit ?? WALLET_OPERATION_PAGE_SIZE;
+    const result = await request<unknown>(buildWalletOperationPath(query));
+    return normalizeWalletOperationResponse(result, limit);
   },
 };
