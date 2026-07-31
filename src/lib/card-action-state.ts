@@ -1,6 +1,6 @@
 import type { BackendSession, WalletCard } from "./backend-api";
 
-export type CardAction = "refresh" | "freeze" | "unfreeze" | "issue";
+export type CardAction = "refresh" | "freeze" | "unfreeze";
 
 export type CardActionGate = {
   generation: number;
@@ -67,7 +67,6 @@ export function cardActionAllowed(
   card: WalletCard | undefined,
 ): boolean {
   if (!scopeReady || sessionKey === null) return false;
-  if (action === "issue") return true;
   if (!card) return false;
   if (action === "refresh") return true;
   if (action === "freeze") return card.status === "active" && card.capabilities.freeze;

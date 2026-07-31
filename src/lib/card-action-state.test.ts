@@ -38,13 +38,9 @@ const card = (overrides: Partial<WalletCard> = {}): WalletCard => ({
 });
 
 describe("Card action state", () => {
-  it("denies issue without a current authenticated session and enforces Card capabilities", () => {
-    expect(cardActionAllowed("issue", true, null, undefined)).toBeFalse();
-    expect(
-      cardActionAllowed("issue", false, cardSessionScopeKey(session()), undefined),
-    ).toBeFalse();
-    expect(cardActionAllowed("issue", true, cardSessionScopeKey(session()), undefined)).toBeTrue();
-
+  it("denies Card actions without a current session and enforces Card capabilities", () => {
+    expect(cardActionAllowed("refresh", true, null, card())).toBeFalse();
+    expect(cardActionAllowed("refresh", false, cardSessionScopeKey(session()), card())).toBeFalse();
     const active = card();
     expect(cardActionAllowed("freeze", true, cardSessionScopeKey(session()), active)).toBeTrue();
     expect(cardActionAllowed("unfreeze", true, cardSessionScopeKey(session()), active)).toBeFalse();

@@ -10,13 +10,14 @@ import {
   Snowflake,
   Sun,
 } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { backendApi } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
+import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
 import {
   acceptsCardActionResponse,
   beginCardAction,
@@ -61,6 +62,14 @@ function CardsPage() {
     prependCard,
     invalidate,
   } = useCardListPages(session, cardId ?? null);
+  const acceptCreatedCard = useCallback(
+    (card: Parameters<typeof prependCard>[0]) => {
+      prependCard(card);
+      void navigate({ search: { cardId: card.cardId }, replace: true });
+    },
+    [navigate, prependCard],
+  );
+  const virtualCardCreate = useVirtualCardCreate(session, acceptCreatedCard);
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
@@ -77,8 +86,11 @@ function CardsPage() {
     error: null,
   });
   const actionState = visibleCardActionState(storedActionState, actionScopeKey);
-  const busy = actionState.busy;
-  const error = listError ?? (scopeReady ? actionState.error : null);
+  const busy = actionState.busy || virtualCardCreate.busy;
+  const error =
+    listError ??
+    (scopeReady ? actionState.error : null) ??
+    (virtualCardCreate.allowed ? virtualCardCreate.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -135,26 +147,11 @@ function CardsPage() {
   };
 
   const issueVirtual = async () => {
-    if (!cardActionAllowed("issue", issueScopeReady, sessionKey, current)) return;
-    const ticket = startAction("issue");
-    if (!ticket || !actionScopeKey) return;
-    const scopeKey = actionScopeKey;
-    try {
-      const card = await backendApi.createVirtualCard({
-        currency: "USD",
-        alias: t("cards.defaultVirtualAlias"),
-      });
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) prependCard(card);
-    } catch (reason) {
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey))
-        setActionState({
-          scopeKey,
-          busy: true,
-          error: reason instanceof Error ? reason.message : "Railway Backend is unavailable",
-        });
-    } finally {
-      if (acceptsCardActionResponse(actionGate.current, ticket, scopeKey)) finishAction(scopeKey);
-    }
+    if (!issueScopeReady || !virtualCardCreate.allowed || busy) return;
+    await virtualCardCreate.submit({
+      currency: "USD",
+      alias: t("cards.defaultVirtualAlias"),
+    });
   };
 
   return (
@@ -168,13 +165,15 @@ function CardsPage() {
             </p>
             <h1 className="mt-1 font-display text-2xl font-bold">{t("cards.myCards")}</h1>
           </div>
-          <button
-            onClick={() => void issueVirtual()}
-            disabled={busy || !cardActionAllowed("issue", issueScopeReady, sessionKey, current)}
-            className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
-          >
-            <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}
-          </button>
+          {virtualCardCreate.allowed && (
+            <button
+              onClick={() => void issueVirtual()}
+              disabled={busy || !issueScopeReady}
+              className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
+            >
+              <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}
+            </button>
+          )}
         </div>
 
         {error && (
