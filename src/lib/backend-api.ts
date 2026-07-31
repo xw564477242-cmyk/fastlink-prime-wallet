@@ -94,6 +94,15 @@ export type WalletCardListQuery = {
   cursor?: string;
 };
 
+export type WalletCardBalance = {
+  cardId: string;
+  currency: string;
+  availableBalanceMinor: string;
+  currentBalanceMinor: string;
+  pendingAmountMinor: string;
+  updatedAt: string;
+};
+
 export const CARD_LIST_PAGE_SIZE = 20;
 
 export type WalletCardTransaction = {
@@ -200,6 +209,15 @@ type BackendCardRecord = {
 type BackendCardPageRecord = {
   cards?: unknown;
   nextCursor?: unknown;
+};
+
+type BackendCardBalanceRecord = {
+  cardId?: unknown;
+  currency?: unknown;
+  availableBalanceMinor?: unknown;
+  currentBalanceMinor?: unknown;
+  pendingAmountMinor?: unknown;
+  updatedAt?: unknown;
 };
 
 type BackendTransactionRecord = {
@@ -421,6 +439,96 @@ export function buildCardListPath(query: WalletCardListQuery = {}): string {
   const params = new URLSearchParams({ limit: String(limit) });
   if (query.cursor) params.set("cursor", query.cursor);
   return `/v1/cards?${params.toString()}`;
+}
+
+function cardPublicId(value: unknown): string {
+  if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(value)) {
+    throw new Error("Backend returned an invalid Card id");
+  }
+  return value;
+}
+
+function cardMinorUnits(value: unknown, field: string): string {
+  if (typeof value !== "string" || !/^(?:0|-?[1-9]\d{0,18})$/.test(value)) {
+    throw new Error(`Backend returned an invalid Card ${field}`);
+  }
+  const amount = BigInt(value);
+  if (amount < -9_223_372_036_854_775_808n || amount > 9_223_372_036_854_775_807n) {
+    throw new Error(`Backend returned an invalid Card ${field}`);
+  }
+  return value;
+}
+
+function cardCurrency(value: unknown): string {
+  if (typeof value !== "string" || !/^[A-Z]{3}$/.test(value)) {
+    throw new Error("Backend returned an invalid Card balance currency");
+  }
+  return value;
+}
+
+function cardRfc3339(value: unknown): string {
+  if (typeof value !== "string" || value.length > 64) {
+    throw new Error("Backend returned an invalid Card balance timestamp");
+  }
+  const match =
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-](\d{2}):(\d{2}))$/.exec(
+      value,
+    );
+  if (!match) throw new Error("Backend returned an invalid Card balance timestamp");
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  const offsetHour = Number(match[7] ?? 0);
+  const offsetMinute = Number(match[8] ?? 0);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (
+    year < 1 ||
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > (daysInMonth[month - 1] ?? 0) ||
+    hour > 23 ||
+    minute > 59 ||
+    second > 59 ||
+    offsetHour > 23 ||
+    offsetMinute > 59 ||
+    !Number.isFinite(Date.parse(value))
+  ) {
+    throw new Error("Backend returned an invalid Card balance timestamp");
+  }
+  return value;
+}
+
+export function buildCardBalancePath(cardId: string): string {
+  cardPublicId(cardId);
+  return `/v1/cards/${encodeURIComponent(cardId)}/balance`;
+}
+
+export function normalizeCardBalanceResponse(
+  value: unknown,
+  expectedCardId: string,
+): WalletCardBalance {
+  const selectedCardId = cardPublicId(expectedCardId);
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Card balance");
+  }
+  const record = value as BackendCardBalanceRecord;
+  const cardId = cardPublicId(record.cardId);
+  if (cardId !== selectedCardId) {
+    throw new Error("Backend returned a balance for a different Card");
+  }
+  return {
+    cardId,
+    currency: cardCurrency(record.currency),
+    availableBalanceMinor: cardMinorUnits(record.availableBalanceMinor, "available balance"),
+    currentBalanceMinor: cardMinorUnits(record.currentBalanceMinor, "current balance"),
+    pendingAmountMinor: cardMinorUnits(record.pendingAmountMinor, "pending amount"),
+    updatedAt: cardRfc3339(record.updatedAt),
+  };
 }
 
 function requiredString(value: unknown, field: string, maxLength: number): string {
@@ -865,6 +973,11 @@ export const backendApi = {
     const limit = query.limit ?? CARD_LIST_PAGE_SIZE;
     const page = await request<unknown>(buildCardListPath(query));
     return normalizeCardListResponse(page, limit);
+  },
+
+  async cardBalance(cardId: string): Promise<WalletCardBalance> {
+    const result = await request<unknown>(buildCardBalancePath(cardId));
+    return normalizeCardBalanceResponse(result, cardId);
   },
 
   async getCard(cardId: string): Promise<WalletCard> {
