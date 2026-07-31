@@ -220,21 +220,6 @@ type BackendCardPageRecord = {
   nextCursor?: unknown;
 };
 
-type BackendTransactionRecord = {
-  id?: unknown;
-  status?: unknown;
-  amountMinor?: unknown;
-  currency?: unknown;
-  merchantName?: unknown;
-  merchantCategory?: unknown;
-  occurredAt?: unknown;
-};
-
-type BackendTransactionPageRecord = {
-  transactions?: unknown;
-  nextCursor?: unknown;
-};
-
 type BackendWalletBalanceRecord = {
   assetCode?: unknown;
   availableBalance?: unknown;
@@ -629,38 +614,93 @@ function optionalString(value: unknown, field: string, maxLength: number): strin
   return value;
 }
 
-function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransaction {
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid transaction");
+function cardTransactionTimestamp(value: unknown): string {
+  if (typeof value !== "string" || value.length > 64) {
+    throw new Error("Backend returned an invalid transaction timestamp");
   }
-  const rawStatus = requiredString(value.status, "status", 32);
+  const match =
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(?:Z|[+-](\d{2}):(\d{2}))$/.exec(
+      value,
+    );
+  if (!match) throw new Error("Backend returned an invalid transaction timestamp");
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const hour = Number(match[4]);
+  const minute = Number(match[5]);
+  const second = Number(match[6]);
+  const offsetHour = Number(match[7] ?? 0);
+  const offsetMinute = Number(match[8] ?? 0);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const daysInMonth = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (
+    year < 1 ||
+    month < 1 ||
+    month > 12 ||
+    day < 1 ||
+    day > (daysInMonth[month - 1] ?? 0) ||
+    hour > 23 ||
+    minute > 59 ||
+    second > 59 ||
+    offsetHour > 23 ||
+    offsetMinute > 59 ||
+    !Number.isFinite(Date.parse(value))
+  ) {
+    throw new Error("Backend returned an invalid transaction timestamp");
+  }
+  return value;
+}
+
+function cardTransactionMcc(value: unknown): string {
+  if (value === null) return "";
+  if (typeof value !== "string" || !/^[0-9]{4}$/.test(value)) {
+    throw new Error("Backend returned an invalid transaction category");
+  }
+  return value;
+}
+
+function normalizeTransaction(value: unknown): WalletCardTransaction {
+  const record = ownJsonDataRecord(
+    value,
+    ["id", "status", "amountMinor", "currency", "merchantName", "merchantCategory", "occurredAt"],
+    "Backend returned an invalid transaction",
+    (field) => `Backend returned an invalid transaction ${field}`,
+  );
+  const rawStatus = requiredString(record.status, "status", 32);
   if (
     !["AUTHORIZED", "DECLINED", "CLEARED", "SETTLED", "REVERSED", "REFUNDED"].includes(rawStatus)
   ) {
     throw new Error("Backend returned an invalid transaction status");
   }
-  if (typeof value.amountMinor !== "string" || !/^(?:0|-?[1-9]\d{0,18})$/.test(value.amountMinor)) {
+  if (
+    typeof record.amountMinor !== "string" ||
+    !/^(?:0|-?[1-9]\d{0,18})$/.test(record.amountMinor)
+  ) {
     throw new Error("Backend returned an invalid transaction amount");
   }
-  const amountMinor = BigInt(value.amountMinor);
+  const amountMinor = BigInt(record.amountMinor);
   if (amountMinor < -9_223_372_036_854_775_808n || amountMinor > 9_223_372_036_854_775_807n) {
     throw new Error("Backend returned an invalid transaction amount");
   }
-  const currency = requiredString(value.currency, "currency", 3);
+  const currency = requiredString(record.currency, "currency", 3);
   if (!/^[A-Z]{3}$/.test(currency)) {
     throw new Error("Backend returned an invalid transaction currency");
   }
-  const timestamp = requiredString(value.occurredAt, "timestamp", 64);
-  if (!Number.isFinite(Date.parse(timestamp))) {
-    throw new Error("Backend returned an invalid transaction timestamp");
+  const id = requiredString(record.id, "id", 128);
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(id)) {
+    throw new Error("Backend returned an invalid transaction id");
   }
+  const timestamp = cardTransactionTimestamp(record.occurredAt);
   return {
-    id: requiredString(value.id, "id", 128),
+    id,
     status: rawStatus.toLowerCase() as WalletCardTransaction["status"],
-    amountMinor: value.amountMinor,
+    amountMinor: record.amountMinor,
     currency,
-    merchant: optionalString(value.merchantName, "merchant", 160) || "Card transaction",
-    category: optionalString(value.merchantCategory, "category", 64),
+    merchant:
+      record.merchantName === null
+        ? "Card transaction"
+        : optionalString(record.merchantName, "merchant", 160) || "Card transaction",
+    category: cardTransactionMcc(record.merchantCategory),
     timestamp,
   };
 }
@@ -669,11 +709,7 @@ export function buildCardTransactionPath(
   cardId: string,
   query: WalletCardTransactionQuery = {},
 ): string {
-  const containsControlCharacter = [...cardId].some((character) => {
-    const code = character.charCodeAt(0);
-    return code <= 31 || code === 127;
-  });
-  if (!cardId.trim() || cardId.length > 128 || containsControlCharacter) {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(cardId)) {
     throw new Error("Invalid card transaction card id");
   }
   const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
@@ -698,11 +734,16 @@ export function normalizeCardTransactionResponse(
   if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
     throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
   }
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid transaction page");
-  }
-  const page = value as BackendTransactionPageRecord;
-  if (!Array.isArray(page.transactions) || page.transactions.length > limit) {
+  const page = ownJsonDataRecord(
+    value,
+    ["transactions", "nextCursor"],
+    "Backend returned an invalid transaction page",
+  );
+  const transactions = ownJsonArray(
+    page.transactions,
+    "Backend returned an invalid transaction page",
+  );
+  if (transactions.length > limit) {
     throw new Error("Backend returned an invalid transaction page");
   }
   if (
@@ -715,9 +756,7 @@ export function normalizeCardTransactionResponse(
     throw new Error("Backend returned an invalid transaction cursor");
   }
   return {
-    transactions: page.transactions.map((transaction) =>
-      normalizeTransaction(transaction as BackendTransactionRecord),
-    ),
+    transactions: transactions.map(normalizeTransaction),
     nextCursor: page.nextCursor,
   };
 }
