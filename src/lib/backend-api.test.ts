@@ -1,12 +1,14 @@
 import { describe, expect, it } from "bun:test";
 import {
   buildCardListPath,
+  buildCardBalancePath,
   buildCardTransactionPath,
   buildWalletTransactionDetailPath,
   buildWalletTransactionPath,
   buildWalletOperationPath,
   buildWalletOperationDetailPath,
   normalizeCardListResponse,
+  normalizeCardBalanceResponse,
   normalizeCardTransactionResponse,
   normalizeWalletBalanceResponse,
   normalizeWalletTransactionDetail,
@@ -127,6 +129,99 @@ describe("Card list Backend adapter", () => {
     expect(() => normalizeCardListResponse({ cards: [{}], nextCursor: null })).toThrow(
       "Backend returned a card without an id",
     );
+  });
+});
+
+const publicCardBalance = (cardId: string) => ({
+  cardId,
+  currency: "USD",
+  availableBalanceMinor: "12345",
+  currentBalanceMinor: "13000",
+  pendingAmountMinor: "655",
+  updatedAt: "2026-07-31T08:00:00.000Z",
+  tenantId: "must-not-render",
+  customerId: "must-not-render",
+  environment: "PRODUCTION",
+  provider: "THREDD",
+  providerPublicToken: "must-not-render",
+  providerReference: "must-not-render",
+  accountId: "must-not-render",
+  walletAccountId: "must-not-render",
+  treasuryAccountId: "must-not-render",
+  journalIds: ["must-not-render"],
+  raw: { secret: "must-not-render" },
+});
+
+describe("Selected Card balance Backend adapter", () => {
+  it("builds only the published scoped balance path from an exact public Card id", () => {
+    expect(buildCardBalancePath("card_owned-1")).toBe("/v1/cards/card_owned-1/balance");
+    for (const id of ["", "x", "bad/id", "bad id", "bad$id", "bad:id", "x".repeat(129)]) {
+      expect(() => buildCardBalancePath(id)).toThrow("Backend returned an invalid Card id");
+    }
+  });
+
+  it("keeps only the six public DTO fields and preserves integer strings", () => {
+    const balance = normalizeCardBalanceResponse(publicCardBalance("card_owned-1"), "card_owned-1");
+    expect(balance).toEqual({
+      cardId: "card_owned-1",
+      currency: "USD",
+      availableBalanceMinor: "12345",
+      currentBalanceMinor: "13000",
+      pendingAmountMinor: "655",
+      updatedAt: "2026-07-31T08:00:00.000Z",
+    });
+    expect(JSON.stringify(balance)).not.toMatch(
+      /tenantId|customerId|environment|provider|THREDD|accountId|treasury|journal|raw|secret|must-not-render/,
+    );
+  });
+
+  it("rejects a response for a different selected Card", () => {
+    expect(() =>
+      normalizeCardBalanceResponse(publicCardBalance("card_other"), "card_owned-1"),
+    ).toThrow("Backend returned a balance for a different Card");
+  });
+
+  it("strictly validates currency, signed 64-bit minor amounts and RFC3339 time", () => {
+    for (const patch of [
+      { currency: "usd" },
+      { currency: "USDT" },
+      { availableBalanceMinor: 12345 },
+      { availableBalanceMinor: "012345" },
+      { availableBalanceMinor: "+12345" },
+      { availableBalanceMinor: "-0" },
+      { availableBalanceMinor: "12.00" },
+      { currentBalanceMinor: "9223372036854775808" },
+      { pendingAmountMinor: "-9223372036854775809" },
+      { updatedAt: "2026-07-31" },
+      { updatedAt: "2026-02-30T08:00:00Z" },
+      { updatedAt: "2026-07-31T24:00:00Z" },
+      { updatedAt: "2026-07-31 08:00:00Z" },
+    ]) {
+      expect(() =>
+        normalizeCardBalanceResponse(
+          { ...publicCardBalance("card_owned-1"), ...patch },
+          "card_owned-1",
+        ),
+      ).toThrow();
+    }
+  });
+
+  it("accepts canonical negative balances because the public DTO is signed", () => {
+    expect(
+      normalizeCardBalanceResponse(
+        {
+          ...publicCardBalance("card_owned-1"),
+          availableBalanceMinor: "-1",
+          currentBalanceMinor: "-9223372036854775808",
+          pendingAmountMinor: "0",
+        },
+        "card_owned-1",
+      ),
+    ).toMatchObject({
+      availableBalanceMinor: "-1",
+      currentBalanceMinor: "-9223372036854775808",
+      pendingAmountMinor: "0",
+    });
   });
 });
 

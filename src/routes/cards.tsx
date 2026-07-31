@@ -15,6 +15,7 @@ import { backendApi } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
+import { useCardBalance } from "@/hooks/use-card-balance";
 import {
   acceptsCardActionResponse,
   beginCardAction,
@@ -63,6 +64,7 @@ function CardsPage() {
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
+  const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
@@ -256,11 +258,9 @@ function CardsPage() {
                 <div className="mt-6 flex items-end justify-between">
                   <div>
                     <p className="text-[9px] uppercase tracking-widest text-white/60">
-                      Backend user
+                      Session scope
                     </p>
-                    <p className="max-w-40 truncate text-xs font-semibold">
-                      {session?.actorId ?? "Unavailable"}
-                    </p>
+                    <p className="max-w-40 truncate text-xs font-semibold">Authenticated</p>
                   </div>
                   <div>
                     <p className="text-[9px] uppercase tracking-widest text-white/60">
@@ -272,12 +272,25 @@ function CardsPage() {
               </div>
             </div>
 
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <Metric
-                label={t("cards.cardBalance")}
-                value={`${current.balance.toFixed(2)} ${current.currency}`}
-              />
-              <Metric label="Status" value={current.status.toUpperCase()} />
+            <div className="mt-4">
+              {cardBalance.loading && (
+                <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 p-4 text-xs text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected Card
+                  balance
+                </div>
+              )}
+              {!cardBalance.loading && cardBalance.error && (
+                <div className="flex gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
+                  <AlertTriangle className="h-4 w-4 shrink-0" />
+                  <span>{cardBalance.error} · No stale Card balance displayed.</span>
+                </div>
+              )}
+              {!cardBalance.loading && !cardBalance.error && cardBalance.balance && (
+                <CardBalancePanel balance={cardBalance.balance} />
+              )}
+              <div className="mt-3">
+                <Metric label="Status" value={current.status.toUpperCase()} />
+              </div>
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-2">
@@ -339,6 +352,59 @@ function Metric({ label, value }: { label: string; value: string }) {
     <div className="rounded-2xl border border-border/60 bg-surface/60 p-4">
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">{label}</p>
       <p className="mt-1 font-display text-base font-bold tabular-nums">{value}</p>
+    </div>
+  );
+}
+
+function CardBalancePanel({
+  balance,
+}: {
+  balance: NonNullable<ReturnType<typeof useCardBalance>["balance"]>;
+}) {
+  return (
+    <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4">
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+        Live Card balance · minor units
+      </p>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        <BalanceMetric
+          label="Available"
+          value={balance.availableBalanceMinor}
+          currency={balance.currency}
+        />
+        <BalanceMetric
+          label="Current"
+          value={balance.currentBalanceMinor}
+          currency={balance.currency}
+        />
+        <BalanceMetric
+          label="Pending"
+          value={balance.pendingAmountMinor}
+          currency={balance.currency}
+        />
+      </div>
+      <p className="mt-3 text-[10px] text-muted-foreground">
+        Updated {new Date(balance.updatedAt).toLocaleString()}
+      </p>
+    </div>
+  );
+}
+
+function BalanceMetric({
+  label,
+  value,
+  currency,
+}: {
+  label: string;
+  value: string;
+  currency: string;
+}) {
+  return (
+    <div className="min-w-0 rounded-xl bg-background/50 p-3">
+      <p className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p translate="no" className="mt-1 truncate text-xs font-bold tabular-nums">
+        {value} {currency}
+      </p>
     </div>
   );
 }
