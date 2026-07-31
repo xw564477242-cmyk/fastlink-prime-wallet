@@ -118,6 +118,38 @@ export type WalletCardTransactionQuery = {
 
 export const CARD_TRANSACTION_PAGE_SIZE = 25;
 
+export type WalletAssetAccount = {
+  assetCode: string;
+  availableBalance: string;
+  ledgerBalance: string;
+  pendingBalance: string;
+  updatedAt: string;
+};
+
+export type WalletAccountTransaction = {
+  id: string;
+  type: "deposit" | "withdrawal" | "transfer" | "merchant_payment" | "refund" | "fx";
+  status: "pending" | "completed" | "failed" | "reversed";
+  assetCode: string;
+  amount: string;
+  direction: "incoming" | "outgoing";
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type WalletAccountTransactionPage = {
+  items: WalletAccountTransaction[];
+  nextCursor: string | null;
+};
+
+export type WalletAccountTransactionQuery = {
+  assetCode: string;
+  limit?: number;
+  cursor?: string;
+};
+
+export const WALLET_TRANSACTION_PAGE_SIZE = 25;
+
 type BackendCardRecord = {
   id?: unknown;
   type?: unknown;
@@ -148,6 +180,30 @@ type BackendTransactionRecord = {
 
 type BackendTransactionPageRecord = {
   transactions?: unknown;
+  nextCursor?: unknown;
+};
+
+type BackendWalletBalanceRecord = {
+  assetCode?: unknown;
+  availableBalance?: unknown;
+  ledgerBalance?: unknown;
+  pendingBalance?: unknown;
+  updatedAt?: unknown;
+};
+
+type BackendWalletTransactionRecord = {
+  id?: unknown;
+  type?: unknown;
+  status?: unknown;
+  assetCode?: unknown;
+  amount?: unknown;
+  direction?: unknown;
+  createdAt?: unknown;
+  updatedAt?: unknown;
+};
+
+type BackendWalletTransactionPageRecord = {
+  items?: unknown;
   nextCursor?: unknown;
 };
 
@@ -424,6 +480,142 @@ export function normalizeCardTransactionResponse(
   };
 }
 
+function walletAssetCode(value: unknown): string {
+  if (typeof value !== "string" || !/^[A-Z0-9]{2,12}$/.test(value)) {
+    throw new Error("Backend returned an invalid Wallet asset code");
+  }
+  return value;
+}
+
+function walletTimestamp(value: unknown, field: string): string {
+  if (typeof value !== "string" || value.length > 64 || !Number.isFinite(Date.parse(value))) {
+    throw new Error(`Backend returned an invalid Wallet ${field}`);
+  }
+  return value;
+}
+
+function walletDecimal(value: unknown, field: string, absolute = false): string {
+  const pattern = absolute
+    ? /^(?:0|[1-9]\d{0,17})(?:\.\d{1,18})?$/
+    : /^-?(?:0|[1-9]\d{0,17})(?:\.\d{1,18})?$/;
+  if (
+    typeof value !== "string" ||
+    value.length > 37 ||
+    !pattern.test(value) ||
+    /^-0(?:\.0+)?$/.test(value)
+  ) {
+    throw new Error(`Backend returned an invalid Wallet ${field}`);
+  }
+  return value;
+}
+
+export function normalizeWalletBalanceResponse(value: unknown): WalletAssetAccount[] {
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Wallet balance response");
+  }
+  const items = (value as { items?: unknown }).items;
+  if (!Array.isArray(items) || items.length > 50) {
+    throw new Error("Backend returned an invalid Wallet balance response");
+  }
+  return items.map((item) => {
+    if (!item || typeof item !== "object") {
+      throw new Error("Backend returned an invalid Wallet balance account");
+    }
+    const record = item as BackendWalletBalanceRecord;
+    return {
+      assetCode: walletAssetCode(record.assetCode),
+      availableBalance: walletDecimal(record.availableBalance, "available balance"),
+      ledgerBalance: walletDecimal(record.ledgerBalance, "ledger balance"),
+      pendingBalance: walletDecimal(record.pendingBalance, "pending balance"),
+      updatedAt: walletTimestamp(record.updatedAt, "balance timestamp"),
+    };
+  });
+}
+
+export function buildWalletTransactionPath(query: WalletAccountTransactionQuery): string {
+  const assetCode = walletAssetCode(query.assetCode);
+  const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
+  if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_TRANSACTION_PAGE_SIZE) {
+    throw new Error(
+      `Wallet transaction limit must be between 1 and ${WALLET_TRANSACTION_PAGE_SIZE}`,
+    );
+  }
+  if (
+    query.cursor !== undefined &&
+    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
+  ) {
+    throw new Error("Invalid Wallet transaction cursor");
+  }
+  const params = new URLSearchParams({ assetCode, limit: String(limit) });
+  if (query.cursor) params.set("cursor", query.cursor);
+  return `/v1/wallet/transactions?${params.toString()}`;
+}
+
+function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Wallet transaction");
+  }
+  const record = value as BackendWalletTransactionRecord;
+  if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
+    throw new Error("Backend returned an invalid Wallet transaction id");
+  }
+  const types = ["DEPOSIT", "WITHDRAWAL", "TRANSFER", "MERCHANT_PAYMENT", "REFUND", "FX"];
+  if (typeof record.type !== "string" || !types.includes(record.type)) {
+    throw new Error("Backend returned an invalid Wallet transaction type");
+  }
+  const statuses = ["PENDING", "COMPLETED", "FAILED", "REVERSED"];
+  if (typeof record.status !== "string" || !statuses.includes(record.status)) {
+    throw new Error("Backend returned an invalid Wallet transaction status");
+  }
+  if (record.direction !== "INCOMING" && record.direction !== "OUTGOING") {
+    throw new Error("Backend returned an invalid Wallet transaction direction");
+  }
+  return {
+    id: record.id,
+    type: record.type.toLowerCase() as WalletAccountTransaction["type"],
+    status: record.status.toLowerCase() as WalletAccountTransaction["status"],
+    assetCode: walletAssetCode(record.assetCode),
+    amount: walletDecimal(record.amount, "transaction amount", true),
+    direction: record.direction.toLowerCase() as WalletAccountTransaction["direction"],
+    createdAt: walletTimestamp(record.createdAt, "transaction createdAt"),
+    updatedAt: walletTimestamp(record.updatedAt, "transaction updatedAt"),
+  };
+}
+
+export function normalizeWalletTransactionResponse(
+  value: unknown,
+  expectedAssetCode: string,
+  limit = WALLET_TRANSACTION_PAGE_SIZE,
+): WalletAccountTransactionPage {
+  const assetCode = walletAssetCode(expectedAssetCode);
+  if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_TRANSACTION_PAGE_SIZE) {
+    throw new Error(
+      `Wallet transaction limit must be between 1 and ${WALLET_TRANSACTION_PAGE_SIZE}`,
+    );
+  }
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid Wallet transaction page");
+  }
+  const page = value as BackendWalletTransactionPageRecord;
+  if (!Array.isArray(page.items) || page.items.length > limit) {
+    throw new Error("Backend returned an invalid Wallet transaction page");
+  }
+  if (
+    page.nextCursor !== null &&
+    (typeof page.nextCursor !== "string" ||
+      !page.nextCursor ||
+      page.nextCursor.length > 512 ||
+      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
+  ) {
+    throw new Error("Backend returned an invalid Wallet transaction cursor");
+  }
+  const items = page.items.map(normalizeWalletTransaction);
+  if (items.some((item) => item.assetCode !== assetCode)) {
+    throw new Error("Backend returned a Wallet transaction outside the selected account");
+  }
+  return { items, nextCursor: page.nextCursor };
+}
+
 export const backendApi = {
   register(input: BackendCredentials) {
     return request<BackendSession>("/v1/auth/register", {
@@ -489,5 +681,17 @@ export const backendApi = {
     const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
     const result = await request<unknown>(buildCardTransactionPath(cardId, query));
     return normalizeCardTransactionResponse(result, limit);
+  },
+
+  async walletBalanceAccounts(): Promise<WalletAssetAccount[]> {
+    return normalizeWalletBalanceResponse(await request<unknown>("/v1/wallet/balances"));
+  },
+
+  async walletTransactions(
+    query: WalletAccountTransactionQuery,
+  ): Promise<WalletAccountTransactionPage> {
+    const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
+    const result = await request<unknown>(buildWalletTransactionPath(query));
+    return normalizeWalletTransactionResponse(result, query.assetCode, limit);
   },
 };

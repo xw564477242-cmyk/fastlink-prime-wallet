@@ -2,8 +2,11 @@ import { describe, expect, it } from "bun:test";
 import {
   buildCardListPath,
   buildCardTransactionPath,
+  buildWalletTransactionPath,
   normalizeCardListResponse,
   normalizeCardTransactionResponse,
+  normalizeWalletBalanceResponse,
+  normalizeWalletTransactionResponse,
 } from "./backend-api";
 
 const publicCard = (id: string) => ({
@@ -225,5 +228,137 @@ describe("Card transaction Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow("Backend returned an invalid transaction timestamp");
+  });
+});
+
+const publicWalletTransaction = (id: string) => ({
+  id,
+  type: "TRANSFER",
+  status: "COMPLETED",
+  assetCode: "USD",
+  amount: "25.5",
+  direction: "OUTGOING",
+  createdAt: "2026-07-31T12:00:00.000Z",
+  updatedAt: "2026-07-31T12:00:01.000Z",
+  tenantId: "must-not-render",
+  customerId: "must-not-render",
+  walletAccountId: "must-not-render",
+  provider: "THREDD",
+  journalIds: ["journal-internal"],
+  metadata: { raw: "must-not-render" },
+});
+
+describe("Wallet account history Backend adapter", () => {
+  it("builds a bounded selected-account request with a filter-bound cursor", () => {
+    expect(buildWalletTransactionPath({ assetCode: "USD" })).toBe(
+      "/v1/wallet/transactions?assetCode=USD&limit=25",
+    );
+    expect(
+      buildWalletTransactionPath({ assetCode: "USDT", limit: 10, cursor: "filter_cursor-1" }),
+    ).toBe("/v1/wallet/transactions?assetCode=USDT&limit=10&cursor=filter_cursor-1");
+    expect(() => buildWalletTransactionPath({ assetCode: "usd" })).toThrow(
+      "Backend returned an invalid Wallet asset code",
+    );
+    expect(() => buildWalletTransactionPath({ assetCode: "USD", limit: 26 })).toThrow(
+      "Wallet transaction limit must be between 1 and 25",
+    );
+    expect(() => buildWalletTransactionPath({ assetCode: "USD", cursor: "bad!cursor" })).toThrow(
+      "Invalid Wallet transaction cursor",
+    );
+  });
+
+  it("normalizes public balance accounts without leaking internal fields", () => {
+    const accounts = normalizeWalletBalanceResponse({
+      items: [
+        {
+          assetCode: "USD",
+          availableBalance: "12.5",
+          ledgerBalance: "15",
+          pendingBalance: "2.5",
+          updatedAt: "2026-07-31T12:00:00.000Z",
+          accountId: "must-not-render",
+          provider: "THREDD",
+          metadata: { raw: true },
+        },
+      ],
+    });
+
+    expect(accounts).toEqual([
+      {
+        assetCode: "USD",
+        availableBalance: "12.5",
+        ledgerBalance: "15",
+        pendingBalance: "2.5",
+        updatedAt: "2026-07-31T12:00:00.000Z",
+      },
+    ]);
+    expect(JSON.stringify(accounts)).not.toMatch(/accountId|provider|THREDD|metadata|raw/);
+  });
+
+  it("preserves canonical decimal strings and strict public transaction fields", () => {
+    const page = normalizeWalletTransactionResponse(
+      { items: [publicWalletTransaction("wallet-txn-1")], nextCursor: "filter_cursor-1" },
+      "USD",
+    );
+
+    expect(page).toEqual({
+      items: [
+        {
+          id: "wallet-txn-1",
+          type: "transfer",
+          status: "completed",
+          assetCode: "USD",
+          amount: "25.5",
+          direction: "outgoing",
+          createdAt: "2026-07-31T12:00:00.000Z",
+          updatedAt: "2026-07-31T12:00:01.000Z",
+        },
+      ],
+      nextCursor: "filter_cursor-1",
+    });
+    expect(JSON.stringify(page)).not.toMatch(
+      /tenantId|customerId|walletAccountId|provider|THREDD|journal|metadata|raw|must-not-render/,
+    );
+  });
+
+  it("fails closed for over-limit, wrong-account and malformed records", () => {
+    expect(() =>
+      normalizeWalletTransactionResponse(
+        {
+          items: [publicWalletTransaction("tx-1"), publicWalletTransaction("tx-2")],
+          nextCursor: null,
+        },
+        "USD",
+        1,
+      ),
+    ).toThrow("Backend returned an invalid Wallet transaction page");
+    expect(() =>
+      normalizeWalletTransactionResponse(
+        {
+          items: [{ ...publicWalletTransaction("tx-1"), assetCode: "EUR" }],
+          nextCursor: null,
+        },
+        "USD",
+      ),
+    ).toThrow("Backend returned a Wallet transaction outside the selected account");
+
+    for (const patch of [
+      { type: "transfer" },
+      { status: "Completed" },
+      { direction: "incoming" },
+      { amount: "025.5" },
+      { amount: "-25.5" },
+      { amount: "1e2" },
+      { amount: "1234567890123456789" },
+      { amount: "1.1234567890123456789" },
+      { createdAt: "not-a-date" },
+    ]) {
+      expect(() =>
+        normalizeWalletTransactionResponse(
+          { items: [{ ...publicWalletTransaction("tx-1"), ...patch }], nextCursor: null },
+          "USD",
+        ),
+      ).toThrow();
+    }
   });
 });
