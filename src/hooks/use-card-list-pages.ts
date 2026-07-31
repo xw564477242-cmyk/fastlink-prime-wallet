@@ -86,6 +86,14 @@ export function useCardListPages(
     },
     [scopeReady, sessionKey],
   );
+  const replaceSelectedCard = useCallback(
+    (oldCardId: string, card: WalletCard) => {
+      if (scopeReady) {
+        dispatch({ type: "replace-selected", sessionKey, oldCardId, card });
+      }
+    },
+    [scopeReady, sessionKey],
+  );
   const invalidate = useCallback(
     (message: string) => {
       if (!scopeReady) return;
@@ -95,5 +103,13 @@ export function useCardListPages(
     [scopeReady, sessionKey],
   );
 
-  return { ...view, loadMore, selectCard, replaceCard, prependCard, invalidate };
+  return {
+    ...view,
+    loadMore,
+    selectCard,
+    replaceCard,
+    prependCard,
+    replaceSelectedCard,
+    invalidate,
+  };
 }

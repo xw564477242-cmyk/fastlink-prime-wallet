@@ -56,6 +56,12 @@ export type CardListAction =
   | { type: "failed"; requestId: number; message: string; append: boolean }
   | { type: "select"; sessionKey: string | null; cardId: string }
   | { type: "replace"; sessionKey: string | null; card: WalletCard }
+  | {
+      type: "replace-selected";
+      sessionKey: string | null;
+      oldCardId: string;
+      card: WalletCard;
+    }
   | { type: "prepend"; sessionKey: string | null; card: WalletCard }
   | { type: "invalidate"; sessionKey: string | null; requestId: number; message: string };
 
@@ -123,6 +129,22 @@ export function cardListReducer(state: CardListState, action: CardListAction): C
         ...state,
         cards: state.cards.map((card) => (card.cardId === action.card.cardId ? action.card : card)),
       };
+    case "replace-selected": {
+      if (
+        action.sessionKey !== state.sessionKey ||
+        action.oldCardId === action.card.cardId ||
+        state.activeId !== action.oldCardId ||
+        !state.cards.some((card) => card.cardId === action.oldCardId) ||
+        state.cards.some((card) => card.cardId === action.card.cardId)
+      ) {
+        return state;
+      }
+      return {
+        ...state,
+        cards: state.cards.map((card) => (card.cardId === action.oldCardId ? action.card : card)),
+        activeId: action.card.cardId,
+      };
+    }
     case "prepend":
       if (action.sessionKey !== state.sessionKey) return state;
       return {
