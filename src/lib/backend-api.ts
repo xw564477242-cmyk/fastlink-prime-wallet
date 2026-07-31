@@ -176,6 +176,10 @@ export type WalletOperationActivityQuery = {
   cursor?: string;
 };
 
+export type WalletOperationDetailExpectation = {
+  operationId: string;
+};
+
 export const WALLET_OPERATION_PAGE_SIZE = 25;
 
 export const WALLET_TRANSACTION_PAGE_SIZE = 25;
@@ -746,6 +750,25 @@ function normalizeWalletOperation(value: unknown): WalletOperationActivity {
   };
 }
 
+export function buildWalletOperationDetailPath(operationId: string): string {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(operationId)) {
+    throw new Error("Invalid Wallet operation id");
+  }
+  return `/v1/wallet/operations/${encodeURIComponent(operationId)}`;
+}
+
+export function normalizeWalletOperationDetail(
+  value: unknown,
+  expectation: WalletOperationDetailExpectation,
+): WalletOperationActivity {
+  buildWalletOperationDetailPath(expectation.operationId);
+  const detail = normalizeWalletOperation(value);
+  if (detail.id !== expectation.operationId) {
+    throw new Error("Backend returned a different Wallet operation id");
+  }
+  return detail;
+}
+
 export function normalizeWalletOperationResponse(
   value: unknown,
   limit = WALLET_OPERATION_PAGE_SIZE,
@@ -905,5 +928,12 @@ export const backendApi = {
     const limit = query.limit ?? WALLET_OPERATION_PAGE_SIZE;
     const result = await request<unknown>(buildWalletOperationPath(query));
     return normalizeWalletOperationResponse(result, limit);
+  },
+
+  async walletOperationDetail(
+    expectation: WalletOperationDetailExpectation,
+  ): Promise<WalletOperationActivity> {
+    const result = await request<unknown>(buildWalletOperationDetailPath(expectation.operationId));
+    return normalizeWalletOperationDetail(result, expectation);
   },
 };

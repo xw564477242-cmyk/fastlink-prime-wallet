@@ -5,12 +5,14 @@ import {
   buildWalletTransactionDetailPath,
   buildWalletTransactionPath,
   buildWalletOperationPath,
+  buildWalletOperationDetailPath,
   normalizeCardListResponse,
   normalizeCardTransactionResponse,
   normalizeWalletBalanceResponse,
   normalizeWalletTransactionDetail,
   normalizeWalletTransactionResponse,
   normalizeWalletOperationResponse,
+  normalizeWalletOperationDetail,
 } from "./backend-api";
 
 const publicCard = (id: string) => ({
@@ -566,5 +568,63 @@ describe("Wallet operation activity Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow("Backend returned duplicate Wallet operation ids");
+  });
+});
+
+describe("Wallet operation detail Backend adapter", () => {
+  it("builds the published detail route from one validated opaque operation id", () => {
+    expect(buildWalletOperationDetailPath("operation:owned-1")).toBe(
+      "/v1/wallet/operations/operation%3Aowned-1",
+    );
+    for (const id of ["", "x", "bad/id", "bad id", "bad$id", "x".repeat(129)]) {
+      expect(() => buildWalletOperationDetailPath(id)).toThrow("Invalid Wallet operation id");
+    }
+  });
+
+  it("accepts only the public contract when the returned id matches the selection", () => {
+    const detail = normalizeWalletOperationDetail(publicWalletOperation("operation-1"), {
+      operationId: "operation-1",
+    });
+    expect(detail).toEqual({
+      id: "operation-1",
+      type: "internal_transfer",
+      status: "pending_settlement",
+      assetCode: "USD",
+      amount: "25.5",
+      direction: "between_own_accounts",
+      createdAt: "2026-07-31T12:00:00.000Z",
+      completedAt: null,
+      updatedAt: "2026-07-31T12:00:01+00:00",
+    });
+    expect(JSON.stringify(detail)).not.toMatch(
+      /tenantId|customerId|accountId|provider|THREDD|journal|failureReason|raw|secret|must-not-render/,
+    );
+  });
+
+  it("rejects a substituted id and reuses strict enum, decimal and RFC3339 validation", () => {
+    expect(() =>
+      normalizeWalletOperationDetail(publicWalletOperation("operation-other"), {
+        operationId: "operation-selected",
+      }),
+    ).toThrow("Backend returned a different Wallet operation id");
+    for (const patch of [
+      { type: "internal_transfer" },
+      { status: "Pending_Settlement" },
+      { direction: "between_own_accounts" },
+      { amount: "025.5" },
+      { amount: "-25.5" },
+      { amount: "1e2" },
+      { amount: "1234567890123456789" },
+      { amount: "1.1234567890123456789" },
+      { createdAt: "2026-02-30T12:00:00Z" },
+      { completedAt: undefined },
+    ]) {
+      expect(() =>
+        normalizeWalletOperationDetail(
+          { ...publicWalletOperation("operation-selected"), ...patch },
+          { operationId: "operation-selected" },
+        ),
+      ).toThrow();
+    }
   });
 });
