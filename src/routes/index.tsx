@@ -202,7 +202,7 @@ function HomePage() {
                 </p>
               </div>
               <p translate="no" className="shrink-0 text-sm font-semibold tabular-nums">
-                {transaction.amount.toFixed(2)} {transaction.currency}
+                {transaction.amountMinor} {transaction.currency} minor units
               </p>
             </div>
           ))}

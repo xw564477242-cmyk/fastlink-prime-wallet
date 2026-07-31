@@ -147,7 +147,7 @@ describe("Card transaction Backend adapter", () => {
         {
           id: "txn_1",
           status: "settled",
-          amount: 25,
+          amountMinor: "2500",
           currency: "USD",
           merchant: "Coffee",
           category: "5812",
@@ -196,6 +196,21 @@ describe("Card transaction Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow("Backend returned an invalid transaction amount");
+    for (const amountMinor of [
+      "02500",
+      "+2500",
+      "-0",
+      "9223372036854775808",
+      "-9223372036854775809",
+      "123456789012345678901234567890",
+    ]) {
+      expect(() =>
+        normalizeCardTransactionResponse({
+          transactions: [{ ...publicTransaction("txn_1"), amountMinor }],
+          nextCursor: null,
+        }),
+      ).toThrow("Backend returned an invalid transaction amount");
+    }
     expect(() =>
       normalizeCardTransactionResponse({
         transactions: [{ ...publicTransaction("txn_1"), occurredAt: "not-a-date" }],

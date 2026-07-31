@@ -99,7 +99,7 @@ export const CARD_LIST_PAGE_SIZE = 20;
 export type WalletCardTransaction = {
   id: string;
   status: "authorized" | "declined" | "cleared" | "settled" | "reversed" | "refunded";
-  amount: number;
+  amountMinor: string;
   currency: string;
   merchant: string;
   category: string;
@@ -341,11 +341,11 @@ function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransa
   ) {
     throw new Error("Backend returned an invalid transaction status");
   }
-  if (typeof value.amountMinor !== "string" || !/^-?\d+$/.test(value.amountMinor)) {
+  if (typeof value.amountMinor !== "string" || !/^(?:0|-?[1-9]\d{0,18})$/.test(value.amountMinor)) {
     throw new Error("Backend returned an invalid transaction amount");
   }
-  const amountMinor = Number(value.amountMinor);
-  if (!Number.isSafeInteger(amountMinor)) {
+  const amountMinor = BigInt(value.amountMinor);
+  if (amountMinor < -9_223_372_036_854_775_808n || amountMinor > 9_223_372_036_854_775_807n) {
     throw new Error("Backend returned an invalid transaction amount");
   }
   const currency = requiredString(value.currency, "currency", 3);
@@ -359,7 +359,7 @@ function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransa
   return {
     id: requiredString(value.id, "id", 128),
     status: rawStatus as WalletCardTransaction["status"],
-    amount: amountMinor / 100,
+    amountMinor: value.amountMinor,
     currency,
     merchant: optionalString(value.merchantName, "merchant", 160) || "Card transaction",
     category: optionalString(value.merchantCategory, "category", 64),

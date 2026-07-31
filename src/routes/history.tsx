@@ -115,7 +115,7 @@ function HistoryPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold tabular-nums">
-                    {transaction.amount.toFixed(2)} {transaction.currency}
+                    {transaction.amountMinor} {transaction.currency} minor units
                   </p>
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     {transaction.status}

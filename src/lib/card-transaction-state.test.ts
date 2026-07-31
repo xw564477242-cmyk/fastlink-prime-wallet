@@ -9,7 +9,7 @@ import {
 const transaction = (id: string): WalletCardTransaction => ({
   id,
   status: "settled",
-  amount: 25,
+  amountMinor: "2500",
   currency: "USD",
   merchant: "Coffee",
   category: "5812",
