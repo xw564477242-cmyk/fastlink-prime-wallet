@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { AlertTriangle, CreditCard, Loader2, Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { backendApi, type WalletCardTransaction } from "@/lib/backend-api";
+import { useMemo, useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
+import { useCardListPages } from "@/hooks/use-card-list-pages";
+import { useCardTransactionPages } from "@/hooks/use-card-transaction-pages";
 
 export const Route = createFileRoute("/history")({
   head: () => ({
@@ -16,57 +17,23 @@ export const Route = createFileRoute("/history")({
   component: HistoryPage,
 });
 
-type Row = WalletCardTransaction & { last4: string };
-
 function HistoryPage() {
   const { lang, t } = useLang();
   const { session } = useBackendSession();
   const [query, setQuery] = useState("");
-  const [rows, setRows] = useState<Row[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      setLoading(true);
-      setError(null);
-      setRows([]);
-      try {
-        const { cards } = await backendApi.listCards();
-        const groups = await Promise.all(
-          cards.map(async (card) => {
-            const transactions = await backendApi.cardTransactions(card.cardId);
-            return transactions.map((transaction) => ({
-              ...transaction,
-              last4: card.last4,
-            }));
-          }),
-        );
-        if (!cancelled) {
-          setRows(groups.flat().sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp)));
-        }
-      } catch (reason) {
-        if (!cancelled) {
-          setRows([]);
-          setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [session]);
+  const cardPages = useCardListPages(session);
+  const activeCard = cardPages.cards.find((card) => card.cardId === cardPages.activeId) ?? null;
+  const transactionPages = useCardTransactionPages(session, activeCard?.cardId ?? null);
+  const loading = cardPages.loading || transactionPages.loading;
+  const error = cardPages.error ?? transactionPages.error;
 
   const filtered = useMemo(
     () =>
-      rows.filter((transaction) => {
-        const haystack = `${transaction.merchant} ${transaction.category} ${transaction.last4}`;
+      transactionPages.transactions.filter((transaction) => {
+        const haystack = `${transaction.merchant} ${transaction.category} ${activeCard?.last4 ?? ""}`;
         return !query || haystack.toLowerCase().includes(query.toLowerCase());
       }),
-    [query, rows],
+    [activeCard?.last4, query, transactionPages.transactions],
   );
 
   return (
@@ -75,9 +42,37 @@ function HistoryPage() {
       <div className="px-6 pt-4">
         <h1 className="font-display text-2xl font-bold">{t("history.title")}</h1>
         <p className="mt-1 text-xs text-muted-foreground">
-          Card transactions returned by Railway Backend. Wallet history is unavailable until an
-          end-user wallet history contract is exposed.
+          Bounded card transactions returned by Railway Backend for the selected Card only.
         </p>
+
+        {!cardPages.loading && cardPages.cards.length > 0 && (
+          <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+            {cardPages.cards.map((card) => (
+              <button
+                key={card.cardId}
+                type="button"
+                onClick={() => cardPages.selectCard(card.cardId)}
+                className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold ${
+                  card.cardId === activeCard?.cardId
+                    ? "border-primary bg-primary/10 text-primary"
+                    : "border-border/60 bg-surface text-muted-foreground"
+                }`}
+              >
+                {card.alias ?? "Card"} · •••• {card.last4}
+              </button>
+            ))}
+            {cardPages.nextCursor && (
+              <button
+                type="button"
+                onClick={() => void cardPages.loadMore()}
+                disabled={cardPages.loadingMore}
+                className="shrink-0 rounded-full border border-border/60 px-3 py-2 text-xs font-semibold text-muted-foreground disabled:opacity-50"
+              >
+                {cardPages.loadingMore ? "Loading…" : "More Cards"}
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="mt-4 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-2.5">
           <Search className="h-4 w-4 text-muted-foreground" />
@@ -114,13 +109,13 @@ function HistoryPage() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">{transaction.merchant}</p>
                   <p className="truncate text-xs text-muted-foreground">
-                    •••• {transaction.last4} ·{" "}
+                    •••• {activeCard?.last4} ·{" "}
                     {new Date(transaction.timestamp).toLocaleString(lang)}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-semibold tabular-nums">
-                    {transaction.amount.toFixed(2)} {transaction.currency}
+                    {transaction.amountMinor} {transaction.currency} minor units
                   </p>
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     {transaction.status}
@@ -132,6 +127,17 @@ function HistoryPage() {
               <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-xs text-muted-foreground">
                 {t("history.empty")}
               </div>
+            )}
+            {transactionPages.nextCursor && (
+              <button
+                type="button"
+                onClick={() => void transactionPages.loadMore()}
+                disabled={transactionPages.loadingMore}
+                className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+              >
+                {transactionPages.loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}
+                {transactionPages.loadingMore ? "Loading more…" : "Load more transactions"}
+              </button>
             )}
           </div>
         )}
