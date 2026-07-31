@@ -2,6 +2,8 @@ import { useCallback, useEffect, useReducer, useRef } from "react";
 import { WALLET_TRANSACTION_PAGE_SIZE, backendApi, type BackendSession } from "@/lib/backend-api";
 import {
   initialWalletAccountState,
+  captureWalletBalanceAccountsVersion,
+  walletBalanceSessionKey,
   walletAccountReducer,
   walletAccountViewForSession,
 } from "@/lib/wallet-account-state";
@@ -26,10 +28,10 @@ export function useWalletAccountHistory(session: BackendSession | null) {
   );
   const accountSequence = useRef(0);
   const transactionSequence = useRef(0);
-  const sessionKey = session
-    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
-    : null;
+  const sessionKey = walletBalanceSessionKey(session);
   const accountView = walletAccountViewForSession(accountState, sessionKey);
+  const accountsVersionRef = useRef(accountView.accountsVersion);
+  accountsVersionRef.current = accountView.accountsVersion;
   const selectedAssetCode = accountView.selectedAssetCode;
   const transactionScopeKey =
     session && selectedAssetCode
@@ -45,12 +47,25 @@ export function useWalletAccountHistory(session: BackendSession | null) {
 
   useEffect(() => {
     const requestId = ++accountSequence.current;
-    dispatchAccount({ type: "reset", sessionKey, requestId, loading: session !== null });
+    const identity = {
+      sessionKey,
+      requestId,
+      accountsVersion: accountsVersionRef.current,
+    };
+    dispatchAccount({ type: "reset", identity, loading: session !== null });
     if (!session) return;
     void backendApi
-      .walletBalanceAccounts()
-      .then((accounts) => dispatchAccount({ type: "loaded", requestId, accounts }))
-      .catch((reason) => dispatchAccount({ type: "failed", requestId, message: failure(reason) }));
+      .walletBalanceAccounts(session.environment)
+      .then((accounts) =>
+        dispatchAccount({
+          type: "loaded",
+          identity,
+          accounts,
+          accountsVersion: captureWalletBalanceAccountsVersion(accounts),
+        }),
+      )
+      .catch((reason) => dispatchAccount({ type: "failed", identity, message: failure(reason) }))
+      .finally(() => dispatchAccount({ type: "settled", identity }));
     return () => {
       if (accountSequence.current === requestId) accountSequence.current += 1;
     };

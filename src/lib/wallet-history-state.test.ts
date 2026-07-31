@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import type { WalletAccountTransaction, WalletAssetAccount } from "./backend-api";
 import {
+  captureWalletBalanceAccountsVersion,
   initialWalletAccountState,
   walletAccountReducer,
   walletAccountViewForSession,
@@ -49,23 +50,29 @@ describe("Wallet account state", () => {
   });
 
   it("rejects stale balance responses and foreign account selections", () => {
-    const current = walletAccountReducer(initialWalletAccountState, {
-      type: "reset",
+    const currentIdentity = {
       sessionKey: "session-b",
       requestId: 2,
+      accountsVersion: captureWalletBalanceAccountsVersion([]),
+    };
+    const current = walletAccountReducer(initialWalletAccountState, {
+      type: "reset",
+      identity: currentIdentity,
       loading: true,
     });
     expect(
       walletAccountReducer(current, {
         type: "loaded",
-        requestId: 1,
+        identity: { ...currentIdentity, requestId: 1 },
         accounts: [account("EUR")],
+        accountsVersion: captureWalletBalanceAccountsVersion([account("EUR")]),
       }),
     ).toBe(current);
     const loaded = walletAccountReducer(current, {
       type: "loaded",
-      requestId: 2,
+      identity: currentIdentity,
       accounts: [account("USD")],
+      accountsVersion: captureWalletBalanceAccountsVersion([account("USD")]),
     });
     expect(
       walletAccountReducer(loaded, {
@@ -74,6 +81,44 @@ describe("Wallet account state", () => {
         assetCode: "USD",
       }),
     ).toBe(loaded);
+  });
+
+  it("rejects stale success, error and finally writes across scope, version and generation", () => {
+    const identity = {
+      sessionKey: "actor-session-tenant-customer-test",
+      requestId: 9,
+      accountsVersion: captureWalletBalanceAccountsVersion([account("USD")]),
+    };
+    const current = walletAccountReducer(initialWalletAccountState, {
+      type: "reset",
+      identity,
+      loading: true,
+    });
+    const staleIdentities = [
+      { ...identity, requestId: 8 },
+      { ...identity, sessionKey: "other-session" },
+      { ...identity, accountsVersion: captureWalletBalanceAccountsVersion([account("EUR")]) },
+    ];
+    for (const staleIdentity of staleIdentities) {
+      expect(
+        walletAccountReducer(current, {
+          type: "loaded",
+          identity: staleIdentity,
+          accounts: [account("EUR")],
+          accountsVersion: captureWalletBalanceAccountsVersion([account("EUR")]),
+        }),
+      ).toBe(current);
+      expect(
+        walletAccountReducer(current, {
+          type: "failed",
+          identity: staleIdentity,
+          message: "stale failure",
+        }),
+      ).toBe(current);
+      expect(walletAccountReducer(current, { type: "settled", identity: staleIdentity })).toBe(
+        current,
+      );
+    }
   });
 });
 

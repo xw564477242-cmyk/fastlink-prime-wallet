@@ -490,21 +490,20 @@ describe("Wallet account history Backend adapter", () => {
     );
   });
 
-  it("normalizes public balance accounts without leaking internal fields", () => {
-    const accounts = normalizeWalletBalanceResponse({
-      items: [
-        {
-          assetCode: "USD",
-          availableBalance: "12.5",
-          ledgerBalance: "15",
-          pendingBalance: "2.5",
-          updatedAt: "2026-07-31T12:00:00.000Z",
-          accountId: "must-not-render",
-          provider: "THREDD",
-          metadata: { raw: true },
-        },
-      ],
-    });
+  it("normalizes the exact public balance summary from bounded raw JSON text", () => {
+    const accounts = normalizeWalletBalanceResponse(
+      JSON.stringify({
+        items: [
+          {
+            assetCode: "USD",
+            availableBalance: "12.5",
+            ledgerBalance: "15",
+            pendingBalance: "2.5",
+            updatedAt: "2026-07-31T12:00:00.000Z",
+          },
+        ],
+      }),
+    );
 
     expect(accounts).toEqual([
       {
@@ -515,7 +514,13 @@ describe("Wallet account history Backend adapter", () => {
         updatedAt: "2026-07-31T12:00:00.000Z",
       },
     ]);
-    expect(JSON.stringify(accounts)).not.toMatch(/accountId|provider|THREDD|metadata|raw/);
+    expect(Object.keys(accounts[0]).sort()).toEqual([
+      "assetCode",
+      "availableBalance",
+      "ledgerBalance",
+      "pendingBalance",
+      "updatedAt",
+    ]);
   });
 
   it("preserves canonical decimal strings and strict public transaction fields", () => {

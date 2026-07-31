@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Run public contract adversarial matrices
-        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts
+        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts
 
       - name: Run Wallet transfer refresh integration safety in SANDBOX
         run: bun run test:transfer-refresh-integration:sandbox
@@ -69,8 +69,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf '{"format":"fastlink-prime-wallet-pr-evidence-v12","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"manualReadEnvironments":["SANDBOX","TEST"],"integrationEnvironments":["SANDBOX","TEST"],"integrationSuites":["src/lib/wallet-transfer-status-refresh.integration.ts"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts","src/lib/wallet-transfer-status-refresh-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
-          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts > build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-pr-evidence-v13","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"manualReadEnvironments":["SANDBOX","TEST"],"integrationEnvironments":["SANDBOX","TEST"],"integrationSuites":["src/lib/wallet-transfer-status-refresh.integration.ts"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts","src/lib/wallet-transfer-status-refresh-adversarial.test.ts","src/lib/wallet-balance-summary-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
+          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts > build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -90,6 +90,7 @@ jobs:
             src/lib/card-limits-mutation-adversarial.test.ts
             src/lib/wallet-transfer-mutation-adversarial.test.ts
             src/lib/wallet-transfer-status-refresh-adversarial.test.ts
+            src/lib/wallet-balance-summary-adversarial.test.ts
             src/lib/wallet-transfer-status-refresh.integration.ts
           if-no-files-found: error
           retention-days: 7
