@@ -41,6 +41,8 @@ const transaction: WalletCardTransaction = {
 };
 const page = (transactions: unknown = [transactionRecord()], nextCursor: unknown = null) =>
   JSON.stringify({ transactions, nextCursor });
+const signedCursor = (payload: string) =>
+  `${Buffer.from(payload).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
 
 describe("Selected-Card transaction adversarial parser matrix", () => {
   it("accepts only bounded raw JSON and never reflects a hostile object", () => {
@@ -202,13 +204,10 @@ describe("Selected-Card transaction adversarial parser matrix", () => {
   });
 
   it("strictly validates opaque cursors", () => {
+    const cursor = signedCursor("cursor_1-token");
     expect(CARD_TRANSACTION_MAX_CURSOR_BYTES).toBe(16_384);
-    expect(buildCardTransactionPath(cardId, { cursor: "cursor_1-token.signature_1" })).toContain(
-      "cursor=cursor_1-token.signature_1",
-    );
-    expect(
-      normalizeCardTransactionResponse(page([], "cursor_1-token.signature_1")).nextCursor,
-    ).toBe("cursor_1-token.signature_1");
+    expect(buildCardTransactionPath(cardId, { cursor })).toContain(`cursor=${cursor}`);
+    expect(normalizeCardTransactionResponse(page([], cursor)).nextCursor).toBe(cursor);
     for (const cursor of [
       "",
       "no-signature",

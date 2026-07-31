@@ -60,6 +60,8 @@ const publicTransaction = (id: string) => ({
 });
 
 const cardTransactionJson = (value: unknown) => JSON.stringify(value);
+const signedCursor = (payload: string) =>
+  `${Buffer.from(payload).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
 
 describe("Card list Backend adapter", () => {
   it("builds the canonical bounded page request and encodes the opaque cursor", () => {
@@ -340,12 +342,13 @@ describe("Selected Card limits Backend adapter", () => {
 
 describe("Card transaction Backend adapter", () => {
   it("builds a selected-Card bounded cursor request", () => {
+    const cursor = signedCursor("txn_cursor-1");
     expect(buildCardTransactionPath("card:one.1")).toBe(
       "/v1/cards/card%3Aone.1/transactions?limit=25",
     );
-    expect(
-      buildCardTransactionPath("card_1", { limit: 10, cursor: "txn_cursor-1.signature" }),
-    ).toBe("/v1/cards/card_1/transactions?limit=10&cursor=txn_cursor-1.signature");
+    expect(buildCardTransactionPath("card_1", { limit: 10, cursor })).toBe(
+      `/v1/cards/card_1/transactions?limit=10&cursor=${cursor}`,
+    );
     expect(() => buildCardTransactionPath("card_1", { limit: 26 })).toThrow(
       "Card transaction limit must be between 1 and 25",
     );
@@ -359,10 +362,11 @@ describe("Card transaction Backend adapter", () => {
   });
 
   it("keeps only explicitly allowed public transaction fields", () => {
+    const cursor = signedCursor("txn_cursor-1");
     const page = normalizeCardTransactionResponse(
       cardTransactionJson({
         transactions: [publicTransaction("txn_1")],
-        nextCursor: "txn_cursor-1.signature",
+        nextCursor: cursor,
       }),
     );
 
@@ -378,7 +382,7 @@ describe("Card transaction Backend adapter", () => {
           timestamp: "2026-07-31T12:00:00.000Z",
         },
       ],
-      nextCursor: "txn_cursor-1.signature",
+      nextCursor: cursor,
     });
     expect(JSON.stringify(page)).not.toMatch(
       /traceId|tenantId|customerId|cardId|THREDD|provider|payload|journal|pan|token|must-not-render/,

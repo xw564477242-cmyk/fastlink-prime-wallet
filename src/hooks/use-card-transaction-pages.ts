@@ -7,8 +7,8 @@ import {
   initialCardTransactionState,
 } from "@/lib/card-transaction-state";
 
-function errorMessage(reason: unknown): string {
-  return reason instanceof Error ? reason.message : "Railway Backend is unavailable";
+function errorMessage(): string {
+  return "Card transactions are unavailable";
 }
 
 export function useCardTransactionPages(
@@ -17,6 +17,7 @@ export function useCardTransactionPages(
 ) {
   const [state, dispatch] = useReducer(cardTransactionReducer, initialCardTransactionState);
   const requestSequence = useRef(0);
+  const activePageRequest = useRef<string | null>(null);
   const scopeKey =
     session && selectedCardId
       ? JSON.stringify([
@@ -33,6 +34,7 @@ export function useCardTransactionPages(
 
   useEffect(() => {
     const generation = ++requestSequence.current;
+    activePageRequest.current = null;
     const requestKey = scopeKey ? cardTransactionRequestKey(scopeKey, null, generation) : null;
     dispatch({ type: "reset", scopeKey, requestKey, loading: scopeKey !== null });
     if (!session || !selectedCardId) return;
@@ -44,12 +46,12 @@ export function useCardTransactionPages(
           dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
         }
       })
-      .catch((reason) =>
+      .catch(() =>
         requestKey
           ? dispatch({
               type: "failed",
               requestKey,
-              message: errorMessage(reason),
+              message: errorMessage(),
               append: false,
             })
           : undefined,
@@ -73,9 +75,11 @@ export function useCardTransactionPages(
       return;
     }
     if (!scopeKey) return;
+    if (activePageRequest.current !== null) return;
     const requestCursor = state.nextCursor;
     const generation = ++requestSequence.current;
     const requestKey = cardTransactionRequestKey(scopeKey, requestCursor, generation);
+    activePageRequest.current = requestKey;
     dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
       const page = await backendApi.cardTransactions(session, selectedCardId, {
@@ -83,9 +87,10 @@ export function useCardTransactionPages(
         cursor: requestCursor,
       });
       dispatch({ type: "page", requestKey, requestCursor, page, append: true });
-    } catch (reason) {
-      dispatch({ type: "failed", requestKey, message: errorMessage(reason), append: true });
+    } catch {
+      dispatch({ type: "failed", requestKey, message: errorMessage(), append: true });
     } finally {
+      if (activePageRequest.current === requestKey) activePageRequest.current = null;
       dispatch({ type: "settled", requestKey });
     }
   }, [

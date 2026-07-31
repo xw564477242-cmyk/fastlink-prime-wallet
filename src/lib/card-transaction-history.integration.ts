@@ -15,6 +15,8 @@ import {
 type FetchCall = Readonly<{ input: string | URL | Request; init?: RequestInit }>;
 
 const originalFetch = globalThis.fetch;
+const signedCursor = (payload: string) =>
+  `${Buffer.from(payload).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
@@ -106,11 +108,11 @@ describe(`Selected Card transaction history integration (${testEnvironment()})`,
   });
 
   it("passes the signed public cursor unchanged and binds its requested limit", async () => {
-    const cursor = "protected_payload.signature";
+    const cursor = signedCursor("protected_payload");
     const calls = installFetch(() => response([], null));
     await backendApi.cardTransactions(session(), "card:owned.1", { limit: 2, cursor });
     expect(String(calls[0]?.input)).toBe(
-      "/api/v1/cards/card%3Aowned.1/transactions?limit=2&cursor=protected_payload.signature",
+      `/api/v1/cards/card%3Aowned.1/transactions?limit=2&cursor=${cursor}`,
     );
   });
 
