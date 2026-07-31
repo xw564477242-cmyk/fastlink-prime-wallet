@@ -45,7 +45,7 @@ function HomePage() {
       setCards([]);
       setTransactions([]);
       try {
-        const rows = await backendApi.listCards();
+        const { cards: rows } = await backendApi.listCards();
         const groups = await Promise.all(
           rows.map((card) => backendApi.cardTransactions(card.cardId)),
         );

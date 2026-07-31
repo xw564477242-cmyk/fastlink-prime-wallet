@@ -10,10 +10,11 @@ import {
   Snowflake,
   Sun,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { backendApi, type WalletCard } from "@/lib/backend-api";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { backendApi } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
+import { useCardListPages } from "@/hooks/use-card-list-pages";
 
 export const Route = createFileRoute("/cards")({
   validateSearch: (search: Record<string, unknown>): { cardId?: string } =>
@@ -32,93 +33,94 @@ function CardsPage() {
   const { session } = useBackendSession();
   const navigate = useNavigate({ from: "/cards" });
   const { cardId } = Route.useSearch();
-  const [cards, setCards] = useState<WalletCard[]>([]);
-  const [activeId, setActiveId] = useState<string | null>(cardId ?? null);
-  const [loading, setLoading] = useState(true);
+  const {
+    cards,
+    nextCursor,
+    activeId,
+    loading,
+    loadingMore,
+    scopeReady,
+    error: listError,
+    loadMore,
+    selectCard,
+    replaceCard,
+    prependCard,
+    invalidate,
+  } = useCardListPages(session, cardId ?? null);
   const [busy, setBusy] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const error = listError ?? (scopeReady ? actionError : null);
+  const actionScopeKey = session
+    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
+    : null;
+  const actionScopeRef = useRef(actionScopeKey);
+  actionScopeRef.current = actionScopeKey;
+  const actionScopeIsCurrent = (key: string | null) => actionScopeRef.current === key;
+
+  useEffect(() => {
+    setActionError(null);
+    setBusy(false);
+  }, [session]);
 
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
 
-  const loadCards = async () => {
-    setLoading(true);
-    setError(null);
-    setCards([]);
-    try {
-      const rows = await backendApi.listCards();
-      setCards(rows);
-      setActiveId(
-        rows.some((card) => card.cardId === activeId) ? activeId : (rows[0]?.cardId ?? null),
-      );
-    } catch (reason) {
-      setCards([]);
-      setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    void loadCards();
-    // The active URL selection is applied during the initial Backend load.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [session]);
-
   const refreshCurrent = async () => {
-    if (!current) return;
+    if (!scopeReady || !current) return;
+    const scopeKey = actionScopeKey;
     setBusy(true);
-    setError(null);
+    setActionError(null);
     try {
       const card = await backendApi.getCard(current.cardId);
-      setCards((rows) => rows.map((row) => (row.cardId === card.cardId ? card : row)));
+      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
     } catch (reason) {
-      setCards([]);
-      setActiveId(null);
-      setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
   const toggleFrozen = async () => {
-    if (!current) return;
+    if (!scopeReady || !current) return;
+    const scopeKey = actionScopeKey;
     const frozen = current.status === "frozen";
     const allowed = frozen ? current.capabilities.unfreeze : current.capabilities.freeze;
     if (!allowed) {
-      setError("This card operation is unavailable in the current Backend/provider state.");
+      setActionError("This card operation is unavailable in the current Backend/provider state.");
       return;
     }
     setBusy(true);
-    setError(null);
+    setActionError(null);
     try {
       const card = await backendApi.setFrozen(current.cardId, !frozen);
-      setCards((rows) => rows.map((row) => (row.cardId === card.cardId ? card : row)));
+      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
     } catch (reason) {
-      setCards([]);
-      setActiveId(null);
-      setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
   const issueVirtual = async () => {
+    if (!scopeReady) return;
+    const scopeKey = actionScopeKey;
     setBusy(true);
-    setError(null);
+    setActionError(null);
     try {
       const card = await backendApi.createVirtualCard({
         currency: "USD",
         alias: t("cards.defaultVirtualAlias"),
       });
-      setCards((rows) => [card, ...rows]);
-      setActiveId(card.cardId);
+      if (actionScopeIsCurrent(scopeKey)) prependCard(card);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        setActionError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
@@ -135,7 +137,7 @@ function CardsPage() {
           </div>
           <button
             onClick={() => void issueVirtual()}
-            disabled={busy}
+            disabled={busy || !scopeReady}
             className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
           >
             <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}
@@ -145,7 +147,12 @@ function CardsPage() {
         {error && (
           <div className="mt-4 flex gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
             <AlertTriangle className="h-4 w-4 shrink-0" />
-            <span>{error} · No stale card data displayed.</span>
+            <span>
+              {error}
+              {cards.length === 0
+                ? " · No stale card data displayed."
+                : " · Loaded cards remain scoped to the current session."}
+            </span>
           </div>
         )}
 
@@ -171,7 +178,7 @@ function CardsPage() {
                 <button
                   key={card.cardId}
                   onClick={() => {
-                    setActiveId(card.cardId);
+                    selectCard(card.cardId);
                     void navigate({ search: { cardId: card.cardId }, replace: true });
                   }}
                   className={`shrink-0 rounded-2xl border px-4 py-3 text-left ${
@@ -187,6 +194,18 @@ function CardsPage() {
                 </button>
               ))}
             </div>
+
+            {nextCursor && (
+              <button
+                type="button"
+                onClick={() => void loadMore()}
+                disabled={loadingMore || busy}
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+              >
+                {loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}
+                {loadingMore ? "Loading more cards…" : "Load more cards"}
+              </button>
+            )}
 
             <div className="relative mt-6 aspect-[1.586] overflow-hidden rounded-3xl bg-gradient-visa p-6 shadow-card">
               {current.status === "frozen" && (

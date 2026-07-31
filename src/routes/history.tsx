@@ -33,7 +33,7 @@ function HistoryPage() {
       setError(null);
       setRows([]);
       try {
-        const cards = await backendApi.listCards();
+        const { cards } = await backendApi.listCards();
         const groups = await Promise.all(
           cards.map(async (card) => {
             const transactions = await backendApi.cardTransactions(card.cardId);

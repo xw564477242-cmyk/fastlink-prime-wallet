@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, Loader2, Plane, Plus, Sparkles, Wallet } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { backendApi, type WalletCard } from "@/lib/backend-api";
+import { type WalletCard } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
+import { useCardListPages } from "@/hooks/use-card-list-pages";
 
 export const Route = createFileRoute("/assets/cards")({
   head: () => ({
@@ -43,29 +44,7 @@ const META: Record<
 function CardAccountsPage() {
   const { t } = useLang();
   const { session } = useBackendSession();
-  const [cards, setCards] = useState<WalletCard[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    void (async () => {
-      try {
-        const rows = await backendApi.listCards();
-        if (!cancelled) setCards(rows);
-      } catch (reason) {
-        if (!cancelled) {
-          setCards([]);
-          setError(reason instanceof Error ? reason.message : t("cards.loadFailed"));
-        }
-      } finally {
-        if (!cancelled) setLoading(false);
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, [t, session]);
+  const { cards, nextCursor, loading, loadingMore, error, loadMore } = useCardListPages(session);
 
   const totals = useMemo(() => {
     const grouped = new Map<string, number>();
@@ -117,11 +96,13 @@ function CardAccountsPage() {
         )}
         {!loading && error && (
           <div className="rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
-            {error} · No stale card balances displayed.
+            {error}
+            {cards.length === 0
+              ? " · No stale card balances displayed."
+              : " · Loaded balances remain scoped to the current session."}
           </div>
         )}
         {!loading &&
-          !error &&
           cards.map((card) => {
             const meta = META[card.type];
             const Icon = meta.icon;
@@ -160,6 +141,17 @@ function CardAccountsPage() {
           <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-xs text-muted-foreground">
             {t("cards.noCards")}
           </div>
+        )}
+        {nextCursor && (
+          <button
+            type="button"
+            onClick={() => void loadMore()}
+            disabled={loadingMore}
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+          >
+            {loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}
+            {loadingMore ? "Loading more cards…" : "Load more cards"}
+          </button>
         )}
         <Link
           to="/cards"
