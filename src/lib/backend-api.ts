@@ -104,8 +104,19 @@ export type WalletCardTransaction = {
   merchant: string;
   category: string;
   timestamp: string;
-  traceId?: string;
 };
+
+export type WalletCardTransactionPage = {
+  transactions: WalletCardTransaction[];
+  nextCursor: string | null;
+};
+
+export type WalletCardTransactionQuery = {
+  limit?: number;
+  cursor?: string;
+};
+
+export const CARD_TRANSACTION_PAGE_SIZE = 25;
 
 type BackendCardRecord = {
   id?: unknown;
@@ -133,7 +144,11 @@ type BackendTransactionRecord = {
   merchantName?: unknown;
   merchantCategory?: unknown;
   occurredAt?: unknown;
-  traceId?: unknown;
+};
+
+type BackendTransactionPageRecord = {
+  transactions?: unknown;
+  nextCursor?: unknown;
 };
 
 function traceId(): string {
@@ -301,26 +316,111 @@ export function buildCardListPath(query: WalletCardListQuery = {}): string {
   return `/v1/cards?${params.toString()}`;
 }
 
+function requiredString(value: unknown, field: string, maxLength: number): string {
+  if (typeof value !== "string" || !value.trim() || value.length > maxLength) {
+    throw new Error(`Backend returned an invalid transaction ${field}`);
+  }
+  return value;
+}
+
+function optionalString(value: unknown, field: string, maxLength: number): string {
+  if (value === null || value === undefined) return "";
+  if (typeof value !== "string" || value.length > maxLength) {
+    throw new Error(`Backend returned an invalid transaction ${field}`);
+  }
+  return value;
+}
+
 function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransaction {
-  const rawStatus = String(value.status ?? "").toLowerCase();
-  const status = ["authorized", "declined", "cleared", "settled", "reversed", "refunded"].includes(
-    rawStatus,
-  )
-    ? (rawStatus as WalletCardTransaction["status"])
-    : "authorized";
-  const amountMinor = Number(value.amountMinor ?? 0);
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid transaction");
+  }
+  const rawStatus = requiredString(value.status, "status", 32).toLowerCase();
+  if (
+    !["authorized", "declined", "cleared", "settled", "reversed", "refunded"].includes(rawStatus)
+  ) {
+    throw new Error("Backend returned an invalid transaction status");
+  }
+  if (typeof value.amountMinor !== "string" || !/^-?\d+$/.test(value.amountMinor)) {
+    throw new Error("Backend returned an invalid transaction amount");
+  }
+  const amountMinor = Number(value.amountMinor);
+  if (!Number.isSafeInteger(amountMinor)) {
+    throw new Error("Backend returned an invalid transaction amount");
+  }
+  const currency = requiredString(value.currency, "currency", 3);
+  if (!/^[A-Z]{3}$/.test(currency)) {
+    throw new Error("Backend returned an invalid transaction currency");
+  }
+  const timestamp = requiredString(value.occurredAt, "timestamp", 64);
+  if (!Number.isFinite(Date.parse(timestamp))) {
+    throw new Error("Backend returned an invalid transaction timestamp");
+  }
   return {
-    id: String(value.id ?? ""),
-    status,
-    amount: Number.isFinite(amountMinor) ? amountMinor / 100 : 0,
-    currency: String(value.currency ?? "—"),
-    merchant:
-      typeof value.merchantName === "string" && value.merchantName
-        ? value.merchantName
-        : "Card transaction",
-    category: typeof value.merchantCategory === "string" ? value.merchantCategory : "",
-    timestamp: typeof value.occurredAt === "string" ? value.occurredAt : new Date(0).toISOString(),
-    traceId: typeof value.traceId === "string" ? value.traceId : undefined,
+    id: requiredString(value.id, "id", 128),
+    status: rawStatus as WalletCardTransaction["status"],
+    amount: amountMinor / 100,
+    currency,
+    merchant: optionalString(value.merchantName, "merchant", 160) || "Card transaction",
+    category: optionalString(value.merchantCategory, "category", 64),
+    timestamp,
+  };
+}
+
+export function buildCardTransactionPath(
+  cardId: string,
+  query: WalletCardTransactionQuery = {},
+): string {
+  const containsControlCharacter = [...cardId].some((character) => {
+    const code = character.charCodeAt(0);
+    return code <= 31 || code === 127;
+  });
+  if (!cardId.trim() || cardId.length > 128 || containsControlCharacter) {
+    throw new Error("Invalid card transaction card id");
+  }
+  const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
+  if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
+    throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
+  }
+  if (
+    query.cursor !== undefined &&
+    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
+  ) {
+    throw new Error("Invalid card transaction cursor");
+  }
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (query.cursor) params.set("cursor", query.cursor);
+  return `/v1/cards/${encodeURIComponent(cardId)}/transactions?${params.toString()}`;
+}
+
+export function normalizeCardTransactionResponse(
+  value: unknown,
+  limit = CARD_TRANSACTION_PAGE_SIZE,
+): WalletCardTransactionPage {
+  if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
+    throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
+  }
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid transaction page");
+  }
+  const page = value as BackendTransactionPageRecord;
+  if (!Array.isArray(page.transactions) || page.transactions.length > limit) {
+    throw new Error("Backend returned an invalid transaction page");
+  }
+  if (
+    page.nextCursor !== null &&
+    (typeof page.nextCursor !== "string" ||
+      !page.nextCursor ||
+      page.nextCursor.length > 512 ||
+      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
+  ) {
+    throw new Error("Backend returned an invalid transaction cursor");
+  }
+  return {
+    transactions: page.transactions.map((transaction) =>
+      normalizeTransaction(transaction as BackendTransactionRecord),
+    ),
+    nextCursor: page.nextCursor,
   };
 }
 
@@ -382,10 +482,12 @@ export const backendApi = {
     return normalizeCard(card);
   },
 
-  async cardTransactions(cardId: string): Promise<WalletCardTransaction[]> {
-    const result = await request<{ transactions?: BackendTransactionRecord[] }>(
-      `/v1/cards/${encodeURIComponent(cardId)}/transactions`,
-    );
-    return (result.transactions ?? []).map(normalizeTransaction);
+  async cardTransactions(
+    cardId: string,
+    query: WalletCardTransactionQuery = {},
+  ): Promise<WalletCardTransactionPage> {
+    const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
+    const result = await request<unknown>(buildCardTransactionPath(cardId, query));
+    return normalizeCardTransactionResponse(result, limit);
   },
 };

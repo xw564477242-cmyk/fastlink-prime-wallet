@@ -1,5 +1,10 @@
 import { describe, expect, it } from "bun:test";
-import { buildCardListPath, normalizeCardListResponse } from "./backend-api";
+import {
+  buildCardListPath,
+  buildCardTransactionPath,
+  normalizeCardListResponse,
+  normalizeCardTransactionResponse,
+} from "./backend-api";
 
 const publicCard = (id: string) => ({
   id,
@@ -23,6 +28,28 @@ const publicCard = (id: string) => ({
   providerPublicToken: "must-not-render",
   tenantId: "must-not-render",
   customerId: "must-not-render",
+});
+
+const publicTransaction = (id: string) => ({
+  id,
+  status: "SETTLED",
+  amountMinor: "2500",
+  authorizedAmountMinor: "2500",
+  clearedAmountMinor: "2500",
+  settledAmountMinor: "2500",
+  reversedAmountMinor: "0",
+  refundedAmountMinor: "0",
+  currency: "USD",
+  traceId: "must-not-render",
+  merchantName: "Coffee",
+  merchantCategory: "5812",
+  occurredAt: "2026-07-31T12:00:00.000Z",
+  tenantId: "must-not-render",
+  customerId: "must-not-render",
+  cardId: "must-not-render",
+  provider: "THREDD",
+  providerPayload: { pan: "4111111111111111", token: "secret" },
+  journal: { raw: "must-not-render" },
 });
 
 describe("Card list Backend adapter", () => {
@@ -91,5 +118,89 @@ describe("Card list Backend adapter", () => {
     expect(() => normalizeCardListResponse({ cards: [{}], nextCursor: null })).toThrow(
       "Backend returned a card without an id",
     );
+  });
+});
+
+describe("Card transaction Backend adapter", () => {
+  it("builds a selected-Card bounded cursor request", () => {
+    expect(buildCardTransactionPath("card/one")).toBe("/v1/cards/card%2Fone/transactions?limit=25");
+    expect(buildCardTransactionPath("card_1", { limit: 10, cursor: "txn_cursor-1" })).toBe(
+      "/v1/cards/card_1/transactions?limit=10&cursor=txn_cursor-1",
+    );
+    expect(() => buildCardTransactionPath("card_1", { limit: 26 })).toThrow(
+      "Card transaction limit must be between 1 and 25",
+    );
+    expect(() => buildCardTransactionPath("card_1", { cursor: "bad!cursor" })).toThrow(
+      "Invalid card transaction cursor",
+    );
+    expect(() => buildCardTransactionPath("\n", {})).toThrow("Invalid card transaction card id");
+  });
+
+  it("keeps only explicitly allowed public transaction fields", () => {
+    const page = normalizeCardTransactionResponse({
+      transactions: [publicTransaction("txn_1")],
+      nextCursor: "txn_cursor-1",
+    });
+
+    expect(page).toEqual({
+      transactions: [
+        {
+          id: "txn_1",
+          status: "settled",
+          amount: 25,
+          currency: "USD",
+          merchant: "Coffee",
+          category: "5812",
+          timestamp: "2026-07-31T12:00:00.000Z",
+        },
+      ],
+      nextCursor: "txn_cursor-1",
+    });
+    expect(JSON.stringify(page)).not.toMatch(
+      /traceId|tenantId|customerId|cardId|THREDD|provider|payload|journal|pan|token|must-not-render/,
+    );
+  });
+
+  it("rejects over-limit pages rather than truncating them", () => {
+    expect(() =>
+      normalizeCardTransactionResponse(
+        {
+          transactions: [
+            publicTransaction("txn_1"),
+            publicTransaction("txn_2"),
+            publicTransaction("txn_3"),
+          ],
+          nextCursor: null,
+        },
+        2,
+      ),
+    ).toThrow("Backend returned an invalid transaction page");
+  });
+
+  it("fails closed for malformed pages, records and cursors", () => {
+    expect(() => normalizeCardTransactionResponse({ transactions: [], nextCursor: "" })).toThrow(
+      "Backend returned an invalid transaction cursor",
+    );
+    expect(() =>
+      normalizeCardTransactionResponse({ transactions: "bad", nextCursor: null }),
+    ).toThrow("Backend returned an invalid transaction page");
+    expect(() =>
+      normalizeCardTransactionResponse({
+        transactions: [{ ...publicTransaction("txn_1"), status: "UNKNOWN" }],
+        nextCursor: null,
+      }),
+    ).toThrow("Backend returned an invalid transaction status");
+    expect(() =>
+      normalizeCardTransactionResponse({
+        transactions: [{ ...publicTransaction("txn_1"), amountMinor: "25.00" }],
+        nextCursor: null,
+      }),
+    ).toThrow("Backend returned an invalid transaction amount");
+    expect(() =>
+      normalizeCardTransactionResponse({
+        transactions: [{ ...publicTransaction("txn_1"), occurredAt: "not-a-date" }],
+        nextCursor: null,
+      }),
+    ).toThrow("Backend returned an invalid transaction timestamp");
   });
 });

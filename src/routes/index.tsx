@@ -47,13 +47,13 @@ function HomePage() {
       try {
         const { cards: rows } = await backendApi.listCards();
         const groups = await Promise.all(
-          rows.map((card) => backendApi.cardTransactions(card.cardId)),
+          rows.map((card) => backendApi.cardTransactions(card.cardId, { limit: 4 })),
         );
         if (cancelled) return;
         setCards(rows);
         setTransactions(
           groups
-            .flat()
+            .flatMap((page) => page.transactions)
             .sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp))
             .slice(0, 4),
         );
