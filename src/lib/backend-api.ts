@@ -142,6 +142,16 @@ export type WalletCardLimits = {
   updatedAt: string | null;
 };
 
+export const CARD_LIMIT_UPDATE_MAX_MINOR = 9_000_000_000_000;
+export const CARD_LIMIT_FIELDS = [
+  "singleTransactionMinor",
+  "dailySpendMinor",
+  "monthlySpendMinor",
+  "dailyAtmMinor",
+] as const;
+export type CardLimitField = (typeof CARD_LIMIT_FIELDS)[number];
+export type CardLimitsUpdateInput = Partial<Record<CardLimitField, number>>;
+
 export const CARD_LIST_PAGE_SIZE = 20;
 
 export type WalletCardTransaction = {
@@ -1036,6 +1046,122 @@ export function normalizeCardLimitsResponse(
   };
 }
 
+function selectedCardLimitsMutationExpectation(
+  card: WalletCard,
+  current: WalletCardLimits,
+): string {
+  const cardId = cardPublicId(card.cardId);
+  if (
+    current.cardId !== cardId ||
+    (card.type !== "virtual" && card.type !== "physical") ||
+    (card.status !== "active" && card.status !== "frozen" && card.status !== "pending") ||
+    card.capabilities.updateLimits !== true ||
+    !/^\d{4}$/.test(card.last4) ||
+    !/^[A-Z]{3}$/.test(card.currency)
+  ) {
+    throw new Error("Selected Card limits cannot be updated");
+  }
+  for (const field of CARD_LIMIT_FIELDS) cardNullableLimit(current[field], field);
+  if (current.updatedAt !== null) cardRfc3339(current.updatedAt);
+  return cardId;
+}
+
+export function normalizeCardLimitsUpdateInput(
+  value: unknown,
+  current: WalletCardLimits,
+): CardLimitsUpdateInput {
+  for (const field of CARD_LIMIT_FIELDS) cardNullableLimit(current[field], field);
+  if (current.updatedAt !== null) cardRfc3339(current.updatedAt);
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Object.prototype
+  ) {
+    throw new Error("Invalid Card limits update");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const allowed = new Set<string>(CARD_LIMIT_FIELDS);
+  if (Object.keys(descriptors).some((field) => !allowed.has(field))) {
+    throw new Error("Invalid Card limits update field");
+  }
+  const normalized: CardLimitsUpdateInput = {};
+  for (const field of CARD_LIMIT_FIELDS) {
+    const descriptor = descriptors[field];
+    if (!descriptor) continue;
+    if (
+      !("value" in descriptor) ||
+      typeof descriptor.value !== "number" ||
+      !Number.isSafeInteger(descriptor.value) ||
+      descriptor.value < 0 ||
+      descriptor.value > CARD_LIMIT_UPDATE_MAX_MINOR
+    ) {
+      throw new Error(`Invalid Card ${field}`);
+    }
+    normalized[field] = descriptor.value;
+  }
+  if (Object.keys(normalized).length === 0) {
+    throw new Error("At least one Card limit is required");
+  }
+
+  const merged = Object.fromEntries(
+    CARD_LIMIT_FIELDS.map((field) => [
+      field,
+      normalized[field] === undefined ? current[field] : String(normalized[field]),
+    ]),
+  ) as Record<CardLimitField, string | null>;
+  const single = merged.singleTransactionMinor;
+  const daily = merged.dailySpendMinor;
+  const monthly = merged.monthlySpendMinor;
+  if (single !== null && daily !== null && BigInt(single) > BigInt(daily)) {
+    throw new Error("Single transaction limit cannot exceed daily spend limit");
+  }
+  if (daily !== null && monthly !== null && BigInt(daily) > BigInt(monthly)) {
+    throw new Error("Daily spend limit cannot exceed monthly spend limit");
+  }
+  return normalized;
+}
+
+export function buildCardLimitsUpdateRequest(
+  card: WalletCard,
+  current: WalletCardLimits,
+  input: CardLimitsUpdateInput,
+  idempotencyKey: string,
+): { path: string; init: RequestInit } {
+  const cardId = selectedCardLimitsMutationExpectation(card, current);
+  const normalized = normalizeCardLimitsUpdateInput(input, current);
+  return {
+    path: `/v1/cards/${encodeURIComponent(cardId)}/limits`,
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+      body: JSON.stringify(normalized),
+    },
+  };
+}
+
+export function normalizeCardLimitsUpdateResponse(
+  value: unknown,
+  card: WalletCard,
+  current: WalletCardLimits,
+  input: CardLimitsUpdateInput,
+): WalletCardLimits {
+  const cardId = selectedCardLimitsMutationExpectation(card, current);
+  const normalizedInput = normalizeCardLimitsUpdateInput(input, current);
+  const result = normalizeCardLimitsResponse(value, cardId);
+  for (const field of CARD_LIMIT_FIELDS) {
+    const expected =
+      normalizedInput[field] === undefined ? current[field] : String(normalizedInput[field]);
+    if (result[field] !== expected) {
+      throw new Error("Backend returned unexpected Card limits");
+    }
+  }
+  if (result.updatedAt === null) {
+    throw new Error("Backend returned an invalid Card limits update timestamp");
+  }
+  return result;
+}
+
 function requiredString(value: unknown, field: string, maxLength: number): string {
   if (typeof value !== "string" || !value.trim() || value.length > maxLength) {
     throw new Error(`Backend returned an invalid transaction ${field}`);
@@ -1556,6 +1682,22 @@ export const backendApi = {
   async cardLimits(cardId: string): Promise<WalletCardLimits> {
     const result = await request<unknown>(buildCardLimitsPath(cardId));
     return normalizeCardLimitsResponse(result, cardId);
+  },
+
+  async updateCardLimits(
+    card: WalletCard,
+    current: WalletCardLimits,
+    input: CardLimitsUpdateInput,
+    idempotencyKey: string,
+  ): Promise<WalletCardLimits> {
+    requireSandboxTestCardMutationRuntime();
+    const { path, init } = buildCardLimitsUpdateRequest(card, current, input, idempotencyKey);
+    return normalizeCardLimitsUpdateResponse(
+      await request<unknown>(path, init),
+      card,
+      current,
+      input,
+    );
   },
 
   async getCard(cardId: string): Promise<WalletCard> {

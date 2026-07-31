@@ -1,5 +1,5 @@
-import { useEffect, useReducer, useRef } from "react";
-import { backendApi, type BackendSession } from "@/lib/backend-api";
+import { useCallback, useEffect, useReducer, useRef } from "react";
+import { backendApi, type BackendSession, type WalletCardLimits } from "@/lib/backend-api";
 import {
   cardLimitsErrorMessage,
   cardLimitsReducer,
@@ -42,5 +42,14 @@ export function useCardLimits(session: BackendSession | null, cardId: string | n
     };
   }, [cardId, scopeKey]);
 
-  return view;
+  const replaceCurrentLimits = useCallback(
+    (limits: WalletCardLimits) => {
+      if (!scopeKey || limits.cardId !== cardId) return;
+      requestSequence.current += 1;
+      dispatch({ type: "replace-current", scopeKey, limits });
+    },
+    [cardId, scopeKey],
+  );
+
+  return { ...view, replaceCurrentLimits };
 }

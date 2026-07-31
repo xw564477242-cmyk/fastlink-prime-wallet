@@ -9,16 +9,24 @@ import {
   Plus,
   RefreshCw,
   Repeat2,
+  SlidersHorizontal,
   Snowflake,
   Sun,
 } from "lucide-react";
-import { useCallback, useMemo, useRef, useState } from "react";
-import { backendApi, type CardReplacementReason } from "@/lib/backend-api";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  CARD_LIMIT_FIELDS,
+  backendApi,
+  type CardLimitField,
+  type CardReplacementReason,
+  type WalletCardLimits,
+} from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
+import { useCardLimitsMutation } from "@/hooks/use-card-limits-mutation";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
 import { useCardRenew } from "@/hooks/use-card-renew";
 import { useCardReplace } from "@/hooks/use-card-replace";
@@ -46,6 +54,23 @@ export const Route = createFileRoute("/cards")({
   }),
   component: CardsPage,
 });
+
+const emptyLimitDraft = (): Record<CardLimitField, string> => ({
+  singleTransactionMinor: "",
+  dailySpendMinor: "",
+  monthlySpendMinor: "",
+  dailyAtmMinor: "",
+});
+
+function draftFromLimits(limits: WalletCardLimits | null): Record<CardLimitField, string> {
+  if (!limits) return emptyLimitDraft();
+  return {
+    singleTransactionMinor: limits.singleTransactionMinor ?? "",
+    dailySpendMinor: limits.dailySpendMinor ?? "",
+    monthlySpendMinor: limits.monthlySpendMinor ?? "",
+    dailyAtmMinor: limits.dailyAtmMinor ?? "",
+  };
+}
 
 function CardsPage() {
   const { t } = useLang();
@@ -99,6 +124,16 @@ function CardsPage() {
   const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const cardLimits = useCardLimits(session, current?.cardId ?? null);
+  const [limitDraft, setLimitDraft] = useState<Record<CardLimitField, string>>(emptyLimitDraft);
+  useEffect(() => {
+    setLimitDraft(draftFromLimits(cardLimits.limits));
+  }, [cardLimits.limits]);
+  const cardLimitsMutation = useCardLimitsMutation(
+    session,
+    current,
+    cardLimits.limits,
+    cardLimits.replaceCurrentLimits,
+  );
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
@@ -109,13 +144,19 @@ function CardsPage() {
     error: null,
   });
   const actionState = visibleCardActionState(storedActionState, actionScopeKey);
-  const busy = actionState.busy || virtualCardCreate.busy || cardRenew.busy || cardReplace.busy;
+  const busy =
+    actionState.busy ||
+    virtualCardCreate.busy ||
+    cardRenew.busy ||
+    cardReplace.busy ||
+    cardLimitsMutation.busy;
   const error =
     listError ??
     (scopeReady ? actionState.error : null) ??
     (virtualCardCreate.allowed ? virtualCardCreate.error : null) ??
     (cardRenew.allowed ? cardRenew.error : null) ??
-    (cardReplace.allowed ? cardReplace.error : null);
+    (cardReplace.allowed ? cardReplace.error : null) ??
+    (cardLimitsMutation.allowed ? cardLimitsMutation.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -187,6 +228,17 @@ function CardsPage() {
   const replaceCurrent = async () => {
     if (!scopeReady || !cardReplace.allowed || busy) return;
     await cardReplace.submit();
+  };
+
+  const updateCurrentLimits = async () => {
+    if (!scopeReady || !cardLimitsMutation.allowed || busy) return;
+    const input = Object.fromEntries(
+      CARD_LIMIT_FIELDS.filter((field) => limitDraft[field] !== "").map((field) => {
+        const value = limitDraft[field];
+        return [field, /^(?:0|[1-9]\d*)$/.test(value) ? Number(value) : value];
+      }),
+    );
+    await cardLimitsMutation.submit(input);
   };
 
   return (
@@ -338,7 +390,22 @@ function CardsPage() {
                   </div>
                 )}
                 {!cardLimits.loading && !cardLimits.error && cardLimits.limits && (
-                  <CardLimitsPanel limits={cardLimits.limits} />
+                  <>
+                    <CardLimitsPanel limits={cardLimits.limits} />
+                    {cardLimitsMutation.allowed && (
+                      <CardLimitsEditor
+                        values={limitDraft}
+                        busy={busy}
+                        onChange={(field, value) =>
+                          setLimitDraft((currentDraft) => ({
+                            ...currentDraft,
+                            [field]: value,
+                          }))
+                        }
+                        onSubmit={() => void updateCurrentLimits()}
+                      />
+                    )}
+                  </>
                 )}
               </div>
               <div className="mt-3">
@@ -505,7 +572,7 @@ function CardLimitsPanel({
   return (
     <div className="rounded-2xl border border-border/60 bg-surface/60 p-4">
       <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
-        Card limits · read only · minor units
+        Card limits · minor units
       </p>
       <div className="mt-3 grid grid-cols-2 gap-2">
         <LimitMetric label="Single transaction" value={limits.singleTransactionMinor} />
@@ -518,6 +585,60 @@ function CardLimitsPanel({
           ? `Updated ${new Date(limits.updatedAt).toLocaleString()}`
           : "Not updated"}
       </p>
+    </div>
+  );
+}
+
+function CardLimitsEditor({
+  values,
+  busy,
+  onChange,
+  onSubmit,
+}: {
+  values: Record<CardLimitField, string>;
+  busy: boolean;
+  onChange: (field: CardLimitField, value: string) => void;
+  onSubmit: () => void;
+}) {
+  const fields: Array<[CardLimitField, string]> = [
+    ["singleTransactionMinor", "Single transaction"],
+    ["dailySpendMinor", "Daily spend"],
+    ["monthlySpendMinor", "Monthly spend"],
+    ["dailyAtmMinor", "Daily ATM"],
+  ];
+  return (
+    <div className="mt-3 rounded-2xl border border-primary/30 bg-primary/5 p-4">
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+        Update limits · 0–9,000,000,000,000
+      </p>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        {fields.map(([field, label]) => (
+          <label key={field} className="text-[9px] uppercase tracking-wider text-muted-foreground">
+            {label}
+            <input
+              inputMode="numeric"
+              value={values[field]}
+              onChange={(event) => onChange(field, event.target.value)}
+              disabled={busy}
+              placeholder="Not set"
+              className="mt-1 w-full rounded-xl border border-border bg-background px-3 py-2 text-xs font-semibold tabular-nums text-foreground disabled:opacity-60"
+            />
+          </label>
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={onSubmit}
+        disabled={busy}
+        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60"
+      >
+        {busy ? (
+          <Loader2 className="h-4 w-4 animate-spin" />
+        ) : (
+          <SlidersHorizontal className="h-4 w-4" />
+        )}
+        Apply limits
+      </button>
     </div>
   );
 }
