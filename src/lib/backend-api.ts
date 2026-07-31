@@ -259,23 +259,6 @@ type BackendWalletTransactionPageRecord = {
   nextCursor?: unknown;
 };
 
-type BackendWalletOperationRecord = {
-  id?: unknown;
-  type?: unknown;
-  status?: unknown;
-  assetCode?: unknown;
-  amount?: unknown;
-  direction?: unknown;
-  createdAt?: unknown;
-  completedAt?: unknown;
-  updatedAt?: unknown;
-};
-
-type BackendWalletOperationPageRecord = {
-  items?: unknown;
-  nextCursor?: unknown;
-};
-
 function traceId(): string {
   return globalThis.crypto?.randomUUID?.() ?? `fl-${Date.now()}-${Math.random()}`;
 }
@@ -514,10 +497,11 @@ function cardNullableLimit(value: unknown, field: string): string | null {
   return value;
 }
 
-function cardReadDataRecord(
+function ownJsonDataRecord(
   value: unknown,
   fields: readonly string[],
-  subject: "balance" | "limits",
+  errorMessage: string,
+  fieldErrorMessage?: (field: string) => string,
 ): Record<string, unknown> {
   if (
     !value ||
@@ -525,18 +509,34 @@ function cardReadDataRecord(
     Array.isArray(value) ||
     Object.getPrototypeOf(value) !== Object.prototype
   ) {
-    throw new Error(`Backend returned invalid Card ${subject}`);
+    throw new Error(errorMessage);
   }
   const descriptors = Object.getOwnPropertyDescriptors(value);
   const record: Record<string, unknown> = {};
   for (const field of fields) {
     const descriptor = descriptors[field];
     if (!descriptor || !("value" in descriptor)) {
-      throw new Error(`Backend returned invalid Card ${subject}`);
+      throw new Error(fieldErrorMessage?.(field) ?? errorMessage);
     }
     record[field] = descriptor.value;
   }
   return record;
+}
+
+function ownJsonArray(value: unknown, errorMessage: string): unknown[] {
+  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype) {
+    throw new Error(errorMessage);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const items: unknown[] = [];
+  for (let index = 0; index < value.length; index += 1) {
+    const descriptor = descriptors[String(index)];
+    if (!descriptor || !("value" in descriptor)) {
+      throw new Error(errorMessage);
+    }
+    items.push(descriptor.value);
+  }
+  return items;
 }
 
 export function buildCardBalancePath(cardId: string): string {
@@ -549,7 +549,7 @@ export function normalizeCardBalanceResponse(
   expectedCardId: string,
 ): WalletCardBalance {
   const selectedCardId = cardPublicId(expectedCardId);
-  const record = cardReadDataRecord(
+  const record = ownJsonDataRecord(
     value,
     [
       "cardId",
@@ -559,7 +559,7 @@ export function normalizeCardBalanceResponse(
       "pendingAmountMinor",
       "updatedAt",
     ],
-    "balance",
+    "Backend returned invalid Card balance",
   );
   const cardId = cardPublicId(record.cardId);
   if (cardId !== selectedCardId) {
@@ -585,7 +585,7 @@ export function normalizeCardLimitsResponse(
   expectedCardId: string,
 ): WalletCardLimits {
   const selectedCardId = cardPublicId(expectedCardId);
-  const record = cardReadDataRecord(
+  const record = ownJsonDataRecord(
     value,
     [
       "cardId",
@@ -595,7 +595,7 @@ export function normalizeCardLimitsResponse(
       "dailyAtmMinor",
       "updatedAt",
     ],
-    "limits",
+    "Backend returned invalid Card limits",
   );
   const cardId = cardPublicId(record.cardId);
   if (cardId !== selectedCardId) {
@@ -907,10 +907,22 @@ export function buildWalletOperationPath(query: WalletOperationActivityQuery = {
 }
 
 function normalizeWalletOperation(value: unknown): WalletOperationActivity {
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid Wallet operation");
-  }
-  const record = value as BackendWalletOperationRecord;
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "assetCode",
+      "amount",
+      "direction",
+      "createdAt",
+      "completedAt",
+      "updatedAt",
+    ],
+    "Backend returned an invalid Wallet operation",
+    (field) => `Backend returned an invalid Wallet operation ${field}`,
+  );
   if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
     throw new Error("Backend returned an invalid Wallet operation id");
   }
@@ -967,11 +979,13 @@ export function normalizeWalletOperationResponse(
   if (!Number.isInteger(limit) || limit < 1 || limit > WALLET_OPERATION_PAGE_SIZE) {
     throw new Error(`Wallet operation limit must be between 1 and ${WALLET_OPERATION_PAGE_SIZE}`);
   }
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid Wallet operation page");
-  }
-  const page = value as BackendWalletOperationPageRecord;
-  if (!Array.isArray(page.items) || page.items.length > limit) {
+  const page = ownJsonDataRecord(
+    value,
+    ["items", "nextCursor"],
+    "Backend returned an invalid Wallet operation page",
+  );
+  const rawItems = ownJsonArray(page.items, "Backend returned an invalid Wallet operation page");
+  if (rawItems.length > limit) {
     throw new Error("Backend returned an invalid Wallet operation page");
   }
   if (
@@ -983,7 +997,7 @@ export function normalizeWalletOperationResponse(
   ) {
     throw new Error("Backend returned an invalid Wallet operation cursor");
   }
-  const items = page.items.map(normalizeWalletOperation);
+  const items = rawItems.map(normalizeWalletOperation);
   const ids = new Set(items.map((item) => item.id));
   if (ids.size !== items.length) {
     throw new Error("Backend returned duplicate Wallet operation ids");

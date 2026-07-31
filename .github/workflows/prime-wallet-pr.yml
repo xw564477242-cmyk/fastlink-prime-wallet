@@ -44,8 +44,8 @@ jobs:
             echo 'No test files exist on this baseline; continuing with type, audit, lint, and build gates.'
           fi
 
-      - name: Run Card public read adversarial matrix
-        run: bun test src/lib/card-read-adversarial.test.ts
+      - name: Run public read adversarial matrices
+        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts
 
       - name: Type check
         run: bunx tsc --noEmit
@@ -63,8 +63,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf '{"format":"fastlink-prime-wallet-pr-evidence-v2","sourceCommit":"%s","environment":"NON_PRODUCTION","adversarialMatrix":"src/lib/card-read-adversarial.test.ts"}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
-          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts > build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-pr-evidence-v3","sourceCommit":"%s","environment":"NON_PRODUCTION","adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
+          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts > build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -75,5 +75,6 @@ jobs:
             build-evidence.json
             build-evidence.sha256
             src/lib/card-read-adversarial.test.ts
+            src/lib/wallet-operation-adversarial.test.ts
           if-no-files-found: error
           retention-days: 7
