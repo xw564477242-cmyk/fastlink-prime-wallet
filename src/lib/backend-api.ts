@@ -220,24 +220,6 @@ type BackendCardPageRecord = {
   nextCursor?: unknown;
 };
 
-type BackendCardBalanceRecord = {
-  cardId?: unknown;
-  currency?: unknown;
-  availableBalanceMinor?: unknown;
-  currentBalanceMinor?: unknown;
-  pendingAmountMinor?: unknown;
-  updatedAt?: unknown;
-};
-
-type BackendCardLimitsRecord = {
-  cardId?: unknown;
-  singleTransactionMinor?: unknown;
-  dailySpendMinor?: unknown;
-  monthlySpendMinor?: unknown;
-  dailyAtmMinor?: unknown;
-  updatedAt?: unknown;
-};
-
 type BackendTransactionRecord = {
   id?: unknown;
   status?: unknown;
@@ -532,6 +514,31 @@ function cardNullableLimit(value: unknown, field: string): string | null {
   return value;
 }
 
+function cardReadDataRecord(
+  value: unknown,
+  fields: readonly string[],
+  subject: "balance" | "limits",
+): Record<string, unknown> {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Object.prototype
+  ) {
+    throw new Error(`Backend returned invalid Card ${subject}`);
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const record: Record<string, unknown> = {};
+  for (const field of fields) {
+    const descriptor = descriptors[field];
+    if (!descriptor || !("value" in descriptor)) {
+      throw new Error(`Backend returned invalid Card ${subject}`);
+    }
+    record[field] = descriptor.value;
+  }
+  return record;
+}
+
 export function buildCardBalancePath(cardId: string): string {
   cardPublicId(cardId);
   return `/v1/cards/${encodeURIComponent(cardId)}/balance`;
@@ -542,10 +549,18 @@ export function normalizeCardBalanceResponse(
   expectedCardId: string,
 ): WalletCardBalance {
   const selectedCardId = cardPublicId(expectedCardId);
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid Card balance");
-  }
-  const record = value as BackendCardBalanceRecord;
+  const record = cardReadDataRecord(
+    value,
+    [
+      "cardId",
+      "currency",
+      "availableBalanceMinor",
+      "currentBalanceMinor",
+      "pendingAmountMinor",
+      "updatedAt",
+    ],
+    "balance",
+  );
   const cardId = cardPublicId(record.cardId);
   if (cardId !== selectedCardId) {
     throw new Error("Backend returned a balance for a different Card");
@@ -570,10 +585,18 @@ export function normalizeCardLimitsResponse(
   expectedCardId: string,
 ): WalletCardLimits {
   const selectedCardId = cardPublicId(expectedCardId);
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned invalid Card limits");
-  }
-  const record = value as BackendCardLimitsRecord;
+  const record = cardReadDataRecord(
+    value,
+    [
+      "cardId",
+      "singleTransactionMinor",
+      "dailySpendMinor",
+      "monthlySpendMinor",
+      "dailyAtmMinor",
+      "updatedAt",
+    ],
+    "limits",
+  );
   const cardId = cardPublicId(record.cardId);
   if (cardId !== selectedCardId) {
     throw new Error("Backend returned limits for a different Card");
