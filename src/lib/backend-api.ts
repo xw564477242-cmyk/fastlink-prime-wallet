@@ -1,6 +1,12 @@
-export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "UAT" | "PRODUCTION";
+export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
-const allowedEnvironments: FastLinkEnvironment[] = ["LOCAL", "SANDBOX", "UAT", "PRODUCTION"];
+const allowedEnvironments: FastLinkEnvironment[] = [
+  "LOCAL",
+  "SANDBOX",
+  "TEST",
+  "UAT",
+  "PRODUCTION",
+];
 
 const configuredApiUrl = (import.meta.env.VITE_FASTLINK_API_URL as string | undefined)?.trim();
 const configuredEnvironment = (import.meta.env.VITE_FASTLINK_ENVIRONMENT as string | undefined)
@@ -17,7 +23,7 @@ function resolveRuntime() {
   }
   if (!configuredEnvironment || !allowedEnvironments.includes(configuredEnvironment)) {
     return {
-      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, UAT, or PRODUCTION",
+      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, TEST, UAT, or PRODUCTION",
       apiUrl: configuredApiUrl,
       environment: configuredEnvironment,
     };
@@ -75,6 +81,8 @@ export type WalletCard = {
   currency: string;
   alias?: string;
   balance: number;
+  availableBalanceMinor?: string;
+  createdAt?: string;
   capabilities: {
     freeze: boolean;
     unfreeze: boolean;
@@ -83,6 +91,17 @@ export type WalletCard = {
     updateLimits: boolean;
   };
 };
+
+export type VirtualCardCreateInput = {
+  currency: string;
+  alias?: string;
+};
+
+export function isVirtualCardCreateEnvironment(
+  environment: FastLinkEnvironment | undefined,
+): environment is "SANDBOX" | "TEST" {
+  return environment === "SANDBOX" || environment === "TEST";
+}
 
 export type WalletCardPage = {
   cards: WalletCard[];
@@ -256,6 +275,17 @@ function requireRuntime(): { apiUrl: string; environment: FastLinkEnvironment } 
     apiUrl: backendRuntime.apiUrl,
     environment: backendRuntime.environment,
   };
+}
+
+function requireVirtualCardCreateRuntime(): void {
+  const { environment } = requireRuntime();
+  if (!isVirtualCardCreateEnvironment(environment)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Virtual Card creation is disabled outside SANDBOX and TEST",
+    );
+  }
 }
 
 function parseMessage(payload: unknown, fallback: string): string {
@@ -522,6 +552,149 @@ function ownJsonArray(value: unknown, errorMessage: string): unknown[] {
     items.push(descriptor.value);
   }
   return items;
+}
+
+function virtualCardAlias(value: unknown, required: boolean): string | undefined {
+  if (value === undefined && !required) return undefined;
+  if (
+    typeof value !== "string" ||
+    !value ||
+    value.length > 64 ||
+    value !== value.trim() ||
+    !/^[\p{L}\p{N} ._-]+$/u.test(value)
+  ) {
+    throw new Error("Invalid Virtual Card alias");
+  }
+  return value;
+}
+
+export function normalizeVirtualCardCreateInput(input: unknown): VirtualCardCreateInput {
+  if (
+    !input ||
+    typeof input !== "object" ||
+    Array.isArray(input) ||
+    Object.getPrototypeOf(input) !== Object.prototype
+  ) {
+    throw new Error("Invalid Virtual Card request");
+  }
+  const descriptors = Object.getOwnPropertyDescriptors(input);
+  const currencyDescriptor = descriptors.currency;
+  if (!currencyDescriptor || !("value" in currencyDescriptor)) {
+    throw new Error("Invalid Virtual Card currency");
+  }
+  const currency = currencyDescriptor.value;
+  if (typeof currency !== "string" || !/^[A-Z]{3}$/.test(currency)) {
+    throw new Error("Invalid Virtual Card currency");
+  }
+  const aliasDescriptor = descriptors.alias;
+  if (aliasDescriptor && !("value" in aliasDescriptor)) {
+    throw new Error("Invalid Virtual Card alias");
+  }
+  const alias = virtualCardAlias(aliasDescriptor?.value, false);
+  return alias === undefined ? { currency } : { currency, alias };
+}
+
+export function validateVirtualCardIdempotencyKey(value: unknown): string {
+  if (
+    typeof value !== "string" ||
+    !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value)
+  ) {
+    throw new Error("Invalid Virtual Card idempotency key");
+  }
+  return value;
+}
+
+export function buildVirtualCardCreateRequest(
+  input: VirtualCardCreateInput,
+  idempotencyKey: string,
+): { path: "/v1/cards/virtual"; init: RequestInit } {
+  const normalizedInput = normalizeVirtualCardCreateInput(input);
+  return {
+    path: "/v1/cards/virtual",
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+      body: JSON.stringify(normalizedInput),
+    },
+  };
+}
+
+function virtualCardCapabilities(value: unknown): WalletCard["capabilities"] {
+  const record = ownJsonDataRecord(
+    value,
+    ["freeze", "unfreeze", "replace", "renew", "updateLimits"],
+    "Backend returned invalid Virtual Card capabilities",
+  );
+  for (const capability of Object.values(record)) {
+    if (typeof capability !== "boolean") {
+      throw new Error("Backend returned invalid Virtual Card capabilities");
+    }
+  }
+  return {
+    freeze: record.freeze as boolean,
+    unfreeze: record.unfreeze as boolean,
+    replace: record.replace as boolean,
+    renew: record.renew as boolean,
+    updateLimits: record.updateLimits as boolean,
+  };
+}
+
+export function normalizeVirtualCardCreateResponse(value: unknown): WalletCard {
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "last4",
+      "expiryMonth",
+      "expiryYear",
+      "currency",
+      "alias",
+      "availableBalanceMinor",
+      "createdAt",
+      "capabilities",
+    ],
+    "Backend returned an invalid Virtual Card",
+  );
+  if (record.type !== "VIRTUAL") {
+    throw new Error("Backend returned an invalid Virtual Card type");
+  }
+  if (
+    typeof record.status !== "string" ||
+    !["ACTIVE", "FROZEN", "PENDING", "CLOSED", "FAILED"].includes(record.status)
+  ) {
+    throw new Error("Backend returned an invalid Virtual Card status");
+  }
+  if (typeof record.last4 !== "string" || !/^\d{4}$/.test(record.last4)) {
+    throw new Error("Backend returned an invalid Virtual Card last4");
+  }
+  if (
+    typeof record.expiryMonth !== "number" ||
+    !Number.isInteger(record.expiryMonth) ||
+    record.expiryMonth < 1 ||
+    record.expiryMonth > 12 ||
+    typeof record.expiryYear !== "number" ||
+    !Number.isInteger(record.expiryYear) ||
+    record.expiryYear < 2000 ||
+    record.expiryYear > 9999
+  ) {
+    throw new Error("Backend returned an invalid Virtual Card expiry");
+  }
+  const availableBalanceMinor = cardMinorUnits(record.availableBalanceMinor, "available balance");
+  return {
+    cardId: cardPublicId(record.id),
+    type: "virtual",
+    status: record.status.toLowerCase() as WalletCard["status"],
+    last4: record.last4,
+    expiry: `${String(record.expiryMonth).padStart(2, "0")}/${String(record.expiryYear).slice(-2)}`,
+    currency: cardCurrency(record.currency),
+    alias: virtualCardAlias(record.alias, true),
+    balance: Number(availableBalanceMinor) / 100,
+    availableBalanceMinor,
+    createdAt: cardRfc3339(record.createdAt),
+    capabilities: virtualCardCapabilities(record.capabilities),
+  };
 }
 
 export function buildCardBalancePath(cardId: string): string {
@@ -1126,13 +1299,14 @@ export const backendApi = {
     return normalizeCard(card);
   },
 
-  async createVirtualCard(input: { currency: string; alias?: string }): Promise<WalletCard> {
-    const card = await request<BackendCardRecord>("/v1/cards/virtual", {
-      method: "POST",
-      headers: { "Idempotency-Key": traceId() },
-      body: JSON.stringify(input),
-    });
-    return normalizeCard(card);
+  async createVirtualCard(
+    input: VirtualCardCreateInput,
+    idempotencyKey: string,
+  ): Promise<WalletCard> {
+    requireVirtualCardCreateRuntime();
+    const { path, init } = buildVirtualCardCreateRequest(input, idempotencyKey);
+    const card = await request<unknown>(path, init);
+    return normalizeVirtualCardCreateResponse(card);
   },
 
   async setFrozen(cardId: string, frozen: boolean): Promise<WalletCard> {

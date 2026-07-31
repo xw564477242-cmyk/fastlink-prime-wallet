@@ -4,11 +4,11 @@ The Lovable UI is the formal FastLink wallet frontend.
 
 ## Required build variables
 
-| Variable | Required | Rule |
-|---|---:|---|
-| `VITE_FASTLINK_API_URL` | Yes | Railway Backend base URL ending in `/api` |
-| `VITE_FASTLINK_ENVIRONMENT` | Yes | `LOCAL`, `SANDBOX`, `UAT`, or `PRODUCTION` |
-| `VITE_FASTLINK_BUILD_SHA` | Yes in CI | Source commit used for the build |
+| Variable                    |  Required | Rule                                               |
+| --------------------------- | --------: | -------------------------------------------------- |
+| `VITE_FASTLINK_API_URL`     |       Yes | Railway Backend base URL ending in `/api`          |
+| `VITE_FASTLINK_ENVIRONMENT` |       Yes | `LOCAL`, `SANDBOX`, `TEST`, `UAT`, or `PRODUCTION` |
+| `VITE_FASTLINK_BUILD_SHA`   | Yes in CI | Source commit used for the build                   |
 
 Production requires an HTTPS API URL.
 
