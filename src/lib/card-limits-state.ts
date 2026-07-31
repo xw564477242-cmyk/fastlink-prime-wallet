@@ -37,6 +37,7 @@ export function cardLimitsViewForScope(state: CardLimitsState, scopeKey: string 
 export type CardLimitsAction =
   | { type: "reset"; scopeKey: string | null; requestKey: string | null; loading: boolean }
   | { type: "loaded"; requestKey: string; limits: WalletCardLimits }
+  | { type: "replace-current"; scopeKey: string; limits: WalletCardLimits }
   | { type: "failed"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
@@ -56,6 +57,16 @@ export function cardLimitsReducer(
     case "loaded":
       return action.requestKey === state.activeRequestKey
         ? { ...state, limits: action.limits, error: null }
+        : state;
+    case "replace-current":
+      return action.scopeKey === state.scopeKey
+        ? {
+            ...state,
+            activeRequestKey: null,
+            limits: action.limits,
+            loading: false,
+            error: null,
+          }
         : state;
     case "failed":
       return action.requestKey === state.activeRequestKey
