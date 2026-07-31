@@ -12,6 +12,7 @@ import {
   backendRuntime,
   isVirtualCardCreateEnvironment,
   type WalletOperationActivity,
+  walletTransferSessionAllowed,
 } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/transfer")({
   component: InternalWalletTransferPage,
 });
 
-function InternalWalletTransferPage() {
+export function InternalWalletTransferPage() {
   const { checking, session } = useBackendSession();
   const accounts = useWalletTransferAccounts(session);
   const refreshAccounts = accounts.refresh;
@@ -36,7 +37,7 @@ function InternalWalletTransferPage() {
   const [destinationAccountId, setDestinationAccountId] = useState("");
   const [amount, setAmount] = useState("");
   const [receipt, setReceipt] = useState<{
-    contextKey: string;
+    sessionContextKey: string;
     sourceAccountId: string;
     destinationAccountId: string;
     amount: string;
@@ -49,23 +50,29 @@ function InternalWalletTransferPage() {
     [accounts.accounts],
   );
   const source = activeAccounts.find((account) => account.id === sourceAccountId) ?? null;
+  const runtimeEnvironment = backendRuntime.error === null ? backendRuntime.environment : undefined;
+  const sessionContextKey = walletTransferSessionAllowed(session, runtimeEnvironment)
+    ? JSON.stringify([
+        session?.actorId,
+        session?.expiresAt ?? null,
+        session?.tenantId,
+        session?.customerId,
+        session?.environment,
+        runtimeEnvironment,
+      ])
+    : null;
   const receiptContextKey =
-    session && source
-      ? JSON.stringify([
-          session.actorId,
-          session.expiresAt ?? null,
-          session.tenantId,
-          session.customerId,
-          session.environment,
-          source.id,
-          destinationAccountId,
-          amount,
-        ])
+    sessionContextKey && source
+      ? JSON.stringify([sessionContextKey, source.id, destinationAccountId, amount])
       : null;
   const visibleReceipt =
-    receiptContextKey !== null && receipt?.contextKey === receiptContextKey
+    sessionContextKey !== null && receipt?.sessionContextKey === sessionContextKey
       ? receipt.operation
       : null;
+
+  useEffect(() => {
+    setReceipt(null);
+  }, [sessionContextKey]);
 
   useEffect(() => {
     if (accounts.loading) return;
@@ -77,9 +84,9 @@ function InternalWalletTransferPage() {
   const input = useMemo(() => ({ destinationAccountId, amount }), [amount, destinationAccountId]);
   const handleAccepted = useCallback(
     (accepted: AcceptedWalletTransfer) => {
-      if (!receiptContextKey || !source) return;
+      if (!receiptContextKey || !sessionContextKey || !source) return;
       setReceipt({
-        contextKey: receiptContextKey,
+        sessionContextKey,
         sourceAccountId: source.id,
         destinationAccountId: accepted.input.destinationAccountId,
         amount: accepted.input.amount,
@@ -89,7 +96,7 @@ function InternalWalletTransferPage() {
       });
       refreshAccounts();
     },
-    [receiptContextKey, refreshAccounts, source],
+    [receiptContextKey, refreshAccounts, sessionContextKey, source],
   );
   const transfer = useWalletTransferMutation(session, source, input, handleAccepted);
   const handleStatusRefreshed = useCallback((operation: WalletOperationActivity) => {
