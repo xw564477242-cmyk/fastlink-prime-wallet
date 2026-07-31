@@ -35,8 +35,14 @@ jobs:
       - name: Install locked dependencies
         run: bun install --frozen-lockfile
 
-      - name: Test
-        run: bun test
+      - name: Test when the branch contains tests
+        shell: bash
+        run: |
+          if find . -path './node_modules' -prune -o -type f \( -name '*.test.*' -o -name '*.spec.*' \) -print -quit | grep -q .; then
+            bun test
+          else
+            echo 'No test files exist on this baseline; continuing with type, audit, lint, and build gates.'
+          fi
 
       - name: Type check
         run: bunx tsc --noEmit
