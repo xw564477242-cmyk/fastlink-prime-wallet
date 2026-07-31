@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useRef } from "react";
 import { CARD_TRANSACTION_PAGE_SIZE, backendApi, type BackendSession } from "@/lib/backend-api";
 import {
   cardTransactionReducer,
+  cardTransactionRequestKey,
   cardTransactionViewForScope,
   initialCardTransactionState,
 } from "@/lib/card-transaction-state";
@@ -30,19 +31,31 @@ export function useCardTransactionPages(
   const view = cardTransactionViewForScope(state, scopeKey);
 
   useEffect(() => {
-    const requestId = ++requestSequence.current;
-    dispatch({ type: "reset", scopeKey, requestId, loading: scopeKey !== null });
+    const generation = ++requestSequence.current;
+    const requestKey = scopeKey ? cardTransactionRequestKey(scopeKey, null, generation) : null;
+    dispatch({ type: "reset", scopeKey, requestKey, loading: scopeKey !== null });
     if (!session || !selectedCardId) return;
 
     void backendApi
       .cardTransactions(selectedCardId, { limit: CARD_TRANSACTION_PAGE_SIZE })
-      .then((page) => dispatch({ type: "page", requestId, page, append: false }))
+      .then((page) => {
+        if (requestKey) {
+          dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
+        }
+      })
       .catch((reason) =>
-        dispatch({ type: "failed", requestId, message: errorMessage(reason), append: false }),
+        requestKey
+          ? dispatch({
+              type: "failed",
+              requestKey,
+              message: errorMessage(reason),
+              append: false,
+            })
+          : undefined,
       );
 
     return () => {
-      if (requestSequence.current === requestId) requestSequence.current += 1;
+      if (requestSequence.current === generation) requestSequence.current += 1;
     };
   }, [scopeKey, selectedCardId, session]);
 
@@ -50,18 +63,21 @@ export function useCardTransactionPages(
     if (!scopeReady || !selectedCardId || !state.nextCursor || state.loading || state.loadingMore) {
       return;
     }
-    const requestId = ++requestSequence.current;
-    dispatch({ type: "loading-more", requestId });
+    if (!scopeKey) return;
+    const requestCursor = state.nextCursor;
+    const generation = ++requestSequence.current;
+    const requestKey = cardTransactionRequestKey(scopeKey, requestCursor, generation);
+    dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
       const page = await backendApi.cardTransactions(selectedCardId, {
         limit: CARD_TRANSACTION_PAGE_SIZE,
-        cursor: state.nextCursor,
+        cursor: requestCursor,
       });
-      dispatch({ type: "page", requestId, page, append: true });
+      dispatch({ type: "page", requestKey, requestCursor, page, append: true });
     } catch (reason) {
-      dispatch({ type: "failed", requestId, message: errorMessage(reason), append: true });
+      dispatch({ type: "failed", requestKey, message: errorMessage(reason), append: true });
     }
-  }, [scopeReady, selectedCardId, state.loading, state.loadingMore, state.nextCursor]);
+  }, [scopeKey, scopeReady, selectedCardId, state.loading, state.loadingMore, state.nextCursor]);
 
   return { ...view, loadMore };
 }
