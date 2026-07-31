@@ -115,6 +115,20 @@ function renewableCard(id: string, last4: string, alias: string, overrides = {})
   };
 }
 
+function replaceableCard(id: string, last4: string, alias: string, overrides = {}) {
+  return {
+    ...card(id, last4, alias),
+    capabilities: {
+      freeze: true,
+      unfreeze: false,
+      replace: true,
+      renew: false,
+      updateLimits: true,
+    },
+    ...overrides,
+  };
+}
+
 function balance(cardId: string) {
   return {
     cardId,
@@ -199,6 +213,10 @@ function isRenewMutation(input: string | URL | Request, init?: RequestInit): boo
   return init?.method === "POST" && /\/api\/v1\/cards\/[^/]+\/renew$/.test(requestPath(input));
 }
 
+function isReplaceMutation(input: string | URL | Request, init?: RequestInit): boolean {
+  return init?.method === "POST" && /\/api\/v1\/cards\/[^/]+\/replace$/.test(requestPath(input));
+}
+
 function selectedCardId(
   input: string | URL | Request,
   suffix: "balance" | "limits",
@@ -258,6 +276,18 @@ function limitInput(label: string): ReactTestInstance {
     .find((candidate) => renderedText(candidate).includes(label));
   if (!match) throw new Error(`Missing limits input: ${label}`);
   return match.findByType("input");
+}
+
+function replacementReasonSelect(): ReactTestInstance {
+  if (!renderer) throw new Error("Cards page is not mounted");
+  return renderer.root.findByType("select");
+}
+
+async function setReplacementReason(value: "LOST" | "STOLEN" | "DAMAGED" | "OTHER") {
+  await act(async () => {
+    replacementReasonSelect().props.onChange({ target: { value } });
+    await flush();
+  });
 }
 
 async function setLimit(label: string, value: string) {
@@ -938,6 +968,312 @@ describeConfigured(
       });
       expect(mutationReads).toBe(1);
       expect(pageText()).toContain("Card renewal failed. Try again.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+      await act(flush);
+      expect(mutationReads).toBe(1);
+    });
+  },
+);
+
+describeConfigured(
+  `Mounted selected Card replacement (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
+  () => {
+    it("uses one POST and fresh UUIDv4 per click, then atomically replaces and selects the new Card", async () => {
+      const pending = [deferred<Response>(), deferred<Response>()];
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+        }
+        if (isReplaceMutation(input, init)) return pending[mutationReads++]!.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setReplacementReason("STOLEN");
+
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      await resolvePending(
+        pending[0]!,
+        json({
+          ...replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+            expiryMonth: 1,
+            expiryYear: 2033,
+          }),
+          providerOperationId: providerSecret,
+          traceId: traceSecret,
+          internalId: internalSecret,
+        }),
+      );
+      expect(pageText()).toContain("9876");
+      expect(pageText()).not.toContain("4242");
+      expect(navigations).toEqual([{ search: { cardId: "card:replacement.2" }, replace: true }]);
+      expect(body()).not.toMatch(
+        /provider-create-secret|trace-create-secret|internal-create-secret/,
+      );
+
+      await setReplacementReason("DAMAGED");
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      await resolvePending(
+        pending[1]!,
+        json(
+          replaceableCard("card:replacement.3", "6789", "Owned Replace Card", {
+            expiryMonth: 2,
+            expiryYear: 2034,
+          }),
+        ),
+      );
+      expect(pageText()).toContain("6789");
+      expect(pageText()).not.toContain("9876");
+      expect(navigations.at(-1)).toEqual({
+        search: { cardId: "card:replacement.3" },
+        replace: true,
+      });
+
+      const mutations = calls.filter(({ input, init }) => isReplaceMutation(input, init));
+      const keys = mutations.map(uuidHeader);
+      expect(mutations).toHaveLength(2);
+      expect(keys.every(isUuidV4)).toBeTrue();
+      expect(new Set(keys).size).toBe(2);
+      expect(mutations.map(({ init }) => JSON.parse(String(init?.body)))).toEqual([
+        { reason: "STOLEN" },
+        { reason: "DAMAGED" },
+      ]);
+    });
+
+    it("allows stale success, error and finally zero writes after session, selection, reason or unmount changes", async () => {
+      const changes: Array<{ label: string; apply: () => Promise<void> }> = [
+        { label: "actor", apply: () => rerender(session({ actorId: "actor-replace-02" })) },
+        { label: "tenant", apply: () => rerender(session({ tenantId: "tenant-replace-02" })) },
+        {
+          label: "customer",
+          apply: () => rerender(session({ customerId: "customer-replace-02" })),
+        },
+        {
+          label: "environment",
+          apply: () => rerender(session({ environment: alternateEnvironment(testEnvironment()) })),
+        },
+        {
+          label: "expiresAt",
+          apply: () => rerender(session({ expiresAt: "2099-08-01T01:00:00.000Z" })),
+        },
+        { label: "logout", apply: () => rerender(null) },
+        { label: "reason", apply: () => setReplacementReason("STOLEN") },
+        {
+          label: "selection",
+          apply: async () => {
+            await act(async () => {
+              button("Owned Replace Two").props.onClick();
+              await flush();
+            });
+          },
+        },
+        { label: "unmount", apply: unmount },
+      ];
+
+      for (const change of changes) {
+        const pending = deferred<Response>();
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              replaceableCard("card:replace.1", "4242", "Owned Replace One"),
+              replaceableCard("card:replace.2", "5252", "Owned Replace Two"),
+            ]);
+          }
+          if (isReplaceMutation(input, init)) {
+            mutationReads += 1;
+            return pending.promise;
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Replace card").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, change.label).toBe(1);
+        await change.apply();
+        await resolvePending(
+          pending,
+          json({
+            ...replaceableCard("card:replacement.stale", "9876", "Owned Replace One", {
+              expiryMonth: 1,
+              expiryYear: 2033,
+            }),
+            providerOperationId: providerSecret,
+            traceId: traceSecret,
+            internalId: internalSecret,
+          }),
+        );
+        if (change.label === "selection") {
+          await act(async () => {
+            button("Owned Replace One").props.onClick();
+            await flush();
+          });
+        }
+        expect(pageText(), change.label).not.toContain("9876");
+        expect(body(), change.label).not.toMatch(
+          /provider-create-secret|trace-create-secret|internal-create-secret/,
+        );
+        expect(
+          navigations.some(
+            (navigation) =>
+              (navigation.search as { cardId?: string } | undefined)?.cardId ===
+              "card:replacement.stale",
+          ),
+          change.label,
+        ).toBeFalse();
+        expect(mutationReads, change.label).toBe(1);
+        await unmount();
+      }
+
+      const rejected = deferred<Response>();
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+        }
+        if (isReplaceMutation(input, init)) return rejected.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      await rerender(session({ actorId: "actor-replace-error" }));
+      await rejectPending(rejected, new Error(internalSecret));
+      expect(pageText()).not.toContain("Card replacement failed");
+      expect(body()).not.toContain(internalSecret);
+    });
+
+    it("does not expose replacement for an expired session or a Card without capability", async () => {
+      for (const mode of ["expired", "capability"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              replaceableCard("card:replace.1", "4242", "Owned Replace Card", {
+                ...(mode === "capability"
+                  ? {
+                      capabilities: {
+                        freeze: true,
+                        unfreeze: false,
+                        replace: false,
+                        renew: false,
+                        updateLimits: true,
+                      },
+                    }
+                  : {}),
+              }),
+            ]);
+          }
+          if (isReplaceMutation(input, init)) {
+            mutationReads += 1;
+            return json({});
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount(
+          mode === "expired" ? session({ expiresAt: "2026-07-31T00:00:00.000Z" }) : session(),
+        );
+        expect(pageText(), mode).not.toContain("Replace card");
+        expect(mutationReads, mode).toBe(0);
+        await unmount();
+      }
+    });
+
+    it("rejects invalid or colliding replacements without changing the old Card or selection", async () => {
+      for (const mode of ["old-id", "type", "currency", "alias", "last4", "collision"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              replaceableCard("card:replace.1", "4242", "Owned Replace Card"),
+              replaceableCard("card:existing", "3131", "Existing Card"),
+            ]);
+          }
+          if (isReplaceMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              replaceableCard(
+                mode === "old-id"
+                  ? "card:replace.1"
+                  : mode === "collision"
+                    ? "card:existing"
+                    : "card:replacement.2",
+                mode === "last4" ? "99" : "9876",
+                mode === "alias" ? "Foreign Alias" : "Owned Replace Card",
+                {
+                  expiryMonth: 1,
+                  expiryYear: 2033,
+                  ...(mode === "type" ? { type: "PHYSICAL" } : {}),
+                  ...(mode === "currency" ? { currency: "EUR" } : {}),
+                },
+              ),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Replace card").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(pageText(), mode).toContain("Card replacement failed. Try again.");
+        expect(pageText(), mode).toContain("4242");
+        expect(pageText(), mode).not.toMatch(/9876|Foreign Alias/);
+        expect(navigations, mode).toHaveLength(0);
+        await act(flush);
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {
+      let mutationReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+        }
+        if (isReplaceMutation(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Card replacement failed. Try again.");
       expect(body()).not.toMatch(
         /internal-create-secret|provider-create-secret|trace-create-secret/,
       );

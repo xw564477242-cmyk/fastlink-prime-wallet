@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef } from "react";
 import {
   CARD_LIST_PAGE_SIZE,
   backendApi,
@@ -35,6 +35,10 @@ export function useCardListPages(
   preferredCardId: string | null = null,
 ) {
   const [state, dispatch] = useReducer(cardListReducer, initialCardListState);
+  const stateRef = useRef(state);
+  useLayoutEffect(() => {
+    stateRef.current = state;
+  }, [state]);
   const requestSequence = useRef(0);
   const activePageRequest = useRef<number | null>(null);
   const preferredCardIdRef = useRef(preferredCardId);
@@ -154,10 +158,19 @@ export function useCardListPages(
     [scopeReady, sessionKey],
   );
   const replaceSelectedCard = useCallback(
-    (oldCardId: string, card: WalletCard) => {
-      if (scopeReady) {
-        dispatch({ type: "replace-selected", sessionKey, oldCardId, card });
+    (oldCardId: string, card: WalletCard): boolean => {
+      const current = stateRef.current;
+      if (
+        !scopeReady ||
+        current.sessionKey !== sessionKey ||
+        current.activeId !== oldCardId ||
+        !current.cards.some((existing) => existing.cardId === oldCardId) ||
+        current.cards.some((existing) => existing.cardId === card.cardId)
+      ) {
+        return false;
       }
+      dispatch({ type: "replace-selected", sessionKey, oldCardId, card });
+      return true;
     },
     [scopeReady, sessionKey],
   );

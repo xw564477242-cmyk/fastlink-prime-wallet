@@ -24,7 +24,7 @@ export function useCardReplace(
   session: BackendSession | null,
   card: WalletCard | undefined,
   reason: CardReplacementReason,
-  onReplaced: (oldCardId: string, replacement: WalletCard) => void,
+  onReplaced: (oldCardId: string, replacement: WalletCard) => boolean,
 ) {
   const scopeKey = cardReplaceScopeKey(
     session,
@@ -38,7 +38,11 @@ export function useCardReplace(
   const view = cardReplaceView(state, scopeKey);
 
   useEffect(() => {
+    const currentGate = gate.current;
     dispatch({ type: "reset", scopeKey });
+    return () => {
+      if (currentGate.scopeKey === scopeKey) syncCardReplaceScope(currentGate, null);
+    };
   }, [scopeKey]);
 
   const submit = useCallback(async (): Promise<boolean> => {
@@ -50,8 +54,10 @@ export function useCardReplace(
     try {
       const replacement = await backendApi.replaceCard(card, ticket.reason, ticket.idempotencyKey);
       if (!acceptsCardReplaceCompletion(gate.current, ticket, scopeKey)) return false;
+      if (!onReplaced(card.cardId, replacement)) {
+        throw new Error("Replacement Card conflicts with the current Card list");
+      }
       dispatch({ type: "succeeded", requestKey: ticket.requestKey, card: replacement });
-      onReplaced(card.cardId, replacement);
       return true;
     } catch {
       if (acceptsCardReplaceCompletion(gate.current, ticket, scopeKey)) {

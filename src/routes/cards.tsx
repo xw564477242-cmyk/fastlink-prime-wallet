@@ -125,8 +125,9 @@ export function CardsPage() {
   const [replacementReason, setReplacementReason] = useState<CardReplacementReason>("LOST");
   const acceptReplacementCard = useCallback(
     (oldCardId: string, card: Parameters<typeof replaceSelectedCard>[1]) => {
-      replaceSelectedCard(oldCardId, card);
+      if (!replaceSelectedCard(oldCardId, card)) return false;
       void navigate({ search: { cardId: card.cardId }, replace: true });
+      return true;
     },
     [navigate, replaceSelectedCard],
   );
