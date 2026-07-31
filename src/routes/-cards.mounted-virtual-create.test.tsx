@@ -107,6 +107,18 @@ function limits(cardId: string) {
   };
 }
 
+function mutableLimits(cardId: string, overrides: Record<string, unknown> = {}) {
+  return {
+    cardId,
+    singleTransactionMinor: "10000",
+    dailySpendMinor: "50000",
+    monthlySpendMinor: "500000",
+    dailyAtmMinor: "20000",
+    updatedAt: "2026-07-31T10:00:00Z",
+    ...overrides,
+  };
+}
+
 function json(value: unknown, status = 200, traceId = "safe-create-trace"): Response {
   return new Response(JSON.stringify(value), {
     status,
@@ -138,6 +150,10 @@ function isCardList(input: string | URL | Request): boolean {
 
 function isCreate(input: string | URL | Request, init?: RequestInit): boolean {
   return requestPath(input) === "/api/v1/cards/virtual" && init?.method === "POST";
+}
+
+function isLimitsMutation(input: string | URL | Request, init?: RequestInit): boolean {
+  return selectedCardId(input, "limits") !== null && init?.method === "POST";
 }
 
 function selectedCardId(
@@ -190,6 +206,22 @@ function button(label: string): ReactTestInstance {
     .find((candidate) => renderedText(candidate).includes(label));
   if (!match) throw new Error(`Missing button: ${label}`);
   return match;
+}
+
+function limitInput(label: string): ReactTestInstance {
+  if (!renderer) throw new Error("Cards page is not mounted");
+  const match = renderer.root
+    .findAllByType("label")
+    .find((candidate) => renderedText(candidate).includes(label));
+  if (!match) throw new Error(`Missing limits input: ${label}`);
+  return match.findByType("input");
+}
+
+async function setLimit(label: string, value: string) {
+  await act(async () => {
+    limitInput(label).props.onChange({ target: { value } });
+    await flush();
+  });
 }
 
 function uuidHeader(call: { init?: RequestInit } | undefined): string | null {
@@ -580,6 +612,318 @@ describeConfigured(
       await act(flush);
       expect(postReads).toBe(1);
       expect(listReads).toBe(1);
+    });
+  },
+);
+
+describeConfigured(
+  `Mounted selected Card limits update (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
+  () => {
+    it("sends one allowlisted mutation with a fresh UUIDv4 per manual submit and synchronously locks double clicks", async () => {
+      const pending = [deferred<Response>(), deferred<Response>()];
+      const owned = card("card:limits.1", "4242", "Owned Limits Card");
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) return cardPage([owned]);
+        if (isLimitsMutation(input, init)) return pending[mutationReads++]!.promise;
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) return json(balance(balanceCardId));
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) return json(mutableLimits(limitsCardId));
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setLimit("Single transaction", "12000");
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await setLimit("Daily ATM", "25000");
+
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      await resolvePending(
+        pending[0]!,
+        json({
+          ...mutableLimits("card:limits.1", {
+            singleTransactionMinor: "12000",
+            dailySpendMinor: "60000",
+            monthlySpendMinor: "600000",
+            dailyAtmMinor: "25000",
+            updatedAt: "2026-08-01T00:00:00Z",
+          }),
+          providerOperationId: providerSecret,
+          traceId: traceSecret,
+          secret: internalSecret,
+        }),
+      );
+      expect(pageText()).toContain("600000");
+      expect(body()).not.toMatch(
+        /provider-create-secret|trace-create-secret|internal-create-secret/,
+      );
+
+      await setLimit("Daily spend", "70000");
+      await setLimit("Monthly spend", "700000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      await resolvePending(
+        pending[1]!,
+        json(
+          mutableLimits("card:limits.1", {
+            singleTransactionMinor: "12000",
+            dailySpendMinor: "70000",
+            monthlySpendMinor: "700000",
+            dailyAtmMinor: "25000",
+            updatedAt: "2026-08-01T00:01:00Z",
+          }),
+        ),
+      );
+
+      const mutations = calls.filter(({ input, init }) => isLimitsMutation(input, init));
+      const keys = mutations.map(uuidHeader);
+      expect(keys.every(isUuidV4)).toBeTrue();
+      expect(new Set(keys).size).toBe(2);
+      expect(JSON.parse(String(mutations[0]?.init?.body))).toEqual({
+        singleTransactionMinor: 12000,
+        dailySpendMinor: 60000,
+        monthlySpendMinor: 600000,
+        dailyAtmMinor: 25000,
+      });
+      expect(Object.keys(JSON.parse(String(mutations[0]?.init?.body))).sort()).toEqual(
+        ["singleTransactionMinor", "dailySpendMinor", "monthlySpendMinor", "dailyAtmMinor"].sort(),
+      );
+    });
+
+    it("rejects non-integer, unsafe, over-limit and inconsistent input before any mutation", async () => {
+      for (const invalid of ["-1", "1.5", "01", "9000000000001", "9007199254740992", "5000"]) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+          }
+          if (isLimitsMutation(input, init)) {
+            mutationReads += 1;
+            return json({});
+          }
+          const balanceCardId = selectedCardId(input, "balance");
+          if (balanceCardId) return json(balance(balanceCardId));
+          const limitsCardId = selectedCardId(input, "limits");
+          if (limitsCardId) return json(mutableLimits(limitsCardId));
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await setLimit("Daily spend", invalid);
+        await act(async () => {
+          void button("Apply limits").props.onClick();
+          void button("Apply limits").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, invalid).toBe(0);
+        expect(pageText(), invalid).toContain(
+          "Card limits update failed. Check the values and try again.",
+        );
+        await unmount();
+      }
+    });
+
+    it("allows late success, error and finally zero writes after scope, selection, input or unmount changes", async () => {
+      const changes: Array<{
+        label: string;
+        apply: () => Promise<void>;
+      }> = [
+        { label: "actor", apply: () => rerender(session({ actorId: "actor-limits-02" })) },
+        { label: "tenant", apply: () => rerender(session({ tenantId: "tenant-limits-02" })) },
+        {
+          label: "customer",
+          apply: () => rerender(session({ customerId: "customer-limits-02" })),
+        },
+        {
+          label: "environment",
+          apply: () => rerender(session({ environment: alternateEnvironment(testEnvironment()) })),
+        },
+        {
+          label: "expiresAt",
+          apply: () => rerender(session({ expiresAt: "2099-08-01T01:00:00.000Z" })),
+        },
+        { label: "logout", apply: () => rerender(null) },
+        {
+          label: "selection",
+          apply: async () => {
+            await act(async () => {
+              button("Owned Limits Two").props.onClick();
+              await flush();
+            });
+          },
+        },
+        { label: "input", apply: () => setLimit("Daily spend", "70000") },
+        { label: "unmount", apply: unmount },
+      ];
+
+      for (const change of changes) {
+        const pending = deferred<Response>();
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([
+              card("card:limits.1", "4242", "Owned Limits One"),
+              card("card:limits.2", "5252", "Owned Limits Two"),
+            ]);
+          }
+          if (isLimitsMutation(input, init)) {
+            mutationReads += 1;
+            return pending.promise;
+          }
+          const balanceCardId = selectedCardId(input, "balance");
+          if (balanceCardId) return json(balance(balanceCardId));
+          const limitsCardId = selectedCardId(input, "limits");
+          if (limitsCardId) return json(mutableLimits(limitsCardId));
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await setLimit("Single transaction", "12000");
+        await setLimit("Daily spend", "60000");
+        await setLimit("Monthly spend", "600000");
+        await setLimit("Daily ATM", "25000");
+        await act(async () => {
+          void button("Apply limits").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, change.label).toBe(1);
+        await change.apply();
+        await resolvePending(
+          pending,
+          json({
+            ...mutableLimits("card:limits.1", {
+              singleTransactionMinor: "12000",
+              dailySpendMinor: "60000",
+              monthlySpendMinor: "600000",
+              dailyAtmMinor: "25000",
+              updatedAt: "2098-01-01T00:00:00Z",
+            }),
+            providerOperationId: providerSecret,
+            traceId: traceSecret,
+            internalId: internalSecret,
+          }),
+        );
+        expect(pageText(), change.label).not.toContain("2098");
+        expect(body(), change.label).not.toMatch(
+          /provider-create-secret|trace-create-secret|internal-create-secret/,
+        );
+        expect(mutationReads, change.label).toBe(1);
+        await unmount();
+      }
+
+      const rejected = deferred<Response>();
+      let rejectedMutations = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) {
+          rejectedMutations += 1;
+          return rejected.promise;
+        }
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) return json(balance(balanceCardId));
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) return json(mutableLimits(limitsCardId));
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      await setLimit("Daily spend", "70000");
+      await rejectPending(rejected, new Error(internalSecret));
+      expect(rejectedMutations).toBe(1);
+      expect(pageText()).not.toContain("Card limits update failed");
+      expect(body()).not.toContain(internalSecret);
+    });
+
+    it("binds the response to the current selected Card and exact submitted values", async () => {
+      for (const mode of ["wrong-card", "wrong-value"] as const) {
+        let mutationReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+          }
+          if (isLimitsMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              mutableLimits(mode === "wrong-card" ? "card:limits.2" : "card:limits.1", {
+                singleTransactionMinor: "12000",
+                dailySpendMinor: mode === "wrong-value" ? "60001" : "60000",
+                monthlySpendMinor: "600000",
+                dailyAtmMinor: "25000",
+                updatedAt: "2026-08-01T00:00:00Z",
+              }),
+            );
+          }
+          const balanceCardId = selectedCardId(input, "balance");
+          if (balanceCardId) return json(balance(balanceCardId));
+          const limitsCardId = selectedCardId(input, "limits");
+          if (limitsCardId) return json(mutableLimits(limitsCardId));
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await setLimit("Single transaction", "12000");
+        await setLimit("Daily spend", "60000");
+        await setLimit("Monthly spend", "600000");
+        await setLimit("Daily ATM", "25000");
+        await act(async () => {
+          void button("Apply limits").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(pageText(), mode).toContain(
+          "Card limits update failed. Check the values and try again.",
+        );
+        await act(flush);
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("never retries a failed mutation or renders Backend error bodies and trace IDs", async () => {
+      let mutationReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+        }
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) return json(balance(balanceCardId));
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) return json(mutableLimits(limitsCardId));
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Card limits update failed. Check the values and try again.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+      await act(flush);
+      expect(mutationReads).toBe(1);
     });
   },
 );

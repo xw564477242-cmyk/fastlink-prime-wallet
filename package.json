@@ -24,6 +24,8 @@
     "test:card-history-selection:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-history.mounted-selection.test.tsx",
     "test:virtual-card-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/-cards.mounted-virtual-create.test.tsx",
     "test:virtual-card-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-cards.mounted-virtual-create.test.tsx",
+    "test:card-limits-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/-cards.mounted-virtual-create.test.tsx -t 'Mounted selected Card limits update'",
+    "test:card-limits-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-cards.mounted-virtual-create.test.tsx -t 'Mounted selected Card limits update'",
     "preview": "vite preview",
     "lint": "eslint .",
     "audit:production": "node scripts/verify-production-wallet.mjs",
