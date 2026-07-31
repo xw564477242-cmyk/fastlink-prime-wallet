@@ -176,6 +176,8 @@ export type WalletCardTransactionQuery = {
 };
 
 export const CARD_TRANSACTION_PAGE_SIZE = 25;
+export const CARD_TRANSACTION_MAX_JSON_BYTES = 65_536;
+export const CARD_TRANSACTION_MAX_CURSOR_BYTES = 16_384;
 
 export type WalletAssetAccount = {
   assetCode: string;
@@ -358,6 +360,32 @@ function requireSandboxTestWalletBalanceRuntime(sessionEnvironment: FastLinkEnvi
       0,
       "runtime",
       "Wallet balance summary is available only in the matching SANDBOX or TEST session",
+    );
+  }
+}
+
+export function cardTransactionReadAllowed(
+  sessionEnvironment: FastLinkEnvironment,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+): boolean {
+  return (
+    sessionEnvironment === runtimeEnvironment &&
+    (runtimeEnvironment === "SANDBOX" || runtimeEnvironment === "TEST")
+  );
+}
+
+function requireSandboxTestCardTransactionRuntime(session: BackendSession): void {
+  const { environment } = requireRuntime();
+  const expiry = typeof session.expiresAt === "string" ? Date.parse(session.expiresAt) : Number.NaN;
+  if (
+    !cardTransactionReadAllowed(session.environment, environment) ||
+    !Number.isFinite(expiry) ||
+    expiry <= Date.now()
+  ) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Card transactions are available only in a matching, unexpired SANDBOX or TEST session",
     );
   }
 }
@@ -1352,12 +1380,36 @@ function cardTransactionMcc(value: unknown): string {
   return value;
 }
 
+function cardTransactionMinorUnits(value: unknown): string {
+  if (typeof value !== "string" || !/^(?:0|-?[1-9]\d{0,18})$/.test(value)) {
+    throw new Error("Backend returned an invalid transaction amount");
+  }
+  const amount = BigInt(value);
+  if (amount < -9_223_372_036_854_775_808n || amount > 9_223_372_036_854_775_807n) {
+    throw new Error("Backend returned an invalid transaction amount");
+  }
+  return value;
+}
+
 function normalizeTransaction(value: unknown): WalletCardTransaction {
-  const record = ownJsonDataRecord(
+  const record = exactTrustedJsonRecord(
     value,
-    ["id", "status", "amountMinor", "currency", "merchantName", "merchantCategory", "occurredAt"],
+    [
+      "id",
+      "status",
+      "amountMinor",
+      "authorizedAmountMinor",
+      "clearedAmountMinor",
+      "settledAmountMinor",
+      "reversedAmountMinor",
+      "refundedAmountMinor",
+      "currency",
+      "traceId",
+      "merchantName",
+      "merchantCategory",
+      "occurredAt",
+    ],
     "Backend returned an invalid transaction",
-    (field) => `Backend returned an invalid transaction ${field}`,
   );
   const rawStatus = requiredString(record.status, "status", 32);
   if (
@@ -1365,15 +1417,17 @@ function normalizeTransaction(value: unknown): WalletCardTransaction {
   ) {
     throw new Error("Backend returned an invalid transaction status");
   }
+  const amountMinor = cardTransactionMinorUnits(record.amountMinor);
+  cardTransactionMinorUnits(record.authorizedAmountMinor);
+  cardTransactionMinorUnits(record.clearedAmountMinor);
+  cardTransactionMinorUnits(record.settledAmountMinor);
+  cardTransactionMinorUnits(record.reversedAmountMinor);
+  cardTransactionMinorUnits(record.refundedAmountMinor);
   if (
-    typeof record.amountMinor !== "string" ||
-    !/^(?:0|-?[1-9]\d{0,18})$/.test(record.amountMinor)
+    record.traceId !== null &&
+    (typeof record.traceId !== "string" || !/^[A-Za-z0-9._:-]{1,128}$/.test(record.traceId))
   ) {
-    throw new Error("Backend returned an invalid transaction amount");
-  }
-  const amountMinor = BigInt(record.amountMinor);
-  if (amountMinor < -9_223_372_036_854_775_808n || amountMinor > 9_223_372_036_854_775_807n) {
-    throw new Error("Backend returned an invalid transaction amount");
+    throw new Error("Backend returned an invalid transaction trace");
   }
   const currency = requiredString(record.currency, "currency", 3);
   if (!/^[A-Z]{3}$/.test(currency)) {
@@ -1387,7 +1441,7 @@ function normalizeTransaction(value: unknown): WalletCardTransaction {
   return {
     id,
     status: rawStatus.toLowerCase() as WalletCardTransaction["status"],
-    amountMinor: record.amountMinor,
+    amountMinor,
     currency,
     merchant:
       record.merchantName === null
@@ -1411,7 +1465,8 @@ export function buildCardTransactionPath(
   }
   if (
     query.cursor !== undefined &&
-    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
+    (query.cursor.length > CARD_TRANSACTION_MAX_CURSOR_BYTES ||
+      !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(query.cursor))
   ) {
     throw new Error("Invalid card transaction cursor");
   }
@@ -1421,30 +1476,39 @@ export function buildCardTransactionPath(
 }
 
 export function normalizeCardTransactionResponse(
-  value: unknown,
+  rawJson: string,
   limit = CARD_TRANSACTION_PAGE_SIZE,
 ): WalletCardTransactionPage {
   if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
     throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
   }
-  const page = ownJsonDataRecord(
-    value,
+  if (typeof rawJson !== "string" || rawJson.length > CARD_TRANSACTION_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an invalid transaction page");
+  }
+  if (new TextEncoder().encode(rawJson).byteLength > CARD_TRANSACTION_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an oversized transaction page");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error("Backend returned an invalid transaction page");
+  }
+  const page = exactTrustedJsonRecord(
+    parsed,
     ["transactions", "nextCursor"],
     "Backend returned an invalid transaction page",
   );
-  const transactions = ownJsonArray(
+  const transactions = denseTrustedJsonArray(
     page.transactions,
+    limit,
     "Backend returned an invalid transaction page",
   );
-  if (transactions.length > limit) {
-    throw new Error("Backend returned an invalid transaction page");
-  }
   if (
     page.nextCursor !== null &&
     (typeof page.nextCursor !== "string" ||
-      !page.nextCursor ||
-      page.nextCursor.length > 512 ||
-      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
+      page.nextCursor.length > CARD_TRANSACTION_MAX_CURSOR_BYTES ||
+      !/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(page.nextCursor))
   ) {
     throw new Error("Backend returned an invalid transaction cursor");
   }
@@ -2274,12 +2338,25 @@ export const backendApi = {
   },
 
   async cardTransactions(
+    session: BackendSession,
     cardId: string,
     query: WalletCardTransactionQuery = {},
   ): Promise<WalletCardTransactionPage> {
+    requireSandboxTestCardTransactionRuntime(session);
     const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
-    const result = await request<unknown>(buildCardTransactionPath(cardId, query));
-    return normalizeCardTransactionResponse(result, limit);
+    try {
+      const result = await request<string>(buildCardTransactionPath(cardId, query), {}, "text");
+      return normalizeCardTransactionResponse(result, limit);
+    } catch (error) {
+      if (error instanceof BackendApiError) {
+        throw new BackendApiError(
+          error.status,
+          error.traceId,
+          `Card transaction request failed · Trace ${error.traceId}`,
+        );
+      }
+      throw error;
+    }
   },
 
   async walletBalanceAccounts(

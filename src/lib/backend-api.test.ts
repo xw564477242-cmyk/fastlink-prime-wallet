@@ -57,13 +57,9 @@ const publicTransaction = (id: string) => ({
   merchantName: "Coffee",
   merchantCategory: "5812",
   occurredAt: "2026-07-31T12:00:00.000Z",
-  tenantId: "must-not-render",
-  customerId: "must-not-render",
-  cardId: "must-not-render",
-  provider: "THREDD",
-  providerPayload: { pan: "4111111111111111", token: "secret" },
-  journal: { raw: "must-not-render" },
 });
+
+const cardTransactionJson = (value: unknown) => JSON.stringify(value);
 
 describe("Card list Backend adapter", () => {
   it("builds the canonical bounded page request and encodes the opaque cursor", () => {
@@ -347,9 +343,9 @@ describe("Card transaction Backend adapter", () => {
     expect(buildCardTransactionPath("card:one.1")).toBe(
       "/v1/cards/card%3Aone.1/transactions?limit=25",
     );
-    expect(buildCardTransactionPath("card_1", { limit: 10, cursor: "txn_cursor-1" })).toBe(
-      "/v1/cards/card_1/transactions?limit=10&cursor=txn_cursor-1",
-    );
+    expect(
+      buildCardTransactionPath("card_1", { limit: 10, cursor: "txn_cursor-1.signature" }),
+    ).toBe("/v1/cards/card_1/transactions?limit=10&cursor=txn_cursor-1.signature");
     expect(() => buildCardTransactionPath("card_1", { limit: 26 })).toThrow(
       "Card transaction limit must be between 1 and 25",
     );
@@ -363,10 +359,12 @@ describe("Card transaction Backend adapter", () => {
   });
 
   it("keeps only explicitly allowed public transaction fields", () => {
-    const page = normalizeCardTransactionResponse({
-      transactions: [publicTransaction("txn_1")],
-      nextCursor: "txn_cursor-1",
-    });
+    const page = normalizeCardTransactionResponse(
+      cardTransactionJson({
+        transactions: [publicTransaction("txn_1")],
+        nextCursor: "txn_cursor-1.signature",
+      }),
+    );
 
     expect(page).toEqual({
       transactions: [
@@ -380,7 +378,7 @@ describe("Card transaction Backend adapter", () => {
           timestamp: "2026-07-31T12:00:00.000Z",
         },
       ],
-      nextCursor: "txn_cursor-1",
+      nextCursor: "txn_cursor-1.signature",
     });
     expect(JSON.stringify(page)).not.toMatch(
       /traceId|tenantId|customerId|cardId|THREDD|provider|payload|journal|pan|token|must-not-render/,
@@ -390,45 +388,53 @@ describe("Card transaction Backend adapter", () => {
   it("rejects over-limit pages rather than truncating them", () => {
     expect(() =>
       normalizeCardTransactionResponse(
-        {
+        cardTransactionJson({
           transactions: [
             publicTransaction("txn_1"),
             publicTransaction("txn_2"),
             publicTransaction("txn_3"),
           ],
           nextCursor: null,
-        },
+        }),
         2,
       ),
     ).toThrow("Backend returned an invalid transaction page");
   });
 
   it("fails closed for malformed pages, records and cursors", () => {
-    expect(() => normalizeCardTransactionResponse({ transactions: [], nextCursor: "" })).toThrow(
-      "Backend returned an invalid transaction cursor",
-    );
     expect(() =>
-      normalizeCardTransactionResponse({ transactions: "bad", nextCursor: null }),
+      normalizeCardTransactionResponse(cardTransactionJson({ transactions: [], nextCursor: "" })),
+    ).toThrow("Backend returned an invalid transaction cursor");
+    expect(() =>
+      normalizeCardTransactionResponse(
+        cardTransactionJson({ transactions: "bad", nextCursor: null }),
+      ),
     ).toThrow("Backend returned an invalid transaction page");
     expect(() =>
-      normalizeCardTransactionResponse({
-        transactions: [{ ...publicTransaction("txn_1"), status: "UNKNOWN" }],
-        nextCursor: null,
-      }),
+      normalizeCardTransactionResponse(
+        cardTransactionJson({
+          transactions: [{ ...publicTransaction("txn_1"), status: "UNKNOWN" }],
+          nextCursor: null,
+        }),
+      ),
     ).toThrow("Backend returned an invalid transaction status");
     for (const status of ["settled", "Settled", "SETtLED"]) {
       expect(() =>
-        normalizeCardTransactionResponse({
-          transactions: [{ ...publicTransaction("txn_1"), status }],
-          nextCursor: null,
-        }),
+        normalizeCardTransactionResponse(
+          cardTransactionJson({
+            transactions: [{ ...publicTransaction("txn_1"), status }],
+            nextCursor: null,
+          }),
+        ),
       ).toThrow("Backend returned an invalid transaction status");
     }
     expect(() =>
-      normalizeCardTransactionResponse({
-        transactions: [{ ...publicTransaction("txn_1"), amountMinor: "25.00" }],
-        nextCursor: null,
-      }),
+      normalizeCardTransactionResponse(
+        cardTransactionJson({
+          transactions: [{ ...publicTransaction("txn_1"), amountMinor: "25.00" }],
+          nextCursor: null,
+        }),
+      ),
     ).toThrow("Backend returned an invalid transaction amount");
     for (const amountMinor of [
       "02500",
@@ -439,18 +445,30 @@ describe("Card transaction Backend adapter", () => {
       "123456789012345678901234567890",
     ]) {
       expect(() =>
-        normalizeCardTransactionResponse({
-          transactions: [{ ...publicTransaction("txn_1"), amountMinor }],
-          nextCursor: null,
-        }),
+        normalizeCardTransactionResponse(
+          cardTransactionJson({
+            transactions: [{ ...publicTransaction("txn_1"), amountMinor }],
+            nextCursor: null,
+          }),
+        ),
       ).toThrow("Backend returned an invalid transaction amount");
     }
     expect(() =>
-      normalizeCardTransactionResponse({
-        transactions: [{ ...publicTransaction("txn_1"), occurredAt: "not-a-date" }],
-        nextCursor: null,
-      }),
+      normalizeCardTransactionResponse(
+        cardTransactionJson({
+          transactions: [{ ...publicTransaction("txn_1"), occurredAt: "not-a-date" }],
+          nextCursor: null,
+        }),
+      ),
     ).toThrow("Backend returned an invalid transaction timestamp");
+    expect(() =>
+      normalizeCardTransactionResponse(
+        cardTransactionJson({
+          transactions: [{ ...publicTransaction("txn_1"), provider: "THREDD" }],
+          nextCursor: null,
+        }),
+      ),
+    ).toThrow("Backend returned an invalid transaction");
   });
 });
 

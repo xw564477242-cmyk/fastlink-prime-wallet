@@ -1,6 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import {
+  CARD_TRANSACTION_MAX_CURSOR_BYTES,
+  CARD_TRANSACTION_MAX_JSON_BYTES,
   buildCardTransactionPath,
+  cardTransactionReadAllowed,
   normalizeCardTransactionResponse,
   type WalletCardTransaction,
 } from "./backend-api";
@@ -16,7 +19,13 @@ const transactionRecord = (id = "transaction:owned.1") => ({
   id,
   status: "SETTLED",
   amountMinor: "2500",
+  authorizedAmountMinor: "2500",
+  clearedAmountMinor: "2500",
+  settledAmountMinor: "2500",
+  reversedAmountMinor: "0",
+  refundedAmountMinor: "0",
   currency: "USD",
+  traceId: "trace-public-1",
   merchantName: "Coffee",
   merchantCategory: "5812",
   occurredAt: "2026-07-31T12:00:00.000Z",
@@ -30,101 +39,69 @@ const transaction: WalletCardTransaction = {
   category: "5812",
   timestamp: "2026-07-31T12:00:00.000Z",
 };
-const page = (transactions: unknown = [transactionRecord()], nextCursor: unknown = null) => ({
-  transactions,
-  nextCursor,
-});
-const nonOrdinaryObjects = [
-  null,
-  undefined,
-  true,
-  1,
-  "record",
-  [],
-  new Date(),
-  new Map(),
-  Object.create(null),
-  new (class TransactionResponse {})(),
-];
+const page = (transactions: unknown = [transactionRecord()], nextCursor: unknown = null) =>
+  JSON.stringify({ transactions, nextCursor });
 
 describe("Selected-Card transaction adversarial parser matrix", () => {
-  it("rejects non-ordinary page and transaction containers", () => {
-    for (const value of nonOrdinaryObjects) {
-      expect(() => normalizeCardTransactionResponse(value)).toThrow();
-      expect(() => normalizeCardTransactionResponse(page([value]))).toThrow();
-    }
+  it("accepts only bounded raw JSON and never reflects a hostile object", () => {
+    expect(CARD_TRANSACTION_MAX_JSON_BYTES).toBe(65_536);
+    const traps = { get: 0, getPrototypeOf: 0, ownKeys: 0, getOwnPropertyDescriptor: 0 };
+    const proxy = new Proxy(
+      { transactions: [transactionRecord()], nextCursor: null },
+      {
+        get() {
+          traps.get += 1;
+          throw new Error("get trap must not run");
+        },
+        getPrototypeOf() {
+          traps.getPrototypeOf += 1;
+          throw new Error("prototype trap must not run");
+        },
+        ownKeys() {
+          traps.ownKeys += 1;
+          throw new Error("ownKeys trap must not run");
+        },
+        getOwnPropertyDescriptor() {
+          traps.getOwnPropertyDescriptor += 1;
+          throw new Error("descriptor trap must not run");
+        },
+      },
+    );
+    expect(() => normalizeCardTransactionResponse(proxy as unknown as string)).toThrow();
+    expect(traps).toEqual({ get: 0, getPrototypeOf: 0, ownKeys: 0, getOwnPropertyDescriptor: 0 });
+    expect(() => normalizeCardTransactionResponse("not-json")).toThrow();
+    expect(() =>
+      normalizeCardTransactionResponse(" ".repeat(CARD_TRANSACTION_MAX_JSON_BYTES + 1)),
+    ).toThrow();
+    expect(() =>
+      normalizeCardTransactionResponse(
+        `{"transactions":[],"nextCursor":null,"x":"${"€".repeat(22_000)}"}`,
+      ),
+    ).toThrow();
   });
 
-  it("requires page and transaction fields to be own data properties", () => {
-    for (const field of ["transactions", "nextCursor"]) {
-      const record: Record<string, unknown> = page();
-      delete record[field];
-      expect(() => normalizeCardTransactionResponse(record)).toThrow();
-    }
+  it("requires every exact page and official Backend transaction field", () => {
+    expect(normalizeCardTransactionResponse(page()).transactions).toHaveLength(1);
+    expect(() =>
+      normalizeCardTransactionResponse(
+        JSON.stringify({
+          transactions: [transactionRecord()],
+          nextCursor: null,
+          provider: "THREDD",
+        }),
+      ),
+    ).toThrow();
+    expect(() =>
+      normalizeCardTransactionResponse(
+        page([{ ...transactionRecord(), journalId: "journal-secret" }]),
+      ),
+    ).toThrow();
     for (const field of Object.keys(transactionRecord())) {
       const record: Record<string, unknown> = transactionRecord();
       delete record[field];
       expect(() => normalizeCardTransactionResponse(page([record]))).toThrow();
     }
-  });
-
-  it("never executes required or unknown page/transaction getters", () => {
-    for (const [record, field, normalize] of [
-      [page(), "transactions", (value: unknown) => normalizeCardTransactionResponse(value)],
-      [
-        transactionRecord(),
-        "amountMinor",
-        (value: unknown) => normalizeCardTransactionResponse(page([value])),
-      ],
-    ] as const) {
-      let executions = 0;
-      Object.defineProperty(record, field, {
-        enumerable: true,
-        get() {
-          executions += 1;
-          return [];
-        },
-      });
-      expect(() => normalize(record)).toThrow();
-      expect(executions).toBe(0);
-    }
-
-    for (const [record, normalize] of [
-      [page(), (value: unknown) => normalizeCardTransactionResponse(value)],
-      [transactionRecord(), (value: unknown) => normalizeCardTransactionResponse(page([value]))],
-    ] as const) {
-      let executions = 0;
-      Object.defineProperty(record, "providerPayload", {
-        enumerable: true,
-        get() {
-          executions += 1;
-          throw new Error("provider getter executed");
-        },
-      });
-      normalize(record);
-      expect(executions).toBe(0);
-    }
-  });
-
-  it("rejects array holes, accessor elements, and Array subclasses", () => {
-    expect(() => normalizeCardTransactionResponse(page(new Array(1)))).toThrow();
-
-    const accessor = [transactionRecord()];
-    let executions = 0;
-    Object.defineProperty(accessor, "0", {
-      enumerable: true,
-      get() {
-        executions += 1;
-        return transactionRecord();
-      },
-    });
-    expect(() => normalizeCardTransactionResponse(page(accessor))).toThrow();
-    expect(executions).toBe(0);
-
-    class Transactions extends Array<unknown> {}
-    expect(() =>
-      normalizeCardTransactionResponse(page(new Transactions(transactionRecord()))),
-    ).toThrow();
+    expect(() => normalizeCardTransactionResponse(JSON.stringify({ transactions: [] }))).toThrow();
   });
 
   it("binds the request to one strict opaque Card ID", () => {
@@ -225,21 +202,43 @@ describe("Selected-Card transaction adversarial parser matrix", () => {
   });
 
   it("strictly validates opaque cursors", () => {
-    expect(buildCardTransactionPath(cardId, { cursor: "cursor_1-token" })).toContain(
-      "cursor=cursor_1-token",
+    expect(CARD_TRANSACTION_MAX_CURSOR_BYTES).toBe(16_384);
+    expect(buildCardTransactionPath(cardId, { cursor: "cursor_1-token.signature_1" })).toContain(
+      "cursor=cursor_1-token.signature_1",
     );
-    expect(normalizeCardTransactionResponse(page([], "cursor_1-token")).nextCursor).toBe(
-      "cursor_1-token",
-    );
-    for (const cursor of ["", "bad.cursor", "bad:cursor", "bad/cursor", "x".repeat(513)]) {
+    expect(
+      normalizeCardTransactionResponse(page([], "cursor_1-token.signature_1")).nextCursor,
+    ).toBe("cursor_1-token.signature_1");
+    for (const cursor of [
+      "",
+      "no-signature",
+      "bad.cursor.extra",
+      "bad!:cursor.signature",
+      `x.${"y".repeat(CARD_TRANSACTION_MAX_CURSOR_BYTES)}`,
+    ]) {
       expect(() => buildCardTransactionPath(cardId, { cursor })).toThrow();
       expect(() => normalizeCardTransactionResponse(page([], cursor))).toThrow();
     }
   });
+
+  it("permits reads only for matching SANDBOX and TEST session/runtime pairs", () => {
+    expect(cardTransactionReadAllowed("SANDBOX", "SANDBOX")).toBe(true);
+    expect(cardTransactionReadAllowed("TEST", "TEST")).toBe(true);
+    expect(cardTransactionReadAllowed("TEST", "SANDBOX")).toBe(false);
+    expect(cardTransactionReadAllowed("UAT", "UAT")).toBe(false);
+    expect(cardTransactionReadAllowed("PRODUCTION", "PRODUCTION")).toBe(false);
+  });
 });
 
 const scope = (parts: readonly string[]) => JSON.stringify(parts);
-const baseScope: readonly string[] = ["actor-a", "tenant-a", "customer-a", "SANDBOX", cardId];
+const baseScope: readonly string[] = [
+  "actor-a",
+  "2099-08-01T08:00:00.000Z",
+  "tenant-a",
+  "customer-a",
+  "SANDBOX",
+  cardId,
+];
 
 describe("Selected-Card transaction scope, cursor, and generation matrix", () => {
   it("synchronously clears prior rows for every scope dimension including Card", () => {
@@ -286,6 +285,12 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     ).toBe(loadingMore);
     expect(
       cardTransactionReducer(loadingMore, {
+        type: "settled",
+        requestKey: "request-1",
+      }),
+    ).toBe(loadingMore);
+    expect(
+      cardTransactionReducer(loadingMore, {
         type: "failed",
         requestKey: "request-1",
         message: "stale",
@@ -316,6 +321,12 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
         requestKey: cardTransactionRequestKey(scope(baseScope), null, 2),
         message: "stale",
         append: false,
+      }),
+    ).toBe(current);
+    expect(
+      cardTransactionReducer(current, {
+        type: "settled",
+        requestKey: cardTransactionRequestKey(scope(baseScope), null, 2),
       }),
     ).toBe(current);
   });

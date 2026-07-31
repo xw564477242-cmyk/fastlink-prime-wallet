@@ -45,9 +45,10 @@ function HomePage() {
       setCards([]);
       setTransactions([]);
       try {
+        if (!session) throw new Error("Authenticated session is required");
         const { cards: rows } = await backendApi.listCards();
         const groups = await Promise.all(
-          rows.map((card) => backendApi.cardTransactions(card.cardId, { limit: 4 })),
+          rows.map((card) => backendApi.cardTransactions(session, card.cardId, { limit: 4 })),
         );
         if (cancelled) return;
         setCards(rows);
