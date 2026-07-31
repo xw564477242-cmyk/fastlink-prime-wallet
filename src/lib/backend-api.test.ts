@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   buildCardListPath,
   buildCardBalancePath,
+  buildCardLimitsPath,
   buildCardTransactionPath,
   buildWalletTransactionDetailPath,
   buildWalletTransactionPath,
@@ -9,6 +10,7 @@ import {
   buildWalletOperationDetailPath,
   normalizeCardListResponse,
   normalizeCardBalanceResponse,
+  normalizeCardLimitsResponse,
   normalizeCardTransactionResponse,
   normalizeWalletBalanceResponse,
   normalizeWalletTransactionDetail,
@@ -230,6 +232,111 @@ describe("Selected Card balance Backend adapter", () => {
       currentBalanceMinor: "-9223372036854775808",
       pendingAmountMinor: "0",
     });
+  });
+});
+
+const publicCardLimits = (cardId: string) => ({
+  cardId,
+  singleTransactionMinor: "10000",
+  dailySpendMinor: "50000",
+  monthlySpendMinor: "500000",
+  dailyAtmMinor: "20000",
+  updatedAt: "2026-07-31T08:00:00.000Z",
+  tenantId: "must-not-render",
+  customerId: "must-not-render",
+  environment: "PRODUCTION",
+  provider: "THREDD",
+  providerOperationRef: "must-not-render",
+  accountId: "must-not-render",
+  journal: { raw: "must-not-render" },
+});
+
+describe("Selected Card limits Backend adapter", () => {
+  it("builds only the published read path from an exact public Card id", () => {
+    expect(buildCardLimitsPath("card_owned-1")).toBe("/v1/cards/card_owned-1/limits");
+    expect(buildCardLimitsPath("card:1")).toBe("/v1/cards/card%3A1/limits");
+    expect(buildCardLimitsPath("card.1")).toBe("/v1/cards/card.1/limits");
+    for (const id of ["", "x", "bad/id", "bad id", "bad$id", "x".repeat(129)]) {
+      expect(() => buildCardLimitsPath(id)).toThrow("Backend returned an invalid Card id");
+    }
+  });
+
+  it("keeps only the six public DTO fields and preserves canonical integer strings", () => {
+    const limits = normalizeCardLimitsResponse(publicCardLimits("card_owned-1"), "card_owned-1");
+    expect(limits).toEqual({
+      cardId: "card_owned-1",
+      singleTransactionMinor: "10000",
+      dailySpendMinor: "50000",
+      monthlySpendMinor: "500000",
+      dailyAtmMinor: "20000",
+      updatedAt: "2026-07-31T08:00:00.000Z",
+    });
+    expect(JSON.stringify(limits)).not.toMatch(
+      /tenantId|customerId|environment|provider|THREDD|accountId|journal|raw|must-not-render/,
+    );
+  });
+
+  it("accepts every nullable field only when it is explicitly null", () => {
+    expect(
+      normalizeCardLimitsResponse(
+        {
+          cardId: "card:1",
+          singleTransactionMinor: null,
+          dailySpendMinor: null,
+          monthlySpendMinor: null,
+          dailyAtmMinor: null,
+          updatedAt: null,
+        },
+        "card:1",
+      ),
+    ).toEqual({
+      cardId: "card:1",
+      singleTransactionMinor: null,
+      dailySpendMinor: null,
+      monthlySpendMinor: null,
+      dailyAtmMinor: null,
+      updatedAt: null,
+    });
+  });
+
+  it("rejects a response for another selected Card", () => {
+    expect(() =>
+      normalizeCardLimitsResponse(publicCardLimits("card_other"), "card_owned-1"),
+    ).toThrow("Backend returned limits for a different Card");
+  });
+
+  it("strictly validates nonnegative signed-64-bit canonical limits and RFC3339 time", () => {
+    for (const patch of [
+      { singleTransactionMinor: undefined },
+      { singleTransactionMinor: 10000 },
+      { singleTransactionMinor: "-1" },
+      { singleTransactionMinor: "-0" },
+      { singleTransactionMinor: "+1" },
+      { dailySpendMinor: "01" },
+      { monthlySpendMinor: "1.0" },
+      { dailyAtmMinor: "1e3" },
+      { dailyAtmMinor: "9223372036854775808" },
+      { updatedAt: undefined },
+      { updatedAt: "2026-02-30T08:00:00Z" },
+      { updatedAt: "2026-07-31" },
+    ]) {
+      expect(() =>
+        normalizeCardLimitsResponse(
+          { ...publicCardLimits("card_owned-1"), ...patch },
+          "card_owned-1",
+        ),
+      ).toThrow();
+    }
+    expect(
+      normalizeCardLimitsResponse(
+        {
+          ...publicCardLimits("card_owned-1"),
+          singleTransactionMinor: "0",
+          dailySpendMinor: "9223372036854775807",
+        },
+        "card_owned-1",
+      ),
+    ).toMatchObject({ singleTransactionMinor: "0", dailySpendMinor: "9223372036854775807" });
   });
 });
 

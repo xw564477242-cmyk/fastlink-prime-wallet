@@ -16,6 +16,7 @@ import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
+import { useCardLimits } from "@/hooks/use-card-limits";
 import {
   acceptsCardActionResponse,
   beginCardAction,
@@ -65,6 +66,7 @@ function CardsPage() {
     [cards, activeId],
   );
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
+  const cardLimits = useCardLimits(session, current?.cardId ?? null);
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
@@ -289,6 +291,23 @@ function CardsPage() {
                 <CardBalancePanel balance={cardBalance.balance} />
               )}
               <div className="mt-3">
+                {cardLimits.loading && (
+                  <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 p-4 text-xs text-muted-foreground">
+                    <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected Card
+                    limits
+                  </div>
+                )}
+                {!cardLimits.loading && cardLimits.error && (
+                  <div className="flex gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
+                    <AlertTriangle className="h-4 w-4 shrink-0" />
+                    <span>{cardLimits.error} · No stale Card limits displayed.</span>
+                  </div>
+                )}
+                {!cardLimits.loading && !cardLimits.error && cardLimits.limits && (
+                  <CardLimitsPanel limits={cardLimits.limits} />
+                )}
+              </div>
+              <div className="mt-3">
                 <Metric label="Status" value={current.status.toUpperCase()} />
               </div>
             </div>
@@ -404,6 +423,42 @@ function BalanceMetric({
       <p className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</p>
       <p translate="no" className="mt-1 truncate text-xs font-bold tabular-nums">
         {value} {currency}
+      </p>
+    </div>
+  );
+}
+
+function CardLimitsPanel({
+  limits,
+}: {
+  limits: NonNullable<ReturnType<typeof useCardLimits>["limits"]>;
+}) {
+  return (
+    <div className="rounded-2xl border border-border/60 bg-surface/60 p-4">
+      <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+        Card limits · read only · minor units
+      </p>
+      <div className="mt-3 grid grid-cols-2 gap-2">
+        <LimitMetric label="Single transaction" value={limits.singleTransactionMinor} />
+        <LimitMetric label="Daily spend" value={limits.dailySpendMinor} />
+        <LimitMetric label="Monthly spend" value={limits.monthlySpendMinor} />
+        <LimitMetric label="Daily ATM" value={limits.dailyAtmMinor} />
+      </div>
+      <p className="mt-3 text-[10px] text-muted-foreground">
+        {limits.updatedAt
+          ? `Updated ${new Date(limits.updatedAt).toLocaleString()}`
+          : "Not updated"}
+      </p>
+    </div>
+  );
+}
+
+function LimitMetric({ label, value }: { label: string; value: string | null }) {
+  return (
+    <div className="min-w-0 rounded-xl bg-background/50 p-3">
+      <p className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</p>
+      <p translate="no" className="mt-1 truncate text-xs font-bold tabular-nums">
+        {value ?? "Not set"}
       </p>
     </div>
   );
