@@ -70,7 +70,7 @@ export function cardActionAllowed(
   if (action === "issue") return true;
   if (!card) return false;
   if (action === "refresh") return true;
-  if (action === "freeze") return card.status !== "frozen" && card.capabilities.freeze;
+  if (action === "freeze") return card.status === "active" && card.capabilities.freeze;
   return card.status === "frozen" && card.capabilities.unfreeze;
 }
 

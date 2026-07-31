@@ -63,6 +63,17 @@ describe("Card action state", () => {
     });
     expect(cardActionAllowed("freeze", true, cardSessionScopeKey(session()), frozen)).toBeFalse();
     expect(cardActionAllowed("unfreeze", true, cardSessionScopeKey(session()), frozen)).toBeTrue();
+
+    for (const status of ["pending", "closed", "failed"] as const) {
+      expect(
+        cardActionAllowed(
+          "freeze",
+          true,
+          cardSessionScopeKey(session()),
+          card({ status, capabilities: { ...active.capabilities, freeze: true } }),
+        ),
+      ).toBeFalse();
+    }
   });
 
   it("rejects late responses after actor, tenant, environment or Card changes", () => {
