@@ -103,6 +103,15 @@ export type WalletCardBalance = {
   updatedAt: string;
 };
 
+export type WalletCardLimits = {
+  cardId: string;
+  singleTransactionMinor: string | null;
+  dailySpendMinor: string | null;
+  monthlySpendMinor: string | null;
+  dailyAtmMinor: string | null;
+  updatedAt: string | null;
+};
+
 export const CARD_LIST_PAGE_SIZE = 20;
 
 export type WalletCardTransaction = {
@@ -217,6 +226,15 @@ type BackendCardBalanceRecord = {
   availableBalanceMinor?: unknown;
   currentBalanceMinor?: unknown;
   pendingAmountMinor?: unknown;
+  updatedAt?: unknown;
+};
+
+type BackendCardLimitsRecord = {
+  cardId?: unknown;
+  singleTransactionMinor?: unknown;
+  dailySpendMinor?: unknown;
+  monthlySpendMinor?: unknown;
+  dailyAtmMinor?: unknown;
   updatedAt?: unknown;
 };
 
@@ -503,6 +521,17 @@ function cardRfc3339(value: unknown): string {
   return value;
 }
 
+function cardNullableLimit(value: unknown, field: string): string | null {
+  if (value === null) return null;
+  if (typeof value !== "string" || !/^(?:0|[1-9]\d{0,18})$/.test(value)) {
+    throw new Error(`Backend returned an invalid Card ${field}`);
+  }
+  if (BigInt(value) > 9_223_372_036_854_775_807n) {
+    throw new Error(`Backend returned an invalid Card ${field}`);
+  }
+  return value;
+}
+
 export function buildCardBalancePath(cardId: string): string {
   cardPublicId(cardId);
   return `/v1/cards/${encodeURIComponent(cardId)}/balance`;
@@ -528,6 +557,37 @@ export function normalizeCardBalanceResponse(
     currentBalanceMinor: cardMinorUnits(record.currentBalanceMinor, "current balance"),
     pendingAmountMinor: cardMinorUnits(record.pendingAmountMinor, "pending amount"),
     updatedAt: cardRfc3339(record.updatedAt),
+  };
+}
+
+export function buildCardLimitsPath(cardId: string): string {
+  cardPublicId(cardId);
+  return `/v1/cards/${encodeURIComponent(cardId)}/limits`;
+}
+
+export function normalizeCardLimitsResponse(
+  value: unknown,
+  expectedCardId: string,
+): WalletCardLimits {
+  const selectedCardId = cardPublicId(expectedCardId);
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned invalid Card limits");
+  }
+  const record = value as BackendCardLimitsRecord;
+  const cardId = cardPublicId(record.cardId);
+  if (cardId !== selectedCardId) {
+    throw new Error("Backend returned limits for a different Card");
+  }
+  return {
+    cardId,
+    singleTransactionMinor: cardNullableLimit(
+      record.singleTransactionMinor,
+      "single transaction limit",
+    ),
+    dailySpendMinor: cardNullableLimit(record.dailySpendMinor, "daily spend limit"),
+    monthlySpendMinor: cardNullableLimit(record.monthlySpendMinor, "monthly spend limit"),
+    dailyAtmMinor: cardNullableLimit(record.dailyAtmMinor, "daily ATM limit"),
+    updatedAt: record.updatedAt === null ? null : cardRfc3339(record.updatedAt),
   };
 }
 
@@ -978,6 +1038,11 @@ export const backendApi = {
   async cardBalance(cardId: string): Promise<WalletCardBalance> {
     const result = await request<unknown>(buildCardBalancePath(cardId));
     return normalizeCardBalanceResponse(result, cardId);
+  },
+
+  async cardLimits(cardId: string): Promise<WalletCardLimits> {
+    const result = await request<unknown>(buildCardLimitsPath(cardId));
+    return normalizeCardLimitsResponse(result, cardId);
   },
 
   async getCard(cardId: string): Promise<WalletCard> {
