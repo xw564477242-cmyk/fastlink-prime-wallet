@@ -18,7 +18,25 @@ import {
   type WalletTransferReceiptContext,
 } from "@/lib/wallet-transfer-status-refresh-state";
 
-const SAFE_STATUS_REFRESH_ERROR = "Wallet transfer status is unavailable. Try a manual refresh.";
+export const SAFE_STATUS_REFRESH_ERROR =
+  "Wallet transfer status is unavailable. Try a manual refresh.";
+
+export type WalletTransferStatusReadResult =
+  | Readonly<{ ok: true; operation: WalletOperationActivity }>
+  | Readonly<{ ok: false; message: typeof SAFE_STATUS_REFRESH_ERROR }>;
+
+export async function readWalletTransferStatusSafely(
+  previous: WalletOperationActivity,
+): Promise<WalletTransferStatusReadResult> {
+  try {
+    return {
+      ok: true,
+      operation: await backendApi.walletTransferStatus({ previous }),
+    };
+  } catch {
+    return { ok: false, message: SAFE_STATUS_REFRESH_ERROR };
+  }
+}
 
 export function useWalletTransferStatusRefresh(
   session: BackendSession | null,
@@ -48,12 +66,16 @@ export function useWalletTransferStatusRefresh(
     if (!ticket) return false;
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
     try {
-      const operation = await backendApi.walletTransferStatus({ previous: context.operation });
+      const result = await readWalletTransferStatusSafely(context.operation);
       if (!acceptsWalletTransferStatusRefreshCompletion(gate.current, ticket, scopeKey)) {
         return false;
       }
-      dispatch({ type: "loaded", requestKey: ticket.requestKey, operation });
-      onRefreshed(operation);
+      if (!result.ok) {
+        dispatch({ type: "failed", requestKey: ticket.requestKey, message: result.message });
+        return false;
+      }
+      dispatch({ type: "loaded", requestKey: ticket.requestKey, operation: result.operation });
+      onRefreshed(result.operation);
       return true;
     } catch {
       if (acceptsWalletTransferStatusRefreshCompletion(gate.current, ticket, scopeKey)) {

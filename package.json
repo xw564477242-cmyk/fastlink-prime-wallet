@@ -8,6 +8,8 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "test": "bun test",
+    "test:transfer-refresh-integration:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/lib/wallet-transfer-status-refresh.integration.ts",
+    "test:transfer-refresh-integration:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/lib/wallet-transfer-status-refresh.integration.ts",
     "preview": "vite preview",
     "lint": "eslint .",
     "audit:production": "node scripts/verify-production-wallet.mjs",
