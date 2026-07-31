@@ -52,6 +52,10 @@ function response(overrides: Record<string, unknown> = {}) {
   };
 }
 
+function wireResponse(overrides: Record<string, unknown> = {}): string {
+  return JSON.stringify(response(overrides));
+}
+
 function session(overrides: Partial<BackendSession> = {}): BackendSession {
   return {
     actorId: "actor-01",
@@ -85,7 +89,7 @@ describe("Wallet transfer status exact public response", () => {
   });
 
   it("accepts exactly nine ordinary own data fields", () => {
-    const refreshed = normalizeWalletTransferStatusResponse(response(), {
+    const refreshed = normalizeWalletTransferStatusResponse(wireResponse(), {
       previous: operation(),
     });
     expect(refreshed).toEqual(operation());
@@ -135,10 +139,9 @@ describe("Wallet transfer status exact public response", () => {
     ).toThrow();
     expect(reads).toBe(0);
     expect(() =>
-      normalizeWalletTransferStatusResponse(
-        { ...response(), providerReference: "secret" },
-        { previous: operation() },
-      ),
+      normalizeWalletTransferStatusResponse(wireResponse({ providerReference: "secret" }), {
+        previous: operation(),
+      }),
     ).toThrow();
     expect(() => {
       const value = response() as Record<PropertyKey, unknown>;
@@ -159,6 +162,46 @@ describe("Wallet transfer status exact public response", () => {
     expect(reads).toBe(0);
   });
 
+  it("rejects hostile reflective Proxies before executing any reflection trap", () => {
+    let getPrototypeOfCalls = 0;
+    const getPrototypeOfProxy = new Proxy(response(), {
+      getPrototypeOf() {
+        getPrototypeOfCalls += 1;
+        throw new Error("must not execute getPrototypeOf trap");
+      },
+    });
+    expect(() =>
+      normalizeWalletTransferStatusResponse(getPrototypeOfProxy, { previous: operation() }),
+    ).toThrow();
+    expect(getPrototypeOfCalls).toBe(0);
+
+    let ownKeysCalls = 0;
+    const ownKeysProxy = new Proxy(response(), {
+      ownKeys() {
+        ownKeysCalls += 1;
+        throw new Error("must not execute ownKeys trap");
+      },
+    });
+    expect(() =>
+      normalizeWalletTransferStatusResponse(ownKeysProxy, { previous: operation() }),
+    ).toThrow();
+    expect(ownKeysCalls).toBe(0);
+
+    let getOwnPropertyDescriptorCalls = 0;
+    const getOwnPropertyDescriptorProxy = new Proxy(response(), {
+      getOwnPropertyDescriptor() {
+        getOwnPropertyDescriptorCalls += 1;
+        throw new Error("must not execute getOwnPropertyDescriptor trap");
+      },
+    });
+    expect(() =>
+      normalizeWalletTransferStatusResponse(getOwnPropertyDescriptorProxy, {
+        previous: operation(),
+      }),
+    ).toThrow();
+    expect(getOwnPropertyDescriptorCalls).toBe(0);
+  });
+
   it("binds immutable id, type, asset, amount, direction and createdAt", () => {
     const variants = [
       { id: "operation-transfer-02" },
@@ -170,7 +213,7 @@ describe("Wallet transfer status exact public response", () => {
     ];
     for (const variant of variants) {
       expect(() =>
-        normalizeWalletTransferStatusResponse(response(variant), { previous: operation() }),
+        normalizeWalletTransferStatusResponse(wireResponse(variant), { previous: operation() }),
       ).toThrow();
     }
   });
@@ -186,7 +229,8 @@ describe("Wallet transfer finite forward-only status transitions", () => {
     ];
     for (const [value, status] of cases) {
       expect(
-        normalizeWalletTransferStatusResponse(response(value), { previous: operation() }).status,
+        normalizeWalletTransferStatusResponse(wireResponse(value), { previous: operation() })
+          .status,
       ).toBe(status);
     }
   });
@@ -195,24 +239,24 @@ describe("Wallet transfer finite forward-only status transitions", () => {
     const completed = operation({ status: "completed", completedAt: later, updatedAt: later });
     expect(
       normalizeWalletTransferStatusResponse(
-        response({ status: "COMPLETED", completedAt: later, updatedAt: later }),
+        wireResponse({ status: "COMPLETED", completedAt: later, updatedAt: later }),
         { previous: completed },
       ).status,
     ).toBe("completed");
     expect(() =>
       normalizeWalletTransferStatusResponse(
-        response({ status: "FAILED", completedAt: later, updatedAt: later }),
+        wireResponse({ status: "FAILED", completedAt: later, updatedAt: later }),
         { previous: completed },
       ),
     ).toThrow();
     expect(() =>
-      normalizeWalletTransferStatusResponse(response({ status: "PROCESSING" }), {
+      normalizeWalletTransferStatusResponse(wireResponse({ status: "PROCESSING" }), {
         previous: operation({ status: "pending_settlement" }),
       }),
     ).toThrow();
     expect(() =>
       normalizeWalletTransferStatusResponse(
-        response({ status: "COMPLETED", completedAt: later, updatedAt: later }),
+        wireResponse({ status: "COMPLETED", completedAt: later, updatedAt: later }),
         { previous: operation({ status: "failed" }) },
       ),
     ).toThrow();
@@ -220,16 +264,16 @@ describe("Wallet transfer finite forward-only status transitions", () => {
 
   it("rejects timestamp rollback and invalid completion timing", () => {
     const previous = operation({ updatedAt: later });
-    expect(() => normalizeWalletTransferStatusResponse(response(), { previous })).toThrow();
+    expect(() => normalizeWalletTransferStatusResponse(wireResponse(), { previous })).toThrow();
     expect(() =>
       normalizeWalletTransferStatusResponse(
-        response({ status: "COMPLETED", completedAt: null, updatedAt: later }),
+        wireResponse({ status: "COMPLETED", completedAt: null, updatedAt: later }),
         { previous: operation() },
       ),
     ).toThrow();
     expect(() =>
       normalizeWalletTransferStatusResponse(
-        response({ status: "PROCESSING", completedAt: later, updatedAt: later }),
+        wireResponse({ status: "PROCESSING", completedAt: later, updatedAt: later }),
         { previous: operation() },
       ),
     ).toThrow();

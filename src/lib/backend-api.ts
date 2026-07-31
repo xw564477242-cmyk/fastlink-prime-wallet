@@ -352,7 +352,11 @@ function csrfToken(): string {
   return match ? decodeURIComponent(match.slice("fastlink_csrf=".length)) : "";
 }
 
-async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
+async function request<T>(
+  path: string,
+  init: RequestInit = {},
+  responseMode: "json" | "text" = "json",
+): Promise<T> {
   const runtime = requireRuntime();
   const requestTraceId = traceId();
   const headers = new Headers(init.headers);
@@ -376,13 +380,24 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
       signal: controller.signal,
     });
     const returnedTraceId = response.headers.get("x-trace-id") || requestTraceId;
-    const payload = await response.json().catch(() => null);
+    const payload =
+      responseMode === "text"
+        ? await response.text().catch(() => "")
+        : await response.json().catch(() => null);
     if (!response.ok) {
       const fallback = `Backend request failed with HTTP ${response.status}`;
+      let errorPayload: unknown = payload;
+      if (responseMode === "text") {
+        try {
+          errorPayload = JSON.parse(payload as string);
+        } catch {
+          errorPayload = null;
+        }
+      }
       throw new BackendApiError(
         response.status,
         returnedTraceId,
-        `${parseMessage(payload, fallback)} · Trace ${returnedTraceId}`,
+        `${parseMessage(errorPayload, fallback)} · Trace ${returnedTraceId}`,
       );
     }
     return payload as T;
@@ -597,21 +612,41 @@ function exactOwnJsonDataRecord(
   fields: readonly string[],
   errorMessage: string,
 ): Record<string, unknown> {
-  if (
-    !value ||
-    typeof value !== "object" ||
-    Array.isArray(value) ||
-    Object.getPrototypeOf(value) !== Object.prototype
-  ) {
+  // This high-risk response is accepted only as raw JSON text. JSON.parse gives
+  // us a provenance-safe ordinary data container, so hostile object inputs are
+  // rejected without invoking getters or Proxy traps.
+  if (typeof value !== "string") {
     throw new Error(errorMessage);
   }
-  let descriptors: PropertyDescriptorMap;
+
+  let parsed: unknown;
   try {
-    descriptors = Object.getOwnPropertyDescriptors(value);
+    parsed = JSON.parse(value);
   } catch {
     throw new Error(errorMessage);
   }
-  const ownKeys = Reflect.ownKeys(value);
+  if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(errorMessage);
+  }
+
+  // structuredClone rejects Proxy containers without invoking their traps. Keep
+  // this cloneability boundary ahead of every reflective operation below.
+  try {
+    if (typeof structuredClone !== "function") throw new Error("unavailable");
+    structuredClone(parsed);
+  } catch {
+    throw new Error(errorMessage);
+  }
+
+  let descriptors: PropertyDescriptorMap;
+  let ownKeys: (string | symbol)[];
+  try {
+    if (Object.getPrototypeOf(parsed) !== Object.prototype) throw new Error(errorMessage);
+    descriptors = Object.getOwnPropertyDescriptors(parsed);
+    ownKeys = Reflect.ownKeys(parsed);
+  } catch {
+    throw new Error(errorMessage);
+  }
   if (ownKeys.some((key) => typeof key !== "string")) throw new Error(errorMessage);
   const actualFields = ownKeys.slice().sort() as string[];
   const expectedFields = [...fields].sort();
@@ -626,12 +661,6 @@ function exactOwnJsonDataRecord(
     const descriptor = descriptors[field];
     if (!descriptor || !("value" in descriptor)) throw new Error(errorMessage);
     record[field] = descriptor.value;
-  }
-  try {
-    if (typeof structuredClone !== "function") throw new Error("unavailable");
-    structuredClone(value);
-  } catch {
-    throw new Error(errorMessage);
   }
   return record;
 }
@@ -2175,7 +2204,11 @@ export const backendApi = {
     expectation: WalletTransferStatusExpectation,
   ): Promise<WalletOperationActivity> {
     requireSandboxTestWalletRuntime();
-    const result = await request<unknown>(buildWalletOperationDetailPath(expectation.previous.id));
+    const result = await request<string>(
+      buildWalletOperationDetailPath(expectation.previous.id),
+      {},
+      "text",
+    );
     return normalizeWalletTransferStatusResponse(result, expectation);
   },
 };
