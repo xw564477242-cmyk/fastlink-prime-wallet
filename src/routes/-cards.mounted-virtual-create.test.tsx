@@ -1,0 +1,585 @@
+import { afterEach, beforeAll, describe, expect, it, mock } from "bun:test";
+import { createElement, type ReactElement } from "react";
+import { act, create, type ReactTestInstance, type ReactTestRenderer } from "react-test-renderer";
+import { backendRuntime, type BackendSession, type FastLinkEnvironment } from "@/lib/backend-api";
+
+(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
+  true;
+
+type Deferred<T> = {
+  promise: Promise<T>;
+  resolve(value: T): void;
+  reject(reason: unknown): void;
+};
+
+type SessionState = {
+  checking: boolean;
+  session: BackendSession | null;
+  error: string | null;
+};
+
+const originalFetch = globalThis.fetch;
+const traceSecret = "trace-create-secret-must-not-render";
+const providerSecret = "provider-create-secret-must-not-render";
+const walletSecret = "wallet-create-secret-must-not-render";
+const journalSecret = "journal-create-secret-must-not-render";
+const internalSecret = "internal-create-secret-must-not-render";
+let renderer: ReactTestRenderer | null = null;
+let sessionState: SessionState;
+let createAlias = "Mounted Virtual";
+let CardsPage: () => ReactElement;
+const navigations: Array<Record<string, unknown>> = [];
+
+const configuredEnvironment =
+  backendRuntime.error === null &&
+  backendRuntime.apiUrl === "/api" &&
+  (backendRuntime.environment === "SANDBOX" || backendRuntime.environment === "TEST")
+    ? backendRuntime.environment
+    : null;
+
+function testEnvironment(): "SANDBOX" | "TEST" {
+  if (
+    backendRuntime.error ||
+    backendRuntime.apiUrl !== "/api" ||
+    (backendRuntime.environment !== "SANDBOX" && backendRuntime.environment !== "TEST")
+  ) {
+    throw new Error("Mounted Virtual Card test requires SANDBOX or TEST with /api");
+  }
+  return backendRuntime.environment;
+}
+
+function alternateEnvironment(environment: "SANDBOX" | "TEST"): FastLinkEnvironment {
+  return environment === "SANDBOX" ? "TEST" : "SANDBOX";
+}
+
+function session(overrides: Partial<BackendSession> = {}): BackendSession {
+  return {
+    actorId: "actor-mounted-create-01",
+    expiresAt: "2099-08-01T00:00:00.000Z",
+    tenantId: "tenant-mounted-create-01",
+    customerId: "customer-mounted-create-01",
+    environment: testEnvironment(),
+    ...overrides,
+  };
+}
+
+function card(id: string, last4: string, alias: string) {
+  return {
+    id,
+    type: "VIRTUAL",
+    status: "ACTIVE",
+    last4,
+    expiryMonth: 12,
+    expiryYear: 2030,
+    currency: "USD",
+    alias,
+    availableBalanceMinor: "0",
+    createdAt: "2026-08-01T00:00:00.000Z",
+    capabilities: {
+      freeze: true,
+      unfreeze: false,
+      replace: false,
+      renew: false,
+      updateLimits: true,
+    },
+  };
+}
+
+function balance(cardId: string) {
+  return {
+    cardId,
+    currency: "USD",
+    availableBalanceMinor: "0",
+    currentBalanceMinor: "0",
+    pendingAmountMinor: "0",
+    updatedAt: "2026-08-01T00:00:00.000Z",
+  };
+}
+
+function limits(cardId: string) {
+  return {
+    cardId,
+    singleTransactionMinor: null,
+    dailySpendMinor: null,
+    monthlySpendMinor: null,
+    dailyAtmMinor: null,
+    updatedAt: null,
+  };
+}
+
+function json(value: unknown, status = 200, traceId = "safe-create-trace"): Response {
+  return new Response(JSON.stringify(value), {
+    status,
+    headers: { "content-type": "application/json", "x-trace-id": traceId },
+  });
+}
+
+function cardPage(cards: unknown[]): Response {
+  return json({ cards, nextCursor: null });
+}
+
+function deferred<T>(): Deferred<T> {
+  let resolve!: (value: T) => void;
+  let reject!: (reason: unknown) => void;
+  const promise = new Promise<T>((onResolve, onReject) => {
+    resolve = onResolve;
+    reject = onReject;
+  });
+  return { promise, resolve, reject };
+}
+
+function requestPath(input: string | URL | Request): string {
+  return new URL(String(input), "https://wallet.invalid").pathname;
+}
+
+function isCardList(input: string | URL | Request): boolean {
+  return requestPath(input) === "/api/v1/cards";
+}
+
+function isCreate(input: string | URL | Request, init?: RequestInit): boolean {
+  return requestPath(input) === "/api/v1/cards/virtual" && init?.method === "POST";
+}
+
+function selectedCardId(
+  input: string | URL | Request,
+  suffix: "balance" | "limits",
+): string | null {
+  const match = requestPath(input).match(new RegExp(`/api/v1/cards/([^/]+)/${suffix}$`));
+  return match ? decodeURIComponent(match[1] ?? "") : null;
+}
+
+function installFetch(
+  responder: (input: string | URL | Request, init?: RequestInit) => Response | Promise<Response>,
+) {
+  const calls: Array<{ input: string | URL | Request; init?: RequestInit }> = [];
+  globalThis.fetch = (async (input: string | URL | Request, init?: RequestInit) => {
+    calls.push({ input, init });
+    return responder(input, init);
+  }) as typeof globalThis.fetch;
+  return calls;
+}
+
+function publicReadResponse(input: string | URL | Request): Response | null {
+  const balanceCardId = selectedCardId(input, "balance");
+  if (balanceCardId) return json(balance(balanceCardId));
+  const limitsCardId = selectedCardId(input, "limits");
+  return limitsCardId ? json(limits(limitsCardId)) : null;
+}
+
+function renderedText(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number") return String(value);
+  if (Array.isArray(value)) return value.map(renderedText).join("");
+  if (value && typeof value === "object" && "children" in value) {
+    return renderedText((value as ReactTestInstance).children);
+  }
+  return "";
+}
+
+function pageText(): string {
+  return renderer ? renderedText(renderer.root) : "";
+}
+
+function body(): string {
+  return JSON.stringify(renderer?.toJSON() ?? null);
+}
+
+function button(label: string): ReactTestInstance {
+  if (!renderer) throw new Error("Cards page is not mounted");
+  const match = renderer.root
+    .findAllByType("button")
+    .find((candidate) => renderedText(candidate).includes(label));
+  if (!match) throw new Error(`Missing button: ${label}`);
+  return match;
+}
+
+function uuidHeader(call: { init?: RequestInit } | undefined): string | null {
+  return new Headers(call?.init?.headers).get("Idempotency-Key");
+}
+
+function isUuidV4(value: string | null): boolean {
+  return (
+    !!value && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value)
+  );
+}
+
+async function flush() {
+  await Promise.resolve();
+  await Promise.resolve();
+  await Promise.resolve();
+}
+
+async function mount(currentSession: BackendSession | null = session()) {
+  sessionState = { checking: false, session: currentSession, error: null };
+  await act(async () => {
+    renderer = create(createElement(CardsPage));
+    await flush();
+  });
+}
+
+async function rerender(currentSession: BackendSession | null = session()) {
+  if (!renderer) throw new Error("Cards page is not mounted");
+  sessionState = { ...sessionState, session: currentSession };
+  await act(async () => {
+    renderer?.update(createElement(CardsPage));
+    await flush();
+  });
+}
+
+async function resolvePending(pending: Deferred<Response>, response: Response) {
+  await act(async () => {
+    pending.resolve(response);
+    await pending.promise;
+    await flush();
+  });
+}
+
+async function rejectPending(pending: Deferred<Response>, reason: unknown) {
+  await act(async () => {
+    pending.reject(reason);
+    await pending.promise.catch(() => undefined);
+    await flush();
+  });
+}
+
+async function unmount() {
+  if (!renderer) return;
+  await act(async () => {
+    renderer?.unmount();
+    await flush();
+  });
+  renderer = null;
+}
+
+beforeAll(async () => {
+  mock.module("@/lib/backend-session", () => ({ useBackendSession: () => sessionState }));
+  mock.module("@/lib/i18n", () => ({
+    useLang: () => ({
+      lang: "en",
+      t: (key: string) => {
+        if (key === "cards.issueNew") return "Issue Virtual Card";
+        if (key === "cards.defaultVirtualAlias") return createAlias;
+        return key;
+      },
+    }),
+  }));
+  mock.module("@tanstack/react-router", () => ({
+    createFileRoute: () => (configuration: object) => ({
+      ...configuration,
+      useSearch: () => ({}),
+    }),
+    useNavigate: () => (value: Record<string, unknown>) => {
+      navigations.push(value);
+    },
+    Link: ({ children, ...props }: { children?: unknown }) =>
+      createElement("a", props, children as ReactElement),
+    useRouterState: () => "/cards",
+  }));
+  ({ CardsPage } = await import("./cards"));
+});
+
+afterEach(async () => {
+  await unmount();
+  globalThis.fetch = originalFetch;
+  navigations.length = 0;
+  createAlias = "Mounted Virtual";
+});
+
+const describeConfigured = configuredEnvironment ? describe : describe.skip;
+
+describeConfigured(
+  `Mounted Virtual Card ownership confirmation (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
+  () => {
+    it("uses one POST and one fresh UUIDv4 per submit, then selects only after one ownership refresh", async () => {
+      const creates = [deferred<Response>(), deferred<Response>()];
+      const confirmations = [deferred<Response>(), deferred<Response>()];
+      let listReads = 0;
+      let postReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1 ? cardPage([]) : confirmations[listReads - 2]!.promise;
+        }
+        if (isCreate(input, init)) return creates[postReads++]!.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      expect(postReads).toBe(1);
+      await resolvePending(creates[0]!, json(card("card:created.1", "1111", "POST Alias One")));
+      expect(listReads).toBe(2);
+      expect(pageText()).not.toMatch(/1111|POST Alias One/);
+      expect(navigations).toHaveLength(0);
+      await resolvePending(
+        confirmations[0]!,
+        cardPage([card("card:created.1", "1111", "Confirmed Alias One")]),
+      );
+      expect(pageText()).toContain("Confirmed Alias One");
+      expect(pageText()).not.toContain("POST Alias One");
+      expect(navigations).toEqual([{ search: { cardId: "card:created.1" }, replace: true }]);
+
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      expect(postReads).toBe(2);
+      await resolvePending(creates[1]!, json(card("card:created.2", "2222", "POST Alias Two")));
+      expect(listReads).toBe(3);
+      expect(pageText()).not.toContain("POST Alias Two");
+      await resolvePending(
+        confirmations[1]!,
+        cardPage([
+          card("card:created.1", "1111", "Confirmed Alias One"),
+          card("card:created.2", "2222", "Confirmed Alias Two"),
+        ]),
+      );
+      expect(pageText()).toContain("Confirmed Alias Two");
+      expect(navigations.at(-1)).toEqual({
+        search: { cardId: "card:created.2" },
+        replace: true,
+      });
+
+      const posts = calls.filter(({ input, init }) => isCreate(input, init));
+      const keys = posts.map(uuidHeader);
+      expect(keys.every(isUuidV4)).toBeTrue();
+      expect(new Set(keys).size).toBe(2);
+      expect(postReads).toBe(2);
+      expect(listReads).toBe(3);
+    });
+
+    it("fails closed when ownership refresh omits or duplicates the created Card, or the ID conflicts", async () => {
+      for (const mode of ["missing", "duplicate", "malformed", "conflict"] as const) {
+        const created = deferred<Response>();
+        const confirmation = deferred<Response>();
+        const existing = card("card:existing", "4242", "Existing Card");
+        let listReads = 0;
+        let postReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            if (listReads === 1) return cardPage(mode === "conflict" ? [existing] : []);
+            return confirmation.promise;
+          }
+          if (isCreate(input, init)) {
+            postReads += 1;
+            return created.promise;
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        const createdId = mode === "conflict" ? "card:existing" : "card:unconfirmed";
+        await resolvePending(created, json(card(createdId, "9999", "Unconfirmed Card")));
+
+        if (mode !== "conflict") {
+          expect(listReads).toBe(2);
+          await resolvePending(
+            confirmation,
+            mode === "missing"
+              ? cardPage([])
+              : mode === "malformed"
+                ? cardPage([{ ...card(createdId, "9999", "Malformed Card"), last4: "99" }])
+                : cardPage([
+                    card(createdId, "9999", "Duplicate One"),
+                    card(createdId, "9999", "Duplicate Two"),
+                  ]),
+          );
+        }
+        expect(postReads).toBe(1);
+        expect(pageText()).not.toMatch(
+          /Unconfirmed Card|Duplicate One|Duplicate Two|Malformed Card|9999/,
+        );
+        expect(navigations).toHaveLength(0);
+        expect(body()).not.toMatch(/provider|trace-create-secret|internal-create-secret/i);
+        await unmount();
+      }
+    });
+
+    it("allows stale success, error and finally zero page writes after every scope or input change", async () => {
+      const changes: Array<{
+        label: string;
+        next?: BackendSession | null;
+        alias?: string;
+      }> = [
+        { label: "actor", next: session({ actorId: "actor-mounted-create-02" }) },
+        { label: "tenant", next: session({ tenantId: "tenant-mounted-create-02" }) },
+        { label: "customer", next: session({ customerId: "customer-mounted-create-02" }) },
+        {
+          label: "environment",
+          next: session({ environment: alternateEnvironment(testEnvironment()) }),
+        },
+        { label: "expiresAt", next: session({ expiresAt: "2099-08-01T01:00:00.000Z" }) },
+        { label: "logout", next: null },
+        { label: "input", alias: "Changed Virtual Input" },
+      ];
+
+      for (const change of changes) {
+        const created = deferred<Response>();
+        let postReads = 0;
+        let listReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            return cardPage([]);
+          }
+          if (isCreate(input, init)) {
+            postReads += 1;
+            return created.promise;
+          }
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        if (change.alias) createAlias = change.alias;
+        await rerender(change.next === undefined ? session() : change.next);
+        await resolvePending(
+          created,
+          json({
+            ...card("card:stale", "7777", "Stale Created Card"),
+            providerPayload: providerSecret,
+            walletRef: walletSecret,
+            journalIds: [journalSecret],
+            secret: internalSecret,
+          }),
+        );
+        expect(postReads, change.label).toBe(1);
+        expect(listReads, change.label).toBe(change.next === null ? 1 : 2);
+        expect(pageText(), change.label).not.toMatch(/Stale Created Card|7777/);
+        expect(body(), change.label).not.toMatch(
+          /provider-create-secret|wallet-create-secret|journal-create-secret|internal-create-secret|trace-create-secret/,
+        );
+        expect(navigations, change.label).toHaveLength(0);
+        await unmount();
+      }
+
+      const created = deferred<Response>();
+      const confirmation = deferred<Response>();
+      let listReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1 ? cardPage([]) : confirmation.promise;
+        }
+        if (isCreate(input, init)) return created.promise;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      await resolvePending(created, json(card("card:stale-refresh", "6767", "Old Input Card")));
+      expect(listReads).toBe(2);
+      createAlias = "Changed During Ownership Refresh";
+      await rerender();
+      await resolvePending(
+        confirmation,
+        cardPage([card("card:stale-refresh", "6767", "Stale Ownership Refresh")]),
+      );
+      expect(pageText()).not.toMatch(/Old Input Card|Stale Ownership Refresh|6767/);
+      expect(navigations).toHaveLength(0);
+      await unmount();
+
+      const rejected = deferred<Response>();
+      installFetch((input, init) => {
+        if (isCardList(input)) return cardPage([]);
+        if (isCreate(input, init)) return rejected.promise;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      await rerender(session({ actorId: "actor-mounted-create-error" }));
+      await rejectPending(rejected, new Error(internalSecret));
+      expect(body()).not.toMatch(/Virtual Card creation failed|internal-create-secret/);
+    });
+
+    it("keeps Provider and secret fields out of the page and selects only refreshed public data", async () => {
+      const confirmation = deferred<Response>();
+      let listReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1 ? cardPage([]) : confirmation.promise;
+        }
+        if (isCreate(input, init)) {
+          return json({
+            ...card("card:public", "3131", "POST Public Alias"),
+            providerPayload: providerSecret,
+            providerCardId: providerSecret,
+            walletRef: walletSecret,
+            journalIds: [journalSecret],
+            secret: internalSecret,
+            traceId: traceSecret,
+          });
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      expect(pageText()).not.toContain("POST Public Alias");
+      await resolvePending(
+        confirmation,
+        cardPage([card("card:public", "3131", "Refreshed Public Alias")]),
+      );
+      expect(pageText()).toContain("Refreshed Public Alias");
+      expect(pageText()).not.toContain("POST Public Alias");
+      expect(body()).not.toMatch(
+        /provider-create-secret|wallet-create-secret|journal-create-secret|internal-create-secret|trace-create-secret/,
+      );
+    });
+
+    it("does not retry a failed create and never renders Backend error bodies or trace IDs", async () => {
+      let listReads = 0;
+      let postReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return cardPage([]);
+        }
+        if (isCreate(input, init)) {
+          postReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+        }
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+      expect(postReads).toBe(1);
+      expect(listReads).toBe(1);
+      expect(pageText()).toContain("Virtual Card creation failed. Try again.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+      await act(flush);
+      expect(postReads).toBe(1);
+      expect(listReads).toBe(1);
+    });
+  },
+);

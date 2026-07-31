@@ -43,12 +43,16 @@ export function virtualCardCreateScopeKey(
     !session ||
     !runtimeEnvironment ||
     session.environment !== runtimeEnvironment ||
-    !isVirtualCardCreateEnvironment(runtimeEnvironment)
+    !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string"
   ) {
     return null;
   }
+  const expiresAt = Date.parse(session.expiresAt);
+  if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) return null;
   return JSON.stringify([
     session.actorId,
+    session.expiresAt,
     session.tenantId,
     session.customerId,
     session.environment,

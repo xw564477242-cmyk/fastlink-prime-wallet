@@ -25,6 +25,7 @@ const keys = ["a1111111-aaaa-4aaa-8aaa-aaaaaaaaaaaa", "b2222222-bbbb-4bbb-bbbb-b
 
 const session = (overrides: Partial<BackendSession> = {}): BackendSession => ({
   actorId: "actor-a",
+  expiresAt: "2099-08-01T00:00:00.000Z",
   tenantId: "tenant-a",
   customerId: "customer-a",
   environment: "SANDBOX",
@@ -64,6 +65,9 @@ describe("Virtual Card creation environment and request gate", () => {
     }
     expect(virtualCardCreateScopeKey(session(), "TEST")).toBeNull();
     expect(virtualCardCreateScopeKey(session({ environment: "TEST" }), "SANDBOX")).toBeNull();
+    expect(
+      virtualCardCreateScopeKey(session({ expiresAt: "2020-01-01T00:00:00.000Z" }), "SANDBOX"),
+    ).toBeNull();
     expect(virtualCardCreateScopeKey(null, "SANDBOX")).toBeNull();
     expect(virtualCardCreateScopeKey(session(), undefined)).toBeNull();
   });
@@ -342,7 +346,13 @@ describe("Virtual Card creation scope and completion isolation", () => {
   });
 
   it("safely prepends and selects an accepted created Card in the current list scope", () => {
-    const sessionKey = JSON.stringify(["actor-a", "tenant-a", "customer-a", "SANDBOX"]);
+    const sessionKey = JSON.stringify([
+      "actor-a",
+      "2099-08-01T00:00:00.000Z",
+      "tenant-a",
+      "customer-a",
+      "SANDBOX",
+    ]);
     const loaded = {
       ...initialCardListState,
       sessionKey,

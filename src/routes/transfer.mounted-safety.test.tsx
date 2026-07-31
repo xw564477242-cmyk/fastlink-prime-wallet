@@ -224,6 +224,7 @@ beforeAll(async () => {
     createFileRoute: () => (configuration: unknown) => configuration,
     Link: ({ children, ...props }: { children?: unknown }) =>
       createElement("a", props, children as ReactElement),
+    useNavigate: () => () => undefined,
     useRouterState: () => "/transfer",
   }));
   ({ InternalWalletTransferPage } = await import("./transfer"));

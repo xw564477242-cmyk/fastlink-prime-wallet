@@ -15,6 +15,21 @@ function errorMessage(): string {
   return "Card list is unavailable";
 }
 
+function confirmsCreatedCard(candidate: WalletCard, expected: WalletCard): boolean {
+  return (
+    candidate.cardId === expected.cardId &&
+    candidate.type === expected.type &&
+    candidate.status === expected.status &&
+    /^\d{4}$/.test(candidate.last4) &&
+    candidate.last4 === expected.last4 &&
+    candidate.expiryMonth === expected.expiryMonth &&
+    candidate.expiryYear === expected.expiryYear &&
+    /^[A-Z]{3}$/.test(candidate.currency) &&
+    candidate.currency === expected.currency &&
+    Number.isFinite(candidate.balance)
+  );
+}
+
 export function useCardListPages(
   session: BackendSession | null,
   preferredCardId: string | null = null,
@@ -78,6 +93,48 @@ export function useCardListPages(
     }
   }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
 
+  const refreshCards = useCallback(
+    async (
+      expectedCard: WalletCard,
+      isCurrent: () => boolean = () => true,
+    ): Promise<WalletCard | null> => {
+      if (
+        !isCurrent() ||
+        !scopeReady ||
+        !sessionKey ||
+        state.loading ||
+        state.loadingMore ||
+        activePageRequest.current !== null
+      ) {
+        return null;
+      }
+      const requestId = ++requestSequence.current;
+      activePageRequest.current = requestId;
+      dispatch({ type: "arm", requestId });
+      try {
+        const page = await backendApi.listCards({ limit: CARD_LIST_PAGE_SIZE });
+        if (!isCurrent() || requestSequence.current !== requestId) return null;
+        const uniqueIds = new Set(page.cards.map((card) => card.cardId));
+        if (uniqueIds.size !== page.cards.length) {
+          throw new Error("Backend returned duplicate Cards");
+        }
+        const candidate = page.cards.find((card) => card.cardId === expectedCard.cardId) ?? null;
+        if (!candidate || !confirmsCreatedCard(candidate, expectedCard)) {
+          throw new Error("Backend did not confirm the created Card");
+        }
+        if (!isCurrent()) return null;
+        dispatch({ type: "page", requestId, page, append: false });
+        dispatch({ type: "select", sessionKey, cardId: candidate.cardId });
+        return candidate;
+      } catch {
+        return null;
+      } finally {
+        if (activePageRequest.current === requestId) activePageRequest.current = null;
+      }
+    },
+    [scopeReady, sessionKey, state.loading, state.loadingMore],
+  );
+
   const selectCard = useCallback(
     (cardId: string) => {
       if (scopeReady) dispatch({ type: "select", sessionKey, cardId });
@@ -116,6 +173,7 @@ export function useCardListPages(
   return {
     ...view,
     loadMore,
+    refreshCards,
     selectCard,
     replaceCard,
     prependCard,
