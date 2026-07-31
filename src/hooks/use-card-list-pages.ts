@@ -5,7 +5,11 @@ import {
   type BackendSession,
   type WalletCard,
 } from "@/lib/backend-api";
-import { cardListReducer, initialCardListState } from "@/lib/card-list-state";
+import {
+  cardListReducer,
+  cardListViewForSession,
+  initialCardListState,
+} from "@/lib/card-list-state";
 
 function errorMessage(reason: unknown): string {
   return reason instanceof Error ? reason.message : "Railway Backend is unavailable";
@@ -23,6 +27,8 @@ export function useCardListPages(
   const sessionKey = session
     ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
     : null;
+  const scopeReady = state.sessionKey === sessionKey;
+  const view = cardListViewForSession(state, sessionKey);
 
   useEffect(() => {
     const requestId = ++requestSequence.current;
@@ -48,7 +54,7 @@ export function useCardListPages(
   }, [session, sessionKey]);
 
   const loadMore = useCallback(async () => {
-    if (!state.nextCursor || state.loading || state.loadingMore) return;
+    if (!scopeReady || !state.nextCursor || state.loading || state.loadingMore) return;
     const requestId = ++requestSequence.current;
     dispatch({ type: "loading-more", requestId });
     try {
@@ -60,15 +66,34 @@ export function useCardListPages(
     } catch (reason) {
       dispatch({ type: "failed", requestId, message: errorMessage(reason), append: true });
     }
-  }, [state.loading, state.loadingMore, state.nextCursor]);
+  }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
 
-  const selectCard = useCallback((cardId: string) => dispatch({ type: "select", cardId }), []);
-  const replaceCard = useCallback((card: WalletCard) => dispatch({ type: "replace", card }), []);
-  const prependCard = useCallback((card: WalletCard) => dispatch({ type: "prepend", card }), []);
-  const invalidate = useCallback((message: string) => {
-    const requestId = ++requestSequence.current;
-    dispatch({ type: "invalidate", requestId, message });
-  }, []);
+  const selectCard = useCallback(
+    (cardId: string) => {
+      if (scopeReady) dispatch({ type: "select", sessionKey, cardId });
+    },
+    [scopeReady, sessionKey],
+  );
+  const replaceCard = useCallback(
+    (card: WalletCard) => {
+      if (scopeReady) dispatch({ type: "replace", sessionKey, card });
+    },
+    [scopeReady, sessionKey],
+  );
+  const prependCard = useCallback(
+    (card: WalletCard) => {
+      if (scopeReady) dispatch({ type: "prepend", sessionKey, card });
+    },
+    [scopeReady, sessionKey],
+  );
+  const invalidate = useCallback(
+    (message: string) => {
+      if (!scopeReady) return;
+      const requestId = ++requestSequence.current;
+      dispatch({ type: "invalidate", sessionKey, requestId, message });
+    },
+    [scopeReady, sessionKey],
+  );
 
-  return { ...state, loadMore, selectCard, replaceCard, prependCard, invalidate };
+  return { ...view, loadMore, selectCard, replaceCard, prependCard, invalidate };
 }

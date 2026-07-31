@@ -22,6 +22,27 @@ export const initialCardListState: CardListState = {
   error: null,
 };
 
+export type CardListView = CardListState & { scopeReady: boolean };
+
+/**
+ * Effects reset the reducer after commit. During the render where an authenticated
+ * scope changes, synchronously hide the previous scope instead of exposing it for
+ * one frame.
+ */
+export function cardListViewForSession(
+  state: CardListState,
+  sessionKey: string | null,
+): CardListView {
+  if (state.sessionKey === sessionKey) return { ...state, scopeReady: true };
+  return {
+    ...initialCardListState,
+    sessionKey,
+    requestId: state.requestId,
+    loading: sessionKey !== null,
+    scopeReady: false,
+  };
+}
+
 export type CardListAction =
   | {
       type: "reset";
@@ -33,10 +54,10 @@ export type CardListAction =
   | { type: "loading-more"; requestId: number }
   | { type: "page"; requestId: number; page: WalletCardPage; append: boolean }
   | { type: "failed"; requestId: number; message: string; append: boolean }
-  | { type: "select"; cardId: string }
-  | { type: "replace"; card: WalletCard }
-  | { type: "prepend"; card: WalletCard }
-  | { type: "invalidate"; requestId: number; message: string };
+  | { type: "select"; sessionKey: string | null; cardId: string }
+  | { type: "replace"; sessionKey: string | null; card: WalletCard }
+  | { type: "prepend"; sessionKey: string | null; card: WalletCard }
+  | { type: "invalidate"; sessionKey: string | null; requestId: number; message: string };
 
 function mergeCards(current: WalletCard[], incoming: WalletCard[]): WalletCard[] {
   const cards = new Map(current.map((card) => [card.cardId, card]));
@@ -92,21 +113,25 @@ export function cardListReducer(state: CardListState, action: CardListAction): C
         error: action.message,
       };
     case "select":
-      return state.cards.some((card) => card.cardId === action.cardId)
+      return action.sessionKey === state.sessionKey &&
+        state.cards.some((card) => card.cardId === action.cardId)
         ? { ...state, activeId: action.cardId }
         : state;
     case "replace":
+      if (action.sessionKey !== state.sessionKey) return state;
       return {
         ...state,
         cards: state.cards.map((card) => (card.cardId === action.card.cardId ? action.card : card)),
       };
     case "prepend":
+      if (action.sessionKey !== state.sessionKey) return state;
       return {
         ...state,
         cards: [action.card, ...state.cards.filter((card) => card.cardId !== action.card.cardId)],
         activeId: action.card.cardId,
       };
     case "invalidate":
+      if (action.sessionKey !== state.sessionKey) return state;
       return {
         ...state,
         requestId: action.requestId,

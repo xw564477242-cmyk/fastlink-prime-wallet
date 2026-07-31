@@ -10,7 +10,7 @@ import {
   Snowflake,
   Sun,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { backendApi } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
@@ -39,6 +39,7 @@ function CardsPage() {
     activeId,
     loading,
     loadingMore,
+    scopeReady,
     error: listError,
     loadMore,
     selectCard,
@@ -48,9 +49,18 @@ function CardsPage() {
   } = useCardListPages(session, cardId ?? null);
   const [busy, setBusy] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
-  const error = listError ?? actionError;
+  const error = listError ?? (scopeReady ? actionError : null);
+  const actionScopeKey = session
+    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
+    : null;
+  const actionScopeRef = useRef(actionScopeKey);
+  actionScopeRef.current = actionScopeKey;
+  const actionScopeIsCurrent = (key: string | null) => actionScopeRef.current === key;
 
-  useEffect(() => setActionError(null), [session]);
+  useEffect(() => {
+    setActionError(null);
+    setBusy(false);
+  }, [session]);
 
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
@@ -58,21 +68,24 @@ function CardsPage() {
   );
 
   const refreshCurrent = async () => {
-    if (!current) return;
+    if (!scopeReady || !current) return;
+    const scopeKey = actionScopeKey;
     setBusy(true);
     setActionError(null);
     try {
       const card = await backendApi.getCard(current.cardId);
-      replaceCard(card);
+      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
     } catch (reason) {
-      invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
   const toggleFrozen = async () => {
-    if (!current) return;
+    if (!scopeReady || !current) return;
+    const scopeKey = actionScopeKey;
     const frozen = current.status === "frozen";
     const allowed = frozen ? current.capabilities.unfreeze : current.capabilities.freeze;
     if (!allowed) {
@@ -83,15 +96,18 @@ function CardsPage() {
     setActionError(null);
     try {
       const card = await backendApi.setFrozen(current.cardId, !frozen);
-      replaceCard(card);
+      if (actionScopeIsCurrent(scopeKey)) replaceCard(card);
     } catch (reason) {
-      invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        invalidate(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
   const issueVirtual = async () => {
+    if (!scopeReady) return;
+    const scopeKey = actionScopeKey;
     setBusy(true);
     setActionError(null);
     try {
@@ -99,11 +115,12 @@ function CardsPage() {
         currency: "USD",
         alias: t("cards.defaultVirtualAlias"),
       });
-      prependCard(card);
+      if (actionScopeIsCurrent(scopeKey)) prependCard(card);
     } catch (reason) {
-      setActionError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
+      if (actionScopeIsCurrent(scopeKey))
+        setActionError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
     } finally {
-      setBusy(false);
+      if (actionScopeIsCurrent(scopeKey)) setBusy(false);
     }
   };
 
@@ -120,7 +137,7 @@ function CardsPage() {
           </div>
           <button
             onClick={() => void issueVirtual()}
-            disabled={busy}
+            disabled={busy || !scopeReady}
             className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
           >
             <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}

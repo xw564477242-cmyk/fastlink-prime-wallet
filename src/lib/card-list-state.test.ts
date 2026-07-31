@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import type { WalletCard } from "./backend-api";
-import { cardListReducer, initialCardListState } from "./card-list-state";
+import { cardListReducer, cardListViewForSession, initialCardListState } from "./card-list-state";
 
 const card = (cardId: string): WalletCard => ({
   cardId,
@@ -21,6 +21,66 @@ const card = (cardId: string): WalletCard => ({
 });
 
 describe("Card list state", () => {
+  it("synchronously hides prior-scope state before the reset effect commits", () => {
+    const previousScope = {
+      ...initialCardListState,
+      sessionKey: "session-a",
+      requestId: 7,
+      cards: [card("foreign-card")],
+      nextCursor: "foreign-cursor",
+      activeId: "foreign-card",
+      loadingMore: true,
+      error: "foreign-error",
+    };
+
+    expect(cardListViewForSession(previousScope, "session-b")).toEqual({
+      ...initialCardListState,
+      sessionKey: "session-b",
+      requestId: 7,
+      loading: true,
+      scopeReady: false,
+    });
+  });
+
+  it("keeps the current-scope state and marks it ready", () => {
+    const currentScope = {
+      ...initialCardListState,
+      sessionKey: "session-a",
+      cards: [card("card-a")],
+      activeId: "card-a",
+    };
+
+    expect(cardListViewForSession(currentScope, "session-a")).toEqual({
+      ...currentScope,
+      scopeReady: true,
+    });
+  });
+
+  it("ignores an old-scope card operation after the reducer has reset", () => {
+    const currentScope = {
+      ...initialCardListState,
+      sessionKey: "session-b",
+      cards: [card("card-b")],
+      activeId: "card-b",
+    };
+
+    expect(
+      cardListReducer(currentScope, {
+        type: "prepend",
+        sessionKey: "session-a",
+        card: card("foreign-card"),
+      }),
+    ).toBe(currentScope);
+    expect(
+      cardListReducer(currentScope, {
+        type: "invalidate",
+        sessionKey: "session-a",
+        requestId: 99,
+        message: "foreign failure",
+      }),
+    ).toBe(currentScope);
+  });
+
   it("clears cards and cursor immediately when the authenticated session changes", () => {
     const loaded = {
       ...initialCardListState,
