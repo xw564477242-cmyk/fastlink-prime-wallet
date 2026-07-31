@@ -1,0 +1,75 @@
+name: Prime Wallet Pull Request Gate
+
+on:
+  pull_request:
+    branches:
+      - dev
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prime-wallet-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      VITE_FASTLINK_API_URL: /api
+      VITE_FASTLINK_ENVIRONMENT: SANDBOX
+      VITE_FASTLINK_BUILD_SHA: ${{ github.event.pull_request.head.sha }}
+    steps:
+      - name: Checkout exact pull request commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Test when the branch contains tests
+        shell: bash
+        run: |
+          if find . -path './node_modules' -prune -o -type f \( -name '*.test.*' -o -name '*.spec.*' \) -print -quit | grep -q .; then
+            bun test
+          else
+            echo 'No test files exist on this baseline; continuing with type, audit, lint, and build gates.'
+          fi
+
+      - name: Type check
+        run: bunx tsc --noEmit
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Verify public wallet contract
+        run: bun run audit:production
+
+      - name: Build non-production artifact
+        run: bun run build
+
+      - name: Record immutable non-production evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '{"format":"fastlink-prime-wallet-pr-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION"}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
+          sha256sum build-evidence.json > build-evidence.sha256
+          sha256sum --check build-evidence.sha256
+
+      - name: Upload non-production evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: prime-wallet-pr-${{ github.event.pull_request.head.sha }}
+          path: |
+            build-evidence.json
+            build-evidence.sha256
+          if-no-files-found: error
+          retention-days: 7
