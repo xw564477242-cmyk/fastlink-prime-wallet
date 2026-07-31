@@ -63,6 +63,7 @@ export function cardLimitsMutationScopeKey(
     !runtimeEnvironment ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string" ||
     !card ||
     !current ||
     (card.type !== "virtual" && card.type !== "physical") ||
@@ -74,6 +75,8 @@ export function cardLimitsMutationScopeKey(
   ) {
     return null;
   }
+  const expiresAt = Date.parse(session.expiresAt);
+  if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) return null;
   let limits: WalletCardLimits;
   let availableBalanceMinor: string | null;
   try {
@@ -84,6 +87,7 @@ export function cardLimitsMutationScopeKey(
   }
   return JSON.stringify([
     session.actorId,
+    session.expiresAt,
     session.tenantId,
     session.customerId,
     session.environment,

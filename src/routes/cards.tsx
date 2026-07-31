@@ -136,10 +136,21 @@ export function CardsPage() {
   useEffect(() => {
     setLimitDraft(draftFromLimits(cardLimits.limits));
   }, [cardLimits.limits]);
+  const cardLimitsInput = useMemo(
+    () =>
+      Object.fromEntries(
+        CARD_LIMIT_FIELDS.filter((field) => limitDraft[field] !== "").map((field) => {
+          const value = limitDraft[field];
+          return [field, /^(?:0|[1-9]\d*)$/.test(value) ? Number(value) : value];
+        }),
+      ),
+    [limitDraft],
+  );
   const cardLimitsMutation = useCardLimitsMutation(
     session,
     current,
     cardLimits.limits,
+    cardLimitsInput,
     cardLimits.replaceCurrentLimits,
   );
   const sessionKey = cardSessionScopeKey(session);
@@ -237,13 +248,7 @@ export function CardsPage() {
 
   const updateCurrentLimits = async () => {
     if (!scopeReady || !cardLimitsMutation.allowed || busy) return;
-    const input = Object.fromEntries(
-      CARD_LIMIT_FIELDS.filter((field) => limitDraft[field] !== "").map((field) => {
-        const value = limitDraft[field];
-        return [field, /^(?:0|[1-9]\d*)$/.test(value) ? Number(value) : value];
-      }),
-    );
-    await cardLimitsMutation.submit(input);
+    await cardLimitsMutation.submit();
   };
 
   return (

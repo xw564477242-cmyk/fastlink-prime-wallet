@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useRef } from "react";
 import {
   backendApi,
   backendRuntime,
+  normalizeCardLimitsUpdateInput,
   type BackendSession,
   type WalletCard,
   type WalletCardLimits,
@@ -24,64 +25,75 @@ export function useCardLimitsMutation(
   session: BackendSession | null,
   card: WalletCard | undefined,
   current: WalletCardLimits | null,
+  input: unknown,
   onUpdated: (limits: WalletCardLimits) => void,
 ) {
-  const scopeKey = cardLimitsMutationScopeKey(
+  const baseScopeKey = cardLimitsMutationScopeKey(
     session,
     backendRuntime.error === null ? backendRuntime.environment : undefined,
     card,
     current,
   );
+  let inputScopeKey = "INVALID";
+  if (current) {
+    try {
+      inputScopeKey = JSON.stringify(normalizeCardLimitsUpdateInput(input, current));
+    } catch {
+      inputScopeKey = "INVALID";
+    }
+  }
+  const scopeKey = baseScopeKey ? JSON.stringify([baseScopeKey, inputScopeKey]) : null;
   const [state, dispatch] = useReducer(cardLimitsMutationReducer, initialCardLimitsMutationState);
   const gate = useRef(createCardLimitsMutationGate(scopeKey));
   syncCardLimitsMutationScope(gate.current, scopeKey);
   const view = cardLimitsMutationView(state, scopeKey);
 
   useEffect(() => {
+    const currentGate = gate.current;
     dispatch({ type: "reset", scopeKey });
+    return () => {
+      if (currentGate.scopeKey === scopeKey) syncCardLimitsMutationScope(currentGate, null);
+    };
   }, [scopeKey]);
 
-  const submit = useCallback(
-    async (input: unknown): Promise<boolean> => {
-      if (!scopeKey || !card || !current) return false;
-      let ticket;
-      try {
-        ticket = beginCardLimitsMutation(gate.current, scopeKey, current, input);
-      } catch {
-        dispatch({ type: "rejected", scopeKey, message: SAFE_LIMITS_UPDATE_ERROR });
-        return false;
-      }
-      if (!ticket) return false;
-      dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
+  const submit = useCallback(async (): Promise<boolean> => {
+    if (!scopeKey || !card || !current) return false;
+    let ticket;
+    try {
+      ticket = beginCardLimitsMutation(gate.current, scopeKey, current, input);
+    } catch {
+      dispatch({ type: "rejected", scopeKey, message: SAFE_LIMITS_UPDATE_ERROR });
+      return false;
+    }
+    if (!ticket) return false;
+    dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
 
-      try {
-        const updated = await backendApi.updateCardLimits(
-          card,
-          current,
-          ticket.input,
-          ticket.idempotencyKey,
-        );
-        if (!acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) return false;
-        dispatch({ type: "succeeded", requestKey: ticket.requestKey, limits: updated });
-        onUpdated(updated);
-        return true;
-      } catch {
-        if (acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) {
-          dispatch({
-            type: "failed",
-            requestKey: ticket.requestKey,
-            message: SAFE_LIMITS_UPDATE_ERROR,
-          });
-        }
-        return false;
-      } finally {
-        if (settleCardLimitsMutation(gate.current, ticket, scopeKey)) {
-          dispatch({ type: "settled", requestKey: ticket.requestKey });
-        }
+    try {
+      const updated = await backendApi.updateCardLimits(
+        card,
+        current,
+        ticket.input,
+        ticket.idempotencyKey,
+      );
+      if (!acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) return false;
+      dispatch({ type: "succeeded", requestKey: ticket.requestKey, limits: updated });
+      onUpdated(updated);
+      return true;
+    } catch {
+      if (acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) {
+        dispatch({
+          type: "failed",
+          requestKey: ticket.requestKey,
+          message: SAFE_LIMITS_UPDATE_ERROR,
+        });
       }
-    },
-    [card, current, onUpdated, scopeKey],
-  );
+      return false;
+    } finally {
+      if (settleCardLimitsMutation(gate.current, ticket, scopeKey)) {
+        dispatch({ type: "settled", requestKey: ticket.requestKey });
+      }
+    }
+  }, [card, current, input, onUpdated, scopeKey]);
 
-  return { ...view, allowed: scopeKey !== null, submit };
+  return { ...view, allowed: baseScopeKey !== null, submit };
 }

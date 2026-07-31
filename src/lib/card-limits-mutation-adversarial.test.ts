@@ -26,6 +26,7 @@ const keys = ["a7777777-aaaa-4aaa-8aaa-aaaaaaaaaaaa", "b8888888-bbbb-4bbb-9bbb-b
 
 const session = (overrides: Partial<BackendSession> = {}): BackendSession => ({
   actorId: "actor-a",
+  expiresAt: "2099-08-01T00:00:00.000Z",
   tenantId: "tenant-a",
   customerId: "customer-a",
   environment: "SANDBOX",
@@ -99,6 +100,14 @@ describe("Selected Card limits mutation contract and request gate", () => {
       ).toBeNull();
     }
     expect(cardLimitsMutationScopeKey(session(), "TEST", card(), limits())).toBeNull();
+    expect(
+      cardLimitsMutationScopeKey(
+        session({ expiresAt: "2020-01-01T00:00:00.000Z" }),
+        "SANDBOX",
+        card(),
+        limits(),
+      ),
+    ).toBeNull();
     expect(
       cardLimitsMutationScopeKey(
         session(),
@@ -340,6 +349,7 @@ describe("Selected Card limits mutation scope, generation and writeback isolatio
     if (!oldScope) throw new Error("scope required");
     const changes = [
       [session({ actorId: "actor-b" }), "SANDBOX", card(), limits()],
+      [session({ expiresAt: "2099-08-01T01:00:00.000Z" }), "SANDBOX", card(), limits()],
       [session({ tenantId: "tenant-b" }), "SANDBOX", card(), limits()],
       [session({ customerId: "customer-b" }), "SANDBOX", card(), limits()],
       [session({ environment: "TEST" }), "TEST", card(), limits()],
