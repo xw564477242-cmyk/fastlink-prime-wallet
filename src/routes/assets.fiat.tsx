@@ -6,6 +6,7 @@ import {
   ArrowUpRight,
   ChevronLeft,
   Loader2,
+  RefreshCw,
   Wallet,
 } from "lucide-react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
@@ -52,6 +53,7 @@ function WalletAccountsPage() {
     session,
     selected?.assetCode ?? null,
     selectedTransaction,
+    transactions.scopeKey,
   );
   const operations = useWalletOperations(session);
   const selectedOperation =
@@ -161,6 +163,17 @@ function WalletAccountsPage() {
             </select>
           </label>
         </div>
+        {selectedTransaction && (
+          <button
+            type="button"
+            onClick={detail.refresh}
+            disabled={!detail.canRefresh || detail.loading}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+          >
+            <RefreshCw className={`h-4 w-4 ${detail.loading ? "animate-spin" : ""}`} />
+            {detail.loading ? "Refreshing selected transaction…" : "Refresh selected transaction"}
+          </button>
+        )}
         {detail.loading && (
           <div className="mt-3 flex items-center gap-2 rounded-2xl bg-surface p-4 text-xs text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected transaction
