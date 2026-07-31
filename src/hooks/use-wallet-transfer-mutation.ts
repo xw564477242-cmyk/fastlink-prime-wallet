@@ -5,6 +5,7 @@ import {
   type BackendSession,
   type WalletOperationActivity,
   type WalletTransferAccount,
+  type WalletTransferInput,
 } from "@/lib/backend-api";
 import {
   acceptsWalletTransferMutationCompletion,
@@ -21,11 +22,18 @@ import {
 const SAFE_WALLET_TRANSFER_ERROR =
   "Wallet transfer was not accepted. Check the account and amount.";
 
+export type AcceptedWalletTransfer = Readonly<{
+  operation: WalletOperationActivity;
+  input: WalletTransferInput;
+  transferRequestKey: string;
+  transferGeneration: number;
+}>;
+
 export function useWalletTransferMutation(
   session: BackendSession | null,
   source: WalletTransferAccount | null,
   input: unknown,
-  onAccepted: (operation: WalletOperationActivity) => void,
+  onAccepted: (accepted: AcceptedWalletTransfer) => void,
 ) {
   const scopeKey = walletTransferMutationScopeKey(
     session,
@@ -64,7 +72,12 @@ export function useWalletTransferMutation(
       );
       if (!acceptsWalletTransferMutationCompletion(gate.current, ticket, scopeKey)) return false;
       dispatch({ type: "succeeded", requestKey: ticket.requestKey, operation });
-      onAccepted(operation);
+      onAccepted({
+        operation,
+        input: ticket.input,
+        transferRequestKey: ticket.requestKey,
+        transferGeneration: ticket.generation,
+      });
       return true;
     } catch {
       if (acceptsWalletTransferMutationCompletion(gate.current, ticket, scopeKey)) {
