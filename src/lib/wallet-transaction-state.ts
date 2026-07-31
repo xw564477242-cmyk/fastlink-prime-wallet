@@ -2,9 +2,10 @@ import type { WalletAccountTransaction, WalletAccountTransactionPage } from "./b
 
 export type WalletTransactionState = {
   scopeKey: string | null;
-  requestId: number;
+  activeRequestKey: string | null;
   items: WalletAccountTransaction[];
   nextCursor: string | null;
+  seenCursors: string[];
   loading: boolean;
   loadingMore: boolean;
   error: string | null;
@@ -12,9 +13,10 @@ export type WalletTransactionState = {
 
 export const initialWalletTransactionState: WalletTransactionState = {
   scopeKey: null,
-  requestId: 0,
+  activeRequestKey: null,
   items: [],
   nextCursor: null,
+  seenCursors: [],
   loading: false,
   loadingMore: false,
   error: null,
@@ -28,22 +30,40 @@ export function walletTransactionViewForScope(
   return {
     ...initialWalletTransactionState,
     scopeKey,
-    requestId: state.requestId,
     loading: scopeKey !== null,
     scopeReady: false,
   };
 }
 
-export type WalletTransactionAction =
-  | { type: "reset"; scopeKey: string | null; requestId: number; loading: boolean }
-  | { type: "loading-more"; requestId: number }
-  | { type: "page"; requestId: number; page: WalletAccountTransactionPage; append: boolean }
-  | { type: "failed"; requestId: number; message: string; append: boolean };
+export function walletTransactionRequestKey(
+  scopeKey: string,
+  requestCursor: string | null,
+  generation: number,
+): string {
+  return JSON.stringify([scopeKey, requestCursor, generation]);
+}
 
-function mergeItems(current: WalletAccountTransaction[], incoming: WalletAccountTransaction[]) {
-  const items = new Map(current.map((item) => [item.id, item]));
-  for (const item of incoming) items.set(item.id, item);
-  return [...items.values()];
+export type WalletTransactionAction =
+  | { type: "reset"; scopeKey: string | null; requestKey: string | null; loading: boolean }
+  | { type: "loading-more"; requestKey: string; requestCursor: string }
+  | {
+      type: "page";
+      requestKey: string;
+      requestCursor: string | null;
+      page: WalletAccountTransactionPage;
+      append: boolean;
+    }
+  | { type: "failed"; requestKey: string; message: string; append: boolean }
+  | { type: "settled"; requestKey: string };
+
+function paginationFailure(state: WalletTransactionState): WalletTransactionState {
+  return {
+    ...state,
+    nextCursor: null,
+    loading: false,
+    loadingMore: false,
+    error: "Backend returned inconsistent Wallet transaction pagination",
+  };
 }
 
 export function walletTransactionReducer(
@@ -54,27 +74,53 @@ export function walletTransactionReducer(
     case "reset":
       return {
         scopeKey: action.scopeKey,
-        requestId: action.requestId,
+        activeRequestKey: action.requestKey,
         items: [],
         nextCursor: null,
+        seenCursors: [],
         loading: action.loading,
         loadingMore: false,
         error: null,
       };
     case "loading-more":
-      return { ...state, requestId: action.requestId, loadingMore: true, error: null };
-    case "page":
-      if (action.requestId !== state.requestId) return state;
+      if (action.requestCursor !== state.nextCursor) return paginationFailure(state);
+      return { ...state, activeRequestKey: action.requestKey, loadingMore: true, error: null };
+    case "page": {
+      if (action.requestKey !== state.activeRequestKey) return state;
+      if (new Set(action.page.items.map((item) => item.id)).size !== action.page.items.length) {
+        return paginationFailure(state);
+      }
+      if (action.append && action.requestCursor !== state.nextCursor) {
+        return paginationFailure(state);
+      }
+      if (action.append) {
+        const currentIds = new Set(state.items.map((item) => item.id));
+        if (action.page.items.some((item) => currentIds.has(item.id))) {
+          return paginationFailure(state);
+        }
+      }
+      if (
+        action.page.nextCursor !== null &&
+        (action.page.nextCursor === action.requestCursor ||
+          state.seenCursors.includes(action.page.nextCursor))
+      ) {
+        return paginationFailure(state);
+      }
       return {
         ...state,
-        items: action.append ? mergeItems(state.items, action.page.items) : action.page.items,
+        items: action.append ? [...state.items, ...action.page.items] : action.page.items,
         nextCursor: action.page.nextCursor,
+        seenCursors:
+          action.page.nextCursor === null
+            ? state.seenCursors
+            : [...state.seenCursors, action.page.nextCursor],
         loading: false,
         loadingMore: false,
         error: null,
       };
+    }
     case "failed":
-      if (action.requestId !== state.requestId) return state;
+      if (action.requestKey !== state.activeRequestKey) return state;
       return {
         ...state,
         items: action.append ? state.items : [],
@@ -83,5 +129,9 @@ export function walletTransactionReducer(
         loadingMore: false,
         error: action.message,
       };
+    case "settled":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, loading: false, loadingMore: false }
+        : state;
   }
 }

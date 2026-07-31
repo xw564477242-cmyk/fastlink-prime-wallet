@@ -9,6 +9,7 @@ import {
 import {
   initialWalletTransactionState,
   walletTransactionReducer,
+  walletTransactionRequestKey,
   walletTransactionViewForScope,
 } from "./wallet-transaction-state";
 
@@ -127,7 +128,7 @@ describe("Wallet transaction state", () => {
     const previous = {
       ...initialWalletTransactionState,
       scopeKey: '["actor-a","tenant-a","customer-a","SANDBOX","USD"]',
-      requestId: 7,
+      activeRequestKey: "old-request",
       items: [transaction("foreign")],
       nextCursor: "foreign-cursor",
       loadingMore: true,
@@ -137,31 +138,38 @@ describe("Wallet transaction state", () => {
     ).toEqual({
       ...initialWalletTransactionState,
       scopeKey: '["actor-b","tenant-b","customer-b","UAT","EUR"]',
-      requestId: 7,
       loading: true,
       scopeReady: false,
     });
   });
 
   it("deterministically rejects stale success and failure responses", () => {
+    const currentRequest = walletTransactionRequestKey("scope-eur", null, 2);
     const current = walletTransactionReducer(initialWalletTransactionState, {
       type: "reset",
       scopeKey: "scope-eur",
-      requestId: 2,
+      requestKey: currentRequest,
       loading: true,
     });
     expect(
       walletTransactionReducer(current, {
         type: "page",
-        requestId: 1,
+        requestKey: walletTransactionRequestKey("scope-eur", null, 1),
+        requestCursor: null,
         page: { items: [transaction("foreign")], nextCursor: "foreign-cursor" },
         append: false,
       }),
     ).toBe(current);
     expect(
       walletTransactionReducer(current, {
+        type: "settled",
+        requestKey: walletTransactionRequestKey("scope-eur", null, 1),
+      }),
+    ).toBe(current);
+    expect(
+      walletTransactionReducer(current, {
         type: "failed",
-        requestId: 1,
+        requestKey: walletTransactionRequestKey("scope-eur", null, 1),
         message: "foreign failure",
         append: false,
       }),
@@ -172,21 +180,37 @@ describe("Wallet transaction state", () => {
     const loaded = {
       ...initialWalletTransactionState,
       scopeKey: "scope-usd",
-      requestId: 2,
+      activeRequestKey: walletTransactionRequestKey("scope-usd", null, 2),
       items: [transaction("tx-2"), transaction("tx-1")],
       nextCursor: "cursor-2",
+      seenCursors: ["cursor-2"],
     };
-    const loadingMore = walletTransactionReducer(loaded, { type: "loading-more", requestId: 3 });
+    const pageRequest = walletTransactionRequestKey("scope-usd", "cursor-2", 3);
+    const loadingMore = walletTransactionReducer(loaded, {
+      type: "loading-more",
+      requestKey: pageRequest,
+      requestCursor: "cursor-2",
+    });
     const next = walletTransactionReducer(loadingMore, {
       type: "page",
-      requestId: 3,
-      page: { items: [transaction("tx-1"), transaction("tx-0")], nextCursor: "cursor-0" },
+      requestKey: pageRequest,
+      requestCursor: "cursor-2",
+      page: { items: [transaction("tx-0")], nextCursor: "cursor-0" },
       append: true,
     });
     expect(next.items.map((item) => item.id)).toEqual(["tx-2", "tx-1", "tx-0"]);
     const failed = walletTransactionReducer(
-      { ...next, requestId: 4, loadingMore: true },
-      { type: "failed", requestId: 4, message: "temporary", append: true },
+      {
+        ...next,
+        activeRequestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 4),
+        loadingMore: true,
+      },
+      {
+        type: "failed",
+        requestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 4),
+        message: "temporary",
+        append: true,
+      },
     );
     expect(failed.items.map((item) => item.id)).toEqual(["tx-2", "tx-1", "tx-0"]);
     expect(failed.nextCursor).toBe("cursor-0");
