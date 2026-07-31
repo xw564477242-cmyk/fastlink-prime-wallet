@@ -8,11 +8,12 @@ import {
   Loader2,
   Plus,
   RefreshCw,
+  Repeat2,
   Snowflake,
   Sun,
 } from "lucide-react";
 import { useCallback, useMemo, useRef, useState } from "react";
-import { backendApi } from "@/lib/backend-api";
+import { backendApi, type CardReplacementReason } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
@@ -20,6 +21,7 @@ import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
 import { useCardRenew } from "@/hooks/use-card-renew";
+import { useCardReplace } from "@/hooks/use-card-replace";
 import {
   acceptsCardActionResponse,
   beginCardAction,
@@ -62,6 +64,7 @@ function CardsPage() {
     selectCard,
     replaceCard,
     prependCard,
+    replaceSelectedCard,
     invalidate,
   } = useCardListPages(session, cardId ?? null);
   const acceptCreatedCard = useCallback(
@@ -85,6 +88,15 @@ function CardsPage() {
     [navigate, replaceCard, selectCard],
   );
   const cardRenew = useCardRenew(session, current, acceptRenewedCard);
+  const [replacementReason, setReplacementReason] = useState<CardReplacementReason>("LOST");
+  const acceptReplacementCard = useCallback(
+    (oldCardId: string, card: Parameters<typeof replaceSelectedCard>[1]) => {
+      replaceSelectedCard(oldCardId, card);
+      void navigate({ search: { cardId: card.cardId }, replace: true });
+    },
+    [navigate, replaceSelectedCard],
+  );
+  const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const cardLimits = useCardLimits(session, current?.cardId ?? null);
   const sessionKey = cardSessionScopeKey(session);
@@ -97,12 +109,13 @@ function CardsPage() {
     error: null,
   });
   const actionState = visibleCardActionState(storedActionState, actionScopeKey);
-  const busy = actionState.busy || virtualCardCreate.busy || cardRenew.busy;
+  const busy = actionState.busy || virtualCardCreate.busy || cardRenew.busy || cardReplace.busy;
   const error =
     listError ??
     (scopeReady ? actionState.error : null) ??
     (virtualCardCreate.allowed ? virtualCardCreate.error : null) ??
-    (cardRenew.allowed ? cardRenew.error : null);
+    (cardRenew.allowed ? cardRenew.error : null) ??
+    (cardReplace.allowed ? cardReplace.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -169,6 +182,11 @@ function CardsPage() {
   const renewCurrent = async () => {
     if (!scopeReady || !cardRenew.allowed || busy) return;
     await cardRenew.submit();
+  };
+
+  const replaceCurrent = async () => {
+    if (!scopeReady || !cardReplace.allowed || busy) return;
+    await cardReplace.submit();
   };
 
   return (
@@ -363,7 +381,34 @@ function CardsPage() {
                   icon={<CalendarClock className="h-5 w-5" />}
                 />
               )}
+              {cardReplace.allowed && (
+                <CardAction
+                  onClick={() => void replaceCurrent()}
+                  disabled={busy}
+                  label="Replace card"
+                  icon={<Repeat2 className="h-5 w-5" />}
+                />
+              )}
             </div>
+
+            {cardReplace.allowed && (
+              <label className="mt-3 block rounded-2xl border border-border/60 bg-surface/60 p-4 text-xs">
+                <span className="font-semibold">Replacement reason</span>
+                <select
+                  value={replacementReason}
+                  onChange={(event) =>
+                    setReplacementReason(event.target.value as CardReplacementReason)
+                  }
+                  disabled={busy}
+                  className="mt-2 w-full rounded-xl border border-border bg-background px-3 py-2 text-sm disabled:opacity-60"
+                >
+                  <option value="LOST">Lost</option>
+                  <option value="STOLEN">Stolen</option>
+                  <option value="DAMAGED">Damaged</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </label>
+            )}
 
             <div className="mt-4 rounded-2xl border border-border/60 bg-surface/60 p-5">
               <p className="text-[10px] uppercase tracking-widest text-muted-foreground">

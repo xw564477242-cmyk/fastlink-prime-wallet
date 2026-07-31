@@ -99,6 +99,15 @@ export type VirtualCardCreateInput = {
   alias?: string;
 };
 
+export const CARD_REPLACEMENT_REASONS = ["LOST", "STOLEN", "DAMAGED", "OTHER"] as const;
+export type CardReplacementReason = (typeof CARD_REPLACEMENT_REASONS)[number];
+
+export function isCardReplacementReason(value: unknown): value is CardReplacementReason {
+  return (
+    typeof value === "string" && (CARD_REPLACEMENT_REASONS as readonly string[]).includes(value)
+  );
+}
+
 export function isVirtualCardCreateEnvironment(
   environment: FastLinkEnvironment | undefined,
 ): environment is "SANDBOX" | "TEST" {
@@ -282,11 +291,7 @@ function requireRuntime(): { apiUrl: string; environment: FastLinkEnvironment } 
 function requireSandboxTestCardMutationRuntime(): void {
   const { environment } = requireRuntime();
   if (!isVirtualCardCreateEnvironment(environment)) {
-    throw new BackendApiError(
-      0,
-      "runtime",
-      "Virtual Card creation is disabled outside SANDBOX and TEST",
-    );
+    throw new BackendApiError(0, "runtime", "Card mutations are disabled outside SANDBOX and TEST");
   }
 }
 
@@ -806,6 +811,151 @@ export function normalizeCardRenewResponse(value: unknown, expectedCard: WalletC
     alias,
     balance: expectedCard.balance,
     availableBalanceMinor: expectedCard.availableBalanceMinor,
+    createdAt: cardRfc3339(record.createdAt),
+    capabilities: strictCardCapabilities(record.capabilities),
+  };
+}
+
+function replaceableCardExpectation(card: WalletCard): {
+  cardId: string;
+  type: "virtual" | "physical";
+  status: "active" | "frozen";
+  expiryMonth: number;
+  expiryYear: number;
+} {
+  const cardId = cardPublicId(card.cardId);
+  if (
+    (card.type !== "virtual" && card.type !== "physical") ||
+    (card.status !== "active" && card.status !== "frozen") ||
+    card.capabilities.replace !== true ||
+    !/^\d{4}$/.test(card.last4) ||
+    !/^[A-Z]{3}$/.test(card.currency) ||
+    !Number.isInteger(card.expiryMonth) ||
+    card.expiryMonth === undefined ||
+    card.expiryMonth < 1 ||
+    card.expiryMonth > 12 ||
+    !Number.isInteger(card.expiryYear) ||
+    card.expiryYear === undefined ||
+    card.expiryYear < 2000 ||
+    card.expiryYear > 9999
+  ) {
+    throw new Error("Selected Card is not replaceable");
+  }
+  if (card.availableBalanceMinor !== undefined) {
+    cardMinorUnits(card.availableBalanceMinor, "available balance");
+  }
+  return {
+    cardId,
+    type: card.type,
+    status: card.status,
+    expiryMonth: card.expiryMonth,
+    expiryYear: card.expiryYear,
+  };
+}
+
+export function validateCardReplacementReason(value: unknown): CardReplacementReason {
+  if (!isCardReplacementReason(value)) throw new Error("Invalid Card replacement reason");
+  return value;
+}
+
+export function buildCardReplaceRequest(
+  card: WalletCard,
+  reason: CardReplacementReason,
+  idempotencyKey: string,
+): { path: string; init: RequestInit } {
+  const { cardId } = replaceableCardExpectation(card);
+  return {
+    path: `/v1/cards/${encodeURIComponent(cardId)}/replace`,
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+      body: JSON.stringify({ reason: validateCardReplacementReason(reason) }),
+    },
+  };
+}
+
+export function normalizeCardReplaceResponse(value: unknown, oldCard: WalletCard): WalletCard {
+  const expectation = replaceableCardExpectation(oldCard);
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "last4",
+      "expiryMonth",
+      "expiryYear",
+      "currency",
+      "alias",
+      "createdAt",
+      "capabilities",
+    ],
+    "Backend returned an invalid replacement Card",
+  );
+  const descriptors = Object.getOwnPropertyDescriptors(value as object);
+  const minorDescriptor = descriptors.availableBalanceMinor;
+  if (minorDescriptor && !("value" in minorDescriptor)) {
+    throw new Error("Backend returned an invalid replacement Card balance");
+  }
+  const cardId = cardPublicId(record.id);
+  if (cardId === expectation.cardId) {
+    throw new Error("Backend did not return a new replacement Card");
+  }
+  const type =
+    record.type === "VIRTUAL" ? "virtual" : record.type === "PHYSICAL" ? "physical" : null;
+  const status =
+    record.status === "PENDING"
+      ? "pending"
+      : record.status === "ACTIVE"
+        ? "active"
+        : record.status === "FROZEN"
+          ? "frozen"
+          : record.status === "CLOSED"
+            ? "closed"
+            : record.status === "FAILED"
+              ? "failed"
+              : null;
+  const alias = record.alias === null ? undefined : virtualCardAlias(record.alias, true);
+  if (
+    type !== expectation.type ||
+    status === null ||
+    typeof record.last4 !== "string" ||
+    !/^\d{4}$/.test(record.last4) ||
+    cardCurrency(record.currency) !== oldCard.currency ||
+    alias !== oldCard.alias
+  ) {
+    throw new Error("Backend returned an invalid replacement Card identity");
+  }
+  if (
+    typeof record.expiryMonth !== "number" ||
+    !Number.isInteger(record.expiryMonth) ||
+    record.expiryMonth < 1 ||
+    record.expiryMonth > 12 ||
+    typeof record.expiryYear !== "number" ||
+    !Number.isInteger(record.expiryYear) ||
+    record.expiryYear < 2000 ||
+    record.expiryYear > 9999
+  ) {
+    throw new Error("Backend returned an invalid replacement Card expiry");
+  }
+  const availableBalanceMinor =
+    minorDescriptor !== undefined
+      ? cardMinorUnits(minorDescriptor.value, "available balance")
+      : oldCard.availableBalanceMinor === undefined
+        ? undefined
+        : cardMinorUnits(oldCard.availableBalanceMinor, "available balance");
+  return {
+    cardId,
+    type,
+    status,
+    last4: record.last4,
+    expiry: `${String(record.expiryMonth).padStart(2, "0")}/${String(record.expiryYear).slice(-2)}`,
+    expiryMonth: record.expiryMonth,
+    expiryYear: record.expiryYear,
+    currency: oldCard.currency,
+    alias,
+    balance: availableBalanceMinor === undefined ? 0 : Number(availableBalanceMinor) / 100,
+    availableBalanceMinor,
     createdAt: cardRfc3339(record.createdAt),
     capabilities: strictCardCapabilities(record.capabilities),
   };
@@ -1427,6 +1577,16 @@ export const backendApi = {
     requireSandboxTestCardMutationRuntime();
     const { path, init } = buildCardRenewRequest(card, idempotencyKey);
     return normalizeCardRenewResponse(await request<unknown>(path, init), card);
+  },
+
+  async replaceCard(
+    card: WalletCard,
+    reason: CardReplacementReason,
+    idempotencyKey: string,
+  ): Promise<WalletCard> {
+    requireSandboxTestCardMutationRuntime();
+    const { path, init } = buildCardReplaceRequest(card, reason, idempotencyKey);
+    return normalizeCardReplaceResponse(await request<unknown>(path, init), card);
   },
 
   async setFrozen(cardId: string, frozen: boolean): Promise<WalletCard> {
