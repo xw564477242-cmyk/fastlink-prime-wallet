@@ -24,6 +24,7 @@ const keys = ["e5555555-eeee-4eee-aeee-eeeeeeeeeeee", "f6666666-ffff-4fff-bfff-f
 
 const session = (overrides: Partial<BackendSession> = {}): BackendSession => ({
   actorId: "actor-a",
+  expiresAt: "2099-08-01T00:00:00.000Z",
   tenantId: "tenant-a",
   customerId: "customer-a",
   environment: "SANDBOX",
@@ -88,6 +89,15 @@ describe("Selected Card replacement environment, reason and request gate", () =>
       expect(cardReplaceScopeKey(session({ environment }), environment, card(), "LOST")).toBeNull();
     }
     expect(cardReplaceScopeKey(session(), "TEST", card(), "LOST")).toBeNull();
+    expect(
+      cardReplaceScopeKey(
+        session({ expiresAt: "2026-07-31T00:00:00.000Z" }),
+        "SANDBOX",
+        card(),
+        "LOST",
+      ),
+    ).toBeNull();
+    expect(cardReplaceScopeKey(session(), "SANDBOX", card({ expiry: "11/30" }), "LOST")).toBeNull();
     expect(
       cardReplaceScopeKey(
         session(),
@@ -321,6 +331,7 @@ describe("Selected Card replacement scope, generation and list isolation", () =>
       [session({ tenantId: "tenant-b" }), "SANDBOX", card(), "LOST"],
       [session({ customerId: "customer-b" }), "SANDBOX", card(), "LOST"],
       [session({ environment: "TEST" }), "TEST", card(), "LOST"],
+      [session({ expiresAt: "2099-08-01T01:00:00.000Z" }), "SANDBOX", card(), "LOST"],
       [session(), "SANDBOX", card(), "OTHER"],
       [session(), "SANDBOX", card({ cardId: "card:owned.2" }), "LOST"],
       [session(), "SANDBOX", card({ type: "physical" }), "LOST"],
@@ -330,7 +341,15 @@ describe("Selected Card replacement scope, generation and list isolation", () =>
       [session(), "SANDBOX", card({ expiryYear: 2031 }), "LOST"],
       [session(), "SANDBOX", card({ currency: "EUR" }), "LOST"],
       [session(), "SANDBOX", card({ alias: "Updated Card" }), "LOST"],
+      [session(), "SANDBOX", card({ balance: 26 }), "LOST"],
+      [session(), "SANDBOX", card({ availableBalanceMinor: "2600" }), "LOST"],
       [session(), "SANDBOX", card({ createdAt: "2026-02-01T00:00:00Z" }), "LOST"],
+      [
+        session(),
+        "SANDBOX",
+        card({ capabilities: { ...card().capabilities, renew: false } }),
+        "LOST",
+      ],
     ] as const;
     for (const [nextSession, runtime, nextCard, reason] of changes) {
       const nextScope = cardReplaceScopeKey(

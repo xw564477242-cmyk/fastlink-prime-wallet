@@ -1168,7 +1168,9 @@ function replaceableCardExpectation(card: WalletCard): {
     !Number.isInteger(card.expiryYear) ||
     card.expiryYear === undefined ||
     card.expiryYear < 2000 ||
-    card.expiryYear > 9999
+    card.expiryYear > 9999 ||
+    card.expiry !==
+      `${String(card.expiryMonth).padStart(2, "0")}/${String(card.expiryYear).slice(-2)}`
   ) {
     throw new Error("Selected Card is not replaceable");
   }

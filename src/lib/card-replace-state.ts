@@ -1,4 +1,5 @@
 import {
+  buildCardReplaceRequest,
   isCardReplacementReason,
   isVirtualCardCreateEnvironment,
   validateVirtualCardIdempotencyKey,
@@ -67,6 +68,7 @@ export function cardReplaceScopeKey(
     !runtimeEnvironment ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string" ||
     !card ||
     !isCardReplacementReason(reason) ||
     (card.type !== "virtual" && card.type !== "physical") ||
@@ -84,8 +86,16 @@ export function cardReplaceScopeKey(
   ) {
     return null;
   }
+  const expiresAt = Date.parse(session.expiresAt);
+  if (!Number.isFinite(expiresAt) || expiresAt <= Date.now()) return null;
+  try {
+    buildCardReplaceRequest(card, reason, "a0000000-0000-4000-8000-000000000000");
+  } catch {
+    return null;
+  }
   return JSON.stringify([
     session.actorId,
+    session.expiresAt,
     session.tenantId,
     session.customerId,
     session.environment,
@@ -95,12 +105,19 @@ export function cardReplaceScopeKey(
     card.type,
     card.status,
     card.last4,
+    card.expiry,
     card.expiryYear,
     card.expiryMonth,
     card.currency,
     card.alias ?? null,
+    card.balance,
     card.createdAt ?? null,
     availableBalanceMinor,
+    card.capabilities.freeze,
+    card.capabilities.unfreeze,
+    card.capabilities.replace,
+    card.capabilities.renew,
+    card.capabilities.updateLimits,
   ]);
 }
 
