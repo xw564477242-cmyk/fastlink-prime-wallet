@@ -14,6 +14,7 @@ import { useBackendSession } from "@/lib/backend-session";
 import { useWalletAccountHistory } from "@/hooks/use-wallet-account-history";
 import { useWalletTransactionDetail } from "@/hooks/use-wallet-transaction-detail";
 import { useWalletOperations } from "@/hooks/use-wallet-operations";
+import { useWalletOperationDetail } from "@/hooks/use-wallet-operation-detail";
 
 export const Route = createFileRoute("/assets/fiat")({
   head: () => ({
@@ -28,6 +29,7 @@ export const Route = createFileRoute("/assets/fiat")({
 function WalletAccountsPage() {
   const { session } = useBackendSession();
   const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
+  const [selectedOperationId, setSelectedOperationId] = useState<string | null>(null);
   const { accounts, transactions, selectAccount, loadMore } = useWalletAccountHistory(session);
   const selected =
     accounts.accounts.find((account) => account.assetCode === accounts.selectedAssetCode) ?? null;
@@ -39,6 +41,9 @@ function WalletAccountsPage() {
     selectedTransaction,
   );
   const operations = useWalletOperations(session);
+  const selectedOperation =
+    operations.items.find((operation) => operation.id === selectedOperationId) ?? null;
+  const operationDetail = useWalletOperationDetail(session, selectedOperation?.id ?? null);
 
   return (
     <MobileShell>
@@ -181,14 +186,32 @@ function WalletAccountsPage() {
           )}
           {!operations.loading && !operations.error && (
             <div className="mt-3 space-y-2">
+              {operationDetail.loading && (
+                <div className="flex items-center gap-2 rounded-2xl bg-surface p-4 text-xs text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected
+                  operation
+                </div>
+              )}
+              {!operationDetail.loading && operationDetail.error && (
+                <ErrorMessage message={operationDetail.error} />
+              )}
+              {!operationDetail.loading && !operationDetail.error && operationDetail.detail && (
+                <OperationDetail detail={operationDetail.detail} />
+              )}
               {operations.items.map((operation) => {
                 const outgoing = operation.direction === "outgoing";
                 const incoming = operation.direction === "incoming";
                 const Icon = outgoing ? ArrowUpRight : incoming ? ArrowDownLeft : ArrowLeftRight;
                 return (
-                  <div
+                  <button
                     key={operation.id}
-                    className="flex items-center gap-3 rounded-2xl bg-surface p-4"
+                    type="button"
+                    onClick={() => setSelectedOperationId(operation.id)}
+                    className={`flex w-full items-center gap-3 rounded-2xl border p-4 text-left ${
+                      operation.id === selectedOperation?.id
+                        ? "border-primary bg-primary/5"
+                        : "border-transparent bg-surface"
+                    }`}
                   >
                     <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-muted">
                       <Icon className="h-5 w-5" />
@@ -205,7 +228,7 @@ function WalletAccountsPage() {
                       {outgoing ? "−" : incoming ? "+" : ""}
                       {operation.amount} {operation.assetCode}
                     </p>
-                  </div>
+                  </button>
                 );
               })}
               {operations.items.length === 0 && (
@@ -259,6 +282,39 @@ function TransactionDetail({
         <dd className="text-right">{detail.direction}</dd>
         <dt className="text-muted-foreground">Created</dt>
         <dd className="text-right">{new Date(detail.createdAt).toLocaleString()}</dd>
+        <dt className="text-muted-foreground">Updated</dt>
+        <dd className="text-right">{new Date(detail.updatedAt).toLocaleString()}</dd>
+      </dl>
+    </div>
+  );
+}
+
+function OperationDetail({
+  detail,
+}: {
+  detail: NonNullable<ReturnType<typeof useWalletOperationDetail>["detail"]>;
+}) {
+  return (
+    <div className="rounded-2xl border border-primary/30 bg-primary/5 p-4 text-xs">
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-semibold">Selected operation</p>
+        <p className="uppercase tracking-wider text-muted-foreground">{detail.status}</p>
+      </div>
+      <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-2">
+        <dt className="text-muted-foreground">Type</dt>
+        <dd className="text-right">{detail.type.replaceAll("_", " ")}</dd>
+        <dt className="text-muted-foreground">Amount</dt>
+        <dd translate="no" className="text-right font-semibold tabular-nums">
+          {detail.amount} {detail.assetCode}
+        </dd>
+        <dt className="text-muted-foreground">Direction</dt>
+        <dd className="text-right">{detail.direction.replaceAll("_", " ")}</dd>
+        <dt className="text-muted-foreground">Created</dt>
+        <dd className="text-right">{new Date(detail.createdAt).toLocaleString()}</dd>
+        <dt className="text-muted-foreground">Completed</dt>
+        <dd className="text-right">
+          {detail.completedAt ? new Date(detail.completedAt).toLocaleString() : "Not completed"}
+        </dd>
         <dt className="text-muted-foreground">Updated</dt>
         <dd className="text-right">{new Date(detail.updatedAt).toLocaleString()}</dd>
       </dl>
