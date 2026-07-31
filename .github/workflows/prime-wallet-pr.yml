@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Run public contract adversarial matrices
-        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts
+        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts
 
       - name: Type check
         run: bunx tsc --noEmit
@@ -63,8 +63,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf '{"format":"fastlink-prime-wallet-pr-evidence-v9","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"cardMutationEnvironments":["SANDBOX","TEST"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
-          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts > build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-pr-evidence-v10","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
+          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts > build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -82,5 +82,6 @@ jobs:
             src/lib/card-renew-adversarial.test.ts
             src/lib/card-replace-adversarial.test.ts
             src/lib/card-limits-mutation-adversarial.test.ts
+            src/lib/wallet-transfer-mutation-adversarial.test.ts
           if-no-files-found: error
           retention-days: 7
