@@ -151,7 +151,12 @@ function DetailHarness({
   currentSession: BackendSession | null;
   selected: WalletAccountTransaction | null;
 }) {
-  detailResult = useWalletTransactionDetail(currentSession, selected?.assetCode ?? null, selected);
+  detailResult = useWalletTransactionDetail(
+    currentSession,
+    selected?.assetCode ?? null,
+    selected,
+    currentSession && selected ? "wallet-history-mounted-scope" : null,
+  );
   return null;
 }
 

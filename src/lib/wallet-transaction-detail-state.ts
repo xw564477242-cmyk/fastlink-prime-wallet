@@ -1,8 +1,8 @@
-import type { WalletAccountTransaction } from "./backend-api";
+import type { BackendSession, WalletAccountTransaction } from "./backend-api";
 
 export type WalletTransactionDetailState = {
   scopeKey: string | null;
-  requestId: number;
+  activeRequestKey: string | null;
   detail: WalletAccountTransaction | null;
   loading: boolean;
   error: string | null;
@@ -10,7 +10,7 @@ export type WalletTransactionDetailState = {
 
 export const initialWalletTransactionDetailState: WalletTransactionDetailState = {
   scopeKey: null,
-  requestId: 0,
+  activeRequestKey: null,
   detail: null,
   loading: false,
   error: null,
@@ -18,6 +18,50 @@ export const initialWalletTransactionDetailState: WalletTransactionDetailState =
 
 export function walletTransactionDetailErrorMessage(_reason: unknown) {
   return "Wallet transaction detail is unavailable";
+}
+
+export function walletTransactionPublicVersion(transaction: WalletAccountTransaction): string {
+  return JSON.stringify([
+    transaction.id,
+    transaction.type,
+    transaction.status,
+    transaction.assetCode,
+    transaction.amount,
+    transaction.direction,
+    transaction.createdAt,
+    transaction.updatedAt,
+  ]);
+}
+
+export function walletTransactionDetailScopeKey(
+  session: BackendSession | null,
+  selectedAssetCode: string | null,
+  selectedTransaction: WalletAccountTransaction | null,
+  historyScopeKey: string | null,
+): string | null {
+  if (
+    !session ||
+    !selectedAssetCode ||
+    !selectedTransaction ||
+    !historyScopeKey ||
+    selectedTransaction.assetCode !== selectedAssetCode
+  ) {
+    return null;
+  }
+  return JSON.stringify([
+    historyScopeKey,
+    session.actorId,
+    session.expiresAt ?? null,
+    session.tenantId,
+    session.customerId,
+    session.environment,
+    selectedAssetCode,
+    walletTransactionPublicVersion(selectedTransaction),
+  ]);
+}
+
+export function walletTransactionDetailRequestKey(scopeKey: string, generation: number): string {
+  return JSON.stringify([scopeKey, generation]);
 }
 
 export function walletTransactionDetailViewForScope(
@@ -28,17 +72,17 @@ export function walletTransactionDetailViewForScope(
   return {
     ...initialWalletTransactionDetailState,
     scopeKey,
-    requestId: state.requestId,
     loading: scopeKey !== null,
     scopeReady: false,
   };
 }
 
 export type WalletTransactionDetailAction =
-  | { type: "reset"; scopeKey: string | null; requestId: number; loading: boolean }
-  | { type: "loaded"; requestId: number; detail: WalletAccountTransaction }
-  | { type: "failed"; requestId: number; message: string }
-  | { type: "settled"; requestId: number };
+  | { type: "reset"; scopeKey: string | null }
+  | { type: "begin"; scopeKey: string; requestKey: string }
+  | { type: "loaded"; requestKey: string; detail: WalletAccountTransaction }
+  | { type: "failed"; requestKey: string; message: string }
+  | { type: "settled"; requestKey: string };
 
 export function walletTransactionDetailReducer(
   state: WalletTransactionDetailState,
@@ -47,21 +91,27 @@ export function walletTransactionDetailReducer(
   switch (action.type) {
     case "reset":
       return {
+        ...initialWalletTransactionDetailState,
         scopeKey: action.scopeKey,
-        requestId: action.requestId,
+      };
+    case "begin":
+      if (action.scopeKey !== state.scopeKey) return state;
+      return {
+        ...state,
+        activeRequestKey: action.requestKey,
         detail: null,
-        loading: action.loading,
+        loading: true,
         error: null,
       };
     case "loaded":
-      return action.requestId === state.requestId
+      return action.requestKey === state.activeRequestKey
         ? { ...state, detail: action.detail, error: null }
         : state;
     case "failed":
-      return action.requestId === state.requestId
+      return action.requestKey === state.activeRequestKey
         ? { ...state, detail: null, error: action.message }
         : state;
     case "settled":
-      return action.requestId === state.requestId ? { ...state, loading: false } : state;
+      return action.requestKey === state.activeRequestKey ? { ...state, loading: false } : state;
   }
 }
