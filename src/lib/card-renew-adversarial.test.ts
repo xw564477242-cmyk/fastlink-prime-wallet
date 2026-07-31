@@ -91,6 +91,16 @@ describe("Selected Card renew environment, capability and request gate", () => {
     ).toBeNull();
     expect(cardRenewScopeKey(session(), "SANDBOX", card({ status: "closed" }))).toBeNull();
     expect(cardRenewScopeKey(session(), "SANDBOX", card({ expiryYear: undefined }))).toBeNull();
+    for (const invalidExpiry of [
+      { expiryMonth: 0 },
+      { expiryMonth: 13 },
+      { expiryMonth: 1.5 },
+      { expiryYear: 1999 },
+      { expiryYear: 10000 },
+      { expiryYear: 2030.5 },
+    ]) {
+      expect(cardRenewScopeKey(session(), "SANDBOX", card(invalidExpiry))).toBeNull();
+    }
     expect(cardRenewScopeKey(null, "SANDBOX", card())).toBeNull();
   });
 
@@ -260,6 +270,47 @@ describe("Selected Card renew response parser", () => {
 });
 
 describe("Selected Card renew scope and generation isolation", () => {
+  it("allows an old completion zero writes when the same Card ID has a newer expiry", () => {
+    const oldCard = card();
+    const oldScope = cardRenewScopeKey(session(), "SANDBOX", oldCard);
+    const currentCard = card({ expiry: "12/33", expiryMonth: 12, expiryYear: 2033 });
+    const currentScope = cardRenewScopeKey(session(), "SANDBOX", currentCard);
+    if (!oldScope || !currentScope) throw new Error("scopes required");
+    expect(currentScope).not.toBe(oldScope);
+
+    const gate = createCardRenewGate(oldScope);
+    const ticket = beginCardRenew(gate, oldScope, () => keys[0]!);
+    if (!ticket) throw new Error("ticket required");
+    const started = cardRenewReducer(initialCardRenewState, {
+      type: "started",
+      scopeKey: oldScope,
+      requestKey: ticket.requestKey,
+    });
+
+    syncCardRenewScope(gate, currentScope);
+    expect(acceptsCardRenewCompletion(gate, ticket, currentScope)).toBeFalse();
+    const reset = cardRenewReducer(started, { type: "reset", scopeKey: currentScope });
+    const oldSuccess = cardRenewReducer(reset, {
+      type: "succeeded",
+      requestKey: ticket.requestKey,
+      card: normalizeCardRenewResponse(response(), oldCard),
+    });
+    const oldError = cardRenewReducer(reset, {
+      type: "failed",
+      requestKey: ticket.requestKey,
+      message: "stale renewal error",
+    });
+    const oldFinally = cardRenewReducer(reset, {
+      type: "settled",
+      requestKey: ticket.requestKey,
+    });
+
+    expect(oldSuccess).toBe(reset);
+    expect(oldError).toBe(reset);
+    expect(oldFinally).toBe(reset);
+    expect(cardRenewView(started, currentScope).renewedCard).toBeNull();
+  });
+
   it("allows stale success/error/finally zero writes after identity, environment or Card changes", () => {
     const oldScope = cardRenewScopeKey(session(), "SANDBOX", card());
     if (!oldScope) throw new Error("scope required");

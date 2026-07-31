@@ -50,7 +50,11 @@ export function cardRenewScopeKey(
     card.capabilities.renew !== true ||
     !/^[A-Za-z0-9._:-]{2,128}$/.test(card.cardId) ||
     !Number.isInteger(card.expiryMonth) ||
-    !Number.isInteger(card.expiryYear)
+    card.expiryMonth! < 1 ||
+    card.expiryMonth! > 12 ||
+    !Number.isInteger(card.expiryYear) ||
+    card.expiryYear! < 2000 ||
+    card.expiryYear! > 9999
   ) {
     return null;
   }
@@ -61,6 +65,8 @@ export function cardRenewScopeKey(
     session.environment,
     runtimeEnvironment,
     card.cardId,
+    card.expiryYear,
+    card.expiryMonth,
   ]);
 }
 
