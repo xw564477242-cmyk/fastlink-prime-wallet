@@ -20,6 +20,8 @@
     "test:card-history-hook:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "test:card-history-page:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/history.mounted-pagination.test.tsx",
     "test:card-history-page:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/history.mounted-pagination.test.tsx",
+    "test:card-history-selection:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/-history.mounted-selection.test.tsx",
+    "test:card-history-selection:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-history.mounted-selection.test.tsx",
     "preview": "vite preview",
     "lint": "eslint .",
     "audit:production": "node scripts/verify-production-wallet.mjs",

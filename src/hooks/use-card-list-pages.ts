@@ -11,8 +11,8 @@ import {
   initialCardListState,
 } from "@/lib/card-list-state";
 
-function errorMessage(reason: unknown): string {
-  return reason instanceof Error ? reason.message : "Railway Backend is unavailable";
+function errorMessage(): string {
+  return "Card list is unavailable";
 }
 
 export function useCardListPages(
@@ -21,17 +21,25 @@ export function useCardListPages(
 ) {
   const [state, dispatch] = useReducer(cardListReducer, initialCardListState);
   const requestSequence = useRef(0);
+  const activePageRequest = useRef<number | null>(null);
   const preferredCardIdRef = useRef(preferredCardId);
   preferredCardIdRef.current = preferredCardId;
 
   const sessionKey = session
-    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.environment])
+    ? JSON.stringify([
+        session.actorId,
+        session.expiresAt ?? null,
+        session.tenantId,
+        session.customerId,
+        session.environment,
+      ])
     : null;
   const scopeReady = state.sessionKey === sessionKey;
   const view = cardListViewForSession(state, sessionKey);
 
   useEffect(() => {
     const requestId = ++requestSequence.current;
+    activePageRequest.current = null;
     dispatch({
       type: "reset",
       requestId,
@@ -44,9 +52,7 @@ export function useCardListPages(
     void backendApi
       .listCards({ limit: CARD_LIST_PAGE_SIZE })
       .then((page) => dispatch({ type: "page", requestId, page, append: false }))
-      .catch((reason) =>
-        dispatch({ type: "failed", requestId, message: errorMessage(reason), append: false }),
-      );
+      .catch(() => dispatch({ type: "failed", requestId, message: errorMessage(), append: false }));
 
     return () => {
       if (requestSequence.current === requestId) requestSequence.current += 1;
@@ -55,7 +61,9 @@ export function useCardListPages(
 
   const loadMore = useCallback(async () => {
     if (!scopeReady || !state.nextCursor || state.loading || state.loadingMore) return;
+    if (activePageRequest.current !== null) return;
     const requestId = ++requestSequence.current;
+    activePageRequest.current = requestId;
     dispatch({ type: "loading-more", requestId });
     try {
       const page = await backendApi.listCards({
@@ -63,8 +71,10 @@ export function useCardListPages(
         cursor: state.nextCursor,
       });
       dispatch({ type: "page", requestId, page, append: true });
-    } catch (reason) {
-      dispatch({ type: "failed", requestId, message: errorMessage(reason), append: true });
+    } catch {
+      dispatch({ type: "failed", requestId, message: errorMessage(), append: true });
+    } finally {
+      if (activePageRequest.current === requestId) activePageRequest.current = null;
     }
   }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
 
