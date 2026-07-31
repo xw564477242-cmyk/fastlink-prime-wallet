@@ -84,6 +84,18 @@ export type WalletCard = {
   };
 };
 
+export type WalletCardPage = {
+  cards: WalletCard[];
+  nextCursor: string | null;
+};
+
+export type WalletCardListQuery = {
+  limit?: number;
+  cursor?: string;
+};
+
+export const CARD_LIST_PAGE_SIZE = 20;
+
 export type WalletCardTransaction = {
   id: string;
   status: "authorized" | "declined" | "cleared" | "settled" | "reversed" | "refunded";
@@ -106,6 +118,11 @@ type BackendCardRecord = {
   alias?: unknown;
   availableBalanceMinor?: unknown;
   capabilities?: Record<string, unknown>;
+};
+
+type BackendCardPageRecord = {
+  cards?: unknown;
+  nextCursor?: unknown;
 };
 
 type BackendTransactionRecord = {
@@ -237,6 +254,53 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
   };
 }
 
+export function normalizeCardListResponse(
+  value: unknown,
+  limit = CARD_LIST_PAGE_SIZE,
+): WalletCardPage {
+  if (Array.isArray(value)) {
+    return {
+      cards: value.slice(0, limit).map((card) => normalizeCard(card as BackendCardRecord)),
+      nextCursor: null,
+    };
+  }
+  if (!value || typeof value !== "object") {
+    throw new Error("Backend returned an invalid card list page");
+  }
+  const page = value as BackendCardPageRecord;
+  if (!Array.isArray(page.cards)) {
+    throw new Error("Backend returned an invalid card list page");
+  }
+  if (
+    page.nextCursor !== null &&
+    (typeof page.nextCursor !== "string" ||
+      page.nextCursor.length > 512 ||
+      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
+  ) {
+    throw new Error("Backend returned an invalid card list cursor");
+  }
+  return {
+    cards: page.cards.slice(0, limit).map((card) => normalizeCard(card as BackendCardRecord)),
+    nextCursor: page.nextCursor,
+  };
+}
+
+export function buildCardListPath(query: WalletCardListQuery = {}): string {
+  const limit = query.limit ?? CARD_LIST_PAGE_SIZE;
+  if (!Number.isInteger(limit) || limit < 1 || limit > 50) {
+    throw new Error("Card list limit must be between 1 and 50");
+  }
+  if (
+    query.cursor !== undefined &&
+    (query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
+  ) {
+    throw new Error("Invalid card list cursor");
+  }
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (query.cursor) params.set("cursor", query.cursor);
+  return `/v1/cards?${params.toString()}`;
+}
+
 function normalizeTransaction(value: BackendTransactionRecord): WalletCardTransaction {
   const rawStatus = String(value.status ?? "").toLowerCase();
   const status = ["authorized", "declined", "cleared", "settled", "reversed", "refunded"].includes(
@@ -287,9 +351,10 @@ export const backendApi = {
     return request<BackendSession>("/v1/session");
   },
 
-  async listCards(): Promise<WalletCard[]> {
-    const cards = await request<BackendCardRecord[]>("/v1/cards");
-    return cards.map(normalizeCard);
+  async listCards(query: WalletCardListQuery = {}): Promise<WalletCardPage> {
+    const limit = query.limit ?? CARD_LIST_PAGE_SIZE;
+    const page = await request<unknown>(buildCardListPath(query));
+    return normalizeCardListResponse(page, limit);
   },
 
   async getCard(cardId: string): Promise<WalletCard> {
