@@ -100,6 +100,8 @@ export type VirtualCardCreateInput = {
   alias?: string;
 };
 
+export type CardStatusMutationAction = "freeze" | "unfreeze";
+
 export const CARD_REPLACEMENT_REASONS = ["LOST", "STOLEN", "DAMAGED", "OTHER"] as const;
 export type CardReplacementReason = (typeof CARD_REPLACEMENT_REASONS)[number];
 
@@ -914,6 +916,120 @@ export function normalizeVirtualCardCreateResponse(value: unknown): WalletCard {
     availableBalanceMinor,
     createdAt: cardRfc3339(record.createdAt),
     capabilities: strictCardCapabilities(record.capabilities),
+  };
+}
+
+function cardStatusMutationExpectation(card: WalletCard, action: CardStatusMutationAction) {
+  const cardId = cardPublicId(card.cardId);
+  if (
+    (card.type !== "virtual" && card.type !== "physical") ||
+    !/^\d{4}$/.test(card.last4) ||
+    !/^[A-Z]{3}$/.test(card.currency) ||
+    !Number.isInteger(card.expiryMonth) ||
+    card.expiryMonth === undefined ||
+    card.expiryMonth < 1 ||
+    card.expiryMonth > 12 ||
+    !Number.isInteger(card.expiryYear) ||
+    card.expiryYear === undefined ||
+    card.expiryYear < 2000 ||
+    card.expiryYear > 9999 ||
+    (action === "freeze"
+      ? card.status !== "active" || card.capabilities.freeze !== true
+      : card.status !== "frozen" || card.capabilities.unfreeze !== true)
+  ) {
+    throw new Error("Selected Card status cannot be updated");
+  }
+  const alias = card.alias === undefined ? undefined : virtualCardAlias(card.alias, true);
+  const availableBalanceMinor =
+    card.availableBalanceMinor === undefined
+      ? null
+      : cardMinorUnits(card.availableBalanceMinor, "available balance");
+  const createdAt = card.createdAt === undefined ? null : cardRfc3339(card.createdAt);
+  return { cardId, alias, availableBalanceMinor, createdAt };
+}
+
+export function buildCardStatusMutationRequest(
+  card: WalletCard,
+  action: CardStatusMutationAction,
+  idempotencyKey: string,
+): { path: string; init: RequestInit } {
+  const { cardId } = cardStatusMutationExpectation(card, action);
+  return {
+    path: `/v1/cards/${encodeURIComponent(cardId)}/${action}`,
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+    },
+  };
+}
+
+export function normalizeCardStatusMutationResponse(
+  value: unknown,
+  expectedCard: WalletCard,
+  action: CardStatusMutationAction,
+): WalletCard {
+  const expectation = cardStatusMutationExpectation(expectedCard, action);
+  const record = ownJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "last4",
+      "expiryMonth",
+      "expiryYear",
+      "currency",
+      "alias",
+      "availableBalanceMinor",
+      "createdAt",
+      "capabilities",
+    ],
+    "Backend returned an invalid Card status update",
+  );
+  const type =
+    record.type === "VIRTUAL" ? "virtual" : record.type === "PHYSICAL" ? "physical" : null;
+  const status = action === "freeze" ? "frozen" : "active";
+  const alias =
+    record.alias === null
+      ? undefined
+      : virtualCardAlias(record.alias, expectation.alias !== undefined);
+  const availableBalanceMinor = cardMinorUnits(record.availableBalanceMinor, "available balance");
+  const createdAt = record.createdAt === null ? undefined : cardRfc3339(record.createdAt);
+  const capabilities = strictCardCapabilities(record.capabilities);
+  if (
+    record.id !== expectation.cardId ||
+    type !== expectedCard.type ||
+    record.status !== status.toUpperCase() ||
+    record.last4 !== expectedCard.last4 ||
+    record.expiryMonth !== expectedCard.expiryMonth ||
+    record.expiryYear !== expectedCard.expiryYear ||
+    record.currency !== expectedCard.currency ||
+    alias !== expectation.alias ||
+    (expectation.availableBalanceMinor !== null &&
+      availableBalanceMinor !== expectation.availableBalanceMinor) ||
+    (expectation.createdAt !== null && createdAt !== expectation.createdAt) ||
+    capabilities.freeze !== (action === "unfreeze") ||
+    capabilities.unfreeze !== (action === "freeze") ||
+    capabilities.replace !== expectedCard.capabilities.replace ||
+    capabilities.renew !== expectedCard.capabilities.renew ||
+    capabilities.updateLimits !== expectedCard.capabilities.updateLimits
+  ) {
+    throw new Error("Backend returned an unexpected Card status update");
+  }
+  return {
+    cardId: expectation.cardId,
+    type,
+    status,
+    last4: expectedCard.last4,
+    expiry: expectedCard.expiry,
+    expiryMonth: expectedCard.expiryMonth,
+    expiryYear: expectedCard.expiryYear,
+    currency: expectedCard.currency,
+    alias,
+    balance: Number(availableBalanceMinor) / 100,
+    availableBalanceMinor,
+    createdAt,
+    capabilities,
   };
 }
 
@@ -2406,15 +2522,14 @@ export const backendApi = {
     return normalizeCardReplaceResponse(await request<unknown>(path, init), card);
   },
 
-  async setFrozen(cardId: string, frozen: boolean): Promise<WalletCard> {
-    const card = await request<BackendCardRecord>(
-      `/v1/cards/${encodeURIComponent(cardId)}/${frozen ? "freeze" : "unfreeze"}`,
-      {
-        method: "POST",
-        headers: { "Idempotency-Key": traceId() },
-      },
-    );
-    return normalizeCard(card);
+  async updateCardStatus(
+    card: WalletCard,
+    action: CardStatusMutationAction,
+    idempotencyKey: string,
+  ): Promise<WalletCard> {
+    requireSandboxTestCardMutationRuntime();
+    const { path, init } = buildCardStatusMutationRequest(card, action, idempotencyKey);
+    return normalizeCardStatusMutationResponse(await request<unknown>(path, init), card, action);
   },
 
   async cardTransactions(
