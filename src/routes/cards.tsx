@@ -72,7 +72,7 @@ function draftFromLimits(limits: WalletCardLimits | null): Record<CardLimitField
   };
 }
 
-function CardsPage() {
+export function CardsPage() {
   const { t } = useLang();
   const { session } = useBackendSession();
   const navigate = useNavigate({ from: "/cards" });
@@ -86,20 +86,28 @@ function CardsPage() {
     scopeReady,
     error: listError,
     loadMore,
+    refreshCards,
     selectCard,
     replaceCard,
-    prependCard,
     replaceSelectedCard,
     invalidate,
   } = useCardListPages(session, cardId ?? null);
-  const acceptCreatedCard = useCallback(
-    (card: Parameters<typeof prependCard>[0]) => {
-      prependCard(card);
-      void navigate({ search: { cardId: card.cardId }, replace: true });
-    },
-    [navigate, prependCard],
+  const defaultVirtualAlias = t("cards.defaultVirtualAlias");
+  const virtualCardInput = useMemo(
+    () => ({ currency: "USD", alias: defaultVirtualAlias }),
+    [defaultVirtualAlias],
   );
-  const virtualCardCreate = useVirtualCardCreate(session, acceptCreatedCard);
+  const acceptCreatedCard = useCallback(
+    async (card: Parameters<typeof replaceCard>[0], isCurrent: () => boolean) => {
+      if (cards.some((existing) => existing.cardId === card.cardId)) return false;
+      const confirmed = await refreshCards(card, isCurrent);
+      if (!confirmed || !isCurrent()) return false;
+      void navigate({ search: { cardId: card.cardId }, replace: true });
+      return true;
+    },
+    [cards, navigate, refreshCards],
+  );
+  const virtualCardCreate = useVirtualCardCreate(session, virtualCardInput, acceptCreatedCard);
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
@@ -214,10 +222,7 @@ function CardsPage() {
 
   const issueVirtual = async () => {
     if (!issueScopeReady || !virtualCardCreate.allowed || busy) return;
-    await virtualCardCreate.submit({
-      currency: "USD",
-      alias: t("cards.defaultVirtualAlias"),
-    });
+    await virtualCardCreate.submit();
   };
 
   const renewCurrent = async () => {

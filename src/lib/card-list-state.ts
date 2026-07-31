@@ -51,6 +51,7 @@ export type CardListAction =
       preferredCardId: string | null;
       loading: boolean;
     }
+  | { type: "arm"; requestId: number }
   | { type: "loading-more"; requestId: number }
   | { type: "page"; requestId: number; page: WalletCardPage; append: boolean }
   | { type: "failed"; requestId: number; message: string; append: boolean }
@@ -84,6 +85,8 @@ export function cardListReducer(state: CardListState, action: CardListAction): C
         loadingMore: false,
         error: null,
       };
+    case "arm":
+      return { ...state, requestId: action.requestId };
     case "loading-more":
       return {
         ...state,
