@@ -2,10 +2,12 @@ import { describe, expect, it } from "bun:test";
 import {
   buildCardListPath,
   buildCardTransactionPath,
+  buildWalletTransactionDetailPath,
   buildWalletTransactionPath,
   normalizeCardListResponse,
   normalizeCardTransactionResponse,
   normalizeWalletBalanceResponse,
+  normalizeWalletTransactionDetail,
   normalizeWalletTransactionResponse,
 } from "./backend-api";
 
@@ -357,6 +359,81 @@ describe("Wallet account history Backend adapter", () => {
         normalizeWalletTransactionResponse(
           { items: [{ ...publicWalletTransaction("tx-1"), ...patch }], nextCursor: null },
           "USD",
+        ),
+      ).toThrow();
+    }
+  });
+});
+
+describe("Wallet transaction detail Backend adapter", () => {
+  it("builds only a validated immutable transaction detail path", () => {
+    expect(buildWalletTransactionDetailPath("wallet-txn:1")).toBe(
+      "/v1/wallet/transactions/wallet-txn%3A1",
+    );
+    for (const id of ["", "x", "bad/id", "bad id", "x".repeat(129)]) {
+      expect(() => buildWalletTransactionDetailPath(id)).toThrow("Invalid Wallet transaction id");
+    }
+  });
+
+  it("accepts the exact public detail when id, account and amount match history", () => {
+    const detail = normalizeWalletTransactionDetail(publicWalletTransaction("wallet-txn-1"), {
+      transactionId: "wallet-txn-1",
+      assetCode: "USD",
+      amount: "25.5",
+    });
+
+    expect(detail).toEqual({
+      id: "wallet-txn-1",
+      type: "transfer",
+      status: "completed",
+      assetCode: "USD",
+      amount: "25.5",
+      direction: "outgoing",
+      createdAt: "2026-07-31T12:00:00.000Z",
+      updatedAt: "2026-07-31T12:00:01.000Z",
+    });
+    expect(JSON.stringify(detail)).not.toMatch(
+      /tenantId|customerId|walletAccountId|provider|THREDD|journal|metadata|raw|must-not-render/,
+    );
+  });
+
+  it("fails closed when detail differs from the selected history item", () => {
+    expect(() =>
+      normalizeWalletTransactionDetail(publicWalletTransaction("different-txn"), {
+        transactionId: "wallet-txn-1",
+        assetCode: "USD",
+        amount: "25.5",
+      }),
+    ).toThrow("Backend returned a different Wallet transaction id");
+    expect(() =>
+      normalizeWalletTransactionDetail(
+        { ...publicWalletTransaction("wallet-txn-1"), assetCode: "EUR" },
+        { transactionId: "wallet-txn-1", assetCode: "USD", amount: "25.5" },
+      ),
+    ).toThrow("Backend returned a Wallet transaction outside the selected account");
+    expect(() =>
+      normalizeWalletTransactionDetail(
+        { ...publicWalletTransaction("wallet-txn-1"), amount: "25.50" },
+        { transactionId: "wallet-txn-1", assetCode: "USD", amount: "25.5" },
+      ),
+    ).toThrow("Backend returned an inconsistent Wallet transaction amount");
+  });
+
+  it("reuses exact enums and canonical Decimal(36,18) validation", () => {
+    for (const patch of [
+      { type: "transfer" },
+      { status: "Completed" },
+      { direction: "outgoing" },
+      { amount: "025.5" },
+      { amount: "-25.5" },
+      { amount: "1e2" },
+      { amount: "1234567890123456789" },
+      { amount: "1.1234567890123456789" },
+    ]) {
+      expect(() =>
+        normalizeWalletTransactionDetail(
+          { ...publicWalletTransaction("wallet-txn-1"), ...patch },
+          { transactionId: "wallet-txn-1", assetCode: "USD", amount: "25.5" },
         ),
       ).toThrow();
     }

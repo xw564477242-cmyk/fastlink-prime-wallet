@@ -8,8 +8,10 @@ import {
   Wallet,
 } from "lucide-react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
+import { useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useWalletAccountHistory } from "@/hooks/use-wallet-account-history";
+import { useWalletTransactionDetail } from "@/hooks/use-wallet-transaction-detail";
 
 export const Route = createFileRoute("/assets/fiat")({
   head: () => ({
@@ -23,9 +25,17 @@ export const Route = createFileRoute("/assets/fiat")({
 
 function WalletAccountsPage() {
   const { session } = useBackendSession();
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const { accounts, transactions, selectAccount, loadMore } = useWalletAccountHistory(session);
   const selected =
     accounts.accounts.find((account) => account.assetCode === accounts.selectedAssetCode) ?? null;
+  const selectedTransaction =
+    transactions.items.find((item) => item.id === selectedTransactionId) ?? null;
+  const detail = useWalletTransactionDetail(
+    session,
+    selected?.assetCode ?? null,
+    selectedTransaction,
+  );
 
   return (
     <MobileShell>
@@ -84,6 +94,15 @@ function WalletAccountsPage() {
         )}
 
         <h2 className="mt-6 font-display text-lg font-semibold">Account history</h2>
+        {detail.loading && (
+          <div className="mt-3 flex items-center gap-2 rounded-2xl bg-surface p-4 text-xs text-muted-foreground">
+            <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected transaction
+          </div>
+        )}
+        {!detail.loading && detail.error && <ErrorMessage message={detail.error} />}
+        {!detail.loading && !detail.error && detail.detail && (
+          <TransactionDetail detail={detail.detail} />
+        )}
         {transactions.loading && (
           <div className="grid h-40 place-items-center">
             <Loader2 className="h-6 w-6 animate-spin text-primary" />
@@ -98,7 +117,16 @@ function WalletAccountsPage() {
               const outgoing = item.direction === "outgoing";
               const Icon = outgoing ? ArrowUpRight : ArrowDownLeft;
               return (
-                <div key={item.id} className="flex items-center gap-3 rounded-2xl bg-surface p-4">
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setSelectedTransactionId(item.id)}
+                  className={`flex w-full items-center gap-3 rounded-2xl border p-4 text-left ${
+                    item.id === selectedTransaction?.id
+                      ? "border-primary bg-primary/5"
+                      : "border-transparent bg-surface"
+                  }`}
+                >
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-muted">
                     <Icon className="h-5 w-5" />
                   </div>
@@ -112,7 +140,7 @@ function WalletAccountsPage() {
                     {outgoing ? "−" : "+"}
                     {item.amount} {item.assetCode}
                   </p>
-                </div>
+                </button>
               );
             })}
             {transactions.items.length === 0 && (
@@ -136,6 +164,39 @@ function WalletAccountsPage() {
       </div>
       <div className="h-8" />
     </MobileShell>
+  );
+}
+
+function TransactionDetail({
+  detail,
+}: {
+  detail: NonNullable<ReturnType<typeof useWalletTransactionDetail>["detail"]>;
+}) {
+  return (
+    <div className="mt-3 rounded-2xl border border-primary/30 bg-primary/5 p-4 text-xs">
+      <div className="flex items-center justify-between gap-3">
+        <p className="font-semibold">Selected transaction</p>
+        <p className="uppercase tracking-wider text-muted-foreground">{detail.status}</p>
+      </div>
+      <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-2">
+        <dt className="text-muted-foreground">ID</dt>
+        <dd translate="no" className="truncate text-right font-mono">
+          {detail.id}
+        </dd>
+        <dt className="text-muted-foreground">Type</dt>
+        <dd className="text-right">{detail.type.replaceAll("_", " ")}</dd>
+        <dt className="text-muted-foreground">Amount</dt>
+        <dd translate="no" className="text-right font-semibold tabular-nums">
+          {detail.amount} {detail.assetCode}
+        </dd>
+        <dt className="text-muted-foreground">Direction</dt>
+        <dd className="text-right">{detail.direction}</dd>
+        <dt className="text-muted-foreground">Created</dt>
+        <dd className="text-right">{new Date(detail.createdAt).toLocaleString()}</dd>
+        <dt className="text-muted-foreground">Updated</dt>
+        <dd className="text-right">{new Date(detail.updatedAt).toLocaleString()}</dd>
+      </dl>
+    </div>
   );
 }
 
