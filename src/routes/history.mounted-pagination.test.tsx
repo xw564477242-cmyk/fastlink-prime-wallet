@@ -227,7 +227,10 @@ beforeAll(async () => {
     useLang: () => ({ lang: "en", t: (key: string) => key }),
   }));
   mock.module("@tanstack/react-router", () => ({
-    createFileRoute: () => (configuration: unknown) => configuration,
+    createFileRoute: () => (configuration: object) => ({
+      ...configuration,
+      useSearch: () => ({}),
+    }),
     Link: ({ children, ...props }: { children?: unknown }) =>
       createElement("a", props, children as ReactElement),
     useRouterState: () => "/history",

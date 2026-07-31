@@ -8,6 +8,10 @@ import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardTransactionPages } from "@/hooks/use-card-transaction-pages";
 
 export const Route = createFileRoute("/history")({
+  validateSearch: (search: Record<string, unknown>): { cardId?: string } =>
+    typeof search.cardId === "string" && /^[A-Za-z0-9._:-]{2,128}$/.test(search.cardId)
+      ? { cardId: search.cardId }
+      : {},
   head: () => ({
     meta: [
       { title: "FastLink — Transaction History" },
@@ -20,8 +24,9 @@ export const Route = createFileRoute("/history")({
 export function HistoryPage() {
   const { lang, t } = useLang();
   const { session } = useBackendSession();
+  const { cardId } = Route.useSearch();
   const [query, setQuery] = useState("");
-  const cardPages = useCardListPages(session);
+  const cardPages = useCardListPages(session, cardId ?? null);
   const activeCard = cardPages.cards.find((card) => card.cardId === cardPages.activeId) ?? null;
   const transactionPages = useCardTransactionPages(session, activeCard?.cardId ?? null);
   const loading = cardPages.loading || transactionPages.loading;
