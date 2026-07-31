@@ -254,6 +254,10 @@ export type WalletOperationDetailExpectation = {
   operationId: string;
 };
 
+export type WalletTransferStatusExpectation = {
+  previous: WalletOperationActivity;
+};
+
 export const WALLET_OPERATION_PAGE_SIZE = 25;
 
 export const WALLET_TRANSACTION_PAGE_SIZE = 25;
@@ -321,13 +325,13 @@ function requireSandboxTestCardMutationRuntime(): void {
   }
 }
 
-function requireSandboxTestWalletMutationRuntime(): void {
+function requireSandboxTestWalletRuntime(): void {
   const { environment } = requireRuntime();
   if (!isVirtualCardCreateEnvironment(environment)) {
     throw new BackendApiError(
       0,
       "runtime",
-      "Wallet mutations are disabled outside SANDBOX and TEST",
+      "Wallet transfer actions are disabled outside SANDBOX and TEST",
     );
   }
 }
@@ -584,6 +588,50 @@ function ownJsonDataRecord(
       throw new Error(fieldErrorMessage?.(field) ?? errorMessage);
     }
     record[field] = descriptor.value;
+  }
+  return record;
+}
+
+function exactOwnJsonDataRecord(
+  value: unknown,
+  fields: readonly string[],
+  errorMessage: string,
+): Record<string, unknown> {
+  if (
+    !value ||
+    typeof value !== "object" ||
+    Array.isArray(value) ||
+    Object.getPrototypeOf(value) !== Object.prototype
+  ) {
+    throw new Error(errorMessage);
+  }
+  let descriptors: PropertyDescriptorMap;
+  try {
+    descriptors = Object.getOwnPropertyDescriptors(value);
+  } catch {
+    throw new Error(errorMessage);
+  }
+  const ownKeys = Reflect.ownKeys(value);
+  if (ownKeys.some((key) => typeof key !== "string")) throw new Error(errorMessage);
+  const actualFields = ownKeys.slice().sort() as string[];
+  const expectedFields = [...fields].sort();
+  if (
+    actualFields.length !== expectedFields.length ||
+    actualFields.some((field, index) => field !== expectedFields[index])
+  ) {
+    throw new Error(errorMessage);
+  }
+  const record: Record<string, unknown> = {};
+  for (const field of fields) {
+    const descriptor = descriptors[field];
+    if (!descriptor || !("value" in descriptor)) throw new Error(errorMessage);
+    record[field] = descriptor.value;
+  }
+  try {
+    if (typeof structuredClone !== "function") throw new Error("unavailable");
+    structuredClone(value);
+  } catch {
+    throw new Error(errorMessage);
   }
   return record;
 }
@@ -1789,6 +1837,94 @@ function normalizeWalletOperation(value: unknown): WalletOperationActivity {
   };
 }
 
+const WALLET_TRANSFER_STATUS_TRANSITIONS: Readonly<
+  Record<WalletOperationActivity["status"], readonly WalletOperationActivity["status"][]>
+> = {
+  processing: ["processing", "pending_settlement", "completed", "failed"],
+  pending_settlement: ["pending_settlement", "completed", "failed"],
+  completed: ["completed"],
+  failed: ["failed"],
+};
+
+export function normalizeWalletTransferStatusExpectation(
+  expectation: WalletTransferStatusExpectation,
+): WalletOperationActivity {
+  const previous = expectation.previous;
+  buildWalletOperationDetailPath(previous.id);
+  if (
+    previous.type !== "internal_transfer" ||
+    (previous.direction !== "outgoing" && previous.direction !== "between_own_accounts") ||
+    !WALLET_TRANSFER_STATUS_TRANSITIONS[previous.status]
+  ) {
+    throw new Error("Invalid Wallet transfer status expectation");
+  }
+  const amount = canonicalWalletTransferAmount(previous.amount);
+  const createdAt = walletRfc3339(previous.createdAt, "createdAt");
+  const updatedAt = walletRfc3339(previous.updatedAt, "updatedAt");
+  const completedAt =
+    previous.completedAt === null ? null : walletRfc3339(previous.completedAt, "completedAt");
+  if (
+    Date.parse(updatedAt) < Date.parse(createdAt) ||
+    (completedAt !== null && Date.parse(completedAt) < Date.parse(createdAt)) ||
+    (previous.status === "completed" && completedAt === null) ||
+    ((previous.status === "processing" || previous.status === "pending_settlement") &&
+      completedAt !== null)
+  ) {
+    throw new Error("Invalid Wallet transfer status expectation");
+  }
+  return {
+    ...previous,
+    assetCode: walletAssetCode(previous.assetCode),
+    amount,
+    createdAt,
+    completedAt,
+    updatedAt,
+  };
+}
+
+export function normalizeWalletTransferStatusResponse(
+  value: unknown,
+  expectation: WalletTransferStatusExpectation,
+): WalletOperationActivity {
+  const previous = normalizeWalletTransferStatusExpectation(expectation);
+  const exact = exactOwnJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "assetCode",
+      "amount",
+      "direction",
+      "createdAt",
+      "completedAt",
+      "updatedAt",
+    ],
+    "Backend returned an invalid Wallet transfer status",
+  );
+  const current = normalizeWalletOperation(exact);
+  const amount = canonicalWalletTransferAmount(current.amount);
+  if (
+    current.id !== previous.id ||
+    current.type !== previous.type ||
+    current.assetCode !== previous.assetCode ||
+    amount !== previous.amount ||
+    current.direction !== previous.direction ||
+    current.createdAt !== previous.createdAt ||
+    !WALLET_TRANSFER_STATUS_TRANSITIONS[previous.status].includes(current.status) ||
+    Date.parse(current.updatedAt) < Date.parse(previous.updatedAt) ||
+    (previous.completedAt !== null && current.completedAt !== previous.completedAt) ||
+    (current.completedAt !== null &&
+      Date.parse(current.completedAt) < Date.parse(current.createdAt)) ||
+    (current.status === "completed" && current.completedAt === null) ||
+    ((current.status === "processing" || current.status === "pending_settlement") &&
+      current.completedAt !== null)
+  ) {
+    throw new Error("Backend returned an inconsistent Wallet transfer status");
+  }
+  return { ...current, amount };
+}
+
 export function buildWalletOperationDetailPath(operationId: string): string {
   if (!/^[A-Za-z0-9._:-]{2,128}$/.test(operationId)) {
     throw new Error("Invalid Wallet operation id");
@@ -1998,7 +2134,7 @@ export const backendApi = {
     input: WalletTransferInput,
     idempotencyKey: string,
   ): Promise<WalletOperationActivity> {
-    requireSandboxTestWalletMutationRuntime();
+    requireSandboxTestWalletRuntime();
     const { path, init } = buildWalletTransferRequest(source, input, idempotencyKey);
     return normalizeWalletTransferResponse(await request<unknown>(path, init), source, input);
   },
@@ -2033,5 +2169,13 @@ export const backendApi = {
   ): Promise<WalletOperationActivity> {
     const result = await request<unknown>(buildWalletOperationDetailPath(expectation.operationId));
     return normalizeWalletOperationDetail(result, expectation);
+  },
+
+  async walletTransferStatus(
+    expectation: WalletTransferStatusExpectation,
+  ): Promise<WalletOperationActivity> {
+    requireSandboxTestWalletRuntime();
+    const result = await request<unknown>(buildWalletOperationDetailPath(expectation.previous.id));
+    return normalizeWalletTransferStatusResponse(result, expectation);
   },
 };

@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeftRight, ChevronLeft, Loader2, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowLeftRight, ChevronLeft, Loader2, RefreshCw, ShieldCheck, Wallet } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { useWalletTransferAccounts } from "@/hooks/use-wallet-transfer-accounts";
-import { useWalletTransferMutation } from "@/hooks/use-wallet-transfer-mutation";
+import {
+  useWalletTransferMutation,
+  type AcceptedWalletTransfer,
+} from "@/hooks/use-wallet-transfer-mutation";
+import { useWalletTransferStatusRefresh } from "@/hooks/use-wallet-transfer-status-refresh";
 import {
   backendRuntime,
   isVirtualCardCreateEnvironment,
@@ -33,6 +37,11 @@ function InternalWalletTransferPage() {
   const [amount, setAmount] = useState("");
   const [receipt, setReceipt] = useState<{
     contextKey: string;
+    sourceAccountId: string;
+    destinationAccountId: string;
+    amount: string;
+    transferRequestKey: string;
+    transferGeneration: number;
     operation: WalletOperationActivity;
   } | null>(null);
   const activeAccounts = useMemo(
@@ -66,14 +75,32 @@ function InternalWalletTransferPage() {
 
   const input = useMemo(() => ({ destinationAccountId, amount }), [amount, destinationAccountId]);
   const handleAccepted = useCallback(
-    (operation: WalletOperationActivity) => {
-      if (!receiptContextKey) return;
-      setReceipt({ contextKey: receiptContextKey, operation });
+    (accepted: AcceptedWalletTransfer) => {
+      if (!receiptContextKey || !source) return;
+      setReceipt({
+        contextKey: receiptContextKey,
+        sourceAccountId: source.id,
+        destinationAccountId: accepted.input.destinationAccountId,
+        amount: accepted.input.amount,
+        transferRequestKey: accepted.transferRequestKey,
+        transferGeneration: accepted.transferGeneration,
+        operation: accepted.operation,
+      });
       refreshAccounts();
     },
-    [receiptContextKey, refreshAccounts],
+    [receiptContextKey, refreshAccounts, source],
   );
   const transfer = useWalletTransferMutation(session, source, input, handleAccepted);
+  const handleStatusRefreshed = useCallback((operation: WalletOperationActivity) => {
+    setReceipt((current) =>
+      current && current.operation.id === operation.id ? { ...current, operation } : current,
+    );
+  }, []);
+  const statusRefresh = useWalletTransferStatusRefresh(
+    session,
+    visibleReceipt ? receipt : null,
+    handleStatusRefreshed,
+  );
   const runtimeAllowed =
     backendRuntime.error === null && isVirtualCardCreateEnvironment(backendRuntime.environment);
 
@@ -204,7 +231,9 @@ function InternalWalletTransferPage() {
           </section>
         )}
 
-        {visibleReceipt && <TransferReceipt operation={visibleReceipt} />}
+        {visibleReceipt && (
+          <TransferReceipt operation={visibleReceipt} statusRefresh={statusRefresh} />
+        )}
       </main>
     </MobileShell>
   );
@@ -227,7 +256,13 @@ function Message({ text }: { text: string }) {
   );
 }
 
-function TransferReceipt({ operation }: { operation: WalletOperationActivity }) {
+function TransferReceipt({
+  operation,
+  statusRefresh,
+}: {
+  operation: WalletOperationActivity;
+  statusRefresh: ReturnType<typeof useWalletTransferStatusRefresh>;
+}) {
   return (
     <section className="mt-4 rounded-3xl border border-primary/30 bg-primary/5 p-5">
       <h2 className="font-display text-base font-semibold">Wallet operation accepted</h2>
@@ -243,6 +278,19 @@ function TransferReceipt({ operation }: { operation: WalletOperationActivity }) 
       </dl>
       <p className="mt-3 break-all text-[10px] text-muted-foreground">
         Operation ID: {operation.id}
+      </p>
+      {statusRefresh.error && <Message text={statusRefresh.error} />}
+      <button
+        type="button"
+        disabled={!statusRefresh.allowed || statusRefresh.loading}
+        onClick={() => void statusRefresh.refresh()}
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl border border-primary/30 bg-background py-3 text-xs font-semibold text-primary disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <RefreshCw className={`h-4 w-4 ${statusRefresh.loading ? "animate-spin" : ""}`} />
+        {statusRefresh.loading ? "Refreshing once…" : "Refresh operation status"}
+      </button>
+      <p className="mt-2 text-center text-[10px] text-muted-foreground">
+        Manual read only. No polling, retry, or new transfer request.
       </p>
     </section>
   );
