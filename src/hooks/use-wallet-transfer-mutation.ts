@@ -54,7 +54,7 @@ export function useWalletTransferMutation(
   }, [scopeKey]);
 
   const submit = useCallback(async (): Promise<boolean> => {
-    if (!scopeKey || !source) return false;
+    if (!scopeKey || !session || !source) return false;
     let ticket;
     try {
       ticket = beginWalletTransferMutation(gate.current, scopeKey, source, input);
@@ -66,6 +66,7 @@ export function useWalletTransferMutation(
 
     try {
       const operation = await backendApi.createWalletTransfer(
+        session,
         source,
         ticket.input,
         ticket.idempotencyKey,
@@ -93,7 +94,7 @@ export function useWalletTransferMutation(
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [input, onAccepted, scopeKey, source]);
+  }, [input, onAccepted, scopeKey, session, source]);
 
   return { ...view, allowed: scopeKey !== null, submit };
 }

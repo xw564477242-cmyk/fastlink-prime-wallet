@@ -1,6 +1,6 @@
 import {
-  isVirtualCardCreateEnvironment,
   normalizeWalletTransferStatusExpectation,
+  walletTransferSessionAllowed,
   type BackendSession,
   type FastLinkEnvironment,
   type WalletOperationActivity,
@@ -72,8 +72,7 @@ export function walletTransferStatusRefreshScopeKey(
   if (
     !session ||
     !runtimeEnvironment ||
-    session.environment !== runtimeEnvironment ||
-    !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    !walletTransferSessionAllowed(session, runtimeEnvironment) ||
     !context
   ) {
     return null;
@@ -82,6 +81,7 @@ export function walletTransferStatusRefreshScopeKey(
     const receipt = receiptContext(context);
     return JSON.stringify([
       session.actorId,
+      session.expiresAt,
       session.tenantId,
       session.customerId,
       session.environment,

@@ -18,6 +18,12 @@ type Deferred<T> = {
 const originalFetch = globalThis.fetch;
 let renderer: ReactTestRenderer | null = null;
 let latest: HookResult | null = null;
+const configuredTestEnvironment =
+  !backendRuntime.error &&
+  backendRuntime.apiUrl === "/api" &&
+  (backendRuntime.environment === "SANDBOX" || backendRuntime.environment === "TEST")
+    ? backendRuntime.environment
+    : null;
 
 function testEnvironment(): "SANDBOX" | "TEST" {
   if (backendRuntime.environment !== "SANDBOX" && backendRuntime.environment !== "TEST") {
@@ -167,7 +173,10 @@ afterEach(async () => {
   globalThis.fetch = originalFetch;
 });
 
-describe(`Selected Card transaction hook safety (${testEnvironment()})`, () => {
+const describeConfiguredEnvironment = configuredTestEnvironment ? describe : describe.skip;
+const hookSafetyTitle = `Selected Card transaction hook safety (${configuredTestEnvironment ?? "ENVIRONMENT_REQUIRED"})`;
+
+describeConfiguredEnvironment(hookSafetyTitle, () => {
   it("hides old rows and cursor for every session and Card scope change before the new read settles", async () => {
     const changes: Array<{ label: string; next: BackendSession; cardId?: string }> = [
       { label: "actor", next: session({ actorId: "actor-card-history-hook-02" }) },
@@ -323,7 +332,11 @@ describe(`Selected Card transaction hook safety (${testEnvironment()})`, () => {
         secret: "oversized-provider-secret",
         response: () =>
           rawResponse(
-            JSON.stringify({ transactions: [], nextCursor: null, providerDebug: oversizedSecret }),
+            JSON.stringify({
+              transactions: [],
+              nextCursor: null,
+              providerDebug: oversizedSecret,
+            }),
           ),
       },
       {

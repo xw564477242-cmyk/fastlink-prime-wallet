@@ -62,6 +62,7 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
     tenantId: "tenant-01",
     customerId: "customer-01",
     environment: "SANDBOX",
+    expiresAt: "2099-08-01T08:00:00.000Z",
     ...overrides,
   };
 }
@@ -293,6 +294,13 @@ describe("Wallet transfer status scope and manual request isolation", () => {
     ).not.toBeNull();
     expect(walletTransferStatusRefreshScopeKey(session(), "TEST", receipt())).toBeNull();
     expect(walletTransferStatusRefreshScopeKey(session(), "PRODUCTION", receipt())).toBeNull();
+    expect(
+      walletTransferStatusRefreshScopeKey(
+        session({ expiresAt: "2020-08-01T08:00:00.000Z" }),
+        "SANDBOX",
+        receipt(),
+      ),
+    ).toBeNull();
     expect(walletTransferStatusRefreshScopeKey(null, "SANDBOX", receipt())).toBeNull();
   });
 
@@ -301,6 +309,7 @@ describe("Wallet transfer status scope and manual request isolation", () => {
     expect(original).not.toBeNull();
     const variants: Array<[BackendSession, "SANDBOX" | "TEST", WalletTransferReceiptContext]> = [
       [session({ actorId: "actor-02" }), "SANDBOX", receipt()],
+      [session({ expiresAt: "2099-08-01T08:01:00.000Z" }), "SANDBOX", receipt()],
       [session({ tenantId: "tenant-02" }), "SANDBOX", receipt()],
       [session({ customerId: "customer-02" }), "SANDBOX", receipt()],
       [session({ environment: "TEST" }), "TEST", receipt()],

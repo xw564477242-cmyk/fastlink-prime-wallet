@@ -12,6 +12,8 @@
     "test:transfer-refresh-integration:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/lib/wallet-transfer-status-refresh.integration.ts",
     "test:card-history-integration:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/lib/card-transaction-history.integration.ts",
     "test:card-history-integration:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/lib/card-transaction-history.integration.ts",
+    "test:internal-transfer-integration:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/lib/wallet-transfer-consumer.integration.ts",
+    "test:internal-transfer-integration:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/lib/wallet-transfer-consumer.integration.ts",
     "test:card-history-hook:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "test:card-history-hook:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "preview": "vite preview",

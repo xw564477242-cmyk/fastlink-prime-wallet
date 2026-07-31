@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Run public contract adversarial matrices
-        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts
+        run: bun test src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-account-state.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts
 
       - name: Run Wallet transfer refresh integration safety in SANDBOX
         run: bun run test:transfer-refresh-integration:sandbox
@@ -58,6 +58,12 @@ jobs:
 
       - name: Run Card history integration safety in TEST
         run: bun run test:card-history-integration:test
+
+      - name: Run Internal transfer integration safety in SANDBOX
+        run: bun run test:internal-transfer-integration:sandbox
+
+      - name: Run Internal transfer integration safety in TEST
+        run: bun run test:internal-transfer-integration:test
 
       - name: Run Card history hook safety in SANDBOX
         run: bun run test:card-history-hook:sandbox
@@ -81,8 +87,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          printf '{"format":"fastlink-prime-wallet-pr-evidence-v15","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"manualReadEnvironments":["SANDBOX","TEST"],"integrationEnvironments":["SANDBOX","TEST"],"integrationSuites":["src/lib/wallet-transfer-status-refresh.integration.ts","src/lib/card-transaction-history.integration.ts"],"hookSafetySuites":["src/hooks/use-card-transaction-pages.test.tsx"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts","src/lib/wallet-transfer-status-refresh-adversarial.test.ts","src/lib/wallet-balance-summary-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
-          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts src/lib/card-transaction-history.integration.ts src/hooks/use-card-transaction-pages.ts src/hooks/use-card-transaction-pages.test.tsx src/lib/card-transaction-state.ts > build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-pr-evidence-v16","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"manualReadEnvironments":["SANDBOX","TEST"],"integrationEnvironments":["SANDBOX","TEST"],"integrationSuites":["src/lib/wallet-transfer-status-refresh.integration.ts","src/lib/card-transaction-history.integration.ts","src/lib/wallet-transfer-consumer.integration.ts"],"hookSafetySuites":["src/hooks/use-card-transaction-pages.test.tsx"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts","src/lib/wallet-transfer-account-state.test.ts","src/lib/wallet-transfer-status-refresh-adversarial.test.ts","src/lib/wallet-balance-summary-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
+          sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-account-state.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts src/lib/card-transaction-history.integration.ts src/lib/wallet-transfer-consumer.integration.ts src/hooks/use-card-transaction-pages.ts src/hooks/use-card-transaction-pages.test.tsx src/lib/card-transaction-state.ts > build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -101,10 +107,12 @@ jobs:
             src/lib/card-replace-adversarial.test.ts
             src/lib/card-limits-mutation-adversarial.test.ts
             src/lib/wallet-transfer-mutation-adversarial.test.ts
+            src/lib/wallet-transfer-account-state.test.ts
             src/lib/wallet-transfer-status-refresh-adversarial.test.ts
             src/lib/wallet-balance-summary-adversarial.test.ts
             src/lib/wallet-transfer-status-refresh.integration.ts
             src/lib/card-transaction-history.integration.ts
+            src/lib/wallet-transfer-consumer.integration.ts
             src/hooks/use-card-transaction-pages.ts
             src/hooks/use-card-transaction-pages.test.tsx
             src/lib/card-transaction-state.ts
