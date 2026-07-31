@@ -64,6 +64,7 @@ export type BackendSession = {
   tenantId: string;
   customerId: string;
   environment: FastLinkEnvironment;
+  expiresAt?: string;
 };
 
 export type BackendCredentials = {
@@ -183,6 +184,10 @@ export type WalletAssetAccount = {
   pendingBalance: string;
   updatedAt: string;
 };
+
+export const WALLET_BALANCE_SUMMARY_PATH = "/v1/wallet/balances";
+export const WALLET_BALANCE_SUMMARY_MAX_ITEMS = 50;
+export const WALLET_BALANCE_SUMMARY_MAX_JSON_BYTES = 32_768;
 
 export type WalletTransferAccount = {
   id: string;
@@ -332,6 +337,27 @@ function requireSandboxTestWalletRuntime(): void {
       0,
       "runtime",
       "Wallet transfer actions are disabled outside SANDBOX and TEST",
+    );
+  }
+}
+
+export function walletBalanceSummaryReadAllowed(
+  sessionEnvironment: FastLinkEnvironment,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+): boolean {
+  return (
+    sessionEnvironment === runtimeEnvironment &&
+    (runtimeEnvironment === "SANDBOX" || runtimeEnvironment === "TEST")
+  );
+}
+
+function requireSandboxTestWalletBalanceRuntime(sessionEnvironment: FastLinkEnvironment): void {
+  const { environment } = requireRuntime();
+  if (!walletBalanceSummaryReadAllowed(sessionEnvironment, environment)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Wallet balance summary is available only in the matching SANDBOX or TEST session",
     );
   }
 }
@@ -1435,6 +1461,81 @@ function walletAssetCode(value: unknown): string {
   return value;
 }
 
+function walletBalanceTimestamp(value: unknown): string {
+  if (typeof value !== "string") {
+    throw new Error("Backend returned an invalid Wallet balance timestamp");
+  }
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d\.\d{3}Z$/.exec(value);
+  if (!match) throw new Error("Backend returned an invalid Wallet balance timestamp");
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const leapYear = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const days = [31, leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (year < 1 || month < 1 || month > 12 || day < 1 || day > (days[month - 1] ?? 0)) {
+    throw new Error("Backend returned an invalid Wallet balance timestamp");
+  }
+  return value;
+}
+
+function walletBalanceDecimal(value: unknown, field: string): string {
+  if (
+    typeof value !== "string" ||
+    value.length > 38 ||
+    !/^-?(?:0|[1-9]\d{0,17})(?:\.\d{1,18})?$/.test(value) ||
+    value === "-0" ||
+    (value.includes(".") && value.endsWith("0"))
+  ) {
+    throw new Error(`Backend returned an invalid Wallet ${field}`);
+  }
+  return value;
+}
+
+function walletBalanceMantissa(value: string): bigint {
+  const negative = value.startsWith("-");
+  const unsigned = negative ? value.slice(1) : value;
+  const [integer, fraction = ""] = unsigned.split(".");
+  const mantissa = BigInt(`${integer}${fraction.padEnd(18, "0")}`);
+  return negative ? -mantissa : mantissa;
+}
+
+function exactTrustedJsonRecord(
+  value: unknown,
+  fields: readonly string[],
+  errorMessage: string,
+): Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) throw new Error(errorMessage);
+  if (Object.getPrototypeOf(value) !== Object.prototype) throw new Error(errorMessage);
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  const ownKeys = Reflect.ownKeys(descriptors);
+  if (
+    ownKeys.length !== fields.length ||
+    ownKeys.some((key) => typeof key !== "string" || !fields.includes(key))
+  ) {
+    throw new Error(errorMessage);
+  }
+  const record: Record<string, unknown> = {};
+  for (const field of fields) {
+    const descriptor = descriptors[field];
+    if (!descriptor || !("value" in descriptor)) throw new Error(errorMessage);
+    record[field] = descriptor.value;
+  }
+  return record;
+}
+
+function denseTrustedJsonArray(value: unknown, maximum: number, errorMessage: string): unknown[] {
+  if (!Array.isArray(value) || value.length > maximum) throw new Error(errorMessage);
+  const descriptors = Object.getOwnPropertyDescriptors(value);
+  if (Reflect.ownKeys(descriptors).length !== value.length + 1) throw new Error(errorMessage);
+  const items: unknown[] = [];
+  for (let index = 0; index < value.length; index += 1) {
+    const descriptor = descriptors[String(index)];
+    if (!descriptor || !("value" in descriptor)) throw new Error(errorMessage);
+    items.push(descriptor.value);
+  }
+  return items;
+}
+
 function walletTimestamp(value: unknown, field: string): string {
   if (typeof value !== "string" || value.length > 64 || !Number.isFinite(Date.parse(value))) {
     throw new Error(`Backend returned an invalid Wallet ${field}`);
@@ -1457,27 +1558,58 @@ function walletDecimal(value: unknown, field: string, absolute = false): string 
   return value;
 }
 
-export function normalizeWalletBalanceResponse(value: unknown): WalletAssetAccount[] {
-  if (!value || typeof value !== "object") {
+export function normalizeWalletBalanceResponse(rawJson: string): WalletAssetAccount[] {
+  if (typeof rawJson !== "string" || rawJson.length > WALLET_BALANCE_SUMMARY_MAX_JSON_BYTES) {
     throw new Error("Backend returned an invalid Wallet balance response");
   }
-  const items = (value as { items?: unknown }).items;
-  if (!Array.isArray(items) || items.length > 50) {
+  if (new TextEncoder().encode(rawJson).byteLength > WALLET_BALANCE_SUMMARY_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an oversized Wallet balance response");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
     throw new Error("Backend returned an invalid Wallet balance response");
   }
-  return items.map((item) => {
-    if (!item || typeof item !== "object") {
-      throw new Error("Backend returned an invalid Wallet balance account");
+  const response = exactTrustedJsonRecord(
+    parsed,
+    ["items"],
+    "Backend returned an invalid Wallet balance response",
+  );
+  const items = denseTrustedJsonArray(
+    response.items,
+    WALLET_BALANCE_SUMMARY_MAX_ITEMS,
+    "Backend returned an invalid Wallet balance response",
+  );
+  const accounts = items.map((item) => {
+    const record = exactTrustedJsonRecord(
+      item,
+      ["assetCode", "availableBalance", "ledgerBalance", "pendingBalance", "updatedAt"],
+      "Backend returned an invalid Wallet balance account",
+    ) as BackendWalletBalanceRecord;
+    const availableBalance = walletBalanceDecimal(record.availableBalance, "available balance");
+    const ledgerBalance = walletBalanceDecimal(record.ledgerBalance, "ledger balance");
+    const pendingBalance = walletBalanceDecimal(record.pendingBalance, "pending balance");
+    if (
+      walletBalanceMantissa(availableBalance) + walletBalanceMantissa(pendingBalance) !==
+      walletBalanceMantissa(ledgerBalance)
+    ) {
+      throw new Error("Backend returned an inconsistent Wallet balance account");
     }
-    const record = item as BackendWalletBalanceRecord;
-    return {
+    return Object.freeze({
       assetCode: walletAssetCode(record.assetCode),
-      availableBalance: walletDecimal(record.availableBalance, "available balance"),
-      ledgerBalance: walletDecimal(record.ledgerBalance, "ledger balance"),
-      pendingBalance: walletDecimal(record.pendingBalance, "pending balance"),
-      updatedAt: walletTimestamp(record.updatedAt, "balance timestamp"),
-    };
+      availableBalance,
+      ledgerBalance,
+      pendingBalance,
+      updatedAt: walletBalanceTimestamp(record.updatedAt),
+    });
   });
+  for (let index = 1; index < accounts.length; index += 1) {
+    if (accounts[index - 1].assetCode >= accounts[index].assetCode) {
+      throw new Error("Backend returned an invalid Wallet balance account order");
+    }
+  }
+  return accounts;
 }
 
 export function buildWalletTransactionPath(query: WalletAccountTransactionQuery): string {
@@ -2150,8 +2282,13 @@ export const backendApi = {
     return normalizeCardTransactionResponse(result, limit);
   },
 
-  async walletBalanceAccounts(): Promise<WalletAssetAccount[]> {
-    return normalizeWalletBalanceResponse(await request<unknown>("/v1/wallet/balances"));
+  async walletBalanceAccounts(
+    sessionEnvironment: FastLinkEnvironment,
+  ): Promise<WalletAssetAccount[]> {
+    requireSandboxTestWalletBalanceRuntime(sessionEnvironment);
+    return normalizeWalletBalanceResponse(
+      await request<string>(WALLET_BALANCE_SUMMARY_PATH, {}, "text"),
+    );
   },
 
   async walletTransferAccounts(): Promise<WalletTransferAccount[]> {
