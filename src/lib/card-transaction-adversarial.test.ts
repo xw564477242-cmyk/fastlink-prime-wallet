@@ -6,6 +6,7 @@ import {
 } from "./backend-api";
 import {
   cardTransactionReducer,
+  cardTransactionRequestKey,
   cardTransactionViewForScope,
   initialCardTransactionState,
 } from "./card-transaction-state";
@@ -245,9 +246,10 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     const state = {
       ...initialCardTransactionState,
       scopeKey: scope(baseScope),
-      requestId: 7,
+      activeRequestKey: "request-7",
       transactions: [transaction],
       nextCursor: "cursor-old",
+      seenCursors: ["cursor-old"],
     };
     for (let index = 0; index < baseScope.length; index += 1) {
       const changed = [...baseScope];
@@ -260,18 +262,24 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     const loaded = {
       ...initialCardTransactionState,
       scopeKey: scope(baseScope),
-      requestId: 1,
+      activeRequestKey: "request-1",
       transactions: [transaction],
       nextCursor: "cursor-1",
+      seenCursors: ["cursor-1"],
     };
-    const loadingMore = cardTransactionReducer(loaded, { type: "loading-more", requestId: 2 });
-    expect(loadingMore.requestId).toBe(2);
+    const loadingMore = cardTransactionReducer(loaded, {
+      type: "loading-more",
+      requestKey: "request-2",
+      requestCursor: "cursor-1",
+    });
+    expect(loadingMore.activeRequestKey).toBe("request-2");
     expect(loadingMore.nextCursor).toBe("cursor-1");
 
     expect(
       cardTransactionReducer(loadingMore, {
         type: "page",
-        requestId: 1,
+        requestKey: "request-1",
+        requestCursor: "cursor-1",
         page: { transactions: [], nextCursor: "cursor-stale" },
         append: true,
       }),
@@ -279,7 +287,7 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     expect(
       cardTransactionReducer(loadingMore, {
         type: "failed",
-        requestId: 1,
+        requestKey: "request-1",
         message: "stale",
         append: true,
       }),
@@ -290,13 +298,14 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     const current = cardTransactionReducer(initialCardTransactionState, {
       type: "reset",
       scopeKey: scope(baseScope),
-      requestId: 3,
+      requestKey: cardTransactionRequestKey(scope(baseScope), null, 3),
       loading: true,
     });
     expect(
       cardTransactionReducer(current, {
         type: "page",
-        requestId: 2,
+        requestKey: cardTransactionRequestKey(scope(baseScope), null, 2),
+        requestCursor: null,
         page: { transactions: [transaction], nextCursor: "cursor-stale" },
         append: false,
       }),
@@ -304,7 +313,7 @@ describe("Selected-Card transaction scope, cursor, and generation matrix", () =>
     expect(
       cardTransactionReducer(current, {
         type: "failed",
-        requestId: 2,
+        requestKey: cardTransactionRequestKey(scope(baseScope), null, 2),
         message: "stale",
         append: false,
       }),
