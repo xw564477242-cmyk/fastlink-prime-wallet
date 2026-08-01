@@ -258,6 +258,8 @@ export type WalletTransactionTypeFilter = (typeof WALLET_TRANSACTION_TYPES)[numb
 export const WALLET_TRANSACTION_STATUSES = ["PENDING", "COMPLETED", "FAILED", "REVERSED"] as const;
 export type WalletTransactionStatusFilter = (typeof WALLET_TRANSACTION_STATUSES)[number];
 export const WALLET_TRANSACTION_FILTER_VERSION = 1;
+export const WALLET_TRANSACTION_MAX_JSON_BYTES = 65_536;
+export const WALLET_TRANSACTION_MAX_CURSOR_LENGTH = 512;
 
 export type WalletAccountTransactionQuery = {
   assetCode: string;
@@ -1915,10 +1917,11 @@ export function buildWalletTransactionPath(query: WalletAccountTransactionQuery)
 }
 
 function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid Wallet transaction");
-  }
-  const record = value as BackendWalletTransactionRecord;
+  const record = ownJsonDataRecord(
+    value,
+    ["id", "type", "status", "assetCode", "amount", "direction", "createdAt", "updatedAt"],
+    "Backend returned an invalid Wallet transaction",
+  ) as BackendWalletTransactionRecord;
   if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
     throw new Error("Backend returned an invalid Wallet transaction id");
   }
@@ -2485,23 +2488,42 @@ export function normalizeWalletTransactionResponse(
       `Wallet transaction limit must be between 1 and ${WALLET_TRANSACTION_PAGE_SIZE}`,
     );
   }
-  if (!value || typeof value !== "object") {
-    throw new Error("Backend returned an invalid Wallet transaction page");
+  let parsed = value;
+  if (typeof value === "string") {
+    if (
+      value.length > WALLET_TRANSACTION_MAX_JSON_BYTES ||
+      new TextEncoder().encode(value).byteLength > WALLET_TRANSACTION_MAX_JSON_BYTES
+    ) {
+      throw new Error("Backend returned an oversized Wallet transaction page");
+    }
+    try {
+      parsed = JSON.parse(value) as unknown;
+    } catch {
+      throw new Error("Backend returned an invalid Wallet transaction page");
+    }
   }
-  const page = value as BackendWalletTransactionPageRecord;
-  if (!Array.isArray(page.items) || page.items.length > limit) {
+  const page = ownJsonDataRecord(
+    parsed,
+    ["items", "nextCursor"],
+    "Backend returned an invalid Wallet transaction page",
+  ) as BackendWalletTransactionPageRecord;
+  const rawItems = ownJsonArray(page.items, "Backend returned an invalid Wallet transaction page");
+  if (rawItems.length > limit) {
     throw new Error("Backend returned an invalid Wallet transaction page");
   }
   if (
     page.nextCursor !== null &&
     (typeof page.nextCursor !== "string" ||
       !page.nextCursor ||
-      page.nextCursor.length > 512 ||
+      page.nextCursor.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
       !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
   ) {
     throw new Error("Backend returned an invalid Wallet transaction cursor");
   }
-  const items = page.items.map(normalizeWalletTransaction);
+  const items = rawItems.map(normalizeWalletTransaction);
+  if (new Set(items.map((item) => item.id)).size !== items.length) {
+    throw new Error("Backend returned duplicate Wallet transaction ids");
+  }
   if (items.some((item) => item.assetCode !== assetCode)) {
     throw new Error("Backend returned a Wallet transaction outside the selected account");
   }
@@ -2681,7 +2703,7 @@ export const backendApi = {
   ): Promise<WalletAccountTransactionPage> {
     requireSandboxTestWalletTransactionRuntime(session);
     const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
-    const result = await request<unknown>(buildWalletTransactionPath(query), { signal });
+    const result = await request<string>(buildWalletTransactionPath(query), { signal }, "text");
     return normalizeWalletTransactionResponse(result, query.assetCode, limit, query);
   },
 

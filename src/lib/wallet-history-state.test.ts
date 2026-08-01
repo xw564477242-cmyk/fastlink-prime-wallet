@@ -214,5 +214,40 @@ describe("Wallet transaction state", () => {
     );
     expect(failed.items.map((item) => item.id)).toEqual(["tx-2", "tx-1", "tx-0"]);
     expect(failed.nextCursor).toBe("cursor-0");
+
+    const duplicatePage = walletTransactionReducer(
+      {
+        ...failed,
+        activeRequestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 5),
+        loadingMore: true,
+      },
+      {
+        type: "page",
+        requestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 5),
+        requestCursor: "cursor-0",
+        page: { items: [transaction("tx-1")], nextCursor: "cursor-next" },
+        append: true,
+      },
+    );
+    expect(duplicatePage.items.map((item) => item.id)).toEqual(["tx-2", "tx-1", "tx-0"]);
+    expect(duplicatePage.nextCursor).toBe("cursor-0");
+    expect(duplicatePage.error).toBe("Backend returned inconsistent Wallet transaction pagination");
+
+    const repeatedCursor = walletTransactionReducer(
+      {
+        ...failed,
+        activeRequestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 6),
+        loadingMore: true,
+      },
+      {
+        type: "page",
+        requestKey: walletTransactionRequestKey("scope-usd", "cursor-0", 6),
+        requestCursor: "cursor-0",
+        page: { items: [transaction("tx-new")], nextCursor: "cursor-0" },
+        append: true,
+      },
+    );
+    expect(repeatedCursor.items.map((item) => item.id)).toEqual(["tx-2", "tx-1", "tx-0"]);
+    expect(repeatedCursor.nextCursor).toBe("cursor-0");
   });
 });

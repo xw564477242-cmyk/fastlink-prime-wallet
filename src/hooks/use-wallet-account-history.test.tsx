@@ -461,6 +461,158 @@ describeEnvironment(
       }
     });
 
+    it("serializes cursor pagination and recovers without changing safe rows or cursor", async () => {
+      const failedPage = deferred<Response>();
+      const currentSession = session();
+      let transactionReads = 0;
+      const calls = installFetch((input) => {
+        const url = new URL(String(input), "https://wallet.invalid");
+        if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
+        transactionReads += 1;
+        if (transactionReads === 1) {
+          return pageResponse([wireTransaction("wallet-page-1")], "page_cursor_1");
+        }
+        if (transactionReads === 2) return failedPage.promise;
+        if (transactionReads === 3) {
+          return pageResponse([wireTransaction("wallet-page-1")], "page_cursor_duplicate");
+        }
+        if (transactionReads === 4) {
+          return pageResponse([wireTransaction("wallet-rejected-long-cursor")], "x".repeat(513));
+        }
+        return pageResponse([wireTransaction("wallet-page-2")], "page_cursor_2");
+      });
+
+      await act(async () => {
+        renderer = create(
+          createElement(HistoryHarness, {
+            currentSession,
+            type: "TRANSFER",
+            status: "COMPLETED",
+          }),
+        );
+        await flush();
+      });
+
+      let firstLoad: Promise<void> | undefined;
+      let duplicateLoad: Promise<void> | undefined;
+      await act(async () => {
+        firstLoad = historyResult?.loadMore();
+        duplicateLoad = historyResult?.loadMore();
+        await flush();
+      });
+      const firstPaginationCalls = calls.filter(({ input }) =>
+        String(input).includes("/v1/wallet/transactions?"),
+      );
+      expect(firstPaginationCalls).toHaveLength(2);
+      const pageUrl = new URL(String(firstPaginationCalls[1]?.input), "https://wallet.invalid");
+      expect(Object.fromEntries(pageUrl.searchParams)).toEqual({
+        assetCode: "USD",
+        limit: "25",
+        type: "TRANSFER",
+        status: "COMPLETED",
+        cursor: "page_cursor_1",
+      });
+      expect(pageUrl.searchParams.has("offset")).toBe(false);
+
+      await act(async () => {
+        failedPage.resolve(new Response("unavailable", { status: 503 }));
+        await firstLoad;
+        await duplicateLoad;
+        await flush();
+      });
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+
+      await act(async () => {
+        await historyResult?.loadMore();
+        await flush();
+      });
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+      expect(historyResult?.transactions.error).toBe(
+        "Backend returned inconsistent Wallet transaction pagination",
+      );
+
+      await act(async () => {
+        await historyResult?.loadMore();
+        await flush();
+      });
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+      expect(JSON.stringify(historyResult)).not.toContain("wallet-rejected-long-cursor");
+
+      await act(async () => {
+        await historyResult?.loadMore();
+        await flush();
+      });
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
+        "wallet-page-1",
+        "wallet-page-2",
+      ]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+      expect(historyResult?.transactions.error).toBeNull();
+      expect(transactionReads).toBe(5);
+    });
+
+    it("aborts cursor pagination on logout and unmount and rejects both late pages", async () => {
+      const logoutPage = deferred<Response>();
+      const unmountPage = deferred<Response>();
+      let transactionReads = 0;
+      const calls = installFetch((input) => {
+        const url = new URL(String(input), "https://wallet.invalid");
+        if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
+        transactionReads += 1;
+        if (transactionReads === 1) {
+          return pageResponse([wireTransaction("wallet-before-logout")], "logout_cursor");
+        }
+        if (transactionReads === 2) return logoutPage.promise;
+        if (transactionReads === 3) {
+          return pageResponse([wireTransaction("wallet-before-unmount")], "unmount_cursor");
+        }
+        return unmountPage.promise;
+      });
+
+      const firstSession = session();
+      await act(async () => {
+        renderer = create(createElement(HistoryHarness, { currentSession: firstSession }));
+        await flush();
+      });
+      let logoutLoad: Promise<void> | undefined;
+      await act(async () => {
+        logoutLoad = historyResult?.loadMore();
+        await flush();
+      });
+      await act(async () => {
+        renderer?.update(createElement(HistoryHarness, { currentSession: null }));
+        await flush();
+      });
+      const transactionCalls = () =>
+        calls.filter(({ input }) => String(input).includes("/v1/wallet/transactions?"));
+      expect(transactionCalls()[1]?.init?.signal?.aborted).toBe(true);
+      await act(async () => {
+        logoutPage.resolve(pageResponse([wireTransaction("wallet-late-after-logout")], null));
+        await logoutLoad;
+        await flush();
+      });
+      expect(JSON.stringify(historyResult)).not.toContain("wallet-late-after-logout");
+
+      const nextSession = session({ actorId: "actor-wallet-history-02" });
+      await act(async () => {
+        renderer?.update(createElement(HistoryHarness, { currentSession: nextSession }));
+        await flush();
+      });
+      let unmountLoad: Promise<void> | undefined;
+      await act(async () => {
+        unmountLoad = historyResult?.loadMore();
+        await flush();
+      });
+      expect(transactionCalls()).toHaveLength(4);
+      await unmount();
+      expect(transactionCalls()[3]?.init?.signal?.aborted).toBe(true);
+      unmountPage.resolve(pageResponse([wireTransaction("wallet-late-after-unmount")], null));
+      await unmountLoad;
+    });
+
     it("actively aborts selected transaction detail on selection change and unmount", async () => {
       const oldDetail = deferred<Response>();
       const currentDetail = deferred<Response>();

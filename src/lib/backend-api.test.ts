@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
+  WALLET_TRANSACTION_MAX_JSON_BYTES,
   buildCardListPath,
   buildCardBalancePath,
   buildCardLimitsPath,
@@ -569,6 +570,35 @@ describe("Wallet account history Backend adapter", () => {
     expect(JSON.stringify(page)).not.toMatch(
       /tenantId|customerId|walletAccountId|provider|THREDD|journal|metadata|raw|must-not-render/,
     );
+  });
+
+  it("bounds raw pages, cursors and duplicate transaction ids", () => {
+    const rawPage = JSON.stringify({
+      items: [publicWalletTransaction("wallet-txn-1")],
+      nextCursor: "filter_cursor-1",
+    });
+    expect(normalizeWalletTransactionResponse(rawPage, "USD").nextCursor).toBe("filter_cursor-1");
+    expect(() =>
+      normalizeWalletTransactionResponse(
+        JSON.stringify({
+          items: [publicWalletTransaction("wallet-txn-1")],
+          nextCursor: "x".repeat(513),
+        }),
+        "USD",
+      ),
+    ).toThrow("Backend returned an invalid Wallet transaction cursor");
+    expect(() =>
+      normalizeWalletTransactionResponse(
+        JSON.stringify({
+          items: [publicWalletTransaction("wallet-txn-1"), publicWalletTransaction("wallet-txn-1")],
+          nextCursor: null,
+        }),
+        "USD",
+      ),
+    ).toThrow("Backend returned duplicate Wallet transaction ids");
+    expect(() =>
+      normalizeWalletTransactionResponse(" ".repeat(WALLET_TRANSACTION_MAX_JSON_BYTES + 1), "USD"),
+    ).toThrow("Backend returned an oversized Wallet transaction page");
   });
 
   it("fails closed for over-limit, wrong-account and malformed records", () => {
