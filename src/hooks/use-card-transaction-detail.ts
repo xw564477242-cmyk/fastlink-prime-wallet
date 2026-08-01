@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
 import {
   backendApi,
+  backendRuntime,
+  cardTransactionSessionReadAllowed,
   type BackendSession,
   type CardTransactionFilter,
   type WalletCardTransaction,
@@ -65,7 +67,9 @@ export function useCardTransactionDetail(
 
     const isCurrent = () =>
       activeRequestRef.current?.controller === controller &&
-      activeRequestRef.current.requestKey === requestKey;
+      activeRequestRef.current.requestKey === requestKey &&
+      inputRef.current?.scopeKey === input.scopeKey &&
+      cardTransactionSessionReadAllowed(input.session, backendRuntime.environment);
 
     void backendApi
       .cardTransactionDetail(

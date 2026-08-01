@@ -486,14 +486,25 @@ export function cardTransactionReadAllowed(
   );
 }
 
+export function cardTransactionSessionReadAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  now = Date.now(),
+): boolean {
+  if (
+    !session ||
+    !cardTransactionReadAllowed(session.environment, runtimeEnvironment) ||
+    typeof session.expiresAt !== "string"
+  ) {
+    return false;
+  }
+  const expiry = Date.parse(session.expiresAt);
+  return Number.isFinite(expiry) && expiry > now;
+}
+
 function requireSandboxTestCardTransactionRuntime(session: BackendSession): void {
   const { environment } = requireRuntime();
-  const expiry = typeof session.expiresAt === "string" ? Date.parse(session.expiresAt) : Number.NaN;
-  if (
-    !cardTransactionReadAllowed(session.environment, environment) ||
-    !Number.isFinite(expiry) ||
-    expiry <= Date.now()
-  ) {
+  if (!cardTransactionSessionReadAllowed(session, environment)) {
     throw new BackendApiError(
       0,
       "runtime",

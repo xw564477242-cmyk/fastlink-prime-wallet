@@ -20,6 +20,7 @@ type Deferred<T> = {
 };
 
 const originalFetch = globalThis.fetch;
+const originalDateNow = Date.now;
 let renderer: ReactTestRenderer | null = null;
 let latest: HookResult | null = null;
 const configuredEnvironment =
@@ -170,6 +171,7 @@ async function unmount() {
 afterEach(async () => {
   await unmount();
   globalThis.fetch = originalFetch;
+  Date.now = originalDateNow;
 });
 
 const describeEnvironment = configuredEnvironment ? describe : describe.skip;
@@ -296,6 +298,64 @@ describeEnvironment(
         );
       }
       await flush();
+    });
+
+    it("performs zero success and finally writes when the session naturally expires", async () => {
+      const expiry = Date.parse("2026-08-01T00:00:01.000Z");
+      let now = expiry - 1;
+      Date.now = () => now;
+      const pending = deferred<Response>();
+      const calls = installFetch(() => pending.promise);
+      await mount({
+        currentSession: session({ expiresAt: "2026-08-01T00:00:01.000Z" }),
+      });
+
+      await act(async () => {
+        latest?.refresh();
+        await flush();
+      });
+      expect(calls).toHaveLength(1);
+      expect(latest?.loading).toBe(true);
+      expect(latest?.detail).toBeNull();
+
+      now = expiry;
+      await act(async () => {
+        pending.resolve(response(transaction("transaction:detail.1", { amountMinor: "2600" })));
+        await pending.promise;
+        await flush();
+      });
+      expect(latest?.detail).toBeNull();
+      expect(latest?.error).toBeNull();
+      expect(latest?.loading).toBe(true);
+    });
+
+    it("performs zero error and finally writes when the session naturally expires", async () => {
+      const expiry = Date.parse("2026-08-01T00:00:01.000Z");
+      let now = expiry - 1;
+      Date.now = () => now;
+      const pending = deferred<Response>();
+      const calls = installFetch(() => pending.promise);
+      await mount({
+        currentSession: session({ expiresAt: "2026-08-01T00:00:01.000Z" }),
+      });
+
+      await act(async () => {
+        latest?.refresh();
+        await flush();
+      });
+      expect(calls).toHaveLength(1);
+      expect(latest?.loading).toBe(true);
+
+      now = expiry;
+      await act(async () => {
+        pending.reject(new Error("provider-secret-after-expiry"));
+        await pending.promise.catch(() => undefined);
+        await flush();
+      });
+      expect(latest?.detail).toBeNull();
+      expect(latest?.error).toBeNull();
+      expect(latest?.loading).toBe(true);
+      expect(JSON.stringify(latest)).not.toContain("provider-secret-after-expiry");
     });
   },
 );
