@@ -280,5 +280,10 @@ describe("Card transaction state", () => {
     expect(cardTransactionRequestKey("scope", "cursor-1", 7)).not.toBe(
       cardTransactionRequestKey("scope", "cursor-2", 7),
     );
+    const allScope = JSON.stringify(["actor", "tenant", "card", 1, "ALL"]);
+    const declinedScope = JSON.stringify(["actor", "tenant", "card", 1, "DECLINED"]);
+    expect(cardTransactionRequestKey(allScope, null, 7)).not.toBe(
+      cardTransactionRequestKey(declinedScope, null, 7),
+    );
   });
 });

@@ -59,10 +59,10 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
   };
 }
 
-function wireTransaction(id: string) {
+function wireTransaction(id: string, status = "SETTLED") {
   return {
     id,
-    status: "SETTLED",
+    status,
     amountMinor: "2500",
     authorizedAmountMinor: "2500",
     clearedAmountMinor: "2500",
@@ -576,5 +576,101 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       }
       await unmount();
     }
+  });
+
+  it("atomically re-scopes initial, pagination and refresh reads to one exact status filter", async () => {
+    const stalePage = deferred<Response>();
+    const filteredRead = deferred<Response>();
+    let requestCount = 0;
+    const calls = installFetch(() => {
+      requestCount += 1;
+      if (requestCount === 1) {
+        return pageResponse([wireTransaction("transaction:all.old")], cursors.old);
+      }
+      if (requestCount === 2) return stalePage.promise;
+      if (requestCount === 3) return filteredRead.promise;
+      if (requestCount === 4) {
+        return pageResponse(
+          [wireTransaction("transaction:declined.refresh", "DECLINED")],
+          cursors.forward,
+        );
+      }
+      return pageResponse([wireTransaction("transaction:declined.page", "DECLINED")], null);
+    });
+
+    await mount(session());
+    expect(latest?.filter).toBe("ALL");
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:all.old"]);
+    expect(
+      new URL(String(calls[0]?.input), "https://wallet.invalid").searchParams.has("status"),
+    ).toBeFalse();
+
+    await act(async () => {
+      void latest?.loadMore();
+      await flushHook();
+    });
+    const staleSignal = calls[1]?.init?.signal;
+    expect(staleSignal?.aborted).toBeFalse();
+
+    await act(async () => {
+      latest?.changeFilter("DECLINED");
+      await flushHook();
+    });
+    expect(staleSignal?.aborted).toBeTrue();
+    expect(latest?.filter).toBe("DECLINED");
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(JSON.parse(latest?.scopeKey ?? "[]").slice(-2)).toEqual([1, "DECLINED"]);
+    const filteredUrl = new URL(String(calls[2]?.input), "https://wallet.invalid");
+    expect(Object.fromEntries(filteredUrl.searchParams)).toEqual({
+      limit: "25",
+      status: "DECLINED",
+    });
+
+    await settlePending(
+      stalePage,
+      pageResponse([wireTransaction("transaction:stale.cross-filter")], cursors.stale),
+    );
+    expect(JSON.stringify(latest)).not.toContain("stale.cross-filter");
+    await settlePending(
+      filteredRead,
+      pageResponse([wireTransaction("transaction:declined.initial", "DECLINED")], cursors.next),
+    );
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:declined.initial"]);
+
+    await act(async () => {
+      latest?.refresh();
+      await flushHook();
+    });
+    const refreshUrl = new URL(String(calls[3]?.input), "https://wallet.invalid");
+    expect(Object.fromEntries(refreshUrl.searchParams)).toEqual({
+      limit: "25",
+      status: "DECLINED",
+    });
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:declined.refresh"]);
+
+    await act(async () => {
+      await latest?.loadMore();
+      await flushHook();
+    });
+    const pageUrl = new URL(String(calls[4]?.input), "https://wallet.invalid");
+    expect(Object.fromEntries(pageUrl.searchParams)).toEqual({
+      limit: "25",
+      status: "DECLINED",
+      cursor: cursors.forward,
+    });
+    expect(latest?.transactions.map(({ id }) => id)).toEqual([
+      "transaction:declined.refresh",
+      "transaction:declined.page",
+    ]);
+
+    await act(async () => {
+      latest?.changeFilter("declined");
+      await flushHook();
+    });
+    expect(requestCount).toBe(5);
+    expect(latest?.filter).toBe("DECLINED");
+    expect(latest?.transactions).toEqual([]);
+    expect(latest?.nextCursor).toBeNull();
   });
 });

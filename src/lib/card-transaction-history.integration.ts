@@ -1,10 +1,12 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import {
   BackendApiError,
+  CARD_TRANSACTION_STATUSES,
   backendApi,
   backendRuntime,
   type BackendSession,
   type FastLinkEnvironment,
+  type WalletCardTransaction,
 } from "./backend-api";
 import {
   cardTransactionReducer,
@@ -43,10 +45,10 @@ function session(overrides: Partial<BackendSession> = {}): BackendSession {
   };
 }
 
-function wireTransaction(id: string) {
+function wireTransaction(id: string, status = "SETTLED") {
   return {
     id,
-    status: "SETTLED",
+    status,
     amountMinor: "2500",
     authorizedAmountMinor: "2500",
     clearedAmountMinor: "2500",
@@ -114,6 +116,30 @@ describe(`Selected Card transaction history integration (${testEnvironment()})`,
     expect(String(calls[0]?.input)).toBe(
       `/api/v1/cards/card%3Aowned.1/transactions?limit=2&cursor=${cursor}`,
     );
+  });
+
+  it("binds each concrete status to the exact GET and rejects cross-filter rows", async () => {
+    for (const status of CARD_TRANSACTION_STATUSES) {
+      const calls = installFetch(() =>
+        response([wireTransaction(`transaction-${status}`, status)], null),
+      );
+      const page = await backendApi.cardTransactions(session(), "card:owned.1", {
+        limit: 2,
+        status,
+      });
+      const url = new URL(String(calls[0]?.input), "https://wallet.invalid");
+      expect(Object.fromEntries(url.searchParams), status).toEqual({ limit: "2", status });
+      expect((calls[0]?.init?.method ?? "GET").toUpperCase(), status).toBe("GET");
+      expect(calls[0]?.init?.body, status).toBeUndefined();
+      expect(page.transactions[0]?.status, status).toBe(
+        status.toLowerCase() as WalletCardTransaction["status"],
+      );
+    }
+
+    installFetch(() => response([wireTransaction("transaction-cross-filter")], null));
+    await expect(
+      backendApi.cardTransactions(session(), "card:owned.1", { status: "DECLINED" }),
+    ).rejects.toThrow("outside the active status filter");
   });
 
   it("denies mismatched or expired sessions before fetch", async () => {

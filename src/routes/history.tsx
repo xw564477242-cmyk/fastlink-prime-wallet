@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { AlertTriangle, CreditCard, Loader2, RefreshCw, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardTransactionPages } from "@/hooks/use-card-transaction-pages";
+import { CARD_TRANSACTION_FILTERS } from "@/lib/backend-api";
 
 export const Route = createFileRoute("/history")({
   validateSearch: (search: Record<string, unknown>): { cardId?: string } =>
@@ -26,11 +27,20 @@ export function HistoryPage() {
   const { session } = useBackendSession();
   const { cardId } = Route.useSearch();
   const [query, setQuery] = useState("");
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const cardPages = useCardListPages(session, cardId ?? null);
   const activeCard = cardPages.cards.find((card) => card.cardId === cardPages.activeId) ?? null;
   const transactionPages = useCardTransactionPages(session, activeCard?.cardId ?? null);
+  const selectedTransaction =
+    transactionPages.transactions.find(({ id }) => id === selectedTransactionId) ?? null;
   const loading = cardPages.loading || transactionPages.loading;
   const error = cardPages.error ?? transactionPages.error;
+
+  useEffect(() => {
+    setSelectedTransactionId((current) =>
+      current && transactionPages.transactions.some(({ id }) => id === current) ? current : null,
+    );
+  }, [transactionPages.scopeKey, transactionPages.transactions]);
 
   const filtered = useMemo(
     () =>
@@ -68,7 +78,10 @@ export function HistoryPage() {
               <button
                 key={card.cardId}
                 type="button"
-                onClick={() => cardPages.selectCard(card.cardId)}
+                onClick={() => {
+                  setSelectedTransactionId(null);
+                  cardPages.selectCard(card.cardId);
+                }}
                 className={`shrink-0 rounded-full border px-3 py-2 text-xs font-semibold ${
                   card.cardId === activeCard?.cardId
                     ? "border-primary bg-primary/10 text-primary"
@@ -90,6 +103,25 @@ export function HistoryPage() {
             )}
           </div>
         )}
+
+        <label className="mt-4 block text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Status
+          <select
+            aria-label="Card transaction status filter"
+            value={transactionPages.filter}
+            onChange={(event) => {
+              transactionPages.changeFilter(event.target.value);
+              setSelectedTransactionId(null);
+            }}
+            className="mt-1 w-full rounded-xl border border-border/60 bg-surface px-3 py-2 text-xs normal-case tracking-normal text-foreground"
+          >
+            {CARD_TRANSACTION_FILTERS.map((filter) => (
+              <option key={filter} value={filter}>
+                {filter === "ALL" ? "All statuses" : filter.toLowerCase()}
+              </option>
+            ))}
+          </select>
+        </label>
 
         <div className="mt-4 flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 px-4 py-2.5">
           <Search className="h-4 w-4 text-muted-foreground" />
@@ -133,9 +165,15 @@ export function HistoryPage() {
         {!loading && !error && (
           <div className="mt-4 space-y-2">
             {filtered.map((transaction) => (
-              <div
+              <button
                 key={transaction.id}
-                className="flex items-center gap-3 rounded-2xl bg-surface p-4"
+                type="button"
+                onClick={() => setSelectedTransactionId(transaction.id)}
+                className={`flex w-full items-center gap-3 rounded-2xl border p-4 text-left ${
+                  selectedTransaction?.id === transaction.id
+                    ? "border-primary bg-primary/5"
+                    : "border-transparent bg-surface"
+                }`}
               >
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-muted">
                   <CreditCard className="h-5 w-5" />
@@ -155,7 +193,7 @@ export function HistoryPage() {
                     {transaction.status}
                   </p>
                 </div>
-              </div>
+              </button>
             ))}
             {filtered.length === 0 && (
               <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center text-xs text-muted-foreground">
@@ -174,6 +212,39 @@ export function HistoryPage() {
               </button>
             )}
           </div>
+        )}
+
+        {!loading && !error && selectedTransaction && (
+          <section className="mt-4 rounded-2xl border border-border/60 bg-surface p-4 text-xs">
+            <h2 className="font-semibold">Selected Card transaction · read only</h2>
+            <p className="mt-1 text-[10px] text-muted-foreground">
+              Current Card, session and status filter only · no additional API request.
+            </p>
+            <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-2">
+              <dt className="text-muted-foreground">Transaction</dt>
+              <dd className="min-w-0 break-all text-right font-semibold">
+                {selectedTransaction.id}
+              </dd>
+              <dt className="text-muted-foreground">Status</dt>
+              <dd className="text-right font-semibold uppercase">{selectedTransaction.status}</dd>
+              <dt className="text-muted-foreground">Amount</dt>
+              <dd className="text-right font-semibold">
+                {selectedTransaction.amountMinor} {selectedTransaction.currency} minor units
+              </dd>
+              <dt className="text-muted-foreground">Merchant</dt>
+              <dd className="min-w-0 break-words text-right font-semibold">
+                {selectedTransaction.merchant}
+              </dd>
+              <dt className="text-muted-foreground">Category</dt>
+              <dd className="text-right font-semibold">
+                {selectedTransaction.category || "Not provided"}
+              </dd>
+              <dt className="text-muted-foreground">Occurred</dt>
+              <dd className="text-right font-semibold">
+                {new Date(selectedTransaction.timestamp).toLocaleString(lang)}
+              </dd>
+            </dl>
+          </section>
         )}
       </div>
     </MobileShell>

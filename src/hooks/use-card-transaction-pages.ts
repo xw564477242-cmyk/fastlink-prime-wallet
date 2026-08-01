@@ -1,5 +1,13 @@
-import { useCallback, useEffect, useReducer, useRef } from "react";
-import { CARD_TRANSACTION_PAGE_SIZE, backendApi, type BackendSession } from "@/lib/backend-api";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
+import {
+  CARD_TRANSACTION_FILTER_VERSION,
+  CARD_TRANSACTION_PAGE_SIZE,
+  backendApi,
+  isCardTransactionFilter,
+  type BackendSession,
+  type CardTransactionFilter,
+  type CardTransactionStatusFilter,
+} from "@/lib/backend-api";
 import {
   cardTransactionReducer,
   cardTransactionRequestKey,
@@ -15,32 +23,52 @@ type CardHistoryRefreshInput = {
   scopeKey: string;
   session: BackendSession;
   selectedCardId: string;
+  status?: CardTransactionStatusFilter;
 };
+
+function cardTransactionStatus(
+  filter: CardTransactionFilter,
+): CardTransactionStatusFilter | undefined {
+  return filter === "ALL" ? undefined : filter;
+}
+
+function cardTransactionScopeKey(
+  session: BackendSession | null,
+  selectedCardId: string | null,
+  filter: CardTransactionFilter,
+): string | null {
+  return session && selectedCardId
+    ? JSON.stringify([
+        session.actorId,
+        session.expiresAt ?? null,
+        session.tenantId,
+        session.customerId,
+        session.environment,
+        selectedCardId,
+        CARD_TRANSACTION_FILTER_VERSION,
+        filter,
+      ])
+    : null;
+}
 
 export function useCardTransactionPages(
   session: BackendSession | null,
   selectedCardId: string | null,
 ) {
   const [state, dispatch] = useReducer(cardTransactionReducer, initialCardTransactionState);
+  const [filter, setFilter] = useState<CardTransactionFilter>("ALL");
   const requestSequence = useRef(0);
   const activeRequest = useRef<AbortController | null>(null);
-  const scopeKey =
-    session && selectedCardId
-      ? JSON.stringify([
-          session.actorId,
-          session.expiresAt ?? null,
-          session.tenantId,
-          session.customerId,
-          session.environment,
-          selectedCardId,
-        ])
-      : null;
+  const filterRef = useRef<CardTransactionFilter>(filter);
+  filterRef.current = filter;
+  const status = cardTransactionStatus(filter);
+  const scopeKey = cardTransactionScopeKey(session, selectedCardId, filter);
   const scopeReady = state.scopeKey === scopeKey;
   const view = cardTransactionViewForScope(state, scopeKey);
   const refreshInputRef = useRef<CardHistoryRefreshInput | null>(null);
   refreshInputRef.current =
     session && selectedCardId && scopeKey && view.scopeReady && !view.loading
-      ? { scopeKey, session, selectedCardId }
+      ? { scopeKey, session, selectedCardId, status }
       : null;
 
   useEffect(() => {
@@ -59,7 +87,7 @@ export function useCardTransactionPages(
       .cardTransactions(
         session,
         selectedCardId,
-        { limit: CARD_TRANSACTION_PAGE_SIZE },
+        { limit: CARD_TRANSACTION_PAGE_SIZE, status },
         controller.signal,
       )
       .then((page) => {
@@ -88,7 +116,38 @@ export function useCardTransactionPages(
       activeRequest.current = null;
       if (requestSequence.current === generation) requestSequence.current += 1;
     };
-  }, [scopeKey, selectedCardId, session]);
+  }, [scopeKey, selectedCardId, session, status]);
+
+  const changeFilter = useCallback(
+    (nextFilter: unknown) => {
+      if (!isCardTransactionFilter(nextFilter)) {
+        activeRequest.current?.abort();
+        activeRequest.current = null;
+        requestSequence.current += 1;
+        dispatch({
+          type: "reset",
+          scopeKey,
+          requestKey: null,
+          loading: false,
+        });
+        return;
+      }
+      if (nextFilter === filterRef.current) return;
+      activeRequest.current?.abort();
+      activeRequest.current = null;
+      requestSequence.current += 1;
+      filterRef.current = nextFilter;
+      const nextScopeKey = cardTransactionScopeKey(session, selectedCardId, nextFilter);
+      dispatch({
+        type: "reset",
+        scopeKey: nextScopeKey,
+        requestKey: null,
+        loading: nextScopeKey !== null,
+      });
+      setFilter(nextFilter);
+    },
+    [scopeKey, selectedCardId, session],
+  );
 
   const refresh = useCallback(() => {
     const input = refreshInputRef.current;
@@ -103,7 +162,7 @@ export function useCardTransactionPages(
       .cardTransactions(
         input.session,
         input.selectedCardId,
-        { limit: CARD_TRANSACTION_PAGE_SIZE },
+        { limit: CARD_TRANSACTION_PAGE_SIZE, status: input.status },
         controller.signal,
       )
       .then((page) => dispatch({ type: "refreshed", requestKey, page }))
@@ -147,6 +206,7 @@ export function useCardTransactionPages(
         {
           limit: CARD_TRANSACTION_PAGE_SIZE,
           cursor: requestCursor,
+          status,
         },
         controller.signal,
       );
@@ -166,12 +226,15 @@ export function useCardTransactionPages(
     state.loadingMore,
     state.nextCursor,
     state.refreshing,
+    status,
   ]);
 
   return {
     ...view,
     loadMore,
     refresh,
+    filter,
+    changeFilter,
     canRefresh:
       refreshInputRef.current !== null &&
       activeRequest.current === null &&

@@ -1,7 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import {
+  CARD_TRANSACTION_FILTERS,
   CARD_TRANSACTION_MAX_CURSOR_BYTES,
   CARD_TRANSACTION_MAX_JSON_BYTES,
+  CARD_TRANSACTION_STATUSES,
   buildCardTransactionPath,
   cardTransactionReadAllowed,
   normalizeCardTransactionResponse,
@@ -111,6 +113,37 @@ describe("Selected-Card transaction adversarial parser matrix", () => {
     for (const id of ["", "x", "bad/id", "bad id", "bad$id", "x".repeat(129)]) {
       expect(() => buildCardTransactionPath(id)).toThrow();
     }
+  });
+
+  it("emits ALL without status and each exact public status without widening the query", () => {
+    expect(CARD_TRANSACTION_FILTERS).toEqual([
+      "ALL",
+      "AUTHORIZED",
+      "CLEARED",
+      "SETTLED",
+      "DECLINED",
+      "REVERSED",
+      "REFUNDED",
+    ]);
+    expect(buildCardTransactionPath(cardId)).toBe("/v1/cards/card%3Aowned.1/transactions?limit=25");
+    for (const status of CARD_TRANSACTION_STATUSES) {
+      const path = buildCardTransactionPath(cardId, { status });
+      const url = new URL(path, "https://wallet.invalid");
+      expect(Object.fromEntries(url.searchParams), status).toEqual({
+        limit: "25",
+        status,
+      });
+      expect(
+        normalizeCardTransactionResponse(page([{ ...transactionRecord(), status }]), 25, status)
+          .transactions[0]?.status,
+      ).toBe(status.toLowerCase() as WalletCardTransaction["status"]);
+    }
+    expect(() => buildCardTransactionPath(cardId, { status: "settled" as "SETTLED" })).toThrow(
+      "Invalid card transaction status filter",
+    );
+    expect(() => normalizeCardTransactionResponse(page(), 25, "DECLINED")).toThrow(
+      "outside the active status filter",
+    );
   });
 
   it("maps every exact transaction status and rejects variants", () => {
