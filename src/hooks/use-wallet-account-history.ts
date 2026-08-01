@@ -221,14 +221,14 @@ export function useWalletAccountHistory(
       !transactionState.nextCursor ||
       transactionState.loading ||
       transactionState.loadingMore ||
-      transactionState.refreshing
+      transactionState.refreshing ||
+      activeTransactionRequest.current !== null
     ) {
       return;
     }
     const requestCursor = transactionState.nextCursor;
     const generation = ++transactionSequence.current;
     const requestKey = walletTransactionRequestKey(transactionScopeKey, requestCursor, generation);
-    activeTransactionRequest.current?.abort();
     const controller = new AbortController();
     activeTransactionRequest.current = controller;
     dispatchTransaction({ type: "loading-more", requestKey, requestCursor });

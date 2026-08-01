@@ -70,7 +70,6 @@ export type WalletTransactionAction =
 function paginationFailure(state: WalletTransactionState): WalletTransactionState {
   return {
     ...state,
-    nextCursor: null,
     loading: false,
     loadingMore: false,
     error: "Backend returned inconsistent Wallet transaction pagination",
