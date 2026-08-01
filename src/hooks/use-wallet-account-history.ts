@@ -26,6 +26,14 @@ export type WalletTransactionFilters = {
   status?: WalletTransactionStatusFilter;
 };
 
+type WalletHistoryRefreshInput = {
+  scopeKey: string;
+  session: BackendSession;
+  selectedAssetCode: string;
+  type?: WalletTransactionTypeFilter;
+  status?: WalletTransactionStatusFilter;
+};
+
 function failure(reason: unknown) {
   return reason instanceof Error ? reason.message : "Railway Backend is unavailable";
 }
@@ -67,6 +75,21 @@ export function useWalletAccountHistory(
         ])
       : null;
   const transactionView = walletTransactionViewForScope(transactionState, transactionScopeKey);
+  const refreshInputRef = useRef<WalletHistoryRefreshInput | null>(null);
+  refreshInputRef.current =
+    session &&
+    selectedAssetCode &&
+    transactionScopeKey &&
+    transactionView.scopeReady &&
+    !transactionView.loading
+      ? {
+          scopeKey: transactionScopeKey,
+          session,
+          selectedAssetCode,
+          type,
+          status,
+        }
+      : null;
 
   useEffect(() => {
     const controller = new AbortController();
@@ -151,6 +174,43 @@ export function useWalletAccountHistory(
     [sessionKey],
   );
 
+  const refresh = useCallback(() => {
+    const input = refreshInputRef.current;
+    if (!input) return;
+    activeTransactionRequest.current?.abort();
+    const controller = new AbortController();
+    activeTransactionRequest.current = controller;
+    const generation = ++transactionSequence.current;
+    const requestKey = walletTransactionRequestKey(input.scopeKey, null, generation);
+    dispatchTransaction({ type: "refreshing", scopeKey: input.scopeKey, requestKey });
+
+    void backendApi
+      .walletTransactions(
+        input.session,
+        {
+          assetCode: input.selectedAssetCode,
+          type: input.type,
+          status: input.status,
+          limit: WALLET_TRANSACTION_PAGE_SIZE,
+        },
+        controller.signal,
+      )
+      .then((page) => dispatchTransaction({ type: "refreshed", requestKey, page }))
+      .catch(() =>
+        dispatchTransaction({
+          type: "refresh-failed",
+          requestKey,
+          message: "Wallet transaction history refresh failed",
+        }),
+      )
+      .finally(() => {
+        if (activeTransactionRequest.current === controller) {
+          activeTransactionRequest.current = null;
+        }
+        dispatchTransaction({ type: "settled", requestKey });
+      });
+  }, []);
+
   const loadMore = useCallback(async () => {
     if (
       !session ||
@@ -159,7 +219,8 @@ export function useWalletAccountHistory(
       !selectedAssetCode ||
       !transactionState.nextCursor ||
       transactionState.loading ||
-      transactionState.loadingMore
+      transactionState.loadingMore ||
+      transactionState.refreshing
     ) {
       return;
     }
@@ -191,5 +252,15 @@ export function useWalletAccountHistory(
     }
   }, [selectedAssetCode, session, status, transactionScopeKey, transactionState, type]);
 
-  return { accounts: accountView, transactions: transactionView, selectAccount, loadMore };
+  return {
+    accounts: accountView,
+    transactions: transactionView,
+    selectAccount,
+    loadMore,
+    refresh,
+    canRefresh:
+      refreshInputRef.current !== null &&
+      !transactionView.refreshing &&
+      !transactionView.loadingMore,
+  };
 }

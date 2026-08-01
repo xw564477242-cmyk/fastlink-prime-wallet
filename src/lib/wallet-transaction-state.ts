@@ -8,7 +8,9 @@ export type WalletTransactionState = {
   seenCursors: string[];
   loading: boolean;
   loadingMore: boolean;
+  refreshing: boolean;
   error: string | null;
+  refreshError: string | null;
 };
 
 export const initialWalletTransactionState: WalletTransactionState = {
@@ -19,7 +21,9 @@ export const initialWalletTransactionState: WalletTransactionState = {
   seenCursors: [],
   loading: false,
   loadingMore: false,
+  refreshing: false,
   error: null,
+  refreshError: null,
 };
 
 export function walletTransactionViewForScope(
@@ -46,6 +50,13 @@ export function walletTransactionRequestKey(
 export type WalletTransactionAction =
   | { type: "reset"; scopeKey: string | null; requestKey: string | null; loading: boolean }
   | { type: "loading-more"; requestKey: string; requestCursor: string }
+  | { type: "refreshing"; scopeKey: string; requestKey: string }
+  | {
+      type: "refreshed";
+      requestKey: string;
+      page: WalletAccountTransactionPage;
+    }
+  | { type: "refresh-failed"; requestKey: string; message: string }
   | {
       type: "page";
       requestKey: string;
@@ -80,11 +91,58 @@ export function walletTransactionReducer(
         seenCursors: [],
         loading: action.loading,
         loadingMore: false,
+        refreshing: false,
         error: null,
+        refreshError: null,
       };
     case "loading-more":
       if (action.requestCursor !== state.nextCursor) return paginationFailure(state);
-      return { ...state, activeRequestKey: action.requestKey, loadingMore: true, error: null };
+      return {
+        ...state,
+        activeRequestKey: action.requestKey,
+        loadingMore: true,
+        refreshing: false,
+        error: null,
+        refreshError: null,
+      };
+    case "refreshing":
+      if (action.scopeKey !== state.scopeKey || state.loading) return state;
+      return {
+        ...state,
+        activeRequestKey: action.requestKey,
+        loadingMore: false,
+        refreshing: true,
+        refreshError: null,
+      };
+    case "refreshed": {
+      if (action.requestKey !== state.activeRequestKey) return state;
+      if (new Set(action.page.items.map((item) => item.id)).size !== action.page.items.length) {
+        return {
+          ...state,
+          refreshing: false,
+          refreshError: "Backend returned inconsistent Wallet transaction pagination",
+        };
+      }
+      return {
+        ...state,
+        items: action.page.items,
+        nextCursor: action.page.nextCursor,
+        seenCursors: action.page.nextCursor === null ? [] : [action.page.nextCursor],
+        loading: false,
+        loadingMore: false,
+        refreshing: false,
+        error: null,
+        refreshError: null,
+      };
+    }
+    case "refresh-failed":
+      if (action.requestKey !== state.activeRequestKey) return state;
+      return {
+        ...state,
+        loadingMore: false,
+        refreshing: false,
+        refreshError: action.message,
+      };
     case "page": {
       if (action.requestKey !== state.activeRequestKey) return state;
       if (new Set(action.page.items.map((item) => item.id)).size !== action.page.items.length) {
@@ -116,7 +174,9 @@ export function walletTransactionReducer(
             : [...state.seenCursors, action.page.nextCursor],
         loading: false,
         loadingMore: false,
+        refreshing: false,
         error: null,
+        refreshError: null,
       };
     }
     case "failed":
@@ -131,7 +191,7 @@ export function walletTransactionReducer(
       };
     case "settled":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, loading: false, loadingMore: false }
+        ? { ...state, loading: false, loadingMore: false, refreshing: false }
         : state;
   }
 }
