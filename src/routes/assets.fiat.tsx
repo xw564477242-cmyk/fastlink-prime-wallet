@@ -41,10 +41,11 @@ function WalletAccountsPage() {
   const [transactionStatus, setTransactionStatus] = useState<
     WalletTransactionStatusFilter | undefined
   >();
-  const { accounts, transactions, selectAccount, loadMore } = useWalletAccountHistory(session, {
-    type: transactionType,
-    status: transactionStatus,
-  });
+  const { accounts, transactions, selectAccount, loadMore, refresh, canRefresh } =
+    useWalletAccountHistory(session, {
+      type: transactionType,
+      status: transactionStatus,
+    });
   const selected =
     accounts.accounts.find((account) => account.assetCode === accounts.selectedAssetCode) ?? null;
   const selectedTransaction =
@@ -73,7 +74,10 @@ function WalletAccountsPage() {
             <button
               key={account.assetCode}
               type="button"
-              onClick={() => selectAccount(account.assetCode)}
+              onClick={() => {
+                setSelectedTransactionId(null);
+                selectAccount(account.assetCode);
+              }}
               className={`shrink-0 rounded-full border px-4 py-2 text-xs font-semibold ${
                 account.assetCode === selected?.assetCode
                   ? "border-primary bg-primary/10 text-primary"
@@ -163,6 +167,20 @@ function WalletAccountsPage() {
             </select>
           </label>
         </div>
+        <button
+          type="button"
+          onClick={refresh}
+          disabled={!canRefresh}
+          className="mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
+        >
+          <RefreshCw className={`h-4 w-4 ${transactions.refreshing ? "animate-spin" : ""}`} />
+          {transactions.refreshing
+            ? "Refreshing transaction history…"
+            : "Refresh transaction history"}
+        </button>
+        {transactions.refreshError && (
+          <ErrorMessage message={`${transactions.refreshError} · Existing Wallet history kept.`} />
+        )}
         {selectedTransaction && (
           <button
             type="button"
@@ -232,7 +250,7 @@ function WalletAccountsPage() {
               <button
                 type="button"
                 onClick={() => void loadMore()}
-                disabled={transactions.loadingMore}
+                disabled={transactions.loadingMore || transactions.refreshing}
                 className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
               >
                 {transactions.loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}

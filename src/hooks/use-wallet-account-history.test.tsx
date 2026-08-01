@@ -80,18 +80,20 @@ function transaction(id: string): WalletAccountTransaction {
   };
 }
 
-function balanceResponse(): Response {
+function balanceResponse(
+  items: unknown[] = [
+    {
+      assetCode: "USD",
+      availableBalance: "10",
+      ledgerBalance: "12.5",
+      pendingBalance: "2.5",
+      updatedAt: "2026-07-31T12:00:00.000Z",
+    },
+  ],
+): Response {
   return new Response(
     JSON.stringify({
-      items: [
-        {
-          assetCode: "USD",
-          availableBalance: "10",
-          ledgerBalance: "12.5",
-          pendingBalance: "2.5",
-          updatedAt: "2026-07-31T12:00:00.000Z",
-        },
-      ],
+      items,
     }),
     { status: 200, headers: { "x-trace-id": "trace-wallet-balance" } },
   );
@@ -271,6 +273,192 @@ describeEnvironment(
         await flush();
       });
       expect(JSON.stringify(historyResult)).not.toContain("wallet-late-page");
+    });
+
+    it("refreshes the selected account with exact filters and preserves the visible page on failure", async () => {
+      const failedRefresh = deferred<Response>();
+      const currentSession = session();
+      let transactionReads = 0;
+      const calls = installFetch((input) => {
+        const url = new URL(String(input), "https://wallet.invalid");
+        if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
+        transactionReads += 1;
+        if (transactionReads === 1) {
+          return pageResponse(
+            [wireTransaction("wallet-current", { type: "DEPOSIT", status: "PENDING" })],
+            "page_cursor",
+          );
+        }
+        if (transactionReads === 2) {
+          return pageResponse(
+            [wireTransaction("wallet-current-page-2", { type: "DEPOSIT", status: "PENDING" })],
+            "page_cursor_2",
+          );
+        }
+        if (transactionReads === 3) return failedRefresh.promise;
+        return pageResponse(
+          [wireTransaction("wallet-refreshed", { type: "DEPOSIT", status: "PENDING" })],
+          "refreshed_cursor",
+        );
+      });
+
+      await act(async () => {
+        renderer = create(
+          createElement(HistoryHarness, {
+            currentSession,
+            type: "DEPOSIT",
+            status: "PENDING",
+          }),
+        );
+        await flush();
+      });
+      await act(async () => {
+        await historyResult?.loadMore();
+        await flush();
+      });
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
+        "wallet-current",
+        "wallet-current-page-2",
+      ]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+
+      await act(async () => {
+        historyResult?.refresh();
+        await flush();
+      });
+      const refreshCall = calls.filter(({ input }) =>
+        String(input).includes("/v1/wallet/transactions?"),
+      )[2];
+      const refreshUrl = new URL(String(refreshCall?.input), "https://wallet.invalid");
+      expect(Object.fromEntries(refreshUrl.searchParams)).toEqual({
+        assetCode: "USD",
+        limit: "25",
+        type: "DEPOSIT",
+        status: "PENDING",
+      });
+      expect(historyResult?.accounts.selectedAssetCode).toBe("USD");
+      expect(historyResult?.transactions.refreshing).toBe(true);
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
+        "wallet-current",
+        "wallet-current-page-2",
+      ]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+
+      await act(async () => {
+        failedRefresh.resolve(new Response("unavailable", { status: 503 }));
+        await flush();
+      });
+      expect(historyResult?.transactions.refreshing).toBe(false);
+      expect(historyResult?.transactions.refreshError).toBe(
+        "Wallet transaction history refresh failed",
+      );
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
+        "wallet-current",
+        "wallet-current-page-2",
+      ]);
+      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+
+      await act(async () => {
+        historyResult?.refresh();
+        await flush();
+      });
+      expect(historyResult?.transactions.refreshError).toBeNull();
+      expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
+        "wallet-refreshed",
+      ]);
+      expect(historyResult?.transactions.nextCursor).toBe("refreshed_cursor");
+      expect(historyResult?.accounts.selectedAssetCode).toBe("USD");
+    });
+
+    it("aborts refresh and rejects stale success after account or tenant changes", async () => {
+      const staleRefreshes = [
+        {
+          label: "account",
+          change: () => historyResult?.selectAccount("ZAR"),
+        },
+        {
+          label: "tenant",
+          session: session({ tenantId: "tenant-wallet-history-02" }),
+        },
+      ];
+
+      for (const change of staleRefreshes) {
+        const pendingRefresh = deferred<Response>();
+        let transactionReads = 0;
+        const calls = installFetch((input) => {
+          const url = new URL(String(input), "https://wallet.invalid");
+          if (url.pathname.endsWith("/v1/wallet/balances")) {
+            return balanceResponse([
+              {
+                assetCode: "USD",
+                availableBalance: "10",
+                ledgerBalance: "12.5",
+                pendingBalance: "2.5",
+                updatedAt: "2026-07-31T12:00:00.000Z",
+              },
+              {
+                assetCode: "ZAR",
+                availableBalance: "20",
+                ledgerBalance: "20",
+                pendingBalance: "0",
+                updatedAt: "2026-07-31T12:00:00.000Z",
+              },
+            ]);
+          }
+          transactionReads += 1;
+          if (transactionReads === 1) {
+            return pageResponse([wireTransaction(`wallet-${change.label}-current`)], null);
+          }
+          if (transactionReads === 2) return pendingRefresh.promise;
+          const assetCode = url.searchParams.get("assetCode") ?? "USD";
+          return pageResponse(
+            [wireTransaction(`wallet-${change.label}-new-scope`, { assetCode })],
+            null,
+          );
+        });
+
+        const originalSession = session();
+        await act(async () => {
+          renderer = create(createElement(HistoryHarness, { currentSession: originalSession }));
+          await flush();
+        });
+        await act(async () => {
+          await flush();
+        });
+        expect(historyResult?.canRefresh, change.label).toBe(true);
+        await act(async () => {
+          historyResult?.refresh();
+          await flush();
+        });
+        await act(async () => {
+          if (change.change) {
+            change.change();
+          } else {
+            renderer?.update(
+              createElement(HistoryHarness, { currentSession: change.session ?? originalSession }),
+            );
+          }
+          await flush();
+        });
+
+        const refreshCall = calls.filter(({ input }) =>
+          String(input).includes("/v1/wallet/transactions?"),
+        )[1];
+        expect(refreshCall?.init?.signal?.aborted, change.label).toBe(true);
+        await act(async () => {
+          pendingRefresh.resolve(
+            pageResponse([wireTransaction(`wallet-${change.label}-stale`)], null),
+          );
+          await flush();
+        });
+        expect(JSON.stringify(historyResult), change.label).not.toContain(
+          `wallet-${change.label}-stale`,
+        );
+        expect(JSON.stringify(historyResult), change.label).toContain(
+          `wallet-${change.label}-new-scope`,
+        );
+        await unmount();
+      }
     });
 
     it("actively aborts selected transaction detail on selection change and unmount", async () => {
