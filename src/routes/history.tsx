@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { AlertTriangle, CreditCard, Loader2, Search } from "lucide-react";
+import { AlertTriangle, CreditCard, Loader2, RefreshCw, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
@@ -45,7 +45,19 @@ export function HistoryPage() {
     <MobileShell>
       <StatusBar title={t("page.history")} />
       <div className="px-6 pt-4">
-        <h1 className="font-display text-2xl font-bold">{t("history.title")}</h1>
+        <div className="flex items-center justify-between gap-3">
+          <h1 className="font-display text-2xl font-bold">{t("history.title")}</h1>
+          <button
+            type="button"
+            onClick={transactionPages.refresh}
+            disabled={!transactionPages.canRefresh}
+            aria-label="Refresh Card transaction history"
+            className="flex shrink-0 items-center gap-2 rounded-full border border-border/60 bg-surface px-3 py-2 text-xs font-semibold disabled:opacity-50"
+          >
+            <RefreshCw className={`h-4 w-4 ${transactionPages.refreshing ? "animate-spin" : ""}`} />
+            {transactionPages.refreshing ? "Refreshing…" : "Refresh history"}
+          </button>
+        </div>
         <p className="mt-1 text-xs text-muted-foreground">
           Bounded card transactions returned by Railway Backend for the selected Card only.
         </p>
@@ -101,6 +113,23 @@ export function HistoryPage() {
           </div>
         )}
 
+        {!loading && !error && transactionPages.refreshError && (
+          <div className="mt-4 flex items-center gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
+            <AlertTriangle className="h-4 w-4 shrink-0" />
+            <span className="min-w-0 flex-1">
+              {transactionPages.refreshError} · Existing verified transactions retained.
+            </span>
+            <button
+              type="button"
+              onClick={transactionPages.refresh}
+              disabled={!transactionPages.canRefresh}
+              className="shrink-0 rounded-full border border-destructive/40 px-3 py-1.5 font-semibold disabled:opacity-50"
+            >
+              Retry refresh
+            </button>
+          </div>
+        )}
+
         {!loading && !error && (
           <div className="mt-4 space-y-2">
             {filtered.map((transaction) => (
@@ -137,7 +166,7 @@ export function HistoryPage() {
               <button
                 type="button"
                 onClick={() => void transactionPages.loadMore()}
-                disabled={transactionPages.loadingMore}
+                disabled={transactionPages.loadingMore || transactionPages.refreshing}
                 className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
               >
                 {transactionPages.loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}

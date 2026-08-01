@@ -525,5 +525,54 @@ describeConfigured(
       expect(pageText()).not.toContain("Accepted Before Scope Change");
       expect(body()).not.toMatch(/internal-secret|Loading more/);
     });
+
+    it("keeps verified rows visible during manual refresh and exposes a bounded retry", async () => {
+      const refreshRead = deferred<Response>();
+      let transactionReads = 0;
+      const calls = installFetch((input) => {
+        if (isCardList(input)) {
+          return json({ cards: [card("card:owned.1", "4242")], nextCursor: null });
+        }
+        transactionReads += 1;
+        if (transactionReads === 1) {
+          return page(
+            [transaction("transaction:refresh.old", "Verified Snapshot Merchant")],
+            cursor("refresh-old"),
+          );
+        }
+        if (transactionReads === 2) return refreshRead.promise;
+        return page([transaction("transaction:refresh.retry", "Refreshed Merchant")], null);
+      });
+      await mount();
+      expect(pageText()).toContain("Verified Snapshot Merchant");
+
+      await act(async () => {
+        button("Refresh history").props.onClick();
+        button("Refresh history").props.onClick();
+        await flush();
+      });
+      expect(transactionReads).toBe(2);
+      expect(pageText()).toContain("Verified Snapshot Merchant");
+      expect(pageText()).toContain("Refreshing…");
+      const refreshCall = calls.filter(({ input }) => isTransactionRead(input))[1];
+      const refreshUrl = new URL(String(refreshCall?.input), "https://wallet.invalid");
+      expect(refreshUrl.searchParams.has("cursor")).toBeFalse();
+      expect(refreshCall?.init?.signal).toBeInstanceOf(AbortSignal);
+
+      await rejectPending(refreshRead, new Error(internalSecret));
+      expect(pageText()).toContain("Verified Snapshot Merchant");
+      expect(pageText()).toContain("Card transaction history refresh failed");
+      expect(pageText()).toContain("Existing verified transactions retained.");
+      expect(body()).not.toContain(internalSecret);
+
+      await act(async () => {
+        button("Retry refresh").props.onClick();
+        await flush();
+      });
+      expect(transactionReads).toBe(3);
+      expect(pageText()).toContain("Refreshed Merchant");
+      expect(pageText()).not.toContain("Verified Snapshot Merchant");
+      expect(pageText()).not.toContain("Card transaction history refresh failed");
+    });
   },
 );
