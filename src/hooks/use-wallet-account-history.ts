@@ -161,7 +161,8 @@ export function useWalletAccountHistory(
       });
     return () => {
       controller.abort();
-      if (activeTransactionRequest.current === controller) activeTransactionRequest.current = null;
+      activeTransactionRequest.current?.abort();
+      activeTransactionRequest.current = null;
       if (transactionSequence.current === generation) transactionSequence.current += 1;
     };
   }, [selectedAssetCode, session, status, transactionScopeKey, type]);

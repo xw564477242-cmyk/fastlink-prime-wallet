@@ -10,12 +10,13 @@ import {
   Wallet,
 } from "lucide-react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useWalletAccountHistory } from "@/hooks/use-wallet-account-history";
 import { useWalletTransactionDetail } from "@/hooks/use-wallet-transaction-detail";
 import { useWalletOperations } from "@/hooks/use-wallet-operations";
 import { useWalletOperationDetail } from "@/hooks/use-wallet-operation-detail";
+import { walletTransactionSelectionForSnapshot } from "@/lib/wallet-transaction-selection-state";
 import {
   WALLET_TRANSACTION_STATUSES,
   WALLET_TRANSACTION_TYPES,
@@ -33,7 +34,7 @@ export const Route = createFileRoute("/assets/fiat")({
   component: WalletAccountsPage,
 });
 
-function WalletAccountsPage() {
+export function WalletAccountsPage() {
   const { session } = useBackendSession();
   const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const [selectedOperationId, setSelectedOperationId] = useState<string | null>(null);
@@ -48,8 +49,40 @@ function WalletAccountsPage() {
     });
   const selected =
     accounts.accounts.find((account) => account.assetCode === accounts.selectedAssetCode) ?? null;
-  const selectedTransaction =
-    transactions.items.find((item) => item.id === selectedTransactionId) ?? null;
+  const transactionSelection = walletTransactionSelectionForSnapshot(
+    selectedTransactionId,
+    selected?.assetCode ?? null,
+    transactions.items,
+  );
+  const selectedTransaction = transactionSelection.transaction;
+  useEffect(() => {
+    if (
+      !transactions.scopeReady ||
+      transactions.loading ||
+      transactions.refreshing ||
+      transactions.error ||
+      transactions.refreshError
+    ) {
+      return;
+    }
+    setSelectedTransactionId(
+      (current) =>
+        walletTransactionSelectionForSnapshot(
+          current,
+          selected?.assetCode ?? null,
+          transactions.items,
+        ).selectedId,
+    );
+  }, [
+    selected?.assetCode,
+    transactions.error,
+    transactions.items,
+    transactions.loading,
+    transactions.refreshError,
+    transactions.refreshing,
+    transactions.scopeKey,
+    transactions.scopeReady,
+  ]);
   const detail = useWalletTransactionDetail(
     session,
     selected?.assetCode ?? null,
