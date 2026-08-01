@@ -178,6 +178,13 @@ export type WalletCardTransactionQuery = {
   status?: CardTransactionStatusFilter;
 };
 
+export type WalletCardTransactionDetailExpectation = {
+  cardId: string;
+  transactionId: string;
+  currency: string;
+  occurredAt: string;
+};
+
 export const CARD_TRANSACTION_STATUSES = [
   "AUTHORIZED",
   "CLEARED",
@@ -1714,6 +1721,48 @@ export function buildCardTransactionPath(
   return `/v1/cards/${encodeURIComponent(cardId)}/transactions?${params.toString()}`;
 }
 
+export function buildCardTransactionDetailPath(cardId: string, transactionId: string): string {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(cardId)) {
+    throw new Error("Invalid card transaction card id");
+  }
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(transactionId)) {
+    throw new Error("Invalid card transaction id");
+  }
+  return `/v1/cards/${encodeURIComponent(cardId)}/transactions/${encodeURIComponent(transactionId)}`;
+}
+
+export function normalizeCardTransactionDetailResponse(
+  rawJson: string,
+  expectation: WalletCardTransactionDetailExpectation,
+): WalletCardTransaction {
+  buildCardTransactionDetailPath(expectation.cardId, expectation.transactionId);
+  const expectedCurrency = requiredString(expectation.currency, "currency", 3);
+  if (!/^[A-Z]{3}$/.test(expectedCurrency)) {
+    throw new Error("Invalid card transaction currency");
+  }
+  const expectedOccurredAt = cardTransactionTimestamp(expectation.occurredAt);
+  if (typeof rawJson !== "string" || rawJson.length > CARD_TRANSACTION_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an invalid transaction detail");
+  }
+  if (new TextEncoder().encode(rawJson).byteLength > CARD_TRANSACTION_MAX_JSON_BYTES) {
+    throw new Error("Backend returned an oversized transaction detail");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error("Backend returned an invalid transaction detail");
+  }
+  const detail = normalizeTransaction(parsed);
+  if (detail.id !== expectation.transactionId) {
+    throw new Error("Backend returned a different Card transaction id");
+  }
+  if (detail.currency !== expectedCurrency || detail.timestamp !== expectedOccurredAt) {
+    throw new Error("Backend returned a Card transaction outside the selected list record");
+  }
+  return detail;
+}
+
 export function normalizeCardTransactionResponse(
   rawJson: string,
   limit = CARD_TRANSACTION_PAGE_SIZE,
@@ -2698,6 +2747,31 @@ export const backendApi = {
           error.status,
           error.traceId,
           `Card transaction request failed · Trace ${error.traceId}`,
+        );
+      }
+      throw error;
+    }
+  },
+
+  async cardTransactionDetail(
+    session: BackendSession,
+    expectation: WalletCardTransactionDetailExpectation,
+    signal?: AbortSignal,
+  ): Promise<WalletCardTransaction> {
+    requireSandboxTestCardTransactionRuntime(session);
+    try {
+      const result = await request<string>(
+        buildCardTransactionDetailPath(expectation.cardId, expectation.transactionId),
+        { signal },
+        "text",
+      );
+      return normalizeCardTransactionDetailResponse(result, expectation);
+    } catch (error) {
+      if (error instanceof BackendApiError) {
+        throw new BackendApiError(
+          error.status,
+          error.traceId,
+          `Card transaction detail request failed · Trace ${error.traceId}`,
         );
       }
       throw error;

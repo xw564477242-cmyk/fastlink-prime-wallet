@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
+import { useCardTransactionDetail } from "@/hooks/use-card-transaction-detail";
 import { useCardTransactionPages } from "@/hooks/use-card-transaction-pages";
 import { CARD_TRANSACTION_FILTERS } from "@/lib/backend-api";
 
@@ -33,6 +34,14 @@ export function HistoryPage() {
   const transactionPages = useCardTransactionPages(session, activeCard?.cardId ?? null);
   const selectedTransaction =
     transactionPages.transactions.find(({ id }) => id === selectedTransactionId) ?? null;
+  const transactionDetail = useCardTransactionDetail(
+    session,
+    activeCard?.cardId ?? null,
+    transactionPages.filter,
+    selectedTransaction,
+    transactionPages.scopeKey,
+  );
+  const displayedTransaction = transactionDetail.detail ?? selectedTransaction;
   const loading = cardPages.loading || transactionPages.loading;
   const error = cardPages.error ?? transactionPages.error;
 
@@ -214,34 +223,58 @@ export function HistoryPage() {
           </div>
         )}
 
-        {!loading && !error && selectedTransaction && (
+        {!loading && !error && selectedTransaction && displayedTransaction && (
           <section className="mt-4 rounded-2xl border border-border/60 bg-surface p-4 text-xs">
-            <h2 className="font-semibold">Selected Card transaction · read only</h2>
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="font-semibold">Selected Card transaction · read only</h2>
+              <button
+                type="button"
+                onClick={transactionDetail.refresh}
+                disabled={!transactionDetail.canRefresh}
+                aria-label="Refresh selected Card transaction detail"
+                className="flex shrink-0 items-center gap-2 rounded-full border border-border/60 px-3 py-1.5 text-[10px] font-semibold disabled:opacity-50"
+              >
+                <RefreshCw
+                  className={`h-3.5 w-3.5 ${transactionDetail.loading ? "animate-spin" : ""}`}
+                />
+                Refresh detail
+              </button>
+            </div>
             <p className="mt-1 text-[10px] text-muted-foreground">
-              Current Card, session and status filter only · no additional API request.
+              Current Card, session, status filter and selected list record only · each click makes
+              one read.
             </p>
+            {transactionDetail.error && (
+              <div className="mt-3 flex gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-destructive">
+                <AlertTriangle className="h-4 w-4 shrink-0" />
+                <span>
+                  {transactionDetail.error}
+                  {transactionDetail.detail ? " · Existing verified detail retained." : ""}
+                </span>
+              </div>
+            )}
             <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-2">
               <dt className="text-muted-foreground">Transaction</dt>
               <dd className="min-w-0 break-all text-right font-semibold">
-                {selectedTransaction.id}
+                {displayedTransaction.id}
               </dd>
               <dt className="text-muted-foreground">Status</dt>
-              <dd className="text-right font-semibold uppercase">{selectedTransaction.status}</dd>
+              <dd className="text-right font-semibold uppercase">{displayedTransaction.status}</dd>
               <dt className="text-muted-foreground">Amount</dt>
               <dd className="text-right font-semibold">
-                {selectedTransaction.amountMinor} {selectedTransaction.currency} minor units
+                {displayedTransaction.amountMinor} {displayedTransaction.currency} minor units
               </dd>
               <dt className="text-muted-foreground">Merchant</dt>
               <dd className="min-w-0 break-words text-right font-semibold">
-                {selectedTransaction.merchant}
+                {displayedTransaction.merchant}
               </dd>
               <dt className="text-muted-foreground">Category</dt>
               <dd className="text-right font-semibold">
-                {selectedTransaction.category || "Not provided"}
+                {displayedTransaction.category || "Not provided"}
               </dd>
               <dt className="text-muted-foreground">Occurred</dt>
               <dd className="text-right font-semibold">
-                {new Date(selectedTransaction.timestamp).toLocaleString(lang)}
+                {new Date(displayedTransaction.timestamp).toLocaleString(lang)}
               </dd>
             </dl>
           </section>
