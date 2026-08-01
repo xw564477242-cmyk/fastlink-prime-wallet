@@ -11,13 +11,19 @@ function errorMessage(): string {
   return "Card transactions are unavailable";
 }
 
+type CardHistoryRefreshInput = {
+  scopeKey: string;
+  session: BackendSession;
+  selectedCardId: string;
+};
+
 export function useCardTransactionPages(
   session: BackendSession | null,
   selectedCardId: string | null,
 ) {
   const [state, dispatch] = useReducer(cardTransactionReducer, initialCardTransactionState);
   const requestSequence = useRef(0);
-  const activePageRequest = useRef<string | null>(null);
+  const activeRequest = useRef<AbortController | null>(null);
   const scopeKey =
     session && selectedCardId
       ? JSON.stringify([
@@ -31,16 +37,31 @@ export function useCardTransactionPages(
       : null;
   const scopeReady = state.scopeKey === scopeKey;
   const view = cardTransactionViewForScope(state, scopeKey);
+  const refreshInputRef = useRef<CardHistoryRefreshInput | null>(null);
+  refreshInputRef.current =
+    session && selectedCardId && scopeKey && view.scopeReady && !view.loading
+      ? { scopeKey, session, selectedCardId }
+      : null;
 
   useEffect(() => {
+    activeRequest.current?.abort();
+    const controller = new AbortController();
+    activeRequest.current = controller;
     const generation = ++requestSequence.current;
-    activePageRequest.current = null;
     const requestKey = scopeKey ? cardTransactionRequestKey(scopeKey, null, generation) : null;
     dispatch({ type: "reset", scopeKey, requestKey, loading: scopeKey !== null });
-    if (!session || !selectedCardId) return;
+    if (!session || !selectedCardId || !requestKey) {
+      activeRequest.current = null;
+      return () => controller.abort();
+    }
 
     void backendApi
-      .cardTransactions(session, selectedCardId, { limit: CARD_TRANSACTION_PAGE_SIZE })
+      .cardTransactions(
+        session,
+        selectedCardId,
+        { limit: CARD_TRANSACTION_PAGE_SIZE },
+        controller.signal,
+      )
       .then((page) => {
         if (requestKey) {
           dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
@@ -56,12 +77,48 @@ export function useCardTransactionPages(
             })
           : undefined,
       )
-      .finally(() => (requestKey ? dispatch({ type: "settled", requestKey }) : undefined));
+      .finally(() => {
+        if (activeRequest.current === controller) activeRequest.current = null;
+        dispatch({ type: "settled", requestKey });
+      });
 
     return () => {
+      controller.abort();
+      activeRequest.current?.abort();
+      activeRequest.current = null;
       if (requestSequence.current === generation) requestSequence.current += 1;
     };
   }, [scopeKey, selectedCardId, session]);
+
+  const refresh = useCallback(() => {
+    const input = refreshInputRef.current;
+    if (!input || activeRequest.current !== null) return;
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    const generation = ++requestSequence.current;
+    const requestKey = cardTransactionRequestKey(input.scopeKey, null, generation);
+    dispatch({ type: "refreshing", scopeKey: input.scopeKey, requestKey });
+
+    void backendApi
+      .cardTransactions(
+        input.session,
+        input.selectedCardId,
+        { limit: CARD_TRANSACTION_PAGE_SIZE },
+        controller.signal,
+      )
+      .then((page) => dispatch({ type: "refreshed", requestKey, page }))
+      .catch(() =>
+        dispatch({
+          type: "refresh-failed",
+          requestKey,
+          message: "Card transaction history refresh failed",
+        }),
+      )
+      .finally(() => {
+        if (activeRequest.current === controller) activeRequest.current = null;
+        dispatch({ type: "settled", requestKey });
+      });
+  }, []);
 
   const loadMore = useCallback(async () => {
     if (
@@ -70,27 +127,34 @@ export function useCardTransactionPages(
       !selectedCardId ||
       !state.nextCursor ||
       state.loading ||
-      state.loadingMore
+      state.loadingMore ||
+      state.refreshing
     ) {
       return;
     }
     if (!scopeKey) return;
-    if (activePageRequest.current !== null) return;
+    if (activeRequest.current !== null) return;
     const requestCursor = state.nextCursor;
     const generation = ++requestSequence.current;
     const requestKey = cardTransactionRequestKey(scopeKey, requestCursor, generation);
-    activePageRequest.current = requestKey;
+    const controller = new AbortController();
+    activeRequest.current = controller;
     dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
-      const page = await backendApi.cardTransactions(session, selectedCardId, {
-        limit: CARD_TRANSACTION_PAGE_SIZE,
-        cursor: requestCursor,
-      });
+      const page = await backendApi.cardTransactions(
+        session,
+        selectedCardId,
+        {
+          limit: CARD_TRANSACTION_PAGE_SIZE,
+          cursor: requestCursor,
+        },
+        controller.signal,
+      );
       dispatch({ type: "page", requestKey, requestCursor, page, append: true });
     } catch {
       dispatch({ type: "failed", requestKey, message: errorMessage(), append: true });
     } finally {
-      if (activePageRequest.current === requestKey) activePageRequest.current = null;
+      if (activeRequest.current === controller) activeRequest.current = null;
       dispatch({ type: "settled", requestKey });
     }
   }, [
@@ -101,7 +165,17 @@ export function useCardTransactionPages(
     state.loading,
     state.loadingMore,
     state.nextCursor,
+    state.refreshing,
   ]);
 
-  return { ...view, loadMore };
+  return {
+    ...view,
+    loadMore,
+    refresh,
+    canRefresh:
+      refreshInputRef.current !== null &&
+      activeRequest.current === null &&
+      !view.refreshing &&
+      !view.loadingMore,
+  };
 }

@@ -141,7 +141,7 @@ async function mount(currentSession: BackendSession, selectedCardId = "card:owne
   return latest;
 }
 
-async function update(currentSession: BackendSession, selectedCardId = "card:owned.1") {
+async function update(currentSession: BackendSession | null, selectedCardId = "card:owned.1") {
   if (!renderer) throw new Error("Hook renderer is not mounted");
   await act(async () => {
     renderer?.update(createElement(Harness, { currentSession, selectedCardId }));
@@ -458,6 +458,121 @@ describeConfiguredEnvironment(hookSafetyTitle, () => {
       }
       if (testCase.label === "duplicate transaction ID" || testCase.label === "cursor loop") {
         expect(latest?.error).toBe(CARD_TRANSACTION_PAGINATION_ERROR);
+      }
+      await unmount();
+    }
+  });
+
+  it("runs at most one refresh GET, keeps the verified snapshot and atomically replaces page one", async () => {
+    const refreshRead = deferred<Response>();
+    let requestCount = 0;
+    const calls = installFetch(() => {
+      requestCount += 1;
+      return requestCount === 1
+        ? pageResponse([wireTransaction("transaction:verified.old")], cursors.old)
+        : refreshRead.promise;
+    });
+    await mount(session());
+
+    await act(async () => {
+      latest?.refresh();
+      latest?.refresh();
+      await flushHook();
+    });
+
+    expect(requestCount).toBe(2);
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:verified.old"]);
+    expect(latest?.nextCursor).toBe(cursors.old);
+    expect(latest?.refreshing).toBeTrue();
+    expect(latest?.canRefresh).toBeFalse();
+    const refreshUrl = new URL(String(calls[1]?.input), "https://wallet.invalid");
+    expect(refreshUrl.searchParams.get("limit")).toBe("25");
+    expect(refreshUrl.searchParams.has("cursor")).toBeFalse();
+    expect(calls[1]?.init?.signal).toBeInstanceOf(AbortSignal);
+
+    await settlePending(
+      refreshRead,
+      pageResponse([wireTransaction("transaction:verified.new")], cursors.forward),
+    );
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:verified.new"]);
+    expect(latest?.nextCursor).toBe(cursors.forward);
+    expect(latest?.seenCursors).toEqual([cursors.forward]);
+    expect(latest?.refreshing).toBeFalse();
+    expect(latest?.refreshError).toBeNull();
+  });
+
+  it("keeps the verified snapshot on refresh failure and supports one bounded retry", async () => {
+    const failedRead = deferred<Response>();
+    let requestCount = 0;
+    installFetch(() => {
+      requestCount += 1;
+      if (requestCount === 1) {
+        return pageResponse([wireTransaction("transaction:verified.old")], cursors.old);
+      }
+      if (requestCount === 2) return failedRead.promise;
+      return pageResponse([wireTransaction("transaction:verified.retry")], null);
+    });
+    await mount(session());
+    await act(async () => {
+      latest?.refresh();
+      await flushHook();
+    });
+    await rejectPending(failedRead, new Error("provider-refresh-secret"));
+
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:verified.old"]);
+    expect(latest?.nextCursor).toBe(cursors.old);
+    expect(latest?.refreshError).toBe("Card transaction history refresh failed");
+    expect(JSON.stringify(latest)).not.toContain("provider-refresh-secret");
+
+    await act(async () => {
+      latest?.refresh();
+      await flushHook();
+    });
+    expect(requestCount).toBe(3);
+    expect(latest?.transactions.map(({ id }) => id)).toEqual(["transaction:verified.retry"]);
+    expect(latest?.nextCursor).toBeNull();
+    expect(latest?.refreshError).toBeNull();
+  });
+
+  it("aborts and ignores refresh responses after Card, session, logout or unmount changes", async () => {
+    const cases = ["Card", "session", "logout", "unmount"] as const;
+    for (const testCase of cases) {
+      const staleRefresh = deferred<Response>();
+      const replacementRead = deferred<Response>();
+      let requestCount = 0;
+      const calls = installFetch(() => {
+        requestCount += 1;
+        if (requestCount === 1) {
+          return pageResponse([wireTransaction("transaction:verified.old")], cursors.old);
+        }
+        return requestCount === 2 ? staleRefresh.promise : replacementRead.promise;
+      });
+      await mount(session());
+      await act(async () => {
+        latest?.refresh();
+        await flushHook();
+      });
+      const signal = calls[1]?.init?.signal;
+      expect(signal?.aborted, testCase).toBeFalse();
+
+      if (testCase === "Card") {
+        await update(session(), "card:owned.2");
+      } else if (testCase === "session") {
+        await update(session({ actorId: "actor-card-history-hook-02" }));
+      } else if (testCase === "logout") {
+        await update(null);
+      } else {
+        await unmount();
+      }
+      expect(signal?.aborted, testCase).toBeTrue();
+
+      await settlePending(
+        staleRefresh,
+        pageResponse([wireTransaction("transaction:stale.refresh")], cursors.stale),
+      );
+      expect(JSON.stringify(latest), testCase).not.toContain("stale.refresh");
+      if (testCase === "Card" || testCase === "session") {
+        await settlePending(replacementRead, pageResponse([], null));
       }
       await unmount();
     }

@@ -2646,11 +2646,16 @@ export const backendApi = {
     session: BackendSession,
     cardId: string,
     query: WalletCardTransactionQuery = {},
+    signal?: AbortSignal,
   ): Promise<WalletCardTransactionPage> {
     requireSandboxTestCardTransactionRuntime(session);
     const limit = query.limit ?? CARD_TRANSACTION_PAGE_SIZE;
     try {
-      const result = await request<string>(buildCardTransactionPath(cardId, query), {}, "text");
+      const result = await request<string>(
+        buildCardTransactionPath(cardId, query),
+        { signal },
+        "text",
+      );
       return normalizeCardTransactionResponse(result, limit);
     } catch (error) {
       if (error instanceof BackendApiError) {

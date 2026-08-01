@@ -69,7 +69,9 @@ describe("Card transaction state", () => {
       seenCursors: [],
       loading: true,
       loadingMore: false,
+      refreshing: false,
       error: null,
+      refreshError: null,
     });
   });
 
@@ -175,6 +177,100 @@ describe("Card transaction state", () => {
     expect(failed.transactions.map((item) => item.id)).toEqual(["txn-1"]);
     expect(failed.nextCursor).toBeNull();
     expect(failed.error).toBe("temporary failure");
+  });
+
+  it("preserves the verified snapshot while refreshing and atomically replaces its first page", () => {
+    const current = {
+      ...initialCardTransactionState,
+      scopeKey: "scope-card-a",
+      activeRequestKey: "request-loaded",
+      transactions: [transaction("txn-old-2"), transaction("txn-old-1")],
+      nextCursor: "cursor-old",
+      seenCursors: ["cursor-old", "cursor-older"],
+    };
+    const refreshing = cardTransactionReducer(current, {
+      type: "refreshing",
+      scopeKey: "scope-card-a",
+      requestKey: "request-refresh",
+    });
+
+    expect(refreshing.transactions).toEqual(current.transactions);
+    expect(refreshing.nextCursor).toBe("cursor-old");
+    expect(refreshing.refreshing).toBeTrue();
+
+    const refreshed = cardTransactionReducer(refreshing, {
+      type: "refreshed",
+      requestKey: "request-refresh",
+      page: { transactions: [transaction("txn-new-1")], nextCursor: "cursor-new" },
+    });
+    expect(refreshed.transactions.map(({ id }) => id)).toEqual(["txn-new-1"]);
+    expect(refreshed.nextCursor).toBe("cursor-new");
+    expect(refreshed.seenCursors).toEqual(["cursor-new"]);
+    expect(refreshed.refreshing).toBeFalse();
+    expect(refreshed.refreshError).toBeNull();
+  });
+
+  it("keeps the verified snapshot and public retry state after refresh failure", () => {
+    const current = {
+      ...initialCardTransactionState,
+      scopeKey: "scope-card-a",
+      activeRequestKey: "request-refresh",
+      transactions: [transaction("txn-old")],
+      nextCursor: "cursor-old",
+      seenCursors: ["cursor-old"],
+      refreshing: true,
+    };
+    const failed = cardTransactionReducer(current, {
+      type: "refresh-failed",
+      requestKey: "request-refresh",
+      message: "Card transaction history refresh failed",
+    });
+
+    expect(failed.transactions).toEqual(current.transactions);
+    expect(failed.nextCursor).toBe("cursor-old");
+    expect(failed.seenCursors).toEqual(["cursor-old"]);
+    expect(failed.refreshing).toBeFalse();
+    expect(failed.refreshError).toBe("Card transaction history refresh failed");
+  });
+
+  it("rejects an invalid or stale refresh without polluting the current Card scope", () => {
+    const current = {
+      ...initialCardTransactionState,
+      scopeKey: "scope-card-b",
+      activeRequestKey: "request-current",
+      transactions: [transaction("txn-current")],
+      nextCursor: "cursor-current",
+    };
+    const wrongScope = cardTransactionReducer(current, {
+      type: "refreshing",
+      scopeKey: "scope-card-a",
+      requestKey: "request-stale",
+    });
+    const staleResult = cardTransactionReducer(current, {
+      type: "refreshed",
+      requestKey: "request-stale",
+      page: { transactions: [transaction("txn-stale")], nextCursor: "cursor-stale" },
+    });
+
+    expect(wrongScope).toBe(current);
+    expect(staleResult).toBe(current);
+
+    const refreshing = cardTransactionReducer(current, {
+      type: "refreshing",
+      scopeKey: "scope-card-b",
+      requestKey: "request-refresh",
+    });
+    const invalid = cardTransactionReducer(refreshing, {
+      type: "refreshed",
+      requestKey: "request-refresh",
+      page: {
+        transactions: [transaction("txn-duplicate"), transaction("txn-duplicate")],
+        nextCursor: "cursor-new",
+      },
+    });
+    expect(invalid.transactions).toEqual(current.transactions);
+    expect(invalid.nextCursor).toBe("cursor-current");
+    expect(invalid.refreshError).toBe(CARD_TRANSACTION_PAGINATION_ERROR);
   });
 
   it("binds request identity to scope, cursor and generation", () => {
