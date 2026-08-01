@@ -84,10 +84,10 @@ function card(id: string, last4: string) {
   };
 }
 
-function transaction(id: string, merchant = "Mounted Coffee") {
+function transaction(id: string, merchant = "Mounted Coffee", status = "SETTLED") {
   return {
     id,
-    status: "SETTLED",
+    status,
     amountMinor: "2500",
     authorizedAmountMinor: "2500",
     clearedAmountMinor: "2500",
@@ -171,6 +171,11 @@ function button(label: string): ReactTestInstance {
     .find((candidate) => renderedText(candidate).includes(label));
   if (!match) throw new Error(`Missing button: ${label}`);
   return match;
+}
+
+function statusFilter(): ReactTestInstance {
+  if (!renderer) throw new Error("History page is not mounted");
+  return renderer.root.findByProps({ "aria-label": "Card transaction status filter" });
 }
 
 async function flush() {
@@ -573,6 +578,110 @@ describeConfigured(
       expect(pageText()).toContain("Refreshed Merchant");
       expect(pageText()).not.toContain("Verified Snapshot Merchant");
       expect(pageText()).not.toContain("Card transaction history refresh failed");
+    });
+
+    it("aborts and atomically clears rows, cursor and selected detail before changing status scope", async () => {
+      const stalePage = deferred<Response>();
+      const filteredInitial = deferred<Response>();
+      let transactionReads = 0;
+      const calls = installFetch((input) => {
+        if (isCardList(input)) {
+          return json({ cards: [card("card:owned.1", "4242")], nextCursor: null });
+        }
+        transactionReads += 1;
+        if (transactionReads === 1) {
+          return page([transaction("transaction:all.old", "Old All Merchant")], cursor("all-next"));
+        }
+        if (transactionReads === 2) return stalePage.promise;
+        if (transactionReads === 3) return filteredInitial.promise;
+        if (transactionReads === 4) {
+          return page(
+            [transaction("transaction:declined.same", "Declined Refreshed Merchant", "DECLINED")],
+            cursor("declined-refreshed-next"),
+          );
+        }
+        return page(
+          [transaction("transaction:declined.page", "Declined Page Merchant", "DECLINED")],
+          null,
+        );
+      });
+
+      await mount();
+      await act(async () => {
+        button("Old All Merchant").props.onClick();
+        await flush();
+      });
+      expect(pageText()).toContain("Selected Card transaction · read only");
+
+      await act(async () => {
+        void button("Load more transactions").props.onClick();
+        await flush();
+      });
+      const staleCall = calls.filter(({ input }) => isTransactionRead(input))[1];
+      expect(staleCall?.init?.signal?.aborted).toBeFalse();
+
+      await act(async () => {
+        statusFilter().props.onChange({ target: { value: "DECLINED" } });
+        await flush();
+      });
+      expect(staleCall?.init?.signal?.aborted).toBeTrue();
+      expect(pageText()).not.toContain("Old All Merchant");
+      expect(pageText()).not.toContain("Selected Card transaction · read only");
+      expect(pageText()).not.toContain("Load more transactions");
+
+      const filteredCall = calls.filter(({ input }) => isTransactionRead(input))[2];
+      const filteredUrl = new URL(String(filteredCall?.input), "https://wallet.invalid");
+      expect(Object.fromEntries(filteredUrl.searchParams)).toEqual({
+        limit: "25",
+        status: "DECLINED",
+      });
+      expect((filteredCall?.init?.method ?? "GET").toUpperCase()).toBe("GET");
+      expect(filteredCall?.init?.body).toBeUndefined();
+
+      await resolvePending(
+        stalePage,
+        page([transaction("transaction:stale.filter", "Stale Filter Merchant")], null),
+      );
+      expect(pageText()).not.toContain("Stale Filter Merchant");
+      await resolvePending(
+        filteredInitial,
+        page(
+          [transaction("transaction:declined.same", "Declined Initial Merchant", "DECLINED")],
+          cursor("declined-initial-next"),
+        ),
+      );
+
+      await act(async () => {
+        button("Declined Initial Merchant").props.onClick();
+        await flush();
+      });
+      expect(pageText()).toContain("Selected Card transaction · read only");
+      expect(pageText()).toContain("Declined Initial Merchant");
+
+      await act(async () => {
+        button("Refresh history").props.onClick();
+        await flush();
+      });
+      const refreshCall = calls.filter(({ input }) => isTransactionRead(input))[3];
+      expect(
+        Object.fromEntries(
+          new URL(String(refreshCall?.input), "https://wallet.invalid").searchParams,
+        ),
+      ).toEqual({ limit: "25", status: "DECLINED" });
+      expect(pageText()).toContain("Declined Refreshed Merchant");
+      expect(pageText()).toContain("Selected Card transaction · read only");
+
+      await act(async () => {
+        void button("Load more transactions").props.onClick();
+        await flush();
+      });
+      const pageCall = calls.filter(({ input }) => isTransactionRead(input))[4];
+      const pageUrl = new URL(String(pageCall?.input), "https://wallet.invalid");
+      expect(pageUrl.searchParams.get("status")).toBe("DECLINED");
+      expect(pageUrl.searchParams.get("cursor")).toBe(cursor("declined-refreshed-next"));
+      expect(pageText()).toContain("Declined Page Merchant");
+      expect(pageText()).toContain("Selected Card transaction · read only");
+      expect(body()).not.toContain(traceSecret);
     });
   },
 );

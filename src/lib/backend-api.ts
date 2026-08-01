@@ -175,7 +175,27 @@ export type WalletCardTransactionPage = {
 export type WalletCardTransactionQuery = {
   limit?: number;
   cursor?: string;
+  status?: CardTransactionStatusFilter;
 };
+
+export const CARD_TRANSACTION_STATUSES = [
+  "AUTHORIZED",
+  "CLEARED",
+  "SETTLED",
+  "DECLINED",
+  "REVERSED",
+  "REFUNDED",
+] as const;
+export type CardTransactionStatusFilter = (typeof CARD_TRANSACTION_STATUSES)[number];
+export const CARD_TRANSACTION_FILTERS = ["ALL", ...CARD_TRANSACTION_STATUSES] as const;
+export type CardTransactionFilter = (typeof CARD_TRANSACTION_FILTERS)[number];
+export const CARD_TRANSACTION_FILTER_VERSION = 1;
+
+export function isCardTransactionFilter(value: unknown): value is CardTransactionFilter {
+  return (
+    typeof value === "string" && (CARD_TRANSACTION_FILTERS as readonly string[]).includes(value)
+  );
+}
 
 export const CARD_TRANSACTION_PAGE_SIZE = 25;
 export const CARD_TRANSACTION_MAX_JSON_BYTES = 65_536;
@@ -1682,7 +1702,14 @@ export function buildCardTransactionPath(
   if (query.cursor !== undefined && !isCanonicalCardTransactionCursor(query.cursor)) {
     throw new Error("Invalid card transaction cursor");
   }
+  if (
+    query.status !== undefined &&
+    !(CARD_TRANSACTION_STATUSES as readonly string[]).includes(query.status)
+  ) {
+    throw new Error("Invalid card transaction status filter");
+  }
   const params = new URLSearchParams({ limit: String(limit) });
+  if (query.status) params.set("status", query.status);
   if (query.cursor) params.set("cursor", query.cursor);
   return `/v1/cards/${encodeURIComponent(cardId)}/transactions?${params.toString()}`;
 }
@@ -1690,6 +1717,7 @@ export function buildCardTransactionPath(
 export function normalizeCardTransactionResponse(
   rawJson: string,
   limit = CARD_TRANSACTION_PAGE_SIZE,
+  expectedStatus?: CardTransactionStatusFilter,
 ): WalletCardTransactionPage {
   if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
     throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
@@ -1719,8 +1747,15 @@ export function normalizeCardTransactionResponse(
   if (page.nextCursor !== null && !isCanonicalCardTransactionCursor(page.nextCursor)) {
     throw new Error("Backend returned an invalid transaction cursor");
   }
+  const normalized = transactions.map(normalizeTransaction);
+  if (
+    expectedStatus !== undefined &&
+    normalized.some((transaction) => transaction.status !== expectedStatus.toLowerCase())
+  ) {
+    throw new Error("Backend returned a transaction outside the active status filter");
+  }
   return {
-    transactions: transactions.map(normalizeTransaction),
+    transactions: normalized,
     nextCursor: page.nextCursor,
   };
 }
@@ -2656,7 +2691,7 @@ export const backendApi = {
         { signal },
         "text",
       );
-      return normalizeCardTransactionResponse(result, limit);
+      return normalizeCardTransactionResponse(result, limit, query.status);
     } catch (error) {
       if (error instanceof BackendApiError) {
         throw new BackendApiError(
