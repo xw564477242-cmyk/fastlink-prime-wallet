@@ -16,9 +16,25 @@ function errorMessage(): string {
 }
 
 const MAX_CONFIRMATION_PAGES = 25;
+type CardConfirmation = "IDENTITY" | "EXACT_GENERATION";
 
-function confirmsExpectedCard(candidate: WalletCard, expected: WalletCard): boolean {
+function hasSameOptionalField(
+  candidate: WalletCard,
+  expected: WalletCard,
+  field: "alias" | "availableBalanceMinor" | "createdAt",
+): boolean {
   return (
+    Object.hasOwn(candidate, field) === Object.hasOwn(expected, field) &&
+    candidate[field] === expected[field]
+  );
+}
+
+function confirmsExpectedCard(
+  candidate: WalletCard,
+  expected: WalletCard,
+  confirmation: CardConfirmation,
+): boolean {
+  const confirmsIdentity =
     candidate.cardId === expected.cardId &&
     candidate.type === expected.type &&
     candidate.status === expected.status &&
@@ -26,9 +42,22 @@ function confirmsExpectedCard(candidate: WalletCard, expected: WalletCard): bool
     candidate.last4 === expected.last4 &&
     candidate.expiryMonth === expected.expiryMonth &&
     candidate.expiryYear === expected.expiryYear &&
+    candidate.expiry === expected.expiry &&
     /^[A-Z]{3}$/.test(candidate.currency) &&
     candidate.currency === expected.currency &&
-    Number.isFinite(candidate.balance)
+    Number.isFinite(candidate.balance);
+  return (
+    confirmsIdentity &&
+    (confirmation !== "EXACT_GENERATION" ||
+      (Object.is(candidate.balance, expected.balance) &&
+        hasSameOptionalField(candidate, expected, "alias") &&
+        hasSameOptionalField(candidate, expected, "availableBalanceMinor") &&
+        hasSameOptionalField(candidate, expected, "createdAt") &&
+        candidate.capabilities.freeze === expected.capabilities.freeze &&
+        candidate.capabilities.unfreeze === expected.capabilities.unfreeze &&
+        candidate.capabilities.replace === expected.capabilities.replace &&
+        candidate.capabilities.renew === expected.capabilities.renew &&
+        candidate.capabilities.updateLimits === expected.capabilities.updateLimits))
   );
 }
 
@@ -104,6 +133,7 @@ export function useCardListPages(
       expectedCard: WalletCard,
       isCurrent: () => boolean = () => true,
       signal?: AbortSignal,
+      confirmation: CardConfirmation = "IDENTITY",
     ): Promise<WalletCard | null> => {
       if (
         signal?.aborted ||
@@ -146,7 +176,7 @@ export function useCardListPages(
           seenCursors.add(nextCursor);
           cursor = nextCursor;
         }
-        if (!candidate || !confirmsExpectedCard(candidate, expectedCard)) {
+        if (!candidate || !confirmsExpectedCard(candidate, expectedCard, confirmation)) {
           throw new Error("Backend did not confirm the expected Card");
         }
         if (signal?.aborted || !isCurrent() || requestSequence.current !== requestId) return null;

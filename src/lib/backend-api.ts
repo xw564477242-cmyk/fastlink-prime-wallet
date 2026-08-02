@@ -466,6 +466,7 @@ type BackendCardRecord = {
   currency?: unknown;
   alias?: unknown;
   availableBalanceMinor?: unknown;
+  createdAt?: unknown;
   capabilities?: Record<string, unknown>;
 };
 
@@ -863,7 +864,15 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     Number.isInteger(year) &&
     year >= 2000 &&
     year <= 9999;
-  const minor = Number(value.availableBalanceMinor ?? 0);
+  const availableBalanceMinor =
+    value.availableBalanceMinor === undefined
+      ? undefined
+      : cardMinorUnits(value.availableBalanceMinor, "available balance");
+  const minor = Number(availableBalanceMinor ?? 0);
+  const hasAlias = Object.hasOwn(value, "alias");
+  const alias =
+    value.alias === null ? undefined : typeof value.alias === "string" ? value.alias : undefined;
+  const createdAt = value.createdAt === undefined ? undefined : cardRfc3339(value.createdAt);
   const capabilities = value.capabilities ?? {};
 
   return {
@@ -875,8 +884,10 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     expiryMonth: expiryValid ? month : undefined,
     expiryYear: expiryValid ? year : undefined,
     currency: typeof value.currency === "string" ? value.currency : "—",
-    alias: typeof value.alias === "string" ? value.alias : undefined,
+    ...(hasAlias ? { alias } : {}),
     balance: Number.isFinite(minor) ? minor / 100 : 0,
+    ...(availableBalanceMinor === undefined ? {} : { availableBalanceMinor }),
+    ...(createdAt === undefined ? {} : { createdAt }),
     capabilities: {
       freeze: capabilities.freeze === true,
       unfreeze: capabilities.unfreeze === true,

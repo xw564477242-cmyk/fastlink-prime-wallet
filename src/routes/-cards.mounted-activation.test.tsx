@@ -603,6 +603,70 @@ describeConfigured(
       expect(invalidations).toHaveLength(0);
     });
 
+    it("fails closed when the ACTIVE Card list has a different public generation", async () => {
+      const cases = [
+        {
+          name: "balance",
+          listCard: () => ({ ...activeCard(), availableBalanceMinor: "2600" }),
+        },
+        {
+          name: "capability",
+          listCard: () => ({
+            ...activeCard(),
+            capabilities: { ...activeCard().capabilities, replace: false },
+          }),
+        },
+        {
+          name: "alias",
+          listCard: () => activeCard("card_pending_1", "Different public alias"),
+        },
+      ];
+
+      for (const probe of cases) {
+        let mutationReads = 0;
+        let listReads = 0;
+        const calls = installFetch((input, init) => {
+          if (isList(input, init)) {
+            listReads += 1;
+            return json({
+              cards: [listReads === 1 ? pendingCard() : probe.listCard()],
+              nextCursor: null,
+            });
+          }
+          if (activationCardId(input, init)) {
+            mutationReads += 1;
+            return json({ status: "ACTIVE" }, 201);
+          }
+          if (detailCardId(input, init)) return json(activeCard());
+          const read = publicRead(input);
+          if (read) return read;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+
+        await mount();
+        await act(async () => {
+          void button("Activate card").props.onClick();
+          await flush();
+        });
+
+        expect(mutationReads, probe.name).toBe(1);
+        expect(listReads, probe.name).toBe(2);
+        expect(pageText(), probe.name).toContain("PENDING");
+        expect(pageText(), probe.name).toContain(
+          "Refresh this Card before another activation attempt.",
+        );
+        expect(button("Refresh Card first").props.disabled, probe.name).toBeTrue();
+        await act(async () => {
+          void button("Refresh Card first").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, probe.name).toBe(1);
+        expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
+        expect(invalidations, probe.name).toHaveLength(0);
+        await unmount();
+      }
+    });
+
     it("confirms an owned ACTIVE Card on a bounded later list page", async () => {
       let listReads = 0;
       const calls = installFetch((input, init) => {

@@ -185,7 +185,7 @@ export function CardsPage() {
       isCurrent: () => boolean,
       signal: AbortSignal,
     ) => {
-      const confirmed = await refreshCards(card, isCurrent, signal);
+      const confirmed = await refreshCards(card, isCurrent, signal, "EXACT_GENERATION");
       if (!confirmed) return false;
       refreshCardData();
       return true;
