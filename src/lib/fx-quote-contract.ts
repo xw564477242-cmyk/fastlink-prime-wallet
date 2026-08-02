@@ -33,7 +33,7 @@ export class FxQuoteContractError extends Error {
 const ASSET_CODE = /^[A-Z0-9]{2,12}$/;
 const SOURCE_AMOUNT = /^(?=.*[1-9])(?:0|[1-9]\d{0,17})(?:\.\d{1,18})?$/;
 const CANONICAL_DECIMAL = /^(?=.*[1-9])(?:0|[1-9]\d{0,17})(?:\.(?:[1-9]|\d{1,17}[1-9]))?$/;
-const SAFE_QUOTE_ID = /^[A-Za-z0-9._:-]{1,128}$/;
+const SAFE_QUOTE_ID = /^[A-Za-z0-9._:-]{2,128}$/;
 const RFC3339 =
   /^(\d{4})-(\d{2})-(\d{2})T([01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,9})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/;
 const RESPONSE_FIELDS = [

@@ -133,6 +133,16 @@ describe("FX quote exact response contract", () => {
       "expiresAt",
     ]);
     expect(Object.isFrozen(result)).toBe(true);
+    for (const quoteId of ["q1", "q".repeat(128)]) {
+      expect(
+        normalizeFxQuoteResponse(
+          JSON.stringify(quote({ quoteId })),
+          "SANDBOX",
+          normalizeFxQuoteInput(input()),
+          NOW,
+        ).quoteId,
+      ).toBe(quoteId);
+    }
   });
 
   it("rejects extra private fields and every scope or decimal mismatch", () => {
@@ -150,6 +160,8 @@ describe("FX quote exact response contract", () => {
       { targetAmount: "0" },
       { rate: "4.410" },
       { rate: "NaN" },
+      { quoteId: "q" },
+      { quoteId: "q".repeat(129) },
       { quoteId: "quote id" },
       { expiresAt: "2026-08-02T03:59:59.999Z" },
       { expiresAt: new Date(NOW + FX_QUOTE_MAX_VALIDITY_MS + 1).toISOString() },

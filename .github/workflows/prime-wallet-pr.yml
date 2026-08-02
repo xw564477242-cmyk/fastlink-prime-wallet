@@ -170,6 +170,12 @@ jobs:
       - name: Run mounted selected Card replacement safety in TEST
         run: bun run test:card-replace-mounted:test
 
+      - name: Run mounted FX quote preview safety in SANDBOX
+        run: bun run test:fx-quote-mounted:sandbox
+
+      - name: Run mounted FX quote preview safety in TEST
+        run: bun run test:fx-quote-mounted:test
+
       - name: Type check
         run: bunx tsc --noEmit
 
@@ -198,6 +204,8 @@ jobs:
           sha256sum wallet-operation-evidence.json src/hooks/use-wallet-operations.test.tsx src/hooks/use-wallet-operations.ts src/lib/backend-session.test.tsx src/lib/backend-session-policy.ts src/lib/backend-session-policy.test.ts src/lib/wallet-operation-state.ts src/lib/wallet-operation-state.test.ts src/lib/backend-api.test.ts src/lib/card-timeline-state.ts src/lib/card-timeline-state.test.ts src/hooks/use-card-timeline-pages.ts src/hooks/use-card-timeline-pages.test.tsx >> build-evidence.sha256
           printf '{"format":"fastlink-prime-wallet-readiness-evidence-v1","sourceCommit":"%s","path":"/readyz","service":"fastlink-prime-wallet","production":false,"validatedEnvironments":["SANDBOX","TEST"],"maxResponseBytes":1024,"redirectPolicy":"error","timeoutMilliseconds":30000}\n' "${{ github.event.pull_request.head.sha }}" > readiness-evidence.json
           sha256sum readiness-evidence.json scripts/verify-prime-wallet-readiness.mjs scripts/readiness-deployment-contract.test.mjs src/lib/prime-wallet-readiness.ts src/lib/prime-wallet-readiness.test.ts src/server.ts .github/workflows/prime-wallet-pr.yml .github/workflows/deploy-cloudflare-dev.yml .github/workflows/deploy-cloudflare-test.yml wrangler.dev.jsonc wrangler.test.jsonc >> build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-fx-quote-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_QUOTE_PREVIEW","backendMethod":"POST","directProviderCalls":0,"writes":0,"scopeBound":true,"expiryBound":true,"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > fx-quote-evidence.json
+          sha256sum fx-quote-evidence.json src/lib/backend-api.ts src/lib/fx-quote-contract.ts src/lib/fx-quote-state.ts src/lib/fx-quote-adversarial.test.ts src/hooks/use-fx-quote.ts src/routes/convert.tsx src/routes/-convert.mounted-quote.test.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -213,6 +221,7 @@ jobs:
             .github/workflows/prime-wallet-pr.yml
             package.json
             readiness-evidence.json
+            fx-quote-evidence.json
             scripts/verify-prime-wallet-readiness.mjs
             scripts/readiness-deployment-contract.test.mjs
             src/lib/prime-wallet-readiness.ts
@@ -254,6 +263,10 @@ jobs:
             src/lib/card-transaction-history.integration.ts
             src/lib/wallet-transfer-consumer.integration.ts
             src/lib/backend-api.ts
+            src/lib/fx-quote-contract.ts
+            src/lib/fx-quote-state.ts
+            src/lib/fx-quote-adversarial.test.ts
+            src/hooks/use-fx-quote.ts
             src/lib/backend-api.test.ts
             src/lib/backend-session.tsx
             src/lib/card-timeline-state.ts
@@ -299,7 +312,10 @@ jobs:
             src/routes/transfer.tsx
             src/routes/transfer.mounted-safety.test.tsx
             src/routes/assets.fiat.tsx
+            src/routes/convert.tsx
+            src/routes/-convert.mounted-quote.test.tsx
             src/routes/kyc.tsx
           if-no-files-found: error
           include-hidden-files: true
           retention-days: 7
+
