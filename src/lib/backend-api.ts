@@ -1277,6 +1277,9 @@ function cardStatusMutationExpectation(card: WalletCard, action: CardStatusMutat
     card.expiryYear === undefined ||
     card.expiryYear < 2000 ||
     card.expiryYear > 9999 ||
+    card.expiry !==
+      `${String(card.expiryMonth).padStart(2, "0")}/${String(card.expiryYear).slice(-2)}` ||
+    !Number.isFinite(card.balance) ||
     (action === "freeze"
       ? card.status !== "active" || card.capabilities.freeze !== true
       : card.status !== "frozen" || card.capabilities.unfreeze !== true)
@@ -1289,6 +1292,12 @@ function cardStatusMutationExpectation(card: WalletCard, action: CardStatusMutat
       ? null
       : cardMinorUnits(card.availableBalanceMinor, "available balance");
   const createdAt = card.createdAt === undefined ? null : cardRfc3339(card.createdAt);
+  if (
+    availableBalanceMinor !== null &&
+    !Object.is(card.balance, Number(availableBalanceMinor) / 100)
+  ) {
+    throw new Error("Selected Card status cannot be updated");
+  }
   return { cardId, alias, availableBalanceMinor, createdAt };
 }
 
@@ -1296,6 +1305,7 @@ export function buildCardStatusMutationRequest(
   card: WalletCard,
   action: CardStatusMutationAction,
   idempotencyKey: string,
+  signal?: AbortSignal,
 ): { path: string; init: RequestInit } {
   const { cardId } = cardStatusMutationExpectation(card, action);
   return {
@@ -1303,8 +1313,79 @@ export function buildCardStatusMutationRequest(
     init: {
       method: "POST",
       headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+      ...(signal ? { signal } : {}),
     },
   };
+}
+
+export class CardStatusMutationConfirmationError extends Error {
+  constructor() {
+    super("Backend did not confirm the Card status update");
+    this.name = "CardStatusMutationConfirmationError";
+  }
+}
+
+function hasSameCardStatusOptionalField(
+  candidate: WalletCard,
+  expected: WalletCard,
+  field: "alias" | "availableBalanceMinor" | "createdAt",
+): boolean {
+  return (
+    Object.hasOwn(candidate, field) === Object.hasOwn(expected, field) &&
+    candidate[field] === expected[field]
+  );
+}
+
+function hasSameCardStatusGeneration(candidate: WalletCard, expected: WalletCard): boolean {
+  return (
+    candidate.cardId === expected.cardId &&
+    candidate.type === expected.type &&
+    candidate.status === expected.status &&
+    candidate.last4 === expected.last4 &&
+    candidate.expiry === expected.expiry &&
+    candidate.expiryMonth === expected.expiryMonth &&
+    candidate.expiryYear === expected.expiryYear &&
+    candidate.currency === expected.currency &&
+    Object.is(candidate.balance, expected.balance) &&
+    hasSameCardStatusOptionalField(candidate, expected, "alias") &&
+    hasSameCardStatusOptionalField(candidate, expected, "availableBalanceMinor") &&
+    hasSameCardStatusOptionalField(candidate, expected, "createdAt") &&
+    candidate.capabilities.freeze === expected.capabilities.freeze &&
+    candidate.capabilities.unfreeze === expected.capabilities.unfreeze &&
+    candidate.capabilities.replace === expected.capabilities.replace &&
+    candidate.capabilities.renew === expected.capabilities.renew &&
+    candidate.capabilities.updateLimits === expected.capabilities.updateLimits
+  );
+}
+
+export function normalizeCardStatusMutationSnapshot(
+  value: unknown,
+  priorCard: WalletCard,
+  action: CardStatusMutationAction,
+  expectedGeneration: WalletCard,
+): WalletCard {
+  const record = exactOwnJsonDataRecord(
+    value,
+    [
+      "id",
+      "type",
+      "status",
+      "last4",
+      "expiryMonth",
+      "expiryYear",
+      "currency",
+      "alias",
+      "availableBalanceMinor",
+      "createdAt",
+      "capabilities",
+    ],
+    "Backend returned an invalid Card status snapshot",
+  );
+  const snapshot = normalizeCardStatusMutationResponse(record, priorCard, action);
+  if (!hasSameCardStatusGeneration(snapshot, expectedGeneration)) {
+    throw new CardStatusMutationConfirmationError();
+  }
+  return snapshot;
 }
 
 export function normalizeCardStatusMutationResponse(
@@ -3430,10 +3511,33 @@ export const backendApi = {
     card: WalletCard,
     action: CardStatusMutationAction,
     idempotencyKey: string,
+    signal?: AbortSignal,
   ): Promise<WalletCard> {
     requireSandboxTestCardMutationRuntime();
-    const { path, init } = buildCardStatusMutationRequest(card, action, idempotencyKey);
-    return normalizeCardStatusMutationResponse(await request<unknown>(path, init), card, action);
+    const { path, init } = buildCardStatusMutationRequest(card, action, idempotencyKey, signal);
+    const result = await request<unknown>(path, init);
+    try {
+      return normalizeCardStatusMutationResponse(result, card, action);
+    } catch {
+      throw new CardStatusMutationConfirmationError();
+    }
+  },
+
+  async cardStatusMutationSnapshot(
+    card: WalletCard,
+    action: CardStatusMutationAction,
+    expectedGeneration: WalletCard,
+    signal?: AbortSignal,
+  ): Promise<WalletCard> {
+    requireSandboxTestCardMutationRuntime();
+    const snapshot = await request<string>(
+      `/v1/cards/${encodeURIComponent(card.cardId)}`,
+      { signal },
+      "text",
+      CARD_ACTIVATION_MAX_RESPONSE_BYTES,
+    );
+    requireSandboxTestCardMutationRuntime();
+    return normalizeCardStatusMutationSnapshot(snapshot, card, action, expectedGeneration);
   },
 
   async cardTransactions(

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
 import {
+  CardStatusMutationConfirmationError,
   backendApi,
   backendRuntime,
   type BackendSession,
@@ -35,7 +36,8 @@ export function useCardStatusMutation(
   session: BackendSession | null,
   card: WalletCard | undefined,
   action: CardStatusMutationAction,
-  onUpdated: (card: WalletCard) => void,
+  onUpdated: (card: WalletCard, isCurrent: () => boolean, signal: AbortSignal) => Promise<boolean>,
+  onUnconfirmed: () => void,
   invalidateSession?: BackendSessionInvalidator,
 ) {
   const sessionIdentity = useRef({ session, generation: 0 });
@@ -59,11 +61,16 @@ export function useCardStatusMutation(
     action,
     sessionIdentity.current.generation,
     cardIdentity.current.generation,
+    backendRuntime.error === null ? backendRuntime.apiUrl : "",
   );
   const [state, dispatch] = useReducer(cardStatusMutationReducer, initialCardStatusMutationState);
   const gate = useRef(createCardStatusMutationGate(scopeKey));
+  const activeAbort = useRef<AbortController | null>(null);
   const mounted = useRef(false);
-  syncCardStatusMutationScope(gate.current, scopeKey);
+  if (syncCardStatusMutationScope(gate.current, scopeKey)) {
+    activeAbort.current?.abort();
+    activeAbort.current = null;
+  }
   const view = cardStatusMutationView(state, scopeKey);
 
   useEffect(() => {
@@ -75,6 +82,8 @@ export function useCardStatusMutation(
     mounted.current = true;
     return () => {
       mounted.current = false;
+      activeAbort.current?.abort();
+      activeAbort.current = null;
       invalidateCardStatusMutationGate(currentGate);
     };
   }, []);
@@ -88,13 +97,34 @@ export function useCardStatusMutation(
       return false;
     }
     if (!ticket) return false;
+    const controller = new AbortController();
+    activeAbort.current = controller;
+    let statusPostSucceeded = false;
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
     try {
-      const updated = await backendApi.updateCardStatus(card, action, ticket.idempotencyKey);
+      const updated = await backendApi.updateCardStatus(
+        card,
+        action,
+        ticket.idempotencyKey,
+        controller.signal,
+      );
+      statusPostSucceeded = true;
       if (!mounted.current || !acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey))
         return false;
+      const confirmed = await backendApi.cardStatusMutationSnapshot(
+        card,
+        action,
+        updated,
+        controller.signal,
+      );
+      if (!mounted.current || !acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey))
+        return false;
+      const isCurrent = () =>
+        mounted.current && acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey);
+      if (!(await onUpdated(confirmed, isCurrent, controller.signal))) {
+        throw new CardStatusMutationConfirmationError();
+      }
       clearCardStatusMutationRetry(gate.current);
-      onUpdated(updated);
       return true;
     } catch (reason) {
       const current =
@@ -102,8 +132,19 @@ export function useCardStatusMutation(
       if (!current) return false;
       if (cardStatusMutationFailureIsExplicit401(reason)) {
         clearCardStatusMutationRetry(gate.current);
+        if (statusPostSucceeded) onUnconfirmed();
         dispatch({ type: "failed", requestKey: ticket.requestKey, message: SAFE_STATUS_ERROR });
         if (session) invalidateSession?.(session, "EXPLICIT_401");
+      } else if (
+        (statusPostSucceeded || reason instanceof CardStatusMutationConfirmationError) &&
+        blockCardStatusMutation(gate.current, ticket, scopeKey)
+      ) {
+        onUnconfirmed();
+        dispatch({
+          type: "conflicted",
+          requestKey: ticket.requestKey,
+          message: SAFE_STATUS_CONFLICT_ERROR,
+        });
       } else if (
         cardStatusMutationFailureIsAmbiguous(reason) &&
         retainCardStatusMutationRetry(gate.current, ticket, scopeKey)
@@ -129,11 +170,12 @@ export function useCardStatusMutation(
       }
       return false;
     } finally {
+      if (activeAbort.current === controller) activeAbort.current = null;
       if (mounted.current && settleCardStatusMutation(gate.current, ticket, scopeKey)) {
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [action, card, invalidateSession, onUpdated, scopeKey, session]);
+  }, [action, card, invalidateSession, onUnconfirmed, onUpdated, scopeKey, session]);
 
   return {
     ...view,

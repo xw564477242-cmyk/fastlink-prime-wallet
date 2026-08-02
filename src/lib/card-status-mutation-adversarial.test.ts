@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import {
   buildCardStatusMutationRequest,
   normalizeCardStatusMutationResponse,
+  normalizeCardStatusMutationSnapshot,
   type BackendSession,
   type FastLinkEnvironment,
   type WalletCard,
@@ -96,6 +97,20 @@ describe("Selected Card status mutation environment and scope", () => {
     expect(cardStatusMutationScopeKey(session(), "TEST", card(), "freeze")).toBeNull();
     expect(
       cardStatusMutationScopeKey(
+        session(),
+        "SANDBOX",
+        card(),
+        "freeze",
+        0,
+        0,
+        "https://api.invalid",
+      ),
+    ).toBeNull();
+    expect(
+      cardStatusMutationScopeKey(session({ actorId: "" }), "SANDBOX", card(), "freeze"),
+    ).toBeNull();
+    expect(
+      cardStatusMutationScopeKey(
         session({ expiresAt: "2020-01-01T00:00:00Z" }),
         "SANDBOX",
         card(),
@@ -103,6 +118,12 @@ describe("Selected Card status mutation environment and scope", () => {
       ),
     ).toBeNull();
     expect(cardStatusMutationScopeKey(session(), "SANDBOX", card(), "unfreeze")).toBeNull();
+    expect(
+      cardStatusMutationScopeKey(session(), "SANDBOX", card({ expiry: "11/30" }), "freeze"),
+    ).toBeNull();
+    expect(
+      cardStatusMutationScopeKey(session(), "SANDBOX", card({ balance: 26 }), "freeze"),
+    ).toBeNull();
     expect(
       cardStatusMutationScopeKey(
         session(),
@@ -123,7 +144,11 @@ describe("Selected Card status mutation environment and scope", () => {
       [session({ customerId: "customer-status-b" }), card(), "freeze"],
       [session(), card({ cardId: "card:owned.other" }), "freeze"],
       [session(), card({ last4: "5252" }), "freeze"],
+      [session(), card({ expiry: "11/30", expiryMonth: 11 }), "freeze"],
+      [session(), card({ balance: 26, availableBalanceMinor: "2600" }), "freeze"],
       [session(), card({ alias: "Changed" }), "freeze"],
+      [session(), card({ createdAt: "2026-01-01T00:00:01Z" }), "freeze"],
+      [session(), card({ capabilities: { ...card().capabilities, replace: true } }), "freeze"],
     ] as const;
     for (const [nextSession, nextCard, action] of changes) {
       expect(cardStatusMutationScopeKey(nextSession, "SANDBOX", nextCard, action)).not.toBe(scope);
@@ -172,6 +197,48 @@ describe("Selected Card status mutation request and response", () => {
         normalizeCardStatusMutationResponse(response(mutation), card(), "freeze"),
       ).toThrow();
     }
+  });
+
+  it("accepts a persisted snapshot only for the exact normalized public Card generation", () => {
+    const expected = normalizeCardStatusMutationResponse(response(), card(), "freeze");
+    expect(
+      normalizeCardStatusMutationSnapshot(JSON.stringify(response()), card(), "freeze", expected),
+    ).toEqual(expected);
+    for (const mismatch of [
+      { availableBalanceMinor: "2501" },
+      { alias: "Changed Alias" },
+      { createdAt: "2026-01-01T00:00:01Z" },
+      {
+        capabilities: {
+          ...response().capabilities,
+          replace: true,
+        },
+      },
+    ]) {
+      expect(() =>
+        normalizeCardStatusMutationSnapshot(
+          JSON.stringify(response(mismatch)),
+          card(),
+          "freeze",
+          expected,
+        ),
+      ).toThrow();
+    }
+
+    const priorWithoutBalance = card({ availableBalanceMinor: undefined, createdAt: undefined });
+    const acceptedPost = normalizeCardStatusMutationResponse(
+      response({ createdAt: null }),
+      priorWithoutBalance,
+      "freeze",
+    );
+    expect(() =>
+      normalizeCardStatusMutationSnapshot(
+        JSON.stringify(response({ availableBalanceMinor: "2501", createdAt: null })),
+        priorWithoutBalance,
+        "freeze",
+        acceptedPost,
+      ),
+    ).toThrow("Backend did not confirm the Card status update");
   });
 });
 

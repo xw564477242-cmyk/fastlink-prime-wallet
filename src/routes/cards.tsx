@@ -169,14 +169,28 @@ export function CardsPage() {
   );
   const cardStatusAction = current?.status === "frozen" ? "unfreeze" : "freeze";
   const acceptStatusUpdate = useCallback(
-    (card: Parameters<typeof replaceCard>[0]) => replaceCard(card),
-    [replaceCard],
+    async (
+      card: Parameters<typeof replaceCard>[0],
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ) => {
+      const confirmed = await refreshCards(card, isCurrent, signal, "EXACT_GENERATION");
+      if (!confirmed) return false;
+      refreshCardData();
+      return true;
+    },
+    [refreshCards],
   );
+  const invalidateUnconfirmedStatus = useCallback(() => {
+    invalidate("Card status could not be confirmed. Refresh Cards before continuing.");
+    refreshCardData();
+  }, [invalidate]);
   const cardStatusMutation = useCardStatusMutation(
     session,
     current,
     cardStatusAction,
     acceptStatusUpdate,
+    invalidateUnconfirmedStatus,
     invalidateSession,
   );
   const acceptActivatedCard = useCallback(
