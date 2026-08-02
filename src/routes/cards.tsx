@@ -91,6 +91,7 @@ export function CardsPage() {
     scopeReady,
     error: listError,
     loadMore,
+    confirmCreatedCard,
     refreshCards,
     confirmReplacement,
     confirmRenewal,
@@ -103,22 +104,36 @@ export function CardsPage() {
     () => ({ currency: "USD", alias: defaultVirtualAlias }),
     [defaultVirtualAlias],
   );
+  const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
   const acceptCreatedCard = useCallback(
-    async (card: Parameters<typeof replaceCard>[0], isCurrent: () => boolean) => {
-      if (cards.some((existing) => existing.cardId === card.cardId)) return false;
-      const confirmed = await refreshCards(card, isCurrent);
+    async (
+      card: Parameters<typeof replaceCard>[0],
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ) => {
+      const confirmed = await confirmCreatedCard(card, isCurrent, signal);
       if (!confirmed || !isCurrent()) return false;
-      void navigate({ search: { cardId: card.cardId }, replace: true });
+      refreshCardData();
+      void navigate({ search: { cardId: confirmed.cardId }, replace: true });
       return true;
     },
-    [cards, navigate, refreshCards],
+    [confirmCreatedCard, navigate],
   );
-  const virtualCardCreate = useVirtualCardCreate(session, virtualCardInput, acceptCreatedCard);
+  const invalidateUnconfirmedCreate = useCallback(() => {
+    invalidate("Virtual Card creation could not be confirmed. Refresh Cards before continuing.");
+    refreshCardData();
+  }, [invalidate]);
+  const virtualCardCreate = useVirtualCardCreate(
+    session,
+    virtualCardInput,
+    acceptCreatedCard,
+    invalidateUnconfirmedCreate,
+    invalidateSession,
+  );
   const current = useMemo(
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
-  const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
   const acceptRenewedCard = useCallback(
     async (
       predecessor: Parameters<typeof confirmRenewal>[0],
@@ -315,7 +330,7 @@ export function CardsPage() {
   };
 
   const issueVirtual = async () => {
-    if (!issueScopeReady || !virtualCardCreate.allowed || busy) return;
+    if (!issueScopeReady || !virtualCardCreate.canSubmit || busy) return;
     await virtualCardCreate.submit();
   };
 
@@ -348,7 +363,7 @@ export function CardsPage() {
           {virtualCardCreate.allowed && (
             <button
               onClick={() => void issueVirtual()}
-              disabled={busy || !issueScopeReady}
+              disabled={busy || !issueScopeReady || !virtualCardCreate.canSubmit}
               className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
             >
               <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}

@@ -140,6 +140,89 @@ export function useCardListPages(
     }
   }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
 
+  const confirmCreatedCard = useCallback(
+    async (
+      created: WalletCard,
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ): Promise<WalletCard | null> => {
+      const current = stateRef.current;
+      if (
+        signal.aborted ||
+        !isCurrent() ||
+        !scopeReady ||
+        !sessionKey ||
+        state.loading ||
+        state.loadingMore ||
+        activePageRequest.current !== null ||
+        current.sessionKey !== sessionKey ||
+        current.cards.some((card) => card.cardId === created.cardId)
+      ) {
+        return null;
+      }
+      const originalCards = current.cards;
+      const originalActiveId = current.activeId;
+      const requestId = ++requestSequence.current;
+      activePageRequest.current = requestId;
+      dispatch({ type: "arm", requestId });
+      try {
+        const cards: WalletCard[] = [];
+        const seenCardIds = new Set<string>();
+        const seenCursors = new Set<string>();
+        let cursor: string | null = null;
+        let createdCandidate: WalletCard | null = null;
+        let reachedEnd = false;
+        for (let pageNumber = 0; pageNumber < MAX_CONFIRMATION_PAGES; pageNumber += 1) {
+          const page = await backendApi.listCards(
+            { limit: CARD_LIST_PAGE_SIZE, ...(cursor ? { cursor } : {}) },
+            signal,
+          );
+          if (signal.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+          for (const card of page.cards) {
+            if (seenCardIds.has(card.cardId)) throw new Error("Backend returned duplicate Cards");
+            seenCardIds.add(card.cardId);
+            cards.push(card);
+            if (card.cardId === created.cardId) createdCandidate = card;
+          }
+          if (!page.nextCursor) {
+            reachedEnd = true;
+            break;
+          }
+          if (seenCursors.has(page.nextCursor)) {
+            throw new Error("Backend repeated a Card cursor");
+          }
+          seenCursors.add(page.nextCursor);
+          cursor = page.nextCursor;
+        }
+        if (
+          !reachedEnd ||
+          !createdCandidate ||
+          !confirmsExpectedCard(createdCandidate, created, "EXACT_GENERATION")
+        ) {
+          throw new Error("Backend did not confirm the exact created Card generation");
+        }
+        const latest = stateRef.current;
+        if (
+          signal.aborted ||
+          !isCurrent() ||
+          requestSequence.current !== requestId ||
+          latest.sessionKey !== sessionKey ||
+          latest.cards !== originalCards ||
+          latest.activeId !== originalActiveId ||
+          latest.cards.some((card) => card.cardId === created.cardId)
+        ) {
+          return null;
+        }
+        dispatch({ type: "page", requestId, page: { cards, nextCursor: null }, append: false });
+        dispatch({ type: "select", sessionKey, cardId: createdCandidate.cardId });
+        return createdCandidate;
+      } finally {
+        if (activePageRequest.current === requestId) activePageRequest.current = null;
+      }
+    },
+    [scopeReady, sessionKey, state.loading, state.loadingMore],
+  );
+
   const refreshCards = useCallback(
     async (
       expectedCard: WalletCard,
@@ -427,6 +510,7 @@ export function useCardListPages(
   return {
     ...view,
     loadMore,
+    confirmCreatedCard,
     refreshCards,
     confirmReplacement,
     confirmRenewal,
