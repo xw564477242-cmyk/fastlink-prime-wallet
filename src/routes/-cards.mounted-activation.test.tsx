@@ -341,6 +341,139 @@ describeConfigured(
       expect(calls.some(({ input }) => /\/api\/cards|\/pin|\/cvv/.test(path(input)))).toBeFalse();
     });
 
+    it("blocks the current Card generation when a successful POST is not confirmed ACTIVE", async () => {
+      const cases: Array<{ name: string; response: () => Response }> = [
+        { name: "PENDING", response: () => json(pendingCard()) },
+        {
+          name: "extra field",
+          response: () => json({ ...activeCard(), providerOperationRef: "provider-secret" }),
+        },
+        { name: "403", response: () => json({ message: "forbidden-secret" }, 403) },
+        { name: "404", response: () => json({ message: "missing-secret" }, 404) },
+      ];
+
+      for (const probe of cases) {
+        let mutationReads = 0;
+        const calls = installFetch((input, init) => {
+          if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+          if (activationCardId(input, init)) {
+            mutationReads += 1;
+            return json({ status: "ACTIVE" }, 201);
+          }
+          if (detailCardId(input, init)) return probe.response();
+          const read = publicRead(input);
+          if (read) return read;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+
+        await mount();
+        await act(async () => {
+          void button("Activate card").props.onClick();
+          await flush();
+        });
+
+        expect(mutationReads, probe.name).toBe(1);
+        expect(pageText(), probe.name).toContain("PENDING");
+        expect(pageText(), probe.name).toContain(
+          "Refresh this Card before another activation attempt.",
+        );
+        expect(button("Refresh Card first").props.disabled, probe.name).toBeTrue();
+        await act(async () => {
+          void button("Refresh Card first").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, probe.name).toBe(1);
+        expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
+        expect(invalidations, probe.name).toHaveLength(0);
+        expect(body(), probe.name).not.toMatch(/provider-secret|forbidden-secret|missing-secret/);
+        await unmount();
+      }
+    });
+
+    it("removes activation after a real refresh confirms ACTIVE", async () => {
+      let mutationReads = 0;
+      let detailReads = 0;
+      installFetch((input, init) => {
+        if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+        if (activationCardId(input, init)) {
+          mutationReads += 1;
+          return json({ status: "ACTIVE" }, 201);
+        }
+        if (detailCardId(input, init)) {
+          detailReads += 1;
+          return detailReads === 1 ? json(pendingCard()) : json(activeCard());
+        }
+        const read = publicRead(input);
+        if (read) return read;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+
+      await mount();
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      expect(pageText()).toContain("Refresh this Card before another activation attempt.");
+      await act(async () => {
+        void button("cards.refresh").props.onClick();
+        await flush();
+      });
+
+      expect(mutationReads).toBe(1);
+      expect(detailReads).toBe(2);
+      expect(pageText()).toContain("ACTIVE");
+      expect(pageText()).not.toContain("Activate card");
+      expect(invalidations).toHaveLength(0);
+    });
+
+    it("allows a new key only after a real refresh returns a new PENDING generation", async () => {
+      let mutationReads = 0;
+      let detailReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+        if (activationCardId(input, init)) {
+          mutationReads += 1;
+          return json({ status: "ACTIVE" }, 201);
+        }
+        if (detailCardId(input, init)) {
+          detailReads += 1;
+          return detailReads < 3 ? json(pendingCard()) : json(activeCard());
+        }
+        const read = publicRead(input);
+        if (read) return read;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+
+      await mount();
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(button("Refresh Card first").props.disabled).toBeTrue();
+
+      await act(async () => {
+        void button("cards.refresh").props.onClick();
+        await flush();
+      });
+      expect(pageText()).toContain("PENDING");
+      expect(pageText()).toContain("Activate card");
+
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      const mutations = calls.filter(({ input, init }) => activationCardId(input, init));
+      expect(mutationReads).toBe(2);
+      expect(mutations).toHaveLength(2);
+      expect(isUuidV4(uuidHeader(mutations[0]))).toBeTrue();
+      expect(isUuidV4(uuidHeader(mutations[1]))).toBeTrue();
+      expect(uuidHeader(mutations[1])).not.toBe(uuidHeader(mutations[0]));
+      expect(pageText()).toContain("ACTIVE");
+      expect(pageText()).not.toContain("Activate card");
+      expect(invalidations).toHaveLength(0);
+    });
+
     it("keeps the verified PENDING Card and Session for 408, 409 and 5xx", async () => {
       for (const status of [408, 409, 500, 503, 599]) {
         let mutationReads = 0;

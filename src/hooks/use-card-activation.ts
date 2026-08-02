@@ -87,9 +87,11 @@ export function useCardActivation(
     if (!ticket) return false;
     const controller = new AbortController();
     activeAbort.current = controller;
+    let activationPostSucceeded = false;
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
     try {
       await backendApi.activateCard(session, card, ticket.idempotencyKey, controller.signal);
+      activationPostSucceeded = true;
       if (!mounted.current || !acceptsCardActivationCompletion(gate.current, ticket, scopeKey)) {
         return false;
       }
@@ -108,6 +110,12 @@ export function useCardActivation(
         clearCardActivationRetry(gate.current);
         dispatch({ type: "failed", requestKey: ticket.requestKey, message: SAFE_ACTIVATION_ERROR });
         invalidateSession?.(session, "EXPLICIT_401");
+      } else if (activationPostSucceeded && blockCardActivation(gate.current, ticket, scopeKey)) {
+        dispatch({
+          type: "conflicted",
+          requestKey: ticket.requestKey,
+          message: SAFE_ACTIVATION_CONFLICT_ERROR,
+        });
       } else if (
         cardActivationFailureIsAmbiguous(reason) &&
         retainCardActivationRetry(gate.current, ticket, scopeKey)

@@ -212,6 +212,28 @@ describe("Prime Card activation exact identity and late-completion isolation", (
     expect(refreshed?.idempotencyKey).toBe(keys[1]);
   });
 
+  it("blocks an unconfirmed successful POST until a real Card generation refresh", () => {
+    const scope = cardActivationScopeKey(session(), "SANDBOX", "/api", card(), 1, 1)!;
+    const gate = createCardActivationGate(scope);
+    const activation = beginCardActivation(gate, scope, () => keys[0]!)!;
+
+    expect(blockCardActivation(gate, activation, scope)).toBeTrue();
+    expect(settleCardActivation(gate, activation, scope)).toBeTrue();
+    expect(beginCardActivation(gate, scope, () => keys[1]!)).toBeNull();
+
+    const refreshedPendingScope = cardActivationScopeKey(
+      session(),
+      "SANDBOX",
+      "/api",
+      card(),
+      1,
+      2,
+    )!;
+    const refreshed = beginCardActivation(gate, refreshedPendingScope, () => keys[1]!);
+    expect(refreshed?.retry).toBeFalse();
+    expect(refreshed?.idempotencyKey).toBe(keys[1]);
+  });
+
   it("classifies only transport, 408, 409 and 5xx as ambiguous; 401 stays authoritative", () => {
     expect(cardActivationFailureIsAmbiguous(new TypeError("network"))).toBeTrue();
     for (const status of [0, 408, 409, 500, 503, 599]) {
