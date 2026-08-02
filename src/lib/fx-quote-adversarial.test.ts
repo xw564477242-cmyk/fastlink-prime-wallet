@@ -121,7 +121,7 @@ describe("FX quote exact response contract", () => {
       normalizeFxQuoteInput(input()),
       NOW,
     );
-    expect(result).toEqual(quote());
+    expect(result).toEqual(quote() as FxQuote);
     expect(Object.keys(result)).toEqual([
       "quoteId",
       "environment",
