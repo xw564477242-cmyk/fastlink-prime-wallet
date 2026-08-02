@@ -2,12 +2,20 @@ import { afterEach, describe, expect, it } from "bun:test";
 import { createElement } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 import { backendRuntime, type BackendSession } from "@/lib/backend-api";
+import type {
+  BackendSessionInvalidationReason,
+  BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
 import { useHomeWalletBalances } from "./use-home-wallet-balances";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
 
 type HookResult = ReturnType<typeof useHomeWalletBalances>;
+type Invalidation = {
+  expectedSession: BackendSession;
+  reason: BackendSessionInvalidationReason;
+};
 type Deferred<T> = {
   promise: Promise<T>;
   resolve(value: T): void;
@@ -89,8 +97,14 @@ function installFetch(
   return calls;
 }
 
-function Harness({ currentSession }: { currentSession: BackendSession | null }) {
-  latest = useHomeWalletBalances(currentSession);
+function Harness({
+  currentSession,
+  invalidateSession,
+}: {
+  currentSession: BackendSession | null;
+  invalidateSession?: BackendSessionInvalidator;
+}) {
+  latest = useHomeWalletBalances(currentSession, invalidateSession);
   return null;
 }
 
@@ -100,16 +114,22 @@ async function flush() {
   await Promise.resolve();
 }
 
-async function mount(currentSession: BackendSession | null = session()) {
+async function mount(
+  currentSession: BackendSession | null = session(),
+  invalidateSession?: BackendSessionInvalidator,
+) {
   await act(async () => {
-    renderer = create(createElement(Harness, { currentSession }));
+    renderer = create(createElement(Harness, { currentSession, invalidateSession }));
     await flush();
   });
 }
 
-async function update(currentSession: BackendSession | null) {
+async function update(
+  currentSession: BackendSession | null,
+  invalidateSession?: BackendSessionInvalidator,
+) {
   await act(async () => {
-    renderer?.update(createElement(Harness, { currentSession }));
+    renderer?.update(createElement(Harness, { currentSession, invalidateSession }));
     await flush();
   });
 }
@@ -169,7 +189,7 @@ describeEnvironment(
     });
 
     it("clears the current snapshot on 4xx, malformed or oversized responses", async () => {
-      for (const status of [400, 401, 403, 404, 409, 422]) {
+      for (const status of [400, 403, 404, 409, 422]) {
         let reads = 0;
         installFetch(() => {
           reads += 1;
@@ -209,6 +229,31 @@ describeEnvironment(
       }
     });
 
+    it("invalidates only the exact current Session on 401 and clears its snapshot", async () => {
+      let reads = 0;
+      const activeSession = session();
+      const invalidations: Invalidation[] = [];
+      const invalidateSession: BackendSessionInvalidator = (expectedSession, reason) =>
+        invalidations.push({ expectedSession, reason });
+      installFetch(() => {
+        reads += 1;
+        return reads === 1
+          ? balanceResponse()
+          : jsonResponse({ message: "provider-current-401-secret" }, 401);
+      });
+
+      await mount(activeSession, invalidateSession);
+      await act(async () => {
+        latest?.refresh();
+        await flush();
+      });
+
+      expect(invalidations).toEqual([{ expectedSession: activeSession, reason: "EXPLICIT_401" }]);
+      expect(latest?.accounts).toEqual([]);
+      expect(latest?.error).toBe("Wallet balances are unavailable");
+      expect(JSON.stringify(latest)).not.toContain("provider-current-401-secret");
+    });
+
     it("retains a verified snapshot only for network ambiguity, 408 and 5xx refresh failures", async () => {
       const failures: Array<number | "network"> = ["network", 408, 500, 503, 599];
       for (const failure of failures) {
@@ -243,7 +288,10 @@ describeEnvironment(
         return current.promise;
       });
       const firstSession = session();
-      await mount(firstSession);
+      const invalidations: Invalidation[] = [];
+      const invalidateSession: BackendSessionInvalidator = (expectedSession, reason) =>
+        invalidations.push({ expectedSession, reason });
+      await mount(firstSession, invalidateSession);
       await act(async () => {
         latest?.refresh();
         await flush();
@@ -251,7 +299,7 @@ describeEnvironment(
 
       const replacementSession = session();
       expect(replacementSession).not.toBe(firstSession);
-      await update(replacementSession);
+      await update(replacementSession, invalidateSession);
       expect(calls[1]?.init?.signal?.aborted).toBe(true);
       expect(latest?.accounts).toEqual([]);
       await act(async () => {
@@ -267,7 +315,27 @@ describeEnvironment(
       });
       expect(latest?.accounts[0]?.assetCode).toBe("EUR");
       expect(latest?.error).toBeNull();
+      expect(invalidations).toEqual([]);
       expect(JSON.stringify(latest)).not.toContain("stale-401-secret");
+    });
+
+    it("ignores a 401 that settles after unmount", async () => {
+      const pending = deferred<Response>();
+      const invalidations: Invalidation[] = [];
+      const invalidateSession: BackendSessionInvalidator = (expectedSession, reason) =>
+        invalidations.push({ expectedSession, reason });
+      installFetch(() => pending.promise);
+      await mount(session(), invalidateSession);
+      await unmount();
+
+      await act(async () => {
+        pending.resolve(jsonResponse({ message: "unmounted-401-secret" }, 401));
+        await pending.promise;
+        await flush();
+      });
+
+      expect(invalidations).toEqual([]);
+      expect(latest).toBeNull();
     });
 
     it("blocks duplicate refreshes and rejects logout, unmount and expiry-time writes", async () => {

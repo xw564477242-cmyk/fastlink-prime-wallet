@@ -37,8 +37,8 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { t } = useLang();
-  const { session } = useBackendSession();
-  const walletBalances = useHomeWalletBalances(session);
+  const { session, invalidate } = useBackendSession();
+  const walletBalances = useHomeWalletBalances(session, invalidate);
 
   useEffect(() => {
     let cancelled = false;

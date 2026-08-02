@@ -6,6 +6,10 @@ import {
   type BackendSession,
 } from "@/lib/backend-api";
 import {
+  backendSessionInvalidationReasonFromError,
+  type BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
+import {
   homeWalletBalanceReadAllowed,
   homeWalletBalanceReducer,
   homeWalletBalanceScopeKey,
@@ -24,11 +28,16 @@ type ActiveWalletBalanceRequest = {
   requestKey: string;
 };
 
-export function useHomeWalletBalances(session: BackendSession | null) {
+export function useHomeWalletBalances(
+  session: BackendSession | null,
+  invalidateSession?: BackendSessionInvalidator,
+) {
   const [state, dispatch] = useReducer(homeWalletBalanceReducer, initialHomeWalletBalanceState);
   const sequenceRef = useRef(0);
   const mountedRef = useRef(false);
   const activeRequestRef = useRef<ActiveWalletBalanceRequest | null>(null);
+  const invalidateSessionRef = useRef(invalidateSession);
+  invalidateSessionRef.current = invalidateSession;
   const sessionIdentityRef = useRef({ session, generation: 0 });
   if (sessionIdentityRef.current.session !== session) {
     sessionIdentityRef.current = {
@@ -73,6 +82,7 @@ export function useHomeWalletBalances(session: BackendSession | null) {
       })
       .catch((reason: unknown) => {
         if (!isCurrent()) return;
+        const invalidationReason = backendSessionInvalidationReasonFromError(reason);
         const transient =
           reason instanceof BackendApiError &&
           (reason.status === 0 ||
@@ -84,6 +94,9 @@ export function useHomeWalletBalances(session: BackendSession | null) {
           mode,
           retainSnapshot: mode === "refresh" && transient,
         });
+        if (invalidationReason) {
+          invalidateSessionRef.current?.(input.session, invalidationReason);
+        }
       })
       .finally(() => {
         if (!isCurrent()) return;
