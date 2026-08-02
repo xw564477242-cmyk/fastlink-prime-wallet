@@ -3,7 +3,10 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
 
-import { verifyPrimeWalletReadiness } from "./verify-prime-wallet-readiness.mjs";
+import {
+  verifyPrimeWalletReadiness,
+  verifyPrimeWalletReadinessWithRetry,
+} from "./verify-prime-wallet-readiness.mjs";
 
 const root = process.cwd();
 const read = (path) => readFileSync(join(root, path), "utf8");
@@ -67,6 +70,49 @@ test("verifies exact SANDBOX and TEST identities without credentials", async () 
     assert.equal(observed.init.redirect, "error");
     assert.equal(observed.init.signal instanceof AbortSignal, true);
   }
+});
+
+test("retries a bounded transient rollout failure and accepts the exact deployed identity", async () => {
+  let calls = 0;
+  const delays = [];
+  const result = await verifyPrimeWalletReadinessWithRetry(
+    "https://prime-wallet.fastlink.invalid",
+    "SANDBOX",
+    SHA,
+    {
+      attempts: 3,
+      delayMs: 25,
+      sleep: async (milliseconds) => delays.push(milliseconds),
+      fetchImpl: async () => {
+        calls += 1;
+        if (calls === 1) return new Response(null, { status: 500 });
+        return Response.json(
+          {
+            status: "ready",
+            service: "fastlink-prime-wallet",
+            environment: "SANDBOX",
+            buildSha: SHA,
+            production: false,
+          },
+          {
+            headers: {
+              "cache-control": "no-store",
+              "x-content-type-options": "nosniff",
+            },
+          },
+        );
+      },
+    },
+  );
+
+  assert.deepEqual(result, {
+    environment: "SANDBOX",
+    buildSha: SHA,
+    production: false,
+    verified: true,
+  });
+  assert.equal(calls, 2);
+  assert.deepEqual(delays, [25]);
 });
 
 test("rejects Production and any response that exposes an extra field", async () => {

@@ -4,6 +4,8 @@ const ENVIRONMENTS = new Set(["SANDBOX", "TEST"]);
 const SHA_PATTERN = /^[a-f0-9]{40}$/;
 const EXPECTED_KEYS = ["buildSha", "environment", "production", "service", "status"];
 const MAX_RESPONSE_BYTES = 1_024;
+const CLI_RETRY_ATTEMPTS = 6;
+const CLI_RETRY_DELAY_MS = 5_000;
 
 function fail(message) {
   throw new Error(`Prime Wallet readiness verification failed: ${message}`);
@@ -124,10 +126,40 @@ export async function verifyPrimeWalletReadiness(base, environment, buildSha, fe
   return { environment, buildSha, production: false, verified: true };
 }
 
+export async function verifyPrimeWalletReadinessWithRetry(
+  base,
+  environment,
+  buildSha,
+  {
+    attempts = CLI_RETRY_ATTEMPTS,
+    delayMs = CLI_RETRY_DELAY_MS,
+    fetchImpl = fetch,
+    sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
+  } = {},
+) {
+  if (!Number.isSafeInteger(attempts) || attempts < 1 || attempts > CLI_RETRY_ATTEMPTS) {
+    fail(`retry attempts must be between 1 and ${CLI_RETRY_ATTEMPTS}`);
+  }
+  if (!Number.isSafeInteger(delayMs) || delayMs < 0 || delayMs > CLI_RETRY_DELAY_MS) {
+    fail(`retry delay must be between 0 and ${CLI_RETRY_DELAY_MS} milliseconds`);
+  }
+
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      return await verifyPrimeWalletReadiness(base, environment, buildSha, fetchImpl);
+    } catch (error) {
+      lastError = error;
+      if (attempt < attempts) await sleep(delayMs);
+    }
+  }
+  throw lastError;
+}
+
 const direct = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (direct) {
   const [base, environment, buildSha] = process.argv.slice(2);
-  verifyPrimeWalletReadiness(base, environment, buildSha)
+  verifyPrimeWalletReadinessWithRetry(base, environment, buildSha)
     .then((result) => console.log(JSON.stringify(result)))
     .catch((error) => {
       console.error(
