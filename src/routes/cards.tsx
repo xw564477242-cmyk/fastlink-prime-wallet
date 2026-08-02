@@ -5,6 +5,7 @@ import {
   CalendarClock,
   Copy,
   CreditCard,
+  History,
   Loader2,
   Plus,
   RefreshCw,
@@ -26,6 +27,7 @@ import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
+import { useCardTimelinePages } from "@/hooks/use-card-timeline-pages";
 import { useCardLimitsMutation } from "@/hooks/use-card-limits-mutation";
 import { useCardStatusMutation } from "@/hooks/use-card-status-mutation";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
@@ -134,6 +136,7 @@ export function CardsPage() {
   const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const cardLimits = useCardLimits(session, current?.cardId ?? null);
+  const cardTimeline = useCardTimelinePages(session, current?.cardId ?? null);
   const [limitDraft, setLimitDraft] = useState<Record<CardLimitField, string>>(emptyLimitDraft);
   useEffect(() => {
     setLimitDraft(draftFromLimits(cardLimits.limits));
@@ -491,10 +494,125 @@ export function CardsPage() {
                 Railway Backend end-user API does not expose those contracts.
               </p>
             </div>
+
+            <CardTimelinePanel
+              timeline={cardTimeline}
+              disabled={busy}
+              onRefresh={() => cardTimeline.refresh()}
+              onLoadMore={() => void cardTimeline.loadMore()}
+            />
           </>
         )}
       </div>
     </MobileShell>
+  );
+}
+
+function CardTimelinePanel({
+  timeline,
+  disabled,
+  onRefresh,
+  onLoadMore,
+}: {
+  timeline: ReturnType<typeof useCardTimelinePages>;
+  disabled: boolean;
+  onRefresh: () => void;
+  onLoadMore: () => void;
+}) {
+  const hasSnapshot = timeline.events.length > 0;
+  return (
+    <section className="mt-4 rounded-2xl border border-border/60 bg-surface/60 p-5">
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Card lifecycle timeline · read only
+          </p>
+          <p className="mt-1 text-[10px] leading-relaxed text-muted-foreground">
+            GET only · 25 events per page · signed opaque cursor · SANDBOX/TEST
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={disabled || !timeline.canRefresh}
+          className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[10px] font-semibold text-primary disabled:opacity-50"
+        >
+          {timeline.refreshing ? (
+            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+          ) : (
+            <RefreshCw className="h-3.5 w-3.5" />
+          )}
+          Refresh
+        </button>
+      </div>
+
+      {timeline.loading && !hasSnapshot && (
+        <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
+          <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading verified timeline
+        </div>
+      )}
+      {timeline.refreshing && hasSnapshot && (
+        <p className="mt-3 text-[10px] text-muted-foreground">
+          Refreshing; the last verified snapshot remains visible until replacement succeeds.
+        </p>
+      )}
+      {(timeline.error || timeline.refreshError) && (
+        <div className="mt-3 flex gap-2 rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-[10px] text-destructive">
+          <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
+          <span>
+            {timeline.refreshError ?? timeline.error}
+            {hasSnapshot
+              ? " · Last verified snapshot retained; your session remains active."
+              : " · No stale timeline displayed; your session remains active."}
+          </span>
+        </div>
+      )}
+      {!timeline.loading && !timeline.error && timeline.events.length === 0 && (
+        <div className="mt-4 rounded-xl border border-dashed border-border/60 p-4 text-center">
+          <History className="mx-auto h-5 w-5 text-muted-foreground" />
+          <p className="mt-2 text-xs text-muted-foreground">No lifecycle events returned.</p>
+        </div>
+      )}
+      {timeline.events.length > 0 && (
+        <div className="mt-4 divide-y divide-border">
+          {timeline.events.map((event) => (
+            <div key={event.id} className="py-3 first:pt-0 last:pb-0">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-xs font-semibold">{event.type}</p>
+                  <p className="mt-1 text-[10px] text-muted-foreground">
+                    {event.fromStatus ?? "—"} → {event.toStatus ?? "—"}
+                  </p>
+                </div>
+                <time
+                  dateTime={event.occurredAt}
+                  className="shrink-0 text-right text-[9px] text-muted-foreground"
+                >
+                  {new Date(event.occurredAt).toLocaleString()}
+                </time>
+              </div>
+              <p
+                translate="no"
+                className="mt-1 truncate font-mono text-[9px] text-muted-foreground"
+              >
+                {event.id}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
+      {timeline.nextCursor && (
+        <button
+          type="button"
+          onClick={onLoadMore}
+          disabled={disabled || timeline.loadingMore || timeline.refreshing}
+          className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-border/60 bg-background/50 py-2.5 text-[10px] font-semibold disabled:opacity-50"
+        >
+          {timeline.loadingMore && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+          {timeline.loadingMore ? "Loading more events…" : "Load more lifecycle events"}
+        </button>
+      )}
+    </section>
   );
 }
 

@@ -18,6 +18,8 @@
     "test:internal-transfer-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/transfer.mounted-safety.test.tsx",
     "test:card-history-hook:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "test:card-history-hook:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-transaction-pages.test.tsx",
+    "test:card-timeline-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-timeline-pages.test.tsx ./src/lib/card-timeline-state.test.ts ./src/lib/backend-api.test.ts -t 'Card timeline'",
+    "test:card-timeline-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-timeline-pages.test.tsx ./src/lib/card-timeline-state.test.ts ./src/lib/backend-api.test.ts -t 'Card timeline'",
     "test:wallet-history-filter-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-wallet-account-history.test.tsx ./src/lib/wallet-transaction-filter-adversarial.test.ts",
     "test:wallet-history-filter-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-wallet-account-history.test.tsx ./src/lib/wallet-transaction-filter-adversarial.test.ts",
     "test:wallet-history-refresh-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-wallet-account-history.test.tsx ./src/lib/wallet-transaction-refresh-adversarial.test.ts",
