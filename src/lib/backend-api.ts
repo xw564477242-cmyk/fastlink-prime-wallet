@@ -535,6 +535,26 @@ export function walletTransferSessionAllowed(
   return Number.isFinite(expiry) && expiry > now;
 }
 
+export function walletTransferAccountReadAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  apiUrl: string,
+  now = Date.now(),
+): boolean {
+  return apiUrl === "/api" && walletTransferSessionAllowed(session, runtimeEnvironment, now);
+}
+
+function requireSandboxTestWalletAccountReadRuntime(session: BackendSession): void {
+  const { apiUrl, environment } = requireRuntime();
+  if (!walletTransferAccountReadAllowed(session, environment, apiUrl)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Wallet account reads require same-origin /api and a matching, unexpired SANDBOX or TEST session",
+    );
+  }
+}
+
 function requireSandboxTestWalletRuntime(session: BackendSession): void {
   const { environment } = requireRuntime();
   if (!walletTransferSessionAllowed(session, environment)) {
@@ -3207,10 +3227,13 @@ export const backendApi = {
     );
   },
 
-  async walletTransferAccounts(session: BackendSession): Promise<WalletTransferAccount[]> {
-    requireSandboxTestWalletRuntime(session);
+  async walletTransferAccounts(
+    session: BackendSession,
+    signal?: AbortSignal,
+  ): Promise<WalletTransferAccount[]> {
+    requireSandboxTestWalletAccountReadRuntime(session);
     return normalizeWalletTransferAccountsResponse(
-      await request<string>("/v1/wallet/accounts", {}, "text"),
+      await request<string>("/v1/wallet/accounts", { signal }, "text"),
     );
   },
 

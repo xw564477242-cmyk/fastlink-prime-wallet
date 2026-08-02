@@ -25,9 +25,11 @@ export function walletTransferAccountScopeKey(
   session: BackendSession | null,
   runtimeEnvironment: FastLinkEnvironment | undefined,
   now = Date.now(),
+  sessionGeneration = 0,
 ): string | null {
   return walletTransferSessionAllowed(session, runtimeEnvironment, now) && session
     ? JSON.stringify([
+        sessionGeneration,
         session.actorId,
         session.expiresAt,
         session.tenantId,
@@ -52,9 +54,14 @@ export function walletTransferAccountView(
 }
 
 export type WalletTransferAccountAction =
-  | { type: "reset"; scopeKey: string | null; requestKey: string | null }
+  | {
+      type: "reset";
+      scopeKey: string | null;
+      requestKey: string | null;
+      preserveSnapshot?: boolean;
+    }
   | { type: "loaded"; requestKey: string; accounts: WalletTransferAccount[] }
-  | { type: "failed"; requestKey: string }
+  | { type: "failed"; requestKey: string; clearSnapshot?: boolean }
   | { type: "settled"; requestKey: string };
 
 export function walletTransferAccountReducer(
@@ -66,7 +73,8 @@ export function walletTransferAccountReducer(
       return {
         scopeKey: action.scopeKey,
         requestKey: action.requestKey,
-        accounts: [],
+        accounts:
+          action.preserveSnapshot && action.scopeKey === state.scopeKey ? state.accounts : [],
         loading: action.scopeKey !== null,
         error: null,
       };
@@ -76,7 +84,11 @@ export function walletTransferAccountReducer(
         : state;
     case "failed":
       return action.requestKey === state.requestKey
-        ? { ...state, accounts: [], error: "Wallet accounts are unavailable" }
+        ? {
+            ...state,
+            accounts: action.clearSnapshot === false ? state.accounts : [],
+            error: "Wallet accounts are unavailable",
+          }
         : state;
     case "settled":
       return action.requestKey === state.requestKey ? { ...state, loading: false } : state;
