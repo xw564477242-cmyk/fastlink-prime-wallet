@@ -6,6 +6,7 @@ import {
   FX_QUOTE_PATH,
   FxQuoteContractError,
   buildFxQuoteRequest,
+  fxQuoteSameOriginApiAllowed,
   fxQuoteScopeKey,
   fxQuoteSessionAllowed,
   normalizeFxQuoteInput,
@@ -216,6 +217,13 @@ describe("FX quote session, scope and request generation", () => {
     }
   });
 
+  it("allows quote transport only through the same-origin /api proxy", () => {
+    expect(fxQuoteSameOriginApiAllowed("/api", "SANDBOX")).toBe(true);
+    expect(fxQuoteSameOriginApiAllowed("/api", "TEST")).toBe(true);
+    expect(fxQuoteSameOriginApiAllowed("https://backend.example/api", "SANDBOX")).toBe(false);
+    expect(fxQuoteSameOriginApiAllowed("/api", "PRODUCTION")).toBe(false);
+  });
+
   it("binds actor, tenant, customer, environment, exact input and input generation", () => {
     const base = fxQuoteScopeKey(session(), "SANDBOX", input(), 1, NOW);
     expect(base).not.toBeNull();
@@ -273,12 +281,12 @@ describe("FX quote session, scope and request generation", () => {
     expect(classifyFxQuoteFailure(new BackendApiError(401, "safe", "redacted"))).toBe(
       "AUTH_INVALID",
     );
-    for (const status of [0, 408, 429, 500, 503]) {
+    for (const status of [0, 408, 429, 500, 503, 599]) {
       expect(classifyFxQuoteFailure(new BackendApiError(status, "safe", "redacted"))).toBe(
         "RETRYABLE",
       );
     }
-    for (const status of [400, 403, 404, 409, 410, 422]) {
+    for (const status of [400, 403, 404, 409, 410, 422, 600]) {
       expect(classifyFxQuoteFailure(new BackendApiError(status, "safe", "redacted"))).toBe(
         "REJECTED",
       );

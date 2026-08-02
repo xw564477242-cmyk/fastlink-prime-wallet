@@ -1,5 +1,6 @@
 import {
   buildFxQuoteRequest,
+  fxQuoteSameOriginApiAllowed,
   fxQuoteSessionAllowed,
   normalizeFxQuoteResponse,
   type FxQuote,
@@ -3024,11 +3025,14 @@ export const backendApi = {
     signal?: AbortSignal,
   ): Promise<FxQuote> {
     const runtime = requireRuntime();
-    if (!fxQuoteSessionAllowed(session, runtime.environment)) {
+    if (
+      !fxQuoteSameOriginApiAllowed(runtime.apiUrl, runtime.environment) ||
+      !fxQuoteSessionAllowed(session, runtime.environment)
+    ) {
       throw new BackendApiError(
         0,
         "runtime",
-        "FX quote preview requires a matching, unexpired SANDBOX or TEST session",
+        "FX quote preview requires same-origin /api and a matching, unexpired SANDBOX or TEST session",
       );
     }
     const requestContract = buildFxQuoteRequest(input);

@@ -300,6 +300,13 @@ export function fxQuoteSessionAllowed(
   return Number.isFinite(expiry) && expiry > now;
 }
 
+export function fxQuoteSameOriginApiAllowed(
+  apiUrl: string,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+): runtimeEnvironment is FxQuoteEnvironment {
+  return apiUrl === "/api" && (runtimeEnvironment === "SANDBOX" || runtimeEnvironment === "TEST");
+}
+
 export function fxQuoteScopeKey(
   session: BackendSession | null,
   runtimeEnvironment: FastLinkEnvironment | undefined,

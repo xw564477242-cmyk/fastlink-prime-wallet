@@ -95,7 +95,7 @@ export function classifyFxQuoteFailure(reason: unknown): FxQuoteFailureKind {
     reason.status === 0 ||
     reason.status === 408 ||
     reason.status === 429 ||
-    reason.status >= 500
+    (reason.status >= 500 && reason.status <= 599)
   ) {
     return "RETRYABLE";
   }
