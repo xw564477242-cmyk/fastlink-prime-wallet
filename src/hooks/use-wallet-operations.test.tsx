@@ -2,6 +2,10 @@ import { afterEach, describe, expect, it } from "bun:test";
 import { createElement } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 import { backendRuntime, type BackendSession } from "@/lib/backend-api";
+import type {
+  BackendSessionInvalidationReason,
+  BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
 import { useWalletOperations } from "./use-wallet-operations";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
@@ -75,7 +79,7 @@ function Harness({
   onInvalidate,
 }: {
   currentSession: BackendSession | null;
-  onInvalidate?: (expectedSession: BackendSession) => void;
+  onInvalidate?: BackendSessionInvalidator;
 }) {
   result = useWalletOperations(currentSession, onInvalidate);
   return null;
@@ -207,7 +211,10 @@ describeEnvironment(
 
     it("clears the current snapshot and invalidates only the matching session on 401", async () => {
       const activeSession = session();
-      const invalidated: BackendSession[] = [];
+      const invalidated: Array<{
+        session: BackendSession;
+        reason: BackendSessionInvalidationReason;
+      }> = [];
       let reads = 0;
       globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
         reads += 1;
@@ -217,7 +224,7 @@ describeEnvironment(
         renderer = create(
           createElement(Harness, {
             currentSession: activeSession,
-            onInvalidate: (expected) => invalidated.push(expected),
+            onInvalidate: (expected, reason) => invalidated.push({ session: expected, reason }),
           }),
         );
         await flush();
@@ -228,7 +235,7 @@ describeEnvironment(
       });
       expect(result?.items).toEqual([]);
       expect(result?.nextCursor).toBeNull();
-      expect(invalidated).toEqual([activeSession]);
+      expect(invalidated).toEqual([{ session: activeSession, reason: "EXPLICIT_401" }]);
       expect(JSON.stringify(result)).not.toContain("must-not-render");
     });
 
@@ -259,7 +266,7 @@ describeEnvironment(
       });
     }
 
-    for (const status of [408, 500]) {
+    for (const status of [408, 429, 500, 503, 599]) {
       it(`retains the verified snapshot without invalidating the session on ${status}`, async () => {
         const invalidated: BackendSession[] = [];
         let reads = 0;
@@ -285,6 +292,36 @@ describeEnvironment(
         expect(invalidated).toEqual([]);
       });
     }
+
+    it("retains the verified snapshot without invalidating on a module/parser failure", async () => {
+      const invalidated: BackendSession[] = [];
+      let reads = 0;
+      globalThis.fetch = (async () => {
+        reads += 1;
+        return reads === 1
+          ? page([operation("operation-current")])
+          : new Response("not-json", {
+              status: 200,
+              headers: { "content-type": "application/json" },
+            });
+      }) as unknown as typeof fetch;
+      await act(async () => {
+        renderer = create(
+          createElement(Harness, {
+            currentSession: session(),
+            onInvalidate: (expected) => invalidated.push(expected),
+          }),
+        );
+        await flush();
+      });
+      await act(async () => {
+        result?.refresh();
+        await flush();
+      });
+      expect(result?.items.map(({ id }) => id)).toEqual(["operation-current"]);
+      expect(result?.refreshError).toBe("Wallet activity refresh failed");
+      expect(invalidated).toEqual([]);
+    });
 
     it("hides data immediately and rejects a late 401 after equal-valued Session replacement", async () => {
       const old = deferred<Response>();

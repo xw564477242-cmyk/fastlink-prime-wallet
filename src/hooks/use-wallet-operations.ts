@@ -11,6 +11,10 @@ import {
   type WalletOperationTypeFilter,
 } from "@/lib/backend-api";
 import {
+  backendSessionInvalidationReasonFromError,
+  type BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
+import {
   initialWalletOperationState,
   walletOperationErrorMessage,
   walletOperationReducer,
@@ -86,7 +90,7 @@ function authorizationFailureStatus(reason: unknown): 401 | 403 | 404 | null {
 
 export function useWalletOperations(
   session: BackendSession | null,
-  invalidateSession?: (expectedSession: BackendSession) => void,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
   const [state, dispatch] = useReducer(walletOperationReducer, initialWalletOperationState);
   const [filters, setFilters] = useState<WalletOperationFilterSelection>(defaultFilters);
@@ -173,7 +177,8 @@ export function useWalletOperations(
           append: false,
           clearSnapshot: status !== null,
         });
-        if (status === 401) invalidateSessionRef.current?.(session);
+        const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+        if (invalidationReason) invalidateSessionRef.current?.(session, invalidationReason);
       })
       .finally(() => {
         if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
@@ -231,7 +236,8 @@ export function useWalletOperations(
           message: "Wallet activity refresh failed",
           clearSnapshot: status !== null,
         });
-        if (status === 401) invalidateSessionRef.current?.(input.session);
+        const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+        if (invalidationReason) invalidateSessionRef.current?.(input.session, invalidationReason);
       })
       .finally(() => {
         if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
@@ -286,7 +292,8 @@ export function useWalletOperations(
         append: true,
         clearSnapshot: status !== null,
       });
-      if (status === 401) invalidateSessionRef.current?.(session);
+      const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+      if (invalidationReason) invalidateSessionRef.current?.(session, invalidationReason);
     } finally {
       if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
       if (activeRequest.current === request) activeRequest.current = null;
