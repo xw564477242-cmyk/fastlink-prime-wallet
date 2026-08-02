@@ -92,9 +92,9 @@ export function CardsPage() {
     error: listError,
     loadMore,
     refreshCards,
+    confirmReplacement,
     selectCard,
     replaceCard,
-    replaceSelectedCard,
     invalidate,
   } = useCardListPages(session, cardId ?? null);
   const defaultVirtualAlias = t("cards.defaultVirtualAlias");
@@ -126,17 +126,35 @@ export function CardsPage() {
     [navigate, replaceCard, selectCard],
   );
   const cardRenew = useCardRenew(session, current, acceptRenewedCard);
+  const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
   const [replacementReason, setReplacementReason] = useState<CardReplacementReason>("LOST");
   const acceptReplacementCard = useCallback(
-    (oldCardId: string, card: Parameters<typeof replaceSelectedCard>[1]) => {
-      if (!replaceSelectedCard(oldCardId, card)) return false;
-      void navigate({ search: { cardId: card.cardId }, replace: true });
+    async (
+      predecessor: Parameters<typeof confirmReplacement>[0],
+      successor: Parameters<typeof confirmReplacement>[1],
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ) => {
+      const confirmed = await confirmReplacement(predecessor, successor, isCurrent, signal);
+      if (!confirmed || !isCurrent()) return false;
+      refreshCardData();
+      void navigate({ search: { cardId: confirmed.cardId }, replace: true });
       return true;
     },
-    [navigate, replaceSelectedCard],
+    [confirmReplacement, navigate],
   );
-  const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
-  const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
+  const invalidateUnconfirmedReplacement = useCallback(() => {
+    invalidate("Card replacement could not be confirmed. Refresh Cards before continuing.");
+    refreshCardData();
+  }, [invalidate]);
+  const cardReplace = useCardReplace(
+    session,
+    current,
+    replacementReason,
+    acceptReplacementCard,
+    invalidateUnconfirmedReplacement,
+    invalidateSession,
+  );
   const cardBalance = useCardBalance(session, current?.cardId ?? null, cardDataGeneration);
   const cardLimits = useCardLimits(session, current?.cardId ?? null, cardDataGeneration);
   const cardTimeline = useCardTimelinePages(
@@ -289,7 +307,7 @@ export function CardsPage() {
   };
 
   const replaceCurrent = async () => {
-    if (!scopeReady || !cardReplace.allowed || busy) return;
+    if (!scopeReady || !cardReplace.canSubmit || busy) return;
     await cardReplace.submit();
   };
 
@@ -530,8 +548,8 @@ export function CardsPage() {
               {cardReplace.allowed && (
                 <CardAction
                   onClick={() => void replaceCurrent()}
-                  disabled={busy}
-                  label="Replace card"
+                  disabled={busy || !cardReplace.canSubmit}
+                  label={cardReplace.conflictPending ? "Refresh Cards first" : "Replace card"}
                   icon={<Repeat2 className="h-5 w-5" />}
                 />
               )}

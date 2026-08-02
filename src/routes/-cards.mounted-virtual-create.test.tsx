@@ -172,8 +172,8 @@ function json(value: unknown, status = 200, traceId = "safe-create-trace"): Resp
   });
 }
 
-function cardPage(cards: unknown[]): Response {
-  return json({ cards, nextCursor: null });
+function cardPage(cards: unknown[], nextCursor: string | null = null): Response {
+  return json({ cards, nextCursor });
 }
 
 function deferred<T>(): Deferred<T> {
@@ -1013,14 +1013,45 @@ describeConfigured(
 describeConfigured(
   `Mounted selected Card replacement (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
   () => {
-    it("uses one POST and fresh UUIDv4 per click, then atomically replaces and selects the new Card", async () => {
+    it("uses one POST per click, confirms the bounded list, then selects and refreshes only the successor", async () => {
       const pending = [deferred<Response>(), deferred<Response>()];
       let mutationReads = 0;
+      let listReads = 0;
+      let balanceReads = 0;
+      let limitsReads = 0;
+      let timelineReads = 0;
       const calls = installFetch((input, init) => {
         if (isCardList(input)) {
-          return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+          listReads += 1;
+          return cardPage([
+            mutationReads === 0
+              ? replaceableCard("card:replace.1", "4242", "Owned Replace Card")
+              : mutationReads === 1
+                ? replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+                    expiryMonth: 1,
+                    expiryYear: 2033,
+                  })
+                : replaceableCard("card:replacement.3", "6789", "Owned Replace Card", {
+                    expiryMonth: 2,
+                    expiryYear: 2034,
+                  }),
+          ]);
         }
         if (isReplaceMutation(input, init)) return pending[mutationReads++]!.promise;
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) {
+          balanceReads += 1;
+          return json(balance(balanceCardId));
+        }
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) {
+          limitsReads += 1;
+          return json(limits(limitsCardId));
+        }
+        if (selectedCardTimelineId(input)) {
+          timelineReads += 1;
+          return json({ events: [], nextCursor: null });
+        }
         const publicRead = publicReadResponse(input);
         if (publicRead) return publicRead;
         throw new Error(`Unexpected request ${String(input)}`);
@@ -1085,6 +1116,10 @@ describeConfigured(
         { reason: "STOLEN" },
         { reason: "DAMAGED" },
       ]);
+      expect(listReads).toBe(3);
+      expect(balanceReads).toBe(3);
+      expect(limitsReads).toBe(3);
+      expect(timelineReads).toBe(3);
     });
 
     it("allows stale success, error and finally zero writes after session, selection, reason or unmount changes", async () => {
@@ -1275,14 +1310,167 @@ describeConfigured(
           await flush();
         });
         expect(mutationReads, mode).toBe(1);
-        expect(pageText(), mode).toContain("Card replacement failed. Try again.");
-        expect(pageText(), mode).toContain("4242");
+        expect(pageText(), mode).toContain(
+          mode === "collision"
+            ? "Card replacement could not be confirmed. Refresh Cards before continuing."
+            : "Card replacement failed. Try again.",
+        );
+        if (mode !== "collision") expect(pageText(), mode).toContain("4242");
         expect(pageText(), mode).not.toMatch(/9876|Foreign Alias/);
         expect(navigations, mode).toHaveLength(0);
         await act(flush);
         expect(mutationReads, mode).toBe(1);
         await unmount();
       }
+    });
+
+    it("rejects predecessor residue, partial successor generations, duplicates and unbounded lists after one POST", async () => {
+      for (const mode of ["predecessor", "partial", "duplicate", "unbounded"] as const) {
+        let mutationReads = 0;
+        let listReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            if (listReads === 1) {
+              return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+            }
+            const successor = replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+              expiryMonth: 1,
+              expiryYear: 2033,
+              ...(mode === "partial" ? { availableBalanceMinor: "1" } : {}),
+            });
+            if (mode === "predecessor") {
+              return cardPage([
+                replaceableCard("card:replace.1", "4242", "Owned Replace Card"),
+                successor,
+              ]);
+            }
+            if (mode === "duplicate") {
+              return cardPage([successor], listReads === 2 ? "replacement_page_2" : null);
+            }
+            if (mode === "unbounded") {
+              return cardPage(listReads === 2 ? [successor] : [], `replacement_page_${listReads}`);
+            }
+            return cardPage([successor]);
+          }
+          if (isReplaceMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+                expiryMonth: 1,
+                expiryYear: 2033,
+              }),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Replace card").props.onClick();
+          for (let index = 0; index < 35; index += 1) await Promise.resolve();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(listReads, mode).toBe(mode === "duplicate" ? 3 : mode === "unbounded" ? 26 : 2);
+        expect(pageText(), mode).toContain(
+          "Card replacement could not be confirmed. Refresh Cards before continuing.",
+        );
+        expect(pageText(), mode).toContain("No stale card data displayed.");
+        expect(pageText(), mode).not.toContain("9876");
+        expect(navigations, mode).toHaveLength(0);
+        await act(async () => {
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("allows a late list confirmation zero writes after an equal-valued Session replacement", async () => {
+      const confirmation = deferred<Response>();
+      let mutationReads = 0;
+      let listReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          if (listReads === 2) return confirmation.promise;
+          return cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")]);
+        }
+        if (isReplaceMutation(input, init)) {
+          mutationReads += 1;
+          return json(
+            replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+              expiryMonth: 1,
+              expiryYear: 2033,
+            }),
+          );
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(listReads).toBe(2);
+      await rerender(session());
+      await resolvePending(
+        confirmation,
+        cardPage([
+          replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+            expiryMonth: 1,
+            expiryYear: 2033,
+          }),
+        ]),
+      );
+      expect(listReads).toBe(3);
+      expect(pageText()).toContain("4242");
+      expect(pageText()).not.toContain("9876");
+      expect(navigations).toHaveLength(0);
+      expect(sessionInvalidations).toHaveLength(0);
+    });
+
+    it("clears dependent snapshots and invalidates only the exact Session on a current confirmation 401", async () => {
+      const owner = session();
+      let mutationReads = 0;
+      let listReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1
+            ? cardPage([replaceableCard("card:replace.1", "4242", "Owned Replace Card")])
+            : json({ message: internalSecret }, 401, traceSecret);
+        }
+        if (isReplaceMutation(input, init)) {
+          mutationReads += 1;
+          return json(
+            replaceableCard("card:replacement.2", "9876", "Owned Replace Card", {
+              expiryMonth: 1,
+              expiryYear: 2033,
+            }),
+          );
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount(owner);
+      await act(async () => {
+        void button("Replace card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(listReads).toBe(2);
+      expect(sessionInvalidations).toEqual([{ session: owner, reason: "EXPLICIT_401" }]);
+      expect(pageText()).toContain("No stale card data displayed.");
+      expect(pageText()).not.toMatch(/4242|9876/);
+      expect(body()).not.toMatch(/internal-create-secret|trace-create-secret/);
+      await act(flush);
+      expect(mutationReads).toBe(1);
     });
 
     it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {
