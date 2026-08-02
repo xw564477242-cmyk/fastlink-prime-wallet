@@ -165,6 +165,7 @@ export type CardLimitField = (typeof CARD_LIMIT_FIELDS)[number];
 export type CardLimitsUpdateInput = Partial<Record<CardLimitField, number>>;
 
 export const CARD_LIST_PAGE_SIZE = 20;
+export const CARD_ACTIVATION_MAX_RESPONSE_BYTES = 16_384;
 
 export type WalletCardTransaction = {
   id: string;
@@ -515,6 +516,39 @@ function requireSandboxTestCardMutationRuntime(): void {
   const { environment } = requireRuntime();
   if (!isVirtualCardCreateEnvironment(environment)) {
     throw new BackendApiError(0, "runtime", "Card mutations are disabled outside SANDBOX and TEST");
+  }
+}
+
+export function cardActivationSessionAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  runtimeApiUrl: string,
+  now = Date.now(),
+): boolean {
+  if (
+    runtimeApiUrl !== "/api" ||
+    !session ||
+    session.environment !== runtimeEnvironment ||
+    !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
+    typeof session.expiresAt !== "string" ||
+    ![session.actorId, session.tenantId, session.customerId].every(
+      (value) => typeof value === "string" && value.length >= 2 && value.length <= 512,
+    )
+  ) {
+    return false;
+  }
+  const expiry = Date.parse(session.expiresAt);
+  return Number.isFinite(expiry) && expiry > now;
+}
+
+function requireCardActivationRuntime(session: BackendSession): void {
+  const { apiUrl, environment } = requireRuntime();
+  if (!cardActivationSessionAllowed(session, environment, apiUrl)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Card activation requires same-origin /api and a matching, unexpired SANDBOX or TEST session",
+    );
   }
 }
 
@@ -1327,6 +1361,189 @@ export function normalizeCardStatusMutationResponse(
     alias,
     balance: Number(availableBalanceMinor) / 100,
     availableBalanceMinor,
+    createdAt,
+    capabilities,
+  };
+}
+
+type CardActivationExpectation = Readonly<{
+  cardId: string;
+  type: "virtual" | "physical";
+  last4: string;
+  expiryMonth: number | undefined;
+  expiryYear: number | undefined;
+  currency: string;
+  alias: string | undefined;
+  availableBalanceMinor: string | undefined;
+  createdAt: string | undefined;
+}>;
+
+function cardActivationExpectation(card: WalletCard): CardActivationExpectation {
+  if (
+    !/^[A-Za-z0-9_-]{2,128}$/.test(card.cardId) ||
+    (card.type !== "virtual" && card.type !== "physical") ||
+    card.status !== "pending" ||
+    (card.last4 !== "" && !/^\d{4}$/.test(card.last4)) ||
+    !/^[A-Z]{3}$/.test(card.currency) ||
+    (card.expiryMonth === undefined) !== (card.expiryYear === undefined)
+  ) {
+    throw new Error("Selected Card cannot be activated");
+  }
+  if (
+    card.expiryMonth !== undefined &&
+    (!Number.isInteger(card.expiryMonth) ||
+      card.expiryMonth < 1 ||
+      card.expiryMonth > 12 ||
+      !Number.isInteger(card.expiryYear) ||
+      card.expiryYear === undefined ||
+      card.expiryYear < 2000 ||
+      card.expiryYear > 9999 ||
+      card.expiry !==
+        `${String(card.expiryMonth).padStart(2, "0")}/${String(card.expiryYear).slice(-2)}`)
+  ) {
+    throw new Error("Selected Card cannot be activated");
+  }
+  const alias = card.alias === undefined ? undefined : virtualCardAlias(card.alias, true);
+  const availableBalanceMinor =
+    card.availableBalanceMinor === undefined
+      ? undefined
+      : cardMinorUnits(card.availableBalanceMinor, "available balance");
+  const createdAt = card.createdAt === undefined ? undefined : cardRfc3339(card.createdAt);
+  const capabilities = strictCardCapabilities(card.capabilities);
+  if (
+    capabilities.freeze ||
+    capabilities.unfreeze ||
+    capabilities.replace ||
+    capabilities.renew ||
+    !capabilities.updateLimits
+  ) {
+    throw new Error("Selected Card cannot be activated");
+  }
+  return Object.freeze({
+    cardId: card.cardId,
+    type: card.type,
+    last4: card.last4,
+    expiryMonth: card.expiryMonth,
+    expiryYear: card.expiryYear,
+    currency: card.currency,
+    alias,
+    availableBalanceMinor,
+    createdAt,
+  });
+}
+
+export function buildCardActivationRequest(
+  card: WalletCard,
+  idempotencyKey: string,
+  signal?: AbortSignal,
+): { path: string; init: RequestInit } {
+  const expectation = cardActivationExpectation(card);
+  return {
+    path: `/v1/cards/${encodeURIComponent(expectation.cardId)}/activate`,
+    init: {
+      method: "POST",
+      headers: { "Idempotency-Key": validateVirtualCardIdempotencyKey(idempotencyKey) },
+      ...(signal ? { signal } : {}),
+    },
+  };
+}
+
+function exactCardActivationRecord(value: unknown): Record<string, unknown> {
+  const required = [
+    "id",
+    "type",
+    "status",
+    "last4",
+    "expiryMonth",
+    "expiryYear",
+    "currency",
+    "alias",
+    "createdAt",
+    "capabilities",
+  ] as const;
+  try {
+    return exactOwnJsonDataRecord(
+      value,
+      [...required, "availableBalanceMinor"],
+      "Backend returned an invalid activated Card snapshot",
+    );
+  } catch {
+    return exactOwnJsonDataRecord(
+      value,
+      required,
+      "Backend returned an invalid activated Card snapshot",
+    );
+  }
+}
+
+function cardActivationExpiry(
+  value: unknown,
+  minimum: number,
+  maximum: number,
+): number | undefined {
+  if (value === null) return undefined;
+  if (typeof value !== "number" || !Number.isInteger(value) || value < minimum || value > maximum) {
+    throw new Error("Backend returned an invalid activated Card snapshot");
+  }
+  return value;
+}
+
+export function normalizeCardActivationSnapshot(
+  value: unknown,
+  expectedCard: WalletCard,
+): WalletCard {
+  const expectation = cardActivationExpectation(expectedCard);
+  const record = exactCardActivationRecord(value);
+  const type =
+    record.type === "VIRTUAL" ? "virtual" : record.type === "PHYSICAL" ? "physical" : null;
+  const last4 = record.last4 === null ? "" : record.last4;
+  const expiryMonth = cardActivationExpiry(record.expiryMonth, 1, 12);
+  const expiryYear = cardActivationExpiry(record.expiryYear, 2000, 9999);
+  const alias = record.alias === null ? undefined : virtualCardAlias(record.alias, true);
+  const availableBalanceMinor =
+    record.availableBalanceMinor === undefined
+      ? undefined
+      : cardMinorUnits(record.availableBalanceMinor, "available balance");
+  const createdAt = cardRfc3339(record.createdAt);
+  const capabilities = strictCardCapabilities(record.capabilities);
+  if (
+    record.id !== expectation.cardId ||
+    type !== expectation.type ||
+    record.status !== "ACTIVE" ||
+    last4 !== expectation.last4 ||
+    expiryMonth !== expectation.expiryMonth ||
+    expiryYear !== expectation.expiryYear ||
+    record.currency !== expectation.currency ||
+    alias !== expectation.alias ||
+    (expectation.availableBalanceMinor !== undefined &&
+      availableBalanceMinor !== expectation.availableBalanceMinor) ||
+    (expectation.createdAt !== undefined && createdAt !== expectation.createdAt) ||
+    capabilities.freeze !== true ||
+    capabilities.unfreeze !== false ||
+    capabilities.replace !== true ||
+    capabilities.renew !== (expiryMonth !== undefined && expiryYear !== undefined) ||
+    capabilities.updateLimits !== true
+  ) {
+    throw new Error("Backend did not confirm the selected Card as ACTIVE");
+  }
+  return {
+    cardId: expectation.cardId,
+    type,
+    status: "active",
+    last4,
+    expiry:
+      expiryMonth === undefined || expiryYear === undefined
+        ? "—"
+        : `${String(expiryMonth).padStart(2, "0")}/${String(expiryYear).slice(-2)}`,
+    expiryMonth,
+    expiryYear,
+    currency: expectation.currency,
+    alias,
+    balance:
+      availableBalanceMinor === undefined
+        ? expectedCard.balance
+        : Number(availableBalanceMinor) / 100,
+    ...(availableBalanceMinor === undefined ? {} : { availableBalanceMinor }),
     createdAt,
     capabilities,
   };
@@ -3136,6 +3353,35 @@ export const backendApi = {
       current,
       input,
     );
+  },
+
+  async activateCard(
+    session: BackendSession,
+    card: WalletCard,
+    idempotencyKey: string,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    requireCardActivationRuntime(session);
+    const { path, init } = buildCardActivationRequest(card, idempotencyKey, signal);
+    await request<string>(path, init, "text", CARD_ACTIVATION_MAX_RESPONSE_BYTES);
+    requireCardActivationRuntime(session);
+  },
+
+  async activatedCardSnapshot(
+    session: BackendSession,
+    card: WalletCard,
+    signal?: AbortSignal,
+  ): Promise<WalletCard> {
+    requireCardActivationRuntime(session);
+    const expectation = cardActivationExpectation(card);
+    const snapshot = await request<string>(
+      `/v1/cards/${encodeURIComponent(expectation.cardId)}`,
+      { signal },
+      "text",
+      CARD_ACTIVATION_MAX_RESPONSE_BYTES,
+    );
+    requireCardActivationRuntime(session);
+    return normalizeCardActivationSnapshot(snapshot, card);
   },
 
   async getCard(cardId: string): Promise<WalletCard> {

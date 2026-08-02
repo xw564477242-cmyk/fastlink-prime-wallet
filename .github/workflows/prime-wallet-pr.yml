@@ -170,6 +170,12 @@ jobs:
       - name: Run mounted selected Card freeze/unfreeze safety in TEST
         run: bun run test:card-status-mounted:test
 
+      - name: Run mounted selected Card activation safety in SANDBOX
+        run: bun run test:card-activation-mounted:sandbox
+
+      - name: Run mounted selected Card activation safety in TEST
+        run: bun run test:card-activation-mounted:test
+
       - name: Run mounted selected Card renewal safety in SANDBOX
         run: bun run test:card-renew-mounted:sandbox
 

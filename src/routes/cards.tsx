@@ -13,6 +13,7 @@ import {
   SlidersHorizontal,
   Snowflake,
   Sun,
+  Zap,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -30,6 +31,7 @@ import { useCardLimits } from "@/hooks/use-card-limits";
 import { useCardTimelinePages } from "@/hooks/use-card-timeline-pages";
 import { useCardLimitsMutation } from "@/hooks/use-card-limits-mutation";
 import { useCardStatusMutation } from "@/hooks/use-card-status-mutation";
+import { useCardActivation } from "@/hooks/use-card-activation";
 import { useVirtualCardCreate } from "@/hooks/use-virtual-card-create";
 import { useCardRenew } from "@/hooks/use-card-renew";
 import { useCardReplace } from "@/hooks/use-card-replace";
@@ -171,6 +173,7 @@ export function CardsPage() {
     acceptStatusUpdate,
     invalidateSession,
   );
+  const cardActivation = useCardActivation(session, current, acceptStatusUpdate, invalidateSession);
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
@@ -187,7 +190,8 @@ export function CardsPage() {
     cardRenew.busy ||
     cardReplace.busy ||
     cardLimitsMutation.busy ||
-    cardStatusMutation.busy;
+    cardStatusMutation.busy ||
+    cardActivation.busy;
   const error =
     listError ??
     (scopeReady ? actionState.error : null) ??
@@ -195,7 +199,8 @@ export function CardsPage() {
     (cardRenew.allowed ? cardRenew.error : null) ??
     (cardReplace.allowed ? cardReplace.error : null) ??
     (cardLimitsMutation.allowed ? cardLimitsMutation.error : null) ??
-    (cardStatusMutation.allowed ? cardStatusMutation.error : null);
+    (cardStatusMutation.allowed ? cardStatusMutation.error : null) ??
+    (cardActivation.allowed ? cardActivation.error : null);
   const issueScopeReady = scopeReady && !loading && !loadingMore;
 
   const startAction = (action: CardAction) => {
@@ -228,6 +233,11 @@ export function CardsPage() {
   const toggleFrozen = async () => {
     if (!scopeReady || !cardStatusMutation.canSubmit || busy) return;
     await cardStatusMutation.submit();
+  };
+
+  const activateCurrent = async () => {
+    if (!scopeReady || !cardActivation.canSubmit || busy) return;
+    await cardActivation.submit();
   };
 
   const issueVirtual = async () => {
@@ -431,6 +441,20 @@ export function CardsPage() {
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-2">
+              {current.status === "pending" && cardActivation.allowed && (
+                <CardAction
+                  onClick={() => void activateCurrent()}
+                  disabled={busy || !cardActivation.canSubmit}
+                  label={
+                    cardActivation.conflictPending
+                      ? "Refresh Card first"
+                      : cardActivation.retryPending
+                        ? "Retry activation"
+                        : "Activate card"
+                  }
+                  icon={<Zap className="h-5 w-5" />}
+                />
+              )}
               <CardAction
                 onClick={() => void toggleFrozen()}
                 disabled={busy || !cardStatusMutation.canSubmit}
