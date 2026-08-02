@@ -15,8 +15,26 @@ function errorMessage(): string {
   return "Card list is unavailable";
 }
 
-function confirmsCreatedCard(candidate: WalletCard, expected: WalletCard): boolean {
+const MAX_CONFIRMATION_PAGES = 25;
+type CardConfirmation = "IDENTITY" | "EXACT_GENERATION";
+
+function hasSameOptionalField(
+  candidate: WalletCard,
+  expected: WalletCard,
+  field: "alias" | "availableBalanceMinor" | "createdAt",
+): boolean {
   return (
+    Object.hasOwn(candidate, field) === Object.hasOwn(expected, field) &&
+    candidate[field] === expected[field]
+  );
+}
+
+function confirmsExpectedCard(
+  candidate: WalletCard,
+  expected: WalletCard,
+  confirmation: CardConfirmation,
+): boolean {
+  const confirmsIdentity =
     candidate.cardId === expected.cardId &&
     candidate.type === expected.type &&
     candidate.status === expected.status &&
@@ -24,9 +42,22 @@ function confirmsCreatedCard(candidate: WalletCard, expected: WalletCard): boole
     candidate.last4 === expected.last4 &&
     candidate.expiryMonth === expected.expiryMonth &&
     candidate.expiryYear === expected.expiryYear &&
+    candidate.expiry === expected.expiry &&
     /^[A-Z]{3}$/.test(candidate.currency) &&
     candidate.currency === expected.currency &&
-    Number.isFinite(candidate.balance)
+    Number.isFinite(candidate.balance);
+  return (
+    confirmsIdentity &&
+    (confirmation !== "EXACT_GENERATION" ||
+      (Object.is(candidate.balance, expected.balance) &&
+        hasSameOptionalField(candidate, expected, "alias") &&
+        hasSameOptionalField(candidate, expected, "availableBalanceMinor") &&
+        hasSameOptionalField(candidate, expected, "createdAt") &&
+        candidate.capabilities.freeze === expected.capabilities.freeze &&
+        candidate.capabilities.unfreeze === expected.capabilities.unfreeze &&
+        candidate.capabilities.replace === expected.capabilities.replace &&
+        candidate.capabilities.renew === expected.capabilities.renew &&
+        candidate.capabilities.updateLimits === expected.capabilities.updateLimits))
   );
 }
 
@@ -101,8 +132,11 @@ export function useCardListPages(
     async (
       expectedCard: WalletCard,
       isCurrent: () => boolean = () => true,
+      signal?: AbortSignal,
+      confirmation: CardConfirmation = "IDENTITY",
     ): Promise<WalletCard | null> => {
       if (
+        signal?.aborted ||
         !isCurrent() ||
         !scopeReady ||
         !sessionKey ||
@@ -116,18 +150,42 @@ export function useCardListPages(
       activePageRequest.current = requestId;
       dispatch({ type: "arm", requestId });
       try {
-        const page = await backendApi.listCards({ limit: CARD_LIST_PAGE_SIZE });
-        if (!isCurrent() || requestSequence.current !== requestId) return null;
-        const uniqueIds = new Set(page.cards.map((card) => card.cardId));
-        if (uniqueIds.size !== page.cards.length) {
-          throw new Error("Backend returned duplicate Cards");
+        const cards: WalletCard[] = [];
+        const seenCardIds = new Set<string>();
+        const seenCursors = new Set<string>();
+        let cursor: string | null = null;
+        let nextCursor: string | null = null;
+        let candidate: WalletCard | null = null;
+        for (let pageNumber = 0; pageNumber < MAX_CONFIRMATION_PAGES; pageNumber += 1) {
+          const page = await backendApi.listCards(
+            { limit: CARD_LIST_PAGE_SIZE, ...(cursor ? { cursor } : {}) },
+            signal,
+          );
+          if (signal?.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+          for (const card of page.cards) {
+            if (seenCardIds.has(card.cardId)) throw new Error("Backend returned duplicate Cards");
+            seenCardIds.add(card.cardId);
+            cards.push(card);
+            if (card.cardId === expectedCard.cardId) candidate = card;
+          }
+          nextCursor = page.nextCursor;
+          if (nextCursor && seenCursors.has(nextCursor)) {
+            throw new Error("Backend repeated a Card cursor");
+          }
+          if (candidate || !nextCursor) break;
+          seenCursors.add(nextCursor);
+          cursor = nextCursor;
         }
-        const candidate = page.cards.find((card) => card.cardId === expectedCard.cardId) ?? null;
-        if (!candidate || !confirmsCreatedCard(candidate, expectedCard)) {
-          throw new Error("Backend did not confirm the created Card");
+        if (!candidate || !confirmsExpectedCard(candidate, expectedCard, confirmation)) {
+          throw new Error("Backend did not confirm the expected Card");
         }
-        if (!isCurrent()) return null;
-        dispatch({ type: "page", requestId, page, append: false });
+        if (signal?.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+        dispatch({
+          type: "page",
+          requestId,
+          page: { cards, nextCursor },
+          append: false,
+        });
         dispatch({ type: "select", sessionKey, cardId: candidate.cardId });
         return candidate;
       } catch {

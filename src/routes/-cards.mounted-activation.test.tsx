@@ -295,8 +295,18 @@ describeConfigured(
       const detail = deferred<Response>();
       let mutationReads = 0;
       let detailReads = 0;
+      let listReads = 0;
+      let balanceReads = 0;
+      let limitsReads = 0;
+      let timelineReads = 0;
       const calls = installFetch((input, init) => {
-        if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+        if (isList(input, init)) {
+          listReads += 1;
+          return json({
+            cards: [listReads === 1 ? pendingCard() : activeCard()],
+            nextCursor: null,
+          });
+        }
         if (activationCardId(input, init)) {
           mutationReads += 1;
           return post.promise;
@@ -305,6 +315,10 @@ describeConfigured(
           detailReads += 1;
           return detail.promise;
         }
+        const readPath = path(input);
+        if (readPath.endsWith("/balance")) balanceReads += 1;
+        if (readPath.endsWith("/limits")) limitsReads += 1;
+        if (readPath.endsWith("/timeline")) timelineReads += 1;
         const read = publicRead(input);
         if (read) return read;
         throw new Error(`Unexpected request ${String(input)}`);
@@ -328,6 +342,10 @@ describeConfigured(
       await resolvePending(detail, json(activeCard()));
       expect(pageText()).toContain("ACTIVE");
       expect(pageText()).not.toContain("Activate card");
+      expect(listReads).toBe(2);
+      expect(balanceReads).toBe(2);
+      expect(limitsReads).toBe(2);
+      expect(timelineReads).toBe(2);
 
       const mutations = calls.filter(({ input, init }) => activationCardId(input, init));
       expect(mutations).toHaveLength(1);
@@ -429,8 +447,15 @@ describeConfigured(
     it("allows a new key only after a real refresh returns a new PENDING generation", async () => {
       let mutationReads = 0;
       let detailReads = 0;
+      let listReads = 0;
       const calls = installFetch((input, init) => {
-        if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+        if (isList(input, init)) {
+          listReads += 1;
+          return json({
+            cards: [listReads === 1 ? pendingCard() : activeCard()],
+            nextCursor: null,
+          });
+        }
         if (activationCardId(input, init)) {
           mutationReads += 1;
           return json({ status: "ACTIVE" }, 201);
@@ -465,6 +490,7 @@ describeConfigured(
       });
       const mutations = calls.filter(({ input, init }) => activationCardId(input, init));
       expect(mutationReads).toBe(2);
+      expect(listReads).toBe(2);
       expect(mutations).toHaveLength(2);
       expect(isUuidV4(uuidHeader(mutations[0]))).toBeTrue();
       expect(isUuidV4(uuidHeader(mutations[1]))).toBeTrue();
@@ -503,8 +529,15 @@ describeConfigured(
 
     it("performs exactly one explicit same-key recovery and confirms through GET", async () => {
       let mutationReads = 0;
+      let listReads = 0;
       const calls = installFetch((input, init) => {
-        if (isList(input, init)) return json({ cards: [pendingCard()], nextCursor: null });
+        if (isList(input, init)) {
+          listReads += 1;
+          return json({
+            cards: [listReads === 1 ? pendingCard() : activeCard()],
+            nextCursor: null,
+          });
+        }
         if (activationCardId(input, init)) {
           mutationReads += 1;
           return mutationReads === 1
@@ -526,6 +559,7 @@ describeConfigured(
         await flush();
       });
       expect(mutationReads).toBe(2);
+      expect(listReads).toBe(2);
       expect(pageText()).toContain("ACTIVE");
       const mutations = calls.filter(({ input, init }) => activationCardId(input, init));
       expect(mutations.map(uuidHeader)).toEqual([
@@ -533,6 +567,141 @@ describeConfigured(
         uuidHeader(mutations[0]),
       ]);
       expect(invalidations).toHaveLength(0);
+    });
+
+    it("blocks without another POST when detail is ACTIVE but the exact Card list is not", async () => {
+      let mutationReads = 0;
+      let listReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isList(input, init)) {
+          listReads += 1;
+          return json({ cards: [pendingCard()], nextCursor: null });
+        }
+        if (activationCardId(input, init)) {
+          mutationReads += 1;
+          return json({ status: "ACTIVE" }, 201);
+        }
+        if (detailCardId(input, init)) return json(activeCard());
+        const read = publicRead(input);
+        if (read) return read;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(listReads).toBe(2);
+      expect(pageText()).toContain("PENDING");
+      expect(pageText()).toContain("Refresh this Card before another activation attempt.");
+      await act(async () => {
+        void button("Refresh Card first").props.onClick();
+        await flush();
+      });
+      expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
+      expect(invalidations).toHaveLength(0);
+    });
+
+    it("fails closed when the ACTIVE Card list has a different public generation", async () => {
+      const cases = [
+        {
+          name: "balance",
+          listCard: () => ({ ...activeCard(), availableBalanceMinor: "2600" }),
+        },
+        {
+          name: "capability",
+          listCard: () => ({
+            ...activeCard(),
+            capabilities: { ...activeCard().capabilities, replace: false },
+          }),
+        },
+        {
+          name: "alias",
+          listCard: () => activeCard("card_pending_1", "Different public alias"),
+        },
+      ];
+
+      for (const probe of cases) {
+        let mutationReads = 0;
+        let listReads = 0;
+        const calls = installFetch((input, init) => {
+          if (isList(input, init)) {
+            listReads += 1;
+            return json({
+              cards: [listReads === 1 ? pendingCard() : probe.listCard()],
+              nextCursor: null,
+            });
+          }
+          if (activationCardId(input, init)) {
+            mutationReads += 1;
+            return json({ status: "ACTIVE" }, 201);
+          }
+          if (detailCardId(input, init)) return json(activeCard());
+          const read = publicRead(input);
+          if (read) return read;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+
+        await mount();
+        await act(async () => {
+          void button("Activate card").props.onClick();
+          await flush();
+        });
+
+        expect(mutationReads, probe.name).toBe(1);
+        expect(listReads, probe.name).toBe(2);
+        expect(pageText(), probe.name).toContain("PENDING");
+        expect(pageText(), probe.name).toContain(
+          "Refresh this Card before another activation attempt.",
+        );
+        expect(button("Refresh Card first").props.disabled, probe.name).toBeTrue();
+        await act(async () => {
+          void button("Refresh Card first").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, probe.name).toBe(1);
+        expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
+        expect(invalidations, probe.name).toHaveLength(0);
+        await unmount();
+      }
+    });
+
+    it("confirms an owned ACTIVE Card on a bounded later list page", async () => {
+      let listReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isList(input, init)) {
+          listReads += 1;
+          if (listReads === 1) return json({ cards: [pendingCard()], nextCursor: null });
+          if (listReads === 2) {
+            return json({
+              cards: [activeCard("card_other", "Other Card")],
+              nextCursor: "cursor-next",
+            });
+          }
+          return json({ cards: [activeCard()], nextCursor: null });
+        }
+        if (activationCardId(input, init)) return json({ status: "ACTIVE" }, 201);
+        if (detailCardId(input, init)) return json(activeCard());
+        const read = publicRead(input);
+        if (read) return read;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      expect(listReads).toBe(3);
+      expect(pageText()).toContain("ACTIVE");
+      expect(pageText()).not.toContain("Activate card");
+      const listCalls = calls.filter(({ input, init }) => isList(input, init));
+      expect(
+        new URL(String(listCalls[2]!.input), "https://wallet.fastlink.invalid").searchParams.get(
+          "cursor",
+        ),
+      ).toBe("cursor-next");
+      expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
     });
 
     it("blocks a fresh key when the one same-key recovery is still ambiguous", async () => {
@@ -604,6 +773,59 @@ describeConfigured(
       await resolvePending(late, json({ message: "late-unauthorized" }, 401));
       expect(invalidations).toHaveLength(0);
       expect(pageText()).toContain("PENDING");
+    });
+
+    it("aborts a late Card-list confirmation after selection changes with zero dependent refreshes", async () => {
+      const listConfirmation = deferred<Response>();
+      let listReads = 0;
+      const dependentReads = new Map<string, number>();
+      const calls = installFetch((input, init) => {
+        if (isList(input, init)) {
+          listReads += 1;
+          return listReads === 1
+            ? json({
+                cards: [pendingCard(), pendingCard("card_pending_2", "Second Pending Card")],
+                nextCursor: null,
+              })
+            : listConfirmation.promise;
+        }
+        if (activationCardId(input, init)) return json({ status: "ACTIVE" }, 201);
+        if (detailCardId(input, init)) return json(activeCard());
+        const requestPath = path(input);
+        const scoped = requestPath.match(/^\/api\/v1\/cards\/([^/]+)\/(balance|limits|timeline)$/);
+        if (scoped) {
+          const key = `${decodeURIComponent(scoped[1] ?? "")}:${scoped[2]}`;
+          dependentReads.set(key, (dependentReads.get(key) ?? 0) + 1);
+        }
+        const read = publicRead(input);
+        if (read) return read;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Activate card").props.onClick();
+        await flush();
+      });
+      expect(listReads).toBe(2);
+      await act(async () => {
+        button("Second Pending Card").props.onClick();
+        await flush();
+      });
+      await resolvePending(
+        listConfirmation,
+        json({
+          cards: [activeCard(), pendingCard("card_pending_2", "Second Pending Card")],
+          nextCursor: null,
+        }),
+      );
+      expect(button("Second Pending Card").props.className).toContain("border-primary");
+      expect(pageText()).toContain("PENDING");
+      expect(calls.filter(({ input, init }) => activationCardId(input, init))).toHaveLength(1);
+      for (const kind of ["balance", "limits", "timeline"]) {
+        expect(dependentReads.get(`card_pending_1:${kind}`)).toBe(1);
+        expect(dependentReads.get(`card_pending_2:${kind}`)).toBe(1);
+      }
+      expect(invalidations).toHaveLength(0);
     });
 
     it("gives late POST and detail responses zero writes after Card selection changes", async () => {

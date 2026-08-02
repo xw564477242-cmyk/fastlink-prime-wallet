@@ -98,6 +98,8 @@ describe("Card list Backend adapter", () => {
           currency: "USD",
           alias: "Card card_1",
           balance: 123.45,
+          availableBalanceMinor: "12345",
+          createdAt: "2026-07-31T12:00:00.000Z",
           capabilities: {
             freeze: true,
             unfreeze: false,
@@ -110,6 +112,18 @@ describe("Card list Backend adapter", () => {
       nextCursor: "next_page-token",
     });
     expect(JSON.stringify(page)).not.toMatch(/THREDD|provider|tenantId|customerId|must-not-render/);
+
+    const withoutOptionalVersionFields = publicCard("card_2");
+    Reflect.deleteProperty(withoutOptionalVersionFields, "alias");
+    Reflect.deleteProperty(withoutOptionalVersionFields, "availableBalanceMinor");
+    Reflect.deleteProperty(withoutOptionalVersionFields, "createdAt");
+    const minimal = normalizeCardListResponse({
+      cards: [withoutOptionalVersionFields],
+      nextCursor: null,
+    }).cards[0]!;
+    expect(Object.hasOwn(minimal, "alias")).toBeFalse();
+    expect(Object.hasOwn(minimal, "availableBalanceMinor")).toBeFalse();
+    expect(Object.hasOwn(minimal, "createdAt")).toBeFalse();
   });
 
   it("caps a legacy array response to the requested bound during migration", () => {

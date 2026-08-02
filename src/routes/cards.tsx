@@ -15,7 +15,7 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
 import {
   CARD_LIMIT_FIELDS,
   backendApi,
@@ -136,9 +136,15 @@ export function CardsPage() {
     [navigate, replaceSelectedCard],
   );
   const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
-  const cardBalance = useCardBalance(session, current?.cardId ?? null);
-  const cardLimits = useCardLimits(session, current?.cardId ?? null);
-  const cardTimeline = useCardTimelinePages(session, current?.cardId ?? null, invalidateSession);
+  const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
+  const cardBalance = useCardBalance(session, current?.cardId ?? null, cardDataGeneration);
+  const cardLimits = useCardLimits(session, current?.cardId ?? null, cardDataGeneration);
+  const cardTimeline = useCardTimelinePages(
+    session,
+    current?.cardId ?? null,
+    invalidateSession,
+    cardDataGeneration,
+  );
   const [limitDraft, setLimitDraft] = useState<Record<CardLimitField, string>>(emptyLimitDraft);
   useEffect(() => {
     setLimitDraft(draftFromLimits(cardLimits.limits));
@@ -173,7 +179,25 @@ export function CardsPage() {
     acceptStatusUpdate,
     invalidateSession,
   );
-  const cardActivation = useCardActivation(session, current, acceptStatusUpdate, invalidateSession);
+  const acceptActivatedCard = useCallback(
+    async (
+      card: Parameters<typeof replaceCard>[0],
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ) => {
+      const confirmed = await refreshCards(card, isCurrent, signal, "EXACT_GENERATION");
+      if (!confirmed) return false;
+      refreshCardData();
+      return true;
+    },
+    [refreshCards],
+  );
+  const cardActivation = useCardActivation(
+    session,
+    current,
+    acceptActivatedCard,
+    invalidateSession,
+  );
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
   const actionGate = useRef(createCardActionGate(actionScopeKey));
