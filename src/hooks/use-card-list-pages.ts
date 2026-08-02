@@ -15,7 +15,9 @@ function errorMessage(): string {
   return "Card list is unavailable";
 }
 
-function confirmsCreatedCard(candidate: WalletCard, expected: WalletCard): boolean {
+const MAX_CONFIRMATION_PAGES = 25;
+
+function confirmsExpectedCard(candidate: WalletCard, expected: WalletCard): boolean {
   return (
     candidate.cardId === expected.cardId &&
     candidate.type === expected.type &&
@@ -101,8 +103,10 @@ export function useCardListPages(
     async (
       expectedCard: WalletCard,
       isCurrent: () => boolean = () => true,
+      signal?: AbortSignal,
     ): Promise<WalletCard | null> => {
       if (
+        signal?.aborted ||
         !isCurrent() ||
         !scopeReady ||
         !sessionKey ||
@@ -116,18 +120,42 @@ export function useCardListPages(
       activePageRequest.current = requestId;
       dispatch({ type: "arm", requestId });
       try {
-        const page = await backendApi.listCards({ limit: CARD_LIST_PAGE_SIZE });
-        if (!isCurrent() || requestSequence.current !== requestId) return null;
-        const uniqueIds = new Set(page.cards.map((card) => card.cardId));
-        if (uniqueIds.size !== page.cards.length) {
-          throw new Error("Backend returned duplicate Cards");
+        const cards: WalletCard[] = [];
+        const seenCardIds = new Set<string>();
+        const seenCursors = new Set<string>();
+        let cursor: string | null = null;
+        let nextCursor: string | null = null;
+        let candidate: WalletCard | null = null;
+        for (let pageNumber = 0; pageNumber < MAX_CONFIRMATION_PAGES; pageNumber += 1) {
+          const page = await backendApi.listCards(
+            { limit: CARD_LIST_PAGE_SIZE, ...(cursor ? { cursor } : {}) },
+            signal,
+          );
+          if (signal?.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+          for (const card of page.cards) {
+            if (seenCardIds.has(card.cardId)) throw new Error("Backend returned duplicate Cards");
+            seenCardIds.add(card.cardId);
+            cards.push(card);
+            if (card.cardId === expectedCard.cardId) candidate = card;
+          }
+          nextCursor = page.nextCursor;
+          if (nextCursor && seenCursors.has(nextCursor)) {
+            throw new Error("Backend repeated a Card cursor");
+          }
+          if (candidate || !nextCursor) break;
+          seenCursors.add(nextCursor);
+          cursor = nextCursor;
         }
-        const candidate = page.cards.find((card) => card.cardId === expectedCard.cardId) ?? null;
-        if (!candidate || !confirmsCreatedCard(candidate, expectedCard)) {
-          throw new Error("Backend did not confirm the created Card");
+        if (!candidate || !confirmsExpectedCard(candidate, expectedCard)) {
+          throw new Error("Backend did not confirm the expected Card");
         }
-        if (!isCurrent()) return null;
-        dispatch({ type: "page", requestId, page, append: false });
+        if (signal?.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+        dispatch({
+          type: "page",
+          requestId,
+          page: { cards, nextCursor },
+          append: false,
+        });
         dispatch({ type: "select", sessionKey, cardId: candidate.cardId });
         return candidate;
       } catch {

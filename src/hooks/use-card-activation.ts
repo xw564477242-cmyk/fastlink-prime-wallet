@@ -28,7 +28,11 @@ const SAFE_ACTIVATION_CONFLICT_ERROR =
 export function useCardActivation(
   session: BackendSession | null,
   card: WalletCard | undefined,
-  onActivated: (card: WalletCard) => void,
+  onActivated: (
+    card: WalletCard,
+    isCurrent: () => boolean,
+    signal: AbortSignal,
+  ) => Promise<boolean>,
   invalidateSession?: BackendSessionInvalidator,
 ) {
   const sessionIdentity = useRef({ session, generation: 0 });
@@ -99,8 +103,12 @@ export function useCardActivation(
       if (!mounted.current || !acceptsCardActivationCompletion(gate.current, ticket, scopeKey)) {
         return false;
       }
+      const isCurrent = () =>
+        mounted.current && acceptsCardActivationCompletion(gate.current, ticket, scopeKey);
+      if (!(await onActivated(confirmed, isCurrent, controller.signal))) {
+        throw new Error("Card activation was not confirmed by the Card list");
+      }
       clearCardActivationRetry(gate.current);
-      onActivated(confirmed);
       return true;
     } catch (reason) {
       const current =

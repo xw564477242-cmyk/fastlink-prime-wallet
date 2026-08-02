@@ -34,6 +34,7 @@ function timelineScopeKey(
   session: BackendSession | null,
   selectedCardId: string | null,
   sessionIdentity: number,
+  cardGeneration: number,
   now = Date.now(),
 ): string | null {
   if (
@@ -51,6 +52,7 @@ function timelineScopeKey(
     session.environment,
     sessionIdentity,
     selectedCardId,
+    cardGeneration,
   ]);
 }
 
@@ -69,6 +71,7 @@ export function useCardTimelinePages(
   session: BackendSession | null,
   selectedCardId: string | null,
   invalidateSession?: BackendSessionInvalidator,
+  cardGeneration = 0,
 ) {
   const [state, dispatch] = useReducer(cardTimelineReducer, initialCardTimelineState);
   const [expiryTick, wakeAtExpiry] = useReducer((value: number) => value + 1, 0);
@@ -107,7 +110,12 @@ export function useCardTimelinePages(
     return () => globalThis.clearTimeout(timeout);
   }, [expiryTick, session?.expiresAt]);
 
-  const scopeKey = timelineScopeKey(session, selectedCardId, sessionIdentity.current.generation);
+  const scopeKey = timelineScopeKey(
+    session,
+    selectedCardId,
+    sessionIdentity.current.generation,
+    cardGeneration,
+  );
   const view = cardTimelineViewForScope(state, scopeKey);
   const refreshInput = useRef<TimelineRefreshInput | null>(null);
   currentInput.current =
