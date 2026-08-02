@@ -1,0 +1,73 @@
+name: Deploy Prime Wallet Test to Cloudflare
+
+on:
+  push:
+    branches:
+      - test
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fastlink-prime-wallet-test
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    if: vars.FASTLINK_PRIME_TEST_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment: cloudflare-prime-test
+    env:
+      VITE_FASTLINK_API_URL: /api
+      VITE_FASTLINK_ENVIRONMENT: TEST
+      VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
+    steps:
+      - name: Checkout exact Test commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.2.19
+
+      - name: Install locked dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Verify isolated Test deployment variables
+        shell: bash
+        env:
+          BACKEND_ORIGIN: ${{ vars.FASTLINK_PRIME_TEST_BACKEND_ORIGIN }}
+          PRIME_WALLET_URL: ${{ vars.FASTLINK_PRIME_TEST_WALLET_URL }}
+        run: |
+          set -euo pipefail
+          test -n "$BACKEND_ORIGIN"
+          test -n "$PRIME_WALLET_URL"
+          test "$BACKEND_ORIGIN" != 'https://exquisite-surprise-production-309d.up.railway.app'
+          test "$BACKEND_ORIGIN" != 'https://fastlink-backend-dev-development-a.up.railway.app'
+
+      - name: Verify wallet contract
+        run: bun run audit:production
+
+      - name: Build isolated Test worker
+        run: bun run build
+
+      - name: Deploy Test worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_TEST_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_TEST_ACCOUNT_ID }}
+          wranglerVersion: "4.114.0"
+          command: >-
+            deploy --config wrangler.test.jsonc
+            --var FASTLINK_BACKEND_ORIGIN:${{ vars.FASTLINK_PRIME_TEST_BACKEND_ORIGIN }}
+
+      - name: Verify deployed Prime Wallet Test
+        shell: bash
+        env:
+          PRIME_WALLET_URL: ${{ vars.FASTLINK_PRIME_TEST_WALLET_URL }}
+        run: |
+          set -euo pipefail
+          node scripts/verify-prime-wallet-readiness.mjs "$PRIME_WALLET_URL" TEST "${{ github.sha }}"
