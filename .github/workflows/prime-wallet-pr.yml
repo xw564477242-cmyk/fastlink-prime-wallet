@@ -212,8 +212,7 @@ jobs:
           sha256sum readiness-evidence.json scripts/verify-prime-wallet-readiness.mjs scripts/readiness-deployment-contract.test.mjs src/lib/prime-wallet-readiness.ts src/lib/prime-wallet-readiness.test.ts src/server.ts .github/workflows/prime-wallet-pr.yml .github/workflows/deploy-cloudflare-dev.yml .github/workflows/deploy-cloudflare-test.yml wrangler.dev.jsonc wrangler.test.jsonc >> build-evidence.sha256
           printf '{"format":"fastlink-prime-wallet-fx-quote-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_QUOTE_PREVIEW","backendMethod":"POST","directProviderCalls":0,"writes":0,"scopeBound":true,"expiryBound":true,"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > fx-quote-evidence.json
           sha256sum fx-quote-evidence.json src/lib/backend-api.ts src/lib/fx-quote-contract.ts src/lib/fx-quote-state.ts src/lib/fx-quote-adversarial.test.ts src/hooks/use-fx-quote.ts src/routes/convert.tsx src/routes/-convert.mounted-quote.test.tsx >> build-evidence.sha256
-          printf '{"format":"fastlink-prime-wallet-transfer-account-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_ACCOUNT_LIST","backendMethod":"GET","sameOriginApiOnly":true,"directProviderCalls":0,"fundsMovement":0,"refreshPolicy":"single-active-manual-no-retry","scope":["actor","tenant","customer","session-object-generation","expiry","environment"],"failurePolicy":{"401":"clear-current-snapshot","other4xx":"clear-current-snapshot","network408And5xx":"retain-only-validated-current-scope-snapshot"},"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > transfer-account-evidence.json
-          sha256sum transfer-account-evidence.json src/lib/backend-api.ts src/lib/wallet-transfer-account-state.ts src/lib/wallet-transfer-account-state.test.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx >> build-evidence.sha256
+          sha256sum src/lib/backend-api.ts src/lib/wallet-transfer-account-state.ts src/lib/wallet-transfer-account-state.test.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -230,7 +229,6 @@ jobs:
             package.json
             readiness-evidence.json
             fx-quote-evidence.json
-            transfer-account-evidence.json
             scripts/verify-prime-wallet-readiness.mjs
             scripts/readiness-deployment-contract.test.mjs
             src/lib/prime-wallet-readiness.ts
