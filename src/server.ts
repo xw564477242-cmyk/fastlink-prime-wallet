@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { primeWalletReadinessResponse } from "./lib/prime-wallet-readiness";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -112,6 +113,12 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const pathname = new URL(request.url).pathname;
+      if (pathname === "/readyz") {
+        return primeWalletReadinessResponse(request, {
+          environment: import.meta.env.VITE_FASTLINK_ENVIRONMENT,
+          buildSha: import.meta.env.VITE_FASTLINK_BUILD_SHA,
+        });
+      }
       if (pathname === "/api" || pathname.startsWith("/api/")) {
         return await proxyBackendRequest(request, resolveWorkerEnvironment(env));
       }

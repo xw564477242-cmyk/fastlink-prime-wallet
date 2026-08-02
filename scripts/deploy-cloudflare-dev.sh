@@ -43,7 +43,7 @@ if [[ -z "$deploy_url" ]]; then
   exit 1
 fi
 
-curl --fail --silent --show-error --location --max-time 30 "$deploy_url/" >/dev/null
+node scripts/verify-prime-wallet-readiness.mjs "$deploy_url" SANDBOX "$VITE_FASTLINK_BUILD_SHA"
 echo "DEPLOYED_URL=$deploy_url"
 echo "DEPLOYED_WORKER=$worker"
 echo "DEPLOYED_SHA=$(git rev-parse HEAD 2>/dev/null || printf unknown)"

@@ -8,6 +8,7 @@
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "test": "bun test",
+    "test:readiness": "bun test ./src/lib/prime-wallet-readiness.test.ts && node --test ./scripts/readiness-deployment-contract.test.mjs",
     "test:transfer-refresh-integration:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/lib/wallet-transfer-status-refresh.integration.ts",
     "test:transfer-refresh-integration:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/lib/wallet-transfer-status-refresh.integration.ts",
     "test:card-history-integration:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/lib/card-transaction-history.integration.ts",

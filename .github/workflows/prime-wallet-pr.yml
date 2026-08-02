@@ -35,6 +35,9 @@ jobs:
       - name: Install locked dependencies
         run: bun install --frozen-lockfile
 
+      - name: Verify non-production readiness and deployment acceptance
+        run: bun run test:readiness
+
       - name: Test when the branch contains tests
         shell: bash
         run: |
