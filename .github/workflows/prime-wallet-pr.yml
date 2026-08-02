@@ -86,6 +86,12 @@ jobs:
       - name: Run Wallet transfer account refresh safety in TEST
         run: bun run test:wallet-transfer-accounts-safety:test
 
+      - name: Run Home Wallet balance binding in SANDBOX
+        run: bun run test:home-wallet-balance:sandbox
+
+      - name: Run Home Wallet balance binding in TEST
+        run: bun run test:home-wallet-balance:test
+
       - name: Run Card history hook safety in SANDBOX
         run: bun run test:card-history-hook:sandbox
 
@@ -213,6 +219,8 @@ jobs:
           printf '{"format":"fastlink-prime-wallet-fx-quote-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_QUOTE_PREVIEW","backendMethod":"POST","directProviderCalls":0,"writes":0,"scopeBound":true,"expiryBound":true,"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > fx-quote-evidence.json
           sha256sum fx-quote-evidence.json src/lib/backend-api.ts src/lib/fx-quote-contract.ts src/lib/fx-quote-state.ts src/lib/fx-quote-adversarial.test.ts src/hooks/use-fx-quote.ts src/routes/convert.tsx src/routes/-convert.mounted-quote.test.tsx >> build-evidence.sha256
           sha256sum src/lib/backend-api.ts src/lib/wallet-transfer-account-state.ts src/lib/wallet-transfer-account-state.test.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx >> build-evidence.sha256
+          printf '{"format":"fastlink-prime-wallet-home-balance-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_BALANCE_LIST","backendMethod":"GET","sameOriginApiOnly":true,"directProviderCalls":0,"writes":0,"scope":["actor","tenant","customer","session-object-generation","expiry","environment","account","asset"],"responsePolicy":"exact-bounded-public-fields","refreshPolicy":"single-active-manual-no-retry","failurePolicy":{"current401":"clear-snapshot-and-exact-session-invalidation","other4xx":"clear-current-snapshot","network408And5xx":"retain-only-validated-current-scope-snapshot"},"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > home-wallet-balance-evidence.json
+          sha256sum home-wallet-balance-evidence.json src/lib/backend-session-policy.ts src/lib/home-wallet-balance-state.ts src/lib/home-wallet-balance-state.test.ts src/hooks/use-home-wallet-balances.ts src/hooks/use-home-wallet-balances.test.tsx src/routes/index.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -229,6 +237,7 @@ jobs:
             package.json
             readiness-evidence.json
             fx-quote-evidence.json
+            home-wallet-balance-evidence.json
             scripts/verify-prime-wallet-readiness.mjs
             scripts/readiness-deployment-contract.test.mjs
             src/lib/prime-wallet-readiness.ts
@@ -263,6 +272,8 @@ jobs:
             src/lib/wallet-transfer-account-state.test.ts
             src/lib/wallet-transfer-status-refresh-adversarial.test.ts
             src/lib/wallet-balance-summary-adversarial.test.ts
+            src/lib/home-wallet-balance-state.ts
+            src/lib/home-wallet-balance-state.test.ts
             src/lib/wallet-transaction-filter-adversarial.test.ts
             src/lib/wallet-transaction-refresh-adversarial.test.ts
             src/lib/wallet-transaction-selection-adversarial.test.ts
@@ -293,6 +304,8 @@ jobs:
             src/hooks/use-card-transaction-pages.test.tsx
             src/hooks/use-card-transaction-detail.ts
             src/hooks/use-card-transaction-detail.test.tsx
+            src/hooks/use-home-wallet-balances.ts
+            src/hooks/use-home-wallet-balances.test.tsx
             src/hooks/use-wallet-transfer-accounts.ts
             src/hooks/use-wallet-transfer-accounts.test.tsx
             src/hooks/use-wallet-account-history.ts
@@ -321,6 +334,7 @@ jobs:
             src/routes/-assets-fiat.mounted-refresh-selection.test.tsx
             src/routes/transfer.tsx
             src/routes/transfer.mounted-safety.test.tsx
+            src/routes/index.tsx
             src/routes/assets.fiat.tsx
             src/routes/convert.tsx
             src/routes/-convert.mounted-quote.test.tsx

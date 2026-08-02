@@ -12,11 +12,13 @@ import {
   EyeOff,
   Loader2,
   AlertTriangle,
+  RefreshCw,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useLang } from "@/lib/i18n";
 import { backendApi, type WalletCard, type WalletCardTransaction } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
+import { useHomeWalletBalances } from "@/hooks/use-home-wallet-balances";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,6 +38,7 @@ function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const { t } = useLang();
   const { session } = useBackendSession();
+  const walletBalances = useHomeWalletBalances(session);
 
   useEffect(() => {
     let cancelled = false;
@@ -111,20 +114,64 @@ function HomePage() {
       </div>
 
       <div className="mx-6 mt-6 overflow-hidden rounded-3xl bg-gradient-card p-6 shadow-card">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-3">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             {t("home.totalBalance")}
           </p>
-          <button onClick={() => setHidden((value) => !value)} className="text-muted-foreground">
-            {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              aria-label="Refresh Wallet balances"
+              onClick={walletBalances.refresh}
+              disabled={!walletBalances.canRefresh}
+              className="text-muted-foreground disabled:opacity-40"
+            >
+              <RefreshCw className={`h-4 w-4 ${walletBalances.refreshing ? "animate-spin" : ""}`} />
+            </button>
+            <button
+              type="button"
+              aria-label={hidden ? "Show Wallet balances" : "Hide Wallet balances"}
+              onClick={() => setHidden((value) => !value)}
+              className="text-muted-foreground"
+            >
+              {hidden ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
-        <div className="mt-3 font-display text-3xl font-bold tracking-tight" translate="no">
-          {hidden ? "••••••" : "Unavailable"}
+        <div
+          className="mt-3 max-h-40 space-y-1 overflow-y-auto font-display text-3xl font-bold tracking-tight"
+          translate="no"
+        >
+          {hidden ? (
+            <p>••••••</p>
+          ) : walletBalances.accounts.length ? (
+            walletBalances.accounts.map((account) => (
+              <p key={account.assetCode}>
+                {account.availableBalance} {account.assetCode}
+              </p>
+            ))
+          ) : (
+            <p>Unavailable</p>
+          )}
         </div>
         <p className="mt-2 text-[10px] text-muted-foreground">
-          Railway Backend has no authenticated end-user wallet asset-summary contract.
+          Authenticated Wallet balances are shown per asset without cross-currency aggregation.
         </p>
+        {walletBalances.loading && (
+          <p className="mt-2 flex items-center gap-2 text-[10px] text-muted-foreground">
+            <Loader2 className="h-3.5 w-3.5 animate-spin" /> Loading Wallet balances
+          </p>
+        )}
+        {!walletBalances.loading && walletBalances.error && (
+          <p className="mt-2 text-[10px] text-destructive">
+            {walletBalances.error} · No stale Wallet balance displayed.
+          </p>
+        )}
+        {walletBalances.refreshError && (
+          <p className="mt-2 text-[10px] text-destructive">
+            {walletBalances.refreshError} · Existing verified balances kept.
+          </p>
+        )}
         <div className="mt-5 grid grid-cols-3 gap-2">
           <MiniStat
             to="/assets/digital"

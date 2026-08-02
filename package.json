@@ -19,6 +19,8 @@
     "test:internal-transfer-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/transfer.mounted-safety.test.tsx",
     "test:wallet-transfer-accounts-safety:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-wallet-transfer-accounts.test.tsx ./src/lib/wallet-transfer-account-state.test.ts",
     "test:wallet-transfer-accounts-safety:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-wallet-transfer-accounts.test.tsx ./src/lib/wallet-transfer-account-state.test.ts",
+    "test:home-wallet-balance:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-home-wallet-balances.test.tsx ./src/lib/home-wallet-balance-state.test.ts ./src/lib/wallet-balance-summary-adversarial.test.ts",
+    "test:home-wallet-balance:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-home-wallet-balances.test.tsx ./src/lib/home-wallet-balance-state.test.ts ./src/lib/wallet-balance-summary-adversarial.test.ts",
     "test:card-history-hook:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "test:card-history-hook:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-transaction-pages.test.tsx",
     "test:card-timeline-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-timeline-pages.test.tsx ./src/lib/card-timeline-state.test.ts ./src/lib/backend-api.test.ts -t 'Card timeline'",
