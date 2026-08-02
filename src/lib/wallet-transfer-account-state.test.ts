@@ -57,6 +57,13 @@ describe("Internal transfer account request state", () => {
     ).toBeNull();
   });
 
+  it("binds an exact Session object generation even when all public values are equal", () => {
+    const first = walletTransferAccountScopeKey(session(), "SANDBOX", now, 1);
+    const replacement = walletTransferAccountScopeKey(session(), "SANDBOX", now, 2);
+    expect(first).not.toBeNull();
+    expect(replacement).not.toBe(first);
+  });
+
   it("synchronously hides the old account list before an effect reset", () => {
     const oldScope = walletTransferAccountScopeKey(session(), "SANDBOX", now)!;
     const newScope = walletTransferAccountScopeKey(
@@ -97,5 +104,49 @@ describe("Internal transfer account request state", () => {
     expect(
       walletTransferAccountReducer(current, { type: "settled", requestKey: "request-old" }),
     ).toBe(current);
+  });
+
+  it("retains the current snapshot only for an explicitly ambiguous refresh failure", () => {
+    const scope = walletTransferAccountScopeKey(session(), "SANDBOX", now)!;
+    const loaded = walletTransferAccountReducer(
+      walletTransferAccountReducer(initialWalletTransferAccountState, {
+        type: "reset",
+        scopeKey: scope,
+        requestKey: "request-initial",
+      }),
+      { type: "loaded", requestKey: "request-initial", accounts: [account] },
+    );
+    const refreshing = walletTransferAccountReducer(loaded, {
+      type: "reset",
+      scopeKey: scope,
+      requestKey: "request-refresh",
+      preserveSnapshot: true,
+    });
+    expect(refreshing.accounts).toEqual([account]);
+    expect(
+      walletTransferAccountReducer(refreshing, {
+        type: "failed",
+        requestKey: "request-refresh",
+        clearSnapshot: false,
+      }).accounts,
+    ).toEqual([account]);
+  });
+
+  it("fails closed for authorization, not-found, client and malformed-response failures", () => {
+    const scope = walletTransferAccountScopeKey(session(), "SANDBOX", now)!;
+    const refreshing = {
+      ...initialWalletTransferAccountState,
+      scopeKey: scope,
+      requestKey: "request-current",
+      accounts: [account],
+      loading: true,
+    };
+    const failed = walletTransferAccountReducer(refreshing, {
+      type: "failed",
+      requestKey: "request-current",
+      clearSnapshot: true,
+    });
+    expect(failed.accounts).toEqual([]);
+    expect(failed.error).toBe("Wallet accounts are unavailable");
   });
 });
