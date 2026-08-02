@@ -3501,10 +3501,11 @@ export const backendApi = {
     card: WalletCard,
     reason: CardReplacementReason,
     idempotencyKey: string,
+    signal?: AbortSignal,
   ): Promise<WalletCard> {
     requireSandboxTestCardMutationRuntime();
     const { path, init } = buildCardReplaceRequest(card, reason, idempotencyKey);
-    return normalizeCardReplaceResponse(await request<unknown>(path, init), card);
+    return normalizeCardReplaceResponse(await request<unknown>(path, { ...init, signal }), card);
   },
 
   async updateCardStatus(

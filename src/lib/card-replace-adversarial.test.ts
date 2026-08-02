@@ -11,6 +11,7 @@ import { cardListReducer, initialCardListState } from "./card-list-state";
 import {
   acceptsCardReplaceCompletion,
   beginCardReplace,
+  blockCardReplace,
   cardReplaceReducer,
   cardReplaceScopeKey,
   cardReplaceView,
@@ -89,6 +90,10 @@ describe("Selected Card replacement environment, reason and request gate", () =>
       expect(cardReplaceScopeKey(session({ environment }), environment, card(), "LOST")).toBeNull();
     }
     expect(cardReplaceScopeKey(session(), "TEST", card(), "LOST")).toBeNull();
+    expect(cardReplaceScopeKey(session(), "SANDBOX", card(), "LOST", 0, 0, "/api")).not.toBeNull();
+    for (const apiUrl of ["", "/api/", "https://api.fastlink.invalid", "//provider.invalid"]) {
+      expect(cardReplaceScopeKey(session(), "SANDBOX", card(), "LOST", 0, 0, apiUrl)).toBeNull();
+    }
     expect(
       cardReplaceScopeKey(
         session({ expiresAt: "2026-07-31T00:00:00.000Z" }),
@@ -360,6 +365,8 @@ describe("Selected Card replacement scope, generation and list isolation", () =>
       );
       expect(nextScope).not.toBe(oldScope);
     }
+    expect(cardReplaceScopeKey(session(), "SANDBOX", card(), "LOST", 1, 0)).not.toBe(oldScope);
+    expect(cardReplaceScopeKey(session(), "SANDBOX", card(), "LOST", 0, 1)).not.toBe(oldScope);
   });
 
   it("allows stale success, error and finally zero writes after scope or selection changes", () => {
@@ -462,6 +469,29 @@ describe("Selected Card replacement scope, generation and list isolation", () =>
     const current = beginCardReplace(gate, scopeKey, "OTHER", () => keys[1]!);
     expect(acceptsCardReplaceCompletion(gate, old, scopeKey)).toBeFalse();
     expect(acceptsCardReplaceCompletion(gate, current!, scopeKey)).toBeTrue();
+  });
+
+  it("blocks a second POST in the same exact scope after a persisted result cannot be confirmed", () => {
+    const scopeKey = cardReplaceScopeKey(session(), "SANDBOX", card(), "OTHER");
+    if (!scopeKey) throw new Error("scope required");
+    const gate = createCardReplaceGate(scopeKey);
+    const ticket = beginCardReplace(gate, scopeKey, "OTHER", () => keys[0]!);
+    if (!ticket) throw new Error("ticket required");
+    expect(blockCardReplace(gate, ticket, scopeKey)).toBeTrue();
+    expect(settleCardReplace(gate, ticket, scopeKey)).toBeTrue();
+    expect(beginCardReplace(gate, scopeKey, "OTHER", () => keys[1]!)).toBeNull();
+    const started = cardReplaceReducer(initialCardReplaceState, {
+      type: "started",
+      scopeKey,
+      requestKey: ticket.requestKey,
+    });
+    const conflicted = cardReplaceReducer(started, {
+      type: "conflicted",
+      requestKey: ticket.requestKey,
+      message: "safe conflict",
+    });
+    expect(conflicted.conflictPending).toBeTrue();
+    expect(conflicted.replacementCard).toBeNull();
   });
 
   it("atomically removes only the selected old Card and selects a collision-free replacement", () => {

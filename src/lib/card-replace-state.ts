@@ -13,6 +13,7 @@ export type CardReplaceGate = {
   scopeKey: string | null;
   generation: number;
   activeRequestKey: string | null;
+  blocked: boolean;
 };
 
 export type CardReplaceTicket = Readonly<{
@@ -27,6 +28,7 @@ export type CardReplaceState = {
   scopeKey: string | null;
   activeRequestKey: string | null;
   busy: boolean;
+  conflictPending: boolean;
   error: string | null;
   replacementCard: WalletCard | null;
 };
@@ -35,6 +37,7 @@ export const initialCardReplaceState: CardReplaceState = {
   scopeKey: null,
   activeRequestKey: null,
   busy: false,
+  conflictPending: false,
   error: null,
   replacementCard: null,
 };
@@ -56,6 +59,9 @@ export function cardReplaceScopeKey(
   runtimeEnvironment: FastLinkEnvironment | undefined,
   card: WalletCard | undefined,
   reason: CardReplacementReason | undefined,
+  sessionGeneration = 0,
+  cardGeneration = 0,
+  runtimeApiUrl = "/api",
 ): string | null {
   let availableBalanceMinor: string | null;
   try {
@@ -66,6 +72,11 @@ export function cardReplaceScopeKey(
   if (
     !session ||
     !runtimeEnvironment ||
+    runtimeApiUrl !== "/api" ||
+    !Number.isSafeInteger(sessionGeneration) ||
+    sessionGeneration < 0 ||
+    !Number.isSafeInteger(cardGeneration) ||
+    cardGeneration < 0 ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
     typeof session.expiresAt !== "string" ||
@@ -100,6 +111,9 @@ export function cardReplaceScopeKey(
     session.customerId,
     session.environment,
     runtimeEnvironment,
+    runtimeApiUrl,
+    sessionGeneration,
+    cardGeneration,
     reason,
     card.cardId,
     card.type,
@@ -129,7 +143,7 @@ export function cardReplaceView(
 }
 
 export function createCardReplaceGate(scopeKey: string | null): CardReplaceGate {
-  return { scopeKey, generation: 0, activeRequestKey: null };
+  return { scopeKey, generation: 0, activeRequestKey: null, blocked: false };
 }
 
 export function syncCardReplaceScope(gate: CardReplaceGate, scopeKey: string | null): void {
@@ -137,6 +151,7 @@ export function syncCardReplaceScope(gate: CardReplaceGate, scopeKey: string | n
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
+  gate.blocked = false;
 }
 
 function newCardReplaceIdempotencyKey(): string {
@@ -152,13 +167,23 @@ export function beginCardReplace(
   keyFactory: () => string = newCardReplaceIdempotencyKey,
 ): CardReplaceTicket | null {
   syncCardReplaceScope(gate, scopeKey);
-  if (gate.activeRequestKey !== null) return null;
+  if (gate.activeRequestKey !== null || gate.blocked) return null;
   if (!isCardReplacementReason(reason)) throw new Error("Invalid Card replacement reason");
   const idempotencyKey = validateVirtualCardIdempotencyKey(keyFactory());
   gate.generation += 1;
   const requestKey = JSON.stringify([scopeKey, reason, idempotencyKey, gate.generation]);
   gate.activeRequestKey = requestKey;
   return { scopeKey, generation: gate.generation, reason, idempotencyKey, requestKey };
+}
+
+export function blockCardReplace(
+  gate: CardReplaceGate,
+  ticket: CardReplaceTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsCardReplaceCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.blocked = true;
+  return true;
 }
 
 export function acceptsCardReplaceCompletion(
@@ -190,6 +215,7 @@ export type CardReplaceAction =
   | { type: "started"; scopeKey: string; requestKey: string }
   | { type: "succeeded"; requestKey: string; card: WalletCard }
   | { type: "failed"; requestKey: string; message: string }
+  | { type: "conflicted"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function cardReplaceReducer(
@@ -204,6 +230,7 @@ export function cardReplaceReducer(
         scopeKey: action.scopeKey,
         activeRequestKey: action.requestKey,
         busy: true,
+        conflictPending: false,
         error: null,
         replacementCard: null,
       };
@@ -214,6 +241,10 @@ export function cardReplaceReducer(
     case "failed":
       return action.requestKey === state.activeRequestKey
         ? { ...state, error: action.message, replacementCard: null }
+        : state;
+    case "conflicted":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, error: action.message, replacementCard: null, conflictPending: true }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey
