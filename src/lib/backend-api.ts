@@ -207,6 +207,41 @@ export function isCardTransactionFilter(value: unknown): value is CardTransactio
 export const CARD_TRANSACTION_PAGE_SIZE = 25;
 export const CARD_TRANSACTION_MAX_JSON_BYTES = 65_536;
 export const CARD_TRANSACTION_MAX_CURSOR_BYTES = 16_384;
+export const CARD_TIMELINE_PAGE_SIZE = 25;
+export const CARD_TIMELINE_MAX_PAGES = 10;
+export const CARD_TIMELINE_MAX_JSON_BYTES = 65_536;
+export const CARD_TIMELINE_MAX_CURSOR_BYTES = 2_048;
+export const CARD_TIMELINE_TYPES = [
+  "CREATED",
+  "ACTIVATED",
+  "FROZEN",
+  "UNFROZEN",
+  "REPLACED",
+  "RENEWED",
+  "LIMITS_UPDATED",
+  "PIN_UPDATED",
+  "VIEWED",
+  "STATUS_CHANGED",
+  "UPDATED",
+] as const;
+export const CARD_TIMELINE_STATUSES = ["PENDING", "ACTIVE", "FROZEN", "CLOSED", "FAILED"] as const;
+export type CardTimelineType = (typeof CARD_TIMELINE_TYPES)[number];
+export type CardTimelineStatus = (typeof CARD_TIMELINE_STATUSES)[number];
+export type WalletCardTimelineEvent = Readonly<{
+  id: string;
+  type: CardTimelineType;
+  fromStatus: CardTimelineStatus | null;
+  toStatus: CardTimelineStatus | null;
+  occurredAt: string;
+}>;
+export type WalletCardTimelinePage = Readonly<{
+  events: readonly WalletCardTimelineEvent[];
+  nextCursor: string | null;
+}>;
+export type WalletCardTimelineQuery = Readonly<{
+  limit?: number;
+  cursor?: string;
+}>;
 const BASE64URL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
 
 function isCanonicalBase64UrlSegment(value: string): boolean {
@@ -222,6 +257,63 @@ function isCanonicalCardTransactionCursor(value: unknown): value is string {
   if (typeof value !== "string" || value.length > CARD_TRANSACTION_MAX_CURSOR_BYTES) return false;
   const segments = value.split(".");
   return segments.length === 2 && segments.every(isCanonicalBase64UrlSegment);
+}
+
+type CardTimelineCursorPosition = Readonly<{
+  id: string;
+  occurredAt: string;
+}>;
+
+function decodeBase64UrlSegment(value: string): Uint8Array | null {
+  if (!isCanonicalBase64UrlSegment(value)) return null;
+  try {
+    const padding = "=".repeat((4 - (value.length % 4)) % 4);
+    const decoded = globalThis.atob(value.replace(/-/g, "+").replace(/_/g, "/") + padding);
+    return Uint8Array.from(decoded, (character) => character.charCodeAt(0));
+  } catch {
+    return null;
+  }
+}
+
+function cardTimelineCursorPosition(value: unknown): CardTimelineCursorPosition | null {
+  if (
+    typeof value !== "string" ||
+    new TextEncoder().encode(value).byteLength > CARD_TIMELINE_MAX_CURSOR_BYTES
+  ) {
+    return null;
+  }
+  const segments = value.split(".");
+  if (segments.length !== 2) return null;
+  const payloadBytes = decodeBase64UrlSegment(segments[0]);
+  const macBytes = decodeBase64UrlSegment(segments[1]);
+  if (!payloadBytes || !macBytes || macBytes.byteLength !== 32) return null;
+  try {
+    const parsed = JSON.parse(
+      new TextDecoder("utf-8", { fatal: true }).decode(payloadBytes),
+    ) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const keys = Object.keys(parsed).sort();
+    if (keys.join("\n") !== ["i", "k", "t", "v"].join("\n")) return null;
+    const payload = parsed as { v?: unknown; t?: unknown; k?: unknown; i?: unknown };
+    if (
+      payload.v !== 1 ||
+      (payload.k !== "LIFECYCLE" && payload.k !== "EVENT") ||
+      typeof payload.i !== "string" ||
+      !/^[A-Za-z0-9_-]{2,128}$/.test(payload.i) ||
+      typeof payload.t !== "string"
+    ) {
+      return null;
+    }
+    const timestamp = new Date(payload.t);
+    if (Number.isNaN(timestamp.getTime()) || timestamp.toISOString() !== payload.t) return null;
+    return Object.freeze({ id: payload.i, occurredAt: payload.t });
+  } catch {
+    return null;
+  }
+}
+
+function isCanonicalCardTimelineCursor(value: unknown): value is string {
+  return cardTimelineCursorPosition(value) !== null;
 }
 
 export type WalletAssetAccount = {
@@ -527,6 +619,35 @@ function requireSandboxTestCardTransactionRuntime(session: BackendSession): void
       0,
       "runtime",
       "Card transactions are available only in a matching, unexpired SANDBOX or TEST session",
+    );
+  }
+}
+
+export function cardTimelineSessionReadAllowed(
+  session: BackendSession | null,
+  runtimeEnvironment: FastLinkEnvironment | undefined,
+  runtimeApiUrl: string,
+  now = Date.now(),
+): boolean {
+  return (
+    runtimeApiUrl === "/api" &&
+    Boolean(
+      session &&
+      [session.actorId, session.tenantId, session.customerId].every(
+        (value) => typeof value === "string" && value.length >= 2 && value.length <= 512,
+      ),
+    ) &&
+    cardTransactionSessionReadAllowed(session, runtimeEnvironment, now)
+  );
+}
+
+function requireSandboxTestCardTimelineRuntime(session: BackendSession): void {
+  const { environment, apiUrl } = requireRuntime();
+  if (!cardTimelineSessionReadAllowed(session, environment, apiUrl)) {
+    throw new BackendApiError(
+      0,
+      "runtime",
+      "Card timeline is available only through same-origin /api in a matching, unexpired SANDBOX or TEST session",
     );
   }
 }
@@ -1838,6 +1959,130 @@ export function normalizeCardTransactionResponse(
   };
 }
 
+function cardTimelineIdentifier(value: unknown): string {
+  if (typeof value !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(value)) {
+    throw new Error("Backend returned an invalid Card timeline event id");
+  }
+  return value;
+}
+
+function cardTimelineType(value: unknown): CardTimelineType {
+  if (typeof value !== "string" || !(CARD_TIMELINE_TYPES as readonly string[]).includes(value)) {
+    throw new Error("Backend returned an invalid Card timeline type");
+  }
+  return value as CardTimelineType;
+}
+
+function cardTimelineStatus(value: unknown, field: string): CardTimelineStatus | null {
+  if (value === null) return null;
+  if (typeof value !== "string" || !(CARD_TIMELINE_STATUSES as readonly string[]).includes(value)) {
+    throw new Error(`Backend returned an invalid Card timeline ${field}`);
+  }
+  return value as CardTimelineStatus;
+}
+
+function cardTimelineTimestamp(value: unknown): string {
+  const timestamp = cardTransactionTimestamp(value);
+  const parsed = new Date(timestamp);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString() !== timestamp) {
+    throw new Error("Backend returned an invalid Card timeline timestamp");
+  }
+  return timestamp;
+}
+
+function normalizeCardTimelineEvent(value: unknown): WalletCardTimelineEvent {
+  const event = exactTrustedJsonRecord(
+    value,
+    ["id", "type", "fromStatus", "toStatus", "occurredAt"],
+    "Backend returned an invalid Card timeline event",
+  );
+  return Object.freeze({
+    id: cardTimelineIdentifier(event.id),
+    type: cardTimelineType(event.type),
+    fromStatus: cardTimelineStatus(event.fromStatus, "fromStatus"),
+    toStatus: cardTimelineStatus(event.toStatus, "toStatus"),
+    occurredAt: cardTimelineTimestamp(event.occurredAt),
+  });
+}
+
+export function buildCardTimelinePath(cardId: string, query: WalletCardTimelineQuery = {}): string {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(cardId)) {
+    throw new Error("Invalid Card timeline Card id");
+  }
+  const limit = query.limit ?? CARD_TIMELINE_PAGE_SIZE;
+  if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TIMELINE_PAGE_SIZE) {
+    throw new Error(`Card timeline limit must be between 1 and ${CARD_TIMELINE_PAGE_SIZE}`);
+  }
+  if (query.cursor !== undefined && !isCanonicalCardTimelineCursor(query.cursor)) {
+    throw new Error("Invalid Card timeline cursor");
+  }
+  const params = new URLSearchParams({ limit: String(limit) });
+  if (query.cursor) params.set("cursor", query.cursor);
+  return `/v1/cards/${encodeURIComponent(cardId)}/timeline?${params.toString()}`;
+}
+
+export function normalizeCardTimelineResponse(
+  rawJson: string,
+  limit = CARD_TIMELINE_PAGE_SIZE,
+): WalletCardTimelinePage {
+  if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TIMELINE_PAGE_SIZE) {
+    throw new Error(`Card timeline limit must be between 1 and ${CARD_TIMELINE_PAGE_SIZE}`);
+  }
+  if (
+    typeof rawJson !== "string" ||
+    new TextEncoder().encode(rawJson).byteLength > CARD_TIMELINE_MAX_JSON_BYTES
+  ) {
+    throw new Error("Backend returned an invalid Card timeline page");
+  }
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error("Backend returned an invalid Card timeline page");
+  }
+  const page = exactTrustedJsonRecord(
+    parsed,
+    ["events", "nextCursor"],
+    "Backend returned an invalid Card timeline page",
+  );
+  const events = denseTrustedJsonArray(
+    page.events,
+    limit,
+    "Backend returned an invalid Card timeline page",
+  ).map(normalizeCardTimelineEvent);
+  if (new Set(events.map((event) => event.id)).size !== events.length) {
+    throw new Error("Backend returned duplicate Card timeline events");
+  }
+  for (let index = 1; index < events.length; index += 1) {
+    if (Date.parse(events[index - 1].occurredAt) < Date.parse(events[index].occurredAt)) {
+      throw new Error("Backend returned an out-of-order Card timeline page");
+    }
+  }
+  const nextCursor = page.nextCursor;
+  if (nextCursor !== null && !isCanonicalCardTimelineCursor(nextCursor)) {
+    throw new Error("Backend returned an invalid Card timeline cursor");
+  }
+  if (events.length === 0 && nextCursor !== null) {
+    throw new Error("Backend returned an empty continuing Card timeline page");
+  }
+  if (nextCursor !== null) {
+    const cursorPosition = cardTimelineCursorPosition(nextCursor);
+    const lastEvent = events.at(-1);
+    if (
+      !cursorPosition ||
+      !lastEvent ||
+      cursorPosition.id !== lastEvent.id ||
+      cursorPosition.occurredAt !== lastEvent.occurredAt
+    ) {
+      throw new Error("Backend returned a mismatched Card timeline cursor");
+    }
+  }
+  return Object.freeze({
+    events: Object.freeze(events),
+    nextCursor,
+  });
+}
+
 function walletAssetCode(value: unknown): string {
   if (typeof value !== "string" || !/^[A-Z0-9]{2,12}$/.test(value)) {
     throw new Error("Backend returned an invalid Wallet asset code");
@@ -2859,6 +3104,34 @@ export const backendApi = {
           error.status,
           error.traceId,
           `Card transaction request failed · Trace ${error.traceId}`,
+        );
+      }
+      throw error;
+    }
+  },
+
+  async cardTimeline(
+    session: BackendSession,
+    cardId: string,
+    query: WalletCardTimelineQuery = {},
+    signal?: AbortSignal,
+  ): Promise<WalletCardTimelinePage> {
+    requireSandboxTestCardTimelineRuntime(session);
+    const limit = query.limit ?? CARD_TIMELINE_PAGE_SIZE;
+    try {
+      const result = await request<string>(
+        buildCardTimelinePath(cardId, query),
+        { signal },
+        "text",
+      );
+      requireSandboxTestCardTimelineRuntime(session);
+      return normalizeCardTimelineResponse(result, limit);
+    } catch (error) {
+      if (error instanceof BackendApiError) {
+        throw new BackendApiError(
+          error.status,
+          error.traceId,
+          `Card timeline request failed · Trace ${error.traceId}`,
         );
       }
       throw error;

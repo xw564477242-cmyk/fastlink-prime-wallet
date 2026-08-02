@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import {
   WALLET_TRANSACTION_MAX_JSON_BYTES,
+  buildCardTimelinePath,
+  cardTimelineSessionReadAllowed,
   buildCardListPath,
   buildCardBalancePath,
   buildCardLimitsPath,
@@ -13,6 +15,7 @@ import {
   normalizeCardBalanceResponse,
   normalizeCardLimitsResponse,
   normalizeCardTransactionResponse,
+  normalizeCardTimelineResponse,
   normalizeWalletBalanceResponse,
   normalizeWalletTransactionDetail,
   normalizeWalletTransactionResponse,
@@ -474,6 +477,138 @@ describe("Card transaction Backend adapter", () => {
         }),
       ),
     ).toThrow("Backend returned an invalid transaction");
+  });
+});
+
+describe("Card timeline Backend adapter", () => {
+  const timelineCursor = (
+    id = "timeline_event_01",
+    occurredAt = "2026-08-01T00:00:00.000Z",
+    kind: "LIFECYCLE" | "EVENT" = "EVENT",
+    macBytes = 32,
+    extras: Record<string, unknown> = {},
+  ) =>
+    `${Buffer.from(JSON.stringify({ v: 1, t: occurredAt, k: kind, i: id, ...extras })).toString("base64url")}.${Buffer.alloc(macBytes).toString("base64url")}`;
+  const event = (overrides: Record<string, unknown> = {}) => ({
+    id: "timeline_event_01",
+    type: "CREATED",
+    fromStatus: null,
+    toStatus: "PENDING",
+    occurredAt: "2026-08-01T00:00:00.000Z",
+    ...overrides,
+  });
+
+  it("allows only same-origin matching unexpired SANDBOX/TEST sessions", () => {
+    const active = {
+      actorId: "actor-timeline",
+      tenantId: "tenant-timeline",
+      customerId: "customer-timeline",
+      environment: "SANDBOX" as const,
+      expiresAt: "2026-08-01T01:00:00.000Z",
+    };
+    const now = Date.parse("2026-08-01T00:00:00.000Z");
+    expect(cardTimelineSessionReadAllowed(active, "SANDBOX", "/api", now)).toBeTrue();
+    expect(cardTimelineSessionReadAllowed(active, "TEST", "/api", now)).toBeFalse();
+    expect(
+      cardTimelineSessionReadAllowed(active, "SANDBOX", "https://api.invalid", now),
+    ).toBeFalse();
+    expect(
+      cardTimelineSessionReadAllowed(active, "SANDBOX", "/api", Date.parse(active.expiresAt)),
+    ).toBeFalse();
+    expect(
+      cardTimelineSessionReadAllowed(
+        { ...active, environment: "PRODUCTION" },
+        "PRODUCTION",
+        "/api",
+        now,
+      ),
+    ).toBeFalse();
+    expect(
+      cardTimelineSessionReadAllowed({ ...active, actorId: "" }, "SANDBOX", "/api", now),
+    ).toBeFalse();
+  });
+
+  it("builds only the bounded selected-Card GET path with a signed opaque cursor", () => {
+    const cursor = timelineCursor();
+    expect(buildCardTimelinePath("card:owned.1")).toBe(
+      "/v1/cards/card%3Aowned.1/timeline?limit=25",
+    );
+    expect(buildCardTimelinePath("card_owned", { limit: 10, cursor })).toBe(
+      `/v1/cards/card_owned/timeline?limit=10&cursor=${cursor}`,
+    );
+    expect(() => buildCardTimelinePath("card_owned", { limit: 26 })).toThrow(
+      "Card timeline limit must be between 1 and 25",
+    );
+    expect(() => buildCardTimelinePath("card_owned", { cursor: "not-signed" })).toThrow(
+      "Invalid Card timeline cursor",
+    );
+    expect(() => buildCardTimelinePath("bad/card")).toThrow("Invalid Card timeline Card id");
+  });
+
+  it("accepts exactly five public event fields and two page fields", () => {
+    const page = normalizeCardTimelineResponse(
+      JSON.stringify({ events: [event()], nextCursor: timelineCursor() }),
+    );
+    expect(Object.keys(page)).toEqual(["events", "nextCursor"]);
+    expect(Object.keys(page.events[0])).toEqual([
+      "id",
+      "type",
+      "fromStatus",
+      "toStatus",
+      "occurredAt",
+    ]);
+    expect(Object.isFrozen(page)).toBeTrue();
+    expect(Object.isFrozen(page.events)).toBeTrue();
+    expect(JSON.stringify(page)).not.toMatch(/provider|tenant|customer|secret|trace/i);
+  });
+
+  it("fails closed for extra fields, hostile enums, bad time, order, duplicate ids and cursor", () => {
+    const normalize = (value: unknown) => normalizeCardTimelineResponse(JSON.stringify(value));
+    expect(() =>
+      normalize({ events: [event({ providerPayload: "private" })], nextCursor: null }),
+    ).toThrow();
+    expect(() => normalize({ events: [event()], nextCursor: null, tenantId: "private" })).toThrow();
+    expect(() =>
+      normalize({ events: [event({ type: "PROVIDER_PRIVATE" })], nextCursor: null }),
+    ).toThrow();
+    expect(() =>
+      normalize({ events: [event({ toStatus: "SUSPENDED" })], nextCursor: null }),
+    ).toThrow();
+    expect(() =>
+      normalize({ events: [event({ occurredAt: "2026-08-01" })], nextCursor: null }),
+    ).toThrow();
+    expect(() => normalize({ events: [event(), event()], nextCursor: null })).toThrow(/duplicate/i);
+    expect(() =>
+      normalize({
+        events: [
+          event(),
+          event({ id: "timeline_event_02", occurredAt: "2026-08-01T00:00:01.000Z" }),
+        ],
+        nextCursor: null,
+      }),
+    ).toThrow(/order/i);
+    expect(() => normalize({ events: [], nextCursor: timelineCursor() })).toThrow();
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor(undefined, undefined, "EVENT", 31),
+      }),
+    ).toThrow(/cursor/i);
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor(undefined, undefined, "EVENT", 32, { tenantId: "private" }),
+      }),
+    ).toThrow(/cursor/i);
+    expect(() =>
+      normalize({ events: [event()], nextCursor: timelineCursor("timeline_event_02") }),
+    ).toThrow(/mismatched/i);
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor("timeline_event_01", "2026-07-31T23:59:59.000Z"),
+      }),
+    ).toThrow(/mismatched/i);
   });
 });
 
