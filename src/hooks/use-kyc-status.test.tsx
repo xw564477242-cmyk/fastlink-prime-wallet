@@ -293,7 +293,7 @@ describe("Mounted KYC status manual refresh", () => {
     expect(latest?.snapshot).toEqual({ status: "REJECTED", reviewedAt: null });
   });
 
-  it("fails LOCAL, UAT, PRODUCTION, unknown and environment mismatch closed without a fetch", async () => {
+  it("fails unsafe environments and missing, empty, invalid or past expiry closed without a fetch", async () => {
     const calls = installFetch(() => response({ status: "APPROVED", reviewedAt: null }));
     const blocked: HarnessProps[] = [
       { currentSession: session("LOCAL"), runtime: runtime("LOCAL") },
@@ -304,6 +304,22 @@ describe("Mounted KYC status manual refresh", () => {
         runtime: runtime("UNKNOWN" as FastLinkEnvironment),
       },
       { currentSession: session("TEST"), runtime: runtime("SANDBOX") },
+      {
+        currentSession: session("SANDBOX", { expiresAt: undefined }),
+        runtime: runtime("SANDBOX"),
+      },
+      {
+        currentSession: session("SANDBOX", { expiresAt: "" }),
+        runtime: runtime("SANDBOX"),
+      },
+      {
+        currentSession: session("SANDBOX", { expiresAt: "invalid-expiry" }),
+        runtime: runtime("SANDBOX"),
+      },
+      {
+        currentSession: session("SANDBOX", { expiresAt: "2000-01-01T00:00:00.000Z" }),
+        runtime: runtime("SANDBOX"),
+      },
     ];
 
     for (const props of blocked) {

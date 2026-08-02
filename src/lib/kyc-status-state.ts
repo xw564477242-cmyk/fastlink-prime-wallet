@@ -70,7 +70,7 @@ export function kycStatusSessionReadAllowed(
   ) {
     return false;
   }
-  if (!session.expiresAt) return true;
+  if (typeof session.expiresAt !== "string") return false;
   const expiresAt = Date.parse(session.expiresAt);
   return Number.isFinite(expiresAt) && expiresAt > now;
 }

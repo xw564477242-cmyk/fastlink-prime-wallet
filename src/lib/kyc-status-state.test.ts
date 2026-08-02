@@ -83,6 +83,26 @@ describe("KYC status strict read contract", () => {
       false,
     );
     expect(
+      kycStatusSessionReadAllowed(session("SANDBOX", { expiresAt: undefined }), runtime(), now),
+    ).toBe(false);
+    expect(kycStatusSessionReadAllowed(session("SANDBOX", { expiresAt: "" }), runtime(), now)).toBe(
+      false,
+    );
+    expect(
+      kycStatusSessionReadAllowed(
+        session("SANDBOX", { expiresAt: "invalid-expiry" }),
+        runtime(),
+        now,
+      ),
+    ).toBe(false);
+    expect(
+      kycStatusSessionReadAllowed(
+        session("SANDBOX", { expiresAt: "2026-08-01T23:59:59.999Z" }),
+        runtime(),
+        now,
+      ),
+    ).toBe(false);
+    expect(
       kycStatusSessionReadAllowed(
         session("SANDBOX", { expiresAt: "2026-08-02T00:00:00.000Z" }),
         runtime(),
