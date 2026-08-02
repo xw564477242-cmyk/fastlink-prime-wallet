@@ -1,3 +1,12 @@
+import {
+  buildFxQuoteRequest,
+  fxQuoteSameOriginApiAllowed,
+  fxQuoteSessionAllowed,
+  normalizeFxQuoteResponse,
+  type FxQuote,
+  type FxQuoteInput,
+} from "./fx-quote-contract";
+
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
 const allowedEnvironments: FastLinkEnvironment[] = [
@@ -3008,6 +3017,31 @@ export const backendApi = {
 
   session() {
     return request<BackendSession>("/v1/session");
+  },
+
+  async createFxQuotePreview(
+    session: BackendSession,
+    input: FxQuoteInput,
+    signal?: AbortSignal,
+  ): Promise<FxQuote> {
+    const runtime = requireRuntime();
+    if (
+      !fxQuoteSameOriginApiAllowed(runtime.apiUrl, runtime.environment) ||
+      !fxQuoteSessionAllowed(session, runtime.environment)
+    ) {
+      throw new BackendApiError(
+        0,
+        "runtime",
+        "FX quote preview requires same-origin /api and a matching, unexpired SANDBOX or TEST session",
+      );
+    }
+    const requestContract = buildFxQuoteRequest(input);
+    const raw = await request<string>(
+      requestContract.path,
+      { ...requestContract.init, signal },
+      "text",
+    );
+    return normalizeFxQuoteResponse(raw, session.environment, requestContract.input);
   },
 
   async listCards(query: WalletCardListQuery = {}): Promise<WalletCardPage> {
