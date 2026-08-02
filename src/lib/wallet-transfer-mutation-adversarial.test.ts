@@ -18,11 +18,14 @@ import {
   beginWalletTransferMutation,
   createWalletTransferMutationGate,
   initialWalletTransferMutationState,
+  retainWalletTransferMutationRetry,
   settleWalletTransferMutation,
   syncWalletTransferMutationScope,
   walletTransferMutationReducer,
   walletTransferMutationScopeKey,
   walletTransferMutationView,
+  walletTransferFailureIsAmbiguous,
+  walletTransferFailureIsExplicit401,
 } from "./wallet-transfer-mutation-state";
 
 const now = "2026-07-31T15:30:00.000Z";
@@ -407,6 +410,9 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
     for (const args of variants) {
       expect(walletTransferMutationScopeKey(...args)).not.toBe(original);
     }
+    expect(walletTransferMutationScopeKey(session(), "SANDBOX", source(), input, 1)).not.toBe(
+      original,
+    );
   });
 
   it("synchronously locks duplicates and gives each accepted submit one unique UUIDv4", () => {
@@ -421,6 +427,75 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
     expect(second.idempotencyKey).toMatch(
       /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
     );
+  });
+
+  it("retains one exact key only for an explicit ambiguous manual retry", () => {
+    const scope = walletTransferMutationScopeKey(session(), "SANDBOX", source(), input)!;
+    const gate = createWalletTransferMutationGate(scope);
+    const first = beginWalletTransferMutation(
+      gate,
+      scope,
+      source(),
+      input,
+      () => "123e4567-e89b-42d3-a456-426614174000",
+    )!;
+    expect(retainWalletTransferMutationRetry(gate, first, scope)).toBe(true);
+    expect(settleWalletTransferMutation(gate, first, scope)).toBe(true);
+    const retry = beginWalletTransferMutation(gate, scope, source(), input, () => {
+      throw new Error("retry must not create a new key");
+    })!;
+    expect(retry.retry).toBe(true);
+    expect(retry.idempotencyKey).toBe(first.idempotencyKey);
+    expect(retry.input).toEqual(first.input);
+
+    for (const status of [0, 408, 500, 503, 599]) {
+      expect(walletTransferFailureIsAmbiguous({ status })).toBe(true);
+    }
+    for (const status of [400, 401, 403, 404, 409, 422, 600]) {
+      expect(walletTransferFailureIsAmbiguous({ status })).toBe(false);
+    }
+    expect(walletTransferFailureIsExplicit401({ status: 401 })).toBe(true);
+    expect(walletTransferFailureIsExplicit401({ status: 408 })).toBe(false);
+    const hostile = new Proxy(
+      {},
+      {
+        getOwnPropertyDescriptor() {
+          throw new Error("untrusted status trap");
+        },
+      },
+    );
+    expect(walletTransferFailureIsAmbiguous(hostile)).toBe(false);
+    expect(walletTransferFailureIsExplicit401(hostile)).toBe(false);
+  });
+
+  it("clears an ambiguous retry when any exact scope or input binding changes", () => {
+    const scope = walletTransferMutationScopeKey(session(), "SANDBOX", source(), input)!;
+    const gate = createWalletTransferMutationGate(scope);
+    const first = beginWalletTransferMutation(
+      gate,
+      scope,
+      source(),
+      input,
+      () => "123e4567-e89b-42d3-a456-426614174000",
+    )!;
+    expect(retainWalletTransferMutationRetry(gate, first, scope)).toBe(true);
+    expect(settleWalletTransferMutation(gate, first, scope)).toBe(true);
+    const changedScope = walletTransferMutationScopeKey(
+      session({ actorId: "actor-02" }),
+      "SANDBOX",
+      source(),
+      input,
+    )!;
+    syncWalletTransferMutationScope(gate, changedScope);
+    const next = beginWalletTransferMutation(
+      gate,
+      changedScope,
+      source(),
+      input,
+      () => "123e4567-e89b-42d3-b456-426614174001",
+    )!;
+    expect(next.retry).toBe(false);
+    expect(next.idempotencyKey).not.toBe(first.idempotencyKey);
   });
 
   it("allows stale success, error and finally zero writes after scope or balance changes", () => {

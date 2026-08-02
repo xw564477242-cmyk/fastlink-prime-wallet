@@ -68,6 +68,7 @@ export function walletTransferStatusRefreshScopeKey(
   session: BackendSession | null,
   runtimeEnvironment: FastLinkEnvironment | undefined,
   context: WalletTransferReceiptContext | null,
+  sessionGeneration = 0,
 ): string | null {
   if (
     !session ||
@@ -80,6 +81,7 @@ export function walletTransferStatusRefreshScopeKey(
   try {
     const receipt = receiptContext(context);
     return JSON.stringify([
+      sessionGeneration,
       session.actorId,
       session.expiresAt,
       session.tenantId,
@@ -127,6 +129,14 @@ export function syncWalletTransferStatusRefreshScope(
 ): void {
   if (gate.scopeKey === scopeKey) return;
   gate.scopeKey = scopeKey;
+  gate.generation += 1;
+  gate.activeRequestKey = null;
+}
+
+export function invalidateWalletTransferStatusRefreshGate(
+  gate: WalletTransferStatusRefreshGate,
+): void {
+  gate.scopeKey = null;
   gate.generation += 1;
   gate.activeRequestKey = null;
 }

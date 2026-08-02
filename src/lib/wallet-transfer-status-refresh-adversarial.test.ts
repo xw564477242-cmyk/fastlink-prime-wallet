@@ -325,6 +325,9 @@ describe("Wallet transfer status scope and manual request isolation", () => {
     for (const variant of variants) {
       expect(walletTransferStatusRefreshScopeKey(...variant)).not.toBe(original);
     }
+    expect(walletTransferStatusRefreshScopeKey(session(), "SANDBOX", receipt(), 1)).not.toBe(
+      original,
+    );
   });
 
   it("starts only on an explicit begin, locks duplicate refreshes and increments generations", () => {

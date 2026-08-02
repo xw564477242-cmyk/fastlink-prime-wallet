@@ -697,10 +697,48 @@ function csrfToken(): string {
   return match ? decodeURIComponent(match.slice("fastlink_csrf=".length)) : "";
 }
 
+async function boundedResponseText(response: Response, maximumBytes: number): Promise<string> {
+  const declared = response.headers.get("content-length");
+  if (declared !== null) {
+    const length = Number(declared);
+    if (Number.isFinite(length) && length > maximumBytes) {
+      await response.body?.cancel();
+      throw new Error("Backend response exceeds the consumer limit");
+    }
+  }
+  if (!response.body) {
+    const value = await response.text();
+    if (new TextEncoder().encode(value).byteLength > maximumBytes) {
+      throw new Error("Backend response exceeds the consumer limit");
+    }
+    return value;
+  }
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let received = 0;
+  let value = "";
+  try {
+    for (;;) {
+      const chunk = await reader.read();
+      if (chunk.done) break;
+      received += chunk.value.byteLength;
+      if (received > maximumBytes) {
+        await reader.cancel();
+        throw new Error("Backend response exceeds the consumer limit");
+      }
+      value += decoder.decode(chunk.value, { stream: true });
+    }
+    return value + decoder.decode();
+  } finally {
+    reader.releaseLock();
+  }
+}
+
 async function request<T>(
   path: string,
   init: RequestInit = {},
   responseMode: "json" | "text" = "json",
+  maximumResponseBytes?: number,
 ): Promise<T> {
   const runtime = requireRuntime();
   const requestTraceId = traceId();
@@ -731,7 +769,11 @@ async function request<T>(
     const returnedTraceId = response.headers.get("x-trace-id") || requestTraceId;
     const payload =
       responseMode === "text"
-        ? await response.text().catch(() => "")
+        ? maximumResponseBytes === undefined
+          ? await response.text().catch(() => "")
+          : response.ok
+            ? await boundedResponseText(response, maximumResponseBytes)
+            : await boundedResponseText(response, maximumResponseBytes).catch(() => "")
         : await response.json().catch(() => null);
     if (!response.ok) {
       const fallback = `Backend request failed with HTTP ${response.status}`;
@@ -3233,7 +3275,12 @@ export const backendApi = {
   ): Promise<WalletTransferAccount[]> {
     requireSandboxTestWalletAccountReadRuntime(session);
     return normalizeWalletTransferAccountsResponse(
-      await request<string>("/v1/wallet/accounts", { signal }, "text"),
+      await request<string>(
+        "/v1/wallet/accounts",
+        { signal },
+        "text",
+        WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES,
+      ),
     );
   },
 
@@ -3246,7 +3293,7 @@ export const backendApi = {
     requireSandboxTestWalletRuntime(session);
     const { path, init } = buildWalletTransferRequest(source, input, idempotencyKey);
     return normalizeWalletTransferResponse(
-      await request<string>(path, init, "text"),
+      await request<string>(path, init, "text", WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES),
       source,
       input,
     );
@@ -3303,6 +3350,7 @@ export const backendApi = {
       buildWalletOperationDetailPath(expectation.previous.id),
       {},
       "text",
+      WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
     );
     return normalizeWalletTransferStatusResponse(result, expectation);
   },

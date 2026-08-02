@@ -56,6 +56,44 @@ for (const required of [
   }
 }
 
+const transferMutation = await readFile(
+  new URL("src/lib/wallet-transfer-mutation-state.ts", root),
+  "utf8",
+);
+const transferHook = await readFile(
+  new URL("src/hooks/use-wallet-transfer-mutation.ts", root),
+  "utf8",
+);
+const transferStatusHook = await readFile(
+  new URL("src/hooks/use-wallet-transfer-status-refresh.ts", root),
+  "utf8",
+);
+const transferPage = await readFile(new URL("src/routes/transfer.tsx", root), "utf8");
+const transferRequirements = [
+  [backendClient, "boundedResponseText", "bounded transfer transport"],
+  [backendClient, "WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES", "bounded transfer accounts"],
+  [backendClient, "WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES", "bounded transfer receipt"],
+  [transferMutation, "walletTransferFailureIsAmbiguous", "ambiguous retry classifier"],
+  [transferMutation, "retry.idempotencyKey", "same-key manual retry"],
+  [transferHook, "mounted.current", "unmounted transfer completion guard"],
+  [
+    transferHook,
+    'invalidateSession?.(session, "EXPLICIT_401")',
+    "current transfer 401 invalidation",
+  ],
+  [transferStatusHook, "mounted.current", "unmounted status completion guard"],
+  [
+    transferStatusHook,
+    'invalidateSession?.(session, "EXPLICIT_401")',
+    "current status 401 invalidation",
+  ],
+  [transferPage, "sessionIdentity.current.generation", "exact Session object generation"],
+  [transferPage, "transfer.retryPending", "manual retry input lock"],
+];
+for (const [content, required, reason] of transferRequirements) {
+  if (!content.includes(required)) failures.push(`consumer transfer: missing ${reason}`);
+}
+
 if (failures.length) {
   console.error(
     ["Production wallet audit failed:", ...failures.map((item) => `- ${item}`)].join("\n"),

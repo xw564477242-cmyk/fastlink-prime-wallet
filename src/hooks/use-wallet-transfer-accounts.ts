@@ -12,6 +12,7 @@ import {
   walletTransferAccountScopeKey,
   walletTransferAccountView,
 } from "@/lib/wallet-transfer-account-state";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 type WalletTransferAccountRequestInput = {
   scopeKey: string;
@@ -24,7 +25,10 @@ type ActiveWalletTransferAccountRequest = {
   requestKey: string;
 };
 
-export function useWalletTransferAccounts(session: BackendSession | null) {
+export function useWalletTransferAccounts(
+  session: BackendSession | null,
+  invalidateSession?: BackendSessionInvalidator,
+) {
   const [state, dispatch] = useReducer(
     walletTransferAccountReducer,
     initialWalletTransferAccountState,
@@ -103,6 +107,9 @@ export function useWalletTransferAccounts(session: BackendSession | null) {
             (reason.status >= 500 && reason.status <= 599));
         const clearSnapshot = !mayPreserveSnapshot;
         dispatch({ type: "failed", requestKey, clearSnapshot });
+        if (reason instanceof BackendApiError && reason.status === 401) {
+          invalidateSession?.(session, "EXPLICIT_401");
+        }
       })
       .finally(() => {
         if (!isCurrent()) return;
@@ -115,7 +122,7 @@ export function useWalletTransferAccounts(session: BackendSession | null) {
       controller.abort();
       sequenceRef.current += 1;
     };
-  }, [refreshGeneration, scopeKey, session]);
+  }, [invalidateSession, refreshGeneration, scopeKey, session]);
 
   const refresh = useCallback(() => {
     if (!currentInputRef.current || activeRequestRef.current) return;

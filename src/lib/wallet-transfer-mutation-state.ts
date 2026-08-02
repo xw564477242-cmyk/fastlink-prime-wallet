@@ -14,7 +14,14 @@ export type WalletTransferMutationGate = {
   scopeKey: string | null;
   generation: number;
   activeRequestKey: string | null;
+  retry: WalletTransferMutationRetry | null;
 };
+
+export type WalletTransferMutationRetry = Readonly<{
+  scopeKey: string;
+  input: WalletTransferInput;
+  idempotencyKey: string;
+}>;
 
 export type WalletTransferMutationTicket = Readonly<{
   scopeKey: string;
@@ -22,6 +29,7 @@ export type WalletTransferMutationTicket = Readonly<{
   input: WalletTransferInput;
   idempotencyKey: string;
   requestKey: string;
+  retry: boolean;
 }>;
 
 export type WalletTransferMutationState = {
@@ -30,6 +38,7 @@ export type WalletTransferMutationState = {
   busy: boolean;
   error: string | null;
   operation: WalletOperationActivity | null;
+  retryPending: boolean;
 };
 
 export const initialWalletTransferMutationState: WalletTransferMutationState = {
@@ -38,6 +47,7 @@ export const initialWalletTransferMutationState: WalletTransferMutationState = {
   busy: false,
   error: null,
   operation: null,
+  retryPending: false,
 };
 
 export function walletTransferMutationScopeKey(
@@ -45,6 +55,7 @@ export function walletTransferMutationScopeKey(
   runtimeEnvironment: FastLinkEnvironment | undefined,
   source: WalletTransferAccount | null,
   input: unknown,
+  sessionGeneration = 0,
 ): string | null {
   if (!session || !walletTransferSessionAllowed(session, runtimeEnvironment) || !source) {
     return null;
@@ -54,6 +65,7 @@ export function walletTransferMutationScopeKey(
     const normalizedInput = normalizeWalletTransferInput(input, normalizedSource);
     if (normalizedSource.status !== "active") return null;
     return JSON.stringify([
+      sessionGeneration,
       session.actorId,
       session.expiresAt,
       session.tenantId,
@@ -86,7 +98,7 @@ export function walletTransferMutationView(
 export function createWalletTransferMutationGate(
   scopeKey: string | null,
 ): WalletTransferMutationGate {
-  return { scopeKey, generation: 0, activeRequestKey: null };
+  return { scopeKey, generation: 0, activeRequestKey: null, retry: null };
 }
 
 export function syncWalletTransferMutationScope(
@@ -97,6 +109,14 @@ export function syncWalletTransferMutationScope(
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
+  gate.retry = null;
+}
+
+export function invalidateWalletTransferMutationGate(gate: WalletTransferMutationGate): void {
+  gate.scopeKey = null;
+  gate.generation += 1;
+  gate.activeRequestKey = null;
+  gate.retry = null;
 }
 
 function newWalletTransferIdempotencyKey(): string {
@@ -115,7 +135,20 @@ export function beginWalletTransferMutation(
   syncWalletTransferMutationScope(gate, scopeKey);
   if (gate.activeRequestKey !== null) return null;
   const normalizedInput = normalizeWalletTransferInput(input, source);
-  const idempotencyKey = validateVirtualCardIdempotencyKey(keyFactory());
+  const retry = gate.retry;
+  if (
+    retry &&
+    (retry.scopeKey !== scopeKey ||
+      retry.input.destinationAccountId !== normalizedInput.destinationAccountId ||
+      retry.input.amount !== normalizedInput.amount)
+  ) {
+    gate.retry = null;
+    return null;
+  }
+  const idempotencyKey = retry
+    ? retry.idempotencyKey
+    : validateVirtualCardIdempotencyKey(keyFactory());
+  gate.retry = null;
   gate.generation += 1;
   const requestKey = JSON.stringify([
     scopeKey,
@@ -131,7 +164,54 @@ export function beginWalletTransferMutation(
     input: normalizedInput,
     idempotencyKey,
     requestKey,
+    retry: retry !== null,
   };
+}
+
+export function walletTransferFailureIsAmbiguous(reason: unknown): boolean {
+  if (!reason || typeof reason !== "object") return false;
+  let descriptor: PropertyDescriptor | undefined;
+  try {
+    descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+  } catch {
+    return false;
+  }
+  if (!descriptor || !("value" in descriptor) || typeof descriptor.value !== "number") {
+    return false;
+  }
+  return (
+    descriptor.value === 0 ||
+    descriptor.value === 408 ||
+    (descriptor.value >= 500 && descriptor.value <= 599)
+  );
+}
+
+export function walletTransferFailureIsExplicit401(reason: unknown): boolean {
+  if (!reason || typeof reason !== "object") return false;
+  try {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+    return Boolean(descriptor && "value" in descriptor && descriptor.value === 401);
+  } catch {
+    return false;
+  }
+}
+
+export function retainWalletTransferMutationRetry(
+  gate: WalletTransferMutationGate,
+  ticket: WalletTransferMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsWalletTransferMutationCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.retry = Object.freeze({
+    scopeKey: ticket.scopeKey,
+    input: ticket.input,
+    idempotencyKey: ticket.idempotencyKey,
+  });
+  return true;
+}
+
+export function clearWalletTransferMutationRetry(gate: WalletTransferMutationGate): void {
+  gate.retry = null;
 }
 
 export function acceptsWalletTransferMutationCompletion(
@@ -163,6 +243,7 @@ export type WalletTransferMutationAction =
   | { type: "started"; scopeKey: string; requestKey: string }
   | { type: "succeeded"; requestKey: string; operation: WalletOperationActivity }
   | { type: "failed"; requestKey: string; message: string }
+  | { type: "retryable"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function walletTransferMutationReducer(
@@ -179,14 +260,19 @@ export function walletTransferMutationReducer(
         busy: true,
         error: null,
         operation: null,
+        retryPending: false,
       };
     case "succeeded":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, error: null, operation: action.operation }
+        ? { ...state, error: null, operation: action.operation, retryPending: false }
         : state;
     case "failed":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, error: action.message, operation: null }
+        ? { ...state, error: action.message, operation: null, retryPending: false }
+        : state;
+    case "retryable":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, error: action.message, operation: null, retryPending: true }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey

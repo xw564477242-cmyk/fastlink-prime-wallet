@@ -1,6 +1,8 @@
 import { afterEach, describe, expect, it } from "bun:test";
 import {
   BackendApiError,
+  WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES,
+  WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
   backendApi,
   backendRuntime,
   type BackendSession,
@@ -232,6 +234,37 @@ describe(`Internal Wallet transfer consumer integration (${testEnvironment()})`,
       ),
     ).rejects.toBeInstanceOf(BackendApiError);
     expect(calls).toHaveLength(0);
+  });
+
+  it("enforces account and transfer response limits before consuming the body", async () => {
+    installFetch(
+      () =>
+        new Response("[]", {
+          status: 200,
+          headers: {
+            "content-length": String(WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES + 1),
+          },
+        }),
+    );
+    await expect(backendApi.walletTransferAccounts(session())).rejects.toMatchObject({ status: 0 });
+
+    installFetch(
+      () =>
+        new Response(JSON.stringify(operationWire()), {
+          status: 201,
+          headers: {
+            "content-length": String(WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES + 1),
+          },
+        }),
+    );
+    await expect(
+      backendApi.createWalletTransfer(
+        session(),
+        source(),
+        { destinationAccountId: "account-destination-02", amount: "25" },
+        "123e4567-e89b-42d3-a456-426614174000",
+      ),
+    ).rejects.toMatchObject({ status: 0 });
   });
 
   it("rejects stale account and mutation success, error and finally after scope change", () => {

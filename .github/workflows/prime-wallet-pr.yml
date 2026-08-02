@@ -219,6 +219,8 @@ jobs:
           printf '{"format":"fastlink-prime-wallet-fx-quote-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_QUOTE_PREVIEW","backendMethod":"POST","directProviderCalls":0,"writes":0,"scopeBound":true,"expiryBound":true,"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > fx-quote-evidence.json
           sha256sum fx-quote-evidence.json src/lib/backend-api.ts src/lib/fx-quote-contract.ts src/lib/fx-quote-state.ts src/lib/fx-quote-adversarial.test.ts src/hooks/use-fx-quote.ts src/routes/convert.tsx src/routes/-convert.mounted-quote.test.tsx >> build-evidence.sha256
           sha256sum src/lib/backend-api.ts src/lib/wallet-transfer-account-state.ts src/lib/wallet-transfer-account-state.test.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx src/lib/backend-session-policy.ts src/lib/home-wallet-balance-state.ts src/lib/home-wallet-balance-state.test.ts src/hooks/use-home-wallet-balances.ts src/hooks/use-home-wallet-balances.test.tsx src/routes/index.tsx >> build-evidence.sha256
+          printf '{"format":"fastlink-prime-consumer-transfer-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"runtimeApi":"/api","submit":{"method":"POST","path":"/v1/wallet/transfers","authentication":"HTTP_ONLY_COOKIE_CSRF","automaticRetry":false,"ambiguousStatuses":[0,408,"500-599"],"manualRetry":"same-idempotency-key-and-exact-body"},"status":{"method":"GET","path":"/v1/wallet/operations/{id}","polling":false,"automaticRetry":false},"responseBounds":{"accounts":65536,"transferAndStatus":16384},"scopeBindings":["sessionObjectGeneration","actorId","tenantId","customerId","environment","sessionExpiry","sourceAccountVersion","destinationAccountId","amount","requestGeneration"],"sessionInvalidation":"current-explicit-401-only","staleOrUnmountedWrites":0,"directProviderCalls":0}\n' "${{ github.event.pull_request.head.sha }}" > consumer-transfer-evidence.json
+          sha256sum consumer-transfer-evidence.json scripts/verify-production-wallet.mjs src/lib/backend-api.ts src/lib/backend-session-policy.ts src/lib/wallet-transfer-mutation-state.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-status-refresh-state.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts src/lib/wallet-transfer-consumer.integration.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx src/hooks/use-wallet-transfer-mutation.ts src/hooks/use-wallet-transfer-status-refresh.ts src/routes/transfer.tsx src/routes/transfer.mounted-safety.test.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -235,6 +237,8 @@ jobs:
             package.json
             readiness-evidence.json
             fx-quote-evidence.json
+            consumer-transfer-evidence.json
+            scripts/verify-production-wallet.mjs
             scripts/verify-prime-wallet-readiness.mjs
             scripts/readiness-deployment-contract.test.mjs
             src/lib/prime-wallet-readiness.ts
@@ -305,6 +309,8 @@ jobs:
             src/hooks/use-home-wallet-balances.test.tsx
             src/hooks/use-wallet-transfer-accounts.ts
             src/hooks/use-wallet-transfer-accounts.test.tsx
+            src/hooks/use-wallet-transfer-mutation.ts
+            src/hooks/use-wallet-transfer-status-refresh.ts
             src/hooks/use-wallet-account-history.ts
             src/hooks/use-wallet-account-history.test.tsx
             src/hooks/use-wallet-transaction-detail.ts
@@ -321,6 +327,8 @@ jobs:
             src/lib/wallet-transaction-selection-state.ts
             src/lib/wallet-transaction-detail-state.ts
             src/lib/wallet-transaction-detail-state.test.ts
+            src/lib/wallet-transfer-mutation-state.ts
+            src/lib/wallet-transfer-status-refresh-state.ts
             src/lib/virtual-card-create-state.ts
             src/routes/cards.tsx
             src/routes/-cards.mounted-virtual-create.test.tsx
