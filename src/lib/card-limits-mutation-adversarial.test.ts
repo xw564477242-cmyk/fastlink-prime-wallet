@@ -12,11 +12,16 @@ import {
 import {
   acceptsCardLimitsMutationCompletion,
   beginCardLimitsMutation,
+  blockCardLimitsMutation,
+  cardLimitsMutationFailureIsAmbiguous,
+  cardLimitsMutationFailureIsExplicit401,
+  cardLimitsMutationRecoveryState,
   cardLimitsMutationReducer,
   cardLimitsMutationScopeKey,
   cardLimitsMutationView,
   createCardLimitsMutationGate,
   initialCardLimitsMutationState,
+  retainCardLimitsMutationRetry,
   settleCardLimitsMutation,
   syncCardLimitsMutationScope,
 } from "./card-limits-mutation-state";
@@ -265,6 +270,118 @@ describe("Selected Card limits mutation contract and request gate", () => {
       ),
     ).toThrow();
   });
+
+  it("reuses the exact request key once, then blocks that exact Card recovery scope", () => {
+    const recoveryScope = cardLimitsMutationScopeKey(
+      session(),
+      "SANDBOX",
+      card(),
+      limits(),
+      11,
+      22,
+      33,
+    );
+    if (!recoveryScope) throw new Error("recovery scope required");
+    const actionScope = JSON.stringify([recoveryScope, 44, fullInput]);
+    const changedDraftScope = JSON.stringify([recoveryScope, 45, { dailySpendMinor: 60000 }]);
+    const gate = createCardLimitsMutationGate(actionScope);
+    const first = beginCardLimitsMutation(
+      gate,
+      actionScope,
+      limits(),
+      fullInput,
+      () => keys[0]!,
+      recoveryScope,
+    );
+    if (!first) throw new Error("first ticket required");
+    expect(first.retry).toBeFalse();
+    expect(retainCardLimitsMutationRetry(gate, first, actionScope)).toBeTrue();
+    expect(settleCardLimitsMutation(gate, first, actionScope)).toBeTrue();
+    expect(cardLimitsMutationRecoveryState(gate, actionScope, recoveryScope)).toEqual({
+      canSubmit: true,
+      retryPending: true,
+      conflictPending: false,
+    });
+    expect(cardLimitsMutationRecoveryState(gate, changedDraftScope, recoveryScope)).toEqual({
+      canSubmit: false,
+      retryPending: false,
+      conflictPending: true,
+    });
+    expect(
+      beginCardLimitsMutation(
+        gate,
+        changedDraftScope,
+        limits(),
+        { dailySpendMinor: 60000 },
+        () => keys[1]!,
+        recoveryScope,
+      ),
+    ).toBeNull();
+
+    const retry = beginCardLimitsMutation(
+      gate,
+      actionScope,
+      limits(),
+      fullInput,
+      () => {
+        throw new Error("retry must not create a new idempotency key");
+      },
+      recoveryScope,
+    );
+    if (!retry) throw new Error("retry ticket required");
+    expect(retry.retry).toBeTrue();
+    expect(retry.idempotencyKey).toBe(first.idempotencyKey);
+    expect(blockCardLimitsMutation(gate, retry, actionScope)).toBeTrue();
+    expect(settleCardLimitsMutation(gate, retry, actionScope)).toBeTrue();
+    expect(cardLimitsMutationRecoveryState(gate, actionScope, recoveryScope)).toEqual({
+      canSubmit: false,
+      retryPending: false,
+      conflictPending: true,
+    });
+
+    const refreshedRecovery = cardLimitsMutationScopeKey(
+      session(),
+      "SANDBOX",
+      card(),
+      limits(),
+      11,
+      23,
+      33,
+    );
+    if (!refreshedRecovery) throw new Error("refreshed recovery scope required");
+    const refreshedAction = JSON.stringify([refreshedRecovery, 44, fullInput]);
+    const afterRefresh = beginCardLimitsMutation(
+      gate,
+      refreshedAction,
+      limits(),
+      fullInput,
+      () => keys[1]!,
+      refreshedRecovery,
+    );
+    expect(afterRefresh?.retry).toBeFalse();
+    expect(afterRefresh?.idempotencyKey).toBe(keys[1]);
+  });
+
+  it("classifies only transport, timeout, 409 and server outcomes as ambiguous", () => {
+    expect(cardLimitsMutationFailureIsAmbiguous(new TypeError("network unavailable"))).toBeTrue();
+    expect(cardLimitsMutationFailureIsAmbiguous(new Error("validation"))).toBeFalse();
+    for (const status of [0, 408, 409, 500, 503, 599]) {
+      expect(cardLimitsMutationFailureIsAmbiguous({ status })).toBeTrue();
+    }
+    for (const status of [400, 401, 403, 404, 422, 600]) {
+      expect(cardLimitsMutationFailureIsAmbiguous({ status })).toBeFalse();
+    }
+    expect(cardLimitsMutationFailureIsExplicit401({ status: 401 })).toBeTrue();
+    expect(cardLimitsMutationFailureIsExplicit401({ status: 409 })).toBeFalse();
+    const hostile = Object.create(null) as Record<string, unknown>;
+    Object.defineProperty(hostile, "status", {
+      get: () => {
+        throw new Error("getter");
+      },
+    });
+    expect(cardLimitsMutationFailureIsAmbiguous(hostile)).toBeFalse();
+    expect(cardLimitsMutationFailureIsExplicit401(hostile)).toBeFalse();
+  });
 });
 
 describe("Selected Card limits mutation response parser", () => {
@@ -371,6 +488,15 @@ describe("Selected Card limits mutation scope, generation and writeback isolatio
         oldScope,
       );
     }
+    expect(cardLimitsMutationScopeKey(session(), "SANDBOX", card(), limits(), 1, 0, 0)).not.toBe(
+      oldScope,
+    );
+    expect(cardLimitsMutationScopeKey(session(), "SANDBOX", card(), limits(), 0, 1, 0)).not.toBe(
+      oldScope,
+    );
+    expect(cardLimitsMutationScopeKey(session(), "SANDBOX", card(), limits(), 0, 0, 1)).not.toBe(
+      oldScope,
+    );
   });
 
   it("allows stale success, error and finally zero writes after limits or selection changes", () => {

@@ -157,6 +157,7 @@ export function CardsPage() {
     cardLimits.limits,
     cardLimitsInput,
     cardLimits.replaceCurrentLimits,
+    invalidateSession,
   );
   const cardStatusAction = current?.status === "frozen" ? "unfreeze" : "freeze";
   const acceptStatusUpdate = useCallback(
@@ -245,7 +246,7 @@ export function CardsPage() {
   };
 
   const updateCurrentLimits = async () => {
-    if (!scopeReady || !cardLimitsMutation.allowed || busy) return;
+    if (!scopeReady || !cardLimitsMutation.canSubmit || busy) return;
     await cardLimitsMutation.submit();
   };
 
@@ -404,6 +405,14 @@ export function CardsPage() {
                       <CardLimitsEditor
                         values={limitDraft}
                         busy={busy}
+                        canSubmit={cardLimitsMutation.canSubmit}
+                        submitLabel={
+                          cardLimitsMutation.conflictPending
+                            ? "Refresh Card first"
+                            : cardLimitsMutation.retryPending
+                              ? "Retry limits"
+                              : "Apply limits"
+                        }
                         onChange={(field, value) =>
                           setLimitDraft((currentDraft) => ({
                             ...currentDraft,
@@ -715,11 +724,15 @@ function CardLimitsPanel({
 function CardLimitsEditor({
   values,
   busy,
+  canSubmit,
+  submitLabel,
   onChange,
   onSubmit,
 }: {
   values: Record<CardLimitField, string>;
   busy: boolean;
+  canSubmit: boolean;
+  submitLabel: string;
   onChange: (field: CardLimitField, value: string) => void;
   onSubmit: () => void;
 }) {
@@ -752,7 +765,7 @@ function CardLimitsEditor({
       <button
         type="button"
         onClick={onSubmit}
-        disabled={busy}
+        disabled={busy || !canSubmit}
         className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2.5 text-xs font-semibold text-primary-foreground disabled:opacity-60"
       >
         {busy ? (
@@ -760,7 +773,7 @@ function CardLimitsEditor({
         ) : (
           <SlidersHorizontal className="h-4 w-4" />
         )}
-        Apply limits
+        {submitLabel}
       </button>
     </div>
   );
