@@ -1,5 +1,5 @@
 import { BackendApiError } from "./backend-api";
-import type { FxQuote } from "./fx-quote-contract";
+import { FxQuoteContractError, type FxQuote } from "./fx-quote-contract";
 
 export const FX_QUOTE_SAFE_ERROR = "FX quote preview is temporarily unavailable. Please try again.";
 export const FX_QUOTE_SESSION_INVALID = "Your authenticated wallet session is no longer valid.";
@@ -89,6 +89,7 @@ export function settleFxQuoteRequest(
 
 export function classifyFxQuoteFailure(reason: unknown): FxQuoteFailureKind {
   if (reason instanceof BackendApiError && reason.status === 401) return "AUTH_INVALID";
+  if (reason instanceof FxQuoteContractError) return "REJECTED";
   if (
     !(reason instanceof BackendApiError) ||
     reason.status === 0 ||

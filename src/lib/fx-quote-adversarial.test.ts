@@ -244,7 +244,14 @@ describe("FX quote session, scope and request generation", () => {
     expect(state.quote).toEqual(value);
     expect(state.error).toBe(FX_QUOTE_SAFE_ERROR);
     state = fxQuoteReducer(state, { type: "started", scopeKey: scope, requestKey: "three" });
-    state = fxQuoteReducer(state, { type: "failed", requestKey: "three", kind: "AUTH_INVALID" });
+    state = fxQuoteReducer(state, { type: "failed", requestKey: "three", kind: "REJECTED" });
+    expect(state.quote).toBeNull();
+    expect(state.sessionInvalid).toBe(false);
+    state = fxQuoteReducer(state, { type: "started", scopeKey: scope, requestKey: "four" });
+    state = fxQuoteReducer(state, { type: "loaded", requestKey: "four", quote: value });
+    state = fxQuoteReducer(state, { type: "settled", requestKey: "four" });
+    state = fxQuoteReducer(state, { type: "started", scopeKey: scope, requestKey: "five" });
+    state = fxQuoteReducer(state, { type: "failed", requestKey: "five", kind: "AUTH_INVALID" });
     expect(state.quote).toBeNull();
     expect(state.sessionInvalid).toBe(true);
     expect(state.error).toBe(FX_QUOTE_SESSION_INVALID);
@@ -264,6 +271,6 @@ describe("FX quote session, scope and request generation", () => {
         "REJECTED",
       );
     }
-    expect(classifyFxQuoteFailure(new FxQuoteContractError())).toBe("RETRYABLE");
+    expect(classifyFxQuoteFailure(new FxQuoteContractError())).toBe("REJECTED");
   });
 });

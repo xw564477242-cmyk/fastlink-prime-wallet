@@ -263,6 +263,25 @@ describeConfigured(
       expect(body()).not.toContain(secret);
     });
 
+    it("clears a previous quote when a later response violates the public contract", async () => {
+      let reads = 0;
+      installFetch(() => {
+        reads += 1;
+        return reads === 1
+          ? json(wireQuote())
+          : json(wireQuote({ targetAmount: "440", provider: "must-not-render" }));
+      });
+      await mount();
+      await submit();
+      expect(pageText()).toContain("quote-mounted-fx-001");
+
+      await submit();
+      expect(reads).toBe(2);
+      expect(pageText()).not.toContain("quote-mounted-fx-001");
+      expect(pageText()).toContain("temporarily unavailable");
+      expect(body()).not.toContain("must-not-render");
+    });
+
     it("input change aborts and hides the old quote before every late completion", async () => {
       const pending = deferred<Response>();
       const calls = installFetch(() => pending.promise);
