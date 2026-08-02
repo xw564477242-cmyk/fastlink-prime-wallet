@@ -33,7 +33,10 @@ export function useWalletTransferAccounts(
     walletTransferAccountReducer,
     initialWalletTransferAccountState,
   );
-  const [refreshGeneration, setRefreshGeneration] = useState(0);
+  const [refreshRequest, setRefreshRequest] = useState({
+    generation: 0,
+    preserveSnapshot: false,
+  });
   const sequenceRef = useRef(0);
   const mountedRef = useRef(false);
   const activeRequestRef = useRef<ActiveWalletTransferAccountRequest | null>(null);
@@ -68,12 +71,14 @@ export function useWalletTransferAccounts(
     activeRequestRef.current?.controller.abort();
     activeRequestRef.current = null;
     const generation = ++sequenceRef.current;
-    const requestKey = scopeKey ? JSON.stringify([scopeKey, refreshGeneration, generation]) : null;
+    const requestKey = scopeKey
+      ? JSON.stringify([scopeKey, refreshRequest.generation, generation])
+      : null;
     dispatch({
       type: "reset",
       scopeKey,
       requestKey,
-      preserveSnapshot: refreshGeneration > 0,
+      preserveSnapshot: refreshRequest.preserveSnapshot,
     });
     if (!requestKey || !session || !scopeKey) return;
 
@@ -122,12 +127,33 @@ export function useWalletTransferAccounts(
       controller.abort();
       sequenceRef.current += 1;
     };
-  }, [invalidateSession, refreshGeneration, scopeKey, session]);
+  }, [invalidateSession, refreshRequest, scopeKey, session]);
 
   const refresh = useCallback(() => {
     if (!currentInputRef.current || activeRequestRef.current) return;
-    setRefreshGeneration((value) => value + 1);
+    setRefreshRequest((value) => ({
+      generation: value.generation + 1,
+      preserveSnapshot: true,
+    }));
   }, []);
 
-  return { ...view, refresh };
+  const invalidateAndRefresh = useCallback(() => {
+    const input = currentInputRef.current;
+    if (!input) return;
+    activeRequestRef.current?.controller.abort();
+    activeRequestRef.current = null;
+    sequenceRef.current += 1;
+    dispatch({
+      type: "reset",
+      scopeKey: input.scopeKey,
+      requestKey: null,
+      preserveSnapshot: false,
+    });
+    setRefreshRequest((value) => ({
+      generation: value.generation + 1,
+      preserveSnapshot: false,
+    }));
+  }, []);
+
+  return { ...view, refresh, invalidateAndRefresh };
 }

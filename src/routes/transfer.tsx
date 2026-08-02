@@ -39,10 +39,13 @@ export function InternalWalletTransferPage() {
     };
   }
   const accounts = useWalletTransferAccounts(session, invalidate);
-  const refreshAccounts = accounts.refresh;
+  const invalidateAndRefreshAccounts = accounts.invalidateAndRefresh;
   const [sourceAccountId, setSourceAccountId] = useState("");
   const [destinationAccountId, setDestinationAccountId] = useState("");
   const [amount, setAmount] = useState("");
+  const [unconfirmedSessionContextKey, setUnconfirmedSessionContextKey] = useState<string | null>(
+    null,
+  );
   const [receipt, setReceipt] = useState<{
     sessionContextKey: string;
     sourceAccountId: string;
@@ -77,9 +80,12 @@ export function InternalWalletTransferPage() {
     sessionContextKey !== null && receipt?.sessionContextKey === sessionContextKey
       ? receipt.operation
       : null;
+  const transferUnconfirmed =
+    sessionContextKey !== null && unconfirmedSessionContextKey === sessionContextKey;
 
   useEffect(() => {
     setReceipt(null);
+    setUnconfirmedSessionContextKey(null);
   }, [sessionContextKey]);
 
   useEffect(() => {
@@ -102,11 +108,23 @@ export function InternalWalletTransferPage() {
         transferGeneration: accepted.transferGeneration,
         operation: accepted.operation,
       });
-      refreshAccounts();
+      invalidateAndRefreshAccounts();
     },
-    [receiptContextKey, refreshAccounts, sessionContextKey, source],
+    [invalidateAndRefreshAccounts, receiptContextKey, sessionContextKey, source],
   );
-  const transfer = useWalletTransferMutation(session, source, input, handleAccepted, invalidate);
+  const invalidateUnconfirmedTransfer = useCallback(() => {
+    setReceipt(null);
+    setUnconfirmedSessionContextKey(sessionContextKey);
+    invalidateAndRefreshAccounts();
+  }, [invalidateAndRefreshAccounts, sessionContextKey]);
+  const transfer = useWalletTransferMutation(
+    session,
+    source,
+    input,
+    handleAccepted,
+    invalidateUnconfirmedTransfer,
+    invalidate,
+  );
   const handleStatusRefreshed = useCallback((operation: WalletOperationActivity) => {
     setReceipt((current) =>
       current && current.operation.id === operation.id ? { ...current, operation } : current,
@@ -122,17 +140,17 @@ export function InternalWalletTransferPage() {
     backendRuntime.error === null && isVirtualCardCreateEnvironment(backendRuntime.environment);
 
   const changeSource = (value: string) => {
-    if (transfer.retryPending) return;
+    if (transfer.busy || transfer.retryPending || transferUnconfirmed) return;
     setReceipt(null);
     setSourceAccountId(value);
   };
   const changeDestination = (value: string) => {
-    if (transfer.retryPending) return;
+    if (transfer.busy || transfer.retryPending || transferUnconfirmed) return;
     setReceipt(null);
     setDestinationAccountId(value);
   };
   const changeAmount = (value: string) => {
-    if (transfer.retryPending) return;
+    if (transfer.busy || transfer.retryPending || transferUnconfirmed) return;
     setReceipt(null);
     setAmount(value);
   };
@@ -179,18 +197,20 @@ export function InternalWalletTransferPage() {
               <select
                 value={sourceAccountId}
                 onChange={(event) => changeSource(event.target.value)}
-                disabled={transfer.busy || transfer.retryPending}
+                disabled={transfer.busy || transfer.retryPending || transferUnconfirmed}
                 className="w-full rounded-2xl border border-border/60 bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               >
                 {activeAccounts.map((account) => (
                   <option key={account.id} value={account.id}>
-                    {account.assetCode} · {account.availableBalance} available · {account.id}
+                    {transfer.busy
+                      ? `${account.assetCode} · ${account.id}`
+                      : `${account.assetCode} · ${account.availableBalance} available · ${account.id}`}
                   </option>
                 ))}
               </select>
             </Field>
 
-            {source && (
+            {source && !transfer.busy && (
               <div className="flex items-center gap-3 rounded-2xl bg-muted/50 p-4">
                 <Wallet className="h-5 w-5 text-primary" />
                 <div className="min-w-0">
@@ -208,7 +228,7 @@ export function InternalWalletTransferPage() {
                 type="text"
                 value={destinationAccountId}
                 onChange={(event) => changeDestination(event.target.value)}
-                disabled={transfer.busy || transfer.retryPending}
+                disabled={transfer.busy || transfer.retryPending || transferUnconfirmed}
                 autoComplete="off"
                 spellCheck={false}
                 placeholder="Exact accountId from the recipient"
@@ -222,7 +242,7 @@ export function InternalWalletTransferPage() {
                 inputMode="decimal"
                 value={amount}
                 onChange={(event) => changeAmount(event.target.value)}
-                disabled={transfer.busy || transfer.retryPending}
+                disabled={transfer.busy || transfer.retryPending || transferUnconfirmed}
                 autoComplete="off"
                 placeholder="0.00"
                 className="w-full rounded-2xl border border-border/60 bg-background px-4 py-3 text-sm tabular-nums outline-none focus:border-primary"
@@ -237,11 +257,16 @@ export function InternalWalletTransferPage() {
               <Message text="No active customer Wallet account is available for transfer." />
             )}
             {transfer.error && <Message text={transfer.error} />}
+            {transferUnconfirmed && !transfer.error && (
+              <Message text="Transfer was submitted but its persisted operation could not be confirmed. Refresh before another transfer." />
+            )}
 
             <button
               type="button"
-              disabled={!transfer.allowed || transfer.busy}
-              onClick={() => void transfer.submit()}
+              disabled={!transfer.canSubmit || transfer.busy || transferUnconfirmed}
+              onClick={() => {
+                if (!transferUnconfirmed) void transfer.submit();
+              }}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-primary py-3 text-sm font-semibold text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50"
             >
               {transfer.busy ? (

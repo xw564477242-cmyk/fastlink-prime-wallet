@@ -15,6 +15,7 @@ export type WalletTransferMutationGate = {
   generation: number;
   activeRequestKey: string | null;
   retry: WalletTransferMutationRetry | null;
+  blocked: boolean;
 };
 
 export type WalletTransferMutationRetry = Readonly<{
@@ -39,6 +40,7 @@ export type WalletTransferMutationState = {
   error: string | null;
   operation: WalletOperationActivity | null;
   retryPending: boolean;
+  conflictPending: boolean;
 };
 
 export const initialWalletTransferMutationState: WalletTransferMutationState = {
@@ -48,6 +50,7 @@ export const initialWalletTransferMutationState: WalletTransferMutationState = {
   error: null,
   operation: null,
   retryPending: false,
+  conflictPending: false,
 };
 
 export function walletTransferMutationScopeKey(
@@ -56,8 +59,22 @@ export function walletTransferMutationScopeKey(
   source: WalletTransferAccount | null,
   input: unknown,
   sessionGeneration = 0,
+  sourceGeneration = 0,
+  inputGeneration = 0,
+  runtimeApiUrl = "/api",
 ): string | null {
-  if (!session || !walletTransferSessionAllowed(session, runtimeEnvironment) || !source) {
+  if (
+    !session ||
+    runtimeApiUrl !== "/api" ||
+    !Number.isSafeInteger(sessionGeneration) ||
+    sessionGeneration < 0 ||
+    !Number.isSafeInteger(sourceGeneration) ||
+    sourceGeneration < 0 ||
+    !Number.isSafeInteger(inputGeneration) ||
+    inputGeneration < 0 ||
+    !walletTransferSessionAllowed(session, runtimeEnvironment) ||
+    !source
+  ) {
     return null;
   }
   try {
@@ -66,12 +83,15 @@ export function walletTransferMutationScopeKey(
     if (normalizedSource.status !== "active") return null;
     return JSON.stringify([
       sessionGeneration,
+      sourceGeneration,
+      inputGeneration,
       session.actorId,
       session.expiresAt,
       session.tenantId,
       session.customerId,
       session.environment,
       runtimeEnvironment,
+      runtimeApiUrl,
       normalizedSource.id,
       normalizedSource.assetCode,
       normalizedSource.status,
@@ -98,7 +118,7 @@ export function walletTransferMutationView(
 export function createWalletTransferMutationGate(
   scopeKey: string | null,
 ): WalletTransferMutationGate {
-  return { scopeKey, generation: 0, activeRequestKey: null, retry: null };
+  return { scopeKey, generation: 0, activeRequestKey: null, retry: null, blocked: false };
 }
 
 export function syncWalletTransferMutationScope(
@@ -110,6 +130,7 @@ export function syncWalletTransferMutationScope(
   gate.generation += 1;
   gate.activeRequestKey = null;
   gate.retry = null;
+  gate.blocked = false;
 }
 
 export function invalidateWalletTransferMutationGate(gate: WalletTransferMutationGate): void {
@@ -117,6 +138,7 @@ export function invalidateWalletTransferMutationGate(gate: WalletTransferMutatio
   gate.generation += 1;
   gate.activeRequestKey = null;
   gate.retry = null;
+  gate.blocked = false;
 }
 
 function newWalletTransferIdempotencyKey(): string {
@@ -133,7 +155,7 @@ export function beginWalletTransferMutation(
   keyFactory: () => string = newWalletTransferIdempotencyKey,
 ): WalletTransferMutationTicket | null {
   syncWalletTransferMutationScope(gate, scopeKey);
-  if (gate.activeRequestKey !== null) return null;
+  if (gate.activeRequestKey !== null || gate.blocked) return null;
   const normalizedInput = normalizeWalletTransferInput(input, source);
   const retry = gate.retry;
   if (
@@ -214,6 +236,17 @@ export function clearWalletTransferMutationRetry(gate: WalletTransferMutationGat
   gate.retry = null;
 }
 
+export function blockWalletTransferMutation(
+  gate: WalletTransferMutationGate,
+  ticket: WalletTransferMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsWalletTransferMutationCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.retry = null;
+  gate.blocked = true;
+  return true;
+}
+
 export function acceptsWalletTransferMutationCompletion(
   gate: WalletTransferMutationGate,
   ticket: WalletTransferMutationTicket,
@@ -244,6 +277,7 @@ export type WalletTransferMutationAction =
   | { type: "succeeded"; requestKey: string; operation: WalletOperationActivity }
   | { type: "failed"; requestKey: string; message: string }
   | { type: "retryable"; requestKey: string; message: string }
+  | { type: "conflicted"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function walletTransferMutationReducer(
@@ -261,6 +295,7 @@ export function walletTransferMutationReducer(
         error: null,
         operation: null,
         retryPending: false,
+        conflictPending: false,
       };
     case "succeeded":
       return action.requestKey === state.activeRequestKey
@@ -273,6 +308,16 @@ export function walletTransferMutationReducer(
     case "retryable":
       return action.requestKey === state.activeRequestKey
         ? { ...state, error: action.message, operation: null, retryPending: true }
+        : state;
+    case "conflicted":
+      return action.requestKey === state.activeRequestKey
+        ? {
+            ...state,
+            error: action.message,
+            operation: null,
+            retryPending: false,
+            conflictPending: true,
+          }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey
