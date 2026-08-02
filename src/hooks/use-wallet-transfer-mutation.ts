@@ -10,6 +10,7 @@ import {
 import {
   acceptsWalletTransferMutationCompletion,
   beginWalletTransferMutation,
+  blockWalletTransferMutation,
   clearWalletTransferMutationRetry,
   createWalletTransferMutationGate,
   invalidateWalletTransferMutationGate,
@@ -29,6 +30,8 @@ const SAFE_WALLET_TRANSFER_ERROR =
   "Wallet transfer was not accepted. Check the account and amount.";
 const SAFE_WALLET_TRANSFER_AMBIGUOUS_ERROR =
   "Transfer result is uncertain. Retry manually to reuse the same request key.";
+const SAFE_WALLET_TRANSFER_CONFIRMATION_ERROR =
+  "Transfer was submitted but its persisted operation could not be confirmed. Refresh before another transfer.";
 
 export type AcceptedWalletTransfer = Readonly<{
   operation: WalletOperationActivity;
@@ -42,6 +45,7 @@ export function useWalletTransferMutation(
   source: WalletTransferAccount | null,
   input: unknown,
   onAccepted: (accepted: AcceptedWalletTransfer) => void,
+  onUnconfirmed: () => void,
   invalidateSession?: BackendSessionInvalidator,
 ) {
   const sessionIdentity = useRef({ session, generation: 0 });
@@ -51,20 +55,43 @@ export function useWalletTransferMutation(
       generation: sessionIdentity.current.generation + 1,
     };
   }
+  const sourceIdentity = useRef({ source, generation: 0 });
+  if (sourceIdentity.current.source !== source) {
+    sourceIdentity.current = {
+      source,
+      generation: sourceIdentity.current.generation + 1,
+    };
+  }
+  const inputIdentity = useRef({ input, generation: 0 });
+  if (inputIdentity.current.input !== input) {
+    inputIdentity.current = {
+      input,
+      generation: inputIdentity.current.generation + 1,
+    };
+  }
   const scopeKey = walletTransferMutationScopeKey(
     session,
     backendRuntime.error === null ? backendRuntime.environment : undefined,
     source,
     input,
     sessionIdentity.current.generation,
+    sourceIdentity.current.generation,
+    inputIdentity.current.generation,
+    backendRuntime.error === null ? backendRuntime.apiUrl : "",
   );
   const [state, dispatch] = useReducer(
     walletTransferMutationReducer,
     initialWalletTransferMutationState,
   );
   const gate = useRef(createWalletTransferMutationGate(scopeKey));
+  const activeAbort = useRef<AbortController | null>(null);
   const mounted = useRef(false);
+  const previousScope = gate.current.scopeKey;
   syncWalletTransferMutationScope(gate.current, scopeKey);
+  if (previousScope !== scopeKey) {
+    activeAbort.current?.abort();
+    activeAbort.current = null;
+  }
   const view = walletTransferMutationView(state, scopeKey);
 
   useEffect(() => {
@@ -76,6 +103,8 @@ export function useWalletTransferMutation(
     mounted.current = true;
     return () => {
       mounted.current = false;
+      activeAbort.current?.abort();
+      activeAbort.current = null;
       invalidateWalletTransferMutationGate(currentGate);
     };
   }, []);
@@ -89,6 +118,9 @@ export function useWalletTransferMutation(
       return false;
     }
     if (!ticket) return false;
+    const controller = new AbortController();
+    activeAbort.current = controller;
+    let transferPostSucceeded = false;
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
 
     try {
@@ -97,16 +129,29 @@ export function useWalletTransferMutation(
         source,
         ticket.input,
         ticket.idempotencyKey,
+        controller.signal,
       );
+      transferPostSucceeded = true;
       if (
         !mounted.current ||
         !acceptsWalletTransferMutationCompletion(gate.current, ticket, scopeKey)
       )
         return false;
+      const confirmedOperation = await backendApi.walletTransferStatus(
+        session,
+        { previous: operation },
+        controller.signal,
+      );
+      if (
+        !mounted.current ||
+        !acceptsWalletTransferMutationCompletion(gate.current, ticket, scopeKey)
+      ) {
+        return false;
+      }
       clearWalletTransferMutationRetry(gate.current);
-      dispatch({ type: "succeeded", requestKey: ticket.requestKey, operation });
+      dispatch({ type: "succeeded", requestKey: ticket.requestKey, operation: confirmedOperation });
       onAccepted({
-        operation,
+        operation: confirmedOperation,
         input: ticket.input,
         transferRequestKey: ticket.requestKey,
         transferGeneration: ticket.generation,
@@ -118,12 +163,31 @@ export function useWalletTransferMutation(
       if (!current) return false;
       if (walletTransferFailureIsExplicit401(reason)) {
         clearWalletTransferMutationRetry(gate.current);
-        dispatch({
-          type: "failed",
-          requestKey: ticket.requestKey,
-          message: SAFE_WALLET_TRANSFER_ERROR,
-        });
+        if (transferPostSucceeded && blockWalletTransferMutation(gate.current, ticket, scopeKey)) {
+          onUnconfirmed();
+          dispatch({
+            type: "conflicted",
+            requestKey: ticket.requestKey,
+            message: SAFE_WALLET_TRANSFER_CONFIRMATION_ERROR,
+          });
+        } else {
+          dispatch({
+            type: "failed",
+            requestKey: ticket.requestKey,
+            message: SAFE_WALLET_TRANSFER_ERROR,
+          });
+        }
         invalidateSession?.(session, "EXPLICIT_401");
+      } else if (
+        transferPostSucceeded &&
+        blockWalletTransferMutation(gate.current, ticket, scopeKey)
+      ) {
+        onUnconfirmed();
+        dispatch({
+          type: "conflicted",
+          requestKey: ticket.requestKey,
+          message: SAFE_WALLET_TRANSFER_CONFIRMATION_ERROR,
+        });
       } else if (
         walletTransferFailureIsAmbiguous(reason) &&
         retainWalletTransferMutationRetry(gate.current, ticket, scopeKey)
@@ -143,11 +207,17 @@ export function useWalletTransferMutation(
       }
       return false;
     } finally {
+      if (activeAbort.current === controller) activeAbort.current = null;
       if (mounted.current && settleWalletTransferMutation(gate.current, ticket, scopeKey)) {
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [input, invalidateSession, onAccepted, scopeKey, session, source]);
+  }, [input, invalidateSession, onAccepted, onUnconfirmed, scopeKey, session, source]);
 
-  return { ...view, allowed: scopeKey !== null, submit };
+  return {
+    ...view,
+    allowed: scopeKey !== null,
+    canSubmit: scopeKey !== null && !view.conflictPending,
+    submit,
+  };
 }

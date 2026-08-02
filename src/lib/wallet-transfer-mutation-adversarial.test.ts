@@ -16,6 +16,7 @@ import {
 import {
   acceptsWalletTransferMutationCompletion,
   beginWalletTransferMutation,
+  blockWalletTransferMutation,
   createWalletTransferMutationGate,
   initialWalletTransferMutationState,
   retainWalletTransferMutationRetry,
@@ -413,6 +414,24 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
     expect(walletTransferMutationScopeKey(session(), "SANDBOX", source(), input, 1)).not.toBe(
       original,
     );
+    expect(walletTransferMutationScopeKey(session(), "SANDBOX", source(), input, 0, 1)).not.toBe(
+      original,
+    );
+    expect(walletTransferMutationScopeKey(session(), "SANDBOX", source(), input, 0, 0, 1)).not.toBe(
+      original,
+    );
+    expect(
+      walletTransferMutationScopeKey(
+        session(),
+        "SANDBOX",
+        source(),
+        input,
+        0,
+        0,
+        0,
+        "https://api.invalid",
+      ),
+    ).toBeNull();
   });
 
   it("synchronously locks duplicates and gives each accepted submit one unique UUIDv4", () => {
@@ -466,6 +485,39 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
     );
     expect(walletTransferFailureIsAmbiguous(hostile)).toBe(false);
     expect(walletTransferFailureIsExplicit401(hostile)).toBe(false);
+  });
+
+  it("blocks every fresh or retry POST after an accepted POST lacks persisted confirmation", () => {
+    const scope = walletTransferMutationScopeKey(session(), "SANDBOX", source(), input)!;
+    const gate = createWalletTransferMutationGate(scope);
+    const first = beginWalletTransferMutation(
+      gate,
+      scope,
+      source(),
+      input,
+      () => "123e4567-e89b-42d3-a456-426614174000",
+    )!;
+    expect(blockWalletTransferMutation(gate, first, scope)).toBeTrue();
+    expect(settleWalletTransferMutation(gate, first, scope)).toBeTrue();
+    expect(
+      beginWalletTransferMutation(
+        gate,
+        scope,
+        source(),
+        input,
+        () => "123e4567-e89b-42d3-b456-426614174001",
+      ),
+    ).toBeNull();
+    syncWalletTransferMutationScope(gate, `${scope}:next-input-generation`);
+    expect(
+      beginWalletTransferMutation(
+        gate,
+        `${scope}:next-input-generation`,
+        source(),
+        input,
+        () => "123e4567-e89b-42d3-b456-426614174001",
+      ),
+    ).not.toBeNull();
   });
 
   it("clears an ambiguous retry when any exact scope or input binding changes", () => {

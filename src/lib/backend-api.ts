@@ -3656,11 +3656,17 @@ export const backendApi = {
     source: WalletTransferAccount,
     input: WalletTransferInput,
     idempotencyKey: string,
+    signal?: AbortSignal,
   ): Promise<WalletOperationActivity> {
     requireSandboxTestWalletRuntime(session);
     const { path, init } = buildWalletTransferRequest(source, input, idempotencyKey);
     return normalizeWalletTransferResponse(
-      await request<string>(path, init, "text", WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES),
+      await request<string>(
+        path,
+        { ...init, signal },
+        "text",
+        WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
+      ),
       source,
       input,
     );
@@ -3711,11 +3717,12 @@ export const backendApi = {
   async walletTransferStatus(
     session: BackendSession,
     expectation: WalletTransferStatusExpectation,
+    signal?: AbortSignal,
   ): Promise<WalletOperationActivity> {
     requireSandboxTestWalletRuntime(session);
     const result = await request<string>(
       buildWalletOperationDetailPath(expectation.previous.id),
-      {},
+      { signal },
       "text",
       WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
     );
