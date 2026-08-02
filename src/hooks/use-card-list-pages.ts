@@ -61,6 +61,18 @@ function confirmsExpectedCard(
   );
 }
 
+function hasStrictlyLaterExpiry(candidate: WalletCard, predecessor: WalletCard): boolean {
+  return (
+    candidate.expiryMonth !== undefined &&
+    candidate.expiryYear !== undefined &&
+    predecessor.expiryMonth !== undefined &&
+    predecessor.expiryYear !== undefined &&
+    (candidate.expiryYear > predecessor.expiryYear ||
+      (candidate.expiryYear === predecessor.expiryYear &&
+        candidate.expiryMonth > predecessor.expiryMonth))
+  );
+}
+
 export function useCardListPages(
   session: BackendSession | null,
   preferredCardId: string | null = null,
@@ -283,6 +295,91 @@ export function useCardListPages(
     [scopeReady, sessionKey, state.loading, state.loadingMore],
   );
 
+  const confirmRenewal = useCallback(
+    async (
+      predecessor: WalletCard,
+      renewed: WalletCard,
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ): Promise<WalletCard | null> => {
+      const current = stateRef.current;
+      if (
+        signal.aborted ||
+        !isCurrent() ||
+        !scopeReady ||
+        !sessionKey ||
+        state.loading ||
+        state.loadingMore ||
+        activePageRequest.current !== null ||
+        current.sessionKey !== sessionKey ||
+        current.activeId !== predecessor.cardId ||
+        predecessor.cardId !== renewed.cardId ||
+        !hasStrictlyLaterExpiry(renewed, predecessor) ||
+        !current.cards.some((card) => confirmsExpectedCard(card, predecessor, "EXACT_GENERATION"))
+      ) {
+        return null;
+      }
+      const requestId = ++requestSequence.current;
+      activePageRequest.current = requestId;
+      dispatch({ type: "arm", requestId });
+      try {
+        const cards: WalletCard[] = [];
+        const seenCardIds = new Set<string>();
+        const seenCursors = new Set<string>();
+        let cursor: string | null = null;
+        let renewedCandidate: WalletCard | null = null;
+        let reachedEnd = false;
+        for (let pageNumber = 0; pageNumber < MAX_CONFIRMATION_PAGES; pageNumber += 1) {
+          const page = await backendApi.listCards(
+            { limit: CARD_LIST_PAGE_SIZE, ...(cursor ? { cursor } : {}) },
+            signal,
+          );
+          if (signal.aborted || !isCurrent() || requestSequence.current !== requestId) return null;
+          for (const card of page.cards) {
+            if (seenCardIds.has(card.cardId)) throw new Error("Backend returned duplicate Cards");
+            seenCardIds.add(card.cardId);
+            cards.push(card);
+            if (card.cardId === renewed.cardId) renewedCandidate = card;
+          }
+          if (!page.nextCursor) {
+            reachedEnd = true;
+            break;
+          }
+          if (seenCursors.has(page.nextCursor)) {
+            throw new Error("Backend repeated a Card cursor");
+          }
+          seenCursors.add(page.nextCursor);
+          cursor = page.nextCursor;
+        }
+        if (
+          !reachedEnd ||
+          !renewedCandidate ||
+          !hasStrictlyLaterExpiry(renewedCandidate, predecessor) ||
+          !confirmsExpectedCard(renewedCandidate, renewed, "EXACT_GENERATION")
+        ) {
+          throw new Error("Backend did not confirm the exact renewed Card generation");
+        }
+        const latest = stateRef.current;
+        if (
+          signal.aborted ||
+          !isCurrent() ||
+          requestSequence.current !== requestId ||
+          latest.sessionKey !== sessionKey ||
+          latest.activeId !== predecessor.cardId ||
+          !latest.cards.some((card) => confirmsExpectedCard(card, predecessor, "EXACT_GENERATION"))
+        ) {
+          return null;
+        }
+        dispatch({ type: "page", requestId, page: { cards, nextCursor: null }, append: false });
+        dispatch({ type: "select", sessionKey, cardId: renewedCandidate.cardId });
+        return renewedCandidate;
+      } finally {
+        if (activePageRequest.current === requestId) activePageRequest.current = null;
+      }
+    },
+    [scopeReady, sessionKey, state.loading, state.loadingMore],
+  );
+
   const selectCard = useCallback(
     (cardId: string) => {
       if (scopeReady) dispatch({ type: "select", sessionKey, cardId });
@@ -332,6 +429,7 @@ export function useCardListPages(
     loadMore,
     refreshCards,
     confirmReplacement,
+    confirmRenewal,
     selectCard,
     replaceCard,
     prependCard,

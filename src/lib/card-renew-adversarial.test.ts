@@ -10,6 +10,7 @@ import { cardListReducer, initialCardListState } from "./card-list-state";
 import {
   acceptsCardRenewCompletion,
   beginCardRenew,
+  blockCardRenew,
   cardRenewReducer,
   cardRenewScopeKey,
   cardRenewView,
@@ -83,6 +84,10 @@ describe("Selected Card renew environment, capability and request gate", () => {
       expect(cardRenewScopeKey(session({ environment }), environment, card())).toBeNull();
     }
     expect(cardRenewScopeKey(session(), "TEST", card())).toBeNull();
+    expect(cardRenewScopeKey(session(), "SANDBOX", card(), 0, 0, "/api")).not.toBeNull();
+    for (const apiUrl of ["", "/api/", "https://api.fastlink.invalid", "//provider.invalid"]) {
+      expect(cardRenewScopeKey(session(), "SANDBOX", card(), 0, 0, apiUrl)).toBeNull();
+    }
     expect(
       cardRenewScopeKey(
         session(),
@@ -328,6 +333,12 @@ describe("Selected Card renew scope and generation isolation", () => {
     expect(cardRenewView(started, currentScope).renewedCard).toBeNull();
   });
 
+  it("changes scope for exact Session object and Card object generations", () => {
+    const initial = cardRenewScopeKey(session(), "SANDBOX", card(), 0, 0);
+    expect(cardRenewScopeKey(session(), "SANDBOX", card(), 1, 0)).not.toBe(initial);
+    expect(cardRenewScopeKey(session(), "SANDBOX", card(), 0, 1)).not.toBe(initial);
+  });
+
   it("allows stale success/error/finally zero writes after identity, environment or Card changes", () => {
     const oldScope = cardRenewScopeKey(session(), "SANDBOX", card());
     if (!oldScope) throw new Error("scope required");
@@ -392,6 +403,29 @@ describe("Selected Card renew scope and generation isolation", () => {
     const current = beginCardRenew(gate, scopeKey, () => keys[1]!);
     expect(acceptsCardRenewCompletion(gate, old, scopeKey)).toBeFalse();
     expect(acceptsCardRenewCompletion(gate, current!, scopeKey)).toBeTrue();
+  });
+
+  it("blocks another POST in the exact scope after a persisted renewal is unconfirmed", () => {
+    const scopeKey = cardRenewScopeKey(session(), "SANDBOX", card());
+    if (!scopeKey) throw new Error("scope required");
+    const gate = createCardRenewGate(scopeKey);
+    const ticket = beginCardRenew(gate, scopeKey, () => keys[0]!);
+    if (!ticket) throw new Error("ticket required");
+    expect(blockCardRenew(gate, ticket, scopeKey)).toBeTrue();
+    expect(settleCardRenew(gate, ticket, scopeKey)).toBeTrue();
+    expect(beginCardRenew(gate, scopeKey, () => keys[1]!)).toBeNull();
+    const started = cardRenewReducer(initialCardRenewState, {
+      type: "started",
+      scopeKey,
+      requestKey: ticket.requestKey,
+    });
+    const conflicted = cardRenewReducer(started, {
+      type: "conflicted",
+      requestKey: ticket.requestKey,
+      message: "safe conflict",
+    });
+    expect(conflicted.conflictPending).toBeTrue();
+    expect(conflicted.renewedCard).toBeNull();
   });
 
   it("updates and keeps selection only in the current list scope", () => {

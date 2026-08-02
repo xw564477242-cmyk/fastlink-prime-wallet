@@ -727,14 +727,41 @@ describeConfigured(
 describeConfigured(
   `Mounted selected Card renewal (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
   () => {
-    it("sends at most one bodyless POST per click with a fresh UUIDv4 and only a forward expiry", async () => {
+    it("sends one bodyless POST per click, confirms a bounded forward generation, then refreshes dependent reads", async () => {
       const pending = [deferred<Response>(), deferred<Response>()];
       let mutationReads = 0;
+      let listReads = 0;
+      let balanceReads = 0;
+      let limitsReads = 0;
+      let timelineReads = 0;
       const calls = installFetch((input, init) => {
         if (isCardList(input)) {
-          return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+          listReads += 1;
+          return cardPage([
+            renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+              ...(mutationReads === 1
+                ? { expiryMonth: 1, expiryYear: 2031 }
+                : mutationReads === 2
+                  ? { expiryMonth: 2, expiryYear: 2032 }
+                  : {}),
+            }),
+          ]);
         }
         if (isRenewMutation(input, init)) return pending[mutationReads++]!.promise;
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) {
+          balanceReads += 1;
+          return json(balance(balanceCardId));
+        }
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) {
+          limitsReads += 1;
+          return json(limits(limitsCardId));
+        }
+        if (selectedCardTimelineId(input)) {
+          timelineReads += 1;
+          return json({ events: [], nextCursor: null });
+        }
         const publicRead = publicReadResponse(input);
         if (publicRead) return publicRead;
         throw new Error(`Unexpected request ${String(input)}`);
@@ -787,6 +814,10 @@ describeConfigured(
       expect(keys.every(isUuidV4)).toBeTrue();
       expect(new Set(keys).size).toBe(2);
       expect(mutations.every(({ init }) => init?.body === undefined)).toBeTrue();
+      expect(listReads).toBe(3);
+      expect(balanceReads).toBe(3);
+      expect(limitsReads).toBe(3);
+      expect(timelineReads).toBe(3);
     });
 
     it("allows stale success, error and finally zero writes after session, selection or unmount changes", async () => {
@@ -977,6 +1008,175 @@ describeConfigured(
         expect(mutationReads, mode).toBe(1);
         await unmount();
       }
+    });
+
+    it("rejects missing, stale, mismatched, duplicate, repeated-cursor and unbounded renewal confirmations", async () => {
+      for (const mode of [
+        "missing",
+        "stale",
+        "mismatch",
+        "duplicate",
+        "cursor",
+        "unbounded",
+      ] as const) {
+        let mutationReads = 0;
+        let listReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            if (listReads === 1) {
+              return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+            }
+            const renewed = renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+              expiryMonth: mode === "mismatch" ? 2 : 1,
+              expiryYear: 2031,
+            });
+            if (mode === "missing") {
+              return cardPage([renewableCard("card:other.1", "3131", "Other Renew Card")]);
+            }
+            if (mode === "stale") {
+              return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+            }
+            if (mode === "duplicate") {
+              return cardPage([renewed], listReads === 2 ? "renew_page_2" : null);
+            }
+            if (mode === "cursor") {
+              return listReads === 2
+                ? cardPage([renewed], "renew_cursor_repeat")
+                : cardPage(
+                    [renewableCard("card:other.1", "3131", "Other Renew Card")],
+                    "renew_cursor_repeat",
+                  );
+            }
+            if (mode === "unbounded") {
+              return cardPage(listReads === 2 ? [renewed] : [], `renew_page_${listReads}`);
+            }
+            return cardPage([renewed]);
+          }
+          if (isRenewMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+                expiryMonth: 1,
+                expiryYear: 2031,
+              }),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Renew card").props.onClick();
+          for (let index = 0; index < 35; index += 1) await Promise.resolve();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(listReads, mode).toBe(
+          mode === "duplicate" || mode === "cursor" ? 3 : mode === "unbounded" ? 26 : 2,
+        );
+        expect(pageText(), mode).toContain(
+          "Card renewal could not be confirmed. Refresh Cards before continuing.",
+        );
+        expect(pageText(), mode).toContain("No stale card data displayed.");
+        expect(pageText(), mode).not.toMatch(/01\/31|02\/31/);
+        await act(flush);
+        expect(mutationReads, mode).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("allows late renewal list confirmation zero writes after equal-valued Session replacement or unmount", async () => {
+      for (const mode of ["session-object", "unmount"] as const) {
+        const confirmation = deferred<Response>();
+        let mutationReads = 0;
+        let listReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            if (listReads === 2) return confirmation.promise;
+            return cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")]);
+          }
+          if (isRenewMutation(input, init)) {
+            mutationReads += 1;
+            return json(
+              renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+                expiryMonth: 1,
+                expiryYear: 2031,
+              }),
+            );
+          }
+          const publicRead = publicReadResponse(input);
+          if (publicRead) return publicRead;
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Renew card").props.onClick();
+          await flush();
+        });
+        expect(mutationReads, mode).toBe(1);
+        expect(listReads, mode).toBe(2);
+        if (mode === "session-object") await rerender(session());
+        else await unmount();
+        await resolvePending(
+          confirmation,
+          cardPage([
+            renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+              expiryMonth: 1,
+              expiryYear: 2031,
+            }),
+          ]),
+        );
+        expect(mutationReads, mode).toBe(1);
+        expect(navigations, mode).toHaveLength(0);
+        expect(sessionInvalidations, mode).toHaveLength(0);
+        if (mode === "session-object") {
+          expect(listReads).toBe(3);
+          expect(pageText()).toContain("12/30");
+          expect(pageText()).not.toContain("01/31");
+        }
+        await unmount();
+      }
+    });
+
+    it("clears dependent renewal snapshots and invalidates only the exact Session on confirmation 401", async () => {
+      const owner = session();
+      let mutationReads = 0;
+      let listReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1
+            ? cardPage([renewableCard("card:renew.1", "4242", "Owned Renew Card")])
+            : json({ message: internalSecret }, 401, traceSecret);
+        }
+        if (isRenewMutation(input, init)) {
+          mutationReads += 1;
+          return json(
+            renewableCard("card:renew.1", "4242", "Owned Renew Card", {
+              expiryMonth: 1,
+              expiryYear: 2031,
+            }),
+          );
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount(owner);
+      await act(async () => {
+        void button("Renew card").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(listReads).toBe(2);
+      expect(sessionInvalidations).toEqual([{ session: owner, reason: "EXPLICIT_401" }]);
+      expect(pageText()).toContain("No stale card data displayed.");
+      expect(pageText()).not.toMatch(/12\/30|01\/31/);
+      expect(body()).not.toMatch(/internal-create-secret|trace-create-secret/);
+      await act(flush);
+      expect(mutationReads).toBe(1);
     });
 
     it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {

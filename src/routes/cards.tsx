@@ -93,6 +93,7 @@ export function CardsPage() {
     loadMore,
     refreshCards,
     confirmReplacement,
+    confirmRenewal,
     selectCard,
     replaceCard,
     invalidate,
@@ -117,16 +118,33 @@ export function CardsPage() {
     () => cards.find((card) => card.cardId === activeId) ?? cards[0],
     [cards, activeId],
   );
-  const acceptRenewedCard = useCallback(
-    (card: Parameters<typeof replaceCard>[0]) => {
-      replaceCard(card);
-      selectCard(card.cardId);
-      void navigate({ search: { cardId: card.cardId }, replace: true });
-    },
-    [navigate, replaceCard, selectCard],
-  );
-  const cardRenew = useCardRenew(session, current, acceptRenewedCard);
   const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
+  const acceptRenewedCard = useCallback(
+    async (
+      predecessor: Parameters<typeof confirmRenewal>[0],
+      renewed: Parameters<typeof confirmRenewal>[1],
+      isCurrent: () => boolean,
+      signal: AbortSignal,
+    ) => {
+      const confirmed = await confirmRenewal(predecessor, renewed, isCurrent, signal);
+      if (!confirmed || !isCurrent()) return false;
+      refreshCardData();
+      void navigate({ search: { cardId: confirmed.cardId }, replace: true });
+      return true;
+    },
+    [confirmRenewal, navigate],
+  );
+  const invalidateUnconfirmedRenewal = useCallback(() => {
+    invalidate("Card renewal could not be confirmed. Refresh Cards before continuing.");
+    refreshCardData();
+  }, [invalidate]);
+  const cardRenew = useCardRenew(
+    session,
+    current,
+    acceptRenewedCard,
+    invalidateUnconfirmedRenewal,
+    invalidateSession,
+  );
   const [replacementReason, setReplacementReason] = useState<CardReplacementReason>("LOST");
   const acceptReplacementCard = useCallback(
     async (
@@ -302,7 +320,7 @@ export function CardsPage() {
   };
 
   const renewCurrent = async () => {
-    if (!scopeReady || !cardRenew.allowed || busy) return;
+    if (!scopeReady || !cardRenew.canSubmit || busy) return;
     await cardRenew.submit();
   };
 
@@ -540,8 +558,8 @@ export function CardsPage() {
               {cardRenew.allowed && (
                 <CardAction
                   onClick={() => void renewCurrent()}
-                  disabled={busy}
-                  label="Renew card"
+                  disabled={busy || !cardRenew.canSubmit}
+                  label={cardRenew.conflictPending ? "Refresh Cards first" : "Renew card"}
                   icon={<CalendarClock className="h-5 w-5" />}
                 />
               )}

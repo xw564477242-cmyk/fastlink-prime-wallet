@@ -11,6 +11,7 @@ export type CardRenewGate = {
   scopeKey: string | null;
   generation: number;
   activeRequestKey: string | null;
+  blocked: boolean;
 };
 
 export type CardRenewTicket = Readonly<{
@@ -24,6 +25,7 @@ export type CardRenewState = {
   scopeKey: string | null;
   activeRequestKey: string | null;
   busy: boolean;
+  conflictPending: boolean;
   error: string | null;
   renewedCard: WalletCard | null;
 };
@@ -32,6 +34,7 @@ export const initialCardRenewState: CardRenewState = {
   scopeKey: null,
   activeRequestKey: null,
   busy: false,
+  conflictPending: false,
   error: null,
   renewedCard: null,
 };
@@ -40,10 +43,18 @@ export function cardRenewScopeKey(
   session: BackendSession | null,
   runtimeEnvironment: FastLinkEnvironment | undefined,
   card: WalletCard | undefined,
+  sessionGeneration = 0,
+  cardGeneration = 0,
+  runtimeApiUrl = "/api",
 ): string | null {
   if (
     !session ||
     !runtimeEnvironment ||
+    runtimeApiUrl !== "/api" ||
+    !Number.isSafeInteger(sessionGeneration) ||
+    sessionGeneration < 0 ||
+    !Number.isSafeInteger(cardGeneration) ||
+    cardGeneration < 0 ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
     typeof session.expiresAt !== "string" ||
@@ -74,6 +85,9 @@ export function cardRenewScopeKey(
     session.customerId,
     session.environment,
     runtimeEnvironment,
+    runtimeApiUrl,
+    sessionGeneration,
+    cardGeneration,
     card.cardId,
     card.type,
     card.status,
@@ -99,7 +113,7 @@ export function cardRenewView(state: CardRenewState, scopeKey: string | null): C
 }
 
 export function createCardRenewGate(scopeKey: string | null): CardRenewGate {
-  return { scopeKey, generation: 0, activeRequestKey: null };
+  return { scopeKey, generation: 0, activeRequestKey: null, blocked: false };
 }
 
 export function syncCardRenewScope(gate: CardRenewGate, scopeKey: string | null): void {
@@ -107,6 +121,7 @@ export function syncCardRenewScope(gate: CardRenewGate, scopeKey: string | null)
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
+  gate.blocked = false;
 }
 
 function newCardRenewIdempotencyKey(): string {
@@ -121,12 +136,22 @@ export function beginCardRenew(
   keyFactory: () => string = newCardRenewIdempotencyKey,
 ): CardRenewTicket | null {
   syncCardRenewScope(gate, scopeKey);
-  if (gate.activeRequestKey !== null) return null;
+  if (gate.activeRequestKey !== null || gate.blocked) return null;
   const idempotencyKey = validateVirtualCardIdempotencyKey(keyFactory());
   gate.generation += 1;
   const requestKey = JSON.stringify([scopeKey, idempotencyKey, gate.generation]);
   gate.activeRequestKey = requestKey;
   return { scopeKey, generation: gate.generation, idempotencyKey, requestKey };
+}
+
+export function blockCardRenew(
+  gate: CardRenewGate,
+  ticket: CardRenewTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsCardRenewCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.blocked = true;
+  return true;
 }
 
 export function acceptsCardRenewCompletion(
@@ -158,6 +183,7 @@ export type CardRenewAction =
   | { type: "started"; scopeKey: string; requestKey: string }
   | { type: "succeeded"; requestKey: string; card: WalletCard }
   | { type: "failed"; requestKey: string; message: string }
+  | { type: "conflicted"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function cardRenewReducer(state: CardRenewState, action: CardRenewAction): CardRenewState {
@@ -169,6 +195,7 @@ export function cardRenewReducer(state: CardRenewState, action: CardRenewAction)
         scopeKey: action.scopeKey,
         activeRequestKey: action.requestKey,
         busy: true,
+        conflictPending: false,
         error: null,
         renewedCard: null,
       };
@@ -179,6 +206,10 @@ export function cardRenewReducer(state: CardRenewState, action: CardRenewAction)
     case "failed":
       return action.requestKey === state.activeRequestKey
         ? { ...state, error: action.message, renewedCard: null }
+        : state;
+    case "conflicted":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, error: action.message, renewedCard: null, conflictPending: true }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey
