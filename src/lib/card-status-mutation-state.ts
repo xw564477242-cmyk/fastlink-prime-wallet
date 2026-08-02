@@ -56,13 +56,18 @@ export function cardStatusMutationScopeKey(
   action: CardStatusMutationAction,
   sessionGeneration = 0,
   cardGeneration = 0,
+  runtimeApiUrl = "/api",
 ): string | null {
   if (
     !session ||
+    runtimeApiUrl !== "/api" ||
     !runtimeEnvironment ||
     session.environment !== runtimeEnvironment ||
     !isVirtualCardCreateEnvironment(runtimeEnvironment) ||
     typeof session.expiresAt !== "string" ||
+    ![session.actorId, session.tenantId, session.customerId].every(
+      (value) => typeof value === "string" && value.length >= 2 && value.length <= 512,
+    ) ||
     !card
   ) {
     return null;
@@ -83,15 +88,18 @@ export function cardStatusMutationScopeKey(
     session.customerId,
     session.environment,
     runtimeEnvironment,
+    runtimeApiUrl,
     action,
     card.cardId,
     card.type,
     card.status,
     card.last4,
+    card.expiry,
     card.expiryMonth ?? null,
     card.expiryYear ?? null,
     card.currency,
     card.alias ?? null,
+    card.balance,
     card.availableBalanceMinor ?? null,
     card.createdAt ?? null,
     card.capabilities.freeze,
@@ -109,13 +117,14 @@ export function createCardStatusMutationGate(scopeKey: string | null): CardStatu
 export function syncCardStatusMutationScope(
   gate: CardStatusMutationGate,
   scopeKey: string | null,
-): void {
-  if (gate.scopeKey === scopeKey) return;
+): boolean {
+  if (gate.scopeKey === scopeKey) return false;
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
   gate.retry = null;
   gate.blocked = false;
+  return true;
 }
 
 export function invalidateCardStatusMutationGate(gate: CardStatusMutationGate): void {
