@@ -193,6 +193,7 @@ beforeAll(async () => {
     createFileRoute: () => (configuration: object) => configuration,
     Link: ({ children, ...props }: { children?: unknown }) =>
       createElement("a", props, children as ReactElement),
+    useNavigate: () => () => undefined,
     useRouterState: () => "/convert",
   }));
   ({ ConvertPage } = await import("./convert"));
