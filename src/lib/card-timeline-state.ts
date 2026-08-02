@@ -62,7 +62,7 @@ export type CardTimelineAction =
   | { type: "loading-more"; requestKey: string; requestCursor: string }
   | { type: "refreshing"; scopeKey: string; requestKey: string }
   | { type: "refreshed"; requestKey: string; page: WalletCardTimelinePage }
-  | { type: "refresh-failed"; requestKey: string; message: string }
+  | { type: "refresh-failed"; requestKey: string; message: string; clearSnapshot?: boolean }
   | {
       type: "page";
       requestKey: string;
@@ -70,7 +70,13 @@ export type CardTimelineAction =
       page: WalletCardTimelinePage;
       append: boolean;
     }
-  | { type: "failed"; requestKey: string; message: string; append: boolean }
+  | {
+      type: "failed";
+      requestKey: string;
+      message: string;
+      append: boolean;
+      clearSnapshot?: boolean;
+    }
   | { type: "settled"; requestKey: string };
 
 function hasDuplicateIds(events: readonly WalletCardTimelineEvent[]): boolean {
@@ -157,9 +163,15 @@ export function cardTimelineReducer(
         ? verifiedFirstPage(state, action.page)
         : state;
     case "refresh-failed":
-      return action.requestKey === state.activeRequestKey
-        ? { ...state, refreshing: false, refreshError: action.message }
-        : state;
+      if (action.requestKey !== state.activeRequestKey) return state;
+      return action.clearSnapshot
+        ? {
+            ...initialCardTimelineState,
+            scopeKey: state.scopeKey,
+            activeRequestKey: state.activeRequestKey,
+            refreshError: action.message,
+          }
+        : { ...state, refreshing: false, refreshError: action.message };
     case "page": {
       if (action.requestKey !== state.activeRequestKey) return state;
       if (!action.append) return verifiedFirstPage(state, action.page);
@@ -206,6 +218,14 @@ export function cardTimelineReducer(
     }
     case "failed":
       if (action.requestKey !== state.activeRequestKey) return state;
+      if (action.clearSnapshot) {
+        return {
+          ...initialCardTimelineState,
+          scopeKey: state.scopeKey,
+          activeRequestKey: state.activeRequestKey,
+          error: action.message,
+        };
+      }
       return action.append
         ? {
             ...state,

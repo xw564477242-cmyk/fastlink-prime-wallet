@@ -23,8 +23,12 @@ const configuredEnvironment =
 let renderer: ReactTestRenderer | null = null;
 let latest: HookResult | null = null;
 
-const cursor = (value: string) =>
-  `${Buffer.from(value).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
+const cursor = (
+  id: string,
+  occurredAt = "2026-08-01T00:00:00.000Z",
+  kind: "LIFECYCLE" | "EVENT" = "EVENT",
+) =>
+  `${Buffer.from(JSON.stringify({ v: 1, t: occurredAt, k: kind, i: id })).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
 
 function session(overrides: Partial<BackendSession> = {}): BackendSession {
   if (!configuredEnvironment) throw new Error("Card timeline hook test requires SANDBOX or TEST");
@@ -66,11 +70,13 @@ function deferred<T>(): Deferred<T> {
 function Harness({
   currentSession,
   cardId,
+  onInvalidate,
 }: {
   currentSession: BackendSession | null;
   cardId: string | null;
+  onInvalidate?: (expectedSession: BackendSession) => void;
 }) {
-  latest = useCardTimelinePages(currentSession, cardId);
+  latest = useCardTimelinePages(currentSession, cardId, onInvalidate);
   return null;
 }
 
@@ -79,16 +85,24 @@ async function flush() {
   await Promise.resolve();
 }
 
-async function mount(currentSession: BackendSession, cardId = "card:owned.1") {
+async function mount(
+  currentSession: BackendSession,
+  cardId = "card:owned.1",
+  onInvalidate?: (expectedSession: BackendSession) => void,
+) {
   await act(async () => {
-    renderer = create(createElement(Harness, { currentSession, cardId }));
+    renderer = create(createElement(Harness, { currentSession, cardId, onInvalidate }));
     await flush();
   });
 }
 
-async function update(currentSession: BackendSession | null, cardId: string | null) {
+async function update(
+  currentSession: BackendSession | null,
+  cardId: string | null,
+  onInvalidate?: (expectedSession: BackendSession) => void,
+) {
   await act(async () => {
-    renderer?.update(createElement(Harness, { currentSession, cardId }));
+    renderer?.update(createElement(Harness, { currentSession, cardId, onInvalidate }));
     await flush();
   });
 }
@@ -125,7 +139,7 @@ describeConfigured(
         calls.push({ input, init });
         requestCount += 1;
         return requestCount === 1
-          ? response([event("timeline_event_01")], cursor("next-1"))
+          ? response([event("timeline_event_01")], cursor("timeline_event_01"))
           : response([], null, 503);
       }) as typeof globalThis.fetch;
 
@@ -168,7 +182,10 @@ describeConfigured(
       );
       expect(signals[0]?.aborted).toBeTrue();
       expect(latest?.events).toEqual([]);
-      await settle(old, response([event("timeline_stale_private")], cursor("stale")));
+      await settle(
+        old,
+        response([event("timeline_stale_private")], cursor("timeline_stale_private")),
+      );
       expect(latest?.events).toEqual([]);
       expect(JSON.stringify(latest)).not.toContain("stale_private");
     });
@@ -183,6 +200,87 @@ describeConfigured(
       expect(calls).toBe(0);
       expect(latest?.events).toEqual([]);
       expect(latest?.nextCursor).toBeNull();
+    });
+
+    it("clears the current snapshot and invalidates only the matching session on 401", async () => {
+      const activeSession = session();
+      const invalidated: BackendSession[] = [];
+      let requestCount = 0;
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+        requestCount += 1;
+        return requestCount === 1
+          ? response([event("timeline_event_01")], cursor("timeline_event_01"))
+          : response([], null, 401);
+      }) as typeof globalThis.fetch;
+
+      await mount(activeSession, "card:owned.1", (expected) => invalidated.push(expected));
+      await act(async () => {
+        latest?.refresh();
+        await flush();
+      });
+
+      expect(latest?.events).toEqual([]);
+      expect(latest?.nextCursor).toBeNull();
+      expect(invalidated).toEqual([activeSession]);
+    });
+
+    for (const status of [403, 404]) {
+      it(`clears the current snapshot without invalidating the session on ${status}`, async () => {
+        const invalidated: BackendSession[] = [];
+        let requestCount = 0;
+        globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+          requestCount += 1;
+          return requestCount === 1
+            ? response([event("timeline_event_01")], cursor("timeline_event_01"))
+            : response([], null, status);
+        }) as typeof globalThis.fetch;
+
+        await mount(session(), "card:owned.1", (expected) => invalidated.push(expected));
+        await act(async () => {
+          latest?.refresh();
+          await flush();
+        });
+
+        expect(latest?.events).toEqual([]);
+        expect(latest?.nextCursor).toBeNull();
+        expect(invalidated).toEqual([]);
+      });
+    }
+
+    it("does not let a late 401 from an equal-valued replaced session clear or invalidate it", async () => {
+      const old = deferred<Response>();
+      const invalidated: BackendSession[] = [];
+      let requestCount = 0;
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+        requestCount += 1;
+        return requestCount === 1 ? old.promise : response([event("timeline_event_current")], null);
+      }) as typeof globalThis.fetch;
+      const oldSession = session();
+      const replacementSession = { ...oldSession };
+      const onInvalidate = (expected: BackendSession) => invalidated.push(expected);
+
+      await mount(oldSession, "card:owned.1", onInvalidate);
+      await update(replacementSession, "card:owned.1", onInvalidate);
+      expect(latest?.events.map(({ id }) => id)).toEqual(["timeline_event_current"]);
+      await settle(old, response([], null, 401));
+
+      expect(latest?.events.map(({ id }) => id)).toEqual(["timeline_event_current"]);
+      expect(invalidated).toEqual([]);
+    });
+
+    it("does not invalidate a session after unmount when a 401 completes late", async () => {
+      const pending = deferred<Response>();
+      const invalidated: BackendSession[] = [];
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) =>
+        pending.promise) as typeof globalThis.fetch;
+      await mount(session(), "card:owned.1", (expected) => invalidated.push(expected));
+      await act(async () => {
+        renderer?.unmount();
+        renderer = null;
+        await flush();
+      });
+      await settle(pending, response([], null, 401));
+      expect(invalidated).toEqual([]);
     });
   },
 );

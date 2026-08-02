@@ -259,15 +259,61 @@ function isCanonicalCardTransactionCursor(value: unknown): value is string {
   return segments.length === 2 && segments.every(isCanonicalBase64UrlSegment);
 }
 
-function isCanonicalCardTimelineCursor(value: unknown): value is string {
+type CardTimelineCursorPosition = Readonly<{
+  id: string;
+  occurredAt: string;
+}>;
+
+function decodeBase64UrlSegment(value: string): Uint8Array | null {
+  if (!isCanonicalBase64UrlSegment(value)) return null;
+  try {
+    const padding = "=".repeat((4 - (value.length % 4)) % 4);
+    const decoded = globalThis.atob(value.replace(/-/g, "+").replace(/_/g, "/") + padding);
+    return Uint8Array.from(decoded, (character) => character.charCodeAt(0));
+  } catch {
+    return null;
+  }
+}
+
+function cardTimelineCursorPosition(value: unknown): CardTimelineCursorPosition | null {
   if (
     typeof value !== "string" ||
     new TextEncoder().encode(value).byteLength > CARD_TIMELINE_MAX_CURSOR_BYTES
   ) {
-    return false;
+    return null;
   }
   const segments = value.split(".");
-  return segments.length === 2 && segments.every(isCanonicalBase64UrlSegment);
+  if (segments.length !== 2) return null;
+  const payloadBytes = decodeBase64UrlSegment(segments[0]);
+  const macBytes = decodeBase64UrlSegment(segments[1]);
+  if (!payloadBytes || !macBytes || macBytes.byteLength !== 32) return null;
+  try {
+    const parsed = JSON.parse(
+      new TextDecoder("utf-8", { fatal: true }).decode(payloadBytes),
+    ) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return null;
+    const keys = Object.keys(parsed).sort();
+    if (keys.join("\n") !== ["i", "k", "t", "v"].join("\n")) return null;
+    const payload = parsed as { v?: unknown; t?: unknown; k?: unknown; i?: unknown };
+    if (
+      payload.v !== 1 ||
+      (payload.k !== "LIFECYCLE" && payload.k !== "EVENT") ||
+      typeof payload.i !== "string" ||
+      !/^[A-Za-z0-9_-]{2,128}$/.test(payload.i) ||
+      typeof payload.t !== "string"
+    ) {
+      return null;
+    }
+    const timestamp = new Date(payload.t);
+    if (Number.isNaN(timestamp.getTime()) || timestamp.toISOString() !== payload.t) return null;
+    return Object.freeze({ id: payload.i, occurredAt: payload.t });
+  } catch {
+    return null;
+  }
+}
+
+function isCanonicalCardTimelineCursor(value: unknown): value is string {
+  return cardTimelineCursorPosition(value) !== null;
 }
 
 export type WalletAssetAccount = {
@@ -2018,6 +2064,18 @@ export function normalizeCardTimelineResponse(
   }
   if (events.length === 0 && nextCursor !== null) {
     throw new Error("Backend returned an empty continuing Card timeline page");
+  }
+  if (nextCursor !== null) {
+    const cursorPosition = cardTimelineCursorPosition(nextCursor);
+    const lastEvent = events.at(-1);
+    if (
+      !cursorPosition ||
+      !lastEvent ||
+      cursorPosition.id !== lastEvent.id ||
+      cursorPosition.occurredAt !== lastEvent.occurredAt
+    ) {
+      throw new Error("Backend returned a mismatched Card timeline cursor");
+    }
   }
   return Object.freeze({
     events: Object.freeze(events),

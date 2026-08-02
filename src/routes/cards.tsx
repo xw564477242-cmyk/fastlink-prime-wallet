@@ -77,7 +77,7 @@ function draftFromLimits(limits: WalletCardLimits | null): Record<CardLimitField
 
 export function CardsPage() {
   const { t } = useLang();
-  const { session } = useBackendSession();
+  const { session, invalidate: invalidateSession } = useBackendSession();
   const navigate = useNavigate({ from: "/cards" });
   const { cardId } = Route.useSearch();
   const {
@@ -136,7 +136,7 @@ export function CardsPage() {
   const cardReplace = useCardReplace(session, current, replacementReason, acceptReplacementCard);
   const cardBalance = useCardBalance(session, current?.cardId ?? null);
   const cardLimits = useCardLimits(session, current?.cardId ?? null);
-  const cardTimeline = useCardTimelinePages(session, current?.cardId ?? null);
+  const cardTimeline = useCardTimelinePages(session, current?.cardId ?? null, invalidateSession);
   const [limitDraft, setLimitDraft] = useState<Record<CardLimitField, string>>(emptyLimitDraft);
   useEffect(() => {
     setLimitDraft(draftFromLimits(cardLimits.limits));
@@ -562,8 +562,8 @@ function CardTimelinePanel({
           <span>
             {timeline.refreshError ?? timeline.error}
             {hasSnapshot
-              ? " · Last verified snapshot retained; your session remains active."
-              : " · No stale timeline displayed; your session remains active."}
+              ? " · Last verified snapshot retained."
+              : " · No stale timeline displayed."}
           </span>
         </div>
       )}

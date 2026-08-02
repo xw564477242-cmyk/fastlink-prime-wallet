@@ -481,6 +481,14 @@ describe("Card transaction Backend adapter", () => {
 });
 
 describe("Card timeline Backend adapter", () => {
+  const timelineCursor = (
+    id = "timeline_event_01",
+    occurredAt = "2026-08-01T00:00:00.000Z",
+    kind: "LIFECYCLE" | "EVENT" = "EVENT",
+    macBytes = 32,
+    extras: Record<string, unknown> = {},
+  ) =>
+    `${Buffer.from(JSON.stringify({ v: 1, t: occurredAt, k: kind, i: id, ...extras })).toString("base64url")}.${Buffer.alloc(macBytes).toString("base64url")}`;
   const event = (overrides: Record<string, unknown> = {}) => ({
     id: "timeline_event_01",
     type: "CREATED",
@@ -521,7 +529,7 @@ describe("Card timeline Backend adapter", () => {
   });
 
   it("builds only the bounded selected-Card GET path with a signed opaque cursor", () => {
-    const cursor = signedCursor("timeline_cursor_1");
+    const cursor = timelineCursor();
     expect(buildCardTimelinePath("card:owned.1")).toBe(
       "/v1/cards/card%3Aowned.1/timeline?limit=25",
     );
@@ -539,7 +547,7 @@ describe("Card timeline Backend adapter", () => {
 
   it("accepts exactly five public event fields and two page fields", () => {
     const page = normalizeCardTimelineResponse(
-      JSON.stringify({ events: [event()], nextCursor: signedCursor("next") }),
+      JSON.stringify({ events: [event()], nextCursor: timelineCursor() }),
     );
     expect(Object.keys(page)).toEqual(["events", "nextCursor"]);
     expect(Object.keys(page.events[0])).toEqual([
@@ -579,7 +587,28 @@ describe("Card timeline Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow(/order/i);
-    expect(() => normalize({ events: [], nextCursor: signedCursor("unexpected") })).toThrow();
+    expect(() => normalize({ events: [], nextCursor: timelineCursor() })).toThrow();
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor(undefined, undefined, "EVENT", 31),
+      }),
+    ).toThrow(/cursor/i);
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor(undefined, undefined, "EVENT", 32, { tenantId: "private" }),
+      }),
+    ).toThrow(/cursor/i);
+    expect(() =>
+      normalize({ events: [event()], nextCursor: timelineCursor("timeline_event_02") }),
+    ).toThrow(/mismatched/i);
+    expect(() =>
+      normalize({
+        events: [event()],
+        nextCursor: timelineCursor("timeline_event_01", "2026-07-31T23:59:59.000Z"),
+      }),
+    ).toThrow(/mismatched/i);
   });
 });
 

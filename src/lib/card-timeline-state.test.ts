@@ -105,6 +105,26 @@ describe("Card timeline state isolation", () => {
     expect(refreshed.nextCursor).toBe(cursor(2));
   });
 
+  it("clears every verified event and cursor for a current authorization failure", () => {
+    const loaded = loadedState();
+    const requestKey = cardTimelineRequestKey("scope-a", null, 2);
+    const refreshing = cardTimelineReducer(loaded, {
+      type: "refreshing",
+      scopeKey: "scope-a",
+      requestKey,
+    });
+    const cleared = cardTimelineReducer(refreshing, {
+      type: "refresh-failed",
+      requestKey,
+      message: "Card lifecycle timeline refresh failed",
+      clearSnapshot: true,
+    });
+    expect(cleared.events).toEqual([]);
+    expect(cleared.nextCursor).toBeNull();
+    expect(cleared.seenCursors).toEqual([]);
+    expect(cleared.refreshError).toBe("Card lifecycle timeline refresh failed");
+  });
+
   it("closes pagination on duplicate, rollback, replay and reverse-order continuation", () => {
     for (const nextPage of [
       page([event(1)], cursor(2)),

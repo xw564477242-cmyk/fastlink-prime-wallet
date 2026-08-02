@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
 import {
+  BackendApiError,
   CARD_TIMELINE_PAGE_SIZE,
   backendApi,
   backendRuntime,
@@ -19,9 +20,16 @@ type TimelineRefreshInput = {
   selectedCardId: string;
 };
 
+type ActiveTimelineRequest = {
+  controller: AbortController;
+  input: TimelineRefreshInput;
+  requestKey: string;
+};
+
 function timelineScopeKey(
   session: BackendSession | null,
   selectedCardId: string | null,
+  sessionIdentity: number,
   now = Date.now(),
 ): string | null {
   if (
@@ -37,6 +45,7 @@ function timelineScopeKey(
     session.tenantId,
     session.customerId,
     session.environment,
+    sessionIdentity,
     selectedCardId,
   ]);
 }
@@ -45,21 +54,42 @@ function errorMessage(): string {
   return "Card lifecycle timeline is unavailable";
 }
 
+function authorizationFailureStatus(reason: unknown): 401 | 403 | 404 | null {
+  if (!(reason instanceof BackendApiError)) return null;
+  return reason.status === 401 || reason.status === 403 || reason.status === 404
+    ? reason.status
+    : null;
+}
+
 export function useCardTimelinePages(
   session: BackendSession | null,
   selectedCardId: string | null,
+  invalidateSession?: (expectedSession: BackendSession) => void,
 ) {
   const [state, dispatch] = useReducer(cardTimelineReducer, initialCardTimelineState);
   const [expiryTick, wakeAtExpiry] = useReducer((value: number) => value + 1, 0);
   const requestSequence = useRef(0);
-  const activeRequest = useRef<AbortController | null>(null);
+  const activeRequest = useRef<ActiveTimelineRequest | null>(null);
   const mounted = useRef(false);
+  const currentInput = useRef<TimelineRefreshInput | null>(null);
+  const invalidateSessionRef = useRef(invalidateSession);
+  invalidateSessionRef.current = invalidateSession;
+  const sessionIdentity = useRef<{ session: BackendSession | null; generation: number }>({
+    session: null,
+    generation: 0,
+  });
+  if (sessionIdentity.current.session !== session) {
+    sessionIdentity.current = {
+      session,
+      generation: sessionIdentity.current.generation + 1,
+    };
+  }
 
   useEffect(() => {
     mounted.current = true;
     return () => {
       mounted.current = false;
-      activeRequest.current?.abort();
+      activeRequest.current?.controller.abort();
       activeRequest.current = null;
       requestSequence.current += 1;
     };
@@ -73,81 +103,118 @@ export function useCardTimelinePages(
     return () => globalThis.clearTimeout(timeout);
   }, [expiryTick, session?.expiresAt]);
 
-  const scopeKey = timelineScopeKey(session, selectedCardId);
+  const scopeKey = timelineScopeKey(session, selectedCardId, sessionIdentity.current.generation);
   const view = cardTimelineViewForScope(state, scopeKey);
   const refreshInput = useRef<TimelineRefreshInput | null>(null);
+  currentInput.current =
+    session && selectedCardId && scopeKey ? { session, selectedCardId, scopeKey } : null;
   refreshInput.current =
     session && selectedCardId && scopeKey && view.scopeReady && !view.loading
       ? { session, selectedCardId, scopeKey }
       : null;
 
+  const requestIsCurrent = useCallback(
+    (request: ActiveTimelineRequest) =>
+      mounted.current &&
+      activeRequest.current === request &&
+      currentInput.current?.session === request.input.session &&
+      currentInput.current.scopeKey === request.input.scopeKey &&
+      currentInput.current.selectedCardId === request.input.selectedCardId,
+    [],
+  );
+
   useEffect(() => {
-    activeRequest.current?.abort();
-    const controller = new AbortController();
-    activeRequest.current = controller;
+    activeRequest.current?.controller.abort();
+    activeRequest.current = null;
     const generation = ++requestSequence.current;
     const requestKey = scopeKey ? cardTimelineRequestKey(scopeKey, null, generation) : null;
     dispatch({ type: "reset", scopeKey, requestKey, loading: scopeKey !== null });
-    if (!session || !selectedCardId || !requestKey) {
-      activeRequest.current = null;
-      return () => controller.abort();
+    if (!session || !selectedCardId || !scopeKey || !requestKey) {
+      return;
     }
+    const input = { session, selectedCardId, scopeKey };
+    const request: ActiveTimelineRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
 
     void backendApi
-      .cardTimeline(session, selectedCardId, { limit: CARD_TIMELINE_PAGE_SIZE }, controller.signal)
+      .cardTimeline(
+        session,
+        selectedCardId,
+        { limit: CARD_TIMELINE_PAGE_SIZE },
+        request.controller.signal,
+      )
       .then((page) => {
-        if (mounted.current) {
+        if (requestIsCurrent(request)) {
           dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
         }
       })
-      .catch(() => {
-        if (mounted.current) {
-          dispatch({ type: "failed", requestKey, message: errorMessage(), append: false });
+      .catch((reason) => {
+        if (requestIsCurrent(request)) {
+          const status = authorizationFailureStatus(reason);
+          dispatch({
+            type: "failed",
+            requestKey,
+            message: errorMessage(),
+            append: false,
+            clearSnapshot: status !== null,
+          });
+          if (status === 401) invalidateSessionRef.current?.(session);
         }
       })
       .finally(() => {
-        if (activeRequest.current === controller) activeRequest.current = null;
+        if (activeRequest.current === request) activeRequest.current = null;
         if (mounted.current) dispatch({ type: "settled", requestKey });
       });
 
     return () => {
-      controller.abort();
-      if (activeRequest.current === controller) activeRequest.current = null;
+      request.controller.abort();
+      if (activeRequest.current === request) activeRequest.current = null;
       if (requestSequence.current === generation) requestSequence.current += 1;
     };
-  }, [expiryTick, scopeKey, selectedCardId, session]);
+  }, [expiryTick, requestIsCurrent, scopeKey, selectedCardId, session]);
 
   const refresh = useCallback(() => {
     const input = refreshInput.current;
     if (!input || activeRequest.current !== null) return;
-    const controller = new AbortController();
-    activeRequest.current = controller;
     const requestKey = cardTimelineRequestKey(input.scopeKey, null, ++requestSequence.current);
+    const request: ActiveTimelineRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
     dispatch({ type: "refreshing", scopeKey: input.scopeKey, requestKey });
     void backendApi
       .cardTimeline(
         input.session,
         input.selectedCardId,
         { limit: CARD_TIMELINE_PAGE_SIZE },
-        controller.signal,
+        request.controller.signal,
       )
       .then((page) => {
-        if (mounted.current) dispatch({ type: "refreshed", requestKey, page });
+        if (requestIsCurrent(request)) dispatch({ type: "refreshed", requestKey, page });
       })
-      .catch(() => {
-        if (mounted.current) {
+      .catch((reason) => {
+        if (requestIsCurrent(request)) {
+          const status = authorizationFailureStatus(reason);
           dispatch({
             type: "refresh-failed",
             requestKey,
             message: "Card lifecycle timeline refresh failed",
+            clearSnapshot: status !== null,
           });
+          if (status === 401) invalidateSessionRef.current?.(input.session);
         }
       })
       .finally(() => {
-        if (activeRequest.current === controller) activeRequest.current = null;
+        if (activeRequest.current === request) activeRequest.current = null;
         if (mounted.current) dispatch({ type: "settled", requestKey });
       });
-  }, []);
+  }, [requestIsCurrent]);
 
   const loadMore = useCallback(async () => {
     if (
@@ -165,28 +232,41 @@ export function useCardTimelinePages(
     }
     const requestCursor = state.nextCursor;
     const requestKey = cardTimelineRequestKey(scopeKey, requestCursor, ++requestSequence.current);
-    const controller = new AbortController();
-    activeRequest.current = controller;
+    const input = { session, selectedCardId, scopeKey };
+    const request: ActiveTimelineRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
     dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
       const page = await backendApi.cardTimeline(
         session,
         selectedCardId,
         { limit: CARD_TIMELINE_PAGE_SIZE, cursor: requestCursor },
-        controller.signal,
+        request.controller.signal,
       );
-      if (mounted.current) {
+      if (requestIsCurrent(request)) {
         dispatch({ type: "page", requestKey, requestCursor, page, append: true });
       }
-    } catch {
-      if (mounted.current) {
-        dispatch({ type: "failed", requestKey, message: errorMessage(), append: true });
+    } catch (reason) {
+      if (requestIsCurrent(request)) {
+        const status = authorizationFailureStatus(reason);
+        dispatch({
+          type: "failed",
+          requestKey,
+          message: errorMessage(),
+          append: true,
+          clearSnapshot: status !== null,
+        });
+        if (status === 401) invalidateSessionRef.current?.(session);
       }
     } finally {
-      if (activeRequest.current === controller) activeRequest.current = null;
+      if (activeRequest.current === request) activeRequest.current = null;
       if (mounted.current) dispatch({ type: "settled", requestKey });
     }
-  }, [scopeKey, selectedCardId, session, state, view.scopeReady]);
+  }, [requestIsCurrent, scopeKey, selectedCardId, session, state, view.scopeReady]);
 
   return {
     ...view,
