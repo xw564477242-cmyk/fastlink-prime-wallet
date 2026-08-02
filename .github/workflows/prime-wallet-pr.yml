@@ -224,8 +224,6 @@ jobs:
           sha256sum readiness-evidence.json scripts/verify-prime-wallet-readiness.mjs scripts/readiness-deployment-contract.test.mjs src/lib/prime-wallet-readiness.ts src/lib/prime-wallet-readiness.test.ts src/server.ts .github/workflows/prime-wallet-pr.yml .github/workflows/deploy-cloudflare-dev.yml .github/workflows/deploy-cloudflare-test.yml wrangler.dev.jsonc wrangler.test.jsonc >> build-evidence.sha256
           printf '{"format":"fastlink-prime-wallet-fx-quote-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"semanticOperation":"READ_ONLY_QUOTE_PREVIEW","backendMethod":"POST","directProviderCalls":0,"writes":0,"scopeBound":true,"expiryBound":true,"lateResponsePolicy":"zero-write"}\n' "${{ github.event.pull_request.head.sha }}" > fx-quote-evidence.json
           sha256sum fx-quote-evidence.json src/lib/backend-api.ts src/lib/fx-quote-contract.ts src/lib/fx-quote-state.ts src/lib/fx-quote-adversarial.test.ts src/hooks/use-fx-quote.ts src/routes/convert.tsx src/routes/-convert.mounted-quote.test.tsx >> build-evidence.sha256
-          printf '{"format":"fastlink-prime-card-status-postchain-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"validatedEnvironments":["SANDBOX","TEST"],"mutationActions":["freeze","unfreeze"],"automaticPostRetry":false,"confirmationSequence":["POST_RESPONSE","EXACT_CARD_DETAIL","EXACT_CARD_LIST_GENERATION"],"dependentRefreshes":["CARD_BALANCE","CARD_LIMITS","CARD_TIMELINE"],"transactionPolicy":"history-route-remounts-with-current-session-and-card","partialGenerationPolicy":"invalidate-card-and-dependent-snapshots","lateResponsePolicy":"zero-write","directProviderCalls":0}\n' "${{ github.event.pull_request.head.sha }}" > card-status-postchain-evidence.json
-          sha256sum card-status-postchain-evidence.json src/lib/backend-api.ts src/lib/card-status-mutation-state.ts src/lib/card-status-mutation-adversarial.test.ts src/hooks/use-card-status-mutation.ts src/hooks/use-card-list-pages.ts src/routes/cards.tsx src/routes/-cards.mounted-virtual-create.test.tsx >> build-evidence.sha256
           sha256sum src/lib/backend-api.ts src/lib/wallet-transfer-account-state.ts src/lib/wallet-transfer-account-state.test.ts src/hooks/use-wallet-transfer-accounts.ts src/hooks/use-wallet-transfer-accounts.test.tsx src/lib/backend-session-policy.ts src/lib/home-wallet-balance-state.ts src/lib/home-wallet-balance-state.test.ts src/hooks/use-home-wallet-balances.ts src/hooks/use-home-wallet-balances.test.tsx src/routes/index.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
@@ -251,7 +249,6 @@ jobs:
             package.json
             readiness-evidence.json
             fx-quote-evidence.json
-            card-status-postchain-evidence.json
             consumer-transfer-evidence.json
             scripts/verify-production-wallet.mjs
             scripts/verify-prime-wallet-readiness.mjs
