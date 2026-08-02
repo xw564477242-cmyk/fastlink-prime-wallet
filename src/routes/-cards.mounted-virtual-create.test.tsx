@@ -452,16 +452,15 @@ describeConfigured(
         await flush();
       });
       expect(postReads).toBe(1);
-      await resolvePending(creates[0]!, json(card("card:created.1", "1111", "POST Alias One")));
+      await resolvePending(creates[0]!, json(card("card:created.1", "1111", "Mounted Virtual")));
       expect(listReads).toBe(2);
-      expect(pageText()).not.toMatch(/1111|POST Alias One/);
+      expect(pageText()).not.toMatch(/1111|Mounted Virtual/);
       expect(navigations).toHaveLength(0);
       await resolvePending(
         confirmations[0]!,
-        cardPage([card("card:created.1", "1111", "Confirmed Alias One")]),
+        cardPage([card("card:created.1", "1111", "Mounted Virtual")]),
       );
-      expect(pageText()).toContain("Confirmed Alias One");
-      expect(pageText()).not.toContain("POST Alias One");
+      expect(pageText()).toContain("Mounted Virtual");
       expect(navigations).toEqual([{ search: { cardId: "card:created.1" }, replace: true }]);
 
       await act(async () => {
@@ -470,17 +469,17 @@ describeConfigured(
         await flush();
       });
       expect(postReads).toBe(2);
-      await resolvePending(creates[1]!, json(card("card:created.2", "2222", "POST Alias Two")));
+      await resolvePending(creates[1]!, json(card("card:created.2", "2222", "Mounted Virtual")));
       expect(listReads).toBe(3);
-      expect(pageText()).not.toContain("POST Alias Two");
+      expect(pageText()).not.toContain("2222");
       await resolvePending(
         confirmations[1]!,
         cardPage([
-          card("card:created.1", "1111", "Confirmed Alias One"),
-          card("card:created.2", "2222", "Confirmed Alias Two"),
+          card("card:created.1", "1111", "Mounted Virtual"),
+          card("card:created.2", "2222", "Mounted Virtual"),
         ]),
       );
-      expect(pageText()).toContain("Confirmed Alias Two");
+      expect(pageText()).toContain("2222");
       expect(navigations.at(-1)).toEqual({
         search: { cardId: "card:created.2" },
         replace: true,
@@ -492,6 +491,61 @@ describeConfigured(
       expect(new Set(keys).size).toBe(2);
       expect(postReads).toBe(2);
       expect(listReads).toBe(3);
+    });
+
+    it("requires a bounded terminal list before selecting and refreshes exact-card dependent reads", async () => {
+      const created = card("card:created.terminal", "6060", "Mounted Virtual");
+      let listReads = 0;
+      let postReads = 0;
+      let balanceReads = 0;
+      let limitsReads = 0;
+      let timelineReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          if (listReads === 1) return cardPage([]);
+          if (listReads === 2) return cardPage([created], "created-terminal-cursor");
+          return cardPage([card("card:other", "7070", "Other Card")]);
+        }
+        if (isCreate(input, init)) {
+          postReads += 1;
+          return json(created);
+        }
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) {
+          balanceReads += 1;
+          return json(balance(balanceCardId));
+        }
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) {
+          limitsReads += 1;
+          return json(limits(limitsCardId));
+        }
+        if (selectedCardTimelineId(input)) {
+          timelineReads += 1;
+          return json({ events: [], nextCursor: null });
+        }
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+
+      expect(postReads).toBe(1);
+      expect(listReads).toBe(3);
+      expect(pageText()).toContain("6060");
+      expect(navigations).toEqual([{ search: { cardId: "card:created.terminal" }, replace: true }]);
+      expect(balanceReads).toBe(1);
+      expect(limitsReads).toBe(1);
+      expect(timelineReads).toBe(1);
+      const confirmationReads = calls.filter(({ input }) => isCardList(input)).slice(1);
+      expect(
+        new URL(String(confirmationReads[1]?.input), "https://wallet.invalid").searchParams.get(
+          "cursor",
+        ),
+      ).toBe("created-terminal-cursor");
     });
 
     it("fails closed when ownership refresh omits or duplicates the created Card, or the ID conflicts", async () => {
@@ -521,7 +575,7 @@ describeConfigured(
           await flush();
         });
         const createdId = mode === "conflict" ? "card:existing" : "card:unconfirmed";
-        await resolvePending(created, json(card(createdId, "9999", "Unconfirmed Card")));
+        await resolvePending(created, json(card(createdId, "9999", "Mounted Virtual")));
 
         if (mode !== "conflict") {
           expect(listReads).toBe(2);
@@ -530,10 +584,10 @@ describeConfigured(
             mode === "missing"
               ? cardPage([])
               : mode === "malformed"
-                ? cardPage([{ ...card(createdId, "9999", "Malformed Card"), last4: "99" }])
+                ? cardPage([{ ...card(createdId, "9999", "Mounted Virtual"), last4: "99" }])
                 : cardPage([
-                    card(createdId, "9999", "Duplicate One"),
-                    card(createdId, "9999", "Duplicate Two"),
+                    card(createdId, "9999", "Mounted Virtual"),
+                    card(createdId, "9999", "Mounted Virtual"),
                   ]),
           );
         }
@@ -543,6 +597,92 @@ describeConfigured(
         );
         expect(navigations).toHaveLength(0);
         expect(body()).not.toMatch(/provider|trace-create-secret|internal-create-secret/i);
+        await unmount();
+      }
+    });
+
+    it("rejects input/response mismatch and never issues a second POST in that exact scope", async () => {
+      for (const mismatch of [{ alias: "Different Alias" }, { currency: "EUR" }]) {
+        let listReads = 0;
+        let postReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            return cardPage([]);
+          }
+          if (isCreate(input, init)) {
+            postReads += 1;
+            return json(card("card:mismatch", "8181", "Mounted Virtual", mismatch));
+          }
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        expect(pageText()).toContain("could not be confirmed");
+        expect(navigations).toHaveLength(0);
+        expect(listReads).toBe(1);
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        expect(postReads).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("rejects repeated cursors, duplicate cross-page IDs and non-terminal bounded scans", async () => {
+      for (const mode of ["cursor", "duplicate", "unbounded"] as const) {
+        const created = card("card:bounded", "8282", "Mounted Virtual");
+        let listReads = 0;
+        let confirmationReads = 0;
+        let postReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            if (listReads === 1) return cardPage([]);
+            confirmationReads += 1;
+            if (mode === "cursor") {
+              return confirmationReads === 1
+                ? cardPage([created], "repeat-cursor")
+                : cardPage([card("card:cursor-other", "8383", "Cursor Other")], "repeat-cursor");
+            }
+            if (mode === "duplicate") {
+              return confirmationReads === 1
+                ? cardPage([created], "duplicate-cursor")
+                : cardPage([created]);
+            }
+            return cardPage(
+              confirmationReads === 1
+                ? [created]
+                : [
+                    card(
+                      `card:unbounded.${confirmationReads}`,
+                      String(8400 + confirmationReads).slice(-4),
+                      "Unbounded Other",
+                    ),
+                  ],
+              `cursor-${confirmationReads}`,
+            );
+          }
+          if (isCreate(input, init)) {
+            postReads += 1;
+            return json(created);
+          }
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        await mount();
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        expect(postReads, mode).toBe(1);
+        expect(confirmationReads, mode).toBe(mode === "unbounded" ? 25 : 2);
+        expect(pageText(), mode).not.toContain("8282");
+        expect(pageText(), mode).toContain("could not be confirmed");
+        expect(navigations, mode).toHaveLength(0);
         await unmount();
       }
     });
@@ -590,7 +730,7 @@ describeConfigured(
         await resolvePending(
           created,
           json({
-            ...card("card:stale", "7777", "Stale Created Card"),
+            ...card("card:stale", "7777", "Mounted Virtual"),
             providerPayload: providerSecret,
             walletRef: walletSecret,
             journalIds: [journalSecret],
@@ -607,6 +747,7 @@ describeConfigured(
         await unmount();
       }
 
+      createAlias = "Mounted Virtual";
       const created = deferred<Response>();
       const confirmation = deferred<Response>();
       let listReads = 0;
@@ -623,13 +764,13 @@ describeConfigured(
         void button("Issue Virtual Card").props.onClick();
         await flush();
       });
-      await resolvePending(created, json(card("card:stale-refresh", "6767", "Old Input Card")));
+      await resolvePending(created, json(card("card:stale-refresh", "6767", "Mounted Virtual")));
       expect(listReads).toBe(2);
       createAlias = "Changed During Ownership Refresh";
       await rerender();
       await resolvePending(
         confirmation,
-        cardPage([card("card:stale-refresh", "6767", "Stale Ownership Refresh")]),
+        cardPage([card("card:stale-refresh", "6767", "Mounted Virtual")]),
       );
       expect(pageText()).not.toMatch(/Old Input Card|Stale Ownership Refresh|6767/);
       expect(navigations).toHaveLength(0);
@@ -661,7 +802,7 @@ describeConfigured(
         }
         if (isCreate(input, init)) {
           return json({
-            ...card("card:public", "3131", "POST Public Alias"),
+            ...card("card:public", "3131", "Mounted Virtual"),
             providerPayload: providerSecret,
             providerCardId: providerSecret,
             walletRef: walletSecret,
@@ -679,16 +820,82 @@ describeConfigured(
         void button("Issue Virtual Card").props.onClick();
         await flush();
       });
-      expect(pageText()).not.toContain("POST Public Alias");
+      expect(pageText()).not.toContain("3131");
       await resolvePending(
         confirmation,
-        cardPage([card("card:public", "3131", "Refreshed Public Alias")]),
+        cardPage([card("card:public", "3131", "Mounted Virtual")]),
       );
-      expect(pageText()).toContain("Refreshed Public Alias");
-      expect(pageText()).not.toContain("POST Public Alias");
+      expect(pageText()).toContain("Mounted Virtual");
       expect(body()).not.toMatch(
         /provider-create-secret|wallet-create-secret|journal-create-secret|internal-create-secret|trace-create-secret/,
       );
+    });
+
+    it("allows late confirmation zero writes after equal-valued Session replacement or unmount", async () => {
+      for (const mode of ["session", "unmount"] as const) {
+        const confirmation = deferred<Response>();
+        let listReads = 0;
+        let postReads = 0;
+        installFetch((input, init) => {
+          if (isCardList(input)) {
+            listReads += 1;
+            return listReads === 1 ? cardPage([]) : confirmation.promise;
+          }
+          if (isCreate(input, init)) {
+            postReads += 1;
+            return json(card("card:late", "8585", "Mounted Virtual"));
+          }
+          throw new Error(`Unexpected request ${String(input)}`);
+        });
+        const owner = session();
+        await mount(owner);
+        await act(async () => {
+          void button("Issue Virtual Card").props.onClick();
+          await flush();
+        });
+        expect(listReads, mode).toBe(2);
+        if (mode === "session") await rerender({ ...owner });
+        else await unmount();
+        await resolvePending(
+          confirmation,
+          cardPage([card("card:late", "8585", "Mounted Virtual")]),
+        );
+        expect(postReads, mode).toBe(1);
+        expect(pageText(), mode).not.toContain("8585");
+        expect(navigations, mode).toHaveLength(0);
+        await unmount();
+      }
+    });
+
+    it("invalidates only the exact Session and Card snapshots on a current confirmation 401", async () => {
+      const owner = session();
+      let listReads = 0;
+      let postReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          listReads += 1;
+          return listReads === 1
+            ? cardPage([])
+            : json({ message: internalSecret }, 401, traceSecret);
+        }
+        if (isCreate(input, init)) {
+          postReads += 1;
+          return json(card("card:unauthorized", "8686", "Mounted Virtual"));
+        }
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount(owner);
+      await act(async () => {
+        void button("Issue Virtual Card").props.onClick();
+        await flush();
+      });
+
+      expect(postReads).toBe(1);
+      expect(listReads).toBe(2);
+      expect(sessionInvalidations).toEqual([{ session: owner, reason: "EXPLICIT_401" }]);
+      expect(pageText()).not.toContain("8686");
+      expect(navigations).toHaveLength(0);
+      expect(body()).not.toMatch(/internal-create-secret|trace-create-secret/);
     });
 
     it("does not retry a failed create and never renders Backend error bodies or trace IDs", async () => {

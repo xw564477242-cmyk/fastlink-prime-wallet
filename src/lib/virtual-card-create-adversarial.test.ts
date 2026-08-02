@@ -12,6 +12,7 @@ import { cardListReducer, initialCardListState } from "./card-list-state";
 import {
   acceptsVirtualCardCreateCompletion,
   beginVirtualCardCreate,
+  blockVirtualCardCreate,
   createVirtualCardCreateGate,
   settleVirtualCardCreate,
   syncVirtualCardCreateScope,
@@ -54,26 +55,48 @@ const response = (overrides: Record<string, unknown> = {}) => ({
 });
 
 const card = (): WalletCard => normalizeVirtualCardCreateResponse(response());
+const input = { currency: "USD", alias: "New Virtual" } as const;
 
 describe("Virtual Card creation environment and request gate", () => {
   it("allows only an exact SANDBOX or TEST runtime/session match", () => {
-    expect(virtualCardCreateScopeKey(session(), "SANDBOX")).not.toBeNull();
-    expect(virtualCardCreateScopeKey(session({ environment: "TEST" }), "TEST")).not.toBeNull();
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", input)).not.toBeNull();
+    expect(
+      virtualCardCreateScopeKey(session({ environment: "TEST" }), "TEST", input),
+    ).not.toBeNull();
 
     for (const environment of ["LOCAL", "UAT", "PRODUCTION"] as FastLinkEnvironment[]) {
-      expect(virtualCardCreateScopeKey(session({ environment }), environment)).toBeNull();
+      expect(virtualCardCreateScopeKey(session({ environment }), environment, input)).toBeNull();
     }
-    expect(virtualCardCreateScopeKey(session(), "TEST")).toBeNull();
-    expect(virtualCardCreateScopeKey(session({ environment: "TEST" }), "SANDBOX")).toBeNull();
+    expect(virtualCardCreateScopeKey(session(), "TEST", input)).toBeNull();
     expect(
-      virtualCardCreateScopeKey(session({ expiresAt: "2020-01-01T00:00:00.000Z" }), "SANDBOX"),
+      virtualCardCreateScopeKey(session({ environment: "TEST" }), "SANDBOX", input),
     ).toBeNull();
-    expect(virtualCardCreateScopeKey(null, "SANDBOX")).toBeNull();
-    expect(virtualCardCreateScopeKey(session(), undefined)).toBeNull();
+    expect(
+      virtualCardCreateScopeKey(
+        session({ expiresAt: "2020-01-01T00:00:00.000Z" }),
+        "SANDBOX",
+        input,
+      ),
+    ).toBeNull();
+    expect(virtualCardCreateScopeKey(null, "SANDBOX", input)).toBeNull();
+    expect(virtualCardCreateScopeKey(session(), undefined, input)).toBeNull();
+    expect(
+      virtualCardCreateScopeKey(session(), "SANDBOX", input, 0, 0, "https://api.invalid"),
+    ).toBeNull();
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", input, -1)).toBeNull();
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", input, 0, -1)).toBeNull();
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", { currency: "usd" })).toBeNull();
+
+    const base = virtualCardCreateScopeKey(session(), "SANDBOX", input, 0, 0);
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", input, 1, 0)).not.toBe(base);
+    expect(virtualCardCreateScopeKey(session(), "SANDBOX", input, 0, 1)).not.toBe(base);
+    expect(
+      virtualCardCreateScopeKey(session(), "SANDBOX", { ...input, alias: "Other" }, 0, 0),
+    ).not.toBe(base);
   });
 
   it("locks duplicate synchronous submits and gives each accepted submit one unique key", async () => {
-    const scopeKey = virtualCardCreateScopeKey(session(), "SANDBOX");
+    const scopeKey = virtualCardCreateScopeKey(session(), "SANDBOX", input);
     if (!scopeKey) throw new Error("scope required");
     const gate = createVirtualCardCreateGate(scopeKey);
     let keyIndex = 0;
@@ -93,6 +116,21 @@ describe("Virtual Card creation environment and request gate", () => {
     const second = beginVirtualCardCreate(gate, scopeKey, () => keys[keyIndex++]!);
     expect(second?.idempotencyKey).toBe(keys[1]);
     expect(second?.idempotencyKey).not.toBe(first?.idempotencyKey);
+  });
+
+  it("blocks a second POST in the same scope after an accepted response cannot be confirmed", () => {
+    const scopeKey = virtualCardCreateScopeKey(session(), "SANDBOX", input);
+    if (!scopeKey) throw new Error("scope required");
+    const gate = createVirtualCardCreateGate(scopeKey);
+    const ticket = beginVirtualCardCreate(gate, scopeKey, () => keys[0]!);
+    if (!ticket) throw new Error("ticket required");
+    expect(blockVirtualCardCreate(gate, ticket, scopeKey)).toBeTrue();
+    expect(settleVirtualCardCreate(gate, ticket, scopeKey)).toBeTrue();
+    expect(beginVirtualCardCreate(gate, scopeKey, () => keys[1]!)).toBeNull();
+    syncVirtualCardCreateScope(gate, `${scopeKey}:next-input-generation`);
+    expect(
+      beginVirtualCardCreate(gate, `${scopeKey}:next-input-generation`, () => keys[1]!),
+    ).not.toBeNull();
   });
 
   it("requires canonical v4 idempotency keys", () => {
@@ -285,7 +323,7 @@ describe("Virtual Card creation response parser", () => {
 
 describe("Virtual Card creation scope and completion isolation", () => {
   it("allows stale success, error and finally zero writes after every scope dimension changes", () => {
-    const oldScope = virtualCardCreateScopeKey(session(), "SANDBOX");
+    const oldScope = virtualCardCreateScopeKey(session(), "SANDBOX", input);
     if (!oldScope) throw new Error("scope required");
     const gate = createVirtualCardCreateGate(oldScope);
     const ticket = beginVirtualCardCreate(gate, oldScope, () => keys[0]!);
@@ -304,7 +342,7 @@ describe("Virtual Card creation scope and completion isolation", () => {
 
     for (const nextSession of changedSessions) {
       const runtime = nextSession.environment;
-      const nextScope = virtualCardCreateScopeKey(nextSession, runtime);
+      const nextScope = virtualCardCreateScopeKey(nextSession, runtime, input);
       syncVirtualCardCreateScope(gate, nextScope);
       expect(acceptsVirtualCardCreateCompletion(gate, ticket, nextScope)).toBeFalse();
       const reset = virtualCardCreateReducer(started, { type: "reset", scopeKey: nextScope });
@@ -333,7 +371,7 @@ describe("Virtual Card creation scope and completion isolation", () => {
   });
 
   it("rejects an older generation in the same scope", () => {
-    const scopeKey = virtualCardCreateScopeKey(session(), "SANDBOX");
+    const scopeKey = virtualCardCreateScopeKey(session(), "SANDBOX", input);
     if (!scopeKey) throw new Error("scope required");
     const gate = createVirtualCardCreateGate(scopeKey);
     const old = beginVirtualCardCreate(gate, scopeKey, () => keys[0]!);

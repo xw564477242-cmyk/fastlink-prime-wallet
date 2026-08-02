@@ -3484,10 +3484,11 @@ export const backendApi = {
   async createVirtualCard(
     input: VirtualCardCreateInput,
     idempotencyKey: string,
+    signal?: AbortSignal,
   ): Promise<WalletCard> {
     requireSandboxTestCardMutationRuntime();
     const { path, init } = buildVirtualCardCreateRequest(input, idempotencyKey);
-    const card = await request<unknown>(path, init);
+    const card = await request<unknown>(path, { ...init, signal });
     return normalizeVirtualCardCreateResponse(card);
   },
 
