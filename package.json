@@ -36,6 +36,8 @@
     "test:card-history-selection:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-history.mounted-selection.test.tsx",
     "test:card-detail-refresh-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-card-transaction-detail.test.tsx ./src/routes/history.mounted-detail-refresh.test.tsx ./src/lib/card-transaction-detail-refresh-adversarial.test.ts ./src/lib/card-transaction-detail-state.test.ts",
     "test:card-detail-refresh-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-card-transaction-detail.test.tsx ./src/routes/history.mounted-detail-refresh.test.tsx ./src/lib/card-transaction-detail-refresh-adversarial.test.ts ./src/lib/card-transaction-detail-state.test.ts",
+    "test:kyc-status-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/hooks/use-kyc-status.test.tsx ./src/lib/kyc-status-state.test.ts",
+    "test:kyc-status-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/hooks/use-kyc-status.test.tsx ./src/lib/kyc-status-state.test.ts",
     "test:virtual-card-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/-cards.mounted-virtual-create.test.tsx",
     "test:virtual-card-mounted:test": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=TEST bun test ./src/routes/-cards.mounted-virtual-create.test.tsx",
     "test:card-limits-mounted:sandbox": "VITE_FASTLINK_API_URL=/api VITE_FASTLINK_ENVIRONMENT=SANDBOX bun test ./src/routes/-cards.mounted-virtual-create.test.tsx -t 'Mounted selected Card limits update'",

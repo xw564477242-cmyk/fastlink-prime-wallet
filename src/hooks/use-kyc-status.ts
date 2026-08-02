@@ -1,0 +1,115 @@
+import { useCallback, useEffect, useReducer, useRef } from "react";
+import { backendRuntime, type BackendSession } from "@/lib/backend-api";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
+import {
+  fetchKycStatus,
+  initialKycStatusState,
+  kycStatusErrorMessage,
+  kycStatusFailureIsUnauthorized,
+  kycStatusReducer,
+  kycStatusRequestKey,
+  kycStatusScopeKey,
+  kycStatusSessionReadAllowed,
+  kycStatusViewForScope,
+  type KycStatusRuntime,
+} from "@/lib/kyc-status-state";
+
+type KycStatusInput = {
+  scopeKey: string;
+  session: BackendSession;
+  runtime: KycStatusRuntime;
+};
+
+type ActiveKycStatusRequest = {
+  controller: AbortController;
+  requestKey: string;
+};
+
+export function useKycStatus(
+  session: BackendSession | null,
+  runtime: KycStatusRuntime = backendRuntime,
+  invalidateSession?: BackendSessionInvalidator,
+) {
+  const [state, dispatch] = useReducer(kycStatusReducer, initialKycStatusState);
+  const generationRef = useRef(0);
+  const activeRequestRef = useRef<ActiveKycStatusRequest | null>(null);
+  const invalidateSessionRef = useRef(invalidateSession);
+  const sessionIdentityRef = useRef<{ session: BackendSession | null; generation: number }>({
+    session: null,
+    generation: 0,
+  });
+  if (sessionIdentityRef.current.session !== session) {
+    sessionIdentityRef.current = {
+      session,
+      generation: sessionIdentityRef.current.generation + 1,
+    };
+  }
+  const semanticScopeKey = kycStatusScopeKey(session, runtime);
+  const scopeKey = semanticScopeKey
+    ? JSON.stringify([semanticScopeKey, sessionIdentityRef.current.generation])
+    : null;
+  const inputRef = useRef<KycStatusInput | null>(null);
+  inputRef.current = scopeKey && session ? { scopeKey, session, runtime } : null;
+  invalidateSessionRef.current = invalidateSession;
+  const view = kycStatusViewForScope(state, scopeKey);
+
+  const refresh = useCallback(() => {
+    const input = inputRef.current;
+    if (!input || !kycStatusSessionReadAllowed(input.session, input.runtime)) return;
+
+    activeRequestRef.current?.controller.abort();
+    const controller = new AbortController();
+    const requestKey = kycStatusRequestKey(input.scopeKey, ++generationRef.current);
+    activeRequestRef.current = { controller, requestKey };
+    dispatch({ type: "begin", scopeKey: input.scopeKey, requestKey });
+
+    const isCurrent = () =>
+      activeRequestRef.current?.controller === controller &&
+      activeRequestRef.current.requestKey === requestKey &&
+      inputRef.current?.scopeKey === input.scopeKey &&
+      kycStatusSessionReadAllowed(input.session, input.runtime);
+
+    void fetchKycStatus(input.session, input.runtime, controller.signal)
+      .then((snapshot) => {
+        if (isCurrent()) dispatch({ type: "loaded", requestKey, snapshot });
+      })
+      .catch((reason) => {
+        if (isCurrent()) {
+          const unauthorized = kycStatusFailureIsUnauthorized(reason);
+          dispatch({
+            type: "failed",
+            requestKey,
+            message: kycStatusErrorMessage(reason),
+            unauthorized,
+          });
+          if (unauthorized) {
+            invalidateSessionRef.current?.(input.session, "EXPLICIT_401");
+          }
+        }
+      })
+      .finally(() => {
+        if (!isCurrent()) return;
+        activeRequestRef.current = null;
+        dispatch({ type: "settled", requestKey });
+      });
+  }, []);
+
+  useEffect(() => {
+    activeRequestRef.current?.controller.abort();
+    activeRequestRef.current = null;
+    generationRef.current += 1;
+    dispatch({ type: "reset", scopeKey });
+    return () => {
+      activeRequestRef.current?.controller.abort();
+      activeRequestRef.current = null;
+      generationRef.current += 1;
+    };
+  }, [scopeKey]);
+
+  return {
+    ...view,
+    scopeKey,
+    refresh,
+    canRefresh: scopeKey !== null && view.scopeReady,
+  };
+}
