@@ -179,8 +179,14 @@ beforeAll(async () => {
       nextCursor: null,
       loading: false,
       loadingMore: false,
+      refreshing: false,
       error: null,
+      refreshError: null,
+      filters: { type: "ALL", status: "ALL" },
+      changeFilters: () => undefined,
       loadMore: async () => undefined,
+      refresh: () => undefined,
+      canRefresh: true,
     }),
   }));
   mock.module("@/hooks/use-wallet-operation-detail", () => ({

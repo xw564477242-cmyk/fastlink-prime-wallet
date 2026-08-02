@@ -737,11 +737,21 @@ const publicWalletOperation = (id: string) => ({
   raw: { secret: "must-not-render" },
 });
 
+const walletOperationCursor = (
+  id: string,
+  createdAt = "2026-07-31T12:00:00.000Z",
+  type: "DEPOSIT" | "INTERNAL_TRANSFER" | "WITHDRAWAL" | "FX_CONVERSION" | null = null,
+  status: "PROCESSING" | "PENDING_SETTLEMENT" | "COMPLETED" | "FAILED" | null = null,
+) => Buffer.from(JSON.stringify({ version: 2, createdAt, id, type, status })).toString("base64url");
+const rawWalletOperationCursor = (value: unknown) =>
+  Buffer.from(JSON.stringify(value)).toString("base64url");
+
 describe("Wallet operation activity Backend adapter", () => {
   it("builds only the real public max-25 cursor request without an asset filter", () => {
+    const cursor = walletOperationCursor("operation-1");
     expect(buildWalletOperationPath()).toBe("/v1/wallet/operations?limit=25");
-    expect(buildWalletOperationPath({ limit: 10, cursor: "activity_cursor-1" })).toBe(
-      "/v1/wallet/operations?limit=10&cursor=activity_cursor-1",
+    expect(buildWalletOperationPath({ limit: 10, cursor })).toBe(
+      `/v1/wallet/operations?limit=10&cursor=${cursor}`,
     );
     expect(() => buildWalletOperationPath({ limit: 26 })).toThrow(
       "Wallet operation limit must be between 1 and 25",
@@ -753,10 +763,14 @@ describe("Wallet operation activity Backend adapter", () => {
   });
 
   it("keeps exactly the public fields and canonical strings", () => {
-    const page = normalizeWalletOperationResponse({
-      items: [publicWalletOperation("operation-1")],
-      nextCursor: "activity_cursor-1",
-    });
+    const cursor = walletOperationCursor("operation-1");
+    const page = normalizeWalletOperationResponse(
+      {
+        items: [publicWalletOperation("operation-1")],
+        nextCursor: cursor,
+      },
+      { limit: 1 },
+    );
     expect(page).toEqual({
       items: [
         {
@@ -771,7 +785,7 @@ describe("Wallet operation activity Backend adapter", () => {
           updatedAt: "2026-07-31T12:00:01+00:00",
         },
       ],
-      nextCursor: "activity_cursor-1",
+      nextCursor: cursor,
     });
     expect(JSON.stringify(page)).not.toMatch(
       /tenantId|customerId|accountId|provider|THREDD|journal|failureReason|raw|secret|must-not-render/,
@@ -830,7 +844,7 @@ describe("Wallet operation activity Backend adapter", () => {
           items: [publicWalletOperation("operation-1"), publicWalletOperation("operation-2")],
           nextCursor: null,
         },
-        1,
+        { limit: 1 },
       ),
     ).toThrow("Backend returned an invalid Wallet operation page");
     expect(() => normalizeWalletOperationResponse({ items: [], nextCursor: "bad!cursor" })).toThrow(
@@ -842,6 +856,105 @@ describe("Wallet operation activity Backend adapter", () => {
         nextCursor: null,
       }),
     ).toThrow("Backend returned duplicate Wallet operation ids");
+  });
+
+  it("binds type/status filters and exact Backend v2 cursor boundaries", () => {
+    const query = { type: "INTERNAL_TRANSFER", status: "PENDING_SETTLEMENT", limit: 1 } as const;
+    const cursor = walletOperationCursor(
+      "operation-1",
+      "2026-07-31T12:00:00.000Z",
+      query.type,
+      query.status,
+    );
+    expect(buildWalletOperationPath({ ...query, cursor })).toContain(
+      `type=INTERNAL_TRANSFER&status=PENDING_SETTLEMENT&cursor=${cursor}`,
+    );
+    expect(
+      normalizeWalletOperationResponse(
+        {
+          items: [publicWalletOperation("operation-1")],
+          nextCursor: cursor,
+        },
+        query,
+      ).nextCursor,
+    ).toBe(cursor);
+    expect(() =>
+      normalizeWalletOperationResponse(
+        {
+          items: [{ ...publicWalletOperation("operation-1"), type: "DEPOSIT" }],
+          nextCursor: null,
+        },
+        query,
+      ),
+    ).toThrow("outside the selected type filter");
+    expect(() =>
+      buildWalletOperationPath({
+        ...query,
+        cursor: walletOperationCursor("operation-1", undefined, "DEPOSIT", query.status),
+      }),
+    ).toThrow("Invalid Wallet operation cursor");
+  });
+
+  it("rejects malformed cursor semantics and out-of-order page boundaries", () => {
+    const query = { type: "INTERNAL_TRANSFER", status: "PENDING_SETTLEMENT" } as const;
+    for (const cursor of [
+      rawWalletOperationCursor({
+        version: 1,
+        createdAt: "2026-07-31T12:00:00.000Z",
+        id: "operation-1",
+        type: query.type,
+        status: query.status,
+      }),
+      rawWalletOperationCursor({
+        version: 2,
+        createdAt: "2026-07-31T12:00:00Z",
+        id: "operation-1",
+        type: query.type,
+        status: query.status,
+      }),
+      rawWalletOperationCursor({
+        version: 2,
+        createdAt: "2026-07-31T12:00:00.000Z",
+        id: "operation-1",
+        type: query.type,
+        status: query.status,
+        extra: true,
+      }),
+    ])
+      expect(() => buildWalletOperationPath({ ...query, cursor })).toThrow(
+        "Invalid Wallet operation cursor",
+      );
+
+    expect(() =>
+      normalizeWalletOperationResponse(
+        {
+          items: [
+            publicWalletOperation("operation-1"),
+            { ...publicWalletOperation("operation-2"), createdAt: "2026-07-31T12:01:00.000Z" },
+          ],
+          nextCursor: null,
+        },
+        query,
+      ),
+    ).toThrow("inconsistent Wallet operation pagination");
+
+    const requested = walletOperationCursor(
+      "operation-anchor",
+      "2026-07-31T12:00:00.000Z",
+      query.type,
+      query.status,
+    );
+    expect(() =>
+      normalizeWalletOperationResponse(
+        {
+          items: [
+            { ...publicWalletOperation("operation-newer"), createdAt: "2026-07-31T12:01:00.000Z" },
+          ],
+          nextCursor: null,
+        },
+        { ...query, cursor: requested },
+      ),
+    ).toThrow("inconsistent Wallet operation pagination");
   });
 });
 

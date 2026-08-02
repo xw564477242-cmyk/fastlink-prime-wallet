@@ -2,48 +2,95 @@ import type { WalletOperationActivity, WalletOperationActivityPage } from "./bac
 
 export type WalletOperationState = {
   scopeKey: string | null;
+  filterKey: string | null;
   activeRequestKey: string | null;
   items: WalletOperationActivity[];
   nextCursor: string | null;
+  cursorTrail: string[];
   loading: boolean;
   loadingMore: boolean;
+  refreshing: boolean;
   error: string | null;
+  refreshError: string | null;
 };
 
 export const initialWalletOperationState: WalletOperationState = {
   scopeKey: null,
+  filterKey: null,
   activeRequestKey: null,
   items: [],
   nextCursor: null,
+  cursorTrail: [],
   loading: false,
   loadingMore: false,
+  refreshing: false,
   error: null,
+  refreshError: null,
 };
 
 export function walletOperationRequestKey(
   scopeKey: string | null,
+  filterKey: string,
   cursor: string | null,
   generation: number,
 ) {
-  return JSON.stringify([scopeKey, cursor, generation]);
+  return JSON.stringify([scopeKey, filterKey, cursor, generation]);
 }
 
-export function walletOperationViewForScope(state: WalletOperationState, scopeKey: string | null) {
-  if (state.scopeKey === scopeKey) return { ...state, scopeReady: true };
+export function walletOperationViewForScope(
+  state: WalletOperationState,
+  scopeKey: string | null,
+  filterKey: string,
+) {
+  if (state.scopeKey === scopeKey && state.filterKey === filterKey)
+    return { ...state, scopeReady: true };
   return {
     ...initialWalletOperationState,
     scopeKey,
+    filterKey,
     loading: scopeKey !== null,
     scopeReady: false,
   };
 }
 
 export type WalletOperationAction =
-  | { type: "reset"; scopeKey: string | null; requestKey: string | null; loading: boolean }
-  | { type: "loading-more"; requestKey: string }
-  | { type: "page"; requestKey: string; page: WalletOperationActivityPage; append: boolean }
-  | { type: "failed"; requestKey: string; message: string; append: boolean }
-  | { type: "settled"; requestKey: string };
+  | {
+      type: "reset";
+      scopeKey: string | null;
+      filterKey: string;
+      requestKey: string | null;
+      loading: boolean;
+    }
+  | { type: "loading-more"; requestKey: string; requestCursor: string }
+  | { type: "refreshing"; scopeKey: string; filterKey: string; requestKey: string }
+  | { type: "refreshed"; requestKey: string; page: WalletOperationActivityPage }
+  | { type: "refresh-failed"; requestKey: string; message: string; clearSnapshot?: boolean }
+  | {
+      type: "page";
+      requestKey: string;
+      requestCursor: string | null;
+      page: WalletOperationActivityPage;
+      append: boolean;
+    }
+  | {
+      type: "failed";
+      requestKey: string;
+      message: string;
+      append: boolean;
+      clearSnapshot?: boolean;
+    }
+  | { type: "settled"; requestKey: string | null };
+
+function paginationFailure(state: WalletOperationState): WalletOperationState {
+  return {
+    ...state,
+    nextCursor: null,
+    loading: false,
+    loadingMore: false,
+    refreshing: false,
+    error: "Backend returned inconsistent Wallet operation pagination",
+  };
+}
 
 export function walletOperationReducer(
   state: WalletOperationState,
@@ -52,46 +99,115 @@ export function walletOperationReducer(
   switch (action.type) {
     case "reset":
       return {
+        ...initialWalletOperationState,
         scopeKey: action.scopeKey,
+        filterKey: action.filterKey,
         activeRequestKey: action.requestKey,
-        items: [],
-        nextCursor: null,
         loading: action.loading,
-        loadingMore: false,
-        error: null,
       };
     case "loading-more":
-      return { ...state, activeRequestKey: action.requestKey, loadingMore: true, error: null };
+      if (
+        action.requestCursor !== state.nextCursor ||
+        state.cursorTrail.at(-1) !== action.requestCursor
+      )
+        return paginationFailure(state);
+      return {
+        ...state,
+        activeRequestKey: action.requestKey,
+        loadingMore: true,
+        refreshing: false,
+        error: null,
+        refreshError: null,
+      };
+    case "refreshing":
+      if (
+        action.scopeKey !== state.scopeKey ||
+        action.filterKey !== state.filterKey ||
+        state.loading
+      )
+        return state;
+      return {
+        ...state,
+        activeRequestKey: action.requestKey,
+        loadingMore: false,
+        refreshing: true,
+        refreshError: null,
+      };
+    case "refreshed":
+      if (action.requestKey !== state.activeRequestKey) return state;
+      return {
+        ...state,
+        items: action.page.items,
+        nextCursor: action.page.nextCursor,
+        cursorTrail: action.page.nextCursor === null ? [] : [action.page.nextCursor],
+        loading: false,
+        loadingMore: false,
+        refreshing: false,
+        error: null,
+        refreshError: null,
+      };
+    case "refresh-failed":
+      if (action.requestKey !== state.activeRequestKey) return state;
+      if (action.clearSnapshot) {
+        return {
+          ...initialWalletOperationState,
+          scopeKey: state.scopeKey,
+          filterKey: state.filterKey,
+          activeRequestKey: state.activeRequestKey,
+          refreshError: action.message,
+        };
+      }
+      return { ...state, refreshing: false, refreshError: action.message };
     case "page": {
       if (action.requestKey !== state.activeRequestKey) return state;
-      if (action.append) {
-        const existingIds = new Set(state.items.map((item) => item.id));
-        if (action.page.items.some((item) => existingIds.has(item.id))) {
-          return {
-            ...state,
-            nextCursor: null,
-            error: "Backend returned duplicate Wallet operation ids",
-          };
-        }
-      }
+      if (action.append && action.requestCursor !== state.nextCursor)
+        return paginationFailure(state);
+      const currentIds = new Set(state.items.map((item) => item.id));
+      if (action.append && action.page.items.some((item) => currentIds.has(item.id)))
+        return paginationFailure(state);
+      if (
+        action.page.nextCursor !== null &&
+        (action.page.nextCursor === action.requestCursor ||
+          state.cursorTrail.includes(action.page.nextCursor))
+      )
+        return paginationFailure(state);
       return {
         ...state,
         items: action.append ? [...state.items, ...action.page.items] : action.page.items,
         nextCursor: action.page.nextCursor,
+        cursorTrail:
+          action.page.nextCursor === null
+            ? state.cursorTrail
+            : [...state.cursorTrail, action.page.nextCursor],
+        loading: false,
+        loadingMore: false,
+        refreshing: false,
         error: null,
+        refreshError: null,
       };
     }
     case "failed":
       if (action.requestKey !== state.activeRequestKey) return state;
+      if (action.clearSnapshot) {
+        return {
+          ...initialWalletOperationState,
+          scopeKey: state.scopeKey,
+          filterKey: state.filterKey,
+          activeRequestKey: state.activeRequestKey,
+          error: action.message,
+        };
+      }
       return {
         ...state,
         items: action.append ? state.items : [],
         nextCursor: action.append ? state.nextCursor : null,
+        loading: false,
+        loadingMore: false,
         error: action.message,
       };
     case "settled":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, loading: false, loadingMore: false }
+        ? { ...state, loading: false, loadingMore: false, refreshing: false }
         : state;
   }
 }
