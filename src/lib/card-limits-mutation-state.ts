@@ -14,14 +14,25 @@ export type CardLimitsMutationGate = {
   scopeKey: string | null;
   generation: number;
   activeRequestKey: string | null;
+  retries: Map<string, CardLimitsMutationRetry>;
+  blockedRecoveryScopeKeys: Set<string>;
 };
+
+export type CardLimitsMutationRetry = Readonly<{
+  scopeKey: string;
+  recoveryScopeKey: string;
+  input: CardLimitsUpdateInput;
+  idempotencyKey: string;
+}>;
 
 export type CardLimitsMutationTicket = Readonly<{
   scopeKey: string;
+  recoveryScopeKey: string;
   generation: number;
   input: CardLimitsUpdateInput;
   idempotencyKey: string;
   requestKey: string;
+  retry: boolean;
 }>;
 
 export type CardLimitsMutationState = {
@@ -30,6 +41,8 @@ export type CardLimitsMutationState = {
   busy: boolean;
   error: string | null;
   updatedLimits: WalletCardLimits | null;
+  retryPending: boolean;
+  conflictPending: boolean;
 };
 
 export const initialCardLimitsMutationState: CardLimitsMutationState = {
@@ -38,6 +51,8 @@ export const initialCardLimitsMutationState: CardLimitsMutationState = {
   busy: false,
   error: null,
   updatedLimits: null,
+  retryPending: false,
+  conflictPending: false,
 };
 
 function optionalBalanceScopeValue(value: unknown): string | null {
@@ -57,6 +72,9 @@ export function cardLimitsMutationScopeKey(
   runtimeEnvironment: FastLinkEnvironment | undefined,
   card: WalletCard | undefined,
   current: WalletCardLimits | null,
+  sessionIdentity = 0,
+  cardIdentity = 0,
+  limitsIdentity = 0,
 ): string | null {
   if (
     !session ||
@@ -86,6 +104,9 @@ export function cardLimitsMutationScopeKey(
     return null;
   }
   return JSON.stringify([
+    sessionIdentity,
+    cardIdentity,
+    limitsIdentity,
     session.actorId,
     session.expiresAt,
     session.tenantId,
@@ -118,7 +139,13 @@ export function cardLimitsMutationView(
 }
 
 export function createCardLimitsMutationGate(scopeKey: string | null): CardLimitsMutationGate {
-  return { scopeKey, generation: 0, activeRequestKey: null };
+  return {
+    scopeKey,
+    generation: 0,
+    activeRequestKey: null,
+    retries: new Map(),
+    blockedRecoveryScopeKeys: new Set(),
+  };
 }
 
 export function syncCardLimitsMutationScope(
@@ -129,6 +156,14 @@ export function syncCardLimitsMutationScope(
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
+}
+
+export function invalidateCardLimitsMutationGate(gate: CardLimitsMutationGate): void {
+  gate.scopeKey = null;
+  gate.generation += 1;
+  gate.activeRequestKey = null;
+  gate.retries.clear();
+  gate.blockedRecoveryScopeKeys.clear();
 }
 
 function newCardLimitsMutationIdempotencyKey(): string {
@@ -143,21 +178,122 @@ export function beginCardLimitsMutation(
   current: WalletCardLimits,
   input: unknown,
   keyFactory: () => string = newCardLimitsMutationIdempotencyKey,
+  recoveryScopeKey = scopeKey,
 ): CardLimitsMutationTicket | null {
   syncCardLimitsMutationScope(gate, scopeKey);
-  if (gate.activeRequestKey !== null) return null;
+  if (gate.activeRequestKey !== null || gate.blockedRecoveryScopeKeys.has(recoveryScopeKey)) {
+    return null;
+  }
   const normalizedInput = normalizeCardLimitsUpdateInput(input, current);
-  const idempotencyKey = validateVirtualCardIdempotencyKey(keyFactory());
+  const pendingRetry = gate.retries.get(recoveryScopeKey) ?? null;
+  if (pendingRetry && pendingRetry.scopeKey !== scopeKey) return null;
+  const idempotencyKey = pendingRetry
+    ? pendingRetry.idempotencyKey
+    : validateVirtualCardIdempotencyKey(keyFactory());
   gate.generation += 1;
-  const requestKey = JSON.stringify([scopeKey, normalizedInput, idempotencyKey, gate.generation]);
+  const requestKey = JSON.stringify([
+    scopeKey,
+    recoveryScopeKey,
+    normalizedInput,
+    idempotencyKey,
+    gate.generation,
+  ]);
   gate.activeRequestKey = requestKey;
   return {
     scopeKey,
+    recoveryScopeKey,
     generation: gate.generation,
     input: normalizedInput,
     idempotencyKey,
     requestKey,
+    retry: pendingRetry !== null,
   };
+}
+
+export function cardLimitsMutationFailureIsAmbiguous(reason: unknown): boolean {
+  if (reason instanceof TypeError) return true;
+  if (!reason || typeof reason !== "object") return false;
+  try {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+    if (!descriptor || !("value" in descriptor) || typeof descriptor.value !== "number") {
+      return false;
+    }
+    return (
+      descriptor.value === 0 ||
+      descriptor.value === 408 ||
+      descriptor.value === 409 ||
+      (descriptor.value >= 500 && descriptor.value <= 599)
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function cardLimitsMutationFailureIsExplicit401(reason: unknown): boolean {
+  if (!reason || typeof reason !== "object") return false;
+  try {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+    return Boolean(descriptor && "value" in descriptor && descriptor.value === 401);
+  } catch {
+    return false;
+  }
+}
+
+export function retainCardLimitsMutationRetry(
+  gate: CardLimitsMutationGate,
+  ticket: CardLimitsMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (ticket.retry || !acceptsCardLimitsMutationCompletion(gate, ticket, currentScopeKey)) {
+    return false;
+  }
+  gate.retries.set(
+    ticket.recoveryScopeKey,
+    Object.freeze({
+      scopeKey: ticket.scopeKey,
+      recoveryScopeKey: ticket.recoveryScopeKey,
+      input: Object.freeze({ ...ticket.input }),
+      idempotencyKey: ticket.idempotencyKey,
+    }),
+  );
+  return true;
+}
+
+export function clearCardLimitsMutationRetry(
+  gate: CardLimitsMutationGate,
+  recoveryScopeKey: string,
+): void {
+  gate.retries.delete(recoveryScopeKey);
+}
+
+export function blockCardLimitsMutation(
+  gate: CardLimitsMutationGate,
+  ticket: CardLimitsMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsCardLimitsMutationCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.retries.delete(ticket.recoveryScopeKey);
+  gate.blockedRecoveryScopeKeys.add(ticket.recoveryScopeKey);
+  return true;
+}
+
+export function cardLimitsMutationRecoveryState(
+  gate: CardLimitsMutationGate,
+  scopeKey: string | null,
+  recoveryScopeKey: string | null,
+): { canSubmit: boolean; retryPending: boolean; conflictPending: boolean } {
+  if (!scopeKey || !recoveryScopeKey) {
+    return { canSubmit: false, retryPending: false, conflictPending: false };
+  }
+  if (gate.blockedRecoveryScopeKeys.has(recoveryScopeKey)) {
+    return { canSubmit: false, retryPending: false, conflictPending: true };
+  }
+  const retry = gate.retries.get(recoveryScopeKey);
+  if (!retry) return { canSubmit: true, retryPending: false, conflictPending: false };
+  if (retry.scopeKey !== scopeKey) {
+    return { canSubmit: false, retryPending: false, conflictPending: true };
+  }
+  return { canSubmit: true, retryPending: true, conflictPending: false };
 }
 
 export function acceptsCardLimitsMutationCompletion(
@@ -190,6 +326,8 @@ export type CardLimitsMutationAction =
   | { type: "started"; scopeKey: string; requestKey: string }
   | { type: "succeeded"; requestKey: string; limits: WalletCardLimits }
   | { type: "failed"; requestKey: string; message: string }
+  | { type: "retryable"; requestKey: string; message: string }
+  | { type: "conflicted"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function cardLimitsMutationReducer(
@@ -210,6 +348,8 @@ export function cardLimitsMutationReducer(
         busy: true,
         error: null,
         updatedLimits: null,
+        retryPending: false,
+        conflictPending: false,
       };
     case "succeeded":
       return action.requestKey === state.activeRequestKey
@@ -217,7 +357,33 @@ export function cardLimitsMutationReducer(
         : state;
     case "failed":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, error: action.message, updatedLimits: null }
+        ? {
+            ...state,
+            error: action.message,
+            updatedLimits: null,
+            retryPending: false,
+            conflictPending: false,
+          }
+        : state;
+    case "retryable":
+      return action.requestKey === state.activeRequestKey
+        ? {
+            ...state,
+            error: action.message,
+            updatedLimits: null,
+            retryPending: true,
+            conflictPending: false,
+          }
+        : state;
+    case "conflicted":
+      return action.requestKey === state.activeRequestKey
+        ? {
+            ...state,
+            error: action.message,
+            updatedLimits: null,
+            retryPending: false,
+            conflictPending: true,
+          }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey

@@ -10,16 +10,28 @@ import {
 import {
   acceptsCardLimitsMutationCompletion,
   beginCardLimitsMutation,
+  blockCardLimitsMutation,
+  cardLimitsMutationFailureIsAmbiguous,
+  cardLimitsMutationFailureIsExplicit401,
+  cardLimitsMutationRecoveryState,
   cardLimitsMutationReducer,
   cardLimitsMutationScopeKey,
   cardLimitsMutationView,
+  clearCardLimitsMutationRetry,
   createCardLimitsMutationGate,
+  invalidateCardLimitsMutationGate,
   initialCardLimitsMutationState,
+  retainCardLimitsMutationRetry,
   settleCardLimitsMutation,
   syncCardLimitsMutationScope,
 } from "@/lib/card-limits-mutation-state";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 const SAFE_LIMITS_UPDATE_ERROR = "Card limits update failed. Check the values and try again.";
+const SAFE_LIMITS_UPDATE_AMBIGUOUS_ERROR =
+  "Card limits result is uncertain. Retry once to reuse the same request key.";
+const SAFE_LIMITS_UPDATE_CONFLICT_ERROR =
+  "Card limits could not be confirmed. Refresh this Card before another limits update.";
 
 export function useCardLimitsMutation(
   session: BackendSession | null,
@@ -27,12 +39,26 @@ export function useCardLimitsMutation(
   current: WalletCardLimits | null,
   input: unknown,
   onUpdated: (limits: WalletCardLimits) => void,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
-  const baseScopeKey = cardLimitsMutationScopeKey(
+  const identities = useRef({ next: 1, values: new WeakMap<object, number>() });
+  const identityOf = (value: unknown): number => {
+    if ((typeof value !== "object" || value === null) && typeof value !== "function") return 0;
+    const object = value as object;
+    const existing = identities.current.values.get(object);
+    if (existing) return existing;
+    const created = identities.current.next++;
+    identities.current.values.set(object, created);
+    return created;
+  };
+  const recoveryScopeKey = cardLimitsMutationScopeKey(
     session,
     backendRuntime.error === null ? backendRuntime.environment : undefined,
     card,
     current,
+    identityOf(session),
+    identityOf(card),
+    identityOf(current),
   );
   let inputScopeKey = "INVALID";
   if (current) {
@@ -42,25 +68,49 @@ export function useCardLimitsMutation(
       inputScopeKey = "INVALID";
     }
   }
-  const scopeKey = baseScopeKey ? JSON.stringify([baseScopeKey, inputScopeKey]) : null;
+  const scopeKey = recoveryScopeKey
+    ? JSON.stringify([recoveryScopeKey, identityOf(input), inputScopeKey])
+    : null;
   const [state, dispatch] = useReducer(cardLimitsMutationReducer, initialCardLimitsMutationState);
   const gate = useRef(createCardLimitsMutationGate(scopeKey));
+  const mounted = useRef(false);
   syncCardLimitsMutationScope(gate.current, scopeKey);
   const view = cardLimitsMutationView(state, scopeKey);
+  const recovery = cardLimitsMutationRecoveryState(gate.current, scopeKey, recoveryScopeKey);
+  const visible = {
+    ...view,
+    retryPending: recovery.retryPending,
+    conflictPending: recovery.conflictPending,
+    error:
+      view.error ??
+      (recovery.conflictPending && recoveryScopeKey ? SAFE_LIMITS_UPDATE_CONFLICT_ERROR : null),
+  };
+
+  useEffect(() => {
+    dispatch({ type: "reset", scopeKey });
+  }, [scopeKey]);
 
   useEffect(() => {
     const currentGate = gate.current;
-    dispatch({ type: "reset", scopeKey });
+    mounted.current = true;
     return () => {
-      if (currentGate.scopeKey === scopeKey) syncCardLimitsMutationScope(currentGate, null);
+      mounted.current = false;
+      invalidateCardLimitsMutationGate(currentGate);
     };
-  }, [scopeKey]);
+  }, []);
 
   const submit = useCallback(async (): Promise<boolean> => {
-    if (!scopeKey || !card || !current) return false;
+    if (!scopeKey || !recoveryScopeKey || !card || !current || !recovery.canSubmit) return false;
     let ticket;
     try {
-      ticket = beginCardLimitsMutation(gate.current, scopeKey, current, input);
+      ticket = beginCardLimitsMutation(
+        gate.current,
+        scopeKey,
+        current,
+        input,
+        undefined,
+        recoveryScopeKey,
+      );
     } catch {
       dispatch({ type: "rejected", scopeKey, message: SAFE_LIMITS_UPDATE_ERROR });
       return false;
@@ -75,12 +125,45 @@ export function useCardLimitsMutation(
         ticket.input,
         ticket.idempotencyKey,
       );
-      if (!acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) return false;
+      if (!mounted.current || !acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey))
+        return false;
+      clearCardLimitsMutationRetry(gate.current, ticket.recoveryScopeKey);
       dispatch({ type: "succeeded", requestKey: ticket.requestKey, limits: updated });
       onUpdated(updated);
       return true;
-    } catch {
-      if (acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey)) {
+    } catch (reason) {
+      const currentTicket =
+        mounted.current && acceptsCardLimitsMutationCompletion(gate.current, ticket, scopeKey);
+      if (!currentTicket) return false;
+      if (cardLimitsMutationFailureIsExplicit401(reason)) {
+        clearCardLimitsMutationRetry(gate.current, ticket.recoveryScopeKey);
+        dispatch({
+          type: "failed",
+          requestKey: ticket.requestKey,
+          message: SAFE_LIMITS_UPDATE_ERROR,
+        });
+        if (session) invalidateSession?.(session, "EXPLICIT_401");
+      } else if (
+        cardLimitsMutationFailureIsAmbiguous(reason) &&
+        retainCardLimitsMutationRetry(gate.current, ticket, scopeKey)
+      ) {
+        dispatch({
+          type: "retryable",
+          requestKey: ticket.requestKey,
+          message: SAFE_LIMITS_UPDATE_AMBIGUOUS_ERROR,
+        });
+      } else if (
+        ticket.retry &&
+        cardLimitsMutationFailureIsAmbiguous(reason) &&
+        blockCardLimitsMutation(gate.current, ticket, scopeKey)
+      ) {
+        dispatch({
+          type: "conflicted",
+          requestKey: ticket.requestKey,
+          message: SAFE_LIMITS_UPDATE_CONFLICT_ERROR,
+        });
+      } else {
+        clearCardLimitsMutationRetry(gate.current, ticket.recoveryScopeKey);
         dispatch({
           type: "failed",
           requestKey: ticket.requestKey,
@@ -89,11 +172,26 @@ export function useCardLimitsMutation(
       }
       return false;
     } finally {
-      if (settleCardLimitsMutation(gate.current, ticket, scopeKey)) {
+      if (mounted.current && settleCardLimitsMutation(gate.current, ticket, scopeKey)) {
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [card, current, input, onUpdated, scopeKey]);
+  }, [
+    card,
+    current,
+    input,
+    invalidateSession,
+    onUpdated,
+    recovery.canSubmit,
+    recoveryScopeKey,
+    scopeKey,
+    session,
+  ]);
 
-  return { ...view, allowed: baseScopeKey !== null, submit };
+  return {
+    ...visible,
+    allowed: recoveryScopeKey !== null,
+    canSubmit: recoveryScopeKey !== null && recovery.canSubmit,
+    submit,
+  };
 }

@@ -30,6 +30,7 @@ let sessionState: SessionState;
 let createAlias = "Mounted Virtual";
 let CardsPage: () => ReactElement;
 const navigations: Array<Record<string, unknown>> = [];
+const sessionInvalidations: Array<{ session: BackendSession; reason: string }> = [];
 
 const configuredEnvironment =
   backendRuntime.error === null &&
@@ -191,6 +192,12 @@ function requestPath(input: string | URL | Request): string {
 
 function isCardList(input: string | URL | Request): boolean {
   return requestPath(input) === "/api/v1/cards";
+}
+
+function selectedCardDetailId(input: string | URL | Request, init?: RequestInit): string | null {
+  if (init?.method && init.method !== "GET") return null;
+  const match = requestPath(input).match(/^\/api\/v1\/cards\/([^/]+)$/);
+  return match ? decodeURIComponent(match[1] ?? "") : null;
 }
 
 function isCreate(input: string | URL | Request, init?: RequestInit): boolean {
@@ -364,7 +371,14 @@ async function unmount() {
 }
 
 beforeAll(async () => {
-  mock.module("@/lib/backend-session", () => ({ useBackendSession: () => sessionState }));
+  mock.module("@/lib/backend-session", () => ({
+    useBackendSession: () => ({
+      ...sessionState,
+      invalidate: (expectedSession: BackendSession, reason: string) => {
+        sessionInvalidations.push({ session: expectedSession, reason });
+      },
+    }),
+  }));
   mock.module("@/lib/i18n", () => ({
     useLang: () => ({
       lang: "en",
@@ -396,6 +410,7 @@ afterEach(async () => {
   await unmount();
   globalThis.fetch = originalFetch;
   navigations.length = 0;
+  sessionInvalidations.length = 0;
   createAlias = "Mounted Virtual";
   if (originalDocumentDescriptor) {
     Object.defineProperty(globalThis, "document", originalDocumentDescriptor);
@@ -1894,7 +1909,139 @@ describeConfigured(
       }
     });
 
-    it("never retries a failed mutation or renders Backend error bodies and trace IDs", async () => {
+    it("recovers one ambiguous 409 only through an explicit same-key retry", async () => {
+      installCsrfCookie("csrf-limits-recovery-01");
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) {
+          mutationReads += 1;
+          return mutationReads === 1
+            ? json({ message: internalSecret, provider: providerSecret }, 409, traceSecret)
+            : json(
+                mutableLimits("card:limits.1", {
+                  dailySpendMinor: "60000",
+                  monthlySpendMinor: "600000",
+                  updatedAt: "2026-08-01T01:00:00Z",
+                }),
+              );
+        }
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) return json(balance(balanceCardId));
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) return json(mutableLimits(limitsCardId));
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Retry once to reuse the same request key.");
+      expect(pageText()).toContain("50000");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+
+      await act(async () => {
+        void button("Retry limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      expect(pageText()).toContain("60000");
+      const mutations = calls.filter(({ input, init }) => isLimitsMutation(input, init));
+      expect(mutations.map(uuidHeader)).toEqual([
+        uuidHeader(mutations[0]),
+        uuidHeader(mutations[0]),
+      ]);
+      expect(isUuidV4(uuidHeader(mutations[0]))).toBeTrue();
+      expect(mutations.every(({ init }) => init?.credentials === "include")).toBeTrue();
+      expect(
+        mutations.every(
+          ({ init }) =>
+            new Headers(init?.headers).get("X-CSRF-Token") === "csrf-limits-recovery-01",
+        ),
+      ).toBeTrue();
+    });
+
+    it("locks the exact Card after the same-key retry is also ambiguous until a real Card refresh", async () => {
+      let mutationReads = 0;
+      let cardDetailReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) {
+          mutationReads += 1;
+          if (mutationReads <= 2) {
+            return json({ message: internalSecret, provider: providerSecret }, 503, traceSecret);
+          }
+          return json(
+            mutableLimits("card:limits.1", {
+              dailySpendMinor: "70000",
+              monthlySpendMinor: "700000",
+              updatedAt: "2026-08-01T02:00:00Z",
+            }),
+          );
+        }
+        const cardId = selectedCardDetailId(input, init);
+        if (cardId) {
+          cardDetailReads += 1;
+          return json(card(cardId, "4242", "Owned Limits Card"));
+        }
+        const balanceCardId = selectedCardId(input, "balance");
+        if (balanceCardId) return json(balance(balanceCardId));
+        const limitsCardId = selectedCardId(input, "limits");
+        if (limitsCardId) return json(mutableLimits(limitsCardId));
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      await act(async () => {
+        void button("Retry limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      expect(pageText()).toContain("Refresh this Card before another limits update.");
+      expect(button("Refresh Card first").props.disabled).toBeTrue();
+
+      await setLimit("Daily spend", "70000");
+      await setLimit("Monthly spend", "700000");
+      expect(button("Refresh Card first").props.disabled).toBeTrue();
+      expect(mutationReads).toBe(2);
+
+      await act(async () => {
+        void button("cards.refresh").props.onClick();
+        await flush();
+      });
+      expect(cardDetailReads).toBe(1);
+      expect(button("Apply limits").props.disabled).toBeFalse();
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(3);
+      const keys = calls.filter(({ input, init }) => isLimitsMutation(input, init)).map(uuidHeader);
+      expect(keys[0]).toBe(keys[1]);
+      expect(keys[2]).not.toBe(keys[0]);
+      expect(pageText()).toContain("70000");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+    });
+
+    it("invalidates only the exact owner Session on a current explicit 401", async () => {
+      const firstSession = session({ actorId: "actor-limits-owner" });
       let mutationReads = 0;
       installFetch((input, init) => {
         if (isCardList(input)) {
@@ -1902,7 +2049,62 @@ describeConfigured(
         }
         if (isLimitsMutation(input, init)) {
           mutationReads += 1;
-          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+          return json({ message: internalSecret, provider: providerSecret }, 401, traceSecret);
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount(firstSession);
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(sessionInvalidations).toEqual([{ session: firstSession, reason: "EXPLICIT_401" }]);
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+
+      await unmount();
+      sessionInvalidations.length = 0;
+      const pending = deferred<Response>();
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) return pending.promise;
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount(firstSession);
+      await setLimit("Daily spend", "60000");
+      await setLimit("Monthly spend", "600000");
+      await act(async () => {
+        void button("Apply limits").props.onClick();
+        await flush();
+      });
+      await rerender(session({ actorId: "actor-limits-new-owner" }));
+      await resolvePending(
+        pending,
+        json({ message: internalSecret, provider: providerSecret }, 401, traceSecret),
+      );
+      expect(sessionInvalidations).toHaveLength(0);
+      expect(body()).not.toContain(internalSecret);
+    });
+
+    it("does not retry an explicit failure or render Backend error bodies and trace IDs", async () => {
+      let mutationReads = 0;
+      installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:limits.1", "4242", "Owned Limits Card")]);
+        }
+        if (isLimitsMutation(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 400, traceSecret);
         }
         const balanceCardId = selectedCardId(input, "balance");
         if (balanceCardId) return json(balance(balanceCardId));
