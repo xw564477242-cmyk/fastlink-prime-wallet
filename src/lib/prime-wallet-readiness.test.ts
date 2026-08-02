@@ -23,6 +23,7 @@ describe("Prime Wallet non-production readiness", () => {
         service: "fastlink-prime-wallet",
         environment,
         buildSha: SHA,
+        production: false,
       });
     });
   }
