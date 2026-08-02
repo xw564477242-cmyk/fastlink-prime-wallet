@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import {
+  BackendApiError,
   WALLET_OPERATION_FILTER_VERSION,
   WALLET_OPERATION_PAGE_SIZE,
   WALLET_OPERATION_STATUSES,
@@ -28,7 +29,11 @@ function operationFilterKey(filters: WalletOperationFilterSelection): string {
   return JSON.stringify([WALLET_OPERATION_FILTER_VERSION, filters.type, filters.status]);
 }
 
-function operationScopeKey(session: BackendSession | null, filterKey: string): string | null {
+function operationScopeKey(
+  session: BackendSession | null,
+  filterKey: string,
+  sessionIdentity: number,
+): string | null {
   return session
     ? JSON.stringify([
         session.actorId,
@@ -36,6 +41,7 @@ function operationScopeKey(session: BackendSession | null, filterKey: string): s
         session.tenantId,
         session.customerId,
         session.environment,
+        sessionIdentity,
         "ALL_OWNED_WALLET_ACCOUNTS",
         filterKey,
       ])
@@ -65,63 +71,125 @@ type RefreshInput = {
   filters: WalletOperationFilterSelection;
 };
 
-export function useWalletOperations(session: BackendSession | null) {
+type ActiveWalletOperationRequest = {
+  controller: AbortController;
+  input: RefreshInput;
+  requestKey: string;
+};
+
+function authorizationFailureStatus(reason: unknown): 401 | 403 | 404 | null {
+  if (!(reason instanceof BackendApiError)) return null;
+  return reason.status === 401 || reason.status === 403 || reason.status === 404
+    ? reason.status
+    : null;
+}
+
+export function useWalletOperations(
+  session: BackendSession | null,
+  invalidateSession?: (expectedSession: BackendSession) => void,
+) {
   const [state, dispatch] = useReducer(walletOperationReducer, initialWalletOperationState);
   const [filters, setFilters] = useState<WalletOperationFilterSelection>(defaultFilters);
   const filtersRef = useRef(filters);
   filtersRef.current = filters;
   const requestSequence = useRef(0);
-  const activeRequest = useRef<AbortController | null>(null);
+  const activeRequest = useRef<ActiveWalletOperationRequest | null>(null);
+  const mounted = useRef(false);
+  const currentInput = useRef<RefreshInput | null>(null);
+  const invalidateSessionRef = useRef(invalidateSession);
+  invalidateSessionRef.current = invalidateSession;
+  const sessionIdentity = useRef<{ session: BackendSession | null; generation: number }>({
+    session: null,
+    generation: 0,
+  });
+  if (sessionIdentity.current.session !== session) {
+    sessionIdentity.current = {
+      session,
+      generation: sessionIdentity.current.generation + 1,
+    };
+  }
   const filterKey = operationFilterKey(filters);
-  const scopeKey = operationScopeKey(session, filterKey);
+  const scopeKey = operationScopeKey(session, filterKey, sessionIdentity.current.generation);
   const view = walletOperationViewForScope(state, scopeKey, filterKey);
   const refreshInput = useRef<RefreshInput | null>(null);
+  currentInput.current = session && scopeKey ? { scopeKey, filterKey, session, filters } : null;
   refreshInput.current =
     session && scopeKey && view.scopeReady && !view.loading
       ? { scopeKey, filterKey, session, filters }
       : null;
 
+  const requestIsCurrent = useCallback(
+    (request: ActiveWalletOperationRequest) =>
+      mounted.current &&
+      activeRequest.current === request &&
+      currentInput.current?.session === request.input.session &&
+      currentInput.current.scopeKey === request.input.scopeKey &&
+      currentInput.current.filterKey === request.input.filterKey,
+    [],
+  );
+
   useEffect(() => {
-    activeRequest.current?.abort();
-    const controller = new AbortController();
-    activeRequest.current = controller;
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      activeRequest.current?.controller.abort();
+      activeRequest.current = null;
+      requestSequence.current += 1;
+    };
+  }, []);
+
+  useEffect(() => {
+    activeRequest.current?.controller.abort();
+    activeRequest.current = null;
     const generation = ++requestSequence.current;
     const requestKey = scopeKey
       ? walletOperationRequestKey(scopeKey, filterKey, null, generation)
       : null;
     dispatch({ type: "reset", scopeKey, filterKey, requestKey, loading: scopeKey !== null });
     if (!session || !scopeKey || !requestKey) {
-      activeRequest.current = null;
-      return () => controller.abort();
+      return;
     }
+    const input = { scopeKey, filterKey, session, filters };
+    const request: ActiveWalletOperationRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
     void backendApi
-      .walletOperations(session, operationQuery(filters), controller.signal)
-      .then((page) =>
-        dispatch({ type: "page", requestKey, requestCursor: null, page, append: false }),
-      )
-      .catch((reason) =>
+      .walletOperations(session, operationQuery(filters), request.controller.signal)
+      .then((page) => {
+        if (requestIsCurrent(request)) {
+          dispatch({ type: "page", requestKey, requestCursor: null, page, append: false });
+        }
+      })
+      .catch((reason) => {
+        if (!requestIsCurrent(request)) return;
+        const status = authorizationFailureStatus(reason);
         dispatch({
           type: "failed",
           requestKey,
           message: walletOperationErrorMessage(reason),
           append: false,
-        }),
-      )
+          clearSnapshot: status !== null,
+        });
+        if (status === 401) invalidateSessionRef.current?.(session);
+      })
       .finally(() => {
-        if (activeRequest.current === controller) activeRequest.current = null;
-        dispatch({ type: "settled", requestKey });
+        if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
+        if (activeRequest.current === request) activeRequest.current = null;
       });
     return () => {
-      controller.abort();
-      if (activeRequest.current === controller) activeRequest.current = null;
+      request.controller.abort();
+      if (activeRequest.current === request) activeRequest.current = null;
       if (requestSequence.current === generation) requestSequence.current += 1;
     };
-  }, [filterKey, filters, scopeKey, session]);
+  }, [filterKey, filters, requestIsCurrent, scopeKey, session]);
 
   const changeFilters = useCallback((next: WalletOperationFilterSelection) => {
     if (!validFilters(next) || operationFilterKey(next) === operationFilterKey(filtersRef.current))
       return;
-    activeRequest.current?.abort();
+    activeRequest.current?.controller.abort();
     activeRequest.current = null;
     requestSequence.current += 1;
     filtersRef.current = next;
@@ -131,14 +199,18 @@ export function useWalletOperations(session: BackendSession | null) {
   const refresh = useCallback(() => {
     const input = refreshInput.current;
     if (!input || activeRequest.current !== null) return;
-    const controller = new AbortController();
-    activeRequest.current = controller;
     const requestKey = walletOperationRequestKey(
       input.scopeKey,
       input.filterKey,
       null,
       ++requestSequence.current,
     );
+    const request: ActiveWalletOperationRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
     dispatch({
       type: "refreshing",
       scopeKey: input.scopeKey,
@@ -146,20 +218,26 @@ export function useWalletOperations(session: BackendSession | null) {
       requestKey,
     });
     void backendApi
-      .walletOperations(input.session, operationQuery(input.filters), controller.signal)
-      .then((page) => dispatch({ type: "refreshed", requestKey, page }))
-      .catch(() =>
+      .walletOperations(input.session, operationQuery(input.filters), request.controller.signal)
+      .then((page) => {
+        if (requestIsCurrent(request)) dispatch({ type: "refreshed", requestKey, page });
+      })
+      .catch((reason) => {
+        if (!requestIsCurrent(request)) return;
+        const status = authorizationFailureStatus(reason);
         dispatch({
           type: "refresh-failed",
           requestKey,
           message: "Wallet activity refresh failed",
-        }),
-      )
+          clearSnapshot: status !== null,
+        });
+        if (status === 401) invalidateSessionRef.current?.(input.session);
+      })
       .finally(() => {
-        if (activeRequest.current === controller) activeRequest.current = null;
-        dispatch({ type: "settled", requestKey });
+        if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
+        if (activeRequest.current === request) activeRequest.current = null;
       });
-  }, []);
+  }, [requestIsCurrent]);
 
   const loadMore = useCallback(async () => {
     if (
@@ -181,28 +259,39 @@ export function useWalletOperations(session: BackendSession | null) {
       requestCursor,
       ++requestSequence.current,
     );
-    const controller = new AbortController();
-    activeRequest.current = controller;
+    const input = { scopeKey, filterKey, session, filters };
+    const request: ActiveWalletOperationRequest = {
+      controller: new AbortController(),
+      input,
+      requestKey,
+    };
+    activeRequest.current = request;
     dispatch({ type: "loading-more", requestKey, requestCursor });
     try {
       const page = await backendApi.walletOperations(
         session,
         operationQuery(filters, requestCursor),
-        controller.signal,
+        request.controller.signal,
       );
-      dispatch({ type: "page", requestKey, requestCursor, page, append: true });
+      if (requestIsCurrent(request)) {
+        dispatch({ type: "page", requestKey, requestCursor, page, append: true });
+      }
     } catch (reason) {
+      if (!requestIsCurrent(request)) return;
+      const status = authorizationFailureStatus(reason);
       dispatch({
         type: "failed",
         requestKey,
         message: walletOperationErrorMessage(reason),
         append: true,
+        clearSnapshot: status !== null,
       });
+      if (status === 401) invalidateSessionRef.current?.(session);
     } finally {
-      if (activeRequest.current === controller) activeRequest.current = null;
-      dispatch({ type: "settled", requestKey });
+      if (requestIsCurrent(request)) dispatch({ type: "settled", requestKey });
+      if (activeRequest.current === request) activeRequest.current = null;
     }
-  }, [filterKey, filters, scopeKey, session, state]);
+  }, [filterKey, filters, requestIsCurrent, scopeKey, session, state]);
 
   return {
     ...view,

@@ -22,6 +22,7 @@ type BackendSessionContextValue = {
   connect(credentials: BackendCredentials, mode: "login" | "register"): Promise<void>;
   refresh(): Promise<void>;
   disconnect(): Promise<void>;
+  invalidate(expectedSession: BackendSession): void;
 };
 
 const BackendSessionContext = createContext<BackendSessionContextValue | null>(null);
@@ -55,6 +56,10 @@ export function BackendSessionProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const invalidate = useCallback((expectedSession: BackendSession) => {
+    setSession((current) => (current === expectedSession ? null : current));
+  }, []);
+
   const connect = useCallback(
     async (credentials: BackendCredentials, mode: "login" | "register") => {
       const verified = verifyEnvironment(
@@ -85,8 +90,8 @@ export function BackendSessionProvider({ children }: { children: ReactNode }) {
   }, [verifyEnvironment]);
 
   const value = useMemo(
-    () => ({ checking, session, error, connect, refresh, disconnect }),
-    [checking, session, error, connect, refresh, disconnect],
+    () => ({ checking, session, error, connect, refresh, disconnect, invalidate }),
+    [checking, session, error, connect, refresh, disconnect, invalidate],
   );
 
   return <BackendSessionContext.Provider value={value}>{children}</BackendSessionContext.Provider>;

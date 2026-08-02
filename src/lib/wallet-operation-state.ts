@@ -64,7 +64,7 @@ export type WalletOperationAction =
   | { type: "loading-more"; requestKey: string; requestCursor: string }
   | { type: "refreshing"; scopeKey: string; filterKey: string; requestKey: string }
   | { type: "refreshed"; requestKey: string; page: WalletOperationActivityPage }
-  | { type: "refresh-failed"; requestKey: string; message: string }
+  | { type: "refresh-failed"; requestKey: string; message: string; clearSnapshot?: boolean }
   | {
       type: "page";
       requestKey: string;
@@ -72,7 +72,13 @@ export type WalletOperationAction =
       page: WalletOperationActivityPage;
       append: boolean;
     }
-  | { type: "failed"; requestKey: string; message: string; append: boolean }
+  | {
+      type: "failed";
+      requestKey: string;
+      message: string;
+      append: boolean;
+      clearSnapshot?: boolean;
+    }
   | { type: "settled"; requestKey: string | null };
 
 function paginationFailure(state: WalletOperationState): WalletOperationState {
@@ -142,6 +148,15 @@ export function walletOperationReducer(
       };
     case "refresh-failed":
       if (action.requestKey !== state.activeRequestKey) return state;
+      if (action.clearSnapshot) {
+        return {
+          ...initialWalletOperationState,
+          scopeKey: state.scopeKey,
+          filterKey: state.filterKey,
+          activeRequestKey: state.activeRequestKey,
+          refreshError: action.message,
+        };
+      }
       return { ...state, refreshing: false, refreshError: action.message };
     case "page": {
       if (action.requestKey !== state.activeRequestKey) return state;
@@ -173,6 +188,15 @@ export function walletOperationReducer(
     }
     case "failed":
       if (action.requestKey !== state.activeRequestKey) return state;
+      if (action.clearSnapshot) {
+        return {
+          ...initialWalletOperationState,
+          scopeKey: state.scopeKey,
+          filterKey: state.filterKey,
+          activeRequestKey: state.activeRequestKey,
+          error: action.message,
+        };
+      }
       return {
         ...state,
         items: action.append ? state.items : [],

@@ -37,7 +37,7 @@ export const Route = createFileRoute("/assets/fiat")({
 });
 
 export function WalletAccountsPage() {
-  const { session } = useBackendSession();
+  const { session, invalidate: invalidateSession } = useBackendSession();
   const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const [selectedOperationId, setSelectedOperationId] = useState<string | null>(null);
   const [transactionType, setTransactionType] = useState<WalletTransactionTypeFilter | undefined>();
@@ -91,7 +91,7 @@ export function WalletAccountsPage() {
     selectedTransaction,
     transactions.scopeKey,
   );
-  const operations = useWalletOperations(session);
+  const operations = useWalletOperations(session, invalidateSession);
   const selectedOperation =
     operations.items.find((operation) => operation.id === selectedOperationId) ?? null;
   const operationDetail = useWalletOperationDetail(session, selectedOperation?.id ?? null);

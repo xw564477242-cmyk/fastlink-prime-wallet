@@ -153,6 +153,29 @@ describe("Wallet operation activity state", () => {
     expect(rejected.nextCursor).toBeNull();
   });
 
+  it("clears every verified row and cursor for a current authorization failure", () => {
+    const state = {
+      ...initialWalletOperationState,
+      scopeKey: "scope",
+      filterKey,
+      activeRequestKey: "request-refresh",
+      items: [operation("operation-current")],
+      nextCursor: "cursor-current",
+      cursorTrail: ["cursor-current"],
+      refreshing: true,
+    };
+    const cleared = walletOperationReducer(state, {
+      type: "refresh-failed",
+      requestKey: "request-refresh",
+      message: "Wallet activity refresh failed",
+      clearSnapshot: true,
+    });
+    expect(cleared.items).toEqual([]);
+    expect(cleared.nextCursor).toBeNull();
+    expect(cleared.cursorTrail).toEqual([]);
+    expect(cleared.refreshError).toBe("Wallet activity refresh failed");
+  });
+
   it("never exposes raw error details", () => {
     expect(walletOperationErrorMessage(new Error("tenant t-1 provider journal secret"))).toBe(
       "Wallet activity is unavailable",

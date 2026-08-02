@@ -55,6 +55,13 @@ function page(items: unknown[], nextCursor: string | null = null) {
   });
 }
 
+function errorResponse(status: number): Response {
+  return new Response(JSON.stringify({ message: "must-not-render" }), {
+    status,
+    headers: { "content-type": "application/json", "x-trace-id": "wallet-operation-error" },
+  });
+}
+
 function deferred<T>() {
   let resolve!: (value: T) => void;
   const promise = new Promise<T>((done) => {
@@ -63,8 +70,14 @@ function deferred<T>() {
   return { promise, resolve };
 }
 
-function Harness({ currentSession }: { currentSession: BackendSession | null }) {
-  result = useWalletOperations(currentSession);
+function Harness({
+  currentSession,
+  onInvalidate,
+}: {
+  currentSession: BackendSession | null;
+  onInvalidate?: (expectedSession: BackendSession) => void;
+}) {
+  result = useWalletOperations(currentSession, onInvalidate);
   return null;
 }
 
@@ -190,6 +203,141 @@ describeEnvironment(
       });
       expect(JSON.stringify(result)).not.toContain("operation-stale-secret");
       renderer = null;
+    });
+
+    it("clears the current snapshot and invalidates only the matching session on 401", async () => {
+      const activeSession = session();
+      const invalidated: BackendSession[] = [];
+      let reads = 0;
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+        reads += 1;
+        return reads === 1 ? page([operation("operation-current")]) : errorResponse(401);
+      }) as typeof fetch;
+      await act(async () => {
+        renderer = create(
+          createElement(Harness, {
+            currentSession: activeSession,
+            onInvalidate: (expected) => invalidated.push(expected),
+          }),
+        );
+        await flush();
+      });
+      await act(async () => {
+        result?.refresh();
+        await flush();
+      });
+      expect(result?.items).toEqual([]);
+      expect(result?.nextCursor).toBeNull();
+      expect(invalidated).toEqual([activeSession]);
+      expect(JSON.stringify(result)).not.toContain("must-not-render");
+    });
+
+    for (const status of [403, 404]) {
+      it(`clears the current snapshot without invalidating the session on ${status}`, async () => {
+        const invalidated: BackendSession[] = [];
+        let reads = 0;
+        globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+          reads += 1;
+          return reads === 1 ? page([operation("operation-current")]) : errorResponse(status);
+        }) as typeof fetch;
+        await act(async () => {
+          renderer = create(
+            createElement(Harness, {
+              currentSession: session(),
+              onInvalidate: (expected) => invalidated.push(expected),
+            }),
+          );
+          await flush();
+        });
+        await act(async () => {
+          result?.refresh();
+          await flush();
+        });
+        expect(result?.items).toEqual([]);
+        expect(result?.nextCursor).toBeNull();
+        expect(invalidated).toEqual([]);
+      });
+    }
+
+    for (const status of [408, 500]) {
+      it(`retains the verified snapshot without invalidating the session on ${status}`, async () => {
+        const invalidated: BackendSession[] = [];
+        let reads = 0;
+        globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+          reads += 1;
+          return reads === 1 ? page([operation("operation-current")]) : errorResponse(status);
+        }) as typeof fetch;
+        await act(async () => {
+          renderer = create(
+            createElement(Harness, {
+              currentSession: session(),
+              onInvalidate: (expected) => invalidated.push(expected),
+            }),
+          );
+          await flush();
+        });
+        await act(async () => {
+          result?.refresh();
+          await flush();
+        });
+        expect(result?.items.map(({ id }) => id)).toEqual(["operation-current"]);
+        expect(result?.refreshError).toBe("Wallet activity refresh failed");
+        expect(invalidated).toEqual([]);
+      });
+    }
+
+    it("hides data immediately and rejects a late 401 after equal-valued Session replacement", async () => {
+      const old = deferred<Response>();
+      const invalidated: BackendSession[] = [];
+      let reads = 0;
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+        reads += 1;
+        return reads === 1 ? old.promise : page([operation("operation-new-session")]);
+      }) as typeof fetch;
+      const oldSession = session();
+      const replacementSession = { ...oldSession };
+      const onInvalidate = (expected: BackendSession) => invalidated.push(expected);
+      await act(async () => {
+        renderer = create(createElement(Harness, { currentSession: oldSession, onInvalidate }));
+        await flush();
+      });
+      await act(async () => {
+        renderer?.update(
+          createElement(Harness, { currentSession: replacementSession, onInvalidate }),
+        );
+        expect(result?.items).toEqual([]);
+        await flush();
+      });
+      expect(result?.items.map(({ id }) => id)).toEqual(["operation-new-session"]);
+      await act(async () => {
+        old.resolve(errorResponse(401));
+        await flush();
+      });
+      expect(result?.items.map(({ id }) => id)).toEqual(["operation-new-session"]);
+      expect(invalidated).toEqual([]);
+    });
+
+    it("does not invalidate or write after an unmounted request completes", async () => {
+      const pending = deferred<Response>();
+      const invalidated: BackendSession[] = [];
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) =>
+        pending.promise) as typeof fetch;
+      await act(async () => {
+        renderer = create(
+          createElement(Harness, {
+            currentSession: session(),
+            onInvalidate: (expected) => invalidated.push(expected),
+          }),
+        );
+        await flush();
+      });
+      await act(async () => {
+        renderer?.unmount();
+        renderer = null;
+        pending.resolve(errorResponse(401));
+        await flush();
+      });
+      expect(invalidated).toEqual([]);
     });
   },
 );
