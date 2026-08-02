@@ -2,6 +2,10 @@ import { afterEach, describe, expect, it } from "bun:test";
 import { createElement } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 import { backendRuntime, type BackendSession } from "@/lib/backend-api";
+import {
+  type BackendSessionInvalidationReason,
+  type BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
 import { useCardTimelinePages } from "./use-card-timeline-pages";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
@@ -11,6 +15,10 @@ type HookResult = ReturnType<typeof useCardTimelinePages>;
 type Deferred<T> = {
   promise: Promise<T>;
   resolve(value: T): void;
+};
+type Invalidation = {
+  expectedSession: BackendSession;
+  reason: BackendSessionInvalidationReason;
 };
 
 const originalFetch = globalThis.fetch;
@@ -74,7 +82,7 @@ function Harness({
 }: {
   currentSession: BackendSession | null;
   cardId: string | null;
-  onInvalidate?: (expectedSession: BackendSession) => void;
+  onInvalidate?: BackendSessionInvalidator;
 }) {
   latest = useCardTimelinePages(currentSession, cardId, onInvalidate);
   return null;
@@ -88,7 +96,7 @@ async function flush() {
 async function mount(
   currentSession: BackendSession,
   cardId = "card:owned.1",
-  onInvalidate?: (expectedSession: BackendSession) => void,
+  onInvalidate?: BackendSessionInvalidator,
 ) {
   await act(async () => {
     renderer = create(createElement(Harness, { currentSession, cardId, onInvalidate }));
@@ -99,7 +107,7 @@ async function mount(
 async function update(
   currentSession: BackendSession | null,
   cardId: string | null,
-  onInvalidate?: (expectedSession: BackendSession) => void,
+  onInvalidate?: BackendSessionInvalidator,
 ) {
   await act(async () => {
     renderer?.update(createElement(Harness, { currentSession, cardId, onInvalidate }));
@@ -204,7 +212,7 @@ describeConfigured(
 
     it("clears the current snapshot and invalidates only the matching session on 401", async () => {
       const activeSession = session();
-      const invalidated: BackendSession[] = [];
+      const invalidated: Invalidation[] = [];
       let requestCount = 0;
       globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
         requestCount += 1;
@@ -213,7 +221,9 @@ describeConfigured(
           : response([], null, 401);
       }) as typeof globalThis.fetch;
 
-      await mount(activeSession, "card:owned.1", (expected) => invalidated.push(expected));
+      await mount(activeSession, "card:owned.1", (expectedSession, reason) =>
+        invalidated.push({ expectedSession, reason }),
+      );
       await act(async () => {
         latest?.refresh();
         await flush();
@@ -221,12 +231,12 @@ describeConfigured(
 
       expect(latest?.events).toEqual([]);
       expect(latest?.nextCursor).toBeNull();
-      expect(invalidated).toEqual([activeSession]);
+      expect(invalidated).toEqual([{ expectedSession: activeSession, reason: "EXPLICIT_401" }]);
     });
 
     for (const status of [403, 404]) {
       it(`clears the current snapshot without invalidating the session on ${status}`, async () => {
-        const invalidated: BackendSession[] = [];
+        const invalidated: Invalidation[] = [];
         let requestCount = 0;
         globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
           requestCount += 1;
@@ -235,7 +245,9 @@ describeConfigured(
             : response([], null, status);
         }) as typeof globalThis.fetch;
 
-        await mount(session(), "card:owned.1", (expected) => invalidated.push(expected));
+        await mount(session(), "card:owned.1", (expectedSession, reason) =>
+          invalidated.push({ expectedSession, reason }),
+        );
         await act(async () => {
           latest?.refresh();
           await flush();
@@ -247,9 +259,59 @@ describeConfigured(
       });
     }
 
+    for (const status of [408, 429, 500, 503, 599]) {
+      it(`retains the current snapshot and never invalidates the session on ${status}`, async () => {
+        const invalidated: Invalidation[] = [];
+        let requestCount = 0;
+        globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+          requestCount += 1;
+          return requestCount === 1
+            ? response([event("timeline_event_01")], cursor("timeline_event_01"))
+            : response([], null, status);
+        }) as typeof globalThis.fetch;
+
+        await mount(session(), "card:owned.1", (expectedSession, reason) =>
+          invalidated.push({ expectedSession, reason }),
+        );
+        await act(async () => {
+          latest?.refresh();
+          await flush();
+        });
+
+        expect(latest?.events.map(({ id }) => id)).toEqual(["timeline_event_01"]);
+        expect(latest?.nextCursor).toBe(cursor("timeline_event_01"));
+        expect(latest?.refreshError).toBe("Card lifecycle timeline refresh failed");
+        expect(invalidated).toEqual([]);
+      });
+    }
+
+    it("retains the current snapshot and session on a module failure", async () => {
+      const invalidated: Invalidation[] = [];
+      let requestCount = 0;
+      globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
+        requestCount += 1;
+        if (requestCount === 1) {
+          return response([event("timeline_event_01")], cursor("timeline_event_01"));
+        }
+        throw new Error("module failed");
+      }) as typeof globalThis.fetch;
+
+      await mount(session(), "card:owned.1", (expectedSession, reason) =>
+        invalidated.push({ expectedSession, reason }),
+      );
+      await act(async () => {
+        latest?.refresh();
+        await flush();
+      });
+
+      expect(latest?.events.map(({ id }) => id)).toEqual(["timeline_event_01"]);
+      expect(latest?.refreshError).toBe("Card lifecycle timeline refresh failed");
+      expect(invalidated).toEqual([]);
+    });
+
     it("does not let a late 401 from an equal-valued replaced session clear or invalidate it", async () => {
       const old = deferred<Response>();
-      const invalidated: BackendSession[] = [];
+      const invalidated: Invalidation[] = [];
       let requestCount = 0;
       globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) => {
         requestCount += 1;
@@ -257,7 +319,8 @@ describeConfigured(
       }) as typeof globalThis.fetch;
       const oldSession = session();
       const replacementSession = { ...oldSession };
-      const onInvalidate = (expected: BackendSession) => invalidated.push(expected);
+      const onInvalidate: BackendSessionInvalidator = (expectedSession, reason) =>
+        invalidated.push({ expectedSession, reason });
 
       await mount(oldSession, "card:owned.1", onInvalidate);
       await update(replacementSession, "card:owned.1", onInvalidate);
@@ -270,10 +333,12 @@ describeConfigured(
 
     it("does not invalidate a session after unmount when a 401 completes late", async () => {
       const pending = deferred<Response>();
-      const invalidated: BackendSession[] = [];
+      const invalidated: Invalidation[] = [];
       globalThis.fetch = (async (_input: string | URL | Request, _init?: RequestInit) =>
         pending.promise) as typeof globalThis.fetch;
-      await mount(session(), "card:owned.1", (expected) => invalidated.push(expected));
+      await mount(session(), "card:owned.1", (expectedSession, reason) =>
+        invalidated.push({ expectedSession, reason }),
+      );
       await act(async () => {
         renderer?.unmount();
         renderer = null;

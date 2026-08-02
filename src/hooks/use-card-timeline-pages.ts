@@ -13,6 +13,10 @@ import {
   cardTimelineViewForScope,
   initialCardTimelineState,
 } from "@/lib/card-timeline-state";
+import {
+  backendSessionInvalidationReasonFromError,
+  type BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
 
 type TimelineRefreshInput = {
   scopeKey: string;
@@ -64,7 +68,7 @@ function authorizationFailureStatus(reason: unknown): 401 | 403 | 404 | null {
 export function useCardTimelinePages(
   session: BackendSession | null,
   selectedCardId: string | null,
-  invalidateSession?: (expectedSession: BackendSession) => void,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
   const [state, dispatch] = useReducer(cardTimelineReducer, initialCardTimelineState);
   const [expiryTick, wakeAtExpiry] = useReducer((value: number) => value + 1, 0);
@@ -162,7 +166,10 @@ export function useCardTimelinePages(
             append: false,
             clearSnapshot: status !== null,
           });
-          if (status === 401) invalidateSessionRef.current?.(session);
+          const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+          if (invalidationReason) {
+            invalidateSessionRef.current?.(session, invalidationReason);
+          }
         }
       })
       .finally(() => {
@@ -207,7 +214,10 @@ export function useCardTimelinePages(
             message: "Card lifecycle timeline refresh failed",
             clearSnapshot: status !== null,
           });
-          if (status === 401) invalidateSessionRef.current?.(input.session);
+          const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+          if (invalidationReason) {
+            invalidateSessionRef.current?.(input.session, invalidationReason);
+          }
         }
       })
       .finally(() => {
@@ -260,7 +270,10 @@ export function useCardTimelinePages(
           append: true,
           clearSnapshot: status !== null,
         });
-        if (status === 401) invalidateSessionRef.current?.(session);
+        const invalidationReason = backendSessionInvalidationReasonFromError(reason);
+        if (invalidationReason) {
+          invalidateSessionRef.current?.(session, invalidationReason);
+        }
       }
     } finally {
       if (activeRequest.current === request) activeRequest.current = null;
