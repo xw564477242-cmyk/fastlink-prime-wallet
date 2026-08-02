@@ -3491,10 +3491,14 @@ export const backendApi = {
     return normalizeVirtualCardCreateResponse(card);
   },
 
-  async renewCard(card: WalletCard, idempotencyKey: string): Promise<WalletCard> {
+  async renewCard(
+    card: WalletCard,
+    idempotencyKey: string,
+    signal?: AbortSignal,
+  ): Promise<WalletCard> {
     requireSandboxTestCardMutationRuntime();
     const { path, init } = buildCardRenewRequest(card, idempotencyKey);
-    return normalizeCardRenewResponse(await request<unknown>(path, init), card);
+    return normalizeCardRenewResponse(await request<unknown>(path, { ...init, signal }), card);
   },
 
   async replaceCard(
