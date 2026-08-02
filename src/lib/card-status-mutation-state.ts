@@ -12,7 +12,15 @@ export type CardStatusMutationGate = {
   scopeKey: string | null;
   generation: number;
   activeRequestKey: string | null;
+  retry: CardStatusMutationRetry | null;
+  blocked: boolean;
 };
+
+export type CardStatusMutationRetry = Readonly<{
+  scopeKey: string;
+  action: CardStatusMutationAction;
+  idempotencyKey: string;
+}>;
 
 export type CardStatusMutationTicket = Readonly<{
   scopeKey: string;
@@ -20,6 +28,7 @@ export type CardStatusMutationTicket = Readonly<{
   action: CardStatusMutationAction;
   idempotencyKey: string;
   requestKey: string;
+  retry: boolean;
 }>;
 
 export type CardStatusMutationState = {
@@ -27,6 +36,8 @@ export type CardStatusMutationState = {
   activeRequestKey: string | null;
   busy: boolean;
   error: string | null;
+  retryPending: boolean;
+  conflictPending: boolean;
 };
 
 export const initialCardStatusMutationState: CardStatusMutationState = {
@@ -34,6 +45,8 @@ export const initialCardStatusMutationState: CardStatusMutationState = {
   activeRequestKey: null,
   busy: false,
   error: null,
+  retryPending: false,
+  conflictPending: false,
 };
 
 export function cardStatusMutationScopeKey(
@@ -41,6 +54,8 @@ export function cardStatusMutationScopeKey(
   runtimeEnvironment: FastLinkEnvironment | undefined,
   card: WalletCard | undefined,
   action: CardStatusMutationAction,
+  sessionGeneration = 0,
+  cardGeneration = 0,
 ): string | null {
   if (
     !session ||
@@ -60,6 +75,8 @@ export function cardStatusMutationScopeKey(
     return null;
   }
   return JSON.stringify([
+    sessionGeneration,
+    cardGeneration,
     session.actorId,
     session.expiresAt,
     session.tenantId,
@@ -86,7 +103,7 @@ export function cardStatusMutationScopeKey(
 }
 
 export function createCardStatusMutationGate(scopeKey: string | null): CardStatusMutationGate {
-  return { scopeKey, generation: 0, activeRequestKey: null };
+  return { scopeKey, generation: 0, activeRequestKey: null, retry: null, blocked: false };
 }
 
 export function syncCardStatusMutationScope(
@@ -97,6 +114,16 @@ export function syncCardStatusMutationScope(
   gate.scopeKey = scopeKey;
   gate.generation += 1;
   gate.activeRequestKey = null;
+  gate.retry = null;
+  gate.blocked = false;
+}
+
+export function invalidateCardStatusMutationGate(gate: CardStatusMutationGate): void {
+  gate.scopeKey = null;
+  gate.generation += 1;
+  gate.activeRequestKey = null;
+  gate.retry = null;
+  gate.blocked = true;
 }
 
 export function beginCardStatusMutation(
@@ -110,12 +137,86 @@ export function beginCardStatusMutation(
   },
 ): CardStatusMutationTicket | null {
   syncCardStatusMutationScope(gate, scopeKey);
-  if (gate.activeRequestKey !== null) return null;
-  const idempotencyKey = validateVirtualCardIdempotencyKey(keyFactory());
+  if (gate.activeRequestKey !== null || gate.blocked) return null;
+  const retry = gate.retry;
+  if (retry && (retry.scopeKey !== scopeKey || retry.action !== action)) {
+    gate.retry = null;
+    return null;
+  }
+  const idempotencyKey = retry
+    ? retry.idempotencyKey
+    : validateVirtualCardIdempotencyKey(keyFactory());
+  gate.retry = null;
   gate.generation += 1;
   const requestKey = JSON.stringify([scopeKey, action, idempotencyKey, gate.generation]);
   gate.activeRequestKey = requestKey;
-  return { scopeKey, generation: gate.generation, action, idempotencyKey, requestKey };
+  return {
+    scopeKey,
+    generation: gate.generation,
+    action,
+    idempotencyKey,
+    requestKey,
+    retry: retry !== null,
+  };
+}
+
+export function cardStatusMutationFailureIsAmbiguous(reason: unknown): boolean {
+  if (reason instanceof TypeError) return true;
+  if (!reason || typeof reason !== "object") return false;
+  try {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+    if (!descriptor || !("value" in descriptor) || typeof descriptor.value !== "number") {
+      return false;
+    }
+    return (
+      descriptor.value === 0 ||
+      descriptor.value === 408 ||
+      descriptor.value === 409 ||
+      (descriptor.value >= 500 && descriptor.value <= 599)
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function cardStatusMutationFailureIsExplicit401(reason: unknown): boolean {
+  if (!reason || typeof reason !== "object") return false;
+  try {
+    const descriptor = Object.getOwnPropertyDescriptor(reason, "status");
+    return Boolean(descriptor && "value" in descriptor && descriptor.value === 401);
+  } catch {
+    return false;
+  }
+}
+
+export function retainCardStatusMutationRetry(
+  gate: CardStatusMutationGate,
+  ticket: CardStatusMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (ticket.retry || !acceptsCardStatusMutationCompletion(gate, ticket, currentScopeKey))
+    return false;
+  gate.retry = Object.freeze({
+    scopeKey: ticket.scopeKey,
+    action: ticket.action,
+    idempotencyKey: ticket.idempotencyKey,
+  });
+  return true;
+}
+
+export function clearCardStatusMutationRetry(gate: CardStatusMutationGate): void {
+  gate.retry = null;
+}
+
+export function blockCardStatusMutation(
+  gate: CardStatusMutationGate,
+  ticket: CardStatusMutationTicket,
+  currentScopeKey: string | null,
+): boolean {
+  if (!acceptsCardStatusMutationCompletion(gate, ticket, currentScopeKey)) return false;
+  gate.retry = null;
+  gate.blocked = true;
+  return true;
 }
 
 export function acceptsCardStatusMutationCompletion(
@@ -146,6 +247,8 @@ export type CardStatusMutationActionState =
   | { type: "reset"; scopeKey: string | null }
   | { type: "started"; scopeKey: string; requestKey: string }
   | { type: "failed"; requestKey: string; message: string }
+  | { type: "retryable"; requestKey: string; message: string }
+  | { type: "conflicted"; requestKey: string; message: string }
   | { type: "settled"; requestKey: string };
 
 export function cardStatusMutationReducer(
@@ -161,10 +264,20 @@ export function cardStatusMutationReducer(
         activeRequestKey: action.requestKey,
         busy: true,
         error: null,
+        retryPending: false,
+        conflictPending: false,
       };
     case "failed":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, error: action.message }
+        ? { ...state, error: action.message, retryPending: false, conflictPending: false }
+        : state;
+    case "retryable":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, error: action.message, retryPending: true, conflictPending: false }
+        : state;
+    case "conflicted":
+      return action.requestKey === state.activeRequestKey
+        ? { ...state, error: action.message, retryPending: false, conflictPending: true }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey

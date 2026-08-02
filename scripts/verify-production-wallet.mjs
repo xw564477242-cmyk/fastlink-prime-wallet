@@ -94,6 +94,37 @@ for (const [content, required, reason] of transferRequirements) {
   if (!content.includes(required)) failures.push(`consumer transfer: missing ${reason}`);
 }
 
+const cardStatusMutation = await readFile(
+  new URL("src/lib/card-status-mutation-state.ts", root),
+  "utf8",
+);
+const cardStatusHook = await readFile(
+  new URL("src/hooks/use-card-status-mutation.ts", root),
+  "utf8",
+);
+const cardPage = await readFile(new URL("src/routes/cards.tsx", root), "utf8");
+const cardStatusRequirements = [
+  [backendClient, "requireSandboxTestCardMutationRuntime", "SANDBOX/TEST runtime gate"],
+  [backendClient, 'credentials: "include"', "browser-managed Cookie session"],
+  [backendClient, 'headers.set("X-CSRF-Token", csrf)', "same-origin CSRF header"],
+  [cardStatusMutation, "cardStatusMutationFailureIsAmbiguous", "409 ambiguity classifier"],
+  [cardStatusMutation, "retry.idempotencyKey", "one same-key explicit retry"],
+  [cardStatusMutation, "gate.blocked = true", "post-retry conflict block"],
+  [cardStatusHook, "sessionIdentity.current.generation", "exact Session object generation"],
+  [cardStatusHook, "cardIdentity.current.generation", "exact selected Card generation"],
+  [cardStatusHook, "mounted.current", "unmounted mutation completion guard"],
+  [
+    cardStatusHook,
+    'invalidateSession?.(session, "EXPLICIT_401")',
+    "current Card mutation 401 invalidation",
+  ],
+  [cardPage, "cardStatusMutation.retryPending", "visible explicit retry control"],
+  [cardPage, "cardStatusMutation.conflictPending", "visible conflict isolation"],
+];
+for (const [content, required, reason] of cardStatusRequirements) {
+  if (!content.includes(required)) failures.push(`Card freeze/unfreeze: missing ${reason}`);
+}
+
 if (failures.length) {
   console.error(
     ["Production wallet audit failed:", ...failures.map((item) => `- ${item}`)].join("\n"),

@@ -9,8 +9,12 @@ import {
 import {
   acceptsCardStatusMutationCompletion,
   beginCardStatusMutation,
+  blockCardStatusMutation,
+  cardStatusMutationFailureIsAmbiguous,
+  cardStatusMutationFailureIsExplicit401,
   cardStatusMutationScopeKey,
   createCardStatusMutationGate,
+  retainCardStatusMutationRetry,
   settleCardStatusMutation,
   syncCardStatusMutationScope,
 } from "./card-status-mutation-state";
@@ -124,6 +128,12 @@ describe("Selected Card status mutation environment and scope", () => {
     for (const [nextSession, nextCard, action] of changes) {
       expect(cardStatusMutationScopeKey(nextSession, "SANDBOX", nextCard, action)).not.toBe(scope);
     }
+    expect(cardStatusMutationScopeKey(session(), "SANDBOX", card(), "freeze", 1, 0)).not.toBe(
+      scope,
+    );
+    expect(cardStatusMutationScopeKey(session(), "SANDBOX", card(), "freeze", 0, 1)).not.toBe(
+      scope,
+    );
     const frozen = card({
       status: "frozen",
       capabilities: { ...card().capabilities, freeze: false, unfreeze: true },
@@ -195,5 +205,54 @@ describe("Selected Card status mutation duplicate and stale completion isolation
     expect(second?.idempotencyKey).toBe(keys[1]);
     syncCardStatusMutationScope(gate, null);
     expect(acceptsCardStatusMutationCompletion(gate, second!, null)).toBeFalse();
+  });
+
+  it("allows exactly one explicit same-key retry before blocking the unchanged Card scope", () => {
+    const scope = cardStatusMutationScopeKey(session(), "SANDBOX", card(), "freeze", 3, 5);
+    if (!scope) throw new Error("scope required");
+    const gate = createCardStatusMutationGate(scope);
+    const first = beginCardStatusMutation(gate, scope, "freeze", () => keys[0]!);
+    if (!first) throw new Error("first ticket required");
+    expect(first.retry).toBeFalse();
+    expect(retainCardStatusMutationRetry(gate, first, scope)).toBeTrue();
+    expect(settleCardStatusMutation(gate, first, scope)).toBeTrue();
+
+    const retry = beginCardStatusMutation(gate, scope, "freeze", () => {
+      throw new Error("retry must not create a new idempotency key");
+    });
+    if (!retry) throw new Error("retry ticket required");
+    expect(retry.retry).toBeTrue();
+    expect(retry.idempotencyKey).toBe(first.idempotencyKey);
+    expect(retainCardStatusMutationRetry(gate, retry, scope)).toBeFalse();
+    expect(blockCardStatusMutation(gate, retry, scope)).toBeTrue();
+    expect(settleCardStatusMutation(gate, retry, scope)).toBeTrue();
+    expect(beginCardStatusMutation(gate, scope, "freeze", () => keys[1]!)).toBeNull();
+
+    const refreshedScope = cardStatusMutationScopeKey(session(), "SANDBOX", card(), "freeze", 3, 6);
+    if (!refreshedScope) throw new Error("refreshed scope required");
+    const refreshed = beginCardStatusMutation(gate, refreshedScope, "freeze", () => keys[1]!);
+    expect(refreshed?.idempotencyKey).toBe(keys[1]);
+    expect(refreshed?.retry).toBeFalse();
+  });
+
+  it("classifies only transport, timeout, 409 and server outcomes as ambiguous", () => {
+    expect(cardStatusMutationFailureIsAmbiguous(new TypeError("network unavailable"))).toBeTrue();
+    expect(cardStatusMutationFailureIsAmbiguous(new Error("local validation failed"))).toBeFalse();
+    for (const status of [0, 408, 409, 500, 503, 599]) {
+      expect(cardStatusMutationFailureIsAmbiguous({ status })).toBeTrue();
+    }
+    for (const status of [400, 401, 403, 404, 422, 600]) {
+      expect(cardStatusMutationFailureIsAmbiguous({ status })).toBeFalse();
+    }
+    expect(cardStatusMutationFailureIsExplicit401({ status: 401 })).toBeTrue();
+    expect(cardStatusMutationFailureIsExplicit401({ status: 409 })).toBeFalse();
+    const hostile = Object.create(null) as Record<string, unknown>;
+    Object.defineProperty(hostile, "status", {
+      get: () => {
+        throw new Error("getter");
+      },
+    });
+    expect(cardStatusMutationFailureIsAmbiguous(hostile)).toBeFalse();
+    expect(cardStatusMutationFailureIsExplicit401(hostile)).toBeFalse();
   });
 });

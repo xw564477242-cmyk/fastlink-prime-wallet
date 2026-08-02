@@ -9,41 +9,75 @@ import {
 import {
   acceptsCardStatusMutationCompletion,
   beginCardStatusMutation,
+  blockCardStatusMutation,
+  cardStatusMutationFailureIsAmbiguous,
+  cardStatusMutationFailureIsExplicit401,
   cardStatusMutationReducer,
   cardStatusMutationScopeKey,
   cardStatusMutationView,
+  clearCardStatusMutationRetry,
   createCardStatusMutationGate,
+  invalidateCardStatusMutationGate,
   initialCardStatusMutationState,
+  retainCardStatusMutationRetry,
   settleCardStatusMutation,
   syncCardStatusMutationScope,
 } from "@/lib/card-status-mutation-state";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 const SAFE_STATUS_ERROR = "Card status update failed. Try again.";
+const SAFE_STATUS_AMBIGUOUS_ERROR =
+  "Card status result is uncertain. Retry once to reuse the same request key.";
+const SAFE_STATUS_CONFLICT_ERROR =
+  "Card status could not be confirmed. Refresh this Card before another status update.";
 
 export function useCardStatusMutation(
   session: BackendSession | null,
   card: WalletCard | undefined,
   action: CardStatusMutationAction,
   onUpdated: (card: WalletCard) => void,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
+  const sessionIdentity = useRef({ session, generation: 0 });
+  if (sessionIdentity.current.session !== session) {
+    sessionIdentity.current = {
+      session,
+      generation: sessionIdentity.current.generation + 1,
+    };
+  }
+  const cardIdentity = useRef({ card, generation: 0 });
+  if (cardIdentity.current.card !== card) {
+    cardIdentity.current = {
+      card,
+      generation: cardIdentity.current.generation + 1,
+    };
+  }
   const scopeKey = cardStatusMutationScopeKey(
     session,
     backendRuntime.error === null ? backendRuntime.environment : undefined,
     card,
     action,
+    sessionIdentity.current.generation,
+    cardIdentity.current.generation,
   );
   const [state, dispatch] = useReducer(cardStatusMutationReducer, initialCardStatusMutationState);
   const gate = useRef(createCardStatusMutationGate(scopeKey));
+  const mounted = useRef(false);
   syncCardStatusMutationScope(gate.current, scopeKey);
   const view = cardStatusMutationView(state, scopeKey);
 
   useEffect(() => {
-    const currentGate = gate.current;
     dispatch({ type: "reset", scopeKey });
-    return () => {
-      if (currentGate.scopeKey === scopeKey) syncCardStatusMutationScope(currentGate, null);
-    };
   }, [scopeKey]);
+
+  useEffect(() => {
+    const currentGate = gate.current;
+    mounted.current = true;
+    return () => {
+      mounted.current = false;
+      invalidateCardStatusMutationGate(currentGate);
+    };
+  }, []);
 
   const submit = useCallback(async (): Promise<boolean> => {
     if (!scopeKey || !card) return false;
@@ -57,20 +91,54 @@ export function useCardStatusMutation(
     dispatch({ type: "started", scopeKey, requestKey: ticket.requestKey });
     try {
       const updated = await backendApi.updateCardStatus(card, action, ticket.idempotencyKey);
-      if (!acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey)) return false;
+      if (!mounted.current || !acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey))
+        return false;
+      clearCardStatusMutationRetry(gate.current);
       onUpdated(updated);
       return true;
-    } catch {
-      if (acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey)) {
+    } catch (reason) {
+      const current =
+        mounted.current && acceptsCardStatusMutationCompletion(gate.current, ticket, scopeKey);
+      if (!current) return false;
+      if (cardStatusMutationFailureIsExplicit401(reason)) {
+        clearCardStatusMutationRetry(gate.current);
+        dispatch({ type: "failed", requestKey: ticket.requestKey, message: SAFE_STATUS_ERROR });
+        if (session) invalidateSession?.(session, "EXPLICIT_401");
+      } else if (
+        cardStatusMutationFailureIsAmbiguous(reason) &&
+        retainCardStatusMutationRetry(gate.current, ticket, scopeKey)
+      ) {
+        dispatch({
+          type: "retryable",
+          requestKey: ticket.requestKey,
+          message: SAFE_STATUS_AMBIGUOUS_ERROR,
+        });
+      } else if (
+        ticket.retry &&
+        cardStatusMutationFailureIsAmbiguous(reason) &&
+        blockCardStatusMutation(gate.current, ticket, scopeKey)
+      ) {
+        dispatch({
+          type: "conflicted",
+          requestKey: ticket.requestKey,
+          message: SAFE_STATUS_CONFLICT_ERROR,
+        });
+      } else {
+        clearCardStatusMutationRetry(gate.current);
         dispatch({ type: "failed", requestKey: ticket.requestKey, message: SAFE_STATUS_ERROR });
       }
       return false;
     } finally {
-      if (settleCardStatusMutation(gate.current, ticket, scopeKey)) {
+      if (mounted.current && settleCardStatusMutation(gate.current, ticket, scopeKey)) {
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [action, card, onUpdated, scopeKey]);
+  }, [action, card, invalidateSession, onUpdated, scopeKey, session]);
 
-  return { ...view, allowed: scopeKey !== null, submit };
+  return {
+    ...view,
+    allowed: scopeKey !== null,
+    canSubmit: scopeKey !== null && !view.conflictPending,
+    submit,
+  };
 }
