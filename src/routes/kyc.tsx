@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AlertTriangle, CheckCircle2, Clock3, Loader2, RefreshCw, XCircle } from "lucide-react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { useKycStatus } from "@/hooks/use-kyc-status";
+import { backendRuntime } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 
 export const Route = createFileRoute("/kyc")({
@@ -21,8 +22,8 @@ const statusPresentation = {
 } as const;
 
 export function KycPage() {
-  const { session } = useBackendSession();
-  const kyc = useKycStatus(session);
+  const { session, invalidate } = useBackendSession();
+  const kyc = useKycStatus(session, backendRuntime, invalidate);
   const presentation = kyc.snapshot ? statusPresentation[kyc.snapshot.status] : null;
 
   return (

@@ -163,6 +163,10 @@ export function kycStatusErrorMessage(_reason: unknown): string {
   return "KYC status is temporarily unavailable";
 }
 
+export function kycStatusFailureIsUnauthorized(reason: unknown): boolean {
+  return reason instanceof KycStatusReadError && reason.status === 401;
+}
+
 export function kycStatusViewForScope(state: KycStatusState, scopeKey: string | null) {
   if (state.scopeKey === scopeKey) return { ...state, scopeReady: true };
   return { ...initialKycStatusState, scopeKey, scopeReady: false };
@@ -172,7 +176,7 @@ export type KycStatusAction =
   | { type: "reset"; scopeKey: string | null }
   | { type: "begin"; scopeKey: string; requestKey: string }
   | { type: "loaded"; requestKey: string; snapshot: KycStatusSnapshot }
-  | { type: "failed"; requestKey: string; message: string }
+  | { type: "failed"; requestKey: string; message: string; unauthorized?: boolean }
   | { type: "settled"; requestKey: string };
 
 export function kycStatusReducer(state: KycStatusState, action: KycStatusAction): KycStatusState {
@@ -189,7 +193,11 @@ export function kycStatusReducer(state: KycStatusState, action: KycStatusAction)
         : state;
     case "failed":
       return action.requestKey === state.activeRequestKey
-        ? { ...state, error: action.message }
+        ? {
+            ...state,
+            snapshot: action.unauthorized ? null : state.snapshot,
+            error: action.message,
+          }
         : state;
     case "settled":
       return action.requestKey === state.activeRequestKey

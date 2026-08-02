@@ -1,7 +1,11 @@
 import { describe, expect, it } from "bun:test";
 import type { BackendSession, FastLinkEnvironment } from "./backend-api";
 import {
+  KycStatusReadError,
   fetchKycStatus,
+  initialKycStatusState,
+  kycStatusFailureIsUnauthorized,
+  kycStatusReducer,
   kycStatusSessionReadAllowed,
   parseKycStatusResponse,
   type KycStatusRuntime,
@@ -143,5 +147,38 @@ describe("KYC status strict read contract", () => {
     await expect(
       fetchKycStatus(session(), runtime(), new AbortController().signal, fetcher),
     ).rejects.toMatchObject({ message: "KYC status is unavailable", status: 503 });
+  });
+
+  it("classifies only an explicit HTTP 401 and clears only its current request snapshot", () => {
+    expect(kycStatusFailureIsUnauthorized(new KycStatusReadError("safe", 401))).toBe(true);
+    expect(kycStatusFailureIsUnauthorized(new KycStatusReadError("safe", 403))).toBe(false);
+    expect(kycStatusFailureIsUnauthorized(new Error("401"))).toBe(false);
+
+    const scopeKey = "scope-current";
+    const requestKey = "request-current";
+    const verified = { status: "APPROVED", reviewedAt: null } as const;
+    const current = {
+      ...initialKycStatusState,
+      scopeKey,
+      activeRequestKey: requestKey,
+      snapshot: verified,
+      loading: true,
+    };
+    expect(
+      kycStatusReducer(current, {
+        type: "failed",
+        requestKey,
+        message: "safe",
+        unauthorized: true,
+      }).snapshot,
+    ).toBeNull();
+    expect(
+      kycStatusReducer(current, {
+        type: "failed",
+        requestKey: "request-stale",
+        message: "safe",
+        unauthorized: true,
+      }),
+    ).toEqual(current);
   });
 });

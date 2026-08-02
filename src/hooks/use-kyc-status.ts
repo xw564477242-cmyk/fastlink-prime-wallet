@@ -4,6 +4,7 @@ import {
   fetchKycStatus,
   initialKycStatusState,
   kycStatusErrorMessage,
+  kycStatusFailureIsUnauthorized,
   kycStatusReducer,
   kycStatusRequestKey,
   kycStatusScopeKey,
@@ -26,13 +27,16 @@ type ActiveKycStatusRequest = {
 export function useKycStatus(
   session: BackendSession | null,
   runtime: KycStatusRuntime = backendRuntime,
+  invalidateSession?: (expectedSession: BackendSession) => void,
 ) {
   const [state, dispatch] = useReducer(kycStatusReducer, initialKycStatusState);
   const generationRef = useRef(0);
   const activeRequestRef = useRef<ActiveKycStatusRequest | null>(null);
+  const invalidateSessionRef = useRef(invalidateSession);
   const scopeKey = kycStatusScopeKey(session, runtime);
   const inputRef = useRef<KycStatusInput | null>(null);
   inputRef.current = scopeKey && session ? { scopeKey, session, runtime } : null;
+  invalidateSessionRef.current = invalidateSession;
   const view = kycStatusViewForScope(state, scopeKey);
 
   const refresh = useCallback(() => {
@@ -57,7 +61,14 @@ export function useKycStatus(
       })
       .catch((reason) => {
         if (isCurrent()) {
-          dispatch({ type: "failed", requestKey, message: kycStatusErrorMessage(reason) });
+          const unauthorized = kycStatusFailureIsUnauthorized(reason);
+          dispatch({
+            type: "failed",
+            requestKey,
+            message: kycStatusErrorMessage(reason),
+            unauthorized,
+          });
+          if (unauthorized) invalidateSessionRef.current?.(input.session);
         }
       })
       .finally(() => {

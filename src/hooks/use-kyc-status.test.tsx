@@ -17,6 +17,7 @@ type Deferred<T> = {
 type HarnessProps = {
   currentSession: BackendSession | null;
   runtime: KycStatusRuntime;
+  invalidateSession?: (expectedSession: BackendSession) => void;
 };
 
 const originalFetch = globalThis.fetch;
@@ -70,7 +71,7 @@ function installFetch(
 }
 
 function Harness(props: HarnessProps) {
-  latest = useKycStatus(props.currentSession, props.runtime);
+  latest = useKycStatus(props.currentSession, props.runtime, props.invalidateSession);
   return null;
 }
 
@@ -211,6 +212,72 @@ describe("Mounted KYC status manual refresh", () => {
       expect(latest?.error).toBe("KYC status is temporarily unavailable");
       expect(JSON.stringify(latest)).not.toMatch(/timeout-secret|server-secret|provider/i);
     }
+  });
+
+  it("clears a verified snapshot and invalidates only the current session on an explicit 401", async () => {
+    const activeSession = session();
+    const invalidated: BackendSession[] = [];
+    let call = 0;
+    installFetch(() =>
+      call++ === 0
+        ? response({ status: "APPROVED", reviewedAt: "2026-08-02T01:00:00.000Z" })
+        : new Response('{"message":"private-auth-detail"}', { status: 401 }),
+    );
+    await mount({
+      currentSession: activeSession,
+      runtime: runtime(),
+      invalidateSession: (expected) => invalidated.push(expected),
+    });
+
+    await act(async () => {
+      latest?.refresh();
+      await flush();
+    });
+    expect(latest?.snapshot?.status).toBe("APPROVED");
+
+    await act(async () => {
+      latest?.refresh();
+      await flush();
+    });
+    expect(latest?.snapshot).toBeNull();
+    expect(latest?.loading).toBe(false);
+    expect(latest?.error).toBe("KYC status is temporarily unavailable");
+    expect(invalidated).toEqual([activeSession]);
+    expect(JSON.stringify(latest)).not.toContain("private-auth-detail");
+  });
+
+  it("a late 401 after scope replacement or unmount cannot invalidate the new session or write state", async () => {
+    const invalidated: BackendSession[] = [];
+    const first = deferred<Response>();
+    const second = deferred<Response>();
+    const calls = installFetch(() => (calls.length === 1 ? first.promise : second.promise));
+    const invalidateSession = (expected: BackendSession) => invalidated.push(expected);
+    let props = await mount({ invalidateSession });
+
+    await act(async () => {
+      latest?.refresh();
+      await flush();
+    });
+    const replacement = session("SANDBOX", { actorId: "actor-kyc-new-session" });
+    props = { ...props, currentSession: replacement };
+    await update(props);
+    first.resolve(new Response("{}", { status: 401 }));
+    await first.promise;
+    await flush();
+    expect(invalidated).toEqual([]);
+    expect(latest?.snapshot).toBeNull();
+    expect(latest?.error).toBeNull();
+    expect(latest?.loading).toBe(false);
+
+    await act(async () => {
+      latest?.refresh();
+      await flush();
+    });
+    await unmount();
+    second.resolve(new Response("{}", { status: 401 }));
+    await second.promise;
+    await flush();
+    expect(invalidated).toEqual([]);
   });
 
   it("aborts and rejects late writes after session, scope, environment and mount changes", async () => {
