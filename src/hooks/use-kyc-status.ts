@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from "react";
 import { backendRuntime, type BackendSession } from "@/lib/backend-api";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 import {
   fetchKycStatus,
   initialKycStatusState,
@@ -27,13 +28,26 @@ type ActiveKycStatusRequest = {
 export function useKycStatus(
   session: BackendSession | null,
   runtime: KycStatusRuntime = backendRuntime,
-  invalidateSession?: (expectedSession: BackendSession) => void,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
   const [state, dispatch] = useReducer(kycStatusReducer, initialKycStatusState);
   const generationRef = useRef(0);
   const activeRequestRef = useRef<ActiveKycStatusRequest | null>(null);
   const invalidateSessionRef = useRef(invalidateSession);
-  const scopeKey = kycStatusScopeKey(session, runtime);
+  const sessionIdentityRef = useRef<{ session: BackendSession | null; generation: number }>({
+    session: null,
+    generation: 0,
+  });
+  if (sessionIdentityRef.current.session !== session) {
+    sessionIdentityRef.current = {
+      session,
+      generation: sessionIdentityRef.current.generation + 1,
+    };
+  }
+  const semanticScopeKey = kycStatusScopeKey(session, runtime);
+  const scopeKey = semanticScopeKey
+    ? JSON.stringify([semanticScopeKey, sessionIdentityRef.current.generation])
+    : null;
   const inputRef = useRef<KycStatusInput | null>(null);
   inputRef.current = scopeKey && session ? { scopeKey, session, runtime } : null;
   invalidateSessionRef.current = invalidateSession;
@@ -68,7 +82,9 @@ export function useKycStatus(
             message: kycStatusErrorMessage(reason),
             unauthorized,
           });
-          if (unauthorized) invalidateSessionRef.current?.(input.session);
+          if (unauthorized) {
+            invalidateSessionRef.current?.(input.session, "EXPLICIT_401");
+          }
         }
       })
       .finally(() => {

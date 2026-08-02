@@ -2,6 +2,10 @@ import { afterEach, describe, expect, it } from "bun:test";
 import { createElement } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 import type { BackendSession, FastLinkEnvironment } from "@/lib/backend-api";
+import type {
+  BackendSessionInvalidationReason,
+  BackendSessionInvalidator,
+} from "@/lib/backend-session-policy";
 import type { KycStatusRuntime, KycStatusSnapshot } from "@/lib/kyc-status-state";
 import { useKycStatus } from "./use-kyc-status";
 
@@ -17,7 +21,11 @@ type Deferred<T> = {
 type HarnessProps = {
   currentSession: BackendSession | null;
   runtime: KycStatusRuntime;
-  invalidateSession?: (expectedSession: BackendSession) => void;
+  invalidateSession?: BackendSessionInvalidator;
+};
+type Invalidation = {
+  expectedSession: BackendSession;
+  reason: BackendSessionInvalidationReason;
 };
 
 const originalFetch = globalThis.fetch;
@@ -188,35 +196,44 @@ describe("Mounted KYC status manual refresh", () => {
     expect(latest?.error).toBeNull();
   });
 
-  it("retains only the same-scope verified snapshot across 408, 5xx and parse failures", async () => {
+  it("retains the same-scope snapshot and session across 408, 429, 5xx and parse failures", async () => {
     const verified = { status: "PENDING", reviewedAt: null } as const;
+    const invalidated: Invalidation[] = [];
     const failures = [
       new Response('{"message":"timeout-secret"}', { status: 408 }),
+      new Response('{"message":"rate-secret"}', { status: 429 }),
+      new Response('{"message":"server-secret"}', { status: 500 }),
       new Response('{"message":"server-secret"}', { status: 503 }),
+      new Response('{"message":"server-secret"}', { status: 599 }),
       new Response('{"status":"APPROVED","reviewedAt":null,"secret":true}', { status: 200 }),
     ];
     let call = 0;
     installFetch(() => (call++ === 0 ? response(verified) : failures.shift()!));
-    await mount();
+    await mount({
+      invalidateSession: (expectedSession, reason) => invalidated.push({ expectedSession, reason }),
+    });
     await act(async () => {
       latest?.refresh();
       await flush();
     });
 
-    for (let index = 0; index < 3; index += 1) {
+    for (let index = 0; index < 6; index += 1) {
       await act(async () => {
         latest?.refresh();
         await flush();
       });
       expect(latest?.snapshot).toEqual(verified);
       expect(latest?.error).toBe("KYC status is temporarily unavailable");
-      expect(JSON.stringify(latest)).not.toMatch(/timeout-secret|server-secret|provider/i);
+      expect(JSON.stringify(latest)).not.toMatch(
+        /timeout-secret|rate-secret|server-secret|provider/i,
+      );
+      expect(invalidated).toEqual([]);
     }
   });
 
   it("clears a verified snapshot and invalidates only the current session on an explicit 401", async () => {
     const activeSession = session();
-    const invalidated: BackendSession[] = [];
+    const invalidated: Invalidation[] = [];
     let call = 0;
     installFetch(() =>
       call++ === 0
@@ -226,7 +243,7 @@ describe("Mounted KYC status manual refresh", () => {
     await mount({
       currentSession: activeSession,
       runtime: runtime(),
-      invalidateSession: (expected) => invalidated.push(expected),
+      invalidateSession: (expectedSession, reason) => invalidated.push({ expectedSession, reason }),
     });
 
     await act(async () => {
@@ -242,25 +259,29 @@ describe("Mounted KYC status manual refresh", () => {
     expect(latest?.snapshot).toBeNull();
     expect(latest?.loading).toBe(false);
     expect(latest?.error).toBe("KYC status is temporarily unavailable");
-    expect(invalidated).toEqual([activeSession]);
+    expect(invalidated).toEqual([{ expectedSession: activeSession, reason: "EXPLICIT_401" }]);
     expect(JSON.stringify(latest)).not.toContain("private-auth-detail");
   });
 
-  it("a late 401 after scope replacement or unmount cannot invalidate the new session or write state", async () => {
-    const invalidated: BackendSession[] = [];
+  it("a late 401 after equal-valued session replacement or unmount cannot write or invalidate", async () => {
+    const invalidated: Invalidation[] = [];
     const first = deferred<Response>();
     const second = deferred<Response>();
     const calls = installFetch(() => (calls.length === 1 ? first.promise : second.promise));
-    const invalidateSession = (expected: BackendSession) => invalidated.push(expected);
+    const invalidateSession: BackendSessionInvalidator = (expectedSession, reason) =>
+      invalidated.push({ expectedSession, reason });
     let props = await mount({ invalidateSession });
 
     await act(async () => {
       latest?.refresh();
       await flush();
     });
-    const replacement = session("SANDBOX", { actorId: "actor-kyc-new-session" });
+    const originalSession = props.currentSession;
+    if (!originalSession) throw new Error("Expected mounted KYC session");
+    const replacement = { ...originalSession };
     props = { ...props, currentSession: replacement };
     await update(props);
+    expect(calls[0]?.init?.signal?.aborted).toBe(true);
     first.resolve(new Response("{}", { status: 401 }));
     await first.promise;
     await flush();
