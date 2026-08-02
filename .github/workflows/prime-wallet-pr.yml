@@ -188,14 +188,6 @@ jobs:
       - name: Run mounted selected Card replacement safety in TEST
         run: bun run test:card-replace-mounted:test
 
-      - name: Record Card replacement post-confirmation evidence
-        shell: bash
-        run: |
-          set -euo pipefail
-          printf '{"format":"fastlink-prime-wallet-card-replacement-postchain-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"runtimeApi":"/api","automaticPostRetry":false,"scopeBindings":["sessionObjectGeneration","actorId","sessionExpiry","tenantId","customerId","environment","predecessorPublicGeneration","successorPublicGeneration","requestGeneration"],"boundedConfirmation":{"maxPages":25,"terminalPageRequired":true,"predecessorCount":0,"successorCount":1,"exactSuccessorGeneration":true,"duplicateCardIds":"reject","repeatedCursor":"reject"},"successPolicy":"select-successor-and-refresh-card-balance-limits-timeline","unconfirmedPolicy":"invalidate-card-list-balance-limits-timeline-and-lock-exact-scope","historyPolicy":"route-local-hooks-remount-and-bind-to-selected-successor-card","authorizationPolicy":"current-explicit-401-invalidates-exact-session-stale-or-unmounted-results-zero-write","directProviderCalls":0}\n' "${{ github.event.pull_request.head.sha }}" > card-replacement-postchain-evidence.json
-          sha256sum card-replacement-postchain-evidence.json src/lib/backend-api.ts src/lib/backend-session-policy.ts src/lib/card-replace-state.ts src/lib/card-replace-adversarial.test.ts src/hooks/use-card-replace.ts src/hooks/use-card-list-pages.ts src/routes/cards.tsx src/routes/-cards.mounted-virtual-create.test.tsx src/routes/history.tsx src/hooks/use-card-transaction-pages.ts src/hooks/use-card-transaction-detail.ts > card-replacement-postchain-evidence.sha256
-          sha256sum --check card-replacement-postchain-evidence.sha256
-
       - name: Run mounted FX quote preview safety in SANDBOX
         run: bun run test:fx-quote-mounted:sandbox
 
@@ -258,8 +250,6 @@ jobs:
             readiness-evidence.json
             fx-quote-evidence.json
             consumer-transfer-evidence.json
-            card-replacement-postchain-evidence.json
-            card-replacement-postchain-evidence.sha256
             scripts/verify-production-wallet.mjs
             scripts/verify-prime-wallet-readiness.mjs
             scripts/readiness-deployment-contract.test.mjs
