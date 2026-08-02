@@ -2,6 +2,7 @@ import { afterEach, beforeAll, describe, expect, it, mock } from "bun:test";
 import { createElement, type ReactElement } from "react";
 import { act, create, type ReactTestInstance, type ReactTestRenderer } from "react-test-renderer";
 import { backendRuntime, type BackendSession, type FastLinkEnvironment } from "@/lib/backend-api";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
@@ -19,6 +20,7 @@ type SessionState = {
   connect(): Promise<void>;
   refresh(): Promise<void>;
   disconnect(): Promise<void>;
+  invalidate: BackendSessionInvalidator;
 };
 
 const originalFetch = globalThis.fetch;
@@ -29,6 +31,7 @@ const traceSecret = "trace-secret-must-not-render";
 const internalSecret = "internal-secret-must-not-render";
 let renderer: ReactTestRenderer | null = null;
 let sessionState: SessionState;
+let sessionInvalidations: Array<{ session: BackendSession; reason: string }> = [];
 let InternalWalletTransferPage: () => ReactElement;
 
 const configuredTestEnvironment =
@@ -161,6 +164,9 @@ async function mount(currentSession: BackendSession | null) {
     connect: async () => undefined,
     refresh: async () => undefined,
     disconnect: async () => undefined,
+    invalidate: (expectedSession, reason) => {
+      sessionInvalidations.push({ session: expectedSession, reason });
+    },
   };
   await act(async () => {
     renderer = create(createElement(InternalWalletTransferPage));
@@ -233,6 +239,7 @@ beforeAll(async () => {
 afterEach(async () => {
   await unmount();
   globalThis.fetch = originalFetch;
+  sessionInvalidations = [];
 });
 
 const describeConfiguredEnvironment = configuredTestEnvironment ? describe : describe.skip;
@@ -262,6 +269,7 @@ describeConfiguredEnvironment(
 
     it("synchronously hides scoped accounts, receipt, busy and error for every identity change and logout", async () => {
       const changes: Array<{ label: string; next: BackendSession | null }> = [
+        { label: "same-field Session object", next: session() },
         { label: "actor", next: session({ actorId: "actor-mounted-transfer-02" }) },
         { label: "tenant", next: session({ tenantId: "tenant-mounted-transfer-02" }) },
         { label: "customer", next: session({ customerId: "customer-mounted-transfer-02" }) },
@@ -319,9 +327,9 @@ describeConfiguredEnvironment(
           void button("Create transfer operation").props.onClick();
           await flush();
         });
-        expect(responseBody()).toContain("Wallet transfer was not accepted");
+        expect(responseBody()).toContain("Transfer result is uncertain");
         await updateSession(change.next);
-        expect(responseBody(), change.label).not.toContain("Wallet transfer was not accepted");
+        expect(responseBody(), change.label).not.toContain("Transfer result is uncertain");
         await unmount();
 
         const nextAccountsAfterReceipt = deferred<Response>();
@@ -385,6 +393,112 @@ describeConfiguredEnvironment(
         /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
       );
       expect(keys[1]).not.toBe(keys[0]);
+    });
+
+    it("offers only an explicit exact-key retry for 0, 408 and 5xx ambiguity", async () => {
+      for (const failure of [0, 408, 503]) {
+        const calls = installFetch((input, init) => {
+          if (init?.method === "POST") {
+            const postCount = calls.filter((call) => call.init?.method === "POST").length;
+            return postCount === 1
+              ? failure === 0
+                ? Promise.reject(new Error("network ambiguity"))
+                : jsonResponse({ message: "safe" }, failure)
+              : jsonResponse(operationWire(), 201);
+          }
+          return jsonResponse([accountWire()]);
+        });
+        await mount(session());
+        await enterTransfer();
+        await act(async () => {
+          void button("Create transfer operation").props.onClick();
+          await flush();
+        });
+        const firstPosts = calls.filter(({ init }) => init?.method === "POST");
+        expect(firstPosts, String(failure)).toHaveLength(1);
+        expect(responseBody(), String(failure)).toContain("Retry same transfer request");
+        expect(responseBody(), String(failure)).toContain("Inputs are locked");
+        await act(flush);
+        expect(
+          calls.filter(({ init }) => init?.method === "POST"),
+          String(failure),
+        ).toHaveLength(1);
+
+        await act(async () => {
+          void button("Retry same transfer request").props.onClick();
+          await flush();
+        });
+        const posts = calls.filter(({ init }) => init?.method === "POST");
+        expect(posts, String(failure)).toHaveLength(2);
+        expect(new Headers(posts[1]?.init?.headers).get("idempotency-key")).toBe(
+          new Headers(posts[0]?.init?.headers).get("idempotency-key"),
+        );
+        expect(posts[1]?.init?.body).toBe(posts[0]?.init?.body);
+        expect(responseBody(), String(failure)).toContain("Wallet operation accepted");
+        await unmount();
+      }
+    });
+
+    it("invalidates only the exact current Session on transfer or status 401", async () => {
+      installFetch((input, init) =>
+        init?.method === "POST"
+          ? jsonResponse({ message: "expired" }, 401)
+          : jsonResponse([accountWire()]),
+      );
+      const active = session();
+      await mount(active);
+      await enterTransfer();
+      await act(async () => {
+        void button("Create transfer operation").props.onClick();
+        await flush();
+      });
+      expect(sessionInvalidations).toEqual([{ session: active, reason: "EXPLICIT_401" }]);
+      await unmount();
+
+      sessionInvalidations = [];
+      installFetch((input, init) => {
+        if (init?.method === "POST") return jsonResponse(operationWire(), 201);
+        if (String(input).includes("/v1/wallet/operations/")) {
+          return jsonResponse({ message: "expired" }, 401);
+        }
+        return jsonResponse([accountWire()]);
+      });
+      const statusSession = session();
+      await mount(statusSession);
+      await enterTransfer();
+      await act(async () => {
+        void button("Create transfer operation").props.onClick();
+        await flush();
+      });
+      await act(async () => {
+        void button("Refresh operation status").props.onClick();
+        await flush();
+      });
+      expect(sessionInvalidations).toEqual([{ session: statusSession, reason: "EXPLICIT_401" }]);
+    });
+
+    it("makes stale or unmounted transfer 401 completions zero-write", async () => {
+      for (const mode of ["replacement", "unmount"] as const) {
+        const pending = deferred<Response>();
+        installFetch((input, init) =>
+          init?.method === "POST" ? pending.promise : jsonResponse([accountWire()]),
+        );
+        await mount(session());
+        await enterTransfer();
+        await act(async () => {
+          void button("Create transfer operation").props.onClick();
+          await flush();
+        });
+        if (mode === "replacement") {
+          await updateSession(session({ actorId: "actor-mounted-transfer-02" }));
+        } else {
+          await unmount();
+        }
+        await resolvePending(pending, jsonResponse({ message: "late-401-secret" }, 401));
+        expect(sessionInvalidations, mode).toEqual([]);
+        expect(responseBody(), mode).not.toContain("late-401-secret");
+        await unmount();
+      }
     });
 
     it("ignores stale account, submit and status success/error/finally with zero page pollution", async () => {

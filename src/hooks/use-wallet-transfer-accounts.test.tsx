@@ -3,6 +3,7 @@ import { createElement } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 import { backendRuntime, type BackendSession } from "@/lib/backend-api";
 import { useWalletTransferAccounts } from "./use-wallet-transfer-accounts";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;
@@ -24,6 +25,10 @@ const configuredEnvironment =
     : null;
 let renderer: ReactTestRenderer | null = null;
 let latest: HookResult | null = null;
+let invalidations: Array<{ session: BackendSession; reason: string }> = [];
+const invalidate: BackendSessionInvalidator = (expectedSession, reason) => {
+  invalidations.push({ session: expectedSession, reason });
+};
 
 function environment(): "SANDBOX" | "TEST" {
   if (backendRuntime.environment !== "SANDBOX" && backendRuntime.environment !== "TEST") {
@@ -87,7 +92,7 @@ function installFetch(
 }
 
 function Harness({ currentSession }: { currentSession: BackendSession | null }) {
-  latest = useWalletTransferAccounts(currentSession);
+  latest = useWalletTransferAccounts(currentSession, invalidate);
   return null;
 }
 
@@ -125,6 +130,7 @@ afterEach(async () => {
   await unmount();
   globalThis.fetch = originalFetch;
   Date.now = originalDateNow;
+  invalidations = [];
 });
 
 const describeEnvironment = configuredEnvironment ? describe : describe.skip;
@@ -167,6 +173,8 @@ describeEnvironment(
 
     it("fails closed for 4xx and malformed responses without exposing raw error details", async () => {
       for (const status of [400, 401, 403, 404, 409, 422]) {
+        invalidations = [];
+        const activeSession = session();
         let reads = 0;
         installFetch(() => {
           reads += 1;
@@ -174,7 +182,7 @@ describeEnvironment(
             ? jsonResponse([accountWire()])
             : jsonResponse({ message: `provider-secret-${status}` }, status);
         });
-        await mount();
+        await mount(activeSession);
         expect(latest?.accounts).toHaveLength(1);
         await act(async () => {
           latest?.refresh();
@@ -183,6 +191,9 @@ describeEnvironment(
         expect(latest?.accounts, String(status)).toEqual([]);
         expect(latest?.error, String(status)).toBe("Wallet accounts are unavailable");
         expect(JSON.stringify(latest), String(status)).not.toContain(`provider-secret-${status}`);
+        expect(invalidations, String(status)).toEqual(
+          status === 401 ? [{ session: activeSession, reason: "EXPLICIT_401" }] : [],
+        );
         await unmount();
       }
 
@@ -264,6 +275,7 @@ describeEnvironment(
       expect(latest?.accounts[0]?.id).toBe("account-current-02");
       expect(latest?.error).toBeNull();
       expect(JSON.stringify(latest)).not.toContain("stale-401-secret");
+      expect(invalidations).toEqual([]);
     });
 
     it("actively aborts on logout and unmount, blocks duplicate refreshes and rejects expiry-time writes", async () => {

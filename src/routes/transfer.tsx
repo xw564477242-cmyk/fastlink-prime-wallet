@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeftRight, ChevronLeft, Loader2, RefreshCw, ShieldCheck, Wallet } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { useWalletTransferAccounts } from "@/hooks/use-wallet-transfer-accounts";
 import {
@@ -30,8 +30,15 @@ export const Route = createFileRoute("/transfer")({
 });
 
 export function InternalWalletTransferPage() {
-  const { checking, session } = useBackendSession();
-  const accounts = useWalletTransferAccounts(session);
+  const { checking, session, invalidate } = useBackendSession();
+  const sessionIdentity = useRef({ session, generation: 0 });
+  if (sessionIdentity.current.session !== session) {
+    sessionIdentity.current = {
+      session,
+      generation: sessionIdentity.current.generation + 1,
+    };
+  }
+  const accounts = useWalletTransferAccounts(session, invalidate);
   const refreshAccounts = accounts.refresh;
   const [sourceAccountId, setSourceAccountId] = useState("");
   const [destinationAccountId, setDestinationAccountId] = useState("");
@@ -53,6 +60,7 @@ export function InternalWalletTransferPage() {
   const runtimeEnvironment = backendRuntime.error === null ? backendRuntime.environment : undefined;
   const sessionContextKey = walletTransferSessionAllowed(session, runtimeEnvironment)
     ? JSON.stringify([
+        sessionIdentity.current.generation,
         session?.actorId,
         session?.expiresAt ?? null,
         session?.tenantId,
@@ -98,7 +106,7 @@ export function InternalWalletTransferPage() {
     },
     [receiptContextKey, refreshAccounts, sessionContextKey, source],
   );
-  const transfer = useWalletTransferMutation(session, source, input, handleAccepted);
+  const transfer = useWalletTransferMutation(session, source, input, handleAccepted, invalidate);
   const handleStatusRefreshed = useCallback((operation: WalletOperationActivity) => {
     setReceipt((current) =>
       current && current.operation.id === operation.id ? { ...current, operation } : current,
@@ -108,19 +116,23 @@ export function InternalWalletTransferPage() {
     session,
     visibleReceipt ? receipt : null,
     handleStatusRefreshed,
+    invalidate,
   );
   const runtimeAllowed =
     backendRuntime.error === null && isVirtualCardCreateEnvironment(backendRuntime.environment);
 
   const changeSource = (value: string) => {
+    if (transfer.retryPending) return;
     setReceipt(null);
     setSourceAccountId(value);
   };
   const changeDestination = (value: string) => {
+    if (transfer.retryPending) return;
     setReceipt(null);
     setDestinationAccountId(value);
   };
   const changeAmount = (value: string) => {
+    if (transfer.retryPending) return;
     setReceipt(null);
     setAmount(value);
   };
@@ -167,6 +179,7 @@ export function InternalWalletTransferPage() {
               <select
                 value={sourceAccountId}
                 onChange={(event) => changeSource(event.target.value)}
+                disabled={transfer.busy || transfer.retryPending}
                 className="w-full rounded-2xl border border-border/60 bg-background px-4 py-3 text-sm outline-none focus:border-primary"
               >
                 {activeAccounts.map((account) => (
@@ -195,6 +208,7 @@ export function InternalWalletTransferPage() {
                 type="text"
                 value={destinationAccountId}
                 onChange={(event) => changeDestination(event.target.value)}
+                disabled={transfer.busy || transfer.retryPending}
                 autoComplete="off"
                 spellCheck={false}
                 placeholder="Exact accountId from the recipient"
@@ -208,6 +222,7 @@ export function InternalWalletTransferPage() {
                 inputMode="decimal"
                 value={amount}
                 onChange={(event) => changeAmount(event.target.value)}
+                disabled={transfer.busy || transfer.retryPending}
                 autoComplete="off"
                 placeholder="0.00"
                 className="w-full rounded-2xl border border-border/60 bg-background px-4 py-3 text-sm tabular-nums outline-none focus:border-primary"
@@ -234,8 +249,18 @@ export function InternalWalletTransferPage() {
               ) : (
                 <ShieldCheck className="h-4 w-4" />
               )}
-              {transfer.busy ? "Submitting one request…" : "Create transfer operation"}
+              {transfer.busy
+                ? "Submitting one request…"
+                : transfer.retryPending
+                  ? "Retry same transfer request"
+                  : "Create transfer operation"}
             </button>
+            {transfer.retryPending && (
+              <p className="text-center text-[10px] text-muted-foreground">
+                Inputs are locked. This explicit retry reuses the same Idempotency-Key; no automatic
+                retry is running.
+              </p>
+            )}
           </section>
         )}
 
