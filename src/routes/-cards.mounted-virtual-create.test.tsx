@@ -19,6 +19,7 @@ type SessionState = {
 };
 
 const originalFetch = globalThis.fetch;
+const originalDocumentDescriptor = Object.getOwnPropertyDescriptor(globalThis, "document");
 const traceSecret = "trace-create-secret-must-not-render";
 const providerSecret = "provider-create-secret-must-not-render";
 const walletSecret = "wallet-create-secret-must-not-render";
@@ -236,6 +237,13 @@ function installFetch(
   return calls;
 }
 
+function installCsrfCookie(value: string) {
+  Object.defineProperty(globalThis, "document", {
+    configurable: true,
+    value: { cookie: `fastlink_csrf=${encodeURIComponent(value)}` },
+  });
+}
+
 function publicReadResponse(input: string | URL | Request): Response | null {
   const balanceCardId = selectedCardId(input, "balance");
   if (balanceCardId) return json(balance(balanceCardId));
@@ -389,6 +397,11 @@ afterEach(async () => {
   globalThis.fetch = originalFetch;
   navigations.length = 0;
   createAlias = "Mounted Virtual";
+  if (originalDocumentDescriptor) {
+    Object.defineProperty(globalThis, "document", originalDocumentDescriptor);
+  } else {
+    Reflect.deleteProperty(globalThis, "document");
+  }
 });
 
 const describeConfigured = configuredEnvironment ? describe : describe.skip;
@@ -1287,6 +1300,7 @@ describeConfigured(
   `Mounted selected Card freeze and unfreeze (${configuredEnvironment ?? "ENVIRONMENT_REQUIRED"})`,
   () => {
     it("sends at most one mutation per click with a fresh UUIDv4 and strict action transition", async () => {
+      installCsrfCookie("csrf-status-contract-01");
       const pending = [deferred<Response>(), deferred<Response>()];
       let mutationReads = 0;
       const calls = installFetch((input, init) => {
@@ -1338,10 +1352,18 @@ describeConfigured(
       expect(keys.every(isUuidV4)).toBeTrue();
       expect(new Set(keys).size).toBe(2);
       expect(mutations.every(({ init }) => init?.body === undefined)).toBeTrue();
+      expect(mutations.every(({ init }) => init?.credentials === "include")).toBeTrue();
+      expect(
+        mutations.every(
+          ({ init }) =>
+            new Headers(init?.headers).get("X-CSRF-Token") === "csrf-status-contract-01",
+        ),
+      ).toBeTrue();
     });
 
     it("allows stale success, error and finally zero writes after session, selection or unmount changes", async () => {
       const changes: Array<{ label: string; apply: () => Promise<void> }> = [
+        { label: "session-object", apply: () => rerender(session()) },
         { label: "actor", apply: () => rerender(session({ actorId: "actor-status-02" })) },
         { label: "tenant", apply: () => rerender(session({ tenantId: "tenant-status-02" })) },
         {
@@ -1481,6 +1503,89 @@ describeConfigured(
       }
     });
 
+    it("recovers one ambiguous 409 only through an explicit same-key retry", async () => {
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+        }
+        if (statusMutationAction(input, init)) {
+          mutationReads += 1;
+          return mutationReads === 1
+            ? json({ message: internalSecret, provider: providerSecret }, 409, traceSecret)
+            : json(statusCard("card:status.1", "freeze"));
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Freeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(1);
+      expect(pageText()).toContain("Retry once to reuse the same request key.");
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+
+      await act(async () => {
+        void button("Retry Freeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      expect(pageText()).toContain("FROZEN");
+      const mutations = calls.filter(({ input, init }) => statusMutationAction(input, init));
+      expect(mutations.map(uuidHeader)).toEqual([
+        uuidHeader(mutations[0]),
+        uuidHeader(mutations[0]),
+      ]);
+      expect(isUuidV4(uuidHeader(mutations[0]))).toBeTrue();
+    });
+
+    it("blocks a fresh-key status mutation after the one same-key retry also returns 409", async () => {
+      let mutationReads = 0;
+      const calls = installFetch((input, init) => {
+        if (isCardList(input)) {
+          return cardPage([card("card:status.1", "4242", "Owned Status Card")]);
+        }
+        if (statusMutationAction(input, init)) {
+          mutationReads += 1;
+          return json({ message: internalSecret, provider: providerSecret }, 409, traceSecret);
+        }
+        const publicRead = publicReadResponse(input);
+        if (publicRead) return publicRead;
+        throw new Error(`Unexpected request ${String(input)}`);
+      });
+      await mount();
+      await act(async () => {
+        void button("Freeze").props.onClick();
+        await flush();
+      });
+      await act(async () => {
+        void button("Retry Freeze").props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      expect(pageText()).toContain("Refresh this Card before another status update.");
+      const blocked = button("Refresh Card first");
+      expect(blocked.props.disabled).toBeTrue();
+      await act(async () => {
+        void blocked.props.onClick();
+        await flush();
+      });
+      expect(mutationReads).toBe(2);
+      const mutations = calls.filter(({ input, init }) => statusMutationAction(input, init));
+      expect(mutations.map(uuidHeader)).toEqual([
+        uuidHeader(mutations[0]),
+        uuidHeader(mutations[0]),
+      ]);
+      expect(body()).not.toMatch(
+        /internal-create-secret|provider-create-secret|trace-create-secret/,
+      );
+    });
+
     it("does not retry failure or render Backend bodies, trace IDs and internal fields", async () => {
       let mutationReads = 0;
       installFetch((input, init) => {
@@ -1489,7 +1594,7 @@ describeConfigured(
         }
         if (statusMutationAction(input, init)) {
           mutationReads += 1;
-          return json({ message: internalSecret, provider: providerSecret }, 502, traceSecret);
+          return json({ message: internalSecret, provider: providerSecret }, 400, traceSecret);
         }
         const publicRead = publicReadResponse(input);
         if (publicRead) return publicRead;

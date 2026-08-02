@@ -168,6 +168,7 @@ export function CardsPage() {
     current,
     cardStatusAction,
     acceptStatusUpdate,
+    invalidateSession,
   );
   const sessionKey = cardSessionScopeKey(session);
   const actionScopeKey = cardActionScopeKey(sessionKey, current?.cardId ?? null);
@@ -224,7 +225,7 @@ export function CardsPage() {
   };
 
   const toggleFrozen = async () => {
-    if (!scopeReady || !cardStatusMutation.allowed || busy) return;
+    if (!scopeReady || !cardStatusMutation.canSubmit || busy) return;
     await cardStatusMutation.submit();
   };
 
@@ -423,8 +424,16 @@ export function CardsPage() {
             <div className="mt-4 grid grid-cols-2 gap-2">
               <CardAction
                 onClick={() => void toggleFrozen()}
-                disabled={busy || !cardStatusMutation.allowed}
-                label={current.status === "frozen" ? t("cards.unfreeze") : t("cards.freeze")}
+                disabled={busy || !cardStatusMutation.canSubmit}
+                label={
+                  cardStatusMutation.conflictPending
+                    ? "Refresh Card first"
+                    : cardStatusMutation.retryPending
+                      ? `Retry ${current.status === "frozen" ? t("cards.unfreeze") : t("cards.freeze")}`
+                      : current.status === "frozen"
+                        ? t("cards.unfreeze")
+                        : t("cards.freeze")
+                }
                 icon={
                   current.status === "frozen" ? (
                     <Sun className="h-5 w-5" />
