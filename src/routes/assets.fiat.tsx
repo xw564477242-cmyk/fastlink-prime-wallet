@@ -20,6 +20,8 @@ import { walletTransactionSelectionForSnapshot } from "@/lib/wallet-transaction-
 import {
   WALLET_TRANSACTION_STATUSES,
   WALLET_TRANSACTION_TYPES,
+  WALLET_OPERATION_STATUSES,
+  WALLET_OPERATION_TYPES,
   type WalletTransactionStatusFilter,
   type WalletTransactionTypeFilter,
 } from "@/lib/backend-api";
@@ -294,11 +296,73 @@ export function WalletAccountsPage() {
         )}
 
         <section className="mt-8 border-t border-border/60 pt-6">
-          <h2 className="font-display text-lg font-semibold">All Wallet activity</h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="font-display text-lg font-semibold">All Wallet activity</h2>
+            <button
+              type="button"
+              onClick={operations.refresh}
+              disabled={!operations.canRefresh}
+              className="flex shrink-0 items-center gap-2 rounded-full border border-border/60 bg-surface px-3 py-2 text-xs font-semibold disabled:opacity-50"
+            >
+              <RefreshCw className={`h-4 w-4 ${operations.refreshing ? "animate-spin" : ""}`} />
+              {operations.refreshing ? "Refreshing…" : "Refresh activity"}
+            </button>
+          </div>
           <p className="mt-1 text-xs text-muted-foreground">
             This feed spans all Wallet accounts; the public contract does not support an asset
             filter.
           </p>
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Type
+              <select
+                aria-label="Wallet operation type filter"
+                value={operations.filters.type}
+                disabled={operations.loading || operations.loadingMore || operations.refreshing}
+                onChange={(event) => {
+                  setSelectedOperationId(null);
+                  operations.changeFilters({
+                    ...operations.filters,
+                    type: event.target.value as (typeof operations.filters)["type"],
+                  });
+                }}
+                className="mt-1 w-full rounded-xl border border-border/60 bg-surface px-3 py-2 text-xs normal-case tracking-normal text-foreground"
+              >
+                <option value="ALL">All types</option>
+                {WALLET_OPERATION_TYPES.map((value) => (
+                  <option key={value} value={value}>
+                    {value.replaceAll("_", " ").toLowerCase()}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+              Status
+              <select
+                aria-label="Wallet operation status filter"
+                value={operations.filters.status}
+                disabled={operations.loading || operations.loadingMore || operations.refreshing}
+                onChange={(event) => {
+                  setSelectedOperationId(null);
+                  operations.changeFilters({
+                    ...operations.filters,
+                    status: event.target.value as (typeof operations.filters)["status"],
+                  });
+                }}
+                className="mt-1 w-full rounded-xl border border-border/60 bg-surface px-3 py-2 text-xs normal-case tracking-normal text-foreground"
+              >
+                <option value="ALL">All statuses</option>
+                {WALLET_OPERATION_STATUSES.map((value) => (
+                  <option key={value} value={value}>
+                    {value.replaceAll("_", " ").toLowerCase()}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          {operations.refreshError && (
+            <ErrorMessage message={`${operations.refreshError} · Existing Wallet activity kept.`} />
+          )}
           {operations.loading && (
             <div className="grid h-40 place-items-center">
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
@@ -363,7 +427,7 @@ export function WalletAccountsPage() {
                 <button
                   type="button"
                   onClick={() => void operations.loadMore()}
-                  disabled={operations.loadingMore}
+                  disabled={operations.loadingMore || operations.refreshing}
                   className="flex w-full items-center justify-center gap-2 rounded-2xl border border-border/60 bg-surface/60 py-3 text-xs font-semibold disabled:opacity-50"
                 >
                   {operations.loadingMore && <Loader2 className="h-4 w-4 animate-spin" />}

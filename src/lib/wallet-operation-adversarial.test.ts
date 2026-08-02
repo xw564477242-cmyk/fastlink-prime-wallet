@@ -46,6 +46,12 @@ const page = (items: unknown = [operationRecord()], nextCursor: unknown = null) 
   items,
   nextCursor,
 });
+const operationCursor = (
+  id = operationId,
+  createdAt = "2026-07-31T12:00:00.000Z",
+  type: "DEPOSIT" | "INTERNAL_TRANSFER" | "WITHDRAWAL" | "FX_CONVERSION" | null = null,
+  status: "PROCESSING" | "PENDING_SETTLEMENT" | "COMPLETED" | "FAILED" | null = null,
+) => Buffer.from(JSON.stringify({ version: 2, createdAt, id, type, status })).toString("base64url");
 
 const nonOrdinaryObjects = [
   null,
@@ -237,9 +243,8 @@ describe("Wallet operation public contract adversarial parser matrix", () => {
   });
 
   it("strictly validates opaque cursors and IDs and binds list selection to detail", () => {
-    expect(buildWalletOperationPath({ cursor: "cursor_1-token" })).toContain(
-      "cursor=cursor_1-token",
-    );
+    const cursor = operationCursor();
+    expect(buildWalletOperationPath({ cursor })).toContain(`cursor=${cursor}`);
     expect(buildWalletOperationDetailPath(operationId)).toBe(
       "/v1/wallet/operations/operation%3Aowned.1",
     );
@@ -267,12 +272,14 @@ describe("Wallet operation public contract adversarial parser matrix", () => {
 const scope = (parts: readonly string[]) => JSON.stringify(parts);
 const activityScope: readonly string[] = ["actor-a", "tenant-a", "customer-a", "SANDBOX"];
 const detailScope: readonly string[] = [...activityScope, operationId];
+const activityFilterKey = '[1,"ALL","ALL"]';
 
 describe("Wallet operation adversarial scope and generation matrix", () => {
   it("synchronously clears each prior list/detail when one scope dimension changes", () => {
     const listState = {
       ...initialWalletOperationState,
       scopeKey: scope(activityScope),
+      filterKey: activityFilterKey,
       activeRequestKey: "list-old",
       items: [operation],
       nextCursor: "cursor-old",
@@ -280,7 +287,9 @@ describe("Wallet operation adversarial scope and generation matrix", () => {
     for (let index = 0; index < activityScope.length; index += 1) {
       const changed = [...activityScope];
       changed[index] = `${changed[index]}-changed`;
-      expect(walletOperationViewForScope(listState, scope(changed)).items).toEqual([]);
+      expect(
+        walletOperationViewForScope(listState, scope(changed), activityFilterKey).items,
+      ).toEqual([]);
     }
 
     const detailState = {
@@ -297,14 +306,20 @@ describe("Wallet operation adversarial scope and generation matrix", () => {
   });
 
   it("changes request keys for every scope dimension, cursor, and generation", () => {
-    const listKey = walletOperationRequestKey(scope(activityScope), null, 1);
+    const listKey = walletOperationRequestKey(scope(activityScope), activityFilterKey, null, 1);
     for (let index = 0; index < activityScope.length; index += 1) {
       const changed = [...activityScope];
       changed[index] = `${changed[index]}-changed`;
-      expect(walletOperationRequestKey(scope(changed), null, 1)).not.toBe(listKey);
+      expect(walletOperationRequestKey(scope(changed), activityFilterKey, null, 1)).not.toBe(
+        listKey,
+      );
     }
-    expect(walletOperationRequestKey(scope(activityScope), "cursor-1", 1)).not.toBe(listKey);
-    expect(walletOperationRequestKey(scope(activityScope), null, 2)).not.toBe(listKey);
+    expect(
+      walletOperationRequestKey(scope(activityScope), activityFilterKey, "cursor-1", 1),
+    ).not.toBe(listKey);
+    expect(walletOperationRequestKey(scope(activityScope), activityFilterKey, null, 2)).not.toBe(
+      listKey,
+    );
 
     const detailKey = walletOperationDetailRequestKey(scope(detailScope), 1);
     for (let index = 0; index < detailScope.length; index += 1) {
@@ -319,6 +334,7 @@ describe("Wallet operation adversarial scope and generation matrix", () => {
     const listCurrent = walletOperationReducer(initialWalletOperationState, {
       type: "reset",
       scopeKey: scope(activityScope),
+      filterKey: activityFilterKey,
       requestKey: "list-current",
       loading: true,
     });
@@ -326,6 +342,7 @@ describe("Wallet operation adversarial scope and generation matrix", () => {
       walletOperationReducer(listCurrent, {
         type: "page",
         requestKey: "list-stale",
+        requestCursor: null,
         page: { items: [operation], nextCursor: "cursor-stale" },
         append: false,
       }),

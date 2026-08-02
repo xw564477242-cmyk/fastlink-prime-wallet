@@ -101,6 +101,12 @@ jobs:
       - name: Run mounted Wallet transaction detail refresh in TEST
         run: bun run test:wallet-detail-refresh-mounted:test
 
+      - name: Run mounted Wallet operation filters and refresh in SANDBOX
+        run: bun run test:wallet-operation-filters-refresh:sandbox
+
+      - name: Run mounted Wallet operation filters and refresh in TEST
+        run: bun run test:wallet-operation-filters-refresh:test
+
       - name: Run mounted Card history page safety in SANDBOX
         run: bun run test:card-history-page:sandbox
 
@@ -165,8 +171,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          printf '{"format":"fastlink-prime-wallet-operation-evidence-v1","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"methods":["GET"],"filters":["type","status"],"cursorContract":"backend-v2-filter-bound","cursorHistory":"reject-replay-and-rollback","scope":["actor","session-expiry","tenant","customer","environment","all-owned-accounts"],"manualRefresh":true,"validatedEnvironments":["SANDBOX","TEST"]}\n' "${{ github.event.pull_request.head.sha }}" > wallet-operation-evidence.json
           printf '{"format":"fastlink-prime-wallet-pr-evidence-v30","sourceCommit":"%s","environment":"NON_PRODUCTION","productionEnabled":false,"mutationEnvironments":["SANDBOX","TEST"],"manualReadEnvironments":["SANDBOX","TEST"],"integrationEnvironments":["SANDBOX","TEST"],"cardTransactionDetailCompletionGuard":"live-session-scope-revalidated-before-success-error-finally","integrationSuites":["src/lib/wallet-transfer-status-refresh.integration.ts","src/lib/card-transaction-history.integration.ts","src/lib/wallet-transfer-consumer.integration.ts"],"hookSafetySuites":["src/hooks/use-card-transaction-pages.test.tsx","src/hooks/use-card-transaction-detail.test.tsx","src/routes/transfer.mounted-safety.test.tsx","src/hooks/use-wallet-account-history.test.tsx","src/hooks/use-wallet-transaction-detail-refresh.test.tsx"],"mountedPageSafetySuites":["src/routes/history.mounted-pagination.test.tsx","src/routes/-history.mounted-selection.test.tsx","src/routes/history.mounted-detail-refresh.test.tsx","src/routes/-assets-fiat.mounted-refresh-selection.test.tsx","src/routes/-cards.mounted-virtual-create.test.tsx"],"mountedMutationSafetySuites":["src/routes/-cards.mounted-virtual-create.test.tsx#Mounted selected Card limits update","src/routes/-cards.mounted-virtual-create.test.tsx#Mounted selected Card freeze and unfreeze","src/routes/-cards.mounted-virtual-create.test.tsx#Mounted selected Card renewal","src/routes/-cards.mounted-virtual-create.test.tsx#Mounted selected Card replacement"],"mountedPageSafetyEnvironments":["SANDBOX","TEST"],"adversarialMatrices":["src/lib/card-read-adversarial.test.ts","src/lib/wallet-operation-adversarial.test.ts","src/lib/card-transaction-adversarial.test.ts","src/lib/card-transaction-pagination-adversarial.test.ts","src/lib/card-transaction-detail-refresh-adversarial.test.ts","src/lib/virtual-card-create-adversarial.test.ts","src/lib/card-renew-adversarial.test.ts","src/lib/card-replace-adversarial.test.ts","src/lib/card-limits-mutation-adversarial.test.ts","src/lib/card-status-mutation-adversarial.test.ts","src/lib/wallet-transfer-mutation-adversarial.test.ts","src/lib/wallet-transfer-account-state.test.ts","src/lib/wallet-transfer-status-refresh-adversarial.test.ts","src/lib/wallet-balance-summary-adversarial.test.ts","src/lib/wallet-transaction-filter-adversarial.test.ts","src/lib/wallet-transaction-refresh-adversarial.test.ts","src/lib/wallet-transaction-selection-adversarial.test.ts","src/lib/wallet-transaction-detail-refresh-adversarial.test.ts"]}\n' "${{ github.event.pull_request.head.sha }}" > build-evidence.json
           sha256sum build-evidence.json src/lib/card-read-adversarial.test.ts src/lib/wallet-operation-adversarial.test.ts src/lib/card-transaction-adversarial.test.ts src/lib/card-transaction-pagination-adversarial.test.ts src/lib/card-transaction-detail-refresh-adversarial.test.ts src/lib/card-transaction-detail-state.ts src/lib/card-transaction-detail-state.test.ts src/lib/virtual-card-create-adversarial.test.ts src/lib/card-renew-adversarial.test.ts src/lib/card-replace-adversarial.test.ts src/lib/card-limits-mutation-adversarial.test.ts src/lib/card-status-mutation-adversarial.test.ts src/lib/wallet-transfer-mutation-adversarial.test.ts src/lib/wallet-transfer-account-state.test.ts src/lib/wallet-transfer-status-refresh-adversarial.test.ts src/lib/wallet-balance-summary-adversarial.test.ts src/lib/wallet-transaction-filter-adversarial.test.ts src/lib/wallet-transaction-refresh-adversarial.test.ts src/lib/wallet-transaction-selection-adversarial.test.ts src/lib/wallet-transaction-detail-refresh-adversarial.test.ts src/lib/wallet-transfer-status-refresh.integration.ts src/lib/card-transaction-history.integration.ts src/lib/wallet-transfer-consumer.integration.ts src/lib/backend-api.ts src/hooks/use-card-list-pages.ts src/hooks/use-virtual-card-create.ts src/hooks/use-card-renew.ts src/hooks/use-card-replace.ts src/hooks/use-card-limits-mutation.ts src/hooks/use-card-status-mutation.ts src/hooks/use-card-transaction-pages.ts src/hooks/use-card-transaction-pages.test.tsx src/hooks/use-card-transaction-detail.ts src/hooks/use-card-transaction-detail.test.tsx src/hooks/use-wallet-account-history.ts src/hooks/use-wallet-account-history.test.tsx src/hooks/use-wallet-transaction-detail.ts src/hooks/use-wallet-transaction-detail-refresh.test.tsx src/lib/wallet-transaction-state.ts src/lib/wallet-transaction-selection-state.ts src/lib/wallet-transaction-detail-state.ts src/lib/wallet-transaction-detail-state.test.ts src/routes/assets.fiat.tsx src/routes/-assets-fiat.mounted-refresh-selection.test.tsx src/lib/card-list-state.ts src/lib/card-renew-state.ts src/lib/card-replace-state.ts src/lib/card-limits-mutation-state.ts src/lib/card-status-mutation-state.ts src/lib/card-transaction-state.ts src/lib/virtual-card-create-state.ts src/routes/cards.tsx src/routes/-cards.mounted-virtual-create.test.tsx src/routes/history.tsx src/routes/history.mounted-pagination.test.tsx src/routes/-history.mounted-selection.test.tsx src/routes/history.mounted-detail-refresh.test.tsx src/routes/transfer.tsx src/routes/transfer.mounted-safety.test.tsx > build-evidence.sha256
+          sha256sum wallet-operation-evidence.json src/hooks/use-wallet-operations.test.tsx src/hooks/use-wallet-operations.ts src/lib/wallet-operation-state.ts src/lib/wallet-operation-state.test.ts src/routes/assets.fiat.tsx >> build-evidence.sha256
           sha256sum --check build-evidence.sha256
 
       - name: Upload non-production evidence
@@ -176,8 +184,13 @@ jobs:
           path: |
             build-evidence.json
             build-evidence.sha256
+            wallet-operation-evidence.json
             src/lib/card-read-adversarial.test.ts
             src/lib/wallet-operation-adversarial.test.ts
+            src/hooks/use-wallet-operations.test.tsx
+            src/hooks/use-wallet-operations.ts
+            src/lib/wallet-operation-state.ts
+            src/lib/wallet-operation-state.test.ts
             src/lib/card-transaction-adversarial.test.ts
             src/lib/card-transaction-pagination-adversarial.test.ts
             src/lib/card-transaction-detail-refresh-adversarial.test.ts
