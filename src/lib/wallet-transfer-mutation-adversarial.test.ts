@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { createHash, createHmac } from "node:crypto";
 import {
   WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES,
   WALLET_TRANSFER_ACCOUNT_MAX_ITEMS,
@@ -357,7 +358,31 @@ describe("Internal Wallet transfer request and response contract", () => {
 });
 
 describe("Internal Wallet transfer dual account history confirmation", () => {
-  const signedCursor = "cGF5bG9hZA.c2lnbmF0dXJl";
+  const cursorPayload = Buffer.from(
+    JSON.stringify({
+      version: 2,
+      createdAt: now,
+      id: "transaction-debit-01",
+      type: "TRANSFER",
+      status: "COMPLETED",
+      assetCode: "USD",
+      accountId: "account-source-01",
+    }),
+  ).toString("base64url");
+  const cursorKey = createHash("sha256")
+    .update("fastlink-wallet-transaction-cursor\0test-only-signing-secret-0123456789", "utf8")
+    .digest();
+  const signedCursor = `${cursorPayload}.${createHmac("sha256", cursorKey)
+    .update(
+      JSON.stringify({
+        tenantId: "tenant-01",
+        customerId: "customer-01",
+        environment: "SANDBOX",
+        limit: 25,
+        encoded: cursorPayload,
+      }),
+    )
+    .digest("base64url")}`;
   const expectation = {
     accountId: "account-source-01",
     operationId: "operation-transfer-01",
@@ -408,6 +433,10 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
       "payload..signature",
       "payload.signature.extra",
       "payload+bad.signature",
+      "AB.AA",
+      "AA.AB",
+      "payload.signature",
+      `${"a".repeat(255)}.AA`,
       `${"a".repeat(255)}.${"b".repeat(257)}`,
     ]) {
       expect(() =>
@@ -491,6 +520,10 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
       "payload..signature",
       "payload.signature.extra",
       "payload.signature=",
+      "AB.AA",
+      "AA.AB",
+      "payload.signature",
+      `${"a".repeat(255)}.AA`,
       `${"a".repeat(255)}.${"b".repeat(257)}`,
     ]) {
       expect(() =>

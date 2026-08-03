@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
+import { createHash, createHmac } from "node:crypto";
 import {
   backendApi,
   backendRuntime,
@@ -10,7 +11,30 @@ import {
 } from "./backend-api";
 
 const originalFetch = globalThis.fetch;
-const signedCursor = "cGF5bG9hZA.c2lnbmF0dXJl";
+const cursorPayload = Buffer.from(
+  JSON.stringify({
+    version: 1,
+    createdAt: "2026-07-31T12:00:00.000Z",
+    id: "wallet-txn-1",
+    type: null,
+    status: null,
+    assetCode: "USD",
+  }),
+).toString("base64url");
+const cursorKey = createHash("sha256")
+  .update("fastlink-wallet-transaction-cursor\0test-only-signing-secret-0123456789", "utf8")
+  .digest();
+const signedCursor = `${cursorPayload}.${createHmac("sha256", cursorKey)
+  .update(
+    JSON.stringify({
+      tenantId: "tenant-01",
+      customerId: "customer-01",
+      environment: "SANDBOX",
+      limit: 25,
+      encoded: cursorPayload,
+    }),
+  )
+  .digest("base64url")}`;
 
 const transactionRecord = () => ({
   id: "wallet-txn-1",
@@ -67,6 +91,10 @@ describe("Wallet transaction filter adversarial boundary", () => {
       "payload.signature.extra",
       "payload+bad.signature",
       "payload.signature=",
+      "AB.AA",
+      "AA.AB",
+      "payload.signature",
+      `${"a".repeat(255)}.AA`,
       `${"a".repeat(255)}.${"b".repeat(257)}`,
       1,
     ];
@@ -92,7 +120,7 @@ describe("Wallet transaction filter adversarial boundary", () => {
       normalizeWalletTransactionResponse({ items: [transactionRecord()], nextCursor: null }, "USD")
         .nextCursor,
     ).toBeNull();
-    const maximumCursor = `${"a".repeat(255)}.${"b".repeat(256)}`;
+    const maximumCursor = `${"a".repeat(254)}A.${"b".repeat(256)}`;
     expect(
       buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: maximumCursor }),
     ).toContain(`cursor=${maximumCursor}`);

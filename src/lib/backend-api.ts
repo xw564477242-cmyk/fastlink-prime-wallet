@@ -405,7 +405,6 @@ export type WalletTransactionStatusFilter = (typeof WALLET_TRANSACTION_STATUSES)
 export const WALLET_TRANSACTION_FILTER_VERSION = 1;
 export const WALLET_TRANSACTION_MAX_JSON_BYTES = 65_536;
 export const WALLET_TRANSACTION_MAX_CURSOR_LENGTH = 512;
-const WALLET_TRANSACTION_CURSOR_PATTERN = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
 
 export type WalletAccountTransactionQuery = {
   assetCode: string;
@@ -416,11 +415,11 @@ export type WalletAccountTransactionQuery = {
 };
 
 function walletTransactionCursor(value: unknown): string {
-  if (
-    typeof value !== "string" ||
-    value.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
-    !WALLET_TRANSACTION_CURSOR_PATTERN.test(value)
-  ) {
+  if (typeof value !== "string" || value.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH) {
+    throw new Error("Invalid Wallet transaction cursor");
+  }
+  const segments = value.split(".");
+  if (segments.length !== 2 || !segments.every(isCanonicalBase64UrlSegment)) {
     throw new Error("Invalid Wallet transaction cursor");
   }
   return value;
