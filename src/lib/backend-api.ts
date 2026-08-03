@@ -374,6 +374,22 @@ export type WalletAccountTransactionPage = {
   nextCursor: string | null;
 };
 
+export type WalletTransferAccountTransaction = WalletAccountTransaction & {
+  operationId: string;
+};
+
+type WalletTransferAccountHistoryItem = WalletAccountTransaction & {
+  operationId: string | null;
+};
+
+export type WalletTransferAccountHistoryExpectation = {
+  accountId: string;
+  operationId: string;
+  assetCode: string;
+  amount: string;
+  direction: "incoming" | "outgoing";
+};
+
 export const WALLET_TRANSACTION_TYPES = [
   "DEPOSIT",
   "WITHDRAWAL",
@@ -397,6 +413,17 @@ export type WalletAccountTransactionQuery = {
   limit?: number;
   cursor?: string;
 };
+
+function walletTransactionCursor(value: unknown): string {
+  if (typeof value !== "string" || value.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH) {
+    throw new Error("Invalid Wallet transaction cursor");
+  }
+  const segments = value.split(".");
+  if (segments.length !== 2 || !segments.every(isCanonicalBase64UrlSegment)) {
+    throw new Error("Invalid Wallet transaction cursor");
+  }
+  return value;
+}
 
 export type WalletTransactionDetailExpectation = {
   transactionId: string;
@@ -492,6 +519,10 @@ type BackendWalletTransactionRecord = {
   direction?: unknown;
   createdAt?: unknown;
   updatedAt?: unknown;
+};
+
+type BackendWalletTransferAccountTransactionRecord = BackendWalletTransactionRecord & {
+  operationId?: unknown;
 };
 
 type BackendWalletTransactionPageRecord = {
@@ -2641,17 +2672,24 @@ export function buildWalletTransactionPath(query: WalletAccountTransactionQuery)
       `Wallet transaction limit must be between 1 and ${WALLET_TRANSACTION_PAGE_SIZE}`,
     );
   }
-  if (
-    query.cursor !== undefined &&
-    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
-  ) {
-    throw new Error("Invalid Wallet transaction cursor");
-  }
+  const cursor = query.cursor === undefined ? undefined : walletTransactionCursor(query.cursor);
   const params = new URLSearchParams({ assetCode, limit: String(limit) });
   if (query.type) params.set("type", query.type);
   if (query.status) params.set("status", query.status);
-  if (query.cursor) params.set("cursor", query.cursor);
+  if (cursor) params.set("cursor", cursor);
   return `/v1/wallet/transactions?${params.toString()}`;
+}
+
+export function buildWalletAccountTransactionPath(
+  accountId: string,
+  query: WalletAccountTransactionQuery,
+): string {
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(accountId)) {
+    throw new Error("Invalid Wallet account id");
+  }
+  const crossAccountPath = buildWalletTransactionPath(query);
+  const queryString = crossAccountPath.slice("/v1/wallet/transactions".length);
+  return `/v1/wallet/accounts/${encodeURIComponent(accountId)}/transactions${queryString}`;
 }
 
 function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
@@ -2684,6 +2722,47 @@ function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
     createdAt: walletTimestamp(record.createdAt, "transaction createdAt"),
     updatedAt: walletTimestamp(record.updatedAt, "transaction updatedAt"),
   };
+}
+
+function normalizeWalletTransferAccountTransaction(
+  value: unknown,
+): WalletTransferAccountHistoryItem {
+  // The containing transfer-history page is accepted only as bounded raw JSON
+  // text. Re-serializing each parsed item lets the existing exact raw-JSON
+  // boundary reject unknown/provider fields without reflecting over caller
+  // supplied objects or invoking accessors.
+  const record = exactOwnJsonDataRecord(
+    JSON.stringify(value),
+    [
+      "id",
+      "operationId",
+      "type",
+      "status",
+      "assetCode",
+      "amount",
+      "direction",
+      "createdAt",
+      "updatedAt",
+    ],
+    "Backend returned an invalid Wallet transfer account transaction",
+  ) as BackendWalletTransferAccountTransactionRecord;
+  if (
+    record.operationId !== null &&
+    (typeof record.operationId !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.operationId))
+  ) {
+    throw new Error("Backend returned an invalid Wallet transfer operation id");
+  }
+  const transaction = normalizeWalletTransaction({
+    id: record.id,
+    type: record.type,
+    status: record.status,
+    assetCode: record.assetCode,
+    amount: record.amount,
+    direction: record.direction,
+    createdAt: record.createdAt,
+    updatedAt: record.updatedAt,
+  });
+  return Object.freeze({ ...transaction, operationId: record.operationId });
 }
 
 export function buildWalletTransactionDetailPath(transactionId: string): string {
@@ -3332,14 +3411,13 @@ export function normalizeWalletTransactionResponse(
   if (rawItems.length > limit) {
     throw new Error("Backend returned an invalid Wallet transaction page");
   }
-  if (
-    page.nextCursor !== null &&
-    (typeof page.nextCursor !== "string" ||
-      !page.nextCursor ||
-      page.nextCursor.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
-      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
-  ) {
-    throw new Error("Backend returned an invalid Wallet transaction cursor");
+  let nextCursor: string | null = null;
+  if (page.nextCursor !== null) {
+    try {
+      nextCursor = walletTransactionCursor(page.nextCursor);
+    } catch {
+      throw new Error("Backend returned an invalid Wallet transaction cursor");
+    }
   }
   const items = rawItems.map(normalizeWalletTransaction);
   if (new Set(items.map((item) => item.id)).size !== items.length) {
@@ -3360,7 +3438,78 @@ export function normalizeWalletTransactionResponse(
   ) {
     throw new Error("Backend returned a Wallet transaction outside the selected status filter");
   }
-  return { items, nextCursor: page.nextCursor };
+  return { items, nextCursor };
+}
+
+export function normalizeWalletTransferAccountHistoryResponse(
+  value: unknown,
+  expectation: WalletTransferAccountHistoryExpectation,
+  limit = WALLET_TRANSACTION_PAGE_SIZE,
+): WalletTransferAccountTransaction {
+  buildWalletAccountTransactionPath(expectation.accountId, {
+    assetCode: expectation.assetCode,
+    type: "TRANSFER",
+    status: "COMPLETED",
+    limit,
+  });
+  if (!/^[A-Za-z0-9._:-]{2,128}$/.test(expectation.operationId)) {
+    throw new Error("Invalid Wallet transfer operation id");
+  }
+  const assetCode = walletAssetCode(expectation.assetCode);
+  const amount = walletDecimal(expectation.amount, "transaction amount", true);
+  if (expectation.direction !== "incoming" && expectation.direction !== "outgoing") {
+    throw new Error("Invalid Wallet transfer transaction direction");
+  }
+  if (
+    typeof value !== "string" ||
+    value.length > WALLET_TRANSACTION_MAX_JSON_BYTES ||
+    new TextEncoder().encode(value).byteLength > WALLET_TRANSACTION_MAX_JSON_BYTES
+  ) {
+    throw new Error("Backend returned an oversized Wallet transfer account history");
+  }
+  const page = exactOwnJsonDataRecord(
+    value,
+    ["items", "nextCursor"],
+    "Backend returned an invalid Wallet transfer account history",
+  ) as BackendWalletTransactionPageRecord;
+  const rawItems = ownJsonArray(
+    page.items,
+    "Backend returned an invalid Wallet transfer account history",
+  );
+  if (rawItems.length > limit) {
+    throw new Error("Backend returned an invalid Wallet transfer account history");
+  }
+  if (page.nextCursor !== null) {
+    try {
+      walletTransactionCursor(page.nextCursor);
+    } catch {
+      throw new Error("Backend returned an invalid Wallet transfer account cursor");
+    }
+  }
+  const items = rawItems.map(normalizeWalletTransferAccountTransaction);
+  if (new Set(items.map((item) => item.id)).size !== items.length) {
+    throw new Error("Backend returned duplicate Wallet transfer account transactions");
+  }
+  if (
+    items.some(
+      (item) =>
+        item.type !== "transfer" || item.status !== "completed" || item.assetCode !== assetCode,
+    )
+  ) {
+    throw new Error("Backend returned a Wallet transaction outside the transfer confirmation");
+  }
+  const matches = items.filter((item) => item.operationId === expectation.operationId);
+  const match = matches[0];
+  if (
+    matches.length !== 1 ||
+    !match ||
+    match.operationId !== expectation.operationId ||
+    match.amount !== amount ||
+    match.direction !== expectation.direction
+  ) {
+    throw new Error("Backend did not return the exact Wallet transfer account transaction");
+  }
+  return Object.freeze({ ...match, operationId: match.operationId });
 }
 
 export const backendApi = {
@@ -3681,6 +3830,28 @@ export const backendApi = {
     const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
     const result = await request<string>(buildWalletTransactionPath(query), { signal }, "text");
     return normalizeWalletTransactionResponse(result, query.assetCode, limit, query);
+  },
+
+  async walletTransferAccountTransaction(
+    session: BackendSession,
+    expectation: WalletTransferAccountHistoryExpectation,
+    signal?: AbortSignal,
+  ): Promise<WalletTransferAccountTransaction> {
+    requireSandboxTestWalletTransactionRuntime(session);
+    const limit = WALLET_TRANSACTION_PAGE_SIZE;
+    const path = buildWalletAccountTransactionPath(expectation.accountId, {
+      assetCode: expectation.assetCode,
+      type: "TRANSFER",
+      status: "COMPLETED",
+      limit,
+    });
+    const result = await request<string>(
+      path,
+      { signal },
+      "text",
+      WALLET_TRANSACTION_MAX_JSON_BYTES,
+    );
+    return normalizeWalletTransferAccountHistoryResponse(result, expectation, limit);
   },
 
   async walletTransactionDetail(

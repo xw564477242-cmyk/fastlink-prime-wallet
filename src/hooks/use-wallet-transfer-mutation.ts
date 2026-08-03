@@ -4,6 +4,7 @@ import {
   backendRuntime,
   type BackendSession,
   type WalletOperationActivity,
+  type WalletTransferAccountTransaction,
   type WalletTransferAccount,
   type WalletTransferInput,
 } from "@/lib/backend-api";
@@ -35,6 +36,8 @@ const SAFE_WALLET_TRANSFER_CONFIRMATION_ERROR =
 
 export type AcceptedWalletTransfer = Readonly<{
   operation: WalletOperationActivity;
+  sourceTransaction: WalletTransferAccountTransaction;
+  destinationTransaction: WalletTransferAccountTransaction | null;
   input: WalletTransferInput;
   transferRequestKey: string;
   transferGeneration: number;
@@ -44,6 +47,7 @@ export function useWalletTransferMutation(
   session: BackendSession | null,
   source: WalletTransferAccount | null,
   input: unknown,
+  destinationOwnedBySession: boolean,
   onAccepted: (accepted: AcceptedWalletTransfer) => void,
   onUnconfirmed: () => void,
   invalidateSession?: BackendSessionInvalidator,
@@ -78,6 +82,7 @@ export function useWalletTransferMutation(
     sourceIdentity.current.generation,
     inputIdentity.current.generation,
     backendRuntime.error === null ? backendRuntime.apiUrl : "",
+    destinationOwnedBySession,
   );
   const [state, dispatch] = useReducer(
     walletTransferMutationReducer,
@@ -148,10 +153,57 @@ export function useWalletTransferMutation(
       ) {
         return false;
       }
+      if (confirmedOperation.status !== "completed") {
+        throw new Error("Wallet transfer is not persisted as completed");
+      }
+      let sourceTransaction: WalletTransferAccountTransaction;
+      let destinationTransaction: WalletTransferAccountTransaction | null = null;
+      try {
+        const sourceHistory = backendApi.walletTransferAccountTransaction(
+          session,
+          {
+            accountId: source.id,
+            operationId: confirmedOperation.id,
+            assetCode: confirmedOperation.assetCode,
+            amount: confirmedOperation.amount,
+            direction: "outgoing",
+          },
+          controller.signal,
+        );
+        if (destinationOwnedBySession) {
+          [sourceTransaction, destinationTransaction] = await Promise.all([
+            sourceHistory,
+            backendApi.walletTransferAccountTransaction(
+              session,
+              {
+                accountId: ticket.input.destinationAccountId,
+                operationId: confirmedOperation.id,
+                assetCode: confirmedOperation.assetCode,
+                amount: confirmedOperation.amount,
+                direction: "incoming",
+              },
+              controller.signal,
+            ),
+          ]);
+        } else {
+          sourceTransaction = await sourceHistory;
+        }
+      } catch (reason) {
+        controller.abort();
+        throw reason;
+      }
+      if (
+        !mounted.current ||
+        !acceptsWalletTransferMutationCompletion(gate.current, ticket, scopeKey)
+      ) {
+        return false;
+      }
       clearWalletTransferMutationRetry(gate.current);
       dispatch({ type: "succeeded", requestKey: ticket.requestKey, operation: confirmedOperation });
       onAccepted({
         operation: confirmedOperation,
+        sourceTransaction,
+        destinationTransaction,
         input: ticket.input,
         transferRequestKey: ticket.requestKey,
         transferGeneration: ticket.generation,
@@ -212,7 +264,16 @@ export function useWalletTransferMutation(
         dispatch({ type: "settled", requestKey: ticket.requestKey });
       }
     }
-  }, [input, invalidateSession, onAccepted, onUnconfirmed, scopeKey, session, source]);
+  }, [
+    destinationOwnedBySession,
+    input,
+    invalidateSession,
+    onAccepted,
+    onUnconfirmed,
+    scopeKey,
+    session,
+    source,
+  ]);
 
   return {
     ...view,

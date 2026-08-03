@@ -229,7 +229,7 @@ describeEnvironment(
       expect(historyResult?.transactions.items).toEqual([]);
 
       await act(async () => {
-        oldRead.resolve(pageResponse([wireTransaction("wallet-stale-secret")], "stale_cursor"));
+        oldRead.resolve(pageResponse([wireTransaction("wallet-stale-secret")], "c3RhbGU.c2ln"));
         await flush();
       });
       expect(JSON.stringify(historyResult)).not.toContain("wallet-stale-secret");
@@ -244,7 +244,7 @@ describeEnvironment(
         if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
         transactionReads += 1;
         if (transactionReads === 1) {
-          return pageResponse([wireTransaction("wallet-current")], "page_cursor");
+          return pageResponse([wireTransaction("wallet-current")], "cGFnZQ.c2ln");
         }
         if (transactionReads === 2) return oldPage.promise;
         return pageResponse([], null);
@@ -286,19 +286,19 @@ describeEnvironment(
         if (transactionReads === 1) {
           return pageResponse(
             [wireTransaction("wallet-current", { type: "DEPOSIT", status: "PENDING" })],
-            "page_cursor",
+            "cGFnZQ.c2ln",
           );
         }
         if (transactionReads === 2) {
           return pageResponse(
             [wireTransaction("wallet-current-page-2", { type: "DEPOSIT", status: "PENDING" })],
-            "page_cursor_2",
+            "cGFnZTI.c2ln",
           );
         }
         if (transactionReads === 3) return failedRefresh.promise;
         return pageResponse(
           [wireTransaction("wallet-refreshed", { type: "DEPOSIT", status: "PENDING" })],
-          "refreshed_cursor",
+          "cmVmcmVzaGVk.c2ln",
         );
       });
 
@@ -320,7 +320,7 @@ describeEnvironment(
         "wallet-current",
         "wallet-current-page-2",
       ]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTI.c2ln");
 
       await act(async () => {
         historyResult?.refresh();
@@ -342,7 +342,7 @@ describeEnvironment(
         "wallet-current",
         "wallet-current-page-2",
       ]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTI.c2ln");
 
       await act(async () => {
         failedRefresh.resolve(new Response("unavailable", { status: 503 }));
@@ -356,7 +356,7 @@ describeEnvironment(
         "wallet-current",
         "wallet-current-page-2",
       ]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTI.c2ln");
 
       await act(async () => {
         historyResult?.refresh();
@@ -366,7 +366,7 @@ describeEnvironment(
       expect(historyResult?.transactions.items.map((item) => item.id)).toEqual([
         "wallet-refreshed",
       ]);
-      expect(historyResult?.transactions.nextCursor).toBe("refreshed_cursor");
+      expect(historyResult?.transactions.nextCursor).toBe("cmVmcmVzaGVk.c2ln");
       expect(historyResult?.accounts.selectedAssetCode).toBe("USD");
     });
 
@@ -470,16 +470,16 @@ describeEnvironment(
         if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
         transactionReads += 1;
         if (transactionReads === 1) {
-          return pageResponse([wireTransaction("wallet-page-1")], "page_cursor_1");
+          return pageResponse([wireTransaction("wallet-page-1")], "cGFnZTE.c2ln");
         }
         if (transactionReads === 2) return failedPage.promise;
         if (transactionReads === 3) {
-          return pageResponse([wireTransaction("wallet-page-1")], "page_cursor_duplicate");
+          return pageResponse([wireTransaction("wallet-page-1")], "ZHVwbGljYXRl.c2ln");
         }
         if (transactionReads === 4) {
           return pageResponse([wireTransaction("wallet-rejected-long-cursor")], "x".repeat(513));
         }
-        return pageResponse([wireTransaction("wallet-page-2")], "page_cursor_2");
+        return pageResponse([wireTransaction("wallet-page-2")], "cGFnZTI.c2ln");
       });
 
       await act(async () => {
@@ -510,7 +510,7 @@ describeEnvironment(
         limit: "25",
         type: "TRANSFER",
         status: "COMPLETED",
-        cursor: "page_cursor_1",
+        cursor: "cGFnZTE.c2ln",
       });
       expect(pageUrl.searchParams.has("offset")).toBe(false);
 
@@ -521,14 +521,14 @@ describeEnvironment(
         await flush();
       });
       expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTE.c2ln");
 
       await act(async () => {
         await historyResult?.loadMore();
         await flush();
       });
       expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTE.c2ln");
       expect(historyResult?.transactions.error).toBe(
         "Backend returned inconsistent Wallet transaction pagination",
       );
@@ -538,7 +538,7 @@ describeEnvironment(
         await flush();
       });
       expect(historyResult?.transactions.items.map((item) => item.id)).toEqual(["wallet-page-1"]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_1");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTE.c2ln");
       expect(JSON.stringify(historyResult)).not.toContain("wallet-rejected-long-cursor");
 
       await act(async () => {
@@ -549,7 +549,7 @@ describeEnvironment(
         "wallet-page-1",
         "wallet-page-2",
       ]);
-      expect(historyResult?.transactions.nextCursor).toBe("page_cursor_2");
+      expect(historyResult?.transactions.nextCursor).toBe("cGFnZTI.c2ln");
       expect(historyResult?.transactions.error).toBeNull();
       expect(transactionReads).toBe(5);
     });
@@ -563,11 +563,11 @@ describeEnvironment(
         if (url.pathname.endsWith("/v1/wallet/balances")) return balanceResponse();
         transactionReads += 1;
         if (transactionReads === 1) {
-          return pageResponse([wireTransaction("wallet-before-logout")], "logout_cursor");
+          return pageResponse([wireTransaction("wallet-before-logout")], "bG9nb3V0.c2ln");
         }
         if (transactionReads === 2) return logoutPage.promise;
         if (transactionReads === 3) {
-          return pageResponse([wireTransaction("wallet-before-unmount")], "unmount_cursor");
+          return pageResponse([wireTransaction("wallet-before-unmount")], "dW5tb3VudA.c2ln");
         }
         return unmountPage.promise;
       });

@@ -644,13 +644,15 @@ const publicWalletTransaction = (id: string) => ({
 });
 
 describe("Wallet account history Backend adapter", () => {
+  const cursor = "ZmlsdGVyX2N1cnNvci0x.c2lnbmF0dXJl";
+
   it("builds a bounded selected-account request with a filter-bound cursor", () => {
     expect(buildWalletTransactionPath({ assetCode: "USD" })).toBe(
       "/v1/wallet/transactions?assetCode=USD&limit=25",
     );
-    expect(
-      buildWalletTransactionPath({ assetCode: "USDT", limit: 10, cursor: "filter_cursor-1" }),
-    ).toBe("/v1/wallet/transactions?assetCode=USDT&limit=10&cursor=filter_cursor-1");
+    expect(buildWalletTransactionPath({ assetCode: "USDT", limit: 10, cursor })).toBe(
+      `/v1/wallet/transactions?assetCode=USDT&limit=10&cursor=${cursor}`,
+    );
     expect(() => buildWalletTransactionPath({ assetCode: "usd" })).toThrow(
       "Backend returned an invalid Wallet asset code",
     );
@@ -697,7 +699,7 @@ describe("Wallet account history Backend adapter", () => {
 
   it("preserves canonical decimal strings and strict public transaction fields", () => {
     const page = normalizeWalletTransactionResponse(
-      { items: [publicWalletTransaction("wallet-txn-1")], nextCursor: "filter_cursor-1" },
+      { items: [publicWalletTransaction("wallet-txn-1")], nextCursor: cursor },
       "USD",
     );
 
@@ -714,7 +716,7 @@ describe("Wallet account history Backend adapter", () => {
           updatedAt: "2026-07-31T12:00:01.000Z",
         },
       ],
-      nextCursor: "filter_cursor-1",
+      nextCursor: cursor,
     });
     expect(JSON.stringify(page)).not.toMatch(
       /tenantId|customerId|walletAccountId|provider|THREDD|journal|metadata|raw|must-not-render/,
@@ -724,9 +726,9 @@ describe("Wallet account history Backend adapter", () => {
   it("bounds raw pages, cursors and duplicate transaction ids", () => {
     const rawPage = JSON.stringify({
       items: [publicWalletTransaction("wallet-txn-1")],
-      nextCursor: "filter_cursor-1",
+      nextCursor: cursor,
     });
-    expect(normalizeWalletTransactionResponse(rawPage, "USD").nextCursor).toBe("filter_cursor-1");
+    expect(normalizeWalletTransactionResponse(rawPage, "USD").nextCursor).toBe(cursor);
     expect(() =>
       normalizeWalletTransactionResponse(
         JSON.stringify({

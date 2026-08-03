@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
+import { createHash, createHmac } from "node:crypto";
 import {
   backendApi,
   backendRuntime,
@@ -10,6 +11,41 @@ import {
 } from "./backend-api";
 
 const originalFetch = globalThis.fetch;
+const cursorPayload = Buffer.from(
+  JSON.stringify({
+    version: 1,
+    createdAt: "2026-07-31T12:00:00.000Z",
+    id: "wallet-txn-1",
+    type: null,
+    status: null,
+    assetCode: "USD",
+  }),
+).toString("base64url");
+const cursorKey = createHash("sha256")
+  .update("fastlink-wallet-transaction-cursor\0test-only-signing-secret-0123456789", "utf8")
+  .digest();
+const signedCursor = `${cursorPayload}.${createHmac("sha256", cursorKey)
+  .update(
+    JSON.stringify({
+      tenantId: "tenant-01",
+      customerId: "customer-01",
+      environment: "SANDBOX",
+      limit: 25,
+      encoded: cursorPayload,
+    }),
+  )
+  .digest("base64url")}`;
+
+const transactionRecord = () => ({
+  id: "wallet-txn-1",
+  type: "TRANSFER",
+  status: "COMPLETED",
+  assetCode: "USD",
+  amount: "25.5",
+  direction: "OUTGOING",
+  createdAt: "2026-07-31T12:00:00.000Z",
+  updatedAt: "2026-07-31T12:00:01.000Z",
+});
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
@@ -35,19 +71,67 @@ describe("Wallet transaction filter adversarial boundary", () => {
     }
   });
 
+  it("forwards only one exact payload.mac cursor and accepts the same response shape", () => {
+    expect(buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: signedCursor })).toBe(
+      `/v1/wallet/transactions?assetCode=USD&limit=25&cursor=${signedCursor}`,
+    );
+    expect(
+      normalizeWalletTransactionResponse(
+        { items: [transactionRecord()], nextCursor: signedCursor },
+        "USD",
+      ).nextCursor,
+    ).toBe(signedCursor);
+
+    const invalidCursors: unknown[] = [
+      "",
+      "payload",
+      ".signature",
+      "payload.",
+      "payload..signature",
+      "payload.signature.extra",
+      "payload+bad.signature",
+      "payload.signature=",
+      "AB.AA",
+      "AA.AB",
+      "payload.signature",
+      `${"a".repeat(255)}.AA`,
+      `${"a".repeat(255)}.${"b".repeat(257)}`,
+      1,
+    ];
+    for (const cursor of invalidCursors) {
+      expect(() =>
+        buildWalletTransactionPath({
+          assetCode: "USD",
+          limit: 25,
+          cursor: cursor as string,
+        }),
+      ).toThrow("Invalid Wallet transaction cursor");
+      expect(() =>
+        normalizeWalletTransactionResponse(
+          { items: [transactionRecord()], nextCursor: cursor },
+          "USD",
+        ),
+      ).toThrow("invalid Wallet transaction cursor");
+    }
+    expect(() =>
+      buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: null as never }),
+    ).toThrow("Invalid Wallet transaction cursor");
+    expect(
+      normalizeWalletTransactionResponse({ items: [transactionRecord()], nextCursor: null }, "USD")
+        .nextCursor,
+    ).toBeNull();
+    const maximumCursor = `${"a".repeat(254)}A.${"b".repeat(256)}`;
+    expect(
+      buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: maximumCursor }),
+    ).toContain(`cursor=${maximumCursor}`);
+  });
+
   it("emits only the eight public transaction fields", () => {
     const page = normalizeWalletTransactionResponse(
       {
         items: [
           {
-            id: "wallet-txn-1",
-            type: "TRANSFER",
-            status: "COMPLETED",
-            assetCode: "USD",
-            amount: "25.5",
-            direction: "OUTGOING",
-            createdAt: "2026-07-31T12:00:00.000Z",
-            updatedAt: "2026-07-31T12:00:01.000Z",
+            ...transactionRecord(),
             tenantId: "tenant-secret",
             customerId: "customer-secret",
             walletAccountId: "account-secret",

@@ -214,7 +214,10 @@ describeConfigured(
           historyReads += 1;
           if (historyReads === 1) return transactionPage([transaction("tx-old")]);
           if (historyReads === 2) {
-            return transactionPage([transaction("tx-new", { amount: "10" })], "refreshed_cursor");
+            return transactionPage(
+              [transaction("tx-new", { amount: "10" })],
+              "cmVmcmVzaGVk.c2lnbmF0dXJl",
+            );
           }
           return transactionPage([transaction("tx-old")]);
         }
@@ -310,7 +313,7 @@ describeConfigured(
         if (isHistory(input)) {
           historyReads += 1;
           return historyReads === 1
-            ? transactionPage([transaction("tx-kept")], "kept_cursor")
+            ? transactionPage([transaction("tx-kept")], "a2VwdA.c2lnbmF0dXJl")
             : json({ message: "provider-secret" }, 503);
         }
         if (isDetail(input)) {
