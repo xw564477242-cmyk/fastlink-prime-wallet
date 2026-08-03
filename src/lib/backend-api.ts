@@ -405,6 +405,7 @@ export type WalletTransactionStatusFilter = (typeof WALLET_TRANSACTION_STATUSES)
 export const WALLET_TRANSACTION_FILTER_VERSION = 1;
 export const WALLET_TRANSACTION_MAX_JSON_BYTES = 65_536;
 export const WALLET_TRANSACTION_MAX_CURSOR_LENGTH = 512;
+const WALLET_TRANSACTION_CURSOR_PATTERN = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
 
 export type WalletAccountTransactionQuery = {
   assetCode: string;
@@ -413,6 +414,17 @@ export type WalletAccountTransactionQuery = {
   limit?: number;
   cursor?: string;
 };
+
+function walletTransactionCursor(value: unknown): string {
+  if (
+    typeof value !== "string" ||
+    value.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
+    !WALLET_TRANSACTION_CURSOR_PATTERN.test(value)
+  ) {
+    throw new Error("Invalid Wallet transaction cursor");
+  }
+  return value;
+}
 
 export type WalletTransactionDetailExpectation = {
   transactionId: string;
@@ -2661,16 +2673,11 @@ export function buildWalletTransactionPath(query: WalletAccountTransactionQuery)
       `Wallet transaction limit must be between 1 and ${WALLET_TRANSACTION_PAGE_SIZE}`,
     );
   }
-  if (
-    query.cursor !== undefined &&
-    (!query.cursor || query.cursor.length > 512 || !/^[A-Za-z0-9_-]+$/.test(query.cursor))
-  ) {
-    throw new Error("Invalid Wallet transaction cursor");
-  }
+  const cursor = query.cursor === undefined ? undefined : walletTransactionCursor(query.cursor);
   const params = new URLSearchParams({ assetCode, limit: String(limit) });
   if (query.type) params.set("type", query.type);
   if (query.status) params.set("status", query.status);
-  if (query.cursor) params.set("cursor", query.cursor);
+  if (cursor) params.set("cursor", cursor);
   return `/v1/wallet/transactions?${params.toString()}`;
 }
 
@@ -3405,14 +3412,13 @@ export function normalizeWalletTransactionResponse(
   if (rawItems.length > limit) {
     throw new Error("Backend returned an invalid Wallet transaction page");
   }
-  if (
-    page.nextCursor !== null &&
-    (typeof page.nextCursor !== "string" ||
-      !page.nextCursor ||
-      page.nextCursor.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
-      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
-  ) {
-    throw new Error("Backend returned an invalid Wallet transaction cursor");
+  let nextCursor: string | null = null;
+  if (page.nextCursor !== null) {
+    try {
+      nextCursor = walletTransactionCursor(page.nextCursor);
+    } catch {
+      throw new Error("Backend returned an invalid Wallet transaction cursor");
+    }
   }
   const items = rawItems.map(normalizeWalletTransaction);
   if (new Set(items.map((item) => item.id)).size !== items.length) {
@@ -3433,7 +3439,7 @@ export function normalizeWalletTransactionResponse(
   ) {
     throw new Error("Backend returned a Wallet transaction outside the selected status filter");
   }
-  return { items, nextCursor: page.nextCursor };
+  return { items, nextCursor };
 }
 
 export function normalizeWalletTransferAccountHistoryResponse(
@@ -3474,14 +3480,12 @@ export function normalizeWalletTransferAccountHistoryResponse(
   if (rawItems.length > limit) {
     throw new Error("Backend returned an invalid Wallet transfer account history");
   }
-  if (
-    page.nextCursor !== null &&
-    (typeof page.nextCursor !== "string" ||
-      !page.nextCursor ||
-      page.nextCursor.length > WALLET_TRANSACTION_MAX_CURSOR_LENGTH ||
-      !/^[A-Za-z0-9_-]+$/.test(page.nextCursor))
-  ) {
-    throw new Error("Backend returned an invalid Wallet transfer account cursor");
+  if (page.nextCursor !== null) {
+    try {
+      walletTransactionCursor(page.nextCursor);
+    } catch {
+      throw new Error("Backend returned an invalid Wallet transfer account cursor");
+    }
   }
   const items = rawItems.map(normalizeWalletTransferAccountTransaction);
   if (new Set(items.map((item) => item.id)).size !== items.length) {

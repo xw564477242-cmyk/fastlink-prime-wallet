@@ -357,6 +357,7 @@ describe("Internal Wallet transfer request and response contract", () => {
 });
 
 describe("Internal Wallet transfer dual account history confirmation", () => {
+  const signedCursor = "cGF5bG9hZA.c2lnbmF0dXJl";
   const expectation = {
     accountId: "account-source-01",
     operationId: "operation-transfer-01",
@@ -386,10 +387,10 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
         type: "TRANSFER",
         status: "COMPLETED",
         limit: 25,
-        cursor: "opaque_account_bound_cursor",
+        cursor: signedCursor,
       }),
     ).toBe(
-      "/v1/wallet/accounts/account-source-01/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED&cursor=opaque_account_bound_cursor",
+      `/v1/wallet/accounts/account-source-01/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED&cursor=${signedCursor}`,
     );
     for (const accountId of ["", "x", "bad$id", "a".repeat(129)]) {
       expect(() => buildWalletAccountTransactionPath(accountId, { assetCode: "USD" })).toThrow();
@@ -400,11 +401,30 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
         cursor: "cursor+not-canonical",
       }),
     ).toThrow();
+    for (const cursor of [
+      "payload",
+      ".signature",
+      "payload.",
+      "payload..signature",
+      "payload.signature.extra",
+      "payload+bad.signature",
+      `${"a".repeat(255)}.${"b".repeat(257)}`,
+    ]) {
+      expect(() =>
+        buildWalletAccountTransactionPath(expectation.accountId, {
+          assetCode: "USD",
+          cursor,
+        }),
+      ).toThrow();
+    }
   });
 
   it("accepts one exact operation-bound debit or credit and exposes only public fields", () => {
     const debit = normalizeWalletTransferAccountHistoryResponse(
-      page([transaction({ id: "transaction-legacy-01", operationId: null }), transaction()]),
+      page(
+        [transaction({ id: "transaction-legacy-01", operationId: null }), transaction()],
+        signedCursor,
+      ),
       expectation,
     );
     expect(debit).toEqual({
@@ -463,12 +483,20 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
         expectation,
       ),
     ).toThrow();
-    expect(() =>
-      normalizeWalletTransferAccountHistoryResponse(
-        page([transaction()], "bad+cursor"),
-        expectation,
-      ),
-    ).toThrow();
+    for (const cursor of [
+      "bad+cursor.signature",
+      "payload",
+      ".signature",
+      "payload.",
+      "payload..signature",
+      "payload.signature.extra",
+      "payload.signature=",
+      `${"a".repeat(255)}.${"b".repeat(257)}`,
+    ]) {
+      expect(() =>
+        normalizeWalletTransferAccountHistoryResponse(page([transaction()], cursor), expectation),
+      ).toThrow();
+    }
 
     let reads = 0;
     const accessor = transaction();

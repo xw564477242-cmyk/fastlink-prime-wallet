@@ -10,6 +10,18 @@ import {
 } from "./backend-api";
 
 const originalFetch = globalThis.fetch;
+const signedCursor = "cGF5bG9hZA.c2lnbmF0dXJl";
+
+const transactionRecord = () => ({
+  id: "wallet-txn-1",
+  type: "TRANSFER",
+  status: "COMPLETED",
+  assetCode: "USD",
+  amount: "25.5",
+  direction: "OUTGOING",
+  createdAt: "2026-07-31T12:00:00.000Z",
+  updatedAt: "2026-07-31T12:00:01.000Z",
+});
 
 afterEach(() => {
   globalThis.fetch = originalFetch;
@@ -35,19 +47,63 @@ describe("Wallet transaction filter adversarial boundary", () => {
     }
   });
 
+  it("forwards only one exact payload.mac cursor and accepts the same response shape", () => {
+    expect(buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: signedCursor })).toBe(
+      `/v1/wallet/transactions?assetCode=USD&limit=25&cursor=${signedCursor}`,
+    );
+    expect(
+      normalizeWalletTransactionResponse(
+        { items: [transactionRecord()], nextCursor: signedCursor },
+        "USD",
+      ).nextCursor,
+    ).toBe(signedCursor);
+
+    const invalidCursors: unknown[] = [
+      "",
+      "payload",
+      ".signature",
+      "payload.",
+      "payload..signature",
+      "payload.signature.extra",
+      "payload+bad.signature",
+      "payload.signature=",
+      `${"a".repeat(255)}.${"b".repeat(257)}`,
+      1,
+    ];
+    for (const cursor of invalidCursors) {
+      expect(() =>
+        buildWalletTransactionPath({
+          assetCode: "USD",
+          limit: 25,
+          cursor: cursor as string,
+        }),
+      ).toThrow("Invalid Wallet transaction cursor");
+      expect(() =>
+        normalizeWalletTransactionResponse(
+          { items: [transactionRecord()], nextCursor: cursor },
+          "USD",
+        ),
+      ).toThrow("invalid Wallet transaction cursor");
+    }
+    expect(() =>
+      buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: null as never }),
+    ).toThrow("Invalid Wallet transaction cursor");
+    expect(
+      normalizeWalletTransactionResponse({ items: [transactionRecord()], nextCursor: null }, "USD")
+        .nextCursor,
+    ).toBeNull();
+    const maximumCursor = `${"a".repeat(255)}.${"b".repeat(256)}`;
+    expect(
+      buildWalletTransactionPath({ assetCode: "USD", limit: 25, cursor: maximumCursor }),
+    ).toContain(`cursor=${maximumCursor}`);
+  });
+
   it("emits only the eight public transaction fields", () => {
     const page = normalizeWalletTransactionResponse(
       {
         items: [
           {
-            id: "wallet-txn-1",
-            type: "TRANSFER",
-            status: "COMPLETED",
-            assetCode: "USD",
-            amount: "25.5",
-            direction: "OUTGOING",
-            createdAt: "2026-07-31T12:00:00.000Z",
-            updatedAt: "2026-07-31T12:00:01.000Z",
+            ...transactionRecord(),
             tenantId: "tenant-secret",
             customerId: "customer-secret",
             walletAccountId: "account-secret",
