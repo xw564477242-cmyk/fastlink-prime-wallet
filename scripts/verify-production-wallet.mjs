@@ -125,6 +125,30 @@ for (const [content, required, reason] of cardStatusRequirements) {
   if (!content.includes(required)) failures.push(`Card freeze/unfreeze: missing ${reason}`);
 }
 
+const digitalAssetHook = await readFile(
+  new URL("src/hooks/use-digital-asset-history.ts", root),
+  "utf8",
+);
+const digitalAssetPage = await readFile(new URL("src/routes/assets.digital.tsx", root), "utf8");
+const digitalAssetRequirements = [
+  [backendClient, 'WALLET_ASSET_CATALOG_PATH = "/v1/wallet/assets"', "exact asset catalog path"],
+  [backendClient, "WALLET_ASSET_CATALOG_MAX_JSON_BYTES = 4_096", "bounded asset catalog"],
+  [backendClient, "walletOwnedAccountTransactions", "owned account history client"],
+  [digitalAssetHook, "Promise.all", "atomic metadata and account snapshot"],
+  [digitalAssetHook, 'asset.assetClass === "DIGITAL"', "DIGITAL metadata projection"],
+  [digitalAssetHook, "mounted.current", "unmounted completion guard"],
+  [digitalAssetHook, "sessionIdentity.current.generation", "exact Session object generation"],
+  [digitalAssetPage, "Read-only digital asset view", "visible read-only boundary"],
+];
+for (const [content, required, reason] of digitalAssetRequirements) {
+  if (!content.includes(required)) failures.push(`Digital assets: missing ${reason}`);
+}
+for (const forbiddenAction of ['to="/deposit"', 'to="/withdraw"', 'to="/convert"']) {
+  if (digitalAssetPage.includes(forbiddenAction)) {
+    failures.push(`Digital assets: forbidden execution link ${forbiddenAction}`);
+  }
+}
+
 if (failures.length) {
   console.error(
     ["Production wallet audit failed:", ...failures.map((item) => `- ${item}`)].join("\n"),

@@ -349,6 +349,20 @@ export type WalletTransferAccount = {
   updatedAt: string;
 };
 
+export type WalletAssetMetadata = Readonly<{
+  assetCode: string;
+  assetClass: "FIAT" | "DIGITAL";
+}>;
+
+export type WalletAssetCatalog = Readonly<{
+  environment: "SANDBOX" | "TEST";
+  items: readonly WalletAssetMetadata[];
+}>;
+
+export const WALLET_ASSET_CATALOG_PATH = "/v1/wallet/assets";
+export const WALLET_ASSET_CATALOG_MAX_ITEMS = 50;
+export const WALLET_ASSET_CATALOG_MAX_JSON_BYTES = 4_096;
+
 export type WalletTransferInput = {
   destinationAccountId: string;
   amount: string;
@@ -378,9 +392,16 @@ export type WalletTransferAccountTransaction = WalletAccountTransaction & {
   operationId: string;
 };
 
-type WalletTransferAccountHistoryItem = WalletAccountTransaction & {
+export type WalletOwnedAccountTransaction = WalletAccountTransaction & {
   operationId: string | null;
 };
+
+export type WalletOwnedAccountTransactionPage = {
+  items: WalletOwnedAccountTransaction[];
+  nextCursor: string | null;
+};
+
+type WalletTransferAccountHistoryItem = WalletOwnedAccountTransaction;
 
 export type WalletTransferAccountHistoryExpectation = {
   accountId: string;
@@ -508,6 +529,16 @@ type BackendWalletBalanceRecord = {
   ledgerBalance?: unknown;
   pendingBalance?: unknown;
   updatedAt?: unknown;
+};
+
+type BackendWalletAssetMetadataRecord = {
+  assetCode?: unknown;
+  assetClass?: unknown;
+};
+
+type BackendWalletAssetCatalogRecord = {
+  environment?: unknown;
+  items?: unknown;
 };
 
 type BackendWalletTransactionRecord = {
@@ -1131,6 +1162,117 @@ function exactOwnJsonDataRecord(
     record[field] = descriptor.value;
   }
   return record;
+}
+
+function rejectDuplicateJsonObjectKeys(raw: string, errorMessage: string): void {
+  let index = 0;
+  const invalid = () => new Error(errorMessage);
+  const skipWhitespace = () => {
+    while (
+      index < raw.length &&
+      (raw[index] === " " || raw[index] === "\t" || raw[index] === "\n" || raw[index] === "\r")
+    ) {
+      index += 1;
+    }
+  };
+  const readString = (): string => {
+    const start = index;
+    if (raw[index] !== '"') throw invalid();
+    index += 1;
+    while (index < raw.length) {
+      const code = raw.charCodeAt(index);
+      if (code === 0x22) {
+        index += 1;
+        try {
+          const decoded = JSON.parse(raw.slice(start, index)) as unknown;
+          if (typeof decoded !== "string") throw invalid();
+          return decoded;
+        } catch {
+          throw invalid();
+        }
+      }
+      if (code <= 0x1f) throw invalid();
+      if (code === 0x5c) {
+        index += 1;
+        if (index >= raw.length) throw invalid();
+        if (raw[index] === "u") {
+          if (!/^[0-9A-Fa-f]{4}$/.test(raw.slice(index + 1, index + 5))) throw invalid();
+          index += 5;
+        } else {
+          index += 1;
+        }
+      } else {
+        index += 1;
+      }
+    }
+    throw invalid();
+  };
+  const parseValue = (depth: number): void => {
+    if (depth > 64) throw invalid();
+    skipWhitespace();
+    if (raw[index] === "{") {
+      index += 1;
+      skipWhitespace();
+      const keys = new Set<string>();
+      if (raw[index] === "}") {
+        index += 1;
+        return;
+      }
+      while (index < raw.length) {
+        const key = readString();
+        if (keys.has(key)) throw invalid();
+        keys.add(key);
+        skipWhitespace();
+        if (raw[index] !== ":") throw invalid();
+        index += 1;
+        parseValue(depth + 1);
+        skipWhitespace();
+        if (raw[index] === "}") {
+          index += 1;
+          return;
+        }
+        if (raw[index] !== ",") throw invalid();
+        index += 1;
+        skipWhitespace();
+      }
+      throw invalid();
+    }
+    if (raw[index] === "[") {
+      index += 1;
+      skipWhitespace();
+      if (raw[index] === "]") {
+        index += 1;
+        return;
+      }
+      while (index < raw.length) {
+        parseValue(depth + 1);
+        skipWhitespace();
+        if (raw[index] === "]") {
+          index += 1;
+          return;
+        }
+        if (raw[index] !== ",") throw invalid();
+        index += 1;
+      }
+      throw invalid();
+    }
+    if (raw[index] === '"') {
+      readString();
+      return;
+    }
+    for (const literal of ["true", "false", "null"]) {
+      if (raw.startsWith(literal, index)) {
+        index += literal.length;
+        return;
+      }
+    }
+    const number = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?/.exec(raw.slice(index));
+    if (!number) throw invalid();
+    index += number[0].length;
+  };
+  parseValue(0);
+  skipWhitespace();
+  if (index !== raw.length) throw invalid();
 }
 
 function ownJsonArray(value: unknown, errorMessage: string): unknown[] {
@@ -2598,6 +2740,57 @@ function walletDecimal(value: unknown, field: string, absolute = false): string 
   return value;
 }
 
+export function normalizeWalletAssetCatalogResponse(
+  rawJson: string,
+  expectedEnvironment: FastLinkEnvironment,
+): WalletAssetCatalog {
+  const errorMessage = "Backend returned an invalid Wallet asset catalog";
+  if (
+    typeof rawJson !== "string" ||
+    rawJson.length > WALLET_ASSET_CATALOG_MAX_JSON_BYTES ||
+    new TextEncoder().encode(rawJson).byteLength > WALLET_ASSET_CATALOG_MAX_JSON_BYTES
+  ) {
+    throw new Error(errorMessage);
+  }
+  if (expectedEnvironment !== "SANDBOX" && expectedEnvironment !== "TEST") {
+    throw new Error(errorMessage);
+  }
+  rejectDuplicateJsonObjectKeys(rawJson, errorMessage);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error(errorMessage);
+  }
+  const response = exactTrustedJsonRecord(
+    parsed,
+    ["environment", "items"],
+    errorMessage,
+  ) as BackendWalletAssetCatalogRecord;
+  if (response.environment !== expectedEnvironment) throw new Error(errorMessage);
+  const items = denseTrustedJsonArray(
+    response.items,
+    WALLET_ASSET_CATALOG_MAX_ITEMS,
+    errorMessage,
+  ).map((item): WalletAssetMetadata => {
+    const record = exactTrustedJsonRecord(
+      item,
+      ["assetCode", "assetClass"],
+      errorMessage,
+    ) as BackendWalletAssetMetadataRecord;
+    const assetCode = walletAssetCode(record.assetCode);
+    if (record.assetClass !== "FIAT" && record.assetClass !== "DIGITAL") {
+      throw new Error(errorMessage);
+    }
+    return Object.freeze({ assetCode, assetClass: record.assetClass });
+  });
+  if (items.length < 1) throw new Error(errorMessage);
+  for (let index = 1; index < items.length; index += 1) {
+    if (items[index - 1]!.assetCode >= items[index]!.assetCode) throw new Error(errorMessage);
+  }
+  return Object.freeze({ environment: expectedEnvironment, items: Object.freeze(items) });
+}
+
 export function normalizeWalletBalanceResponse(rawJson: string): WalletAssetAccount[] {
   if (typeof rawJson !== "string" || rawJson.length > WALLET_BALANCE_SUMMARY_MAX_JSON_BYTES) {
     throw new Error("Backend returned an invalid Wallet balance response");
@@ -3441,6 +3634,90 @@ export function normalizeWalletTransactionResponse(
   return { items, nextCursor };
 }
 
+function walletOwnedTransactionPrecedes(
+  previous: WalletOwnedAccountTransaction,
+  current: WalletOwnedAccountTransaction,
+): boolean {
+  const previousTime = Date.parse(previous.createdAt);
+  const currentTime = Date.parse(current.createdAt);
+  return previousTime > currentTime || (previousTime === currentTime && previous.id > current.id);
+}
+
+function canonicalWalletOwnedTransactionTimestamp(value: string): string {
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)) {
+    throw new Error("Backend returned an invalid owned Wallet transaction timestamp");
+  }
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.valueOf()) || parsed.toISOString() !== value) {
+    throw new Error("Backend returned an invalid owned Wallet transaction timestamp");
+  }
+  return value;
+}
+
+export function normalizeWalletOwnedAccountTransactionResponse(
+  rawJson: string,
+  accountId: string,
+  query: WalletAccountTransactionQuery,
+): WalletOwnedAccountTransactionPage {
+  const errorMessage = "Backend returned an invalid owned Wallet transaction page";
+  buildWalletAccountTransactionPath(accountId, query);
+  const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
+  if (
+    typeof rawJson !== "string" ||
+    rawJson.length > WALLET_TRANSACTION_MAX_JSON_BYTES ||
+    new TextEncoder().encode(rawJson).byteLength > WALLET_TRANSACTION_MAX_JSON_BYTES
+  ) {
+    throw new Error(errorMessage);
+  }
+  rejectDuplicateJsonObjectKeys(rawJson, errorMessage);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(rawJson) as unknown;
+  } catch {
+    throw new Error(errorMessage);
+  }
+  const page = exactTrustedJsonRecord(
+    parsed,
+    ["items", "nextCursor"],
+    errorMessage,
+  ) as BackendWalletTransactionPageRecord;
+  const rawItems = denseTrustedJsonArray(page.items, limit, errorMessage);
+  let nextCursor: string | null = null;
+  if (page.nextCursor !== null) {
+    try {
+      nextCursor = walletTransactionCursor(page.nextCursor);
+    } catch {
+      throw new Error(errorMessage);
+    }
+    if (nextCursor === query.cursor || rawItems.length !== limit) throw new Error(errorMessage);
+  }
+  const expectedAssetCode = walletAssetCode(query.assetCode);
+  const items = rawItems.map((item) => {
+    const transaction = normalizeWalletTransferAccountTransaction(item);
+    const createdAt = canonicalWalletOwnedTransactionTimestamp(transaction.createdAt);
+    const updatedAt = canonicalWalletOwnedTransactionTimestamp(transaction.updatedAt);
+    if (Date.parse(updatedAt) < Date.parse(createdAt)) throw new Error(errorMessage);
+    return Object.freeze({ ...transaction, createdAt, updatedAt });
+  });
+  if (new Set(items.map((item) => item.id)).size !== items.length) throw new Error(errorMessage);
+  if (items.some((item) => item.assetCode !== expectedAssetCode)) throw new Error(errorMessage);
+  if (query.type && items.some((item) => item.type !== query.type!.toLowerCase())) {
+    throw new Error(errorMessage);
+  }
+  if (query.status && items.some((item) => item.status !== query.status!.toLowerCase())) {
+    throw new Error(errorMessage);
+  }
+  for (let index = 1; index < items.length; index += 1) {
+    if (!walletOwnedTransactionPrecedes(items[index - 1]!, items[index]!)) {
+      throw new Error(errorMessage);
+    }
+  }
+  return Object.freeze({
+    items: Object.freeze(items) as WalletOwnedAccountTransaction[],
+    nextCursor,
+  });
+}
+
 export function normalizeWalletTransferAccountHistoryResponse(
   value: unknown,
   expectation: WalletTransferAccountHistoryExpectation,
@@ -3785,6 +4062,18 @@ export const backendApi = {
     );
   },
 
+  async walletAssets(session: BackendSession, signal?: AbortSignal): Promise<WalletAssetCatalog> {
+    requireSandboxTestWalletAccountReadRuntime(session);
+    const raw = await request<string>(
+      WALLET_ASSET_CATALOG_PATH,
+      { signal },
+      "text",
+      WALLET_ASSET_CATALOG_MAX_JSON_BYTES,
+    );
+    requireSandboxTestWalletAccountReadRuntime(session);
+    return normalizeWalletAssetCatalogResponse(raw, session.environment);
+  },
+
   async walletTransferAccounts(
     session: BackendSession,
     signal?: AbortSignal,
@@ -3830,6 +4119,27 @@ export const backendApi = {
     const limit = query.limit ?? WALLET_TRANSACTION_PAGE_SIZE;
     const result = await request<string>(buildWalletTransactionPath(query), { signal }, "text");
     return normalizeWalletTransactionResponse(result, query.assetCode, limit, query);
+  },
+
+  async walletOwnedAccountTransactions(
+    session: BackendSession,
+    account: WalletTransferAccount,
+    query: WalletAccountTransactionQuery,
+    signal?: AbortSignal,
+  ): Promise<WalletOwnedAccountTransactionPage> {
+    requireSandboxTestWalletAccountReadRuntime(session);
+    const ownedAccount = normalizeWalletTransferSourceAccount(account);
+    if (walletAssetCode(query.assetCode) !== ownedAccount.assetCode) {
+      throw new Error("Wallet account transaction asset does not match the owned account");
+    }
+    const raw = await request<string>(
+      buildWalletAccountTransactionPath(ownedAccount.id, query),
+      { signal },
+      "text",
+      WALLET_TRANSACTION_MAX_JSON_BYTES,
+    );
+    requireSandboxTestWalletAccountReadRuntime(session);
+    return normalizeWalletOwnedAccountTransactionResponse(raw, ownedAccount.id, query);
   },
 
   async walletTransferAccountTransaction(
