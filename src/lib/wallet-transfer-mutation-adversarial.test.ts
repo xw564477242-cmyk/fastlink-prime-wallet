@@ -3,9 +3,11 @@ import {
   WALLET_TRANSFER_ACCOUNT_MAX_JSON_BYTES,
   WALLET_TRANSFER_ACCOUNT_MAX_ITEMS,
   WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES,
+  buildWalletAccountTransactionPath,
   buildWalletTransferRequest,
   normalizeWalletTransferAccount,
   normalizeWalletTransferAccountsResponse,
+  normalizeWalletTransferAccountHistoryResponse,
   normalizeWalletTransferInput,
   normalizeWalletTransferResponse,
   walletTransferSessionAllowed,
@@ -354,6 +356,139 @@ describe("Internal Wallet transfer request and response contract", () => {
   });
 });
 
+describe("Internal Wallet transfer dual account history confirmation", () => {
+  const expectation = {
+    accountId: "account-source-01",
+    operationId: "operation-transfer-01",
+    assetCode: "USD",
+    amount: "25",
+    direction: "outgoing" as const,
+  };
+  const transaction = (overrides: Record<string, unknown> = {}) => ({
+    id: "transaction-debit-01",
+    operationId: "operation-transfer-01",
+    type: "TRANSFER",
+    status: "COMPLETED",
+    assetCode: "USD",
+    amount: "25",
+    direction: "OUTGOING",
+    createdAt: now,
+    updatedAt: now,
+    ...overrides,
+  });
+  const page = (items: unknown[], nextCursor: string | null = null) =>
+    JSON.stringify({ items, nextCursor });
+
+  it("builds the exact account-bound GET path with bounded filters and opaque cursor", () => {
+    expect(
+      buildWalletAccountTransactionPath(expectation.accountId, {
+        assetCode: "USD",
+        type: "TRANSFER",
+        status: "COMPLETED",
+        limit: 25,
+        cursor: "opaque_account_bound_cursor",
+      }),
+    ).toBe(
+      "/v1/wallet/accounts/account-source-01/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED&cursor=opaque_account_bound_cursor",
+    );
+    for (const accountId of ["", "x", "bad$id", "a".repeat(129)]) {
+      expect(() => buildWalletAccountTransactionPath(accountId, { assetCode: "USD" })).toThrow();
+    }
+    expect(() =>
+      buildWalletAccountTransactionPath(expectation.accountId, {
+        assetCode: "USD",
+        cursor: "cursor+not-canonical",
+      }),
+    ).toThrow();
+  });
+
+  it("accepts one exact operation-bound debit or credit and exposes only public fields", () => {
+    const debit = normalizeWalletTransferAccountHistoryResponse(
+      page([transaction({ id: "transaction-legacy-01", operationId: null }), transaction()]),
+      expectation,
+    );
+    expect(debit).toEqual({
+      id: "transaction-debit-01",
+      operationId: expectation.operationId,
+      type: "transfer",
+      status: "completed",
+      assetCode: "USD",
+      amount: "25",
+      direction: "outgoing",
+      createdAt: now,
+      updatedAt: now,
+    });
+    const credit = normalizeWalletTransferAccountHistoryResponse(
+      page([
+        transaction({
+          id: "transaction-credit-01",
+          direction: "INCOMING",
+        }),
+      ]),
+      {
+        ...expectation,
+        accountId: "account-destination-02",
+        direction: "incoming",
+      },
+    );
+    expect(credit.direction).toBe("incoming");
+    expect(JSON.stringify([debit, credit])).not.toMatch(/provider|journal|idempotency|secret/i);
+  });
+
+  it("fails closed instead of correlating by amount, time or transaction order", () => {
+    const invalidPages = [
+      page([transaction({ operationId: "operation-other-01" })]),
+      page([transaction({ operationId: null })]),
+      page([transaction({ direction: "INCOMING" })]),
+      page([transaction({ amount: "24.99" })]),
+      page([transaction({ assetCode: "EUR" })]),
+      page([transaction({ type: "DEPOSIT" })]),
+      page([transaction({ status: "PENDING" })]),
+      page([transaction({ providerReference: "provider-secret" })]),
+      page([transaction(), transaction({ id: "transaction-debit-02" })]),
+      page([]),
+    ];
+    for (const value of invalidPages) {
+      expect(() => normalizeWalletTransferAccountHistoryResponse(value, expectation)).toThrow();
+    }
+  });
+
+  it("bounds the page and executes zero response getters", () => {
+    expect(() =>
+      normalizeWalletTransferAccountHistoryResponse(" ".repeat(65_537), expectation),
+    ).toThrow();
+    expect(() =>
+      normalizeWalletTransferAccountHistoryResponse(
+        page(Array.from({ length: 26 }, (_, index) => transaction({ id: `transaction-${index}` }))),
+        expectation,
+      ),
+    ).toThrow();
+    expect(() =>
+      normalizeWalletTransferAccountHistoryResponse(
+        page([transaction()], "bad+cursor"),
+        expectation,
+      ),
+    ).toThrow();
+
+    let reads = 0;
+    const accessor = transaction();
+    Object.defineProperty(accessor, "operationId", {
+      enumerable: true,
+      get() {
+        reads += 1;
+        return expectation.operationId;
+      },
+    });
+    expect(() =>
+      normalizeWalletTransferAccountHistoryResponse(
+        { items: [accessor], nextCursor: null },
+        expectation,
+      ),
+    ).toThrow();
+    expect(reads).toBe(0);
+  });
+});
+
 describe("Internal Wallet transfer scope, duplicate and stale completion isolation", () => {
   const input = { destinationAccountId: "account-destination-02", amount: "25" };
 
@@ -432,6 +567,9 @@ describe("Internal Wallet transfer scope, duplicate and stale completion isolati
         "https://api.invalid",
       ),
     ).toBeNull();
+    expect(
+      walletTransferMutationScopeKey(session(), "SANDBOX", source(), input, 0, 0, 0, "/api", true),
+    ).not.toBe(original);
   });
 
   it("synchronously locks duplicates and gives each accepted submit one unique UUIDv4", () => {

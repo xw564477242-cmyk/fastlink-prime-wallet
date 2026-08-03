@@ -83,6 +83,18 @@ function accountWire(overrides: Record<string, unknown> = {}) {
   };
 }
 
+function destinationAccountWire(overrides: Record<string, unknown> = {}) {
+  return accountWire({
+    id: "account-mounted-destination-02",
+    accountCode: "CUSTOMER:DESTINATION:USD",
+    name: "Mounted Destination Wallet",
+    currentBalance: "50",
+    postedBalance: "50",
+    availableBalance: "50",
+    ...overrides,
+  });
+}
+
 function operationWire(overrides: Record<string, unknown> = {}) {
   return {
     id: "operation-mounted-transfer-01",
@@ -107,6 +119,38 @@ function jsonResponse(value: unknown, status = 200): Response {
 
 function isOperationStatus(input: string | URL | Request, init?: RequestInit): boolean {
   return (init?.method ?? "GET") === "GET" && String(input).includes("/v1/wallet/operations/");
+}
+
+function isAccountTransactionHistory(input: string | URL | Request, init?: RequestInit): boolean {
+  return (
+    (init?.method ?? "GET") === "GET" &&
+    String(input).includes("/v1/wallet/accounts/") &&
+    String(input).includes("/transactions?")
+  );
+}
+
+function accountTransactionHistoryResponse(
+  input: string | URL | Request,
+  overrides: Record<string, unknown> = {},
+): Response {
+  const destination = String(input).includes("account-mounted-destination-02");
+  return jsonResponse({
+    items: [
+      {
+        id: destination ? "transaction-mounted-credit-01" : "transaction-mounted-debit-01",
+        operationId: "operation-mounted-transfer-01",
+        type: "TRANSFER",
+        status: "COMPLETED",
+        assetCode: "USD",
+        amount: "25",
+        direction: destination ? "INCOMING" : "OUTGOING",
+        createdAt: updatedAt,
+        updatedAt,
+        ...overrides,
+      },
+    ],
+    nextCursor: null,
+  });
 }
 
 function deferred<T>(): Deferred<T> {
@@ -342,7 +386,12 @@ describeConfiguredEnvironment(
           if (init?.method === "POST" || String(input).endsWith("/v1/wallet/transfers")) {
             return jsonResponse(operationWire(), 201);
           }
-          if (isOperationStatus(input, init)) return jsonResponse(operationWire());
+          if (isOperationStatus(input, init)) {
+            return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+          }
+          if (isAccountTransactionHistory(input, init)) {
+            return accountTransactionHistoryResponse(input);
+          }
           receiptAccountReads += 1;
           return receiptAccountReads === 1
             ? jsonResponse([accountWire()])
@@ -369,7 +418,12 @@ describeConfiguredEnvironment(
           postCount += 1;
           return postCount === 1 ? first.promise : jsonResponse(operationWire(), 201);
         }
-        if (isOperationStatus(input, init)) return jsonResponse(operationWire());
+        if (isOperationStatus(input, init)) {
+          return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+        }
+        if (isAccountTransactionHistory(input, init)) {
+          return accountTransactionHistoryResponse(input);
+        }
         return jsonResponse([accountWire()]);
       });
       await mount(session());
@@ -403,10 +457,13 @@ describeConfiguredEnvironment(
 
     it("publishes a receipt only after one exact persisted status and clears stale balances", async () => {
       const persistedStatus = deferred<Response>();
+      const sourceHistory = deferred<Response>();
+      const destinationHistory = deferred<Response>();
       const refreshedAccounts = deferred<Response>();
       let accountReads = 0;
       let postCount = 0;
       let statusReads = 0;
+      let historyReads = 0;
       const calls = installFetch((input, init) => {
         if (init?.method === "POST") {
           postCount += 1;
@@ -415,6 +472,12 @@ describeConfiguredEnvironment(
         if (isOperationStatus(input, init)) {
           statusReads += 1;
           return persistedStatus.promise;
+        }
+        if (isAccountTransactionHistory(input, init)) {
+          historyReads += 1;
+          return String(input).includes("account-mounted-destination-02")
+            ? destinationHistory.promise
+            : sourceHistory.promise;
         }
         accountReads += 1;
         return accountReads === 1
@@ -441,6 +504,7 @@ describeConfiguredEnvironment(
 
       expect(postCount).toBe(1);
       expect(statusReads).toBe(1);
+      expect(historyReads).toBe(0);
       expect(accountReads).toBe(1);
       expect(responseBody()).not.toContain("Wallet operation accepted");
       expect(responseBody()).not.toContain("Exact available balance");
@@ -457,7 +521,31 @@ describeConfiguredEnvironment(
         persistedStatus,
         jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt })),
       );
+      expect(historyReads).toBe(2);
+      expect(responseBody()).not.toContain("Wallet operation accepted");
+      const historyRequests = calls.filter(({ input, init }) =>
+        isAccountTransactionHistory(input, init),
+      );
+      expect(historyRequests.map(({ input }) => String(input)).sort()).toEqual([
+        "/api/v1/wallet/accounts/account-mounted-destination-02/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED",
+        "/api/v1/wallet/accounts/account-mounted-source-01/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED",
+      ]);
+      expect(historyRequests.every(({ init }) => init?.signal instanceof AbortSignal)).toBe(true);
+      expect(historyRequests.every(({ init }) => init?.signal?.aborted === false)).toBe(true);
+      expect(historyRequests.every(({ init }) => init?.body === undefined)).toBe(true);
+      expect(
+        historyRequests.every(({ init }) => !new Headers(init?.headers).has("idempotency-key")),
+      ).toBe(true);
+
+      await resolvePending(sourceHistory, accountTransactionHistoryResponse("account-source"));
+      expect(responseBody()).not.toContain("Wallet operation accepted");
+      await resolvePending(
+        destinationHistory,
+        accountTransactionHistoryResponse("account-mounted-destination-02"),
+      );
       expect(responseBody()).toContain("Wallet operation accepted");
+      expect(responseBody()).toContain("transaction-mounted-debit-01");
+      expect(responseBody()).toContain("transaction-mounted-credit-01");
       expect(accountReads).toBe(2);
       expect(responseBody()).toContain("Loading scoped Wallet accounts");
       expect(responseBody()).not.toContain("100 available");
@@ -485,10 +573,175 @@ describeConfiguredEnvironment(
       expect(responseBody()).toContain("75 available");
       expect(postCount).toBe(1);
       expect(statusReads).toBe(1);
+      expect(historyReads).toBe(2);
+    });
+
+    it("blocks without re-POST when either exact account history cannot prove the operation", async () => {
+      const cases: Array<{
+        label: string;
+        destinationResponse: Response;
+        invalidatesSession?: boolean;
+      }> = [
+        {
+          label: "missing operation binding",
+          destinationResponse: accountTransactionHistoryResponse("account-mounted-destination-02", {
+            operationId: undefined,
+          }),
+        },
+        {
+          label: "different operation binding",
+          destinationResponse: accountTransactionHistoryResponse("account-mounted-destination-02", {
+            operationId: "operation-mounted-transfer-02",
+          }),
+        },
+        {
+          label: "wrong ledger direction",
+          destinationResponse: accountTransactionHistoryResponse("account-mounted-destination-02", {
+            direction: "OUTGOING",
+          }),
+        },
+        {
+          label: "history session expired",
+          destinationResponse: jsonResponse({ message: internalSecret }, 401),
+          invalidatesSession: true,
+        },
+      ];
+
+      for (const testCase of cases) {
+        sessionInvalidations = [];
+        const active = session();
+        let postCount = 0;
+        let historyReads = 0;
+        installFetch((input, init) => {
+          if (init?.method === "POST") {
+            postCount += 1;
+            return jsonResponse(operationWire(), 201);
+          }
+          if (isOperationStatus(input, init)) {
+            return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+          }
+          if (isAccountTransactionHistory(input, init)) {
+            historyReads += 1;
+            return String(input).includes("account-mounted-destination-02")
+              ? testCase.destinationResponse
+              : accountTransactionHistoryResponse(input);
+          }
+          return jsonResponse([accountWire(), destinationAccountWire()]);
+        });
+        await mount(active);
+        await enterTransfer();
+        await act(async () => {
+          void button("Create transfer operation").props.onClick();
+          await flush();
+        });
+
+        expect(postCount, testCase.label).toBe(1);
+        expect(historyReads, testCase.label).toBe(2);
+        expect(responseBody(), testCase.label).toContain(
+          "persisted operation could not be confirmed",
+        );
+        expect(responseBody(), testCase.label).not.toContain("Wallet operation accepted");
+        expect(responseBody(), testCase.label).not.toContain(internalSecret);
+        expect(button("Create transfer operation").props.disabled, testCase.label).toBe(true);
+        expect(sessionInvalidations, testCase.label).toEqual(
+          testCase.invalidatesSession ? [{ session: active, reason: "EXPLICIT_401" }] : [],
+        );
+        await act(async () => {
+          void button("Create transfer operation").props.onClick();
+          await flush();
+        });
+        expect(postCount, testCase.label).toBe(1);
+        await unmount();
+      }
+    });
+
+    it("never requests recipient history outside the current customer account list", async () => {
+      let postCount = 0;
+      const historyPaths: string[] = [];
+      installFetch((input, init) => {
+        if (init?.method === "POST") {
+          postCount += 1;
+          return jsonResponse(operationWire(), 201);
+        }
+        if (isOperationStatus(input, init)) {
+          return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+        }
+        if (isAccountTransactionHistory(input, init)) {
+          historyPaths.push(String(input));
+          return accountTransactionHistoryResponse(input);
+        }
+        return jsonResponse([accountWire()]);
+      });
+      await mount(session());
+      await enterTransfer();
+      await act(async () => {
+        void button("Create transfer operation").props.onClick();
+        await flush();
+      });
+
+      expect(postCount).toBe(1);
+      expect(historyPaths).toEqual([
+        "/api/v1/wallet/accounts/account-mounted-source-01/transactions?assetCode=USD&limit=25&type=TRANSFER&status=COMPLETED",
+      ]);
+      expect(responseBody()).toContain("Wallet operation accepted");
+      expect(responseBody()).toContain("transaction-mounted-debit-01");
+      expect(responseBody()).toContain("Recipient history is protected by account ownership");
+      expect(responseBody()).not.toContain("transaction-mounted-credit-01");
+    });
+
+    it("makes late debit and credit history completions zero-write after Session replacement or unmount", async () => {
+      for (const mode of ["replacement", "unmount"] as const) {
+        const sourceHistory = deferred<Response>();
+        const destinationHistory = deferred<Response>();
+        let postCount = 0;
+        let historyReads = 0;
+        installFetch((input, init) => {
+          if (init?.method === "POST") {
+            postCount += 1;
+            return jsonResponse(operationWire(), 201);
+          }
+          if (isOperationStatus(input, init)) {
+            return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+          }
+          if (isAccountTransactionHistory(input, init)) {
+            historyReads += 1;
+            return String(input).includes("account-mounted-destination-02")
+              ? destinationHistory.promise
+              : sourceHistory.promise;
+          }
+          return jsonResponse([accountWire(), destinationAccountWire()]);
+        });
+        await mount(session());
+        await enterTransfer();
+        await act(async () => {
+          void button("Create transfer operation").props.onClick();
+          await flush();
+        });
+        expect(postCount, mode).toBe(1);
+        expect(historyReads, mode).toBe(2);
+
+        if (mode === "replacement") await updateSession(session());
+        else await unmount();
+        await resolvePending(sourceHistory, accountTransactionHistoryResponse("account-source"));
+        await resolvePending(
+          destinationHistory,
+          accountTransactionHistoryResponse("account-mounted-destination-02"),
+        );
+        expect(responseBody(), mode).not.toContain("Wallet operation accepted");
+        expect(responseBody(), mode).not.toContain("transaction-mounted-debit-01");
+        expect(responseBody(), mode).not.toContain("transaction-mounted-credit-01");
+        expect(sessionInvalidations, mode).toEqual([]);
+        expect(postCount, mode).toBe(1);
+        await unmount();
+      }
     });
 
     it("blocks every new POST when persisted confirmation is missing or inconsistent", async () => {
       const cases: Array<{ label: string; response: Response }> = [
+        {
+          label: "operation not completed",
+          response: jsonResponse(operationWire()),
+        },
         {
           label: "different operation",
           response: jsonResponse(operationWire({ id: "operation-mounted-transfer-02" })),
@@ -620,7 +873,12 @@ describeConfiguredEnvironment(
                 : jsonResponse({ message: "safe" }, failure)
               : jsonResponse(operationWire(), 201);
           }
-          if (isOperationStatus(input, init)) return jsonResponse(operationWire());
+          if (isOperationStatus(input, init)) {
+            return jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }));
+          }
+          if (isAccountTransactionHistory(input, init)) {
+            return accountTransactionHistoryResponse(input);
+          }
           return jsonResponse([accountWire()]);
         });
         await mount(session());
@@ -677,8 +935,11 @@ describeConfiguredEnvironment(
         if (isOperationStatus(input, init)) {
           statusReads += 1;
           return statusReads === 1
-            ? jsonResponse(operationWire())
+            ? jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }))
             : jsonResponse({ message: "expired" }, 401);
+        }
+        if (isAccountTransactionHistory(input, init)) {
+          return accountTransactionHistoryResponse(input);
         }
         return jsonResponse([accountWire()]);
       });
@@ -777,7 +1038,12 @@ describeConfiguredEnvironment(
           if (init?.method === "POST") return jsonResponse(operationWire(), 201);
           if (isOperationStatus(input, init)) {
             statusReads += 1;
-            return statusReads === 1 ? jsonResponse(operationWire()) : pendingStatus.promise;
+            return statusReads === 1
+              ? jsonResponse(operationWire({ status: "COMPLETED", completedAt: updatedAt }))
+              : pendingStatus.promise;
+          }
+          if (isAccountTransactionHistory(input, init)) {
+            return accountTransactionHistoryResponse(input);
           }
           return jsonResponse([accountWire()]);
         });

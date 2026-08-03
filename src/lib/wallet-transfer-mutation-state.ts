@@ -62,6 +62,7 @@ export function walletTransferMutationScopeKey(
   sourceGeneration = 0,
   inputGeneration = 0,
   runtimeApiUrl = "/api",
+  destinationOwnedBySession = false,
 ): string | null {
   if (
     !session ||
@@ -72,6 +73,7 @@ export function walletTransferMutationScopeKey(
     sourceGeneration < 0 ||
     !Number.isSafeInteger(inputGeneration) ||
     inputGeneration < 0 ||
+    typeof destinationOwnedBySession !== "boolean" ||
     !walletTransferSessionAllowed(session, runtimeEnvironment) ||
     !source
   ) {
@@ -92,6 +94,7 @@ export function walletTransferMutationScopeKey(
       session.environment,
       runtimeEnvironment,
       runtimeApiUrl,
+      destinationOwnedBySession,
       normalizedSource.id,
       normalizedSource.assetCode,
       normalizedSource.status,

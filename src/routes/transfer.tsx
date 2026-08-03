@@ -54,12 +54,17 @@ export function InternalWalletTransferPage() {
     transferRequestKey: string;
     transferGeneration: number;
     operation: WalletOperationActivity;
+    sourceTransactionId: string;
+    destinationTransactionId: string | null;
   } | null>(null);
   const activeAccounts = useMemo(
     () => accounts.accounts.filter((account) => account.status === "active"),
     [accounts.accounts],
   );
   const source = activeAccounts.find((account) => account.id === sourceAccountId) ?? null;
+  const destinationOwnedBySession = activeAccounts.some(
+    (account) => account.id === destinationAccountId,
+  );
   const runtimeEnvironment = backendRuntime.error === null ? backendRuntime.environment : undefined;
   const sessionContextKey = walletTransferSessionAllowed(session, runtimeEnvironment)
     ? JSON.stringify([
@@ -107,6 +112,8 @@ export function InternalWalletTransferPage() {
         transferRequestKey: accepted.transferRequestKey,
         transferGeneration: accepted.transferGeneration,
         operation: accepted.operation,
+        sourceTransactionId: accepted.sourceTransaction.id,
+        destinationTransactionId: accepted.destinationTransaction?.id ?? null,
       });
       invalidateAndRefreshAccounts();
     },
@@ -121,6 +128,7 @@ export function InternalWalletTransferPage() {
     session,
     source,
     input,
+    destinationOwnedBySession,
     handleAccepted,
     invalidateUnconfirmedTransfer,
     invalidate,
@@ -290,7 +298,12 @@ export function InternalWalletTransferPage() {
         )}
 
         {visibleReceipt && (
-          <TransferReceipt operation={visibleReceipt} statusRefresh={statusRefresh} />
+          <TransferReceipt
+            operation={visibleReceipt}
+            sourceTransactionId={receipt?.sourceTransactionId ?? ""}
+            destinationTransactionId={receipt?.destinationTransactionId ?? null}
+            statusRefresh={statusRefresh}
+          />
         )}
       </main>
     </MobileShell>
@@ -316,9 +329,13 @@ function Message({ text }: { text: string }) {
 
 function TransferReceipt({
   operation,
+  sourceTransactionId,
+  destinationTransactionId,
   statusRefresh,
 }: {
   operation: WalletOperationActivity;
+  sourceTransactionId: string;
+  destinationTransactionId: string | null;
   statusRefresh: ReturnType<typeof useWalletTransferStatusRefresh>;
 }) {
   return (
@@ -337,6 +354,18 @@ function TransferReceipt({
       <p className="mt-3 break-all text-[10px] text-muted-foreground">
         Operation ID: {operation.id}
       </p>
+      <p className="mt-2 break-all text-[10px] text-muted-foreground">
+        Debit transaction: {sourceTransactionId}
+      </p>
+      {destinationTransactionId ? (
+        <p className="mt-1 break-all text-[10px] text-muted-foreground">
+          Credit transaction: {destinationTransactionId}
+        </p>
+      ) : (
+        <p className="mt-1 text-[10px] text-muted-foreground">
+          Recipient history is protected by account ownership and was not requested.
+        </p>
+      )}
       {statusRefresh.error && <Message text={statusRefresh.error} />}
       <button
         type="button"
