@@ -190,8 +190,9 @@ export function HistoryPage() {
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">{transaction.merchant}</p>
                   <p className="truncate text-xs text-muted-foreground">
-                    •••• {activeCard?.last4} ·{" "}
-                    {new Date(transaction.timestamp).toLocaleString(lang)}
+                    {transaction.cardType ?? activeCard?.type ?? "card"} ·{" "}
+                    {transaction.cardId ?? activeCard?.cardId ?? "Unavailable"} · ••••{" "}
+                    {activeCard?.last4} · {new Date(transaction.timestamp).toLocaleString(lang)}
                   </p>
                 </div>
                 <div className="text-right">

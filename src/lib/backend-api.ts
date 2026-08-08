@@ -95,6 +95,7 @@ export type WalletCard = {
   balance: number;
   availableBalanceMinor?: string;
   createdAt?: string;
+  effectiveFees?: CardEffectiveFees;
   capabilities: {
     freeze: boolean;
     unfreeze: boolean;
@@ -102,6 +103,26 @@ export type WalletCard = {
     renew: boolean;
     updateLimits: boolean;
   };
+};
+
+export type CardEffectiveFees = {
+  templateId: string;
+  cardIssueFee: string;
+  cardMonthlyFee: string;
+  usdtDepositRate: string;
+  cardSpendRate: string;
+  assetWithdrawRate: string;
+  cashWithdrawRate: string;
+  referralFeeRate: string;
+};
+
+export type WalletCardProduct = {
+  templateId: string;
+  cardType: "virtual" | "physical";
+  currency: string;
+  openingFee: string;
+  monthlyFee: string;
+  effectiveFees: CardEffectiveFees;
 };
 
 export type VirtualCardCreateInput = {
@@ -169,6 +190,8 @@ export const CARD_ACTIVATION_MAX_RESPONSE_BYTES = 16_384;
 
 export type WalletCardTransaction = {
   id: string;
+  cardId?: string;
+  cardType?: "virtual" | "physical";
   status: "authorized" | "declined" | "cleared" | "settled" | "reversed" | "refunded";
   amountMinor: string;
   currency: string;
@@ -374,6 +397,8 @@ export const WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES = 16_384;
 
 export type WalletAccountTransaction = {
   id: string;
+  cardId?: string | null;
+  cardType?: "virtual" | "physical" | null;
   type: "deposit" | "withdrawal" | "transfer" | "merchant_payment" | "refund" | "fx";
   status: "pending" | "completed" | "failed" | "reversed";
   assetCode: string;
@@ -516,6 +541,7 @@ type BackendCardRecord = {
   availableBalanceMinor?: unknown;
   createdAt?: unknown;
   capabilities?: Record<string, unknown>;
+  effectiveFees?: unknown;
 };
 
 type BackendCardPageRecord = {
@@ -543,6 +569,8 @@ type BackendWalletAssetCatalogRecord = {
 
 type BackendWalletTransactionRecord = {
   id?: unknown;
+  cardId?: unknown;
+  cardType?: unknown;
   type?: unknown;
   status?: unknown;
   assetCode?: unknown;
@@ -936,6 +964,10 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     value.alias === null ? undefined : typeof value.alias === "string" ? value.alias : undefined;
   const createdAt = value.createdAt === undefined ? undefined : cardRfc3339(value.createdAt);
   const capabilities = value.capabilities ?? {};
+  const effectiveFees =
+    value.effectiveFees === undefined
+      ? undefined
+      : normalizeEffectiveFees(value.effectiveFees, id, rawType);
 
   return {
     cardId: id,
@@ -950,6 +982,7 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     balance: Number.isFinite(minor) ? minor / 100 : 0,
     ...(availableBalanceMinor === undefined ? {} : { availableBalanceMinor }),
     ...(createdAt === undefined ? {} : { createdAt }),
+    ...(effectiveFees === undefined ? {} : { effectiveFees }),
     capabilities: {
       freeze: capabilities.freeze === true,
       unfreeze: capabilities.unfreeze === true,
@@ -957,6 +990,120 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
       renew: capabilities.renew === true,
       updateLimits: capabilities.updateLimits === true,
     },
+  };
+}
+
+function feeDecimal(value: unknown, field: string): string {
+  if (typeof value !== "string" || !/^(?:0|[1-9]\d{0,17})(?:\.\d{1,18})?$/.test(value)) {
+    throw new Error(`Backend returned an invalid Card fee ${field}`);
+  }
+  return value;
+}
+
+function feeDecimalMinor(value: string): bigint {
+  const [whole, fraction = ""] = value.split(".");
+  return BigInt(`${whole}${fraction.padEnd(18, "0")}`);
+}
+
+function normalizeEffectiveFees(
+  value: unknown,
+  cardId: string | undefined,
+  rawType: string,
+): CardEffectiveFees {
+  const policy = ownJsonDataRecord(
+    value,
+    ["cardId", "cardType", "environment", "templateId", "fees", "tenantCaps", "sources"],
+    "Backend returned an invalid Card fee policy",
+  );
+  if (
+    (cardId !== undefined && policy.cardId !== cardId) ||
+    String(policy.cardType).toLowerCase() !== rawType
+  ) {
+    throw new Error("Backend returned a Card fee policy outside the selected Card");
+  }
+  if (policy.environment !== "SANDBOX" && policy.environment !== "TEST") {
+    throw new Error("Backend returned a Card fee policy outside the DEV sandbox");
+  }
+  if (
+    typeof policy.templateId !== "string" ||
+    !/^[A-Za-z0-9._:-]{2,128}$/.test(policy.templateId)
+  ) {
+    throw new Error("Backend returned an invalid Card fee template");
+  }
+  const fees = ownJsonDataRecord(
+    policy.fees,
+    [
+      "cardIssueFee",
+      "cardMonthlyFee",
+      "usdtDepositRate",
+      "cardSpendRate",
+      "assetWithdrawRate",
+      "cashWithdrawRate",
+      "thirdPartyPayRate",
+      "referralFeeRate",
+    ],
+    "Backend returned invalid Card fees",
+  );
+  const tenantCaps = ownJsonDataRecord(
+    policy.tenantCaps,
+    [
+      "cardIssueFee",
+      "cardMonthlyFee",
+      "usdtDepositRate",
+      "cardSpendRate",
+      "assetWithdrawRate",
+      "cashWithdrawRate",
+      "thirdPartyPayRate",
+      "referralFeeRate",
+    ],
+    "Backend returned invalid tenant Card fee caps",
+  );
+  const sources = ownJsonDataRecord(
+    policy.sources,
+    [
+      "cardIssueFee",
+      "cardMonthlyFee",
+      "usdtDepositRate",
+      "cardSpendRate",
+      "assetWithdrawRate",
+      "cashWithdrawRate",
+      "thirdPartyPayRate",
+      "referralFeeRate",
+    ],
+    "Backend returned invalid Card fee sources",
+  );
+  const feeKeys = [
+    "cardIssueFee",
+    "cardMonthlyFee",
+    "usdtDepositRate",
+    "cardSpendRate",
+    "assetWithdrawRate",
+    "cashWithdrawRate",
+    "thirdPartyPayRate",
+    "referralFeeRate",
+  ] as const;
+  const normalizedFees = Object.fromEntries(
+    feeKeys.map((key) => {
+      const fee = feeDecimal(fees[key], key);
+      const cap = feeDecimal(tenantCaps[key], `tenantCaps.${key}`);
+      if (feeDecimalMinor(fee) > feeDecimalMinor(cap)) {
+        throw new Error(`Backend returned Card fee ${key} above the tenant global cap`);
+      }
+      if (!["CARD", "TEMPLATE", "TENANT"].includes(String(sources[key]))) {
+        throw new Error(`Backend returned an invalid Card fee source ${key}`);
+      }
+      return [key, fee];
+    }),
+  ) as Record<(typeof feeKeys)[number], string>;
+  return {
+    templateId: policy.templateId,
+    cardIssueFee: normalizedFees.cardIssueFee,
+    cardMonthlyFee: normalizedFees.cardMonthlyFee,
+    usdtDepositRate: normalizedFees.usdtDepositRate,
+    cardSpendRate: normalizedFees.cardSpendRate,
+    assetWithdrawRate: normalizedFees.assetWithdrawRate,
+    cashWithdrawRate: normalizedFees.cashWithdrawRate,
+    referralFeeRate: normalizedFees.referralFeeRate,
   };
 }
 
@@ -1005,6 +1152,52 @@ export function buildCardListPath(query: WalletCardListQuery = {}): string {
   const params = new URLSearchParams({ limit: String(limit) });
   if (query.cursor) params.set("cursor", query.cursor);
   return `/v1/cards?${params.toString()}`;
+}
+
+export function normalizeCardProductsResponse(value: unknown): WalletCardProduct[] {
+  const response = ownJsonDataRecord(
+    value,
+    ["environment", "products"],
+    "Backend returned invalid Card products",
+  );
+  if (
+    !Array.isArray(response.products) ||
+    response.products.length < 1 ||
+    response.products.length > 4
+  ) {
+    throw new Error("Backend returned invalid Card products");
+  }
+  return response.products.map((item) => {
+    const product = ownJsonDataRecord(
+      item,
+      ["templateId", "cardType", "currency", "openingFee", "monthlyFee", "effectiveFees"],
+      "Backend returned an invalid Card product",
+    );
+    const cardType =
+      product.cardType === "VIRTUAL"
+        ? ("virtual" as const)
+        : product.cardType === "PHYSICAL"
+          ? ("physical" as const)
+          : null;
+    if (
+      !cardType ||
+      typeof product.templateId !== "string" ||
+      !/^[A-Za-z0-9._:-]{2,128}$/.test(product.templateId)
+    ) {
+      throw new Error("Backend returned an invalid Card product");
+    }
+    if (typeof product.currency !== "string" || !/^[A-Z]{3}$/.test(product.currency)) {
+      throw new Error("Backend returned an invalid Card product currency");
+    }
+    return {
+      templateId: product.templateId,
+      cardType,
+      currency: product.currency,
+      openingFee: feeDecimal(product.openingFee, "openingFee"),
+      monthlyFee: feeDecimal(product.monthlyFee, "monthlyFee"),
+      effectiveFees: normalizeEffectiveFees(product.effectiveFees, undefined, cardType),
+    };
+  });
 }
 
 function cardPublicId(value: unknown): string {
@@ -2338,10 +2531,15 @@ function cardTransactionMinorUnits(value: unknown): string {
 }
 
 function normalizeTransaction(value: unknown): WalletCardTransaction {
+  const hasCardBinding =
+    !!value &&
+    typeof value === "object" &&
+    (Object.hasOwn(value, "cardId") || Object.hasOwn(value, "cardType"));
   const record = exactTrustedJsonRecord(
     value,
     [
       "id",
+      ...(hasCardBinding ? ["cardId", "cardType"] : []),
       "status",
       "amountMinor",
       "authorizedAmountMinor",
@@ -2384,8 +2582,16 @@ function normalizeTransaction(value: unknown): WalletCardTransaction {
     throw new Error("Backend returned an invalid transaction id");
   }
   const timestamp = cardTransactionTimestamp(record.occurredAt);
+  const cardId = record.cardId === undefined ? undefined : cardPublicId(record.cardId);
+  let cardType: WalletCardTransaction["cardType"];
+  if (record.cardType === undefined) cardType = undefined;
+  else if (record.cardType === "VIRTUAL") cardType = "virtual";
+  else if (record.cardType === "PHYSICAL") cardType = "physical";
+  else throw new Error("Backend returned an invalid transaction Card type");
   return {
     id,
+    ...(cardId === undefined ? {} : { cardId }),
+    ...(cardType === undefined ? {} : { cardType }),
     status: rawStatus.toLowerCase() as WalletCardTransaction["status"],
     amountMinor,
     currency,
@@ -2891,6 +3097,20 @@ function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
     ["id", "type", "status", "assetCode", "amount", "direction", "createdAt", "updatedAt"],
     "Backend returned an invalid Wallet transaction",
   ) as BackendWalletTransactionRecord;
+  const descriptors = Object.getOwnPropertyDescriptors(value as object);
+  const hasCardFields = descriptors.cardId !== undefined || descriptors.cardType !== undefined;
+  if (hasCardFields) {
+    if (
+      !descriptors.cardId ||
+      !("value" in descriptors.cardId) ||
+      !descriptors.cardType ||
+      !("value" in descriptors.cardType)
+    ) {
+      throw new Error("Backend returned an invalid Wallet transaction card binding");
+    }
+    record.cardId = descriptors.cardId.value;
+    record.cardType = descriptors.cardType.value;
+  }
   if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
     throw new Error("Backend returned an invalid Wallet transaction id");
   }
@@ -2905,8 +3125,27 @@ function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
   if (record.direction !== "INCOMING" && record.direction !== "OUTGOING") {
     throw new Error("Backend returned an invalid Wallet transaction direction");
   }
+  if (hasCardFields) {
+    const validNullPair = record.cardId === null && record.cardType === null;
+    const validCardPair =
+      typeof record.cardId === "string" &&
+      /^[A-Za-z0-9._:-]{2,128}$/.test(record.cardId) &&
+      (record.cardType === "VIRTUAL" || record.cardType === "PHYSICAL");
+    if (!validNullPair && !validCardPair) {
+      throw new Error("Backend returned an invalid Wallet transaction card binding");
+    }
+  }
   return {
     id: record.id,
+    ...(hasCardFields
+      ? {
+          cardId: record.cardId as string | null,
+          cardType:
+            record.cardType === null
+              ? null
+              : (String(record.cardType).toLowerCase() as "virtual" | "physical"),
+        }
+      : {}),
     type: record.type.toLowerCase() as WalletAccountTransaction["type"],
     status: record.status.toLowerCase() as WalletAccountTransaction["status"],
     assetCode: walletAssetCode(record.assetCode),
@@ -2924,11 +3163,17 @@ function normalizeWalletTransferAccountTransaction(
   // text. Re-serializing each parsed item lets the existing exact raw-JSON
   // boundary reject unknown/provider fields without reflecting over caller
   // supplied objects or invoking accessors.
+  const hasCardId = !!value && typeof value === "object" && Object.hasOwn(value, "cardId");
+  const hasCardType = !!value && typeof value === "object" && Object.hasOwn(value, "cardType");
+  if (hasCardId !== hasCardType) {
+    throw new Error("Backend returned an invalid Wallet transfer account transaction");
+  }
   const record = exactOwnJsonDataRecord(
     JSON.stringify(value),
     [
       "id",
       "operationId",
+      ...(hasCardId ? ["cardId", "cardType"] : []),
       "type",
       "status",
       "assetCode",
@@ -2947,6 +3192,9 @@ function normalizeWalletTransferAccountTransaction(
   }
   const transaction = normalizeWalletTransaction({
     id: record.id,
+    ...(record.cardId !== undefined || record.cardType !== undefined
+      ? { cardId: record.cardId, cardType: record.cardType }
+      : {}),
     type: record.type,
     status: record.status,
     assetCode: record.assetCode,
@@ -3845,6 +4093,17 @@ export const backendApi = {
     const limit = query.limit ?? CARD_LIST_PAGE_SIZE;
     const page = await request<unknown>(buildCardListPath(query), { signal });
     return normalizeCardListResponse(page, limit);
+  },
+
+  async cardProducts(signal?: AbortSignal): Promise<WalletCardProduct[]> {
+    return normalizeCardProductsResponse(await request<unknown>("/v1/cards/products", { signal }));
+  },
+
+  async cardEffectiveFees(card: WalletCard, signal?: AbortSignal): Promise<CardEffectiveFees> {
+    const value = await request<unknown>(`/v1/cards/${encodeURIComponent(card.cardId)}/fees`, {
+      signal,
+    });
+    return normalizeEffectiveFees(value, card.cardId, card.type);
   },
 
   async cardBalance(cardId: string, signal?: AbortSignal): Promise<WalletCardBalance> {
