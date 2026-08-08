@@ -12,6 +12,7 @@ import {
   buildWalletOperationPath,
   buildWalletOperationDetailPath,
   normalizeCardListResponse,
+  normalizeCardProductsResponse,
   normalizeCardBalanceResponse,
   normalizeCardLimitsResponse,
   normalizeCardTransactionResponse,
@@ -68,6 +69,93 @@ const signedCursor = (payload: string) =>
   `${Buffer.from(payload).toString("base64url")}.${Buffer.alloc(32).toString("base64url")}`;
 
 describe("Card list Backend adapter", () => {
+  it("preserves the bounded effective fee contract and product opening fee", () => {
+    const fees = {
+      cardId: "card_1",
+      cardType: "VIRTUAL",
+      environment: "SANDBOX",
+      templateId: "virtual-usdt",
+      fees: {
+        cardIssueFee: "6",
+        cardMonthlyFee: "1.5",
+        usdtDepositRate: "1",
+        cardSpendRate: "1.5",
+        assetWithdrawRate: "1",
+        cashWithdrawRate: "2",
+        thirdPartyPayRate: "2",
+        referralFeeRate: "20",
+      },
+      tenantCaps: {
+        cardIssueFee: "30",
+        cardMonthlyFee: "5",
+        usdtDepositRate: "3",
+        cardSpendRate: "3.5",
+        assetWithdrawRate: "2.5",
+        cashWithdrawRate: "4",
+        thirdPartyPayRate: "3",
+        referralFeeRate: "40",
+      },
+      sources: {
+        cardIssueFee: "TENANT",
+        cardMonthlyFee: "TENANT",
+        usdtDepositRate: "TEMPLATE",
+        cardSpendRate: "CARD",
+        assetWithdrawRate: "TENANT",
+        cashWithdrawRate: "TENANT",
+        thirdPartyPayRate: "TENANT",
+        referralFeeRate: "TENANT",
+      },
+    };
+    const card = normalizeCardListResponse({
+      cards: [{ ...publicCard("card_1"), effectiveFees: fees }],
+      nextCursor: null,
+    }).cards[0]!;
+    expect(card.effectiveFees).toEqual({
+      templateId: "virtual-usdt",
+      cardIssueFee: "6",
+      cardMonthlyFee: "1.5",
+      usdtDepositRate: "1",
+      cardSpendRate: "1.5",
+      assetWithdrawRate: "1",
+      cashWithdrawRate: "2",
+      referralFeeRate: "20",
+    });
+
+    expect(
+      normalizeCardProductsResponse({
+        environment: "SANDBOX",
+        products: [
+          {
+            templateId: "virtual-usdt",
+            cardType: "VIRTUAL",
+            currency: "USD",
+            openingFee: "6",
+            monthlyFee: "1.5",
+            effectiveFees: fees,
+          },
+        ],
+      }),
+    ).toEqual([
+      {
+        templateId: "virtual-usdt",
+        cardType: "virtual",
+        currency: "USD",
+        openingFee: "6",
+        monthlyFee: "1.5",
+        effectiveFees: card.effectiveFees,
+      },
+    ]);
+
+    const aboveCap = structuredClone(fees);
+    aboveCap.fees.usdtDepositRate = "3.000000000000000001";
+    expect(() =>
+      normalizeCardListResponse({
+        cards: [{ ...publicCard("card_1"), effectiveFees: aboveCap }],
+        nextCursor: null,
+      }),
+    ).toThrow("above the tenant global cap");
+  });
+
   it("builds the canonical bounded page request and encodes the opaque cursor", () => {
     expect(buildCardListPath()).toBe("/v1/cards?limit=20");
     expect(buildCardListPath({ limit: 50, cursor: "next_page-token" })).toBe(
@@ -407,6 +495,18 @@ describe("Card transaction Backend adapter", () => {
     );
   });
 
+  it("preserves the selected card identity for reconciliation", () => {
+    const page = normalizeCardTransactionResponse(
+      cardTransactionJson({
+        transactions: [{ ...publicTransaction("txn_1"), cardId: "card_1", cardType: "VIRTUAL" }],
+        nextCursor: null,
+      }),
+    );
+    expect(page.transactions[0]).toEqual(
+      expect.objectContaining({ cardId: "card_1", cardType: "virtual" }),
+    );
+  });
+
   it("rejects over-limit pages rather than truncating them", () => {
     expect(() =>
       normalizeCardTransactionResponse(
@@ -644,6 +744,34 @@ const publicWalletTransaction = (id: string) => ({
 });
 
 describe("Wallet account history Backend adapter", () => {
+  it("preserves a valid card binding and rejects partial card identity", () => {
+    const page = normalizeWalletTransactionResponse(
+      {
+        items: [
+          {
+            ...publicWalletTransaction("wallet-txn-1"),
+            cardId: "card_1",
+            cardType: "VIRTUAL",
+          },
+        ],
+        nextCursor: null,
+      },
+      "USD",
+    );
+    expect(page.items[0]).toEqual(
+      expect.objectContaining({ cardId: "card_1", cardType: "virtual" }),
+    );
+    expect(() =>
+      normalizeWalletTransactionResponse(
+        {
+          items: [{ ...publicWalletTransaction("wallet-txn-2"), cardId: "card_1" }],
+          nextCursor: null,
+        },
+        "USD",
+      ),
+    ).toThrow("Backend returned an invalid Wallet transaction card binding");
+  });
+
   const cursor = "ZmlsdGVyX2N1cnNvci0x.c2lnbmF0dXJl";
 
   it("builds a bounded selected-account request with a filter-bound cursor", () => {
