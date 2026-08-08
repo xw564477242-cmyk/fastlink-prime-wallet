@@ -3168,13 +3168,17 @@ function normalizeWalletTransferAccountTransaction(
   // text. Re-serializing each parsed item lets the existing exact raw-JSON
   // boundary reject unknown/provider fields without reflecting over caller
   // supplied objects or invoking accessors.
+  const hasCardId = !!value && typeof value === "object" && Object.hasOwn(value, "cardId");
+  const hasCardType = !!value && typeof value === "object" && Object.hasOwn(value, "cardType");
+  if (hasCardId !== hasCardType) {
+    throw new Error("Backend returned an invalid Wallet transfer account transaction");
+  }
   const record = exactOwnJsonDataRecord(
     JSON.stringify(value),
     [
       "id",
       "operationId",
-      "cardId",
-      "cardType",
+      ...(hasCardId ? ["cardId", "cardType"] : []),
       "type",
       "status",
       "assetCode",

@@ -22,7 +22,6 @@ import {
   type CardLimitField,
   type CardReplacementReason,
   type WalletCardLimits,
-  type WalletCardProduct,
 } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
@@ -81,8 +80,6 @@ function draftFromLimits(limits: WalletCardLimits | null): Record<CardLimitField
 export function CardsPage() {
   const { t } = useLang();
   const { session, invalidate: invalidateSession } = useBackendSession();
-  const [products, setProducts] = useState<WalletCardProduct[]>([]);
-  const [productsError, setProductsError] = useState<string | null>(null);
   const navigate = useNavigate({ from: "/cards" });
   const { cardId } = Route.useSearch();
   const {
@@ -107,28 +104,6 @@ export function CardsPage() {
     () => ({ currency: "USD", alias: defaultVirtualAlias }),
     [defaultVirtualAlias],
   );
-  useEffect(() => {
-    if (!session) {
-      setProducts([]);
-      setProductsError(null);
-      return;
-    }
-    const controller = new AbortController();
-    setProductsError(null);
-    void backendApi
-      .cardProducts(controller.signal)
-      .then(setProducts)
-      .catch((reason) => {
-        if (!controller.signal.aborted) {
-          setProducts([]);
-          setProductsError(
-            reason instanceof Error ? reason.message : "Card products are unavailable",
-          );
-        }
-      });
-    return () => controller.abort();
-  }, [session]);
-  const virtualProduct = products.find((product) => product.cardType === "virtual");
   const [cardDataGeneration, refreshCardData] = useReducer((value: number) => value + 1, 0);
   const acceptCreatedCard = useCallback(
     async (
@@ -392,17 +367,9 @@ export function CardsPage() {
               className="inline-flex items-center gap-1 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-[11px] font-semibold text-primary disabled:opacity-60"
             >
               <Plus className="h-3.5 w-3.5" /> {t("cards.issueNew")}
-              {virtualProduct ? ` · ${virtualProduct.openingFee} ${virtualProduct.currency}` : ""}
             </button>
           )}
         </div>
-
-        {productsError && (
-          <div className="mt-3 flex gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-3 text-[10px] text-destructive">
-            <AlertTriangle className="h-3.5 w-3.5 shrink-0" />
-            <span>{productsError} · Card application fee is hidden.</span>
-          </div>
-        )}
 
         {error && (
           <div className="mt-4 flex gap-2 rounded-2xl border border-destructive/40 bg-destructive/10 p-4 text-xs text-destructive">
