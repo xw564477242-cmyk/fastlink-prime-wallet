@@ -142,7 +142,7 @@ describe("Card list Backend adapter", () => {
         currency: "USD",
         openingFee: "6",
         monthlyFee: "1.5",
-        effectiveFees: card.effectiveFees,
+        effectiveFees: card.effectiveFees!,
       },
     ]);
 

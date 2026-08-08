@@ -122,6 +122,7 @@ export type WalletCardProduct = {
   currency: string;
   openingFee: string;
   monthlyFee: string;
+  effectiveFees: CardEffectiveFees;
 };
 
 export type VirtualCardCreateInput = {
@@ -2582,17 +2583,11 @@ function normalizeTransaction(value: unknown): WalletCardTransaction {
   }
   const timestamp = cardTransactionTimestamp(record.occurredAt);
   const cardId = record.cardId === undefined ? undefined : cardPublicId(record.cardId);
-  const cardType =
-    record.cardType === undefined
-      ? undefined
-      : record.cardType === "VIRTUAL"
-        ? ("virtual" as const)
-        : record.cardType === "PHYSICAL"
-          ? ("physical" as const)
-          : null;
-  if (record.cardType !== undefined && !cardType) {
-    throw new Error("Backend returned an invalid transaction Card type");
-  }
+  let cardType: WalletCardTransaction["cardType"];
+  if (record.cardType === undefined) cardType = undefined;
+  else if (record.cardType === "VIRTUAL") cardType = "virtual";
+  else if (record.cardType === "PHYSICAL") cardType = "physical";
+  else throw new Error("Backend returned an invalid transaction Card type");
   return {
     id,
     ...(cardId === undefined ? {} : { cardId }),
