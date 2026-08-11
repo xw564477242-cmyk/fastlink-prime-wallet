@@ -19,6 +19,8 @@ function transaction(id: string, createdAt: string, patch: Record<string, unknow
   return {
     id,
     operationId: null,
+    cardId: "card-digital-01",
+    cardType: "VIRTUAL",
     type: "TRANSFER",
     status: "COMPLETED",
     assetCode: "USDT",
@@ -108,6 +110,8 @@ describe("Owned Wallet account history contract", () => {
         {
           id: "tx-b",
           operationId: "op-1",
+          cardId: "card-digital-01",
+          cardType: "virtual",
           type: "transfer",
           status: "completed",
           assetCode: "USDT",
@@ -119,6 +123,8 @@ describe("Owned Wallet account history contract", () => {
         {
           id: "tx-a",
           operationId: null,
+          cardId: "card-digital-01",
+          cardType: "virtual",
           type: "transfer",
           status: "completed",
           assetCode: "USDT",
@@ -151,6 +157,28 @@ describe("Owned Wallet account history contract", () => {
       "other filter",
       {
         items: [transaction("tx-a", "2026-08-03T12:00:00.000Z", { status: "PENDING" })],
+        nextCursor: null,
+      },
+    ],
+    [
+      "card association without type",
+      {
+        items: [
+          transaction("tx-a", "2026-08-03T12:00:00.000Z", {
+            cardType: null,
+          }),
+        ],
+        nextCursor: null,
+      },
+    ],
+    [
+      "card type without association",
+      {
+        items: [
+          transaction("tx-a", "2026-08-03T12:00:00.000Z", {
+            cardId: null,
+          }),
+        ],
         nextCursor: null,
       },
     ],
@@ -219,7 +247,7 @@ describe("Owned Wallet account history contract", () => {
   }
 
   it("rejects duplicate keys before JSON.parse can collapse them", () => {
-    const raw = `{"items":[{"id":"tx-a","id":"tx-b","operationId":null,"type":"TRANSFER","status":"COMPLETED","assetCode":"USDT","amount":"1.25","direction":"INCOMING","createdAt":"2026-08-03T12:00:00.000Z","updatedAt":"2026-08-03T12:00:00.000Z"}],"nextCursor":null}`;
+    const raw = `{"items":[{"id":"tx-a","id":"tx-b","operationId":null,"cardId":"card-digital-01","cardType":"VIRTUAL","type":"TRANSFER","status":"COMPLETED","assetCode":"USDT","amount":"1.25","direction":"INCOMING","createdAt":"2026-08-03T12:00:00.000Z","updatedAt":"2026-08-03T12:00:00.000Z"}],"nextCursor":null}`;
     expect(() =>
       normalizeWalletOwnedAccountTransactionResponse(raw, "account-usdt", query),
     ).toThrow();

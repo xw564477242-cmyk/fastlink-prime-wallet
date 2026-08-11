@@ -393,6 +393,8 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
   const transaction = (overrides: Record<string, unknown> = {}) => ({
     id: "transaction-debit-01",
     operationId: "operation-transfer-01",
+    cardId: null,
+    cardType: null,
     type: "TRANSFER",
     status: "COMPLETED",
     assetCode: "USD",
@@ -459,6 +461,8 @@ describe("Internal Wallet transfer dual account history confirmation", () => {
     expect(debit).toEqual({
       id: "transaction-debit-01",
       operationId: expectation.operationId,
+      cardId: null,
+      cardType: null,
       type: "transfer",
       status: "completed",
       assetCode: "USD",

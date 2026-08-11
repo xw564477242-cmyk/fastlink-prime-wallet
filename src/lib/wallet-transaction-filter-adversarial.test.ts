@@ -38,6 +38,9 @@ const signedCursor = `${cursorPayload}.${createHmac("sha256", cursorKey)
 
 const transactionRecord = () => ({
   id: "wallet-txn-1",
+  operationId: "operation-1",
+  cardId: "card-1",
+  cardType: "VIRTUAL",
   type: "TRANSFER",
   status: "COMPLETED",
   assetCode: "USD",
@@ -126,7 +129,7 @@ describe("Wallet transaction filter adversarial boundary", () => {
     ).toContain(`cursor=${maximumCursor}`);
   });
 
-  it("emits only the eight public transaction fields", () => {
+  it("emits only the eleven public transaction fields", () => {
     const page = normalizeWalletTransactionResponse(
       {
         items: [
@@ -145,9 +148,12 @@ describe("Wallet transaction filter adversarial boundary", () => {
     expect(Object.keys(page.items[0]).sort()).toEqual([
       "amount",
       "assetCode",
+      "cardId",
+      "cardType",
       "createdAt",
       "direction",
       "id",
+      "operationId",
       "status",
       "type",
       "updatedAt",
@@ -162,6 +168,9 @@ describe("Wallet transaction filter adversarial boundary", () => {
       items: [
         {
           id: "wallet-txn-filter-1",
+          operationId: "operation-filter-1",
+          cardId: "card-filter-1",
+          cardType: "VIRTUAL",
           type: "TRANSFER",
           status: "COMPLETED",
           assetCode: "USD",

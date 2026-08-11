@@ -1,9 +1,24 @@
 import { describe, expect, it } from "bun:test";
 import {
+  digitalAssetTransactionCardLabel,
   digitalAssetReducer,
   initialDigitalAssetState,
   type DigitalAssetState,
 } from "./digital-asset-state";
+
+describe("Digital asset transaction Card association", () => {
+  it("renders the public Card type and id, or an explicit unlinked state", () => {
+    expect(digitalAssetTransactionCardLabel({ cardId: "card:owned.1", cardType: "virtual" })).toBe(
+      "Virtual card · card:owned.1",
+    );
+    expect(digitalAssetTransactionCardLabel({ cardId: "card:owned.2", cardType: "physical" })).toBe(
+      "Physical card · card:owned.2",
+    );
+    expect(digitalAssetTransactionCardLabel({ cardId: null, cardType: null })).toBe(
+      "No card association",
+    );
+  });
+});
 import type { WalletTransferAccount } from "./backend-api";
 
 function account(id: string, assetCode = "USDT"): WalletTransferAccount {

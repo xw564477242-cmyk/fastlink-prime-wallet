@@ -81,6 +81,8 @@ function transaction(id: string, amount = "1.25", createdAt = "2026-08-03T12:00:
   return {
     id,
     operationId: null,
+    cardId: "card-digital-01",
+    cardType: "VIRTUAL",
     type: "TRANSFER",
     status: "COMPLETED",
     assetCode: "USDT",

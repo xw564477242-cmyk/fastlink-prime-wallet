@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { useDigitalAssetHistory } from "@/hooks/use-digital-asset-history";
 import { useBackendSession } from "@/lib/backend-session";
+import { digitalAssetTransactionCardLabel } from "@/lib/digital-asset-state";
 import {
   WALLET_TRANSACTION_STATUSES,
   WALLET_TRANSACTION_TYPES,
@@ -227,6 +228,9 @@ export function DigitalAssetsPage() {
                         </p>
                         <p className="truncate text-xs text-muted-foreground">
                           {new Date(item.createdAt).toLocaleString()} · {item.status}
+                        </p>
+                        <p className="truncate text-[10px] text-muted-foreground">
+                          {digitalAssetTransactionCardLabel(item)}
                         </p>
                       </div>
                       <p translate="no" className="shrink-0 text-sm font-semibold tabular-nums">

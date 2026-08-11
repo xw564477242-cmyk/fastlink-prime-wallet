@@ -1,4 +1,11 @@
-import type { WalletTransferAccount } from "./backend-api";
+import type { WalletOwnedAccountTransaction, WalletTransferAccount } from "./backend-api";
+
+export function digitalAssetTransactionCardLabel(
+  transaction: Pick<WalletOwnedAccountTransaction, "cardId" | "cardType">,
+): string {
+  if (!transaction.cardId || !transaction.cardType) return "No card association";
+  return `${transaction.cardType === "virtual" ? "Virtual" : "Physical"} card · ${transaction.cardId}`;
+}
 
 export type DigitalAssetState = {
   scopeKey: string | null;

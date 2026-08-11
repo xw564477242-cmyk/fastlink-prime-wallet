@@ -11,6 +11,9 @@ import {
 const originalFetch = globalThis.fetch;
 const wireDetail = {
   id: "wallet-txn-refresh-1",
+  operationId: "operation-refresh-1",
+  cardId: "card-refresh-1",
+  cardType: "VIRTUAL",
   type: "TRANSFER",
   status: "COMPLETED",
   assetCode: "USD",
@@ -31,7 +34,7 @@ describe("Wallet transaction detail refresh adversarial boundary", () => {
     );
   });
 
-  it("returns exactly eight public fields and strips all internal additions", () => {
+  it("returns exactly eleven public fields and strips all internal additions", () => {
     const detail = normalizeWalletTransactionDetail(
       {
         ...wireDetail,
@@ -46,9 +49,12 @@ describe("Wallet transaction detail refresh adversarial boundary", () => {
     expect(Object.keys(detail).sort()).toEqual([
       "amount",
       "assetCode",
+      "cardId",
+      "cardType",
       "createdAt",
       "direction",
       "id",
+      "operationId",
       "status",
       "type",
       "updatedAt",

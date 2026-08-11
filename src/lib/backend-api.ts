@@ -374,6 +374,9 @@ export const WALLET_TRANSFER_RESPONSE_MAX_JSON_BYTES = 16_384;
 
 export type WalletAccountTransaction = {
   id: string;
+  operationId: string | null;
+  cardId: string | null;
+  cardType: "virtual" | "physical" | null;
   type: "deposit" | "withdrawal" | "transfer" | "merchant_payment" | "refund" | "fx";
   status: "pending" | "completed" | "failed" | "reversed";
   assetCode: string;
@@ -388,13 +391,9 @@ export type WalletAccountTransactionPage = {
   nextCursor: string | null;
 };
 
-export type WalletTransferAccountTransaction = WalletAccountTransaction & {
-  operationId: string;
-};
+export type WalletTransferAccountTransaction = WalletAccountTransaction & { operationId: string };
 
-export type WalletOwnedAccountTransaction = WalletAccountTransaction & {
-  operationId: string | null;
-};
+export type WalletOwnedAccountTransaction = WalletAccountTransaction;
 
 export type WalletOwnedAccountTransactionPage = {
   items: WalletOwnedAccountTransaction[];
@@ -543,6 +542,9 @@ type BackendWalletAssetCatalogRecord = {
 
 type BackendWalletTransactionRecord = {
   id?: unknown;
+  operationId?: unknown;
+  cardId?: unknown;
+  cardType?: unknown;
   type?: unknown;
   status?: unknown;
   assetCode?: unknown;
@@ -2888,7 +2890,19 @@ export function buildWalletAccountTransactionPath(
 function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
   const record = ownJsonDataRecord(
     value,
-    ["id", "type", "status", "assetCode", "amount", "direction", "createdAt", "updatedAt"],
+    [
+      "id",
+      "operationId",
+      "cardId",
+      "cardType",
+      "type",
+      "status",
+      "assetCode",
+      "amount",
+      "direction",
+      "createdAt",
+      "updatedAt",
+    ],
     "Backend returned an invalid Wallet transaction",
   ) as BackendWalletTransactionRecord;
   if (typeof record.id !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.id)) {
@@ -2905,8 +2919,32 @@ function normalizeWalletTransaction(value: unknown): WalletAccountTransaction {
   if (record.direction !== "INCOMING" && record.direction !== "OUTGOING") {
     throw new Error("Backend returned an invalid Wallet transaction direction");
   }
+  if (
+    record.operationId !== null &&
+    (typeof record.operationId !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.operationId))
+  ) {
+    throw new Error("Backend returned an invalid Wallet transaction operation id");
+  }
+  if (
+    record.cardId !== null &&
+    (typeof record.cardId !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(record.cardId))
+  ) {
+    throw new Error("Backend returned an invalid Wallet transaction card id");
+  }
+  if (record.cardType !== null && record.cardType !== "VIRTUAL" && record.cardType !== "PHYSICAL") {
+    throw new Error("Backend returned an invalid Wallet transaction card type");
+  }
+  if ((record.cardId === null) !== (record.cardType === null)) {
+    throw new Error("Backend returned an inconsistent Wallet transaction card association");
+  }
   return {
     id: record.id,
+    operationId: record.operationId,
+    cardId: record.cardId,
+    cardType:
+      record.cardType === null
+        ? null
+        : (record.cardType.toLowerCase() as WalletAccountTransaction["cardType"]),
     type: record.type.toLowerCase() as WalletAccountTransaction["type"],
     status: record.status.toLowerCase() as WalletAccountTransaction["status"],
     assetCode: walletAssetCode(record.assetCode),
@@ -2929,6 +2967,8 @@ function normalizeWalletTransferAccountTransaction(
     [
       "id",
       "operationId",
+      "cardId",
+      "cardType",
       "type",
       "status",
       "assetCode",
@@ -2947,6 +2987,9 @@ function normalizeWalletTransferAccountTransaction(
   }
   const transaction = normalizeWalletTransaction({
     id: record.id,
+    operationId: record.operationId,
+    cardId: record.cardId,
+    cardType: record.cardType,
     type: record.type,
     status: record.status,
     assetCode: record.assetCode,

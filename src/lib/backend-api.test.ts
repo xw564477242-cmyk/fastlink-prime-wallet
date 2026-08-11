@@ -628,6 +628,9 @@ describe("Card timeline Backend adapter", () => {
 
 const publicWalletTransaction = (id: string) => ({
   id,
+  operationId: "operation-1",
+  cardId: "card-1",
+  cardType: "VIRTUAL",
   type: "TRANSFER",
   status: "COMPLETED",
   assetCode: "USD",
@@ -707,6 +710,9 @@ describe("Wallet account history Backend adapter", () => {
       items: [
         {
           id: "wallet-txn-1",
+          operationId: "operation-1",
+          cardId: "card-1",
+          cardType: "virtual",
           type: "transfer",
           status: "completed",
           assetCode: "USD",
@@ -813,6 +819,9 @@ describe("Wallet transaction detail Backend adapter", () => {
 
     expect(detail).toEqual({
       id: "wallet-txn-1",
+      operationId: "operation-1",
+      cardId: "card-1",
+      cardType: "virtual",
       type: "transfer",
       status: "completed",
       assetCode: "USD",
