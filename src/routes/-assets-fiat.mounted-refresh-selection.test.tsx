@@ -171,6 +171,7 @@ beforeAll(async () => {
     createFileRoute: () => (configuration: object) => configuration,
     Link: ({ children, ...props }: { children?: unknown }) =>
       createElement("a", props, children as ReactElement),
+    useNavigate: () => () => undefined,
     useRouterState: () => "/assets/fiat",
   }));
   mock.module("@/hooks/use-wallet-operations", () => ({
