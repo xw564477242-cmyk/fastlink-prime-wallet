@@ -9,47 +9,13 @@ import {
 
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
-const allowedEnvironments: FastLinkEnvironment[] = [
-  "LOCAL",
-  "SANDBOX",
-  "TEST",
-  "UAT",
-  "PRODUCTION",
-];
-
-const configuredApiUrl = (import.meta.env.VITE_FASTLINK_API_URL as string | undefined)?.trim();
-const configuredEnvironment = (import.meta.env.VITE_FASTLINK_ENVIRONMENT as string | undefined)
-  ?.trim()
-  .toUpperCase() as FastLinkEnvironment | undefined;
+import { resolveFrontendRuntime } from "./frontend-runtime";
 
 function resolveRuntime() {
-  if (!configuredApiUrl) {
-    return {
-      error: "Missing VITE_FASTLINK_API_URL",
-      apiUrl: "",
-      environment: configuredEnvironment,
-    };
-  }
-  if (!configuredEnvironment || !allowedEnvironments.includes(configuredEnvironment)) {
-    return {
-      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, TEST, UAT, or PRODUCTION",
-      apiUrl: configuredApiUrl,
-      environment: configuredEnvironment,
-    };
-  }
-  const apiUrl = configuredApiUrl.replace(/\/+$/, "");
-  if (
-    configuredEnvironment === "PRODUCTION" &&
-    !apiUrl.startsWith("https://") &&
-    !apiUrl.startsWith("/")
-  ) {
-    return {
-      error: "Production Backend API must use HTTPS",
-      apiUrl,
-      environment: configuredEnvironment,
-    };
-  }
-  return { apiUrl, environment: configuredEnvironment, error: null };
+  return resolveFrontendRuntime(
+    import.meta.env.VITE_FASTLINK_API_URL,
+    import.meta.env.VITE_FASTLINK_ENVIRONMENT,
+  );
 }
 
 export const backendRuntime = Object.freeze({
@@ -62,6 +28,8 @@ export class BackendApiError extends Error {
     readonly status: number,
     readonly traceId: string,
     message: string,
+    readonly code?: string,
+    readonly cancelled = false,
   ) {
     super(message);
     this.name = "BackendApiError";
@@ -778,6 +746,18 @@ function requireSandboxTestCardTimelineRuntime(session: BackendSession): void {
   }
 }
 
+// Preserve an existing code without inferring business meaning or displaying raw payloads.
+function backendErrorCode(payload: unknown): string | undefined {
+  if (!payload || typeof payload !== "object") return undefined;
+  const record = payload as Record<string, unknown>;
+  const nested =
+    record.error && typeof record.error === "object"
+      ? (record.error as Record<string, unknown>).code
+      : undefined;
+  const code = record.code ?? nested;
+  return typeof code === "string" && /^[A-Za-z0-9_.:-]{1,128}$/.test(code) ? code : undefined;
+}
+
 function parseMessage(payload: unknown, fallback: string): string {
   if (!payload || typeof payload !== "object") return fallback;
   const message = (payload as { message?: unknown }).message;
@@ -886,13 +866,20 @@ async function request<T>(
         response.status,
         returnedTraceId,
         `${parseMessage(errorPayload, fallback)} · Trace ${returnedTraceId}`,
+        backendErrorCode(errorPayload),
       );
     }
     return payload as T;
   } catch (error) {
     if (error instanceof BackendApiError) throw error;
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new BackendApiError(408, requestTraceId, `Backend timeout · Trace ${requestTraceId}`);
+      throw new BackendApiError(
+        408,
+        requestTraceId,
+        `Backend timeout · Trace ${requestTraceId}`,
+        undefined,
+        externalSignal?.aborted === true,
+      );
     }
     const message = error instanceof Error ? error.message : "Backend network failure";
     throw new BackendApiError(0, requestTraceId, `${message} · Trace ${requestTraceId}`);
@@ -2673,14 +2660,6 @@ function walletBalanceDecimal(value: unknown, field: string): string {
   return value;
 }
 
-function walletBalanceMantissa(value: string): bigint {
-  const negative = value.startsWith("-");
-  const unsigned = negative ? value.slice(1) : value;
-  const [integer, fraction = ""] = unsigned.split(".");
-  const mantissa = BigInt(`${integer}${fraction.padEnd(18, "0")}`);
-  return negative ? -mantissa : mantissa;
-}
-
 function exactTrustedJsonRecord(
   value: unknown,
   fields: readonly string[],
@@ -2823,12 +2802,8 @@ export function normalizeWalletBalanceResponse(rawJson: string): WalletAssetAcco
     const availableBalance = walletBalanceDecimal(record.availableBalance, "available balance");
     const ledgerBalance = walletBalanceDecimal(record.ledgerBalance, "ledger balance");
     const pendingBalance = walletBalanceDecimal(record.pendingBalance, "pending balance");
-    if (
-      walletBalanceMantissa(availableBalance) + walletBalanceMantissa(pendingBalance) !==
-      walletBalanceMantissa(ledgerBalance)
-    ) {
-      throw new Error("Backend returned an inconsistent Wallet balance account");
-    }
+    // Available includes ACTIVE posted balances only; ledger includes all account states.
+    // Preserve each independently validated amount without assuming a cross-field equation.
     return Object.freeze({
       assetCode: walletAssetCode(record.assetCode),
       availableBalance,
@@ -3993,6 +3968,8 @@ export const backendApi = {
           error.status,
           error.traceId,
           `Card transaction request failed · Trace ${error.traceId}`,
+          error.code,
+          error.cancelled,
         );
       }
       throw error;
@@ -4021,6 +3998,8 @@ export const backendApi = {
           error.status,
           error.traceId,
           `Card timeline request failed · Trace ${error.traceId}`,
+          error.code,
+          error.cancelled,
         );
       }
       throw error;
@@ -4046,6 +4025,8 @@ export const backendApi = {
           error.status,
           error.traceId,
           `Card transaction detail request failed · Trace ${error.traceId}`,
+          error.code,
+          error.cancelled,
         );
       }
       throw error;

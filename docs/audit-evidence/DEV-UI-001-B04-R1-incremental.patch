@@ -1,0 +1,142 @@
+diff --git a/src/lib/backend-api.ts b/src/lib/backend-api.ts
+--- a/src/lib/backend-api.ts
++++ b/src/lib/backend-api.ts
+@@ -2660,14 +2660,6 @@
+   return value;
+ }
+ 
+-function walletBalanceMantissa(value: string): bigint {
+-  const negative = value.startsWith("-");
+-  const unsigned = negative ? value.slice(1) : value;
+-  const [integer, fraction = ""] = unsigned.split(".");
+-  const mantissa = BigInt(`${integer}${fraction.padEnd(18, "0")}`);
+-  return negative ? -mantissa : mantissa;
+-}
+-
+ function exactTrustedJsonRecord(
+   value: unknown,
+   fields: readonly string[],
+@@ -2810,12 +2802,8 @@
+     const availableBalance = walletBalanceDecimal(record.availableBalance, "available balance");
+     const ledgerBalance = walletBalanceDecimal(record.ledgerBalance, "ledger balance");
+     const pendingBalance = walletBalanceDecimal(record.pendingBalance, "pending balance");
+-    if (
+-      walletBalanceMantissa(availableBalance) + walletBalanceMantissa(pendingBalance) !==
+-      walletBalanceMantissa(ledgerBalance)
+-    ) {
+-      throw new Error("Backend returned an inconsistent Wallet balance account");
+-    }
++    // Available includes ACTIVE posted balances only; ledger includes all account states.
++    // Preserve each independently validated amount without assuming a cross-field equation.
+     return Object.freeze({
+       assetCode: walletAssetCode(record.assetCode),
+       availableBalance,
+diff --git a/src/lib/wallet-balance-summary-adversarial.test.ts b/src/lib/wallet-balance-summary-adversarial.test.ts
+--- a/src/lib/wallet-balance-summary-adversarial.test.ts
++++ b/src/lib/wallet-balance-summary-adversarial.test.ts
+@@ -104,7 +104,7 @@
+     ).toThrow();
+   });
+ 
+-  it("validates canonical Decimal(36,18), the ledger equation and canonical timestamps", () => {
++  it("validates canonical Decimal(36,18) and canonical timestamps", () => {
+     expect(
+       parse({
+         items: [
+@@ -129,9 +129,10 @@
+     ]) {
+       expect(() => parse({ items: [item("USD", { availableBalance })] })).toThrow();
+     }
+-    expect(() => parse({ items: [item("USD", { ledgerBalance: "99" })] })).toThrow(
+-      "Backend returned an inconsistent Wallet balance account",
+-    );
++    // Independently reported amounts need not satisfy available + pending = ledger.
++    expect(parse({ items: [item("USD", { ledgerBalance: "99" })] })).toEqual([
++      item("USD", { ledgerBalance: "99" }),
++    ]);
+     for (const updatedAt of [
+       "0000-01-01T00:00:00.000Z",
+       "2026-02-30T00:00:00.000Z",
+@@ -140,6 +141,65 @@
+       "2026-01-01 00:00:00.000Z",
+     ]) {
+       expect(() => parse({ items: [item("USD", { updatedAt })] })).toThrow();
++    }
++  });
++
++  it("accepts the approved frozen-account summary without deriving extra fields", () => {
++    // Source fixture confirmed by human decision; not a Railway response capture.
++    const frozen = item("USD", {
++      availableBalance: "0",
++      ledgerBalance: "7",
++      pendingBalance: "0",
++    });
++    const result = parse({ items: [frozen] });
++    expect(result).toEqual([frozen]);
++    expect(Object.keys(result[0]).sort()).toEqual(Object.keys(frozen).sort());
++    expect(Object.isFrozen(result[0])).toBe(true);
++  });
++
++  it("preserves independent decimal strings without new equations or ordering constraints", () => {
++    for (const amounts of [
++      { availableBalance: "0", ledgerBalance: "0", pendingBalance: "0" },
++      {
++        availableBalance: "999999999999999999.123456789012345678",
++        ledgerBalance: "7.000000000000000001",
++        pendingBalance: "-0.000000000000000001",
++      },
++      { availableBalance: "80", ledgerBalance: "1", pendingBalance: "20" },
++    ]) {
++      const raw = item("USD", amounts);
++      expect(parse({ items: [raw] })).toEqual([raw]);
++      expect(Object.keys(parse({ items: [raw] })[0]).sort()).toEqual(Object.keys(raw).sort());
++    }
++  });
++
++  it("retains required fields, types and every amount's canonical precision boundary", () => {
++    for (const field of Object.keys(item())) {
++      const missing: Record<string, unknown> = item();
++      delete missing[field];
++      expect(() => parse({ items: [missing] })).toThrow();
++    }
++    for (const field of ["availableBalance", "ledgerBalance", "pendingBalance"]) {
++      for (const value of [
++        null,
++        0,
++        7,
++        true,
++        [],
++        {},
++        "",
++        "-0",
++        "00",
++        "01",
++        "+1",
++        "1.0",
++        "1.230",
++        "1e3",
++        "1234567890123456789",
++        "1.1234567890123456789",
++      ]) {
++        expect(() => parse({ items: [item("USD", { [field]: value })] })).toThrow();
++      }
+     }
+   });
+ 
+diff --git a/docs/DEV-UI-001-BLOCKER-REPORT-2026-09-15.md b/docs/DEV-UI-001-BLOCKER-REPORT-2026-09-15.md
+--- a/docs/DEV-UI-001-BLOCKER-REPORT-2026-09-15.md
++++ b/docs/DEV-UI-001-BLOCKER-REPORT-2026-09-15.md
+@@ -95,3 +95,13 @@
+ | 前端代码 Diff | 无；本轮唯一新增交付为本报告。开工前已有变更不属于本工单 |
+ 
+ 恢复条件：补齐/确认前端基线和 Step1 依赖，裁决余额等式、明细维度与入口契约；再继续五区 React-TSX 实施及 TEST → SANDBOX 验证。按工单暂停，不自动修复底座或开发其他页面。
++
++## 7. B04 人工裁决与校验修订补充（DEV-UI-001-B04-R1）
++
++以上为开工时的历史核验记录，原样保留。本次人工选择 A，确认用于前端对齐：availableBalance 为 ACTIVE 账户已入账金额汇总；ledgerBalance 为查询范围内全部账户状态的已入账与待入账汇总；pendingBalance 为查询范围内待入账汇总，不代表冻结金额。“0 / 7 / 0”为有效冻结账户响应。
++
++证据等级：后端源码及测试夹具，经本次人工确认；**不是 Railway 原始响应验证**。前端仅移除 available + pending = ledger 判断及其专用辅助函数，保留各字段原值和既有严格解析规则，未新增其他金额关系。历史报文、差异记录及此前交付材料未替换。
++
++B04 状态更新为“人工口径已确认，前端修订已提交，等待独立评审”，本次不自行解除。其他金额精度边界、尾零、数量上限和查询覆盖范围不随本次确认改变；B03 真实环境验证仍待安排，资产看板继续暂停。
++
++修订说明、保留检查及验证结果见 [B04-R1 交付报告](DEV-UI-001-B04-R1-REVIEW.md)。

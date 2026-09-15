@@ -1,0 +1,69 @@
+DEV-UI-000 local validation; simulated requests only; no Railway validation.
+
+TEST tests
+(pass) Mounted Wallet refresh selection safety (TEST) > retains the valid selection, detail, list and cursor when refresh fails [22.84ms]
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+(pass) Mounted Wallet refresh selection safety (TEST) > aborts an in-flight refresh on filter change and unmount with zero stale page writes [20.33ms]
+
+ 555 pass
+ 0 fail
+ 4507 expect() calls
+Ran 555 tests across 62 files. [4.13s]
+
+SANDBOX tests
+(pass) Mounted Wallet refresh selection safety (SANDBOX) > retains the valid selection, detail, list and cursor when refresh fails [20.10ms]
+react-test-renderer is deprecated. See https://react.dev/warnings/react-test-renderer
+(pass) Mounted Wallet refresh selection safety (SANDBOX) > aborts an in-flight refresh on filter change and unmount with zero stale page writes [17.41ms]
+
+ 555 pass
+ 0 fail
+ 4507 expect() calls
+Ran 555 tests across 62 files. [3.98s]
+
+TEST build
+[nitro] ℹ Using auto generated worker name: xw564477242-cmyk-fastlink-prime-wallet
+ℹ Generated .output/server/wrangler.json
+ℹ Generated .wrangler/deploy/config.json
+ℹ Generated .output/public/_headers
+ℹ Generated .output/nitro.json
+
+[nitro] ✔ You can preview this build using npx vite preview
+[nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt
+
+SANDBOX build
+[nitro] ℹ Using auto generated worker name: xw564477242-cmyk-fastlink-prime-wallet
+ℹ Generated .output/server/wrangler.json
+ℹ Generated .wrangler/deploy/config.json
+ℹ Generated .output/public/_headers
+ℹ Generated .output/nitro.json
+
+[nitro] ✔ You can preview this build using npx vite preview
+[nitro] ✔ You can deploy this build using npx nitro deploy --prebuilt
+
+TypeScript
+(no diagnostics)
+
+Targeted ESLint
+(no diagnostics)
+
+Readiness
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 118.118291
+Unchanged from HEAD: src/hooks/use-home-wallet-balances.ts
+Unchanged from HEAD: src/lib/home-wallet-balance-state.ts
+Unchanged from HEAD: src/lib/backend-session.tsx
+Unchanged from HEAD: src/lib/backend-session-policy.ts
+Unchanged from HEAD: src/routes/index.tsx
+Unchanged from HEAD: src/styles.css
+Unchanged from HEAD: src/components/MobileShell.tsx
+Unchanged financial logic: function walletBalanceDecimal
+Unchanged financial logic: export function normalizeWalletBalanceResponse
+
+Readiness combined totals: Bun 4 pass / 0 fail; Node 7 pass / 0 fail.
+Code patch reverse apply check: passed (read-only --reverse --check).

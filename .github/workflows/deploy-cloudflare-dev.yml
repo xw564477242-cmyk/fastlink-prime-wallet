@@ -2,20 +2,23 @@ name: Deploy Prime Wallet Dev to Cloudflare
 
 # Development-only deployment. main and Production remain frozen.
 on:
-  push:
-    branches:
-      - dev
   workflow_dispatch:
+    inputs:
+      approved_sha:
+        description: 'Full dev commit SHA approved for SANDBOX deployment after TEST verification'
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
   group: fastlink-prime-wallet-dev
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/dev'
     runs-on: ubuntu-latest
     environment: cloudflare-prime-dev
     env:
@@ -23,6 +26,15 @@ jobs:
       VITE_FASTLINK_ENVIRONMENT: SANDBOX
       VITE_FASTLINK_BUILD_SHA: ${{ github.sha }}
     steps:
+      - name: Verify approved deployment snapshot
+        shell: bash
+        env:
+          APPROVED_SHA: ${{ inputs.approved_sha }}
+        run: |
+          set -euo pipefail
+          [[ "$APPROVED_SHA" =~ ^[0-9a-f]{40}$ ]]
+          test "$APPROVED_SHA" = "$GITHUB_SHA"
+
       - name: Checkout exact Dev commit
         uses: actions/checkout@v4
         with:

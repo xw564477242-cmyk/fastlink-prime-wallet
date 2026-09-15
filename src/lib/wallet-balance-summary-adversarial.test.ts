@@ -104,7 +104,7 @@ describe("Wallet balance summary hostile input boundary", () => {
     ).toThrow();
   });
 
-  it("validates canonical Decimal(36,18), the ledger equation and canonical timestamps", () => {
+  it("validates canonical Decimal(36,18) and canonical timestamps", () => {
     expect(
       parse({
         items: [
@@ -129,9 +129,10 @@ describe("Wallet balance summary hostile input boundary", () => {
     ]) {
       expect(() => parse({ items: [item("USD", { availableBalance })] })).toThrow();
     }
-    expect(() => parse({ items: [item("USD", { ledgerBalance: "99" })] })).toThrow(
-      "Backend returned an inconsistent Wallet balance account",
-    );
+    // Independently reported amounts need not satisfy available + pending = ledger.
+    expect(parse({ items: [item("USD", { ledgerBalance: "99" })] })).toEqual([
+      item("USD", { ledgerBalance: "99" }),
+    ]);
     for (const updatedAt of [
       "0000-01-01T00:00:00.000Z",
       "2026-02-30T00:00:00.000Z",
@@ -140,6 +141,65 @@ describe("Wallet balance summary hostile input boundary", () => {
       "2026-01-01 00:00:00.000Z",
     ]) {
       expect(() => parse({ items: [item("USD", { updatedAt })] })).toThrow();
+    }
+  });
+
+  it("accepts the approved frozen-account summary without deriving extra fields", () => {
+    // Source fixture confirmed by human decision; not a Railway response capture.
+    const frozen = item("USD", {
+      availableBalance: "0",
+      ledgerBalance: "7",
+      pendingBalance: "0",
+    });
+    const result = parse({ items: [frozen] });
+    expect(result).toEqual([frozen]);
+    expect(Object.keys(result[0]).sort()).toEqual(Object.keys(frozen).sort());
+    expect(Object.isFrozen(result[0])).toBe(true);
+  });
+
+  it("preserves independent decimal strings without new equations or ordering constraints", () => {
+    for (const amounts of [
+      { availableBalance: "0", ledgerBalance: "0", pendingBalance: "0" },
+      {
+        availableBalance: "999999999999999999.123456789012345678",
+        ledgerBalance: "7.000000000000000001",
+        pendingBalance: "-0.000000000000000001",
+      },
+      { availableBalance: "80", ledgerBalance: "1", pendingBalance: "20" },
+    ]) {
+      const raw = item("USD", amounts);
+      expect(parse({ items: [raw] })).toEqual([raw]);
+      expect(Object.keys(parse({ items: [raw] })[0]).sort()).toEqual(Object.keys(raw).sort());
+    }
+  });
+
+  it("retains required fields, types and every amount's canonical precision boundary", () => {
+    for (const field of Object.keys(item())) {
+      const missing: Record<string, unknown> = item();
+      delete missing[field];
+      expect(() => parse({ items: [missing] })).toThrow();
+    }
+    for (const field of ["availableBalance", "ledgerBalance", "pendingBalance"]) {
+      for (const value of [
+        null,
+        0,
+        7,
+        true,
+        [],
+        {},
+        "",
+        "-0",
+        "00",
+        "01",
+        "+1",
+        "1.0",
+        "1.230",
+        "1e3",
+        "1234567890123456789",
+        "1.1234567890123456789",
+      ]) {
+        expect(() => parse({ items: [item("USD", { [field]: value })] })).toThrow();
+      }
     }
   });
 
