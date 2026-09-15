@@ -1,0 +1,173 @@
+diff --git a/src/lib/public-errors.ts b/src/lib/public-errors.ts
+--- a/src/lib/public-errors.ts
++++ b/src/lib/public-errors.ts
+@@ -106,13 +106,29 @@
+   };
+   getSnapshot = () => this.snapshot;
+   private publish() {
++    this.pruneExpired();
+     this.snapshot = this.entries.map(({ view }) => view);
+     this.listeners.forEach((listener) => listener());
+   }
+   private valid(entry: Pick<Entry, "lease" | "isCurrent">) {
+     return this.scopeValid() && entry.lease.valid() && entry.isCurrent();
+   }
++  private pruneExpired() {
++    const expired = new Set(this.entries.filter((entry) => !this.valid(entry)));
++    if (!expired.size) return false;
++    // Detach before aborting so late callbacks cannot still find their entry.
++    this.entries = this.entries.filter((entry) => !expired.has(entry));
++    for (const entry of expired) {
++      this.recent.delete(entry.view.key);
++      const controller = entry.controller;
++      entry.retry = undefined;
++      entry.controller = undefined;
++      controller?.abort();
++    }
++    return true;
++  }
+   report(lease: ErrorLease, input: ErrorReport) {
++    if (this.pruneExpired()) this.publish();
+     if (input.ownership && input.ownership !== "global") return;
+     if (!this.valid({ lease, isCurrent: input.isCurrent })) return;
+     const error = classifyPublicError(input.reason);
+@@ -156,6 +172,7 @@
+     this.publish();
+   }
+   dismiss(id: number) {
++    this.pruneExpired();
+     this.entries.find((entry) => entry.view.id === id)?.controller?.abort();
+     this.entries = this.entries.filter((entry) => entry.view.id !== id);
+     this.publish();
+@@ -175,6 +192,7 @@
+     this.publish();
+   }
+   async retry(id: number) {
++    if (this.pruneExpired()) this.publish();
+     const entry = this.entries.find((item) => item.view.id === id);
+     if (!entry || entry.view.retrying || !entry.retry) return;
+     if (!this.valid(entry)) {
+diff --git a/src/lib/public-errors.test.ts b/src/lib/public-errors.test.ts
+--- a/src/lib/public-errors.test.ts
++++ b/src/lib/public-errors.test.ts
+@@ -249,3 +249,120 @@
+   expect(received).toEqual(["EXPIRED", "REVOKED", "DISABLED", "ENVIRONMENT_MISMATCH"]);
+   expect(queue.getSnapshot()).toHaveLength(0);
+ });
++
++describe("expired request generation cleanup", () => {
++  for (const elapsed of [1000, 5000]) {
++    it(`replaces an expired same-key error after ${elapsed}ms without unmounting`, async () => {
++      let generation = 1;
++      let now = 0;
++      let retries = 0;
++      const q = new PublicErrorQueue(
++        "TEST:1",
++        () => true,
++        () => {},
++        () => now,
++      );
++      q.report(lease, { ...report(api(500, "old-trace")), isCurrent: () => generation === 1 });
++      const oldId = q.getSnapshot()[0].id;
++      generation = 2;
++      now = elapsed;
++      q.report(lease, {
++        ...report(api(500, "new-trace")),
++        isCurrent: () => generation === 2,
++        retry: {
++          safeReadOnly: true,
++          run: async () => {
++            retries++;
++          },
++        },
++      });
++      expect(q.getSnapshot()).toHaveLength(1);
++      expect(q.getSnapshot()[0].id).not.toBe(oldId);
++      expect(q.getSnapshot()[0].traceId).toBe("new-trace");
++      expect(q.getSnapshot()[0].canRetry).toBe(true);
++      await q.retry(q.getSnapshot()[0].id);
++      expect(retries).toBe(1);
++      expect(q.getSnapshot()).toHaveLength(0);
++    });
++  }
++
++  it("aborts an expired in-flight retry and ignores its late failure", async () => {
++    let generation = 1;
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++    );
++    const wait = deferred();
++    let signal!: AbortSignal;
++    let current!: () => boolean;
++    let oldCalls = 0;
++    q.report(lease, {
++      ...report(api(500, "old-trace")),
++      isCurrent: () => generation === 1,
++      retry: {
++        safeReadOnly: true,
++        run: (s, c) => {
++          oldCalls++;
++          signal = s;
++          current = c;
++          return wait.promise;
++        },
++      },
++    });
++    const oldId = q.getSnapshot()[0].id;
++    const pending = q.retry(oldId);
++    generation = 2;
++    q.report(lease, {
++      ...report(api(500, "new-trace")),
++      retry: { safeReadOnly: true, run: async () => {} },
++    });
++    expect(signal.aborted).toBe(true);
++    expect(current()).toBe(false);
++    await q.retry(oldId);
++    expect(oldCalls).toBe(1);
++    wait.reject(api(401, "late-trace"));
++    await pending;
++    expect(q.getSnapshot()).toHaveLength(1);
++    expect(q.getSnapshot()[0].traceId).toBe("new-trace");
++    expect(q.getSnapshot()[0].canRetry).toBe(true);
++  });
++
++  for (const advance of ["dismiss", "release", "retry-success"] as const) {
++    it(`skips expired queued entries on ${advance} and preserves valid FIFO`, async () => {
++      let queuedCurrent = true;
++      let staleRetries = 0;
++      const firstLease = { valid: () => true };
++      const q = new PublicErrorQueue(
++        "TEST:1",
++        () => true,
++        () => {},
++      );
++      q.report(firstLease, {
++        ...report(api(500), "first"),
++        retry: { safeReadOnly: true, run: async () => {} },
++      });
++      q.report(lease, {
++        ...report(api(500), "stale"),
++        isCurrent: () => queuedCurrent,
++        retry: {
++          safeReadOnly: true,
++          run: async () => {
++            staleRetries++;
++          },
++        },
++      });
++      q.report(lease, report(api(500), "third"));
++      q.report(lease, report(api(500), "fourth"));
++      const firstId = q.getSnapshot()[0].id;
++      const staleId = q.getSnapshot()[1].id;
++      queuedCurrent = false;
++      if (advance === "dismiss") q.dismiss(firstId);
++      else if (advance === "release") q.release(firstLease);
++      else await q.retry(firstId);
++      expect(q.getSnapshot().map((e) => e.operation)).toEqual(["third", "fourth"]);
++      await q.retry(staleId);
++      expect(staleRetries).toBe(0);
++    });
++  }
++});

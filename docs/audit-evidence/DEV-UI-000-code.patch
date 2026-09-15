@@ -1,0 +1,1195 @@
+diff --git a/src/lib/backend-api.ts b/src/lib/backend-api.ts
+index 98bd71c..f0df497 100644
+--- a/src/lib/backend-api.ts
++++ b/src/lib/backend-api.ts
+@@ -9,47 +9,13 @@ import {
+ 
+ export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
+ 
+-const allowedEnvironments: FastLinkEnvironment[] = [
+-  "LOCAL",
+-  "SANDBOX",
+-  "TEST",
+-  "UAT",
+-  "PRODUCTION",
+-];
+-
+-const configuredApiUrl = (import.meta.env.VITE_FASTLINK_API_URL as string | undefined)?.trim();
+-const configuredEnvironment = (import.meta.env.VITE_FASTLINK_ENVIRONMENT as string | undefined)
+-  ?.trim()
+-  .toUpperCase() as FastLinkEnvironment | undefined;
++import { resolveFrontendRuntime } from "./frontend-runtime";
+ 
+ function resolveRuntime() {
+-  if (!configuredApiUrl) {
+-    return {
+-      error: "Missing VITE_FASTLINK_API_URL",
+-      apiUrl: "",
+-      environment: configuredEnvironment,
+-    };
+-  }
+-  if (!configuredEnvironment || !allowedEnvironments.includes(configuredEnvironment)) {
+-    return {
+-      error: "VITE_FASTLINK_ENVIRONMENT must be LOCAL, SANDBOX, TEST, UAT, or PRODUCTION",
+-      apiUrl: configuredApiUrl,
+-      environment: configuredEnvironment,
+-    };
+-  }
+-  const apiUrl = configuredApiUrl.replace(/\/+$/, "");
+-  if (
+-    configuredEnvironment === "PRODUCTION" &&
+-    !apiUrl.startsWith("https://") &&
+-    !apiUrl.startsWith("/")
+-  ) {
+-    return {
+-      error: "Production Backend API must use HTTPS",
+-      apiUrl,
+-      environment: configuredEnvironment,
+-    };
+-  }
+-  return { apiUrl, environment: configuredEnvironment, error: null };
++  return resolveFrontendRuntime(
++    import.meta.env.VITE_FASTLINK_API_URL,
++    import.meta.env.VITE_FASTLINK_ENVIRONMENT,
++  );
+ }
+ 
+ export const backendRuntime = Object.freeze({
+@@ -62,6 +28,8 @@ export class BackendApiError extends Error {
+     readonly status: number,
+     readonly traceId: string,
+     message: string,
++    readonly code?: string,
++    readonly cancelled = false,
+   ) {
+     super(message);
+     this.name = "BackendApiError";
+@@ -778,6 +746,18 @@ function requireSandboxTestCardTimelineRuntime(session: BackendSession): void {
+   }
+ }
+ 
++// Preserve an existing code without inferring business meaning or displaying raw payloads.
++function backendErrorCode(payload: unknown): string | undefined {
++  if (!payload || typeof payload !== "object") return undefined;
++  const record = payload as Record<string, unknown>;
++  const nested =
++    record.error && typeof record.error === "object"
++      ? (record.error as Record<string, unknown>).code
++      : undefined;
++  const code = record.code ?? nested;
++  return typeof code === "string" && /^[A-Za-z0-9_.:-]{1,128}$/.test(code) ? code : undefined;
++}
++
+ function parseMessage(payload: unknown, fallback: string): string {
+   if (!payload || typeof payload !== "object") return fallback;
+   const message = (payload as { message?: unknown }).message;
+@@ -886,13 +866,20 @@ async function request<T>(
+         response.status,
+         returnedTraceId,
+         `${parseMessage(errorPayload, fallback)} · Trace ${returnedTraceId}`,
++        backendErrorCode(errorPayload),
+       );
+     }
+     return payload as T;
+   } catch (error) {
+     if (error instanceof BackendApiError) throw error;
+     if (error instanceof DOMException && error.name === "AbortError") {
+-      throw new BackendApiError(408, requestTraceId, `Backend timeout · Trace ${requestTraceId}`);
++      throw new BackendApiError(
++        408,
++        requestTraceId,
++        `Backend timeout · Trace ${requestTraceId}`,
++        undefined,
++        externalSignal?.aborted === true,
++      );
+     }
+     const message = error instanceof Error ? error.message : "Backend network failure";
+     throw new BackendApiError(0, requestTraceId, `${message} · Trace ${requestTraceId}`);
+@@ -3993,6 +3980,8 @@ export const backendApi = {
+           error.status,
+           error.traceId,
+           `Card transaction request failed · Trace ${error.traceId}`,
++          error.code,
++          error.cancelled,
+         );
+       }
+       throw error;
+@@ -4021,6 +4010,8 @@ export const backendApi = {
+           error.status,
+           error.traceId,
+           `Card timeline request failed · Trace ${error.traceId}`,
++          error.code,
++          error.cancelled,
+         );
+       }
+       throw error;
+@@ -4046,6 +4037,8 @@ export const backendApi = {
+           error.status,
+           error.traceId,
+           `Card transaction detail request failed · Trace ${error.traceId}`,
++          error.code,
++          error.cancelled,
+         );
+       }
+       throw error;
+diff --git a/src/router.tsx b/src/router.tsx
+index 3423d59..f7cb28f 100644
+--- a/src/router.tsx
++++ b/src/router.tsx
+@@ -1,13 +1,9 @@
+-import { QueryClient } from "@tanstack/react-query";
+ import { createRouter } from "@tanstack/react-router";
+ import { routeTree } from "./routeTree.gen";
+ 
+ export const getRouter = () => {
+-  const queryClient = new QueryClient();
+-
+   const router = createRouter({
+     routeTree,
+-    context: { queryClient },
+     scrollRestoration: true,
+     defaultPreloadStaleTime: 0,
+   });
+diff --git a/src/routes/__root.tsx b/src/routes/__root.tsx
+index 6e395f9..dc8d679 100644
+--- a/src/routes/__root.tsx
++++ b/src/routes/__root.tsx
+@@ -1,8 +1,7 @@
+-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+ import {
+   Outlet,
+   Link,
+-  createRootRouteWithContext,
++  createRootRoute,
+   useRouter,
+   HeadContent,
+   Scripts,
+@@ -16,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
+ import { LanguageProvider } from "../lib/i18n";
+ import { BackendSessionProvider, useBackendSession } from "../lib/backend-session";
+ import { backendRuntime } from "../lib/backend-api";
++import { FrontendScope } from "../components/FrontendScope";
+ 
+ function NotFoundComponent() {
+   return (
+@@ -77,7 +77,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+   );
+ }
+ 
+-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
++export const Route = createRootRoute({
+   head: () => ({
+     meta: [
+       { charSet: "utf-8" },
+@@ -137,16 +137,14 @@ function RootShell({ children }: { children: ReactNode }) {
+ }
+ 
+ function RootComponent() {
+-  const { queryClient } = Route.useRouteContext();
+-
+   return (
+-    <QueryClientProvider client={queryClient}>
+-      <LanguageProvider>
+-        <BackendSessionProvider>
++    <LanguageProvider>
++      <BackendSessionProvider>
++        <FrontendScope>
+           <SessionBoundary />
+-        </BackendSessionProvider>
+-      </LanguageProvider>
+-    </QueryClientProvider>
++        </FrontendScope>
++      </BackendSessionProvider>
++    </LanguageProvider>
+   );
+ }
+ 
+@@ -154,6 +152,19 @@ function SessionBoundary() {
+   const pathname = useRouterState({ select: (state) => state.location.pathname });
+   const { checking, session, error } = useBackendSession();
+ 
++  if (backendRuntime.error) {
++    return (
++      <div className="mx-auto grid min-h-screen w-full max-w-md place-items-center px-6">
++        <div role="alert" className="rounded-2xl border border-destructive/40 bg-surface p-6">
++          <h1 className="font-display text-xl font-semibold">环境配置错误</h1>
++          <p className="mt-2 text-sm text-muted-foreground">
++            请配置 TEST 或 SANDBOX 环境及同源 /api 地址后重新启动。
++          </p>
++        </div>
++      </div>
++    );
++  }
++
+   if (pathname === "/auth") return <Outlet />;
+ 
+   if (checking) {
+diff --git a/src/lib/frontend-runtime.ts b/src/lib/frontend-runtime.ts
+new file mode 100644
+index 0000000..53e8eff
+--- /dev/null
++++ b/src/lib/frontend-runtime.ts
+@@ -0,0 +1,14 @@
++export function resolveFrontendRuntime(api?: string, environment?: string) {
++  const apiUrl = api?.trim().replace(/\/+$/, "") ?? "";
++  const normalized = environment?.trim().toUpperCase();
++  const validEnvironment = normalized === "TEST" || normalized === "SANDBOX";
++  return {
++    apiUrl,
++    environment: validEnvironment ? normalized : undefined,
++    error: !validEnvironment
++      ? "VITE_FASTLINK_ENVIRONMENT must be TEST or SANDBOX"
++      : apiUrl !== "/api"
++        ? "VITE_FASTLINK_API_URL must be /api"
++        : null,
++  } as const;
++}
+diff --git a/src/lib/frontend-runtime.test.ts b/src/lib/frontend-runtime.test.ts
+new file mode 100644
+index 0000000..cd0b4b6
+--- /dev/null
++++ b/src/lib/frontend-runtime.test.ts
+@@ -0,0 +1,21 @@
++import { expect, it } from "bun:test";
++import { resolveFrontendRuntime } from "./frontend-runtime";
++it("accepts only explicit TEST/SANDBOX and same-origin /api", () => {
++  for (const environment of ["TEST", "SANDBOX"] as const) {
++    expect(resolveFrontendRuntime(" /api/ ", ` ${environment.toLowerCase()} `)).toEqual({
++      apiUrl: "/api",
++      environment,
++      error: null,
++    });
++  }
++  for (const environment of [undefined, "", "LOCAL", "UAT", "PRODUCTION", "SANDBOXX"])
++    expect(resolveFrontendRuntime("/api", environment).error).not.toBeNull();
++  for (const url of [
++    undefined,
++    "",
++    "https://example.invalid/api",
++    "//example.invalid/api",
++    "/api/v1",
++  ])
++    expect(resolveFrontendRuntime(url, "TEST").error).not.toBeNull();
++});
+diff --git a/src/lib/frontend-request.test.ts b/src/lib/frontend-request.test.ts
+new file mode 100644
+index 0000000..706b24d
+--- /dev/null
++++ b/src/lib/frontend-request.test.ts
+@@ -0,0 +1,49 @@
++import { afterEach, expect, it } from "bun:test";
++import { backendApi, BackendApiError, backendRuntime, type BackendSession } from "./backend-api";
++const originalFetch = globalThis.fetch;
++afterEach(() => {
++  globalThis.fetch = originalFetch;
++});
++const session: BackendSession = {
++  actorId: "actor",
++  tenantId: "tenant",
++  customerId: "customer",
++  environment: backendRuntime.environment!,
++  expiresAt: "2100-01-01T00:00:00.000Z",
++};
++it("preserves HTTP/code/trace without changing cookie, no-store and same-origin requests", async () => {
++  let path = "";
++  let init: RequestInit | undefined;
++  globalThis.fetch = (async (url: string, options?: RequestInit) => {
++    path = url;
++    init = options;
++    return new Response(JSON.stringify({ code: "DATABASE_UNAVAILABLE", message: "private" }), {
++      status: 503,
++      headers: { "x-trace-id": "test-trace" },
++    });
++  }) as unknown as typeof fetch;
++  const error = await backendApi.walletAssets(session).catch((e) => e);
++  expect(error).toBeInstanceOf(BackendApiError);
++  expect(error.status).toBe(503);
++  expect(error.code).toBe("DATABASE_UNAVAILABLE");
++  expect(error.traceId).toBe("test-trace");
++  expect(path).toBe("/api/v1/wallet/assets");
++  expect(init?.credentials).toBe("include");
++  expect(init?.cache).toBe("no-store");
++});
++it("distinguishes caller cancellation from an actual request timeout", async () => {
++  globalThis.fetch = (async (_url: string, options: RequestInit) =>
++    new Promise((_resolve, reject) => {
++      options.signal?.addEventListener(
++        "abort",
++        () => reject(new DOMException("cancelled", "AbortError")),
++        { once: true },
++      );
++    })) as unknown as typeof fetch;
++  const controller = new AbortController();
++  const request = backendApi.walletAssets(session, controller.signal).catch((e) => e);
++  controller.abort();
++  const error = await request;
++  expect(error.status).toBe(408);
++  expect(error.cancelled).toBe(true);
++});
+diff --git a/src/lib/public-errors.ts b/src/lib/public-errors.ts
+new file mode 100644
+index 0000000..3804875
+--- /dev/null
++++ b/src/lib/public-errors.ts
+@@ -0,0 +1,235 @@
++import { BackendApiError } from "./backend-api";
++import {
++  isBackendSessionInvalidationReason,
++  type BackendSessionInvalidationReason,
++} from "./backend-session-policy";
++
++export type ErrorCategory =
++  | "session"
++  | "permission"
++  | "network"
++  | "timeout"
++  | "business"
++  | "service"
++  | "cancelled";
++export type PublicError = {
++  category: ErrorCategory;
++  status?: number;
++  code?: string;
++  traceId?: string;
++  title: string;
++  description: string;
++};
++
++export function classifyPublicError(reason: unknown): PublicError {
++  const api = reason instanceof BackendApiError ? reason : undefined;
++  const cancelled =
++    api?.cancelled || (reason instanceof DOMException && reason.name === "AbortError");
++  const category: ErrorCategory = cancelled
++    ? "cancelled"
++    : api?.status === 401 || isBackendSessionInvalidationReason(reason)
++      ? "session"
++      : api?.status === 403
++        ? "permission"
++        : api?.status === 408
++          ? "timeout"
++          : api?.status === 0
++            ? "network"
++            : api && api.status >= 400 && api.status < 500
++              ? "business"
++              : "service";
++  const messages: Record<ErrorCategory, [string, string]> = {
++    session: ["会话已失效", "请重新验证会话。"],
++    permission: ["无权执行此操作", "当前账户没有执行此操作的权限。"],
++    network: ["连接失败", "无法连接服务，请检查网络后重试。"],
++    timeout: ["请求超时", "服务未及时响应，请稍后重试。"],
++    business: ["操作未完成", "请求未能完成，请检查操作条件。"],
++    service: ["服务暂时不可用", "操作未能完成，请稍后再试。"],
++    cancelled: ["", ""],
++  };
++  // Neither backend messages nor exception stacks are safe UI copy.
++  return {
++    category,
++    status: api?.status,
++    code: api?.code,
++    traceId: api?.traceId && /^[A-Za-z0-9_.:-]{1,128}$/.test(api.traceId) ? api.traceId : undefined,
++    title: messages[category][0],
++    description: messages[category][1],
++  };
++}
++
++export type ErrorLease = { valid: () => boolean };
++export type ErrorReport = {
++  operation: string;
++  reason: unknown;
++  isCurrent: () => boolean;
++  ownership?: "global" | "local" | "boundary";
++  retry?: {
++    safeReadOnly: true;
++    run: (signal: AbortSignal, isCurrent: () => boolean) => Promise<void>;
++  };
++};
++export type QueuedError = PublicError & {
++  id: number;
++  key: string;
++  operation: string;
++  scope: string;
++  retrying: boolean;
++  canRetry: boolean;
++};
++type Entry = {
++  view: QueuedError;
++  lease: ErrorLease;
++  isCurrent: () => boolean;
++  retry?: ErrorReport["retry"];
++  controller?: AbortController;
++};
++
++/** One instance per verified session generation; no raw error/response is retained. */
++export class PublicErrorQueue {
++  private entries: Entry[] = [];
++  private recent = new Map<string, number>();
++  private sequence = 0;
++  private listeners = new Set<() => void>();
++  private snapshot: readonly QueuedError[] = [];
++  constructor(
++    readonly scope: string,
++    private scopeValid: () => boolean,
++    private invalidateSession: (reason: BackendSessionInvalidationReason) => void,
++    private now = Date.now,
++  ) {}
++  subscribe = (listener: () => void) => {
++    this.listeners.add(listener);
++    return () => {
++      this.listeners.delete(listener);
++    };
++  };
++  getSnapshot = () => this.snapshot;
++  private publish() {
++    this.snapshot = this.entries.map(({ view }) => view);
++    this.listeners.forEach((listener) => listener());
++  }
++  private valid(entry: Pick<Entry, "lease" | "isCurrent">) {
++    return this.scopeValid() && entry.lease.valid() && entry.isCurrent();
++  }
++  report(lease: ErrorLease, input: ErrorReport) {
++    if (input.ownership && input.ownership !== "global") return;
++    if (!this.valid({ lease, isCurrent: input.isCurrent })) return;
++    const error = classifyPublicError(input.reason);
++    if (error.category === "cancelled") return;
++    if (error.category === "session") {
++      this.clear();
++      this.invalidateSession(
++        isBackendSessionInvalidationReason(input.reason) ? input.reason : "EXPLICIT_401",
++      );
++      return;
++    }
++    const key = JSON.stringify([
++      this.scope,
++      input.operation,
++      error.category,
++      error.status,
++      error.code,
++    ]);
++    for (const [previous, time] of this.recent)
++      if (this.now() - time >= 2000) this.recent.delete(previous);
++    if (this.entries.some((entry) => entry.view.key === key) || this.recent.has(key)) return;
++    this.recent.set(key, this.now());
++    const retry =
++      error.category !== "permission" && input.retry?.safeReadOnly === true
++        ? input.retry
++        : undefined;
++    this.entries.push({
++      lease,
++      isCurrent: input.isCurrent,
++      retry,
++      view: {
++        ...error,
++        id: ++this.sequence,
++        key,
++        operation: input.operation,
++        scope: this.scope,
++        retrying: false,
++        canRetry: !!retry,
++      },
++    });
++    this.publish();
++  }
++  dismiss(id: number) {
++    this.entries.find((entry) => entry.view.id === id)?.controller?.abort();
++    this.entries = this.entries.filter((entry) => entry.view.id !== id);
++    this.publish();
++  }
++  release(lease: ErrorLease) {
++    for (const entry of this.entries.filter((entry) => entry.lease === lease)) {
++      entry.controller?.abort();
++      this.recent.delete(entry.view.key);
++    }
++    this.entries = this.entries.filter((entry) => entry.lease !== lease);
++    this.publish();
++  }
++  clear() {
++    this.entries.forEach((entry) => entry.controller?.abort());
++    this.entries = [];
++    this.recent.clear();
++    this.publish();
++  }
++  async retry(id: number) {
++    const entry = this.entries.find((item) => item.view.id === id);
++    if (!entry || entry.view.retrying || !entry.retry) return;
++    if (!this.valid(entry)) {
++      this.dismiss(id);
++      return;
++    }
++    entry.controller = new AbortController();
++    entry.view = { ...entry.view, retrying: true };
++    this.publish();
++    const current = () =>
++      this.entries.includes(entry) && this.valid(entry) && !entry.controller?.signal.aborted;
++    try {
++      await entry.retry.run(entry.controller.signal, current);
++      if (current()) this.dismiss(id);
++    } catch (reason) {
++      if (!current()) return;
++      const error = classifyPublicError(reason);
++      if (error.category === "session") {
++        this.clear();
++        this.invalidateSession(
++          isBackendSessionInvalidationReason(reason) ? reason : "EXPLICIT_401",
++        );
++        return;
++      }
++      if (error.category === "cancelled") {
++        this.dismiss(id);
++        return;
++      }
++      // An explicit attempt always reports its failure in the existing dialog.
++      const key = JSON.stringify([
++        this.scope,
++        entry.view.operation,
++        error.category,
++        error.status,
++        error.code,
++      ]);
++      this.entries = this.entries.filter((other) => {
++        if (other !== entry && other.view.key === key) {
++          other.controller?.abort();
++          return false;
++        }
++        return true;
++      });
++      this.recent.set(key, this.now());
++      entry.view = {
++        ...entry.view,
++        ...error,
++        key,
++        retrying: false,
++        canRetry: error.category !== "permission",
++      };
++      if (error.category === "permission") entry.retry = undefined;
++      this.publish();
++    } finally {
++      if (this.entries.includes(entry) && !this.valid(entry)) this.dismiss(id);
++    }
++  }
++}
+diff --git a/src/lib/public-errors.test.ts b/src/lib/public-errors.test.ts
+new file mode 100644
+index 0000000..3468fdf
+--- /dev/null
++++ b/src/lib/public-errors.test.ts
+@@ -0,0 +1,251 @@
++import { describe, expect, it } from "bun:test";
++import { BackendApiError } from "./backend-api";
++import { classifyPublicError, PublicErrorQueue, type ErrorReport } from "./public-errors";
++const api = (status: number, trace = "trace-1", code?: string) =>
++  new BackendApiError(status, trace, "secret raw payload", code);
++const lease = { valid: () => true };
++const report = (reason: unknown, operation = "read") => ({
++  reason,
++  operation,
++  isCurrent: () => true,
++});
++function deferred() {
++  let resolve!: () => void;
++  let reject!: (e: unknown) => void;
++  const promise = new Promise<void>((a, b) => {
++    resolve = a;
++    reject = b;
++  });
++  return { promise, resolve, reject };
++}
++
++describe("public error ownership, queue and safe retry", () => {
++  it("classifies status, business codes and active cancellation without raw copy", () => {
++    for (const [status, category] of [
++      [401, "session"],
++      [403, "permission"],
++      [0, "network"],
++      [408, "timeout"],
++      [409, "business"],
++      [503, "service"],
++    ] as const) {
++      const result = classifyPublicError(api(status, "trace-1", "EXISTING_CODE"));
++      expect(result.category).toBe(category);
++      expect(result.code).toBe("EXISTING_CODE");
++      expect(JSON.stringify(result)).not.toContain("secret");
++    }
++    expect(classifyPublicError(new DOMException("secret", "AbortError")).category).toBe(
++      "cancelled",
++    );
++    expect(
++      classifyPublicError(new BackendApiError(408, "x", "secret", undefined, true)).category,
++    ).toBe("cancelled");
++    expect(classifyPublicError(api(500, "bad\ntrace")).traceId).toBeUndefined();
++    expect(classifyPublicError(new Error("secret")).category).toBe("service");
++  });
++  it("deduplicates dynamic traces, queues FIFO, and expires the two-second window", () => {
++    let now = 0;
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++      () => now,
++    );
++    q.report(lease, report(api(500)));
++    q.report(lease, report(api(500, "other")));
++    q.report(lease, report(api(403)));
++    expect(q.getSnapshot().map((e) => e.category)).toEqual(["service", "permission"]);
++    q.dismiss(q.getSnapshot()[0].id);
++    now = 1999;
++    q.report(lease, report(api(500)));
++    expect(q.getSnapshot()).toHaveLength(1);
++    now = 2000;
++    q.report(lease, report(api(500)));
++    expect(q.getSnapshot()).toHaveLength(2);
++  });
++  it("deduplicates a visible event beyond two seconds", () => {
++    let now = 0;
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++      () => now,
++    );
++    q.report(lease, report(api(500)));
++    now = 4000;
++    q.report(lease, report(api(500)));
++    expect(q.getSnapshot()).toHaveLength(1);
++  });
++  it("keeps operations and codes distinct; clears scope and callbacks", () => {
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++    );
++    q.report(lease, report(api(409, "a", "A")));
++    q.report(lease, report(api(409, "b", "B")));
++    q.report(lease, report(api(409, "b", "B"), "other"));
++    expect(q.getSnapshot()).toHaveLength(3);
++    q.clear();
++    expect(q.getSnapshot()).toHaveLength(0);
++  });
++  it("routes 401 to existing invalidator, keeps 403 session, ignores local/boundary/stale/cancelled", () => {
++    let invalidations = 0;
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => invalidations++,
++    );
++    q.report(lease, { ...report(api(403)), retry: { safeReadOnly: true, run: async () => {} } });
++    expect(invalidations).toBe(0);
++    expect(q.getSnapshot()[0].canRetry).toBe(false);
++    q.report(lease, report(api(401)));
++    expect(invalidations).toBe(1);
++    expect(q.getSnapshot()).toHaveLength(0);
++    for (const ownership of ["local", "boundary"] as const)
++      q.report(lease, { ...report(api(500)), ownership });
++    q.report(lease, { ...report(api(500)), isCurrent: () => false });
++    q.report(lease, report(new DOMException("", "AbortError")));
++    expect(q.getSnapshot()).toHaveLength(0);
++  });
++  it("locks duplicate retry, closes on success, reports failure in same slot even in dedup window", async () => {
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++    );
++    let calls = 0;
++    const first = deferred();
++    const input: ErrorReport = {
++      ...report(api(500)),
++      retry: {
++        safeReadOnly: true,
++        run: () => {
++          calls++;
++          return first.promise;
++        },
++      },
++    };
++    q.report(lease, input);
++    const id = q.getSnapshot()[0].id;
++    const pending = q.retry(id);
++    void q.retry(id);
++    expect(calls).toBe(1);
++    expect(q.getSnapshot()[0].retrying).toBe(true);
++    first.reject(api(408, "new-trace"));
++    await pending;
++    expect(q.getSnapshot()).toHaveLength(1);
++    expect(q.getSnapshot()[0].category).toBe("timeout");
++    expect(q.getSnapshot()[0].retrying).toBe(false);
++    q.clear();
++    q.report(lease, { ...input, retry: { safeReadOnly: true, run: async () => {} } });
++    await q.retry(q.getSnapshot()[0].id);
++    expect(q.getSnapshot()).toHaveLength(0);
++  });
++  it("never executes missing, released or invalid callbacks", async () => {
++    let valid = true,
++      calls = 0;
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => valid,
++      () => {},
++    );
++    q.report(lease, report(api(500)));
++    await q.retry(q.getSnapshot()[0].id);
++    expect(q.getSnapshot()[0].canRetry).toBe(false);
++    q.clear();
++    q.report(lease, {
++      ...report(api(500)),
++      retry: {
++        safeReadOnly: true,
++        run: async () => {
++          calls++;
++        },
++      },
++    });
++    const id = q.getSnapshot()[0].id;
++    valid = false;
++    await q.retry(id);
++    expect(calls).toBe(0);
++    expect(q.getSnapshot()).toHaveLength(0);
++    valid = true;
++    q.clear();
++    q.report(lease, {
++      ...report(api(500)),
++      retry: {
++        safeReadOnly: true,
++        run: async () => {
++          calls++;
++        },
++      },
++    });
++    const released = q.getSnapshot()[0].id;
++    q.release(lease);
++    await q.retry(released);
++    expect(calls).toBe(0);
++  });
++  it("aborts an in-flight callback on unmount and prevents late feedback", async () => {
++    const q = new PublicErrorQueue(
++      "TEST:1",
++      () => true,
++      () => {},
++    );
++    const wait = deferred();
++    let signal!: AbortSignal;
++    let current!: () => boolean;
++    q.report(lease, {
++      ...report(api(500)),
++      retry: {
++        safeReadOnly: true,
++        run: (s, c) => {
++          signal = s;
++          current = c;
++          return wait.promise;
++        },
++      },
++    });
++    const pending = q.retry(q.getSnapshot()[0].id);
++    q.release(lease);
++    expect(signal.aborted).toBe(true);
++    expect(current()).toBe(false);
++    wait.reject(api(500));
++    await pending;
++    expect(q.getSnapshot()).toHaveLength(0);
++  });
++  it("401 retry invalidates; a 403 retry disables further retry", async () => {
++    for (const status of [401, 403]) {
++      let invalidations = 0;
++      const q = new PublicErrorQueue(
++        "TEST:1",
++        () => true,
++        () => invalidations++,
++      );
++      q.report(lease, {
++        ...report(api(500)),
++        retry: {
++          safeReadOnly: true,
++          run: async () => {
++            throw api(status);
++          },
++        },
++      });
++      await q.retry(q.getSnapshot()[0].id);
++      expect(invalidations).toBe(status === 401 ? 1 : 0);
++      if (status === 403) expect(q.getSnapshot()[0].canRetry).toBe(false);
++      else expect(q.getSnapshot()).toHaveLength(0);
++    }
++  });
++});
++
++it("forwards existing explicit session invalidation signals without a parallel logout", () => {
++  const received: string[] = [];
++  const queue = new PublicErrorQueue(
++    "TEST:1",
++    () => true,
++    (reason) => received.push(reason),
++  );
++  for (const reason of ["EXPIRED", "REVOKED", "DISABLED", "ENVIRONMENT_MISMATCH"] as const)
++    queue.report(lease, report(reason));
++  expect(received).toEqual(["EXPIRED", "REVOKED", "DISABLED", "ENVIRONMENT_MISMATCH"]);
++  expect(queue.getSnapshot()).toHaveLength(0);
++});
+diff --git a/src/components/FrontendScope.tsx b/src/components/FrontendScope.tsx
+new file mode 100644
+index 0000000..c21dc58
+--- /dev/null
++++ b/src/components/FrontendScope.tsx
+@@ -0,0 +1,48 @@
++import { useEffect, useMemo, useRef, type ReactNode } from "react";
++import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
++import { backendRuntime } from "@/lib/backend-api";
++import { useBackendSession } from "@/lib/backend-session";
++import { backendSessionIntrinsicInvalidationReason } from "@/lib/backend-session-policy";
++import { PublicErrorQueue } from "@/lib/public-errors";
++import { PublicErrorProvider } from "./PublicErrorProvider";
++
++export function FrontendScope({ children }: { children: ReactNode }) {
++  const { session, checking, invalidate } = useBackendSession();
++  const latest = useRef({ session, checking });
++  latest.current = { session, checking };
++  const generation = useRef(0);
++  const scope = useMemo(() => {
++    const id = JSON.stringify([backendRuntime.environment, ++generation.current]);
++    const valid = () =>
++      !checking &&
++      latest.current.session === session &&
++      !latest.current.checking &&
++      !!session &&
++      !backendRuntime.error &&
++      !backendSessionIntrinsicInvalidationReason(session, backendRuntime.environment);
++    return {
++      id,
++      client: new QueryClient({
++        defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
++      }),
++      queue: new PublicErrorQueue(id, valid, (reason) => {
++        if (session && valid()) invalidate(session, reason);
++      }),
++    };
++  }, [session, checking, invalidate]);
++  useEffect(
++    () => () => {
++      scope.queue.clear();
++      void scope.client.cancelQueries();
++      scope.client.clear();
++    },
++    [scope],
++  );
++  return (
++    <QueryClientProvider client={scope.client}>
++      <PublicErrorProvider key={scope.id} queue={scope.queue}>
++        {children}
++      </PublicErrorProvider>
++    </QueryClientProvider>
++  );
++}
+diff --git a/src/components/FrontendScope.test.tsx b/src/components/FrontendScope.test.tsx
+new file mode 100644
+index 0000000..b7fb955
+--- /dev/null
++++ b/src/components/FrontendScope.test.tsx
+@@ -0,0 +1,66 @@
++import { afterEach, expect, it } from "bun:test";
++import { act, create, type ReactTestRenderer } from "react-test-renderer";
++import { useQueryClient, type QueryClient } from "@tanstack/react-query";
++import { BackendSessionProvider, useBackendSession } from "@/lib/backend-session";
++import { backendRuntime, type BackendSession } from "@/lib/backend-api";
++import { FrontendScope } from "./FrontendScope";
++(globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
++  true;
++let renderer: ReactTestRenderer;
++const originalFetch = globalThis.fetch;
++let context: ReturnType<typeof useBackendSession>;
++let client: QueryClient;
++function Probe() {
++  context = useBackendSession();
++  client = useQueryClient();
++  return null;
++}
++afterEach(async () => {
++  if (renderer) await act(async () => renderer.unmount());
++  globalThis.fetch = originalFetch;
++});
++it("replaces Query cache on session generation change; late old reads cannot populate the new cache", async () => {
++  const session: BackendSession = {
++    actorId: "actor-test",
++    customerId: "customer-test",
++    tenantId: "tenant-test",
++    environment: backendRuntime.environment!,
++    expiresAt: "2100-01-01T00:00:00.000Z",
++  };
++  globalThis.fetch = (async () =>
++    new Response(JSON.stringify(session), { status: 200 })) as unknown as typeof fetch;
++  await act(async () => {
++    renderer = create(
++      <BackendSessionProvider>
++        <FrontendScope>
++          <Probe />
++        </FrontendScope>
++      </BackendSessionProvider>,
++    );
++  });
++  expect(context.session?.actorId).toBe(session.actorId);
++  const old = client;
++  old.setQueryData(["protected"], "old-session-value");
++  let finish!: (value: string) => void;
++  const late = old
++    .fetchQuery({
++      queryKey: ["late"],
++      queryFn: () =>
++        new Promise<string>((resolve) => {
++          finish = resolve;
++        }),
++    })
++    .catch(() => {});
++  await act(async () => {
++    await context.refresh();
++  });
++  expect(client).not.toBe(old);
++  expect(client.getQueryData(["protected"])).toBeUndefined();
++  finish("stale");
++  await late;
++  expect(client.getQueryData(["late"])).toBeUndefined();
++  expect(old.getQueryCache().getAll()).toHaveLength(0);
++  await act(async () => context.invalidate(context.session!, "EXPLICIT_401"));
++  expect(context.session).toBeNull();
++  expect(client.getQueryData(["protected"])).toBeUndefined();
++});
+diff --git a/src/components/PublicErrorProvider.tsx b/src/components/PublicErrorProvider.tsx
+new file mode 100644
+index 0000000..0f8372c
+--- /dev/null
++++ b/src/components/PublicErrorProvider.tsx
+@@ -0,0 +1,115 @@
++import {
++  createContext,
++  useCallback,
++  useContext,
++  useEffect,
++  useMemo,
++  useRef,
++  useSyncExternalStore,
++  type ReactNode,
++} from "react";
++import { Loader2 } from "lucide-react";
++import {
++  AlertDialog,
++  AlertDialogContent,
++  AlertDialogHeader,
++  AlertDialogTitle,
++  AlertDialogDescription,
++} from "@/components/ui/alert-dialog";
++import { Button } from "@/components/ui/button";
++import { PublicErrorQueue, type ErrorReport } from "@/lib/public-errors";
++
++const ErrorContext = createContext<PublicErrorQueue | null>(null);
++const emptySnapshot: readonly never[] = [];
++
++export function PublicErrorProvider({
++  queue,
++  children,
++}: {
++  queue: PublicErrorQueue;
++  children: ReactNode;
++}) {
++  useEffect(() => () => queue.clear(), [queue]);
++  return (
++    <ErrorContext.Provider value={queue}>
++      {children}
++      <PublicErrorDialog queue={queue} />
++    </ErrorContext.Provider>
++  );
++}
++
++export function PublicErrorDialog({ queue }: { queue: PublicErrorQueue }) {
++  const errors = useSyncExternalStore(queue.subscribe, queue.getSnapshot, () => emptySnapshot);
++  const error = errors[0];
++  const closeRef = useRef<HTMLButtonElement>(null);
++  const returnFocus = useRef<HTMLElement | null>(null);
++  useEffect(() => {
++    if (error?.retrying) closeRef.current?.focus();
++  }, [error?.retrying]);
++  return (
++    <AlertDialog
++      open={!!error}
++      onOpenChange={(open) => {
++        if (!open && error) queue.dismiss(error.id);
++      }}
++    >
++      {error && (
++        <AlertDialogContent
++          className="w-[calc(100%-2rem)] max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-lg"
++          onOpenAutoFocus={(event) => {
++            returnFocus.current =
++              document.activeElement instanceof HTMLElement ? document.activeElement : null;
++            event.preventDefault();
++            closeRef.current?.focus();
++          }}
++          onCloseAutoFocus={(event) => {
++            event.preventDefault();
++            if (returnFocus.current?.isConnected) returnFocus.current.focus();
++          }}
++          onEscapeKeyDown={() => queue.dismiss(error.id)}
++        >
++          <AlertDialogHeader>
++            <AlertDialogTitle>{error.title}</AlertDialogTitle>
++            <AlertDialogDescription>{error.description}</AlertDialogDescription>
++          </AlertDialogHeader>
++          {error.traceId && (
++            <p className="break-all text-xs text-muted-foreground">
++              追踪标识：<span className="select-all">{error.traceId}</span>
++            </p>
++          )}
++          <div className="flex flex-wrap justify-end gap-2">
++            <Button ref={closeRef} variant="outline" onClick={() => queue.dismiss(error.id)}>
++              关闭
++            </Button>
++            {error.canRetry && (
++              <Button disabled={error.retrying} onClick={() => void queue.retry(error.id)}>
++                {error.retrying && <Loader2 className="animate-spin" aria-hidden="true" />}
++                {error.retrying ? "重试中" : "重试"}
++              </Button>
++            )}
++          </div>
++        </AlertDialogContent>
++      )}
++    </AlertDialog>
++  );
++}
++
++/** Capture this entry before starting a read. Unmount/scope changes retire the lease. */
++// The hook intentionally shares this provider context.
++// eslint-disable-next-line react-refresh/only-export-components
++export function usePublicError() {
++  const queue = useContext(ErrorContext);
++  if (!queue) throw new Error("usePublicError requires PublicErrorProvider");
++  const lease = useMemo(() => {
++    const state = { active: true };
++    return { queue, state, valid: () => state.active };
++  }, [queue]);
++  useEffect(() => {
++    lease.state.active = true;
++    return () => {
++      lease.state.active = false;
++      queue.release(lease);
++    };
++  }, [queue, lease]);
++  return useCallback((input: ErrorReport) => queue.report(lease, input), [queue, lease]);
++}
+diff --git a/tests/frontend-foundation/index.html b/tests/frontend-foundation/index.html
+new file mode 100644
+index 0000000..af3a4bb
+--- /dev/null
++++ b/tests/frontend-foundation/index.html
+@@ -0,0 +1,12 @@
++<!doctype html>
++<html lang="zh-CN" class="dark">
++  <head>
++    <meta charset="UTF-8" />
++    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++    <title>DEV-UI-000 公共组件验证</title>
++  </head>
++  <body>
++    <div id="root"></div>
++    <script type="module" src="./main.tsx"></script>
++  </body>
++</html>
+diff --git a/tests/frontend-foundation/main.tsx b/tests/frontend-foundation/main.tsx
+new file mode 100644
+index 0000000..d78c22a
+--- /dev/null
++++ b/tests/frontend-foundation/main.tsx
+@@ -0,0 +1,77 @@
++// Local component fixture only: no router, authentication, backend or business requests.
++import { createRoot } from "react-dom/client";
++import { useState } from "react";
++import "../../src/styles.css";
++import { Button } from "../../src/components/ui/button";
++import { PublicErrorProvider, usePublicError } from "../../src/components/PublicErrorProvider";
++import { PublicErrorQueue } from "../../src/lib/public-errors";
++import { BackendApiError, backendRuntime } from "../../src/lib/backend-api";
++const queue = new PublicErrorQueue(
++  `fixture:${backendRuntime.environment}`,
++  () => true,
++  () => queue.clear(),
++);
++function Fixture() {
++  const report = usePublicError();
++  const [attempts, setAttempts] = useState(0);
++  return (
++    <main className="mx-auto max-w-md space-y-4 p-6">
++      <h1 className="font-display text-xl">公共异常组件验证</h1>
++      <p>{backendRuntime.environment} · 本地模拟</p>
++      <Button
++        onClick={() =>
++          report({
++            operation: "fixture-read",
++            reason: new BackendApiError(408, "fixture-timeout", "not displayed"),
++            isCurrent: () => true,
++            retry: {
++              safeReadOnly: true,
++              run: async (signal, isCurrent) => {
++                await new Promise((resolve) => setTimeout(resolve, 1200));
++                if (!signal.aborted && isCurrent()) setAttempts((n) => n + 1);
++              },
++            },
++          })
++        }
++      >
++        模拟超时
++      </Button>
++      <Button
++        variant="outline"
++        onClick={() =>
++          report({
++            operation: "fixture-permission",
++            reason: new BackendApiError(403, "fixture-403", "not displayed"),
++            isCurrent: () => true,
++          })
++        }
++      >
++        模拟无权限
++      </Button>
++      <Button
++        variant="outline"
++        onClick={() =>
++          report({
++            operation: "fixture-failure",
++            reason: new BackendApiError(500, "fixture-500", "not displayed"),
++            isCurrent: () => true,
++            retry: {
++              safeReadOnly: true,
++              run: async () => {
++                throw new BackendApiError(408, "fixture-retry-failed", "not displayed");
++              },
++            },
++          })
++        }
++      >
++        模拟重试失败
++      </Button>
++      <p>成功重试次数：{attempts}</p>
++    </main>
++  );
++}
++createRoot(document.getElementById("root")!).render(
++  <PublicErrorProvider queue={queue}>
++    <Fixture />
++  </PublicErrorProvider>,
++);
+diff --git a/tests/frontend-foundation/vite.config.ts b/tests/frontend-foundation/vite.config.ts
+new file mode 100644
+index 0000000..0eeb8c9
+--- /dev/null
++++ b/tests/frontend-foundation/vite.config.ts
+@@ -0,0 +1,15 @@
++import { defineConfig } from "vite";
++import react from "@vitejs/plugin-react";
++import tailwindcss from "@tailwindcss/vite";
++import { fileURLToPath } from "node:url";
++export default defineConfig({
++  root: fileURLToPath(new URL("./", import.meta.url)),
++  plugins: [react(), tailwindcss()],
++  resolve: { alias: { "@": fileURLToPath(new URL("../../src", import.meta.url)) } },
++  server: {
++    host: "127.0.0.1",
++    port: 4179,
++    strictPort: true,
++    fs: { allow: [fileURLToPath(new URL("../../", import.meta.url))] },
++  },
++});

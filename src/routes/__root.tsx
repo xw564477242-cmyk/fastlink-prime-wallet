@@ -1,8 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
@@ -16,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../lib/i18n";
 import { BackendSessionProvider, useBackendSession } from "../lib/backend-session";
 import { backendRuntime } from "../lib/backend-api";
+import { FrontendScope } from "../components/FrontendScope";
 
 function NotFoundComponent() {
   return (
@@ -77,7 +77,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -137,22 +137,33 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <BackendSessionProvider>
+    <LanguageProvider>
+      <BackendSessionProvider>
+        <FrontendScope>
           <SessionBoundary />
-        </BackendSessionProvider>
-      </LanguageProvider>
-    </QueryClientProvider>
+        </FrontendScope>
+      </BackendSessionProvider>
+    </LanguageProvider>
   );
 }
 
 function SessionBoundary() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const { checking, session, error } = useBackendSession();
+
+  if (backendRuntime.error) {
+    return (
+      <div className="mx-auto grid min-h-screen w-full max-w-md place-items-center px-6">
+        <div role="alert" className="rounded-2xl border border-destructive/40 bg-surface p-6">
+          <h1 className="font-display text-xl font-semibold">环境配置错误</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            请配置 TEST 或 SANDBOX 环境及同源 /api 地址后重新启动。
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   if (pathname === "/auth") return <Outlet />;
 

@@ -35,3 +35,7 @@ Production requires an HTTPS API URL.
 - Thredd mock provider and seed data
 - Same-origin legacy `/api/card/*` routes
 - Demo MCP balance/card tools
+
+## 2026-09-15 补充说明（DEV-UI-000）
+
+以上历史内容原样保留。当前源码使用 Cookie `credentials: include`，未使用 Bearer/sessionStorage；本次公共底座范围限定 TEST/SANDBOX 与同源 `/api`。历史描述与当前源码之间的差异、未验证部署项及公共异常归属，见 [FRONTEND-BASELINE](environment/FRONTEND-BASELINE.md)。本说明不代表 Railway 历史契约已复核，也不修改余额口径。
