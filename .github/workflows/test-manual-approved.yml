@@ -1,0 +1,138 @@
+# OFFLINE DRAFT ONLY: proposed main .github/workflows/test-manual-approved.yml
+# Requires separately reviewed trusted helpers at scripts/test-entry/.
+name: Approved TEST deployment
+run-name: 'TEST ${{ inputs.candidate_sha }} / approval ${{ inputs.approval_id }}'
+on:
+  workflow_dispatch:
+    inputs:
+      candidate_sha:
+        description: Full approved dev SHA (40 lowercase hex)
+        type: string
+        required: true
+      approval_id:
+        description: Exact separately approved release record identifier
+        type: string
+        required: true
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+concurrency:
+  group: fastlink-prime-wallet-test
+  cancel-in-progress: false
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      policy_digest: ${{ steps.guard.outputs.policy_digest }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          persist-credentials: false
+      - name: Verify entry and approved candidate without deployment credentials
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.TEST_ENTRY_READ_TOKEN }}
+          ENTRY_SHA: ${{ github.workflow_sha }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          APPROVAL_ID: ${{ inputs.approval_id }}
+        run: python3 scripts/test-entry/guard.py live
+  build:
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    outputs:
+      manifest_digest: ${{ steps.package.outputs.manifest_digest }}
+    env:
+      CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+      ENTRY_SHA: ${{ github.workflow_sha }}
+      VITE_FASTLINK_API_URL: /api
+      VITE_FASTLINK_ENVIRONMENT: TEST
+      VITE_FASTLINK_BUILD_SHA: ${{ inputs.candidate_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: entry
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.candidate_sha }}
+          path: candidate
+          persist-credentials: false
+      - name: Verify exact checkout
+        run: test "$(git -C candidate rev-parse HEAD)" = "$CANDIDATE_SHA"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+      - name: Frozen install, static checks and TEST build (no deploy secrets)
+        working-directory: candidate
+        run: |
+          set -euo pipefail
+          bun install --frozen-lockfile
+          bunx tsc --noEmit
+          bun run lint
+          bun run audit:production
+          bun run build
+      - name: Bind build bytes to both SHAs
+        id: package
+        run: python3 entry/scripts/test-entry/package_artifact.py pack candidate bundle "$CANDIDATE_SHA" "$ENTRY_SHA"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: test-payload-${{ github.run_id }}
+          path: bundle/
+          if-no-files-found: error
+          retention-days: 7
+  deploy:
+    name: 'Approve TEST candidate ${{ inputs.candidate_sha }} (entry ${{ github.workflow_sha }})'
+    needs: [preflight, build]
+    environment: cloudflare-prime-test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+      ENTRY_SHA: ${{ github.workflow_sha }}
+      APPROVAL_ID: ${{ inputs.approval_id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: entry
+          persist-credentials: false
+      - name: Revalidate immediately after environment approval
+        env:
+          GH_TOKEN: ${{ secrets.TEST_ENTRY_READ_TOKEN }}
+          EXPECTED_POLICY_DIGEST: ${{ needs.preflight.outputs.policy_digest }}
+        run: python3 entry/scripts/test-entry/guard.py live
+      - uses: actions/download-artifact@v4
+        with:
+          name: test-payload-${{ github.run_id }}
+          path: bundle
+      - name: Verify immutable payload and generate fixed TEST config
+        env:
+          MANIFEST_DIGEST: ${{ needs.build.outputs.manifest_digest }}
+        run: python3 entry/scripts/test-entry/package_artifact.py unpack bundle payload "$CANDIDATE_SHA" "$ENTRY_SHA" "$MANIFEST_DIGEST"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install deployment tool outside candidate code
+        run: npm install --prefix "$RUNNER_TEMP/test-tool" --ignore-scripts --no-audit --no-fund wrangler@4.114.0
+      - name: Last drift check before credential-bearing step
+        env:
+          GH_TOKEN: ${{ secrets.TEST_ENTRY_READ_TOKEN }}
+          EXPECTED_POLICY_DIGEST: ${{ needs.preflight.outputs.policy_digest }}
+        run: python3 entry/scripts/test-entry/guard.py live
+      - name: Deploy fixed TEST payload only
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_TEST_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_TEST_ACCOUNT_ID }}
+        working-directory: payload
+        run: |
+          set -euo pipefail
+          test "$CLOUDFLARE_ACCOUNT_ID" = '2e8bea79bb07cc0cd8f6edb028618dd7'
+          test -n "$CLOUDFLARE_API_TOKEN"
+          node "$RUNNER_TEMP/test-tool/node_modules/wrangler/bin/wrangler.js" deploy --config wrangler.json
+      - name: Verify TEST readiness without funds or provider calls
+        run: node entry/scripts/test-entry/verify-prime-wallet-readiness.mjs 'https://fastlink-prime-wallet-test.xw1134315560.workers.dev' TEST "$CANDIDATE_SHA"
