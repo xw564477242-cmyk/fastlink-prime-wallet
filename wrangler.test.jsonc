@@ -15,6 +15,9 @@
     "binding": "ASSETS",
     "directory": ".output/public",
   },
+  "vars": {
+    "FASTLINK_PROXY_ID": "prime-test",
+  },
   "observability": {
     "enabled": true,
   },
