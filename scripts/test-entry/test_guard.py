@@ -19,7 +19,7 @@ def fixture():
     ci = {'id': 72, 'run_attempt': 1, 'repository': {'id': guard.REPO_ID}, 'head_repository': {'id': guard.REPO_ID}, 'workflow_id': guard.CI_ID, 'path': guard.CI_PATH, 'event': 'push', 'head_branch': 'dev', 'head_sha': C, 'status': 'completed', 'conclusion': 'success'}
     return {'candidate': C, 'entry': E, 'event': 'workflow_dispatch', 'ref': 'refs/heads/main', 'repository': guard.REPO, 'workflow_ref': guard.REPO+'/'+guard.ENTRY_PATH+'@refs/heads/main', 'run_id': 99, 'run_attempt': 1, 'approval_id': 'human-fixture-only',
             'main': E, 'dev': C, 'approval': {'version': 1, 'candidate_sha': C, 'entry_sha': E, 'approval_id': 'human-fixture-only', 'approval_reference': 'OFFLINE FIXTURE, NOT AUTHORIZATION', 'expires_at': '2026-09-16T01:00:00Z', 'ci_run_id': 72, 'ci_attempt': 1, 'ci_workflow_blob': B, 'reviewer_ids': [123]},
-            'new_switch': 'true', 'old_switch': 'false', 'environment': {'can_admins_bypass': False, 'protection_rules': [{'type': 'required_reviewers', 'prevent_self_review': True, 'reviewers': [{'type': 'User', 'reviewer': {'id': 123}}]}], 'deployment_branch_policy': {'protected_branches': False, 'custom_branch_policies': True}}, 'branches': [{'name': 'main', 'type': 'branch'}], 'origin': guard.ORIGIN, 'wallet': guard.WALLET,
+            'new_switch': 'true', 'old_switch': 'false', 'environment': {'can_admins_bypass': False, 'protection_rules': [{'type': 'required_reviewers', 'prevent_self_review': False, 'reviewers': [{'type': 'User', 'reviewer': {'id': 123}}]}], 'deployment_branch_policy': {'protected_branches': False, 'custom_branch_policies': True}}, 'branches': [{'name': 'main', 'type': 'branch'}], 'origin': guard.ORIGIN, 'wallet': guard.WALLET,
             'deployment_runs': [], 'ci': ci, 'ci_workflow': {'id': guard.CI_ID, 'path': guard.CI_PATH, 'state': 'active'}, 'ci_blob': B, 'candidate_runs': [copy.deepcopy(ci)]}
 
 class Guards(unittest.TestCase):
@@ -112,7 +112,37 @@ class Guards(unittest.TestCase):
     def test_environment_protection_missing(self):
         self.reject(lambda s: s['environment'].update(protection_rules=[]), 'environment-reviewers')
         self.reject(lambda s: s['environment'].pop('can_admins_bypass'), 'environment-bypass-unknown')
-        self.reject(lambda s: s['environment']['protection_rules'][0].update(prevent_self_review=False), 'environment-reviewers')
+        self.reject(lambda s: s['environment']['protection_rules'][0].update(prevent_self_review=True), 'environment-reviewers')
+
+    def test_single_person_explicit_policy_passes(self):
+        s = fixture()
+        self.assertIs(s['environment']['protection_rules'][0]['prevent_self_review'], False)
+        self.assertEqual(guard.validate(s, NOW)['approval']['reviewer_ids'], [123])
+
+    def test_single_person_policy_flag_must_be_explicit_boolean(self):
+        for value in [True, None, 0, 'false', '']:
+            with self.subTest(value=value):
+                self.reject(lambda s: s['environment']['protection_rules'][0].update(prevent_self_review=value), 'environment-reviewers')
+        self.reject(lambda s: s['environment']['protection_rules'][0].pop('prevent_self_review'), 'environment-reviewers')
+
+    def test_single_person_still_requires_reviewers(self):
+        self.reject(lambda s: s['environment']['protection_rules'][0].update(reviewers=[]), 'environment-reviewers')
+        self.reject(lambda s: s['environment']['protection_rules'].append(copy.deepcopy(s['environment']['protection_rules'][0])), 'environment-reviewers')
+
+    def test_single_person_still_rejects_admin_bypass(self):
+        for value in [True, None, 0, 'false']:
+            with self.subTest(value=value):
+                self.reject(lambda s: s['environment'].update(can_admins_bypass=value), 'environment-bypass-unknown')
+
+    def test_single_person_reviewer_configuration_drift(self):
+        self.reject(lambda s: s['environment']['protection_rules'][0]['reviewers'][0]['reviewer'].update(id=456), 'reviewer-set')
+
+    def test_single_person_policy_drift_after_approval(self):
+        s = fixture()
+        guard.validate(s, NOW)
+        s['environment']['protection_rules'][0]['prevent_self_review'] = True
+        with self.assertRaisesRegex(guard.Reject, 'environment-reviewers'):
+            guard.validate(s, NOW)
 
     def test_environment_checks_run_ref_not_checkout(self):
         self.reject(lambda s: s.update(branches=[{'name':'test','type':'branch'}]), 'environment-ref-filter')
