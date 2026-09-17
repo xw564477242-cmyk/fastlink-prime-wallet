@@ -65,7 +65,8 @@ def validate(s, now=None):
     env = s['environment']
     require(env.get('can_admins_bypass') is False, 'environment-bypass-unknown')
     rules = [r for r in env['protection_rules'] if r['type'] == 'required_reviewers']
-    require(len(rules) == 1 and rules[0].get('prevent_self_review') is True and len(rules[0].get('reviewers', [])) > 0, 'environment-reviewers')
+    # Single-person policy still requires explicit environment approval; fail on unknown policy.
+    require(len(rules) == 1 and rules[0].get('prevent_self_review') is False and len(rules[0].get('reviewers', [])) > 0, 'environment-reviewers')
     require(sorted(r['reviewer']['id'] for r in rules[0]['reviewers']) == sorted(a['reviewer_ids']), 'reviewer-set')
     require(env.get('deployment_branch_policy') == {'protected_branches': False, 'custom_branch_policies': True}, 'environment-policy')
     require([(r['name'], r['type']) for r in s['branches']] == [('main', 'branch')], 'environment-ref-filter')
