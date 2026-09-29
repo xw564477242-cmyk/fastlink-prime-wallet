@@ -1,0 +1,11 @@
+{
+  "at": "2026-09-29T06:12:41.606486+00:00",
+  "recovery_root": "/private/tmp/FL-REC-001",
+  "free_bytes": 113532317696,
+  "git_version": "git version 2.54.0 (Apple Git-157)",
+  "git_lfs": "NOT_INSTALLED",
+  "submodule_tool": "git submodule, bundled with Git",
+  "access": "existing authenticated GitHub CLI / HTTPS, no credentials logged",
+  "recovery_push": "PROHIBITED; report branch exception only",
+  "python_version": "3.14.3"
+}

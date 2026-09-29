@@ -1,0 +1,36 @@
+{
+  "at": "2026-09-29T06:25:19.428573+00:00",
+  "scope": "all newly authored report files existing before this result; final full staged scan repeated after packaging",
+  "files": [
+    "FL-REC-001-七仓恢复基线报告.md",
+    "FL-REC-001-仓库完整性矩阵.md",
+    "FL-REC-001-回滚方案.md",
+    "FL-REC-001-异常与风险清单.md",
+    "FL-REC-001-改动说明.md",
+    "FL-REC-001-现有副本来源映射表.md",
+    "FL-REC-001-自测报告.md",
+    "README.md",
+    "evidence/dependency-audit.json",
+    "evidence/local-evidence-hashes.json",
+    "evidence/original-git-before.json",
+    "evidence/preflight.json",
+    "evidence/preservation-check.json",
+    "evidence/procedure-hashes.json",
+    "evidence/recovery-rounds.json",
+    "evidence/remote-identities.json",
+    "evidence/repeatability.json",
+    "evidence/source-mappings.json",
+    "evidence/test-results.json"
+  ],
+  "file_count": 19,
+  "rules": {
+    "private-key": "-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----",
+    "github-token": "\\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{40,})\\b",
+    "jwt": "\\beyJ[A-Za-z0-9_-]{12,}\\.[A-Za-z0-9_-]{12,}\\.[A-Za-z0-9_-]{12,}\\b",
+    "credential-url": "https?://[^\\s/<>\"\\x27:@]+:[^\\s/<>\"\\x27@]+@",
+    "aws-access-id": "\\bAKIA[A-Z0-9]{16}\\b",
+    "secret-assignment": "(?im)^\\s*(?:[\\w.-]*(?:api[_-]?key|secret|token|password))\\s*[:=]\\s*[\"\\x27]?[A-Za-z0-9_+/=-]{24,}"
+  },
+  "findings": [],
+  "limitations": "explicit-pattern report scan only; no claim of complete source/history/entropy secret scanning"
+}

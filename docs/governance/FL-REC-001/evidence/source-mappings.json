@@ -1,0 +1,1570 @@
+{
+  "method": "SHA-1 Git blob/tree identity computed without writing original repositories; Git mode included",
+  "excluded_directory_names": [
+    ".cache",
+    ".git",
+    ".output",
+    ".wrangler",
+    "bun-cache",
+    "coverage",
+    "dist",
+    "node_modules"
+  ],
+  "limitations": "Exact matches apply only to declared file scope. Ignored/untracked data is not thereby preserved. Package markers only select candidate comparison repositories; absent hashes are not proof of uniqueness across all assets.",
+  "mappings": [
+    {
+      "path": ".",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": true,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 254,
+      "missing_tracked": [],
+      "computed_tree": "40b09d31453a3da7b1918ec28d4cd67f7c5d2133",
+      "tree_scope": "tracked files with current contents",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 2,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 75,
+          "changed": 22,
+          "extra": 157,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 250,
+          "changed": 4,
+          "extra": 0,
+          "missing": 21
+        }
+      ],
+      "head": "7581a751d5964d481d335131c856270ccc98238b",
+      "head_reachable_from_recovered_refs": false,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 2,
+        "untracked": 58152
+      },
+      "local_branch_commits_not_in_remote_reachable_set": [
+        "7581a751d5964d481d335131c856270ccc98238b",
+        "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a"
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-002/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 255,
+      "missing_tracked": [],
+      "computed_tree": "676b28149739466bc0d6c40d8f360d2c73c06732",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 17,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 74,
+          "changed": 23,
+          "extra": 158,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 238,
+          "changed": 12,
+          "extra": 5,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-002-R1/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 259,
+      "missing_tracked": [],
+      "computed_tree": "8920318121b638902ce8bf31f66c374ea3bca9c3",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 23,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 73,
+          "changed": 24,
+          "extra": 162,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 236,
+          "changed": 14,
+          "extra": 9,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": true,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 260,
+      "missing_tracked": [],
+      "computed_tree": "ce8a7d35842ace22fca480d0d9ae554e3e294f6a",
+      "tree_scope": "tracked files with current contents",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 31,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 163,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 228,
+          "changed": 22,
+          "extra": 10,
+          "missing": 25
+        }
+      ],
+      "head": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "head_reachable_from_recovered_refs": false,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "local_branch_commits_not_in_remote_reachable_set": [
+        "ec29d29ab39e6afff95650a8603b3a6529c86179",
+        "8aefe84674d0d65be093f1f7d1a64f6fad8034da",
+        "7581a751d5964d481d335131c856270ccc98238b",
+        "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a"
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-DEPOSIT-MAPPING/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 255,
+      "missing_tracked": [],
+      "computed_tree": "ef4f91ab620a8001c46fc8f4e0ff52ba088a5abb",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 17,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 74,
+          "changed": 23,
+          "extra": 158,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 238,
+          "changed": 12,
+          "extra": 5,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/source-snapshot",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 259,
+      "missing_tracked": [],
+      "computed_tree": "bff4ecd0664afde63138d4569adb2972af6d6457",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 23,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 73,
+          "changed": 24,
+          "extra": 162,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 236,
+          "changed": 14,
+          "extra": 9,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/evidence/online-baseline",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 108,
+      "missing_tracked": [],
+      "computed_tree": "6e1fb5764988e5aded8f96704852b42a5c7478b8",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [
+        "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+        "8c1d3be110e98f39328a98cba122411b4689337f"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 108,
+          "changed": 0,
+          "extra": 0,
+          "missing": 0
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 76,
+          "changed": 21,
+          "extra": 11,
+          "missing": 178
+        }
+      ],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/frontend",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 263,
+      "missing_tracked": [],
+      "computed_tree": "269424d3f9a717744c8e896d52aacfbdef075ded",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 35,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 166,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 227,
+          "changed": 23,
+          "extra": 13,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 806,
+      "missing_tracked": [],
+      "computed_tree": "95d1128327f6c327ffee1e21fb629e38230c8f3f",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 57,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 510,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 749,
+          "changed": 13,
+          "extra": 44,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/frontend",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 263,
+      "missing_tracked": [],
+      "computed_tree": "269424d3f9a717744c8e896d52aacfbdef075ded",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 35,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 166,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 227,
+          "changed": 23,
+          "extra": 13,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 806,
+      "missing_tracked": [],
+      "computed_tree": "1cc7f0d2d8cb6f2227beb5c31b3a0d8a6eab369d",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 59,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 174,
+          "changed": 122,
+          "extra": 510,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 747,
+          "changed": 15,
+          "extra": 44,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-008/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 783,
+      "missing_tracked": [],
+      "computed_tree": "5f7e54ee693592a096379d6c9785f09f8df5d8a6",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 32,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 487,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 21,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-006/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 777,
+      "missing_tracked": [],
+      "computed_tree": "72e9c099229aa586189fb2d3195a951e8592e28f",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 26,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 481,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 15,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/workspace",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 108,
+      "missing_tracked": [],
+      "computed_tree": "e1da457200c00784fdd96c99b688c571fa084760",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [
+        "af9a99d97871d004024ab181feb5ed8b14b5640e",
+        "d972eea0c708840f016c32444018a420f9bf62c7"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 106,
+          "changed": 2,
+          "extra": 0,
+          "missing": 0
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 76,
+          "changed": 21,
+          "extra": 11,
+          "missing": 178
+        }
+      ],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-032/entry-workspace",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": true,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 108,
+      "missing_tracked": [],
+      "computed_tree": "e1da457200c00784fdd96c99b688c571fa084760",
+      "tree_scope": "tracked files with current contents",
+      "exact_tree_remote_commits": [
+        "af9a99d97871d004024ab181feb5ed8b14b5640e",
+        "d972eea0c708840f016c32444018a420f9bf62c7"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 106,
+          "changed": 2,
+          "extra": 0,
+          "missing": 0
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 76,
+          "changed": 21,
+          "extra": 11,
+          "missing": 178
+        }
+      ],
+      "head": "d972eea0c708840f016c32444018a420f9bf62c7",
+      "head_reachable_from_recovered_refs": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "local_branch_commits_not_in_remote_reachable_set": [],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-007/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 777,
+      "missing_tracked": [],
+      "computed_tree": "72e9c099229aa586189fb2d3195a951e8592e28f",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 26,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 481,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 15,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-034/source/head",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 7,
+      "missing_tracked": [],
+      "computed_tree": "90147a12fb0e0e0495562a0f68a597593f5a6998",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 6,
+          "changed": 1,
+          "extra": 0,
+          "missing": 101
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 1,
+          "changed": 2,
+          "extra": 4,
+          "missing": 272
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-034/source/dev",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 7,
+      "missing_tracked": [],
+      "computed_tree": "8c5356dfc49b287e4ce343b5c1a88f512d9d612e",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 1,
+          "changed": 3,
+          "extra": 3,
+          "missing": 104
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 7,
+          "changed": 0,
+          "extra": 0,
+          "missing": 268
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-034/source/main",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 6,
+      "missing_tracked": [],
+      "computed_tree": "01ff22bdfef93e30839d9ad28beb2b1ca710e476",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 5,
+          "changed": 1,
+          "extra": 0,
+          "missing": 102
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 1,
+          "changed": 2,
+          "extra": 3,
+          "missing": 272
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/recovery",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 657,
+      "missing_tracked": [],
+      "computed_tree": "12a8c04dddaed23e925608fef8a8af9a8c2cccf5",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 109,
+          "changed": 119,
+          "extra": 429,
+          "missing": 69
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 657,
+          "changed": 0,
+          "extra": 0,
+          "missing": 105
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/new",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 678,
+      "missing_tracked": [],
+      "computed_tree": "a0a97e476d08486a1c7d0115fb8bcaf991633886",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 32,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 109,
+          "changed": 119,
+          "extra": 450,
+          "missing": 69
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 646,
+          "changed": 11,
+          "extra": 21,
+          "missing": 105
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/workspace",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": true,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 108,
+      "missing_tracked": [],
+      "computed_tree": "6e1fb5764988e5aded8f96704852b42a5c7478b8",
+      "tree_scope": "tracked files with current contents",
+      "exact_tree_remote_commits": [
+        "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+        "8c1d3be110e98f39328a98cba122411b4689337f"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 108,
+          "changed": 0,
+          "extra": 0,
+          "missing": 0
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 76,
+          "changed": 21,
+          "extra": 11,
+          "missing": 178
+        }
+      ],
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "head_reachable_from_recovered_refs": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 1
+      },
+      "local_branch_commits_not_in_remote_reachable_set": [],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005-R1/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 777,
+      "missing_tracked": [],
+      "computed_tree": "6b82667ad08675acc0cc488ffef937f97e5b7c4d",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 26,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 481,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 15,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-002-R2/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 259,
+      "missing_tracked": [],
+      "computed_tree": "bff4ecd0664afde63138d4569adb2972af6d6457",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 23,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 73,
+          "changed": 24,
+          "extra": 162,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 236,
+          "changed": 14,
+          "extra": 9,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-MILESTONE-001-v1/05-external-evidence/019/source/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 11,
+      "missing_tracked": [],
+      "computed_tree": "760547dcf5dd753b3608cd228a75a6a5c4db1ef4",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 2,
+          "changed": 2,
+          "extra": 7,
+          "missing": 104
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 11,
+          "changed": 0,
+          "extra": 0,
+          "missing": 264
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-MILESTONE-001-v1/05-external-evidence/019/source/test",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 9,
+      "missing_tracked": [],
+      "computed_tree": "ea1b89c56b9a19dd09bdbac7f1e57781be37f5ec",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 3,
+          "changed": 1,
+          "extra": 5,
+          "missing": 104
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 3,
+          "changed": 5,
+          "extra": 1,
+          "missing": 267
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-MILESTONE-001-v1/05-external-evidence/019/source/dev",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 11,
+      "missing_tracked": [],
+      "computed_tree": "760547dcf5dd753b3608cd228a75a6a5c4db1ef4",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 2,
+          "changed": 2,
+          "extra": 7,
+          "missing": 104
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 11,
+          "changed": 0,
+          "extra": 0,
+          "missing": 264
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-MILESTONE-001-v1/05-external-evidence/019/source/main",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 8,
+      "missing_tracked": [],
+      "computed_tree": "f2e03d6860354640c3652d0463c5f99e3d3a9546",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 8,
+          "changed": 0,
+          "extra": 0,
+          "missing": 100
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 2,
+          "changed": 2,
+          "extra": 4,
+          "missing": 271
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-021/candidate/frontend",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 263,
+      "missing_tracked": [],
+      "computed_tree": "269424d3f9a717744c8e896d52aacfbdef075ded",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 35,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 166,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 227,
+          "changed": 23,
+          "extra": 13,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-021/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 795,
+      "missing_tracked": [],
+      "computed_tree": "3a93406bf2c3ebf6c560cd2d2e5484629b62a16f",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 46,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 499,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 749,
+          "changed": 13,
+          "extra": 33,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/frontend",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 263,
+      "missing_tracked": [],
+      "computed_tree": "79aac3539954ee0c928feeafb10b0a326830e932",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 35,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 166,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 227,
+          "changed": 23,
+          "extra": 13,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 789,
+      "missing_tracked": [],
+      "computed_tree": "3d6cbb042233fba4a13592634ef435a4e112bcbd",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 40,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 493,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 749,
+          "changed": 13,
+          "extra": 27,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/build-context",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 682,
+      "missing_tracked": [],
+      "computed_tree": "b517522fe090c0028905886fbd5ffdacdff36fd9",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 41,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 108,
+          "changed": 120,
+          "extra": 454,
+          "missing": 69
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 641,
+          "changed": 14,
+          "extra": 27,
+          "missing": 107
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-018/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 785,
+      "missing_tracked": [],
+      "computed_tree": "c26e33788d738d3b39f1b21477e428eb606999d2",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 34,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 489,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 23,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-020/candidate/frontend",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 263,
+      "missing_tracked": [],
+      "computed_tree": "269424d3f9a717744c8e896d52aacfbdef075ded",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 35,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 72,
+          "changed": 25,
+          "extra": 166,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 227,
+          "changed": 23,
+          "extra": 13,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-020/candidate/backend",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 789,
+      "missing_tracked": [],
+      "computed_tree": "3d6cbb042233fba4a13592634ef435a4e112bcbd",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 40,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 493,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 749,
+          "changed": 13,
+          "extra": 27,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-004-R1/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 251,
+      "missing_tracked": [],
+      "computed_tree": "1e6288c5442e5c8f043a9dbb93d9158a56bda0a0",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 12,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 74,
+          "changed": 23,
+          "extra": 154,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 239,
+          "changed": 11,
+          "extra": 1,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-VERSION-040/workspace",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": true,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 108,
+      "missing_tracked": [],
+      "computed_tree": "6e1fb5764988e5aded8f96704852b42a5c7478b8",
+      "tree_scope": "tracked files with current contents",
+      "exact_tree_remote_commits": [
+        "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+        "8c1d3be110e98f39328a98cba122411b4689337f"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 108,
+          "changed": 0,
+          "extra": 0,
+          "missing": 0
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 76,
+          "changed": 21,
+          "extra": 11,
+          "missing": 178
+        }
+      ],
+      "head": "8c1d3be110e98f39328a98cba122411b4689337f",
+      "head_reachable_from_recovered_refs": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "local_branch_commits_not_in_remote_reachable_set": [],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 765,
+      "missing_tracked": [],
+      "computed_tree": "d79b20c9537486867b7e4530c94db10155d6efdc",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 8,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 469,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 757,
+          "changed": 5,
+          "extra": 3,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/base",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 762,
+      "missing_tracked": [],
+      "computed_tree": "497e4c143977970235545f4c8c5d42880b4d1c53",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [
+        "b337bc96dfd587326a3c43d890d22ca251ca932d",
+        "98a09f89e4d1c0bc845c162f3e179c6dcd0f6dd7"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 466,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 762,
+          "changed": 0,
+          "extra": 0,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 772,
+      "missing_tracked": [],
+      "computed_tree": "f380c2f5cb0165bb7395595219da05dc3c1d35d4",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 21,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 476,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 751,
+          "changed": 11,
+          "extra": 10,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-004/candidate",
+      "package_name": "fastlink-platform-backend",
+      "inferred_repository": "fastlik-backend",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 767,
+      "missing_tracked": [],
+      "computed_tree": "d6acfd5a1893cf6d97a8dbe7142ed1bff1508222",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 10,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "same": 175,
+          "changed": 121,
+          "extra": 471,
+          "missing": 1
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "same": 757,
+          "changed": 5,
+          "extra": 5,
+          "missing": 0
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-002/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 255,
+      "missing_tracked": [],
+      "computed_tree": "06661e46aa0862ebbe0040e15888cc10d8620776",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 2,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 76,
+          "changed": 21,
+          "extra": 158,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 253,
+          "changed": 2,
+          "extra": 0,
+          "missing": 20
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-002/base",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 255,
+      "missing_tracked": [],
+      "computed_tree": "97281a09f4f3ebb81738f4370c2ec833204ae5b2",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [
+        "49d29d86202a557d688d56db9202334f8a09996b",
+        "d02e7a721224473ea5fc8153a2284d147a6bf990"
+      ],
+      "content_blobs_absent_from_remote_reachable_objects": 0,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 76,
+          "changed": 21,
+          "extra": 158,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 255,
+          "changed": 0,
+          "extra": 0,
+          "missing": 20
+        }
+      ],
+      "source_assessment": "exact scoped tree matches reachable remote commit",
+      "supplementary_evidence_only": true
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-004/candidate",
+      "package_name": "tanstack_start_ts",
+      "inferred_repository": "fastlink-prime-wallet",
+      "git_metadata": false,
+      "mapping_basis": "package marker only; needs Git/content verification",
+      "file_count": 251,
+      "missing_tracked": [],
+      "computed_tree": "f272bcabeaf6cdb3cb5ad8b2ffbe466fc142ee7c",
+      "tree_scope": "directory files excluding declared generated/cache directories and .DS_Store",
+      "exact_tree_remote_commits": [],
+      "content_blobs_absent_from_remote_reachable_objects": 9,
+      "baseline_comparisons": [
+        {
+          "ref": "origin/main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "same": 74,
+          "changed": 23,
+          "extra": 154,
+          "missing": 11
+        },
+        {
+          "ref": "origin/dev",
+          "sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+          "same": 242,
+          "changed": 8,
+          "extra": 1,
+          "missing": 25
+        }
+      ],
+      "source_assessment": "derived or unmapped copy; NOT a trusted independent recovery source",
+      "supplementary_evidence_only": true
+    }
+  ]
+}

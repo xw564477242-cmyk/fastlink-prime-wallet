@@ -1,0 +1,62 @@
+[
+  {
+    "path": ".",
+    "head": "7581a751d5964d481d335131c856270ccc98238b",
+    "branch": "codex/dev-version-006-snapshot",
+    "status_sha256": "0af5324c468ff1edcd3baaa0b4b3d81be156709aab0b708d91fc5f8dce2ef5fa",
+    "diff_sha256": "38e6249f388676006a2a97d2f5e72c255e4c731c3584791e02fc71fb61261208",
+    "refs_sha256": "4208f3e0f3dd7dfe02ed33b182e7ebc544e3543db51a137447fdfa36f58045a6",
+    "index_sha256": "eefa6e71064f98db4fba22af5baa090037c3a894acf23709cee65d3d6bea9c7e",
+    "staged": 0,
+    "unstaged": 2,
+    "untracked": 58152
+  },
+  {
+    "path": "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+    "head": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+    "branch": "codex/b03-cregis-closeout-004-frontend-closure",
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "refs_sha256": "52152712f6ead03502ba94c5ffe02fc8748990666701caa15e2239d3346e97f7",
+    "index_sha256": "f4e13d6d954ee3b4dd1054b133a64f5b96b6703bdfc317e364ca831e88c61a28",
+    "staged": 0,
+    "unstaged": 0,
+    "untracked": 0
+  },
+  {
+    "path": "outputs/DEV-SANDBOX-FAST-001/workspace",
+    "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+    "branch": "DETACHED",
+    "status_sha256": "22b791e937151f801d706ebe3e36b30431eb9517aedf4a229dd232b5a8199a52",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "refs_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index_sha256": "b9e4f67176ae2fc9d91d7e9a58dfa7355022410ac4a67dcb148b4aa2ce283a49",
+    "staged": 0,
+    "unstaged": 0,
+    "untracked": 1
+  },
+  {
+    "path": "outputs/DEV-VERSION-032/entry-workspace",
+    "head": "d972eea0c708840f016c32444018a420f9bf62c7",
+    "branch": "codex/dev-version-032-test-manual-entry",
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "refs_sha256": "4cb3e313701cfc372aff4ffc51783ccd08d81d9d424f3e0ed59b1fe248dc5c1a",
+    "index_sha256": "b7da4ac027a4c3454697df06e24ad2e8fef4468986fddbff78f73e011340d7a2",
+    "staged": 0,
+    "unstaged": 0,
+    "untracked": 0
+  },
+  {
+    "path": "outputs/DEV-VERSION-040/workspace",
+    "head": "8c1d3be110e98f39328a98cba122411b4689337f",
+    "branch": "codex/dev-version-040-single-person-guard",
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "refs_sha256": "86fa6fd99bbef046b771a7187fe3dcc616397293cf72f9c546c2d15d701684d2",
+    "index_sha256": "33f8c01794ebf9ee4145fb879e96843ea96a1fa91b2db18f7aab981cb14f5751",
+    "staged": 0,
+    "unstaged": 0,
+    "untracked": 0
+  }
+]
