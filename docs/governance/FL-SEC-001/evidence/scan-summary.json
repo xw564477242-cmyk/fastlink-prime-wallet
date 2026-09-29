@@ -1,0 +1,19 @@
+{
+  "old_findings": 37079,
+  "new_findings": 37082,
+  "new_severity": {
+    "Medium": 28524,
+    "Low": 8470,
+    "High": 88
+  },
+  "old_fingerprints_not_reconstructed": [],
+  "old_contents_not_reloaded": [],
+  "memory_objects": 1309,
+  "memory_objects_now_scanned": 1309,
+  "old_unavailable_contexts": 176,
+  "contexts_now_scanned": 176,
+  "blocks": 0,
+  "archive_blocks": 0,
+  "expanded_bytes": 744427157,
+  "authentication_attempts": 0
+}

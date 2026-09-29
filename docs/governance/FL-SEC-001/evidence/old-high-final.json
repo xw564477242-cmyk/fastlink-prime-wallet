@@ -1,0 +1,1084 @@
+[
+  {
+    "old_id": "SEC-bec5c94996977b73",
+    "old_fingerprint": "bec5c94996977b734ece49d3200c9da8f4c1a8094892ae4cdc8a9794bec0c6b3",
+    "new_id": "SEC2-1c440b9303d9d4de",
+    "new_fingerprint": "1c440b9303d9d4de1673ac308d5f5b90240c3bcdba86cd5d778fc186255889d0",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "entropy-literal-no-nonsecret-structure-confirmed",
+      "high-entropy-secret-field-literal-unverified",
+      "entropy-in-secret-field-needs-owner"
+    ]
+  },
+  {
+    "old_id": "SEC-9d904084c4b264fa",
+    "old_fingerprint": "9d904084c4b264fa1701fc1ca0963453823675e9af4aaaca2b15db09ba157953",
+    "new_id": "SEC2-daa025a912e23cab",
+    "new_fingerprint": "daa025a912e23cab9f116a167fcdbdfba6c694489c3478b3bb4d4fce2aa391d1",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6f9d0b6e8444a37f",
+    "old_fingerprint": "6f9d0b6e8444a37f6874975f7810648aa996255af2efbd923750cbb7e601d2e5",
+    "new_id": "SEC2-4bd0e9f13d9625fc",
+    "new_fingerprint": "4bd0e9f13d9625fc7a66f5503c81e9237472dc9f69be851baa4d9d8c5143c68c",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-b04c62e4a514f26e",
+    "old_fingerprint": "b04c62e4a514f26e431769bc9e3cc67f2110c9faca412e2347b6ed7f3fbd2a43",
+    "new_id": "SEC2-3df3f8cc279c2db4",
+    "new_fingerprint": "3df3f8cc279c2db451cae8f668bfc12a0a36ca94a009fbb2908b9d9dbdc5e453",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-224ea48ed04c2e99",
+    "old_fingerprint": "224ea48ed04c2e99f170185c6e569496628a2249b14a0cac4a92be6be380c8e7",
+    "new_id": "SEC2-2875ed0dceaaa1d5",
+    "new_fingerprint": "2875ed0dceaaa1d5576919c8ed2a508e1564f07bde6cd734efa24688bcc55050",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6a3eb5196e454b72",
+    "old_fingerprint": "6a3eb5196e454b72ddd962f0b3067989e9e94b16bdcd530b1bce31d38f004f1b",
+    "new_id": "SEC2-4e4acae9e811f974",
+    "new_fingerprint": "4e4acae9e811f9740a3255a78ab3c8f841ec24508d92f22219b8c1bcd28e4a7f",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c95bc3ae310af3bc",
+    "old_fingerprint": "c95bc3ae310af3bcdfb69db5772c08c324c050cf48fa580848a7dcc381f13510",
+    "new_id": "SEC2-433bb86153cc230e",
+    "new_fingerprint": "433bb86153cc230e3eb99e2889ebc278a25221ce69609f695c80f80a0b2ea9d9",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-306d40036254a2d1",
+    "old_fingerprint": "306d40036254a2d1efdcef1e740c0178f723dcef2e8e29503e2547bd7a574b63",
+    "new_id": "SEC2-ef6e76e3f4744974",
+    "new_fingerprint": "ef6e76e3f47449740f52a2a285d364cd2242f586b1d2bee1e537314ea82544b3",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c6e7031a399ca926",
+    "old_fingerprint": "c6e7031a399ca9262e1b752dfe817ba2007dc8cb29825aff7185675c522e8c48",
+    "new_id": "SEC2-8d13fe43049fd13e",
+    "new_fingerprint": "8d13fe43049fd13eca503f550d5f70178f4b46a070e79e9a8d347b9482aa5eff",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-9793de30a6fb0ee5",
+    "old_fingerprint": "9793de30a6fb0ee56a2ed87025dcd7dca4a99f0ec90ed99af1398d04cbc64e68",
+    "new_id": "SEC2-6ed76fcde368cdc2",
+    "new_fingerprint": "6ed76fcde368cdc212a437f55d5b5b81171f0cd6c4f97afcbb79eaca4f30795c",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-cb29af65ae45eb65",
+    "old_fingerprint": "cb29af65ae45eb65c53d874acb49e6e9b130be29e1823dfad46380eaade10841",
+    "new_id": "SEC2-ecef5fbf0e784fcf",
+    "new_fingerprint": "ecef5fbf0e784fcf7e1e9dfb0809845550733785232c3e7a704ec9e74c730433",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-e7877ee511abd9c0",
+    "old_fingerprint": "e7877ee511abd9c0fb1bf1fb7535347537463eb64126b104f776363569e69cc3",
+    "new_id": "SEC2-9263b8d7463b5f91",
+    "new_fingerprint": "9263b8d7463b5f91fb549cae37ffa018cb0d75589089783e3a5b00542ea6e952",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-ec5c681a5b551458",
+    "old_fingerprint": "ec5c681a5b55145874db7dd2c08d6239eaf230992fcd074f4a334c340ca3ee7c",
+    "new_id": "SEC2-2995edaa260921b4",
+    "new_fingerprint": "2995edaa260921b4954daf9c7c17d008428c40f3daee28205c0f97de5a1fd959",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-e774b5450a25e653",
+    "old_fingerprint": "e774b5450a25e6531a8d5de4625b07d5b167e7a90ada18ce73f7aa24bfaadd8a",
+    "new_id": "SEC2-10d693aef88af751",
+    "new_fingerprint": "10d693aef88af75108572b1edfa5907d3d846900de67b13a22be2268b2378efc",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-310a1b2362247c0e",
+    "old_fingerprint": "310a1b2362247c0eaed6c005a3cd5d69301c77db70222de7d1508b4e8ec77c9c",
+    "new_id": "SEC2-f3c0b2994b4aaea4",
+    "new_fingerprint": "f3c0b2994b4aaea4792c8bcc10aa740bbcf7a2c4f9f43ac6e7402ba28baf374d",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-41d8da16a941f062",
+    "old_fingerprint": "41d8da16a941f062432dd2577ddf4f6dfe5465cdce3a3cd82836de38ae0934b6",
+    "new_id": "SEC2-b6f30e4d05c51d3e",
+    "new_fingerprint": "b6f30e4d05c51d3eaba766c674086ad4377b64a9fd636b60ecedc3ad1a665368",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-74603621231eaa81",
+    "old_fingerprint": "74603621231eaa81341dfc45c3af84e6afe33eb35d44f7dd850441e2206156a2",
+    "new_id": "SEC2-7ffc3b3991dc1a09",
+    "new_fingerprint": "7ffc3b3991dc1a0961964b21d14aa81f4becd8e38938e6aa12c116d90b19d496",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-179c5c679f081f30",
+    "old_fingerprint": "179c5c679f081f30c5b2099e2d51d44ddafa2881aedf9cff856c9149eaff8673",
+    "new_id": "SEC2-202b6cb1710d4551",
+    "new_fingerprint": "202b6cb1710d455189817a0072e251bd092285ef869bd788e67d01b33100b849",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-ecd890b607363b59",
+    "old_fingerprint": "ecd890b607363b59ca604925c30de2759b1dd1ad4ddcc8ae7f3bad5838beb482",
+    "new_id": "SEC2-6f04ba450fbd2f79",
+    "new_fingerprint": "6f04ba450fbd2f79b6c770149c916c23c060ce6a6e9262d60506a52714765775",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-5f4adc67118cfb44",
+    "old_fingerprint": "5f4adc67118cfb44615218b57400b657d7706da696a104bf37c1c5ae7a453dfe",
+    "new_id": "SEC2-293dc85dcb5aef85",
+    "new_fingerprint": "293dc85dcb5aef8507ea795a6189f1a053e6ea79df02f9c84fef6a19854abebf",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-afdc4eb05b773f31",
+    "old_fingerprint": "afdc4eb05b773f31186ba41ee49209eccb294839e94d0f9843690f9834947e1a",
+    "new_id": "SEC2-650a83d4a883a88b",
+    "new_fingerprint": "650a83d4a883a88b0eb236eeb23d41397b5509d0d065995a9967135a24340959",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-2cf6dc2056c696a9",
+    "old_fingerprint": "2cf6dc2056c696a9a38bb81c2e43527d48bebcf9e5516ba9e5feac50d537c013",
+    "new_id": "SEC2-a8051b0f4ef1ee4c",
+    "new_fingerprint": "a8051b0f4ef1ee4c8334528f8aa56be0d0a565fdb197f180cf3bdbe8b8d6052e",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-9786babbd0033e64",
+    "old_fingerprint": "9786babbd0033e64915cbe774270d48e14f7cb40e2dab870d100e208c44130b5",
+    "new_id": "SEC2-088a22c69d4981fb",
+    "new_fingerprint": "088a22c69d4981fb1aba6a21a2fba4a2a49bead2c57364b5685cbe94f7d48178",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6abe630cea6092fd",
+    "old_fingerprint": "6abe630cea6092fd1a1c5657ea53c891be596a33e9d4a4d60dee61d0b8db386f",
+    "new_id": "SEC2-0cdbbb30aaceebac",
+    "new_fingerprint": "0cdbbb30aaceebaca5584036a1cdf76b2cbc8c576956e151b009f190a9aef945",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-be64e60f3394e2c2",
+    "old_fingerprint": "be64e60f3394e2c2d0fa2aafe1dbaa11e117a6ac9d0d3f09c08cd58ed12159bc",
+    "new_id": "SEC2-37ae87f0706d4184",
+    "new_fingerprint": "37ae87f0706d41847d70b7bff07a7280b6eabf40ad6354b6662fb547ad052ebb",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-5dec2eac5972265d",
+    "old_fingerprint": "5dec2eac5972265d53bf8be2ad5e878a722fcd520ab9a32c435bd05ceac366c8",
+    "new_id": "SEC2-cc565a7dc17c0523",
+    "new_fingerprint": "cc565a7dc17c0523632098cfb1ed32e116be773d941a5ac9658d624737d2bc72",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-51d5d7ccce3e7371",
+    "old_fingerprint": "51d5d7ccce3e737170ee5ecb47ea46c550c418b40a13f7a4e62b1c2b5211c494",
+    "new_id": "SEC2-872d162c4864f741",
+    "new_fingerprint": "872d162c4864f7418cd3edb2ea950b2b38dae110469b0257619cb45bbc900e0d",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-1c1d2b56c661cb9b",
+    "old_fingerprint": "1c1d2b56c661cb9b13d6b5d23e9a3db11a57e080e93a897d1b54b53f1ffbf58f",
+    "new_id": "SEC2-8c36f7bcb06c2252",
+    "new_fingerprint": "8c36f7bcb06c2252a3cd8763cf4e61f4324197916338d358c6b6af8987c0be29",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-84f6634d0c36afe5",
+    "old_fingerprint": "84f6634d0c36afe54e96caf61187775e1a40573cbe2dcd3f999c3a1bef3492bf",
+    "new_id": "SEC2-df2a263348b96411",
+    "new_fingerprint": "df2a263348b96411dac30110b66b8e69233cd01d2da6bf7169dd056e82a501cc",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-cf0151b7b36ca842",
+    "old_fingerprint": "cf0151b7b36ca842ef9d2bb09fddbb34d6bc60d220a7a58d357478195dd60108",
+    "new_id": "SEC2-58fa02b9651e7afb",
+    "new_fingerprint": "58fa02b9651e7afb882710b55fff6e5e76cd0d7341581eded0a7e6af9dd9f903",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-33f8e1c9930bb7d0",
+    "old_fingerprint": "33f8e1c9930bb7d01635b54b11435c909d23a79aec7b16f4febe8fe854564fcf",
+    "new_id": "SEC2-a365bfeceaf4cd99",
+    "new_fingerprint": "a365bfeceaf4cd99064ecc82825f02c7bb8a6677e19e11e574a7c2251ef8c65b",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-3c6f54b872497fba",
+    "old_fingerprint": "3c6f54b872497fba981cc6292659f96826af4a320c8559b177c48386153eed5d",
+    "new_id": "SEC2-71982d1d48877c4c",
+    "new_fingerprint": "71982d1d48877c4ccb9d13275f45d53bb467ceabd9802e0a86af2fed8b40ef1f",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-07a85deb688df9ba",
+    "old_fingerprint": "07a85deb688df9ba5205e4f81ee08ccd046bce9a86725f73f87f3e1a574c80bf",
+    "new_id": "SEC2-d02ddd8c3ac59d4a",
+    "new_fingerprint": "d02ddd8c3ac59d4a0b857aebcc1188c97e39898dc362459a2b12a1fbb078f908",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-18df68faf4462e76",
+    "old_fingerprint": "18df68faf4462e76fc1adb58c59300a63e52538fa4754bf9f46d2a67148fe697",
+    "new_id": "SEC2-53752e22485c142a",
+    "new_fingerprint": "53752e22485c142a21cfc3d9be562127fa7920bfbc69a89093bff07c31dcfa63",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c622f68abd3bfa53",
+    "old_fingerprint": "c622f68abd3bfa532a68df9214a6c22973ed0f9aedf5e2ce3a02b495f69fc219",
+    "new_id": "SEC2-f4e8397c0d7fb375",
+    "new_fingerprint": "f4e8397c0d7fb375a6e2ffb7de214353bdd4bd268c93b6adbd3e7f29ffae0445",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-46e9158f6ae39cd4",
+    "old_fingerprint": "46e9158f6ae39cd4f3f636af3e1dfec6bc5cf212640b4b5e3bfb6256cdcd600a",
+    "new_id": "SEC2-c8e2f1549dff1294",
+    "new_fingerprint": "c8e2f1549dff1294fd638302c2024cff7a4019d0da369bb0f3e05e41bf796a59",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-a1976a1181d4c72b",
+    "old_fingerprint": "a1976a1181d4c72ba13afce80111b75d8a337a7979025889203ecdf6e26ae3a4",
+    "new_id": "SEC2-4e210c325f85a3c2",
+    "new_fingerprint": "4e210c325f85a3c2d9516dc6ffee6c94e22a0d0705db9156f36da09bd47c26f8",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c61d3aa7ce767a66",
+    "old_fingerprint": "c61d3aa7ce767a6660d5477f15c064a45206470250289573c82992cbc18a6596",
+    "new_id": "SEC2-ddf20536557cae02",
+    "new_fingerprint": "ddf20536557cae02663cea5055685d867bec45677c4eed4499216c8b2c8c4d43",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-62a3ddd0fc8b41c0",
+    "old_fingerprint": "62a3ddd0fc8b41c0280af3d9191e7c2ff95f3cf8dcc82be481d0704517ccf113",
+    "new_id": "SEC2-52e91cabd2b4b709",
+    "new_fingerprint": "52e91cabd2b4b709aca63e1c9b6235ba9e0f13a7ad7b3301987b0a3b4fddf174",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-29924ca769f9684c",
+    "old_fingerprint": "29924ca769f9684cb97460c2db06f1ebf1d243d72d8e03e469080fff119492c3",
+    "new_id": "SEC2-49df6cd33999412e",
+    "new_fingerprint": "49df6cd33999412e6673750bca19c1a6654af9cc301097250a3f06489c72a1a1",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-7d46402d11a73ab6",
+    "old_fingerprint": "7d46402d11a73ab670548977c2c4b4dc4bd1edf7e5325c32ff44f86535f68ecb",
+    "new_id": "SEC2-ae9998d311d703ed",
+    "new_fingerprint": "ae9998d311d703ed9acc481d92e5986ee7ab45db8848a060191ff141db32c9e6",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6a7a74e9115c5224",
+    "old_fingerprint": "6a7a74e9115c5224926edb560b3e7e57fab7a8d76c7da8a4316317aa701f816c",
+    "new_id": "SEC2-45fa5dd6e4b9ce63",
+    "new_fingerprint": "45fa5dd6e4b9ce637081146306c15ad2f86e633e18ffcc9c4584b0321d16f6f4",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-47779a10428bc4bc",
+    "old_fingerprint": "47779a10428bc4bc5c5610b8c4d679ad13c6486bbf12a9dcc821b1f1f2fba1a2",
+    "new_id": "SEC2-8f96b93acb0b1d0e",
+    "new_fingerprint": "8f96b93acb0b1d0e08fd168f63ab3d0870698e086a5c9ff33c1c25f928e5903b",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6fd1c5f280a81bc6",
+    "old_fingerprint": "6fd1c5f280a81bc6eaf19e55741c26fa524dbd0f0607a61ef5460d7a866871d1",
+    "new_id": "SEC2-c56a958c069e0b1c",
+    "new_fingerprint": "c56a958c069e0b1c6c6e6bb669099abc948bd88ff77f58767df704bf0710c788",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-255d726c65336cb8",
+    "old_fingerprint": "255d726c65336cb80d7961b8d89f788b0171f4d0b4ac56e0a1dbd769c9d7ad0e",
+    "new_id": "SEC2-a2690eaf0fad6781",
+    "new_fingerprint": "a2690eaf0fad67810c716b4da853b4125f40b759557024391937335e0623af22",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-fb12572f0c5b0d02",
+    "old_fingerprint": "fb12572f0c5b0d022105adc4ff0358fab38c3886a8bde54a68fa15029753a792",
+    "new_id": "SEC2-21f254802a4f3fd4",
+    "new_fingerprint": "21f254802a4f3fd47d355536130ccc1ce566d67ee0fe2f7e28965425f4aa679a",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-770ac50a269cec8d",
+    "old_fingerprint": "770ac50a269cec8d2747320d4b2d67d0538ca2975167c624826b8cd2a9da67e3",
+    "new_id": "SEC2-eed2468e98390c66",
+    "new_fingerprint": "eed2468e98390c66cbf294356ee13c9068832fc2919c0ba40d49435acf1eeadb",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "jwt-structure-valid-validity-unknown"
+    ]
+  },
+  {
+    "old_id": "SEC-063cc33d641d891c",
+    "old_fingerprint": "063cc33d641d891c74367f76d1819b9e04cfaa8bd3d0155f64827d92f5f3030a",
+    "new_id": "SEC2-ae58fb562106c481",
+    "new_fingerprint": "ae58fb562106c48175f4b65bc8bcdbf7f16d5b16acbc5e6ce7fe9a8b511a65f6",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "authorization-credential-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-714bcd633c68743c",
+    "old_fingerprint": "714bcd633c68743c1f2bf7d419560d17391a1027cdf7cff1413a29b371a22c71",
+    "new_id": "SEC2-9623e3d701359215",
+    "new_fingerprint": "9623e3d7013592158fb975ebc12ed68758aaf633547bad4c2294e8cc459e4f60",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "jwt-structure-valid-validity-unknown"
+    ]
+  },
+  {
+    "old_id": "SEC-dde85739e27b0164",
+    "old_fingerprint": "dde85739e27b0164bf91a3a4a4867187540d6eaf367512dfa3fd6c4280ec016e",
+    "new_id": "SEC2-a94b1d786b04b3e8",
+    "new_fingerprint": "a94b1d786b04b3e81b833489b136d7a7edac67d2eeb0da1c7b64943fb9df7c6b",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-785eecd752e14a2e",
+    "old_fingerprint": "785eecd752e14a2eac4ef39ecc15b2b579709c69bc21678082cd0b1656074cb8",
+    "new_id": "SEC2-b1cb66e6df59a653",
+    "new_fingerprint": "b1cb66e6df59a653a41e63d9224f77b8a9ef376b0a4d6eaffc7735135018e222",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-86bb78358e17fabc",
+    "old_fingerprint": "86bb78358e17fabcb6ec1210ba7a1339e6264bd81410a7c1e0f5d70251e056bd",
+    "new_id": "SEC2-e419cd9f8028893d",
+    "new_fingerprint": "e419cd9f8028893d43d7d368bd637a615091b79a18c3e4649ef2027b74dc49ad",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-aaa6094642bbc667",
+    "old_fingerprint": "aaa6094642bbc667f1f4424413637e577471d7fbff6dd7429dfa910ffc121fb3",
+    "new_id": "SEC2-9f8fbffdf8056c41",
+    "new_fingerprint": "9f8fbffdf8056c41ec2a3cdd6b1940922df4d3da31779fd0439ec78c8ba93df1",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-271fcbed16d70be7",
+    "old_fingerprint": "271fcbed16d70be71c0bae985f6358fe2a1e4841de98ab4ec42ee1347cc5ebad",
+    "new_id": "SEC2-a7137c4896ad1ba9",
+    "new_fingerprint": "a7137c4896ad1ba966140a6dbac85b535893b343acf24811d66ba27751a098e8",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-794044182f67a1c5",
+    "old_fingerprint": "794044182f67a1c59725f3e52640809de93d09742199d182d94f6ca8d981ed17",
+    "new_id": "SEC2-98b6e2681601f117",
+    "new_fingerprint": "98b6e2681601f117ffc7511eb94ff79526f6945ca32c83dc79f460037ae59646",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c6c35cab65a61c55",
+    "old_fingerprint": "c6c35cab65a61c5579473af265448a862b69dc18440f4870b07ce15e2ea0796a",
+    "new_id": "SEC2-abb9d8cc18559280",
+    "new_fingerprint": "abb9d8cc18559280935fec4dd4aeb8c550f3f35374555ec612b87f68782650c8",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-020bcf4deae0444e",
+    "old_fingerprint": "020bcf4deae0444efcbb4fda6642c8a008e4e7c474fa586f2ba7e16862c28a18",
+    "new_id": "SEC2-d3dbbd2740d13b6f",
+    "new_fingerprint": "d3dbbd2740d13b6f4e0e397e477fbe982e76d0994e075cafef04d4ff7e8a381d",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6b36e430ca99bec5",
+    "old_fingerprint": "6b36e430ca99bec5f61199d5f877884e36059613300353f5c95a92e09fa6f44d",
+    "new_id": "SEC2-c4cda42e1cff44f3",
+    "new_fingerprint": "c4cda42e1cff44f38122fe5e83b96a2d822c690963c3852a42c4e6f4dd039f0c",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-722a5424d8d72bfa",
+    "old_fingerprint": "722a5424d8d72bfa8f2a74584ddbc3f59173059998db0ff2671fb1273d0e5103",
+    "new_id": "SEC2-aca9e84518c1c10d",
+    "new_fingerprint": "aca9e84518c1c10d89c1a99746b4a5ab4647d15010cc7457e27931bda3ececb6",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "jwt-structure-valid-validity-unknown"
+    ]
+  },
+  {
+    "old_id": "SEC-4631c3f2d2ca5275",
+    "old_fingerprint": "4631c3f2d2ca52757de84c5d7ceaf165adcd3c67858d0f3f5a54752c82e62e28",
+    "new_id": "SEC2-159cbedc137b4f0b",
+    "new_fingerprint": "159cbedc137b4f0b13bf1f9a9acd62ad1505decc3a2c829ffad192363b3cbac5",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-084a1c45a90b3984",
+    "old_fingerprint": "084a1c45a90b3984837935ed696d2b12b8c40cdfe0f23977dddc41e02892d9e1",
+    "new_id": "SEC2-c15a0586534a25c4",
+    "new_fingerprint": "c15a0586534a25c4dce61fc769e652e8f7e5df7c39d57715b0edff3484e20c77",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-ef60602b6fc2a1c5",
+    "old_fingerprint": "ef60602b6fc2a1c53ad926e5828260db07ee948125eefc2ab38b83ab5d872955",
+    "new_id": "SEC2-0157f8c443c5910e",
+    "new_fingerprint": "0157f8c443c5910ea329f0aced824c96e1eb5eb06efd70d8c2f8e52fd2159933",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-9512fb915b81f370",
+    "old_fingerprint": "9512fb915b81f370b62ee419977ee3e31c1f54d3844956d14fa1cc8bba09c85c",
+    "new_id": "SEC2-d6c1689818459a23",
+    "new_fingerprint": "d6c1689818459a23154fe89eaf8422284f8478273030abacea4e119e2f176518",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-bc37ab767869a188",
+    "old_fingerprint": "bc37ab767869a18852ace1f15b762d436d3b295e0da0bb961ab6a372278da02b",
+    "new_id": "SEC2-5bfff4fa86bdc2ca",
+    "new_fingerprint": "5bfff4fa86bdc2ca49397571e36f6915c974ca902ebaa44e201d0fdd4f9c8393",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-b90176df83ac7f6f",
+    "old_fingerprint": "b90176df83ac7f6f2c9810a1f5355ea94a7512f514409f11c333c9a12c9f92f0",
+    "new_id": "SEC2-3d5f945e68a3ea41",
+    "new_fingerprint": "3d5f945e68a3ea41a2a9bbdcde586a1b50c33ebf41cb387cccc3e661157e778f",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-513d2c941d2e2367",
+    "old_fingerprint": "513d2c941d2e236735993a7428f12c6c4b1d2902c7a9a9a1d753386dedcba5e5",
+    "new_id": "SEC2-ee6741391e61b820",
+    "new_fingerprint": "ee6741391e61b8201fafe40254e93d2556b38768500bbe8a8de895b477436a96",
+    "before": "High",
+    "after": "Medium",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6d0388b85c1c294d",
+    "old_fingerprint": "6d0388b85c1c294dd369fc46effa1f39fdc7daf8c62089a00c7fc71965d9c3ca",
+    "new_id": "SEC2-81facf982fd7565b",
+    "new_fingerprint": "81facf982fd7565b1feb200e0343efb2276f4128a0b59b891976340651984769",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-11e912fc6a7cea67",
+    "old_fingerprint": "11e912fc6a7cea67a0d52cf181c666632ca7711bd4c61c1bc72f81799d639b9d",
+    "new_id": "SEC2-b133f563f069f811",
+    "new_fingerprint": "b133f563f069f81182f7b56ac911b2fb96220a856b5c1f6bf3437b976a370cd2",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-ac0bfad4c2d8683d",
+    "old_fingerprint": "ac0bfad4c2d8683df490c2597866b057a5eb3d5baa28c63e97384f3008e355ce",
+    "new_id": "SEC2-ca2b862f13655e71",
+    "new_fingerprint": "ca2b862f13655e7147f841c5057a50701f5fdfe0672dc9fe06730ef9369a6b9b",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-2e51a1d9a3da2f3d",
+    "old_fingerprint": "2e51a1d9a3da2f3df6a42e72bce9ec635b6f9c0c7de6322f3ae45f7ff4f14453",
+    "new_id": "SEC2-2dbb4547b49ca6a9",
+    "new_fingerprint": "2dbb4547b49ca6a98bf440bba940bc73ac66e8b03aa9a17aac85cb833f6bedaa",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-e4faee6dbe90d977",
+    "old_fingerprint": "e4faee6dbe90d977157177cde191435824dcd45a29ca1c080d5f91b43e78371a",
+    "new_id": "SEC2-2da60a60ecb8fe34",
+    "new_fingerprint": "2da60a60ecb8fe34b0823317a5a410d6d72343475425831ab488469c87439a9e",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-af8160d23a53121e",
+    "old_fingerprint": "af8160d23a53121ec6abdf6eec0efae710ac70a3c5659b78746c12468aa50e6f",
+    "new_id": "SEC2-1d8b451aca17c861",
+    "new_fingerprint": "1d8b451aca17c861b411cee4789891ac225e6efee22a3291c767990206a9b146",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-414943a7ad667259",
+    "old_fingerprint": "414943a7ad66725955f69ff8f0d2abefbbd11efc4ae86a11b85ee5d9be6ca67e",
+    "new_id": "SEC2-1a4e7eb60d360127",
+    "new_fingerprint": "1a4e7eb60d360127aceed61e02e07170778392578db94649dab67cb6f0ab7943",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-05bbac204de0b13a",
+    "old_fingerprint": "05bbac204de0b13a6b7e048bad68674c35910237dc4bdd209417228bdb7d12a8",
+    "new_id": "SEC2-e15e2c52e261bae3",
+    "new_fingerprint": "e15e2c52e261bae3f9de443f951648bafc3e3197f6ec92963e15da73c407725b",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-4dbe9392c239be91",
+    "old_fingerprint": "4dbe9392c239be91514aff86fab9b959dfc1d6d7750f85de3bd17f640fcd169e",
+    "new_id": "SEC2-a703c584a1cd5d41",
+    "new_fingerprint": "a703c584a1cd5d41b29b31d3f3fdc2aad58e121fe1b836aab4a3db8e3783d890",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "provider-token-shape-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-db4b3f18288f37c6",
+    "old_fingerprint": "db4b3f18288f37c6e629333e223739be506a06ff16991ae6d81c3e6e2f0f3b2f",
+    "new_id": "SEC2-5671a84c1e068811",
+    "new_fingerprint": "5671a84c1e0688115ccb7b51def74627b20f8d8ee2faf8daabaa7b6c548c7923",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-a4b83018d1176aaa",
+    "old_fingerprint": "a4b83018d1176aaa802171498cc52ce3218b410e20cbeee952b6c36f5fae659b",
+    "new_id": "SEC2-bc85e622ece75207",
+    "new_fingerprint": "bc85e622ece752074db7e322c254edb3b5d6e174e09a30c9578718e47430b650",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-02c38590a1a3897c",
+    "old_fingerprint": "02c38590a1a3897c9f1ba9adab5324ab8195120f061f7ed797077036236b2880",
+    "new_id": "SEC2-523e2ea2f6366b16",
+    "new_fingerprint": "523e2ea2f6366b16710928895526c8cbb995a3538b35389cc68330c7e3d32a88",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-6dc781c024e841af",
+    "old_fingerprint": "6dc781c024e841afb60eac1436883e83446130d41ab63d74e4d4509c00baef34",
+    "new_id": "SEC2-265184974aecdd72",
+    "new_fingerprint": "265184974aecdd725dfe2e98e03227cdc51c7727a0533456034c68ba5d3188fd",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-1b945a79d2d3947a",
+    "old_fingerprint": "1b945a79d2d3947ae408c98acf2d3ae989680c7f072d8a1f79672852c121176c",
+    "new_id": "SEC2-bcd4716b11ca7db5",
+    "new_fingerprint": "bcd4716b11ca7db5d030ad9cb5603c55f1d338500c65378c41b8dd351b6cb4ed",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-0a831c5dc414aa38",
+    "old_fingerprint": "0a831c5dc414aa38aa497a6a46e43f4b700b6df5e16710cb8d01e774d76d64a6",
+    "new_id": "SEC2-d2087f187410d416",
+    "new_fingerprint": "d2087f187410d4161164ac57f6198e0817835eef8763915a7992084298798da2",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-bf3febad4f313102",
+    "old_fingerprint": "bf3febad4f313102683806d2e8151f787a5f9aadb5c7dc2a21cdbd4e1c42adb0",
+    "new_id": "SEC2-9e407e7f56cf3f5f",
+    "new_fingerprint": "9e407e7f56cf3f5f1d26570ad45a2c71add751d17176404bfe16ccff63fdd218",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-e9cc39c108111617",
+    "old_fingerprint": "e9cc39c108111617ea7494e4816efce839143cd5763aefcb35b3c2590044e83d",
+    "new_id": "SEC2-5f954aa4d9d8501a",
+    "new_fingerprint": "5f954aa4d9d8501a1aeb5e5d60a71887bca0602919ee610f5ced5ccda7311535",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-2b8ef632d4eb72a6",
+    "old_fingerprint": "2b8ef632d4eb72a6d927bbcb8e3db37b8105d6ab19081f3841933356413d880d",
+    "new_id": "SEC2-457ec972be4cf303",
+    "new_fingerprint": "457ec972be4cf303b25e6c39bef3a5a3ef01ddf1528a2805436bda00961584e7",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-2d35b985ac9eabd1",
+    "old_fingerprint": "2d35b985ac9eabd1ec726257c0e50cc0a117898361ea937a37d224116e226d8a",
+    "new_id": "SEC2-70d0de6becfae4a9",
+    "new_fingerprint": "70d0de6becfae4a922af467df483480b77819e0c7aae3a4caa32aa9ebebd98d2",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-430604272e45fc9f",
+    "old_fingerprint": "430604272e45fc9fb9509d475cdfb1accd4a5292a3d30c529292b27a51977d71",
+    "new_id": "SEC2-5ed762444b2566ca",
+    "new_fingerprint": "5ed762444b2566cad714ff67d31da44bb7793a83c40b2ea5cf304ce30f9ee96a",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-0f2a021f9e491c28",
+    "old_fingerprint": "0f2a021f9e491c28a55c3527974351f47c6d41a7822f1e635295e97b4f51f551",
+    "new_id": "SEC2-329be36af482f3fb",
+    "new_fingerprint": "329be36af482f3fb1c4e573afa7467a749ee11b16e0cf201c83089dee75410bc",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "high-entropy-secret-field-literal-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-b63fee7a46496a72",
+    "old_fingerprint": "b63fee7a46496a72b4f114b9da2b468596cffbff0f8775f0d29a4cfa77acd804",
+    "new_id": "SEC2-ffc74537531c17f9",
+    "new_fingerprint": "ffc74537531c17f9afd3cc4a9a8bf1f7cb8e4eaaae49bcc0ec19cfba5834545a",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-c37343ff285623c7",
+    "old_fingerprint": "c37343ff285623c7dff1fea55ed171ddf1ec3ed591ae9b13c9fd818bd6c4463c",
+    "new_id": "SEC2-46fc133e45d3d2f7",
+    "new_fingerprint": "46fc133e45d3d2f72b4f6e63f791665a87c9866e958678bb1bcf97e82f49fc0a",
+    "before": "High",
+    "after": "High",
+    "classification": "risk-candidate-owner-confirmation-required",
+    "basis": [
+      "complete-credential-url-unverified"
+    ]
+  },
+  {
+    "old_id": "SEC-ef153e1bdf37469a",
+    "old_fingerprint": "ef153e1bdf37469ac5a47391421109f7aeaa1720af1a1eeb9f62a5c44a2012e7",
+    "new_id": "SEC2-bce10cf4a7a50b46",
+    "new_fingerprint": "bce10cf4a7a50b465760691bb936ee0eb8619b4233b5e8abc40b613ad1f915d0",
+    "before": "High",
+    "after": "Low",
+    "classification": "example-or-nonsecret-structure",
+    "basis": [
+      "unquoted-code-expression"
+    ]
+  }
+]

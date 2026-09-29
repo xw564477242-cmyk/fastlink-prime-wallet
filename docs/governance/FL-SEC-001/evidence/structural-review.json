@@ -1,0 +1,13 @@
+{
+  "target_count": 27887,
+  "public_structure_candidates": 27887,
+  "downgraded": 24970,
+  "errors": [],
+  "per_downgrade_evidence_retained": true,
+  "directory_whitelists": 0,
+  "counts": {
+    "Medium": 3554,
+    "Low": 33440,
+    "High": 88
+  }
+}

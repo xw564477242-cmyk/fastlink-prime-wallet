@@ -1,0 +1,9 @@
+{
+  "revision_root_mode": "0o700",
+  "private_directory_mode": "0o700",
+  "key_mode": "0o600",
+  "key_parent_mode": "0o700",
+  "old_key_retained": true,
+  "same_uid_and_root_not_isolated": true,
+  "temporary_directory_not_long_term_backup": true
+}

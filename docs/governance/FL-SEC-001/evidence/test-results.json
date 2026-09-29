@@ -1,0 +1,111 @@
+{
+  "tests": [
+    {
+      "id": "SEC-T01",
+      "name": "扫描范围完整性",
+      "status": "PASS",
+      "evidence": "固定561144文件与此前60782唯一内容；本轮重读覆盖，无静默排除"
+    },
+    {
+      "id": "SEC-T02",
+      "name": "七仓全引用历史扫描",
+      "status": "PASS",
+      "evidence": "固定引用集合，重新枚举blob/commit/tag并严格fsck"
+    },
+    {
+      "id": "SEC-T03",
+      "name": "4个不可达提交扫描",
+      "status": "PASS",
+      "evidence": "原四提交对象范围+本轮内容摘要复核"
+    },
+    {
+      "id": "SEC-T04",
+      "name": "45个源码候选扫描",
+      "status": "PASS",
+      "evidence": "45个候选范围映射和内容复读"
+    },
+    {
+      "id": "SEC-T05",
+      "name": "后端023差异扫描",
+      "status": "PASS",
+      "evidence": "15修改44新增，原副本不变"
+    },
+    {
+      "id": "SEC-T06",
+      "name": "20个归档识别与隔离",
+      "status": "PASS",
+      "evidence": "ARC08所有431个常规成员；链接只登记"
+    },
+    {
+      "id": "SEC-T07",
+      "name": "路径穿越及符号链接防护",
+      "status": "PASS",
+      "evidence": "TAR/ZIP独立防护控制测试，链接绝不创建/跟随"
+    },
+    {
+      "id": "SEC-T08",
+      "name": "压缩炸弹和递归上限",
+      "status": "PASS",
+      "evidence": "输出字节、比例、数量、递归和余量测试"
+    },
+    {
+      "id": "SEC-T09",
+      "name": "已知规则与合成正例",
+      "status": "PASS",
+      "evidence": "本地虚构不可认证样本；不入PR"
+    },
+    {
+      "id": "SEC-T10",
+      "name": "高熵与敏感文件名扫描",
+      "status": "PASS",
+      "evidence": "全内容扫描；结构化逐项依据，无目录豁免"
+    },
+    {
+      "id": "SEC-T11",
+      "name": "大文件及二进制检查",
+      "status": "PASS",
+      "evidence": "UTF16双对齐及12/24词补充层；1309独立重读"
+    },
+    {
+      "id": "SEC-T12",
+      "name": "发现项去重与分级",
+      "status": "LIMITED",
+      "evidence": "全部逐项分类；仍有2917项纯高熵性质待责任人确认，不能称为验收已满足"
+    },
+    {
+      "id": "SEC-T13",
+      "name": "报告脱敏检查",
+      "status": "PASS",
+      "evidence": "显式格式、高熵、实际HMAC密钥材料分别检查"
+    },
+    {
+      "id": "SEC-T14",
+      "name": "原现场前后完整性复核",
+      "status": "LIMITED",
+      "evidence": "本轮内容/权限/属主/Git/链接一致；580个历史目标证据缺口、跨轮2缺2增引用路径及1个本地库相对初始扫描的引用差异保留"
+    },
+    {
+      "id": "SEC-T15",
+      "name": "PR范围及新增内容秘密扫描",
+      "status": "PASS",
+      "evidence": "仅docs/governance/FL-SEC-001；远端CI由新HEAD独立确认"
+    },
+    {
+      "id": "SEC-T16",
+      "name": "回滚方案检查",
+      "status": "PASS",
+      "evidence": "独立revert PR、原资产及旧密钥不清理"
+    }
+  ],
+  "passed": 14,
+  "limited": 2,
+  "failed": 0,
+  "not_run": [
+    "真实凭据认证/轮换/吊销",
+    "部署与环境晋升",
+    "Git历史清理",
+    "BIP39校验和与未知自定义编码穷尽验证"
+  ],
+  "pure_entropy_nature_unresolved": 2917,
+  "gate3": "not-approved; reviewer decision required"
+}

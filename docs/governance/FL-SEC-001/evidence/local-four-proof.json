@@ -1,0 +1,26 @@
+[
+  {
+    "sha": "7581a751d5964d481d335131c856270ccc98238b",
+    "required_content_objects": 1481,
+    "scanned": 1481,
+    "missing_count": 0
+  },
+  {
+    "sha": "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a",
+    "required_content_objects": 1478,
+    "scanned": 1478,
+    "missing_count": 0
+  },
+  {
+    "sha": "8aefe84674d0d65be093f1f7d1a64f6fad8034da",
+    "required_content_objects": 1512,
+    "scanned": 1512,
+    "missing_count": 0
+  },
+  {
+    "sha": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+    "required_content_objects": 1525,
+    "scanned": 1525,
+    "missing_count": 0
+  }
+]

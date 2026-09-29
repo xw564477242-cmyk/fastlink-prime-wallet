@@ -1,0 +1,9 @@
+[
+  {
+    "bundle": "bundle-b5ece93a60c8745bce50bb4fd602e0e2e9f14c0f95b33d484b36bf491f629fa9",
+    "prerequisite": "1a2d4586db8c287ac2631559b3268c9ee5ed1ec8",
+    "source_id": "fastlink-prime-wallet",
+    "fetch_exit": 0,
+    "method": "local read-only source to isolated object store; no remote push"
+  }
+]

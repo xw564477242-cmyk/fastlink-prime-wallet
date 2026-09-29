@@ -1,0 +1,78 @@
+{
+  "before_counts": {
+    "Medium": 36115,
+    "High": 90,
+    "Low": 874
+  },
+  "after_counts": {
+    "Medium": 3554,
+    "Low": 33440,
+    "High": 88
+  },
+  "total": 37082,
+  "old_high_final_counts": {
+    "High": 88,
+    "Medium": 1,
+    "Low": 1
+  },
+  "old_medium_final_counts": {
+    "Low": 32567,
+    "Medium": 3548
+  },
+  "new_fingerprints": 3,
+  "priority_counts": {
+    "P2": 1931,
+    "P4": 33440,
+    "P3": 1623,
+    "P1": 88
+  },
+  "classification_counts": {
+    "risk-candidate-owner-confirmation-required": 3642,
+    "nonsecret-structure": 24970,
+    "example-or-nonsecret-structure": 8470
+  },
+  "old_high_affected_by_176": 44,
+  "old_high_exclusive_to_176": 2,
+  "all_affected_high_reconstructed": true,
+  "exclusive_high_states": [
+    {
+      "old_id": "SEC-513d2c941d2e2367",
+      "old_fingerprint": "513d2c941d2e236735993a7428f12c6c4b1d2902c7a9a9a1d753386dedcba5e5",
+      "new_id": "SEC2-ee6741391e61b820",
+      "new_fingerprint": "ee6741391e61b8201fafe40254e93d2556b38768500bbe8a8de895b477436a96",
+      "before": "High",
+      "after": "Medium",
+      "classification": "risk-candidate-owner-confirmation-required",
+      "basis": [
+        "secret-field-literal-unverified"
+      ]
+    },
+    {
+      "old_id": "SEC-ef153e1bdf37469a",
+      "old_fingerprint": "ef153e1bdf37469ac5a47391421109f7aeaa1720af1a1eeb9f62a5c44a2012e7",
+      "new_id": "SEC2-bce10cf4a7a50b46",
+      "new_fingerprint": "bce10cf4a7a50b465760691bb936ee0eb8619b4233b5e8abc40b613ad1f915d0",
+      "before": "High",
+      "after": "Low",
+      "classification": "example-or-nonsecret-structure",
+      "basis": [
+        "unquoted-code-expression"
+      ]
+    }
+  ],
+  "authentication_attempts": 0,
+  "directory_whitelists": 0,
+  "medium_remaining_by_reason": {
+    "entropy-literal-no-nonsecret-structure-confirmed": 2917,
+    "secret-field-literal-unverified": 573,
+    "default-credential-candidate": 4,
+    "12-or-24-words-no-wordlist-or-checksum-confirmation": 23,
+    "private-key-marker-only-not-a-key": 2,
+    "local-connection-credential-unverified": 30,
+    "authorization-value-unverified": 2,
+    "module-or-resource-path-syntax": 1,
+    "incomplete-or-invalid-key-shape": 2,
+    "language-declaration-or-member-identifier": 2,
+    "malformed-credential-url": 1
+  }
+}

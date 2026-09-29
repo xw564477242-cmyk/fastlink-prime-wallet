@@ -1,0 +1,24 @@
+{
+  "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+  "locations": [
+    {
+      "path_id": "path/a80cebf727246bd1afbf58bc",
+      "exists": false,
+      "sha_matches": false,
+      "git_metadata": true
+    },
+    {
+      "path_id": "path/470bfd7ab9ee9e84c6d0e63e",
+      "exists": true,
+      "sha_matches": true,
+      "git_metadata": true
+    },
+    {
+      "path_id": "path/8b534737c273e5b9c5f1cfce",
+      "exists": false,
+      "sha_matches": false,
+      "git_metadata": true
+    }
+  ],
+  "fallback_available": true
+}

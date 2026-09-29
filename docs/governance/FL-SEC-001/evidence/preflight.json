@@ -1,0 +1,18 @@
+{
+  "python": "3.14.3",
+  "git": "git version 2.54.0 (Apple Git-157)",
+  "free_bytes": 113317404672,
+  "fingerprint_scheme": "FLSEC-HMAC-SHA256-v1",
+  "key_id": "FL-SEC-001-local-01",
+  "root_mode": "0700",
+  "key_mode": "0600",
+  "limits": {
+    "member_bytes": 536870912,
+    "archive_bytes": 4294967296,
+    "task_expanded_bytes": 21474836480,
+    "members": 100000,
+    "ratio": 100,
+    "depth": 3,
+    "disk_reserve_bytes": 10737418240
+  }
+}

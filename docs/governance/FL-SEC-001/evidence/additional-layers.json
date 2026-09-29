@@ -1,0 +1,19 @@
+{
+  "unique_contents": 60833,
+  "layers": [
+    "raw-format-rules",
+    "high-entropy",
+    "utf16-le-be-both-alignments",
+    "unlabelled-12-24-words"
+  ],
+  "previous_memory_only_objects": 1309,
+  "now_all_layers_scanned": 1309,
+  "previous_contexts_unavailable": 176,
+  "now_available": 176,
+  "independent_replay": {
+    "requested": 1309,
+    "reloaded": 1309
+  },
+  "wordlist_or_checksum_verification": false,
+  "notes": "Unlabelled word counts require quoted literal or complete line; arbitrary natural-language fragments and non-space delimiters are not exhaustive."
+}

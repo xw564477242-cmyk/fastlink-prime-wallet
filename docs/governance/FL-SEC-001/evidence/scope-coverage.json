@@ -1,0 +1,1024 @@
+{
+  "original_regular_files": 561144,
+  "coverage_entries": 561144,
+  "coverage_complete": true,
+  "groups": {
+    "first-party-and-other": {
+      "files": 21014,
+      "bytes": 270881884,
+      "statuses": {
+        "content-scanned": 21014
+      }
+    },
+    "cache-build": {
+      "files": 68674,
+      "bytes": 588483002,
+      "statuses": {
+        "content-scanned": 68674
+      }
+    },
+    "dependencies": {
+      "files": 448209,
+      "bytes": 4799917320,
+      "statuses": {
+        "content-scanned": 448209
+      }
+    },
+    "git-metadata": {
+      "files": 23247,
+      "bytes": 224292815,
+      "statuses": {
+        "content-scanned": 175,
+        "git-object-store-alternative": 23072
+      }
+    }
+  },
+  "source_candidates": [
+    {
+      "id": "SRC-01",
+      "path": "path/fc35bddd02d08b6588fad724",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 561144,
+      "bytes": 5883575021,
+      "statuses": {
+        "content-scanned": 538072,
+        "git-object-store-alternative": 23072
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-02",
+      "path": "path/d832e4a4f7fcff8cb07a8dce",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 303,
+      "bytes": 4513401,
+      "statuses": {
+        "content-scanned": 303
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-03",
+      "path": "path/0af7b3970a29d754221bc1dd",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 307,
+      "bytes": 4557511,
+      "statuses": {
+        "content-scanned": 307
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-04",
+      "path": "path/2df12d06d280323edf8ce836",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 367,
+      "bytes": 52614213,
+      "statuses": {
+        "content-scanned": 335,
+        "git-object-store-alternative": 32
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-05",
+      "path": "path/bf0464af2480d0750a698e02",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30405,
+      "bytes": 269104760,
+      "statuses": {
+        "content-scanned": 30405
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-06",
+      "path": "path/79bebb255184e88265acbf9b",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 259,
+      "bytes": 2087374,
+      "statuses": {
+        "content-scanned": 259
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-07",
+      "path": "path/0a0841029cb237f4de989517",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 108,
+      "bytes": 624116,
+      "statuses": {
+        "content-scanned": 108
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-08",
+      "path": "path/175b12c6a9ad344078865137",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 263,
+      "bytes": 2031182,
+      "statuses": {
+        "content-scanned": 263
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-09",
+      "path": "path/0e6c213f0ac608fd581c7fa7",
+      "inferred_repository": "fastlik-backend",
+      "files": 2613,
+      "bytes": 15702267,
+      "statuses": {
+        "content-scanned": 2613
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-10",
+      "path": "path/88454a95f7ffbb0e393e8e98",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 263,
+      "bytes": 2031182,
+      "statuses": {
+        "content-scanned": 263
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-11",
+      "path": "path/3a396f3479f7d2a375cd03a1",
+      "inferred_repository": "fastlik-backend",
+      "files": 36835,
+      "bytes": 454346185,
+      "statuses": {
+        "content-scanned": 36835
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-12",
+      "path": "path/8f064d4632f771f68e03ef12",
+      "inferred_repository": "fastlik-backend",
+      "files": 2533,
+      "bytes": 15245026,
+      "statuses": {
+        "content-scanned": 2533
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-13",
+      "path": "path/4d9e2523df81922fe985602b",
+      "inferred_repository": "fastlik-backend",
+      "files": 777,
+      "bytes": 5977497,
+      "statuses": {
+        "content-scanned": 777
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-14",
+      "path": "path/e06434439a7b7eb58e361252",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30957,
+      "bytes": 275814415,
+      "statuses": {
+        "content-scanned": 30957
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-15",
+      "path": "path/3bcdf4f56b6e19c64752bb61",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 153,
+      "bytes": 933616,
+      "statuses": {
+        "content-scanned": 135,
+        "git-object-store-alternative": 18
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-16",
+      "path": "path/9fba185e8977b8122977b3cb",
+      "inferred_repository": "fastlik-backend",
+      "files": 777,
+      "bytes": 5977497,
+      "statuses": {
+        "content-scanned": 777
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-17",
+      "path": "path/5a361d210e5bbcc73fe8d8b2",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 7,
+      "bytes": 180519,
+      "statuses": {
+        "content-scanned": 7
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-18",
+      "path": "path/4e1cf4a7b4a537750b92490d",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 7,
+      "bytes": 226015,
+      "statuses": {
+        "content-scanned": 7
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-19",
+      "path": "path/605d64884a3e729c52ae521a",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 6,
+      "bytes": 175083,
+      "statuses": {
+        "content-scanned": 6
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-20",
+      "path": "path/1ceab89960c1a546f371277c",
+      "inferred_repository": "fastlik-backend",
+      "files": 657,
+      "bytes": 4685934,
+      "statuses": {
+        "content-scanned": 657
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-21",
+      "path": "path/6709fd40784e4c6c4601b968",
+      "inferred_repository": "fastlik-backend",
+      "files": 678,
+      "bytes": 4925633,
+      "statuses": {
+        "content-scanned": 678
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-22",
+      "path": "path/a1ec0216223a54456e5d0bce",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30983,
+      "bytes": 276064305,
+      "statuses": {
+        "content-scanned": 30980,
+        "git-object-store-alternative": 3
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-23",
+      "path": "path/ea9437aaf7f6b0b58bd0289a",
+      "inferred_repository": "fastlik-backend",
+      "files": 35040,
+      "bytes": 456221790,
+      "statuses": {
+        "content-scanned": 35040
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-24",
+      "path": "path/df924055b5275ea5747b6e22",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 259,
+      "bytes": 2087374,
+      "statuses": {
+        "content-scanned": 259
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-25",
+      "path": "path/c710a5e3344f9437184686f3",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 11,
+      "bytes": 82061,
+      "statuses": {
+        "content-scanned": 11
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-26",
+      "path": "path/3b7c247ffc3302c9be3d5827",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 9,
+      "bytes": 14326,
+      "statuses": {
+        "content-scanned": 9
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-27",
+      "path": "path/15fb3a67d82a9cdcd8dc6976",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 11,
+      "bytes": 82061,
+      "statuses": {
+        "content-scanned": 11
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-28",
+      "path": "path/328272f908a6e39bdb2b6964",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 8,
+      "bytes": 13052,
+      "statuses": {
+        "content-scanned": 8
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-29",
+      "path": "path/cc93b082cef578f63694882b",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 263,
+      "bytes": 2031182,
+      "statuses": {
+        "content-scanned": 263
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-30",
+      "path": "path/4766d2d70388979f601dc0a7",
+      "inferred_repository": "fastlik-backend",
+      "files": 795,
+      "bytes": 6091900,
+      "statuses": {
+        "content-scanned": 795
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-31",
+      "path": "path/492a7d1e19ff9af0b0133f3b",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30392,
+      "bytes": 262273067,
+      "statuses": {
+        "content-scanned": 30392
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-32",
+      "path": "path/52a1e7a7cfa04370fdb11e02",
+      "inferred_repository": "fastlik-backend",
+      "files": 36772,
+      "bytes": 434676436,
+      "statuses": {
+        "content-scanned": 36772
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-33",
+      "path": "path/d0034538aac99d36781a90ff",
+      "inferred_repository": "fastlik-backend",
+      "files": 682,
+      "bytes": 4974088,
+      "statuses": {
+        "content-scanned": 682
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-34",
+      "path": "path/f6999bbd4934bf3d98d4e418",
+      "inferred_repository": "fastlik-backend",
+      "files": 2541,
+      "bytes": 15265448,
+      "statuses": {
+        "content-scanned": 2541
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-35",
+      "path": "path/ce4220839c82c8b726397c41",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30398,
+      "bytes": 262287992,
+      "statuses": {
+        "content-scanned": 30398
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-36",
+      "path": "path/2bc9c0a1e2553f5c55801405",
+      "inferred_repository": "fastlik-backend",
+      "files": 789,
+      "bytes": 6055684,
+      "statuses": {
+        "content-scanned": 789
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-37",
+      "path": "path/a0f78ecd263417d2429b132f",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 251,
+      "bytes": 2023082,
+      "statuses": {
+        "content-scanned": 251
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-38",
+      "path": "path/d165e6c7d38f20955087be88",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 144,
+      "bytes": 881899,
+      "statuses": {
+        "content-scanned": 135,
+        "git-object-store-alternative": 9
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-39",
+      "path": "path/af5bc35a793892375bfdab52",
+      "inferred_repository": "fastlik-backend",
+      "files": 35027,
+      "bytes": 455625984,
+      "statuses": {
+        "content-scanned": 35027
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-40",
+      "path": "path/c3acf6b0ab4cd0a432cefa02",
+      "inferred_repository": "fastlik-backend",
+      "files": 762,
+      "bytes": 5766754,
+      "statuses": {
+        "content-scanned": 762
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-41",
+      "path": "path/439693346965167258465286",
+      "inferred_repository": "fastlik-backend",
+      "files": 35034,
+      "bytes": 455769492,
+      "statuses": {
+        "content-scanned": 35034
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-42",
+      "path": "path/f1106a6dc10e14960bc6404b",
+      "inferred_repository": "fastlik-backend",
+      "files": 35029,
+      "bytes": 455652829,
+      "statuses": {
+        "content-scanned": 35029
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-43",
+      "path": "path/e095e96687bf154016a007f6",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30396,
+      "bytes": 263399268,
+      "statuses": {
+        "content-scanned": 30396
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-44",
+      "path": "path/d71b992bf7e83857397a7b41",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 255,
+      "bytes": 2266483,
+      "statuses": {
+        "content-scanned": 255
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    },
+    {
+      "id": "SRC-45",
+      "path": "path/bff94ae54be97631180fcd11",
+      "inferred_repository": "fastlink-prime-wallet",
+      "files": 30327,
+      "bytes": 260291217,
+      "statuses": {
+        "content-scanned": 30327
+      },
+      "note": "candidate scopes overlap; not additive; archive descendants assessed separately"
+    }
+  ],
+  "backend023_differences": [
+    {
+      "path": "path/b86b1cc8cf5c682fe81fc5d9",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "80839da14fcc7b965b8014113f0340b0a34f240815fc84fec3fcf682577925bb"
+    },
+    {
+      "path": "path/4b112e772bf63cd423baf703",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "8391b65e3986640b742001da41950cbdf6e95348aad83569d77473746780aacf"
+    },
+    {
+      "path": "path/e98120ccdc1e14efd45708ee",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "d3debfd6b4488e27347e0f13fe206a63715676a43ab0582eb1ada3352d888f60"
+    },
+    {
+      "path": "path/baa055276f457c7fef2b9f34",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "200c56d70017484cd8cf48809861ee96cfa074e470b0f3b15743efb021cd7afe"
+    },
+    {
+      "path": "path/032d57133d5b5bc61ef31776",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "6b7a7661d11cab02ebf6f94494d8a7e9f89ca44c5f4ee52bf2181ff57aad5b4b"
+    },
+    {
+      "path": "path/583c8d81472d35e43223c473",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "cb31e5ed3db0a05af59b4df4762b8d06e759b3a7faf0f9727b81cb51d4ac8a2c"
+    },
+    {
+      "path": "path/58fd7db6c63360bc5707de7c",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "66ee4870519a68c50b3a8ab85f4ad03aa020bebc95be4e34489ce9fb9bf1c97a"
+    },
+    {
+      "path": "path/ab4f1e83c56cb3bd6f7083e2",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "02d328465c52fc2744159bbbf6f12cda5a48034a4d054a005554194cdf987122"
+    },
+    {
+      "path": "path/7424edd56036e7582c361518",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "8d49ddd244731cb5542af9e6fda392968522cd6c4b0ab414fc2b063b6b75e652"
+    },
+    {
+      "path": "path/15aeff3c5d968cdbf72de213",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "a5bf4bb517efb69a440128b477fdc4362db00c9056aa42a04257271aed84e6aa"
+    },
+    {
+      "path": "path/b5d6ae9bf9c396b411fcf386",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "50b6d8fe940f653148fd3bf75332c6f711c01ac029e29d8ba98f03c4ca7a7193"
+    },
+    {
+      "path": "path/c291a83143c14b9a51ad8790",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "b57008b5d0b6a5fc02ed1b478fbcd37bd8ac9b859976b3e20b6815b892605c10"
+    },
+    {
+      "path": "path/19a077dfc76284aee369cfde",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "0f6893082c00f9d746b26f29f631d8a4d52a195843e5a8ff54305206e270fcab"
+    },
+    {
+      "path": "path/5641e52df234e019b2763b89",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "21615270c07231c5afd27b0039eabc513a6794448bb0be7781579ddd15eb63d2"
+    },
+    {
+      "path": "path/38efe9c3b53d92f436d27592",
+      "kind": "modified",
+      "status": "content-scanned",
+      "sha256": "efe7aeb19a3afe478a42e97fa28d3dc65c30f46d1fa5efcf507705cefdd2f399"
+    },
+    {
+      "path": "path/97f8eb521cd199bf0b0f086a",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "c731413438ea4a400ada9c8b37e1ce6d0ecc726ff602a4491f3fb4c27ece1b29"
+    },
+    {
+      "path": "path/c5bb43e9577c2a4fa3dd27bc",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "b5832bdb73aab4d967be49e40f36a8b55943353ccf8b3fe8587fee4982eca3bc"
+    },
+    {
+      "path": "path/b0ea1ba59c845d4df1f2cc37",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "fd435164d9041ead08a80c262da71e5ba97b6f9c42ce1bbc9af1a290bdf19baa"
+    },
+    {
+      "path": "path/307525e810134492a9020038",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "81b49f0760f4ca3c6c5ab2186e12768d1b31db4bc5c087b7b5ea730e155c3e02"
+    },
+    {
+      "path": "path/539e0266b88d793c94bea815",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "92ef43b44a8ed5245fb262b425ef877b8189155b930f59a25e18c9a705108c3e"
+    },
+    {
+      "path": "path/b483ea53ae11aef79a6bbea3",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "c875b5031318b25cf763dde9f96168be690d71b5a87cfa93b255b345ae4fd64a"
+    },
+    {
+      "path": "path/8583fc104b189bb6137c9f46",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "d72f41757a0cce03143300fa90eb2d81bb56278f1e42038ba8f7430a9f23131e"
+    },
+    {
+      "path": "path/2ca051a0585d228538c03d33",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "51eafe9a1d26f240eb1eaf3f5310fdf5aa5d6f8c37531f7b2ddf7dbcad419c00"
+    },
+    {
+      "path": "path/3e9072ce20a72e95d6f6c561",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "0407156516016abf7df40453e8795bc1691bb075fddb9d7d8612e343c3f0ff2a"
+    },
+    {
+      "path": "path/3b6af80ec78663ee7a5727b1",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "155099b70ee5eb4e155006a745a1aef471d256ab7269649d9ff2e2f6fe381848"
+    },
+    {
+      "path": "path/e13d90cc9308b94ad4fadbde",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "2511fc1ce5f280f09a034f2fada19068f91f948fdbef439102c220feba2850ee"
+    },
+    {
+      "path": "path/728d59024f5d3a545249fa30",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "3d74966f92bf1d7d9ed425da797d1457aa8b5142984f09b0566c9fd4bf819d8d"
+    },
+    {
+      "path": "path/a35dd5237e0fd0411dd3ed3f",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "5f03f705dddf09a7c50c67b0981b97482d75b89c4bfde3f53919f8a9abfd6aa9"
+    },
+    {
+      "path": "path/bad4777e791b9a6693eae1bd",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "d81f6827d11945ffed138e404630155a68b0ac34ea03cf3098ad1af3e31c9a0f"
+    },
+    {
+      "path": "path/1da53c974b3bf96db6881127",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "bd578f7a200509b3132db8f8d2fdd8a197d6606e8e4910e946d669caf20d2b51"
+    },
+    {
+      "path": "path/3d4c90e26a89bf083a0ca64b",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "717001bfc00a437768733ad5dcd5917c66f166684c2d1b1da7f5dec23ba082ac"
+    },
+    {
+      "path": "path/8fae5fb34468c14d8ca222d7",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "88033d685c22d52ef9904782ff1a22e8d7a3594a37518d70c2ba36f7442af030"
+    },
+    {
+      "path": "path/3ca953c211d0f6c91c6c0631",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "0908885dee4c1f2e6bfd894f242fb113f1c004ea107043f3a702d9534665b084"
+    },
+    {
+      "path": "path/7d7005e387946e6c90f4d954",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "d20adda47d9f94ce7549306da9a1a5c6f4ca6656cbb185efe8bd57b6e7d0e847"
+    },
+    {
+      "path": "path/96c5d21131bfe0f46885ac1e",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "f30ad337dc7bf1d42f87b558b23ff125d3b080e5b7eb9f3c6a82a6e6cd2fb3ca"
+    },
+    {
+      "path": "path/65e630001bbdcb2e41eae3a6",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "a84b827ea8eed097f3b01e8f981c9d1dd329c0d6e41a6b7e6f8ef7404207efb4"
+    },
+    {
+      "path": "path/981ef33edaccfb80301f987b",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "811d16cd3c13af16807f38c079f9689071b0b750972b4648afcf60f712950790"
+    },
+    {
+      "path": "path/82b8040421793f40d07866e2",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "58262fc5891dfdce9500759c7d5c3af4abca3e7a482f61876b04e9d0f8fb4830"
+    },
+    {
+      "path": "path/11ecf563107e06dd44659027",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "d458d9cefb98544d4f1b749bf1be00124e0d799d97209eb23342aaf3f134f580"
+    },
+    {
+      "path": "path/653a59e2ffadb728c6b07fc1",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "55b5c6a00ae6acef96746fa0f56cd8df7ba7d18727ed17a8df4aabe4ec3d5136"
+    },
+    {
+      "path": "path/d044b1fd7b5bc9810b10b428",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "0ff387a69741c14c6d7ca7ad400070cb72bd85ea8f696d0159eba9330350ace9"
+    },
+    {
+      "path": "path/359deccfb45dc74bcc6cf574",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "674837318ae197ddeaf5aff35ba30df03f209fea837f8c37f5bd416006c1c9af"
+    },
+    {
+      "path": "path/24495b1551860ba6d5df99a7",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "7506e7c7e34534d9e985b045e155539d4799d25d93dc32c46c0dc27ff1187741"
+    },
+    {
+      "path": "path/0a0006606a727e31f3add893",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "f7b3d990bfe8fd36dfed8c12694ad804bae44312683338c8ac81922acb1a2dc5"
+    },
+    {
+      "path": "path/7d9875a4fe2e76e03c93cef5",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "742ccf9fb4ce758ba85d46866dabcb1a76d85feff9b7ce9784d18c881ea9bb07"
+    },
+    {
+      "path": "path/93078556fd99f24e2a6af256",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "f6c3591782e5f9aa246d6419739ab101f30bd10359ce21b0f4ad2acc062589f4"
+    },
+    {
+      "path": "path/6ebae94f2853b3ab13aca676",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "58f6974cf5e0fc06ecce7683e98fdc17ee71e96eb08da56f0a7e6071d4e5b72d"
+    },
+    {
+      "path": "path/a09b5ab17635118fabd5af61",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "ae9565129194719249565563b248f65e5698b4bcf08949c77df808a22090b2a7"
+    },
+    {
+      "path": "path/b53e4c4c8df0ec3273008b9b",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "f226f4ad248a47744fe6035639b150616e8b4e76f1f95e70680029b72cf60cb3"
+    },
+    {
+      "path": "path/664ceb5bb7f86ee5165f28c6",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "b5d792c380f3b267ab6a05fc3974f3b3578bcb7da41c163893e4998d29262c0d"
+    },
+    {
+      "path": "path/18982d8f5aabd0856aae919f",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "8f3afaccccaf310d2fe0b6f05433ce9fc4f806c924f584950d70777e9539a405"
+    },
+    {
+      "path": "path/5d760a42dfc0aae066900fe3",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "509e846973db644c7caed9cbcfe8462d6fe42739ac6f59652839dfadd98c0f0f"
+    },
+    {
+      "path": "path/0dc13a495f164cf959ca1fd7",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "2c95e824604cf8b1cd55f01a90772007a8b3dd9d6ec2c09592df8b59c9f5ca0d"
+    },
+    {
+      "path": "path/495d74e646b2471df547494c",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "b809a1460a57e7bff67e31f9955676634b50ebddf0955e314e18b0d9e9dd8af4"
+    },
+    {
+      "path": "path/52a0d3d653833e5b8bf9e574",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "f1e116a300acfb2d7eda867fed39346704548362b6dc8342888127351cd87488"
+    },
+    {
+      "path": "path/47eff61a1f7a61795a44d0e2",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "5dd61a947938d4bf7de8ad0fda6dca73086d78eeb7e178bfdfb84be2bb2a1057"
+    },
+    {
+      "path": "path/7c70c70d606f4248d9fc9126",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "cf498ddd542ee3b82ab876f8978103dd76a1de99a62b39498bc57b25029ef67a"
+    },
+    {
+      "path": "path/5033332461eb6654fe4743ea",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "3d35178919f98e998c46b86d27a9cae1c3e1edbfc2e793134512df1aeb7f4727"
+    },
+    {
+      "path": "path/393c3b19e5903c1089d27bae",
+      "kind": "added",
+      "status": "content-scanned",
+      "sha256": "d42b61a073f5189669b8c16079681b28a15685ffc422a0c85cd75fa255c5a806"
+    }
+  ],
+  "local_commits": [
+    {
+      "sha": "7581a751d5964d481d335131c856270ccc98238b",
+      "repository": "local-L2",
+      "reachable_objects": 2661,
+      "method": "included in all-local-object enumeration; commit content and all blob objects scanned"
+    },
+    {
+      "sha": "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a",
+      "repository": "local-L2",
+      "reachable_objects": 2655,
+      "method": "included in all-local-object enumeration; commit content and all blob objects scanned"
+    },
+    {
+      "sha": "8aefe84674d0d65be093f1f7d1a64f6fad8034da",
+      "repository": "local-L2",
+      "reachable_objects": 2701,
+      "method": "included in all-local-object enumeration; commit content and all blob objects scanned"
+    },
+    {
+      "sha": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "repository": "local-L2",
+      "reachable_objects": 2719,
+      "method": "included in all-local-object enumeration; commit content and all blob objects scanned"
+    }
+  ],
+  "recovery_crosschecks": [
+    {
+      "round": "round-1",
+      "repository": "fastlik-Admin",
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlik-Website",
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlik-app",
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlik-backend",
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlink-control-plane",
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlink-prime-wallet",
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-1",
+      "repository": "fastlink-recovery-archive",
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlik-Admin",
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlik-Website",
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlik-app",
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlik-backend",
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlink-control-plane",
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlink-prime-wallet",
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "clean": true,
+      "counted_as_scan_source": false
+    },
+    {
+      "round": "round-2",
+      "repository": "fastlink-recovery-archive",
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "clean": true,
+      "counted_as_scan_source": false
+    }
+  ],
+  "symlink_summary": {
+    "target independently covered": 580,
+    "directory target independently inventoried": 837
+  }
+}

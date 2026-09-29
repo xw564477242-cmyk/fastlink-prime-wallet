@@ -1,0 +1,8 @@
+{
+  "current_baseline": "link-baseline-before.json",
+  "current_comparison": "link-baseline-after.json",
+  "historical_gap": 580,
+  "historical_gap_repaired": false,
+  "current_file_links_equal": true,
+  "residual_risk": "No pre-first-scan target text proof for 580 file links; approval remains with controller."
+}
