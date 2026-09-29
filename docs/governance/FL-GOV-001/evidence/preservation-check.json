@@ -1,0 +1,60 @@
+{
+  "verified_at": "2026-09-29T05:32:13.693975+00:00",
+  "repositories": [
+    {
+      "path": ".",
+      "checks": {
+        "HEAD": true,
+        "status": true,
+        "heads_remotes_tags_stash": true,
+        "diff": true,
+        "index": true
+      }
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+      "checks": {
+        "HEAD": true,
+        "status": true,
+        "heads_remotes_tags_stash": true,
+        "diff": true,
+        "index": true
+      }
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/workspace",
+      "checks": {
+        "HEAD": true,
+        "status": true,
+        "heads_remotes_tags_stash": true,
+        "diff": true,
+        "index": true
+      }
+    },
+    {
+      "path": "outputs/DEV-VERSION-032/entry-workspace",
+      "checks": {
+        "HEAD": true,
+        "status": true,
+        "heads_remotes_tags_stash": true,
+        "diff": true,
+        "index": true
+      }
+    },
+    {
+      "path": "outputs/DEV-VERSION-040/workspace",
+      "checks": {
+        "HEAD": true,
+        "status": true,
+        "heads_remotes_tags_stash": true,
+        "diff": true,
+        "index": true
+      }
+    }
+  ],
+  "content_hash_files_checked": 89688,
+  "content_changed_paths": [],
+  "missing_paths": [],
+  "git_app_checkpoint_refs": "excluded from stable ref comparison; application may maintain these independently",
+  "dependency_content": "counted in inventory; no SHA verification of node_modules"
+}

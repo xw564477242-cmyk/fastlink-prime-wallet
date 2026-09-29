@@ -1,0 +1,302 @@
+{
+  "observed_at": "2026-09-29T13:21:55+0800",
+  "files": 538477,
+  "bytes": 5659297046,
+  "hashed_files": 89688,
+  "discovered_repositories": [
+    ".",
+    "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+    "outputs/DEV-SANDBOX-FAST-001/workspace",
+    "outputs/DEV-VERSION-032/entry-workspace",
+    "outputs/DEV-VERSION-040/workspace"
+  ],
+  "errors": [],
+  "top_level": {
+    ".DS_Store": {
+      "files": 1,
+      "bytes": 8196,
+      "hashed_files": 1
+    },
+    "wrangler.dev.jsonc": {
+      "files": 1,
+      "bytes": 599,
+      "hashed_files": 1
+    },
+    "Dockerfile": {
+      "files": 1,
+      "bytes": 675,
+      "hashed_files": 1
+    },
+    "PROJECT-STATUS-BRIEF.md": {
+      "files": 1,
+      "bytes": 1126,
+      "hashed_files": 1
+    },
+    "bunfig.toml": {
+      "files": 1,
+      "bytes": 363,
+      "hashed_files": 1
+    },
+    "wrangler.test.jsonc": {
+      "files": 1,
+      "bytes": 465,
+      "hashed_files": 1
+    },
+    "CREGIS-2026-09-10-AM-CONVERSATION-RECOVERY.md": {
+      "files": 1,
+      "bytes": 98327,
+      "hashed_files": 1
+    },
+    "bun.lock": {
+      "files": 1,
+      "bytes": 161123,
+      "hashed_files": 1
+    },
+    ".prettierignore": {
+      "files": 1,
+      "bytes": 92,
+      "hashed_files": 1
+    },
+    ".dockerignore": {
+      "files": 1,
+      "bytes": 54,
+      "hashed_files": 1
+    },
+    "CONVERSATION-2026-09-11-BEFORE-23-00.md": {
+      "files": 1,
+      "bytes": 87654,
+      "hashed_files": 1
+    },
+    ".gitignore": {
+      "files": 1,
+      "bytes": 339,
+      "hashed_files": 1
+    },
+    "package.json": {
+      "files": 1,
+      "bytes": 13911,
+      "hashed_files": 1
+    },
+    "CREGIS-2026-09-10-PM-TO-CLOSE-CONVERSATION-RECOVERY.md": {
+      "files": 1,
+      "bytes": 59651,
+      "hashed_files": 1
+    },
+    ".prettierrc": {
+      "files": 1,
+      "bytes": 90,
+      "hashed_files": 1
+    },
+    ".env.development.example": {
+      "files": 1,
+      "bytes": 204,
+      "hashed_files": 1
+    },
+    "components.json": {
+      "files": 1,
+      "bytes": 443,
+      "hashed_files": 1
+    },
+    "tsconfig.json": {
+      "files": 1,
+      "bytes": 679,
+      "hashed_files": 1
+    },
+    "eslint.config.js": {
+      "files": 1,
+      "bytes": 1250,
+      "hashed_files": 1
+    },
+    ".env.example": {
+      "files": 1,
+      "bytes": 175,
+      "hashed_files": 1
+    },
+    "AGENTS.md": {
+      "files": 1,
+      "bytes": 5429,
+      "hashed_files": 1
+    },
+    "vite.config.ts": {
+      "files": 1,
+      "bytes": 2194,
+      "hashed_files": 1
+    },
+    "FastLink-项目现状总表.md": {
+      "files": 1,
+      "bytes": 123400,
+      "hashed_files": 1
+    },
+    "PROJECT-POST-CREGIS-CONVERSATION-RECOVERY.md": {
+      "files": 1,
+      "bytes": 12862,
+      "hashed_files": 1
+    },
+    ".CONVERSATION-2026-09-11-BEFORE-23-00.md.swp": {
+      "files": 1,
+      "bytes": 12288,
+      "hashed_files": 1
+    },
+    "railway.json": {
+      "files": 1,
+      "bytes": 291,
+      "hashed_files": 1
+    },
+    "CONVERSATION-2026-09-10-BEFORE-23-00.md": {
+      "files": 1,
+      "bytes": 167934,
+      "hashed_files": 1
+    },
+    ".output": {
+      "files": 59,
+      "bytes": 2697380,
+      "hashed_files": 59
+    },
+    "node_modules": {
+      "files": 30336,
+      "bytes": 296677265,
+      "hashed_files": 0
+    },
+    "tests": {
+      "files": 3,
+      "bytes": 3372,
+      "hashed_files": 3
+    },
+    "docs": {
+      "files": 28,
+      "bytes": 380704,
+      "hashed_files": 28
+    },
+    "public": {
+      "files": 1,
+      "bytes": 20373,
+      "hashed_files": 1
+    },
+    ".lovable": {
+      "files": 1,
+      "bytes": 124,
+      "hashed_files": 1
+    },
+    "scripts": {
+      "files": 5,
+      "bytes": 21702,
+      "hashed_files": 5
+    },
+    ".github": {
+      "files": 3,
+      "bytes": 43774,
+      "hashed_files": 3
+    },
+    "outputs": {
+      "files": 507811,
+      "bytes": 5356944691,
+      "hashed_files": 89358
+    },
+    ".wrangler": {
+      "files": 1,
+      "bytes": 51,
+      "hashed_files": 1
+    },
+    "deployments": {
+      "files": 1,
+      "bytes": 176,
+      "hashed_files": 1
+    },
+    "src": {
+      "files": 201,
+      "bytes": 1747620,
+      "hashed_files": 201
+    }
+  },
+  "outputs_groups": {
+    "DEV-MILESTONE-002-v1.zip": 1,
+    "DEV-MILESTONE-001-v1.ZIP-integrity.json": 1,
+    "DEV-MILESTONE-002-v1.zip.sha256": 1,
+    "DEV-MILESTONE-001-v1.zip.sha256": 1,
+    "DEV-MILESTONE-001-v1.zip": 1,
+    "DEV-MILESTONE-002-v1.ZIP-integrity.json": 1,
+    "B03-CREGIS-CLOSEOUT-005": 16,
+    "B03-CREGIS-CLOSEOUT-002": 322,
+    "B03-CREGIS-CLOSEOUT-002-R1": 324,
+    "B03-CREGIS-CLOSEOUT-004": 367,
+    "CREGIS-DEPOSIT-MAPPING": 30451,
+    "DEV-VERSION-042": 12,
+    "DEV-VERSION-027": 7,
+    "B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1": 378,
+    "CREGIS-FUNDS-013": 3,
+    "CREGIS-FUNDS-025": 5,
+    "DEV-VERSION-029": 23,
+    "FASTLINK-INVENTORY": 60,
+    "CREGIS-FUNDS-022": 2935,
+    "DEV-VERSION-010": 35,
+    "CREGIS-FUNDS-023": 37204,
+    "DEV-VERSION-028": 27,
+    "CREGIS-FUNDS-024": 15,
+    "CREGIS-FUNDS-012": 5,
+    "DEV-VERSION-026": 15,
+    "CREGIS-FUNDS-015": 2,
+    "CREGIS-FUNDS-008": 2562,
+    "CREGIS-FUNDS-030": 13,
+    "CREGIS-FUNDS-006": 817,
+    "DEV-VERSION-035": 60842,
+    "DEV-MILESTONE-002-v1": 21,
+    "DEV-UI-PREVIEW-001": 14,
+    "CREGIS-FUNDS-001": 9,
+    "DEV-VERSION-032": 116,
+    "CREGIS-FUNDS-020-R1": 9,
+    "DEV-VERSION-033": 7,
+    "CREGIS-FUNDS-007": 797,
+    "B03-CREGIS-CLOSEOUT-008-R1": 3,
+    "DEV-VERSION-034": 59,
+    "CREGIS-FUNDS-031": 6,
+    "CREGIS-FUNDS-009": 1454,
+    "DEV-FAST-BASELINE-001": 2,
+    "DEV-SANDBOX-FAST-006": 3,
+    "DEV-SANDBOX-FAST-001": 60825,
+    "CREGIS-FUNDS-005-R1": 35114,
+    "DEV-MILESTONE-003-v1": 12,
+    "B03-CREGIS-CLOSEOUT-008": 4,
+    "B03-CREGIS-CLOSEOUT-006": 86,
+    "B03-CREGIS-CLOSEOUT-007": 9,
+    "B03-CREGIS-CLOSEOUT-002-R2": 274,
+    "DEV-VERSION-023": 19,
+    "CREGIS-FUNDS-010": 23,
+    "DEV-VERSION-024": 7,
+    "CREGIS-FUNDS-028": 18,
+    "DEV-MILESTONE-001-v1": 327,
+    "CREGIS-FUNDS-021": 1079,
+    "CREGIS-FUNDS-019": 69425,
+    "CREGIS-FUNDS-026": 8,
+    "DEV-VERSION-041": 6,
+    "CREGIS-FUNDS-018": 2660,
+    "CREGIS-FUNDS-027": 10,
+    "CREGIS-FUNDS-020": 31249,
+    "CREGIS-FUNDS-029": 16,
+    "DEV-VERSION-025": 20,
+    "DEV-SANDBOX-FAST-004-R1": 266,
+    "CREGIS-FUNDS-011": 4,
+    "CREGIS-FUNDS-013-R1": 1,
+    "DEV-VERSION-040": 118,
+    "CREGIS-FUNDS-020-R2": 8,
+    "DEV-VERSION-038": 10,
+    "CREGIS-FUNDS-002": 35860,
+    "DEV-VERSION-031": 34,
+    "CREGIS-FUNDS-005": 35117,
+    "DEV-VERSION-036": 7,
+    "B03-CREGIS-CLOSEOUT-008-R3": 3,
+    "CREGIS-FUNDS-004": 35100,
+    "B03-CREGIS-CLOSEOUT-008-R2": 3,
+    "DEV-VERSION-037": 6,
+    "CREGIS-FUNDS-003": 4,
+    "DEV-VERSION-030": 25,
+    "DEV-VERSION-039": 16,
+    "DEV-SANDBOX-FAST-002": 30696,
+    "DEV-SANDBOX-FAST-005": 4,
+    "B03-CREGIS-CLOSEOUT-002-R2-STATIC-REVIEW": 10,
+    "DEV-SANDBOX-FAST-004": 30379,
+    "DEV-SANDBOX-FAST-003": 3
+  },
+  "archive_count": 20,
+  "duplicate_content_groups": 26067,
+  "method": "os.walk including dependency directories; no symlink traversal; Git internals separate; SHA256 excludes node_modules and symlinks"
+}

@@ -1,0 +1,31 @@
+{
+  "frontend": {
+    "expected": "ec29d29",
+    "actual": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+    "result": "local Git commit matches; online deployment not reverified"
+  },
+  "cloudflare": {
+    "expected": "57a0a62b",
+    "historical_version": "57a0a62b-05c5-46a9-9bf3-494397f04cb9",
+    "result": "historical local evidence matches; current online version UNVERIFIED"
+  },
+  "backend": {
+    "expected": "50ab96ed24786facf746a1fb03486ba949bc2697b26cb372bf2395a1a76ea633",
+    "descriptor_digest": "sha256:50ab96ed24786facf746a1fb03486ba949bc2697b26cb372bf2395a1a76ea633",
+    "result": "historical descriptor matches; current registry bytes and running deployment UNVERIFIED"
+  },
+  "evidence": [
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-006/evidence/post-version-view.log",
+      "sha256": "415fab13f476fef674bd5d3dbac2f8f2ce672daa2c361dbfe335db0e33df0f4d"
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-006/evidence/acceptance-results.json",
+      "sha256": "b5a0a119ff821b54f77ff817f617de6632d0b69ef1338173c4c5a4c61f232451"
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-024/evidence/registry-manifest.json",
+      "sha256": "02eb7ea5548cc7c01ab13fb4ce3880488d01dbd2ab95bfb557a381d6c5fc261a"
+    }
+  ]
+}

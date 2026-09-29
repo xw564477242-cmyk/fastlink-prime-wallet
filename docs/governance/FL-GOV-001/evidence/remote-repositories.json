@@ -1,0 +1,4045 @@
+{
+  "observed_at": "2026-09-29T05:31:13.816015+00:00",
+  "method": "GitHub REST API; paginated branch/tag endpoints; immutable SHA comparison; no original refs updated",
+  "repositories": [
+    {
+      "name": "fastlink-prime-wallet",
+      "default_branch": "main",
+      "private": false,
+      "archived": false,
+      "language": "TypeScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/card-action-scope-contract",
+          "sha": "5d795708f2256b963d7ec046ce7fec67079467b7",
+          "protected": false
+        },
+        {
+          "name": "agent/card-history-manual-refresh",
+          "sha": "44203affabd03d3611ff2a94d6c1816c0d3bb72d",
+          "protected": false
+        },
+        {
+          "name": "agent/card-history-selection-mounted-safety",
+          "sha": "e542ecde84ab01054070d533197c7c6dce7c7077",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-mounted-safety",
+          "sha": "6f73c93deba61a3e3dc20f5d5914d43eca7781d1",
+          "protected": false
+        },
+        {
+          "name": "agent/card-list-pagination-consumer",
+          "sha": "297cacd38539251b5377f4353fec9688e22d9c64",
+          "protected": false
+        },
+        {
+          "name": "agent/card-public-balance",
+          "sha": "6f86453ec0d04999e0cea630f5085affed4e50fc",
+          "protected": false
+        },
+        {
+          "name": "agent/card-public-limits",
+          "sha": "9dd66868b3ab29633329bec9e10b7a6577e1e234",
+          "protected": false
+        },
+        {
+          "name": "agent/card-read-adversarial-regression",
+          "sha": "8017366dee25b9e315f4f55c2faa75bbf83eb220",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renew-mounted-safety",
+          "sha": "decf8939e2701c402ac717cdf87cbf3d9618c4b9",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replace-mounted-safety",
+          "sha": "4fa72f3ca4639fe046596e7fa310d152e3b1e2fe",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-actions-mounted-safety",
+          "sha": "bfcba2b985c555ed6953bcf8c5e00c5b3dd2ba02",
+          "protected": false
+        },
+        {
+          "name": "agent/card-timeline-detail-refresh",
+          "sha": "639e1d25bffa2e2d1dd1b79d362e0724bfa3caab",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-adversarial-regression",
+          "sha": "541e44fc0023195fe2d324e342c12efb94cdf913",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-detail-refresh",
+          "sha": "115b45ac6e157cb8a92b5bc0b2936ba2a64331c9",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-history-contract",
+          "sha": "67e6c5f499dd8f15daab5fc05842cb4b9c10363c",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-history-scope-safety",
+          "sha": "cb70da0711183e7eecd61d035897bc37bf92e9de",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-pagination-consistency",
+          "sha": "e8f32075a5afa1e49aec79b20b27b1c271dc0694",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-status-filters",
+          "sha": "9a4c0836095e2892833665228895674f58c61c00",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transactions-page-mounted-safety",
+          "sha": "6592a8e32129ec42d6e283ae061100bd2fd4325d",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-docker-install",
+          "sha": "ff2d60af5f256ca07fabf2e2f323a9d4ca198a86",
+          "protected": false
+        },
+        {
+          "name": "agent/home-wallet-balance-binding-r25",
+          "sha": "38742351223a2fbd148eac4186a34125f3a12605",
+          "protected": false
+        },
+        {
+          "name": "agent/hybrid-cloudflare-dev",
+          "sha": "24f1530ba760b0929f9e2cadd7a8b650ed19d8a5",
+          "protected": false
+        },
+        {
+          "name": "agent/integration-backend-contract-validation",
+          "sha": "561df36486151390359a34dd3f7fbcfe391dd8ff",
+          "protected": false
+        },
+        {
+          "name": "agent/integration-nonprod-readiness-r13",
+          "sha": "cc0bd1314804dc85a89b04b624921482a92add34",
+          "protected": false
+        },
+        {
+          "name": "agent/internal-transfer-mounted-safety",
+          "sha": "4b618f53cd0aa4b205de8e4b7e7b20eaa9fac89b",
+          "protected": false
+        },
+        {
+          "name": "agent/internal-transfer-page",
+          "sha": "59f7204299ffcf17d6bc9ccbe7a6eab047c54c80",
+          "protected": false
+        },
+        {
+          "name": "agent/internal-wallet-transfer",
+          "sha": "e1cc5361f52d05a717c9824a4822d9013007d128",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-card-fee-data-adapter-r62",
+          "sha": "855f9c19c6c6aab787a57865e9c0d0a5db82549d",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-activation-r45",
+          "sha": "c88a8c3de841f1e5ad09ea2d1c891fb9ee155fc5",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-freeze-r41",
+          "sha": "f7197b6b37163ab2e7a748d2b7eb5c699b9a8baf",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-limits-ambiguous-r43",
+          "sha": "deb1a3282d8ee2545e1dfbc7b519754228122dfd",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-postchain-r46",
+          "sha": "bb284b0cfd58fdbb7717f2b2cdcdf43d342d86c1",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-renewal-postchain-r49",
+          "sha": "a4f5c1326c4184630401a532ed13e56c0e1fe116",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-replacement-postchain-r48",
+          "sha": "2256ccee282d232f1728569158ac7ff98a8caee6",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-card-status-postchain-r47",
+          "sha": "aeee6eff55999f3f1d253e4e94c355cd7f80a458",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-digital-assets-real-data-r53",
+          "sha": "672232707d1b665d55c565fa8d95574edbaac2f8",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-fx-quote-ui-r16",
+          "sha": "90dfbb87304a2516441a5eece425a5828927f3d4",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-kyc-status-ui-r14",
+          "sha": "945adaabf9308d71662d01969d790be5cc6c81f5",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-virtual-card-create-postchain-r50",
+          "sha": "241a307a27feda381128110aa11bdeac87e14b91",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-wallet-transfer-history-confirm-r52",
+          "sha": "31fa785c07ff59678e970c4b71fb7b71fcea5cc1",
+          "protected": false
+        },
+        {
+          "name": "agent/prime-wallet-transfer-postchain-r51",
+          "sha": "1f8bc1a0823301964070a3065b00a6a5e2c15f65",
+          "protected": false
+        },
+        {
+          "name": "agent/production-cloudflare-20260728",
+          "sha": "f1d1701a2fc4939241ca8c15046085be92cf5d44",
+          "protected": false
+        },
+        {
+          "name": "agent/readiness-rollout-retry-r32",
+          "sha": "e54fbbd6231a0c37d1c6d35c7d99175f9e480300",
+          "protected": false
+        },
+        {
+          "name": "agent/selected-card-limits-mutation",
+          "sha": "537a0f9faaff48ea18efa32dbdbde2195bffdb29",
+          "protected": false
+        },
+        {
+          "name": "agent/selected-card-renew-consumer",
+          "sha": "0ecdf929e4cce3c19970d19077de8224cab5d26b",
+          "protected": false
+        },
+        {
+          "name": "agent/selected-card-replace-consumer",
+          "sha": "14e4a7150cd529bda76eb0262e334dbaac0ace0e",
+          "protected": false
+        },
+        {
+          "name": "agent/selected-card-transactions-raw-json",
+          "sha": "1273294d16e862ca9cf65cb8ed77f0722ff66f45",
+          "protected": false
+        },
+        {
+          "name": "agent/transfer-refresh-integration-safety",
+          "sha": "17a625dd450a46a32dbf642bdf288c6bf4cab715",
+          "protected": false
+        },
+        {
+          "name": "agent/transfer-status-refresh",
+          "sha": "810075d4790a9c87db42824b521828d15a5a0b27",
+          "protected": false
+        },
+        {
+          "name": "agent/virtual-card-create-consumer",
+          "sha": "139aeb869973addb4857a639e884370c9cf3cd97",
+          "protected": false
+        },
+        {
+          "name": "agent/virtual-card-mounted-ownership-safety",
+          "sha": "b71c335c6cc5aea0cf5b8805c3caaaef5bd05fb9",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-account-history-contract",
+          "sha": "ccf3a5888bb1bce3342aeeac2292f93a7b2a7fd1",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-balance-summary",
+          "sha": "61b952548029e8633d230633416c580ffd5fd1d4",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-detail-refresh-safety",
+          "sha": "f6d19f44700df91042927381da1b8c2c1749ba4b",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-history-filters-safety",
+          "sha": "753f2036b8564fe9a06ab7730d687c658bf79c93",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-history-pagination-safety",
+          "sha": "1e30138fdbf1cf73d312af007fa9713d393d49e4",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-history-refresh-safety",
+          "sha": "5ac9d93b835d7176cc6b7312f0b4853a5d6b2b47",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-history-refresh-selection-safety",
+          "sha": "417c3cb678637470af35d7028c3d403b21b1f136",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-activity-contract",
+          "sha": "00255dded077038ac95340375cad1943928df039",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-adversarial-regression",
+          "sha": "2e137bd578c871f048b7d1be33a7b0bcacc093ec",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-detail",
+          "sha": "1fad8c0e347ea8534040373225e6b93cb430707d",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-filters-refresh-review",
+          "sha": "9d9275c22d02b58934523a4549bc79319ab5d7fe",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-railway-backend",
+          "sha": "e8e2630f2fbe95ec1a4506876f87679f818f84be",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transaction-detail-contract",
+          "sha": "c48db189d70314504b0f2315e220e40060d180f2",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transfer-accounts-safety-r24",
+          "sha": "93eaa843eb30f6c896e60729097a306ab6441f19",
+          "protected": false
+        },
+        {
+          "name": "agent/week-one-card-platform",
+          "sha": "11dd70cd15ce9559126b5b5499a6661167e7d407",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-006-snapshot",
+          "sha": "3d5b2d0beb55081c257b2acab03c337b145dac41",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-010-bun-alignment",
+          "sha": "c9244236a3f395c523e25485693b0b56513cc55a",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-014-baseline-appendix",
+          "sha": "f8db7bf77ef2396783bd4667567d72f21ea1e7a8",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-018-proxy-compat",
+          "sha": "d02e7a721224473ea5fc8153a2284d147a6bf990",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-032-test-manual-entry",
+          "sha": "d972eea0c708840f016c32444018a420f9bf62c7",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-version-040-single-person-guard",
+          "sha": "8c1d3be110e98f39328a98cba122411b4689337f",
+          "protected": false
+        },
+        {
+          "name": "codex/lovable-prime-digital-assets",
+          "sha": "5682f3514bb7ec7da04381fd037891abbca485b8",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "49d29d86202a557d688d56db9202334f8a09996b",
+          "protected": true
+        },
+        {
+          "name": "feature/dependency-security-hardening-20260728",
+          "sha": "162183c350673f3108918179715543b0a08c9a8f",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-baseline",
+          "sha": "e3570545c1723c9e3e44eed04da3304409cbdc30",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-prime-proxy-identity",
+          "sha": "fff66234c06f3aeccd204a56f810e130c6b6a61d",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+          "protected": true
+        },
+        {
+          "name": "ops/prime-wallet-pr-gate",
+          "sha": "85c7594a4caf59d5059fdd247c665938d739ac82",
+          "protected": false
+        },
+        {
+          "name": "test",
+          "sha": "7433607f6b10135e0f116853687cae614db13d6d",
+          "protected": true
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlink-prime-wallet",
+      "noncompliant_branch_names": [
+        "agent/card-action-scope-contract",
+        "agent/card-history-manual-refresh",
+        "agent/card-history-selection-mounted-safety",
+        "agent/card-limits-mounted-safety",
+        "agent/card-list-pagination-consumer",
+        "agent/card-public-balance",
+        "agent/card-public-limits",
+        "agent/card-read-adversarial-regression",
+        "agent/card-renew-mounted-safety",
+        "agent/card-replace-mounted-safety",
+        "agent/card-status-actions-mounted-safety",
+        "agent/card-timeline-detail-refresh",
+        "agent/card-transaction-adversarial-regression",
+        "agent/card-transaction-detail-refresh",
+        "agent/card-transaction-history-contract",
+        "agent/card-transaction-history-scope-safety",
+        "agent/card-transaction-pagination-consistency",
+        "agent/card-transaction-status-filters",
+        "agent/card-transactions-page-mounted-safety",
+        "agent/fix-dev-docker-install",
+        "agent/home-wallet-balance-binding-r25",
+        "agent/hybrid-cloudflare-dev",
+        "agent/integration-backend-contract-validation",
+        "agent/integration-nonprod-readiness-r13",
+        "agent/internal-transfer-mounted-safety",
+        "agent/internal-transfer-page",
+        "agent/internal-wallet-transfer",
+        "agent/p1-card-fee-data-adapter-r62",
+        "agent/prime-card-activation-r45",
+        "agent/prime-card-freeze-r41",
+        "agent/prime-card-limits-ambiguous-r43",
+        "agent/prime-card-postchain-r46",
+        "agent/prime-card-renewal-postchain-r49",
+        "agent/prime-card-replacement-postchain-r48",
+        "agent/prime-card-status-postchain-r47",
+        "agent/prime-digital-assets-real-data-r53",
+        "agent/prime-fx-quote-ui-r16",
+        "agent/prime-kyc-status-ui-r14",
+        "agent/prime-virtual-card-create-postchain-r50",
+        "agent/prime-wallet-transfer-history-confirm-r52",
+        "agent/prime-wallet-transfer-postchain-r51",
+        "agent/production-cloudflare-20260728",
+        "agent/readiness-rollout-retry-r32",
+        "agent/selected-card-limits-mutation",
+        "agent/selected-card-renew-consumer",
+        "agent/selected-card-replace-consumer",
+        "agent/selected-card-transactions-raw-json",
+        "agent/transfer-refresh-integration-safety",
+        "agent/transfer-status-refresh",
+        "agent/virtual-card-create-consumer",
+        "agent/virtual-card-mounted-ownership-safety",
+        "agent/wallet-account-history-contract",
+        "agent/wallet-balance-summary",
+        "agent/wallet-detail-refresh-safety",
+        "agent/wallet-history-filters-safety",
+        "agent/wallet-history-pagination-safety",
+        "agent/wallet-history-refresh-safety",
+        "agent/wallet-history-refresh-selection-safety",
+        "agent/wallet-operation-activity-contract",
+        "agent/wallet-operation-adversarial-regression",
+        "agent/wallet-operation-detail",
+        "agent/wallet-operation-filters-refresh-review",
+        "agent/wallet-railway-backend",
+        "agent/wallet-transaction-detail-contract",
+        "agent/wallet-transfer-accounts-safety-r24",
+        "agent/week-one-card-platform",
+        "codex/dev-version-006-snapshot",
+        "codex/dev-version-010-bun-alignment",
+        "codex/dev-version-014-baseline-appendix",
+        "codex/dev-version-018-proxy-compat",
+        "codex/dev-version-032-test-manual-entry",
+        "codex/dev-version-040-single-person-guard",
+        "codex/lovable-prime-digital-assets",
+        "feature/dependency-security-hardening-20260728",
+        "feature/test-environment-baseline",
+        "feature/test-environment-prime-proxy-identity",
+        "ops/prime-wallet-pr-gate"
+      ]
+    },
+    {
+      "name": "fastlik-backend",
+      "default_branch": "main",
+      "private": true,
+      "archived": false,
+      "language": "TypeScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/add-nonprod-ci-gate",
+          "sha": "81ad9095403d7e2e5226c009b10610212a959d6c",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-snapshots-r43",
+          "sha": "2d298ff58464fc908dc0b91f9020f9e19a99a427",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-timeline-contract",
+          "sha": "031f24e1173430927153f3fc7bb76ae14ea8cea8",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-transaction-detail-contract",
+          "sha": "de4d2d161510bb40e3a5e2190a58810ec47c0a22",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-transactions-contract",
+          "sha": "99248fe7bc9239fed9bfe5eb2c09565f5115ff26",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-kyc-read-r15",
+          "sha": "c5362c84e3537268debbde82c371b7d2d8275fb4",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-wallet-account-history-r16",
+          "sha": "0a4f43037d932015ac536129dee1d5214978a2c0",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-wallet-operations-contract-r15",
+          "sha": "ec4322566993f94289c4f1788f42a09407c30e25",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-wallet-transactions-r17",
+          "sha": "31672b591f61f4f73f429151d7cbce4ff62e81fd",
+          "protected": false
+        },
+        {
+          "name": "agent/allow-formal-wallet-origin",
+          "sha": "463cd7ccddc33df0675e4ece8bafdb8998501eed",
+          "protected": false
+        },
+        {
+          "name": "agent/api-client-scopes-rotation",
+          "sha": "92bbeca9b0c835cc49c0684c23b8062ccc956d05",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-asset-classification-contract-r53",
+          "sha": "f21d0f8dbd212ac5820302f1633b2dd08d0eecac",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-card-activation-journey-r46",
+          "sha": "b4fbb1b3deac1c281bfb9887da600dca14550efe",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-card-freeze-journey-r47",
+          "sha": "8d57f856e67009cf1bb6ee548434c98eb533a33c",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-card-renewal-journey-r49",
+          "sha": "17269187350ccac8af2b09200a7c38c423d7dc26",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-card-replacement-journey-r48",
+          "sha": "a11052f2dfe8cde8f12b039b812cd5da4765bec2",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-end-user-session",
+          "sha": "7f54c235f20619b0c4a2f74321a37e566c1f75ef",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-foundation-hardening",
+          "sha": "88cfada7b90f640b65cae038c1aefaecd299751a",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-tenant-detail-r59",
+          "sha": "be6453eb42e96216fbdb6fccfb1a660aa6977fb9",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-treasury-ledger-core-r54",
+          "sha": "11004c70438ca79875b09ec1d132a09a739ea720",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-virtual-card-create-journey-r50",
+          "sha": "fbe20bd22ed3e15e6fff5bc2b22bc736c97adbac",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-wallet-account-history-r52",
+          "sha": "9a3c06a6d9fb2b3bb799562de427da127a5ae2cc",
+          "protected": false
+        },
+        {
+          "name": "agent/backend-wallet-transfer-journey-r51",
+          "sha": "0508f6a0b4860aeb53a7a4771f0ff76b2e26ca6b",
+          "protected": false
+        },
+        {
+          "name": "agent/card-balance-http-contract-tests",
+          "sha": "a5daf4364a0e70224f35982a96b7ef58c80c1eb2",
+          "protected": false
+        },
+        {
+          "name": "agent/card-balance-provider-boundary",
+          "sha": "a65a5be99192c0505ad001fcf5972ab4f71098f9",
+          "protected": false
+        },
+        {
+          "name": "agent/card-balance-provider-contract",
+          "sha": "ab0659cb34d2a4668a13e8bd0f5ccc47e8ee0eba",
+          "protected": false
+        },
+        {
+          "name": "agent/card-create-provider-contract",
+          "sha": "99dc0f3564dcb11b86619f4e500d4c85a7c8e2a7",
+          "protected": false
+        },
+        {
+          "name": "agent/card-freeze-contract-r40",
+          "sha": "f2a761b29feafe6d12875a12beb9a9a6cd32969d",
+          "protected": false
+        },
+        {
+          "name": "agent/card-freeze-lock-clock-r57",
+          "sha": "78c1494dbd89ac29847fe948d738d7f7fbcb3a2d",
+          "protected": false
+        },
+        {
+          "name": "agent/card-http-scope-contract-tests",
+          "sha": "091f99c3c6f5fa68e32cc935bfea9e8bb0e9f513",
+          "protected": false
+        },
+        {
+          "name": "agent/card-lifecycle-hardening",
+          "sha": "ce0bc315462a1188b25a76d55373e634bc77bae3",
+          "protected": false
+        },
+        {
+          "name": "agent/card-lifecycle-timeline",
+          "sha": "40fb32c40d9ad8b1951bf57205b87347a1d96084",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-concurrency-r42",
+          "sha": "edd12a4af6936a7a5feb08ad40d99df6b3600cde",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-contract-r41",
+          "sha": "da8be6c4f0f4b389ba031be83624ba331b6d2ff5",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-control",
+          "sha": "d5052bb582c211ca56add507084f4342c5d8ad63",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-http-contract-tests",
+          "sha": "aa9738dbcb7168254e7cd9ba674c53e0952ce523",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-provider-boundary",
+          "sha": "7583970c8ffd2003f57a93eb13506445eacf46a3",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-provider-contract",
+          "sha": "15ad4a97306af4d46bf2a600dfc418a274357526",
+          "protected": false
+        },
+        {
+          "name": "agent/card-list-http-contract-tests",
+          "sha": "3b50372eb2fd2d5196abb63cf32638d555011575",
+          "protected": false
+        },
+        {
+          "name": "agent/card-provider-runtime-environment",
+          "sha": "accc5ff815b8ad857da08c05916741c1011a8ca6",
+          "protected": false
+        },
+        {
+          "name": "agent/card-recovery-readiness-audit",
+          "sha": "dd9782fbb0e9f28c405a3432efebfe4e40c58293",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renew-http-contract-tests",
+          "sha": "1b839031f245b7f4773c11e3e8378afcb9710271",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renew-replace-reconciliation-http-safety",
+          "sha": "8788eda4d8309b86c7862703456853bc3bd6de20",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renewal-lifecycle",
+          "sha": "c219fcb9c49bbb83198f8a125962d38514088eb1",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renewal-provider-contract",
+          "sha": "99a9b07c5d734ed1abdededc3e388f15e744b095",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replace-http-contract-tests",
+          "sha": "0d60de840fae6bef07e87e39ffd4d13dd5153faf",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replacement-lifecycle",
+          "sha": "fa67e5509681e3d75f57305ed8345f1b13ef032c",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replacement-provider-contract",
+          "sha": "faf0468a38566d80cbac999e82567e2b512e75fe",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-http-contract-tests",
+          "sha": "bcfd420f5d5fb3b9e92af56e4f4bb58c2b78f506",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-inbound-event-boundary",
+          "sha": "b6f59b083e24d2377a3d18af81886c69a53f3e90",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-provider-contract",
+          "sha": "664d0be542e106af4dda61789b30e0387529dfed",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-reconciliation-boundary",
+          "sha": "2ec947bdc24bac4fd564da207db7f0d47aab8d29",
+          "protected": false
+        },
+        {
+          "name": "agent/card-status-reconciliation-http-safety",
+          "sha": "8e87041cce27ef350f9b5435051c0fdd376ceea3",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-end-to-end-contract",
+          "sha": "ef5ad7850b00120fa7c270f6617382a6c2a00aa5",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-inbound-contract",
+          "sha": "b6fe2e940566d724392013f2028b89f369d0a0e5",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-pagination-http-safety",
+          "sha": "20e2fde02193bfed5bfbd6cc3f75bc7ffb4faa9b",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-provider-contract",
+          "sha": "2a18697d54d5dc26e7cc05db7ecaa7e2c609e6bb",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-provider-registry",
+          "sha": "8c9e23e2da9bfc0a3985fcb3d1f11a9ae4a42cf6",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-replay-order-safety",
+          "sha": "13014e0e31db5818de4d0560f0dddc263b9733aa",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transactions-pagination-boundary",
+          "sha": "0b7bd12eadec440330031c83bfcf19503ce8454d",
+          "protected": false
+        },
+        {
+          "name": "agent/core-ledger-wallet-journal",
+          "sha": "6ff2dff11516a1fbe0d7bdf1c7be66f14a16b51c",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-audit-high-dependencies",
+          "sha": "e23ee0a2505e9e8b84b9cc67485472b30e8479f3",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-end-user-wallet-operation-history",
+          "sha": "9c297303f118239fe78caf34db8b4f9202d7f93a",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-end-user-wallet-operation-status",
+          "sha": "cb5602142f67086220d7570a8851d616c59d5949",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-balance-summary",
+          "sha": "ae2fb09eda410cfcde8523af7200ec94ccf2a4f4",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-init-audit-latency",
+          "sha": "03b3894a34c6e1b41072e1172130b52eccb1bdde",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-operation-detail",
+          "sha": "827272a424223d39192a470af03e8f44dd2332c5",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-operation-filters",
+          "sha": "e6f3cd872ca1c8a640a7e9d766fb2522aabd4245",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-operation-openapi",
+          "sha": "b254ed2ad07ab3d41cf676edf64a59cf651db894",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-operation-status",
+          "sha": "cbcf4067725376deb1c7e8d85fe66bca8258212c",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-transaction-detail",
+          "sha": "e41bfe8584a36c7948d61741d858fd6955a3ff3c",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-wallet-transaction-history",
+          "sha": "7bfb351d308e255dfe5d369599c2398484cda92a",
+          "protected": false
+        },
+        {
+          "name": "agent/end-user-card-openapi-contract",
+          "sha": "f69d53fa91bae20f5a6a3abcff78eadfad2ebed4",
+          "protected": false
+        },
+        {
+          "name": "agent/end-user-card-transaction-detail-contract",
+          "sha": "08a2e57a80290c62cde3c83cf343890c14d03a9f",
+          "protected": false
+        },
+        {
+          "name": "agent/end-user-session-key-derivation",
+          "sha": "f726487e84ce7f72aeae2d6139178c232d3436e0",
+          "protected": false
+        },
+        {
+          "name": "agent/enduser-card-activation-r44",
+          "sha": "0bc3f7a0fbd29a471e6f17d2abd7947038984e27",
+          "protected": false
+        },
+        {
+          "name": "agent/enduser-fx-quote-r16",
+          "sha": "92e9459921445d41c8571c2566d9be70f3ee2de6",
+          "protected": false
+        },
+        {
+          "name": "agent/enduser-kyc-status-r14",
+          "sha": "dcd2b1b2b8243a408f8a861b541ea2d1b768a420",
+          "protected": false
+        },
+        {
+          "name": "agent/enduser-wallet-balance-contract-r18",
+          "sha": "93554b0a6381b54e947f74cb2eea7c8b2580c72d",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-database-pool-capacity",
+          "sha": "f044e53d98d3971e80ff5bb2af5d208a3293aa7b",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-database-pool-limit",
+          "sha": "f71dfc400c034f4ac59df6b1396905b183b872a8",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-database-pool-timeout",
+          "sha": "da064228cda2fcdf494d2a2cf5c892e59499db14",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-prisma-openssl",
+          "sha": "461e70627cf293606834ee71617b041f617f0edd",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-journal-nested-create",
+          "sha": "fc1a41e8080ecf6e3d1fd03774a48757b35c54bf",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-journal-tenant-relation",
+          "sha": "3e339f0f7ecebce7e2b81c0eb6c67b06814dfdb1",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-production-entrypoint",
+          "sha": "6822ed8b503df3917b141203c7c49b13efe3f05c",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-railway-build-layout",
+          "sha": "e05975cce842b1c0e4fa057f832088c36926ebeb",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-wallet-fx-test-di",
+          "sha": "f5acfe9089695a4f783783d1eaa865382f119bf3",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-webhook-retry-pooler",
+          "sha": "b720631283e22d1acf339546c09ef7e27eae3663",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-001-cors-runtime",
+          "sha": "a90e3e48e894124cfdbf179ece3076cecb23750c",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-001-trace-unification",
+          "sha": "753d40feb9cf85c5cc78a127dae49a6d77f30f82",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-prd-001-cors-403",
+          "sha": "6011f4fb170e15169ff29d1ba7e3c588f4992990",
+          "protected": false
+        },
+        {
+          "name": "agent/foundation-hardening-round-two",
+          "sha": "767ca67f9c90a5f22b9f9209648760afafb1f338",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-decimal-invariant-matrix",
+          "sha": "47015bccb95f87ed86462e76ad1e32ee02c68ce2",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-idempotency-replay-matrix",
+          "sha": "0f11549c80a2846303361470d40d6d53fd15f550",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-openapi-contract-safety",
+          "sha": "c17fdce2f2ca96248333ee305fe38b194319780a",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-provider-error-boundary",
+          "sha": "2d8db415dc613e592870817aa52028a344a7ac39",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-quote-lifecycle-conformance",
+          "sha": "8543cc02db9c3e48fd4bdcf5c803312c60f36b38",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-quote-provider-contract",
+          "sha": "55b0ec2a1712646b566660407056fa4060dbd9b3",
+          "protected": false
+        },
+        {
+          "name": "agent/fx-sandbox-persisted-conversion-matrix",
+          "sha": "d2ee1792988cdc0df9a943efdd1b2962d9eece72",
+          "protected": false
+        },
+        {
+          "name": "agent/ops-ci-build-artifact",
+          "sha": "f4bdefdf275c955c4ca287cc400df1cd368cc7f6",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-card-fee-ledger-contract-r62",
+          "sha": "cee46bbb327979187d302c71f674e8a2276fdeaa",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-card-sandbox-security",
+          "sha": "d5b15b68e58d7c4990bee30db8fac21a7764e3ac",
+          "protected": false
+        },
+        {
+          "name": "agent/p2-thredd-event-handlers",
+          "sha": "6ca4f87ace7e1051e8d9bf3859edc84cc87b944d",
+          "protected": false
+        },
+        {
+          "name": "agent/p3-business-dashboards",
+          "sha": "dd752c1257fcd9fe09a9ee5a4374c0821d89f01a",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1-production-evidence",
+          "sha": "898c5028ed9f769a22b0b181b9c021adc281e4c2",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-card-interface-fix-r57",
+          "sha": "6ced03bfbbfe989ddb293697e9f3949078925a04",
+          "protected": false
+        },
+        {
+          "name": "agent/production-health-contract",
+          "sha": "ec5970e91d50ab911d4f5380d1606b584944f7a6",
+          "protected": false
+        },
+        {
+          "name": "agent/provider-adapter-conformance",
+          "sha": "66d1d56fd457071306142df74478a0c57e43b079",
+          "protected": false
+        },
+        {
+          "name": "agent/remove-disabled-test-deploy-dev",
+          "sha": "db75fe74d3caf3f0468a0e0f3b947698a091775f",
+          "protected": false
+        },
+        {
+          "name": "agent/remove-disabled-test-deploy-test",
+          "sha": "640065c37c0c7e1cf2fa42b284cabd3d4b8ed8e4",
+          "protected": false
+        },
+        {
+          "name": "agent/security-sandbox-webhooks",
+          "sha": "a1906666d293fa41c9195f64ddbfeef7b2e19ed6",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint09-business-capabilities",
+          "sha": "8c5be4e07453a3f6b3cdb563fb7a8bf1be8b1c94",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-card-financial-coverage-gate",
+          "sha": "856a7c399f343e9f9c26cd2047c6a091a5f43127",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-card-financial-state-machine",
+          "sha": "b227118f4ef3c23d8f4ab53877f9ed89e8776a39",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-finance-security-baseline",
+          "sha": "2e0f44e1fec617e8073d0630aec6ccf96d5c8703",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-financial-reports-update",
+          "sha": "edd98e1b766a3e4d82f2b788964a5d5d01b3ccf8",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-fx-core-coverage-gate",
+          "sha": "e89cb8f0ec451fc85b9aa72122b41af05043b8c4",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-health-schema-gate",
+          "sha": "7456f2355005688f3ae522d7c2afdb4f384e545b",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-ledger-coverage-gate",
+          "sha": "82f65613cb9573c3ac2db5d07f946321e3c8de4a",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-merchant-financial-gate",
+          "sha": "e02cf4232f100e022e34fa77491273bcda587035",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-mock-elimination-trace",
+          "sha": "beb1859240b374ab2bf8e698ead81feabff9d94b",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-operational-documentation",
+          "sha": "eb272bba1289daf6ef38af08da0346cec1767718",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-remove-legacy-treasury",
+          "sha": "707a105a98c3cc9f14d49b3ce772522b188cfe98",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-settlement-reconciliation-gate",
+          "sha": "f19e1e2b9ce0b485e6a42a49f166c1bbf2fc3811",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-wallet-financial-gate",
+          "sha": "3204c2b7ef4f869e00bec47e2d3c449d12ac0f49",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-webhook-durability-gate",
+          "sha": "8aa5076443a387d7893855ecb027bd7b3429fa39",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint13-external-readiness",
+          "sha": "c4574d896e15f9d4b8ee9b30e27d004d4d13c21d",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint13-external-readiness-deployment-evidence",
+          "sha": "6cb56e7c7bb2c61185e2e99f487d0619298718d6",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint13-phase3-blocker-elimination",
+          "sha": "babd1ea6580793c1c9a46c315a9039ae46297964",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint13-phase3-deployment-evidence",
+          "sha": "3abc47e45458122fceb67ff97119de07c5e92535",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-06-thredd-card-security",
+          "sha": "bdcb3318d8a6827ea7e896ff0a218b798a985c07",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-10-railway-boot-fix",
+          "sha": "9a808317999cab26f058527a2b673b0a06176c86",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-10-railway-retry",
+          "sha": "27a4b8598e32cd403a8c079645034e6a9ef2c3dc",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-10-thredd-uat-contract",
+          "sha": "6fb51b130febbda746d5b7dad4f20f9664b4643f",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-card-replace-renew",
+          "sha": "4103b92793c8e7ba3a11fe6f6861dd72740b639a",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-merchant-qr",
+          "sha": "b41e8b817a1bd4030c9a6b4fd2a120e730240725",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-health-performance-gate",
+          "sha": "9d3e4abcd9880cac38415d7ab352d97b908dbeee",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-operational-readiness-phase-2",
+          "sha": "03d7ac70cdfbc51cbc931035eb1e47ed7abd7cfd",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-performance-evidence",
+          "sha": "f6c121adc366235d10cf68c0fa2359b44e3301a2",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-phase-2-deployment-evidence",
+          "sha": "eba24a4969e07377401a82c3be03718da78d42a7",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-release-gate-truth-controls",
+          "sha": "82d0be174b5961908b2fe3b8abc7a2b9c1161b44",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-round-2-evidence",
+          "sha": "dfb49f000f4db1fc8f41c55e34cfc8891d93ba35",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-round-3-deployment-evidence",
+          "sha": "de74d712ab6c29e8bb467488c88c7c31d9c8e323",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-round-3-production-audit",
+          "sha": "d8d0f66ee8febcb6f2454e3c968688f2993cac84",
+          "protected": false
+        },
+        {
+          "name": "agent/stage2-operator-credential-fix",
+          "sha": "a18c0de2db28ad9ec2c3d662a2b2d766161ed56d",
+          "protected": false
+        },
+        {
+          "name": "agent/stage2-p0-runtime-audit",
+          "sha": "9df998cfafd1f18282fe7241cdaa76920617050d",
+          "protected": false
+        },
+        {
+          "name": "agent/stage3-daily-closing-audit-fix",
+          "sha": "c3a0071a74020047a7aea84a41162d11da9ea928",
+          "protected": false
+        },
+        {
+          "name": "agent/stage3-daily-closing-pool-fix",
+          "sha": "04dbc781586d5d3372e1ffe48ba8214df4cadd66",
+          "protected": false
+        },
+        {
+          "name": "agent/stage3-remove-acceptance-operator",
+          "sha": "9438e0197e4c670b8b413f9964d8494b9840eefb",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-001-008-cross-platform-alignment",
+          "sha": "78324ababc44325d5aa8ac36c3fd1426355659c3",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-002-thredd-request-header-compliance",
+          "sha": "c186679529c03f6bdb10bbf2328f42a07553ae14",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-003-thredd-idempotency-compliance",
+          "sha": "8faf65d4006a346d35e04b6ef6536bfab0b3e5fb",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-004-005-oauth-mtls-dcr-compliance",
+          "sha": "ab63c6da3da599db9ce515bf44d1f8d1684a83ea",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-full-api-sprint",
+          "sha": "89ab8cfa1bfca6a9abc4cfd240f0601bd9fe2169",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-golden-fixture-contract",
+          "sha": "c6cc498e9ed05ec7e66f4f404e74a09ef8c91217",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-http-idempotency-contract",
+          "sha": "6c1b3183672cbfcdcce425393976067f54e4bd12",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-inbound-lifecycle-contract",
+          "sha": "4e7743173d8f3690d14dc6ba00ec4296f5807e84",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-integration-log-redaction",
+          "sha": "7e258bf148dd2d0f278b6027cf9389f1a9bdfede",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-outbound-sandbox-contract",
+          "sha": "1669f1fd7fc8b85e326e2fded69ee344e4783ca3",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-provider-error-normalization",
+          "sha": "97ac5e72ff331a6fc38a65eefa01be02e34113a9",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-request-metadata-contract",
+          "sha": "6405ea7c5d578623c817cc2e28d8ca6d3a8e40cb",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-request-target-contract",
+          "sha": "7fc8cf3145abd4aa9b836fb3dec20177a9197fca",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-response-media-contract",
+          "sha": "d90535decd75ae8e8240fbef136a7543af828581",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-response-size-contract",
+          "sha": "056396ec33a224993ed82f113e5d2044c4daa7fb",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-retry-budget-contract",
+          "sha": "0f4b3fee1a0fa6b3dbd8b9c13543bf8bd24711dd",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-signed-persisted-lifecycle-matrix",
+          "sha": "cea514ea98a1728c4ef61482e36402e90269a831",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-webhook-replay-contract",
+          "sha": "340eadf6c64ae6f239dd65b03e3709ca387ee40d",
+          "protected": false
+        },
+        {
+          "name": "agent/treasury-liquidity-contract-r14",
+          "sha": "86a3ce3dbf610a4ac8e036e7da3bf6ccb26ba72c",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-history-openapi-contract-safety",
+          "sha": "181199ef6d89bfe6d36fb68203719bd47d366a2a",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-http-integration-tests",
+          "sha": "7ed7b87524a177a8594891d18729d4562417824d",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-status",
+          "sha": "6be3f061dda302cd4544a427aec261edd32b9fa9",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transfer-concurrent-idempotency",
+          "sha": "7b5812a742000625c14cf2cf5555ffa61a3c3c14",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transfer-http-contract-tests",
+          "sha": "ecd3d7cccca36770d03d621fb1921ccec42d4513",
+          "protected": false
+        },
+        {
+          "name": "agent/website-readiness-contract-r39",
+          "sha": "27cb358bd9343d10250f7e342805eba4f95d3729",
+          "protected": false
+        },
+        {
+          "name": "agent/week-one-card-platform",
+          "sha": "3096320660bfbd670e204db2189de5244e6c2dbc",
+          "protected": false
+        },
+        {
+          "name": "archive/test-treasury-write-smoke-20260720",
+          "sha": "3a29da71d57242afe572632ec56ccbe7c526a97a",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-binding-backoff-v2",
+          "sha": "0f72eadaebd6dd016d2d3da0d4c461520faac1cf",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-contract-diagnostics",
+          "sha": "ca2ef2b713459565dc5cef449f5ed321725ca4b6",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-docker-publish",
+          "sha": "13ac68f9eab77028103f31a78c32e5b9758acf34",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-docker-schema2-source",
+          "sha": "4a325519da1dfd5342a7efcd583edb0ab0058a1b",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-metadata-convergence-v2",
+          "sha": "76d8b44ba9a883e0a8ae260c5518c4def0492cbe",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-omitted-repository-field",
+          "sha": "63142944d9ec37bc44e8ae3c1df9cd1a4c5a46ca",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-postcheck-backoff-v2",
+          "sha": "283037349af4e59809368a9af73e7eb2c7da34a8",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-private-package-bootstrap",
+          "sha": "3cd0f3db4ddcb8c7fb2485d4ceca723787ea7db9",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-roundtrip-media-profile",
+          "sha": "40e6b161ce8cfbeed6b69358f939ab6032fbbd25",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-source-label",
+          "sha": "d766a7eb31fc4abdbc223f2d54c8c788a0123303",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-ghcr-token-projection-compat",
+          "sha": "4caccf6311327123fc9f27aef333809d7173fabe",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-promotion-output-key-contract",
+          "sha": "9ac0cf8eaabc97b4d8f93780c2ece3ca95df28e4",
+          "protected": false
+        },
+        {
+          "name": "ci/dev-promotion-unsigned-receipt",
+          "sha": "06c3f7d143d4f2a80e3eef63944a89e6e3e15c1c",
+          "protected": false
+        },
+        {
+          "name": "ci/fix-dev-candidate-promotion-chain",
+          "sha": "d93e750fd5eeab1a16c898bc95ea5114fe93d7b6",
+          "protected": false
+        },
+        {
+          "name": "ci/fix-promotion-pr-metadata-permission",
+          "sha": "6e7ae01ef364542e172b98540d641d4acc50672b",
+          "protected": false
+        },
+        {
+          "name": "ci/register-dev-candidate-promotion-dispatcher",
+          "sha": "79ce96440a7354caaa935adf73d646fad13175ae",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-callback-link",
+          "sha": "437054996bb5b5cd6b0342ea8021d32b6138e460",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-callback-log-fix",
+          "sha": "a727d36042fea77d5831abd974254430d23c47a4",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-callback-payload-contract",
+          "sha": "98a09f89e4d1c0bc845c162f3e179c6dcd0f6dd7",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-callback-rejection-diagnostics",
+          "sha": "310318b2c3f476b6f4b02de2a294f7167cc928f2",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-checkout-language-query",
+          "sha": "66c99ac45f189bace81d5f48a3d258a10fb68bad",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-checkout-url-component-trace",
+          "sha": "bb66e4bcac7be50b123731735f8b5471d509d65f",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-dev-checkout-allowlist",
+          "sha": "da6c64005e18451e5b6fe8f77504b287993b7e3f",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-exception-trace",
+          "sha": "bbbc9df846111547bdcba0853aed1ef28925596f",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-provider-cycle-trace",
+          "sha": "7f5fcec4565bf7373d5e58396fccc87a1a2b5871",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-query-deposit-shape-trace",
+          "sha": "feac2662bddb0bcb297d9501fa7c787a11c580cf",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-query-nested-shape-trace",
+          "sha": "d0b06ee1b7d6a55ec3b8431e038ae139dbd3cacd",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-response-mapping-mid-trace",
+          "sha": "d1e941b1f7954a1e8e9e36a91b08e6243a0176af",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-response-shape-trace",
+          "sha": "a96aa3db5ee56e0642be481e1752e6eb5394706e",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-stdout-diagnostics",
+          "sha": "3d962c1378ffd2a76c78fb9b3993b95765bb896b",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-test-catalog-tron",
+          "sha": "ce33d1340a3973fd0e8e7648f7de2c046d5f05f2",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-tokens-json-string",
+          "sha": "7c89b4dccbbaf8d4f02401eafb3069900977b766",
+          "protected": false
+        },
+        {
+          "name": "codex/cregis-transport-error-code",
+          "sha": "08919db8ed82030a6e781aba3bb955080fc707df",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-sandbox-localhost-cors",
+          "sha": "46174bc33bdb08042b72d58262b2986b36f6e792",
+          "protected": false
+        },
+        {
+          "name": "codex/fix-cregis-callback-contract",
+          "sha": "6750c9ccb84a967893110155d195383a5826b951",
+          "protected": false
+        },
+        {
+          "name": "codex/fix-cregis-query-consolidated-qrcodes",
+          "sha": "d09982b3e34e9df59592697bf66e1cd91cefa425",
+          "protected": false
+        },
+        {
+          "name": "codex/fix-cregis-response-contract",
+          "sha": "600a3c692d73f685c3f62e430b622c5ece83ff75",
+          "protected": false
+        },
+        {
+          "name": "codex/fix-thredd-uat-config-contract",
+          "sha": "9a27e462f0d56280b1f185d066baac4c2a4a15e6",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-fee-assessments",
+          "sha": "0408753e9d8863b53aeb679bca959dec44327330",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-fee-evidence-response",
+          "sha": "bab55c446021633bcc1886169fd5ec7fece3a7a4",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-fx-transaction-retry",
+          "sha": "534679e15dc0381b5accb5ac266abe7765f7b08a",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-fee-execution",
+          "sha": "09d9a3e27a04cc4c6faff1b29fb779b4f8dea02b",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-merchant-fee-evidence",
+          "sha": "c678d87d87b959e62a73e4a71bbf9712031ccda7",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-02-product-currency-accounts",
+          "sha": "4071693118cf99c4da6e886289899afe20184821",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-03-product-identity-lock",
+          "sha": "d2ee592e768364af252bc2c6cced561fabd6ea19",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-04-openapi-dto",
+          "sha": "4fa476bd97ae4caa557efb7c2295250d2e6f81d0",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-04-openapi-dto-followup",
+          "sha": "29562ec7a0702935f4d028125ac5b1e073109812",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-05-audit-external-provider",
+          "sha": "53e089069f3423e3b1f4823b5929a50a8c6dc5aa",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-05-audit-response-followup",
+          "sha": "5a29c0fa3dd7c66e72608d1fa5513a6f601c284f",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-06-tenant-fee-caps",
+          "sha": "51d5755de3998487a0281dea5f47d2052d3da312",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-card-balance-authority",
+          "sha": "0208ed3ff96aca2e9cce20fe9e293452229246b4",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-acceptance-idempotency",
+          "sha": "df20fd94ffa568ab4a5801ce65daf434a04829ba",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-dev-seed-policy",
+          "sha": "fdbb3a10952953dd3796d71df80b46983c9c96ce",
+          "protected": false
+        },
+        {
+          "name": "codex/parameterize-cregis-window-verify",
+          "sha": "30c1dbe8f2c6800127bb12858bdca9a1f5617f0f",
+          "protected": false
+        },
+        {
+          "name": "codex/payment-provider-spi-pluggability",
+          "sha": "944c0870bace4c766e531e222cf505632c2c5346",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-backend-contract-audit",
+          "sha": "e4032eeba70d7d5386c0a2c159e0ced28ff9e0ac",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-be1-total-assets-openapi",
+          "sha": "95386502f59baf49267c00440068977b56497f2c",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-be2-direction-repair",
+          "sha": "ef9cde64828be9cb420e9897deaf788ff493077f",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-be3-available-guard",
+          "sha": "73734cabc3faeb3323a4e1c99e03c2795b0f76c4",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-be3-ledger",
+          "sha": "b7351b813e3221183b19e99653d9d07fd60d9183",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-funding-contracts",
+          "sha": "865eb4d01cb45df151ae99fbc7b24ece1661ac8a",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-daily-blocker-20260722-update",
+          "sha": "744d5c3fdc88c3e24ae4db9d618a10d04e356423",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-fomo-official-readiness-20260722",
+          "sha": "d0abd8bf8f2e0139f297b1348ceb2b6eab59cf4f",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-remove-platform-bootstrap-20260722",
+          "sha": "7754d841ef8f087560bcf7bc52d53d73dcf75ed1",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-security-provider-readiness-20260722",
+          "sha": "ac3e356572d16bf09df93e0f22dc52484394731e",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-thredd-official-collection-20260722",
+          "sha": "1a1a9d408eea947cfed1561aef811aa6bb0c5238",
+          "protected": false
+        },
+        {
+          "name": "codex/sprint13-treasury-statement-acquisition-20260722",
+          "sha": "5f4a445120b320450471c9c35a9f619b0407b5f3",
+          "protected": false
+        },
+        {
+          "name": "codex/thredd-uat-docs-shell-invocation",
+          "sha": "5bcdb892ccbbf6007c5b2623bcd82c02970501a9",
+          "protected": false
+        },
+        {
+          "name": "codex/thredd-uat-readiness",
+          "sha": "f551530cc02cd7a38f922a9799a64799ef722261",
+          "protected": false
+        },
+        {
+          "name": "codex/uat-postgres-rls-init",
+          "sha": "da6d703c81a0e7df2025b160bf0254d8046fa556",
+          "protected": false
+        },
+        {
+          "name": "codex/uat-readiness-metadata-acl",
+          "sha": "67dc6b7f8d0075ed0c48f7bdf98bea3030f204ce",
+          "protected": false
+        },
+        {
+          "name": "codex/uat-tenant-provider-config-read-acl",
+          "sha": "9fb75a436ae1414207733b0220b46551889f51af",
+          "protected": false
+        },
+        {
+          "name": "codex/uat-webhook-retry-acl",
+          "sha": "09874a9979892b5ecffea0b7ebe6073d3e775825",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+          "protected": true
+        },
+        {
+          "name": "diagnostics/sandbox-deposit-stage",
+          "sha": "5a75dbb6dc800a60a95c76677bfe1598bf671d49",
+          "protected": false
+        },
+        {
+          "name": "docs/p0-p1-audit-archive-20260906",
+          "sha": "ce641711b5cdeaf9e050a03185453c737e8ebbd5",
+          "protected": false
+        },
+        {
+          "name": "docs/sprint-02-final-acceptance",
+          "sha": "6d94af1aaa71a74155c0a9e3493e99daaabbc438",
+          "protected": false
+        },
+        {
+          "name": "docs/sprint-03-final-acceptance",
+          "sha": "cef6918c71b1f2bc67898e5bb0b15f7569787942",
+          "protected": false
+        },
+        {
+          "name": "docs/sprint-06-acceptance",
+          "sha": "0334db6f06f96ab0abadaba9175aebb731221511",
+          "protected": false
+        },
+        {
+          "name": "docs/sprint-07-fx-mapping",
+          "sha": "2fe75afbe19e918b622b4270de66395b250d0299",
+          "protected": false
+        },
+        {
+          "name": "docs/sprint-07-uat-pack",
+          "sha": "89f4b0defef2995afc6604ef485709b133b98d59",
+          "protected": false
+        },
+        {
+          "name": "docs/swagger-card-request-schema",
+          "sha": "332e1185d21bd3b6aa14fc6873539925c07bb1dd",
+          "protected": false
+        },
+        {
+          "name": "feat/ledger-mvp",
+          "sha": "b6ebe6ac31288185b9e061867896a44b1bba1d31",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-02-thredd-adapter",
+          "sha": "c93fd25329d43a960eef33bbc61be9fb382d0dde",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-03-card-contract",
+          "sha": "5af816a89325c9cd035a65ed7bf51c4bffad8ff0",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-05-card-api-swagger",
+          "sha": "eb87a85f0e75229e4eb4af4540325a5dd1306f7b",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-06-wallet-settlement-demo",
+          "sha": "04516b4abb6513376eb14a813f2f73c2f7237723",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-07-demo-testing",
+          "sha": "77af7634e4b1a3a75b89cbb19941983565fb40e7",
+          "protected": false
+        },
+        {
+          "name": "feat/thredd-uat-ready-framework",
+          "sha": "aa68b6c6bc4764980bc3e699d3de9bb57443ba6f",
+          "protected": false
+        },
+        {
+          "name": "feature/cregis-api-integration",
+          "sha": "69b5c5c48b2f16b5386d333424249f246ccd9430",
+          "protected": false
+        },
+        {
+          "name": "feature/dependency-security-hardening-20260728",
+          "sha": "d7325aa96d74ee49723b4a67c6406d4a96ed00c6",
+          "protected": false
+        },
+        {
+          "name": "feature/flp-env-002-dev-seed-reset",
+          "sha": "71070c22c4b4bde619b90d8ec2aad25a6fbe38a9",
+          "protected": false
+        },
+        {
+          "name": "feature/flp-env-002-prime-cors",
+          "sha": "30ea99c65a2aa6864b3ed587f4fa2c91695f4bf2",
+          "protected": false
+        },
+        {
+          "name": "feature/p2-cookie-session-backend",
+          "sha": "0c454af6725858cce39259b15b319acc4bfcf5b6",
+          "protected": false
+        },
+        {
+          "name": "feature/phase2-onchain-wallet",
+          "sha": "4fb069c180f736f312a282218dc1610b509aaf79",
+          "protected": false
+        },
+        {
+          "name": "feature/sanlx-readonly-fixture",
+          "sha": "1cb52b3cc9410bf6b8dbddebe65ad5ac9a2eef56",
+          "protected": false
+        },
+        {
+          "name": "feature/sprint07-fx-journal",
+          "sha": "5c4d517e9a0b72b5f963d685d7d715439db4016c",
+          "protected": false
+        },
+        {
+          "name": "feature/sprint08-business-closure",
+          "sha": "f68f52e99e8d9079845b77fbf78413f4e49ddfb6",
+          "protected": false
+        },
+        {
+          "name": "feature/sprint08-card-activation",
+          "sha": "d6f2737ba1f200ea1bf316b1df72adb3cc6b271b",
+          "protected": false
+        },
+        {
+          "name": "feature/sprint08-execution-routes",
+          "sha": "85d8b6efa56f61fb49ae24b2162a7dc527a1104b",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-baseline",
+          "sha": "fb0860037d8f2cc75a504626e9cf6d574c55cff5",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-logical-isolation",
+          "sha": "4d9cf6eab4c76752a66ead0443de494f6bc5fc76",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-wallet-user-contract",
+          "sha": "1e99b1b8eb467c5b0c78aa931d88951335b7cd51",
+          "protected": false
+        },
+        {
+          "name": "feature/treasury-ledger-auto-posting",
+          "sha": "53697f550241ed63c612d589029e08fcf93c4e7c",
+          "protected": false
+        },
+        {
+          "name": "fix/cregis-contract-safety",
+          "sha": "1931c6c944ee02c4c460484fe1c056b1ec912bf0",
+          "protected": false
+        },
+        {
+          "name": "fix/cregis-sandbox-safety-window",
+          "sha": "c62ba3e990ea9065b2758e6df87af26d6c0a4a0c",
+          "protected": false
+        },
+        {
+          "name": "fix/dev-readiness-safe-rls",
+          "sha": "aec3e5615782b2c4b16c8146a70d94b3e710df1b",
+          "protected": false
+        },
+        {
+          "name": "fix/financial-transaction-timeout",
+          "sha": "f4a7faaceaa27edaa102689f3a7ec6e5d9a85348",
+          "protected": false
+        },
+        {
+          "name": "fix/flp-env-001-backend",
+          "sha": "787a0d02effeff3409b6af41ae70e15f732ec6c8",
+          "protected": false
+        },
+        {
+          "name": "fix/flp-env-001-trace-middleware-types",
+          "sha": "f6821be2de871b673d428f726debfda1a677d2ab",
+          "protected": false
+        },
+        {
+          "name": "fix/ghcr-buildx-v3",
+          "sha": "95b537b3a6e602529f27485b0f74e86291dc45f8",
+          "protected": false
+        },
+        {
+          "name": "fix/journal-nested-entry-write",
+          "sha": "f899cf847fccf9c2f1bfa9e45f9792d6d7d36595",
+          "protected": false
+        },
+        {
+          "name": "fix/p2-cookie-session-test-contract",
+          "sha": "f363582fdae91073e97d9ba1750e8644fe5e67e9",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-engine-recursive-find",
+          "sha": "8078022f590846192e9d8b9935b1fb3c3a1a8572",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-predeploy-permission",
+          "sha": "7c28478af20d515d9859da5631005ac00d94d1c6",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-probe-bash-wrapper",
+          "sha": "c4c154a2c98d34ec97965ba4491e0d970aec8f67",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-runtime-probe",
+          "sha": "c4e7205ee7f70cbe149f0120a54c21e274a4d5a0",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-tmp-inline-start",
+          "sha": "39d26003a16124b1880a6bd501c5f9f61e1603bc",
+          "protected": false
+        },
+        {
+          "name": "fix/prisma-writable-engine-start",
+          "sha": "c5e9e16eb6bd0de9c65716bbbf21ec046acbb7f9",
+          "protected": false
+        },
+        {
+          "name": "fix/readiness-supabase-schema-acl-allowlist",
+          "sha": "13fb0bacdc470c725e0e18d7e62af59232d1f7ac",
+          "protected": false
+        },
+        {
+          "name": "fix/runtime-prisma-schema-engine",
+          "sha": "7bab1afb7a645d8a3cbe3bfcaa00f4ad9f45b223",
+          "protected": false
+        },
+        {
+          "name": "fix/safari-card-api-cors",
+          "sha": "86a7aedadb8630c2c0683dd053fd2d67f35b3ada",
+          "protected": false
+        },
+        {
+          "name": "fix/shell-script-compatibility-patch",
+          "sha": "5c17e032a701cb698e30f3c21b6c1ba36d03b43c",
+          "protected": false
+        },
+        {
+          "name": "fix/swagger-currency-type",
+          "sha": "cdafa645b1a2126d7a8d583d224ab0990f3201f4",
+          "protected": false
+        },
+        {
+          "name": "fix/thredd-adapter-logging-di",
+          "sha": "ce4997272efb5b89c31391ad4d7a1f788d828f99",
+          "protected": false
+        },
+        {
+          "name": "fix/webhooks-service-spec-thredd",
+          "sha": "c60c522bb626af8d36fec1119df1340452fc5003",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+          "protected": true
+        },
+        {
+          "name": "ops/flp-env-002-p4",
+          "sha": "a467b1c62d64fa4547618ef94e8be0fcf111c4df",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-artifact-self-verify-round6",
+          "sha": "9eff3cfe0f2ae51caa804d222494129813b4d24f",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-evidence-index-round8",
+          "sha": "ffc15e92489f0081bb615010bbc1943d247ce110",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-jest-results-round6",
+          "sha": "fcfe2c1ba149834ad22abd3f99d30d90707ebf1c",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-license-summary-round7",
+          "sha": "0ee7d06601cec402a135714d931a7e035312f51d",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-production-audit-evidence-round5",
+          "sha": "ce5121469e66025417a0c5566dacc2003d987a72",
+          "protected": false
+        },
+        {
+          "name": "ops/nonprod-sbom-provenance-round4",
+          "sha": "196f5be448ced094ea81c7f12bdb34d0900a543c",
+          "protected": false
+        },
+        {
+          "name": "ops/railway-dev-p0-1",
+          "sha": "425a62538f7f577f499a02c510c2e089f7c1a6f0",
+          "protected": false
+        },
+        {
+          "name": "sprint-13/external-integration-readiness",
+          "sha": "def08415754b334fc35905a2196236ac2160fdb9",
+          "protected": false
+        },
+        {
+          "name": "test",
+          "sha": "1efc76ea79d61dd0affda87b014ea4a36101cf26",
+          "protected": true
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlik-backend",
+      "noncompliant_branch_names": [
+        "agent/add-nonprod-ci-gate",
+        "agent/admin-card-snapshots-r43",
+        "agent/admin-card-timeline-contract",
+        "agent/admin-card-transaction-detail-contract",
+        "agent/admin-card-transactions-contract",
+        "agent/admin-kyc-read-r15",
+        "agent/admin-wallet-account-history-r16",
+        "agent/admin-wallet-operations-contract-r15",
+        "agent/admin-wallet-transactions-r17",
+        "agent/allow-formal-wallet-origin",
+        "agent/api-client-scopes-rotation",
+        "agent/backend-asset-classification-contract-r53",
+        "agent/backend-card-activation-journey-r46",
+        "agent/backend-card-freeze-journey-r47",
+        "agent/backend-card-renewal-journey-r49",
+        "agent/backend-card-replacement-journey-r48",
+        "agent/backend-end-user-session",
+        "agent/backend-foundation-hardening",
+        "agent/backend-tenant-detail-r59",
+        "agent/backend-treasury-ledger-core-r54",
+        "agent/backend-virtual-card-create-journey-r50",
+        "agent/backend-wallet-account-history-r52",
+        "agent/backend-wallet-transfer-journey-r51",
+        "agent/card-balance-http-contract-tests",
+        "agent/card-balance-provider-boundary",
+        "agent/card-balance-provider-contract",
+        "agent/card-create-provider-contract",
+        "agent/card-freeze-contract-r40",
+        "agent/card-freeze-lock-clock-r57",
+        "agent/card-http-scope-contract-tests",
+        "agent/card-lifecycle-hardening",
+        "agent/card-lifecycle-timeline",
+        "agent/card-limits-concurrency-r42",
+        "agent/card-limits-contract-r41",
+        "agent/card-limits-control",
+        "agent/card-limits-http-contract-tests",
+        "agent/card-limits-provider-boundary",
+        "agent/card-limits-provider-contract",
+        "agent/card-list-http-contract-tests",
+        "agent/card-provider-runtime-environment",
+        "agent/card-recovery-readiness-audit",
+        "agent/card-renew-http-contract-tests",
+        "agent/card-renew-replace-reconciliation-http-safety",
+        "agent/card-renewal-lifecycle",
+        "agent/card-renewal-provider-contract",
+        "agent/card-replace-http-contract-tests",
+        "agent/card-replacement-lifecycle",
+        "agent/card-replacement-provider-contract",
+        "agent/card-status-http-contract-tests",
+        "agent/card-status-inbound-event-boundary",
+        "agent/card-status-provider-contract",
+        "agent/card-status-reconciliation-boundary",
+        "agent/card-status-reconciliation-http-safety",
+        "agent/card-transaction-end-to-end-contract",
+        "agent/card-transaction-inbound-contract",
+        "agent/card-transaction-pagination-http-safety",
+        "agent/card-transaction-provider-contract",
+        "agent/card-transaction-provider-registry",
+        "agent/card-transaction-replay-order-safety",
+        "agent/card-transactions-pagination-boundary",
+        "agent/core-ledger-wallet-journal",
+        "agent/dev-audit-high-dependencies",
+        "agent/dev-end-user-wallet-operation-history",
+        "agent/dev-end-user-wallet-operation-status",
+        "agent/dev-wallet-balance-summary",
+        "agent/dev-wallet-init-audit-latency",
+        "agent/dev-wallet-operation-detail",
+        "agent/dev-wallet-operation-filters",
+        "agent/dev-wallet-operation-openapi",
+        "agent/dev-wallet-operation-status",
+        "agent/dev-wallet-transaction-detail",
+        "agent/dev-wallet-transaction-history",
+        "agent/end-user-card-openapi-contract",
+        "agent/end-user-card-transaction-detail-contract",
+        "agent/end-user-session-key-derivation",
+        "agent/enduser-card-activation-r44",
+        "agent/enduser-fx-quote-r16",
+        "agent/enduser-kyc-status-r14",
+        "agent/enduser-wallet-balance-contract-r18",
+        "agent/fix-dev-database-pool-capacity",
+        "agent/fix-dev-database-pool-limit",
+        "agent/fix-dev-database-pool-timeout",
+        "agent/fix-dev-prisma-openssl",
+        "agent/fix-journal-nested-create",
+        "agent/fix-journal-tenant-relation",
+        "agent/fix-production-entrypoint",
+        "agent/fix-railway-build-layout",
+        "agent/fix-wallet-fx-test-di",
+        "agent/fix-webhook-retry-pooler",
+        "agent/flp-env-001-cors-runtime",
+        "agent/flp-env-001-trace-unification",
+        "agent/flp-env-prd-001-cors-403",
+        "agent/foundation-hardening-round-two",
+        "agent/fx-decimal-invariant-matrix",
+        "agent/fx-idempotency-replay-matrix",
+        "agent/fx-openapi-contract-safety",
+        "agent/fx-provider-error-boundary",
+        "agent/fx-quote-lifecycle-conformance",
+        "agent/fx-quote-provider-contract",
+        "agent/fx-sandbox-persisted-conversion-matrix",
+        "agent/ops-ci-build-artifact",
+        "agent/p1-card-fee-ledger-contract-r62",
+        "agent/p1-card-sandbox-security",
+        "agent/p2-thredd-event-handlers",
+        "agent/p3-business-dashboards",
+        "agent/phase1-production-evidence",
+        "agent/phase1d-card-interface-fix-r57",
+        "agent/production-health-contract",
+        "agent/provider-adapter-conformance",
+        "agent/remove-disabled-test-deploy-dev",
+        "agent/remove-disabled-test-deploy-test",
+        "agent/security-sandbox-webhooks",
+        "agent/sprint09-business-capabilities",
+        "agent/sprint12-card-financial-coverage-gate",
+        "agent/sprint12-card-financial-state-machine",
+        "agent/sprint12-finance-security-baseline",
+        "agent/sprint12-financial-reports-update",
+        "agent/sprint12-fx-core-coverage-gate",
+        "agent/sprint12-health-schema-gate",
+        "agent/sprint12-ledger-coverage-gate",
+        "agent/sprint12-merchant-financial-gate",
+        "agent/sprint12-mock-elimination-trace",
+        "agent/sprint12-operational-documentation",
+        "agent/sprint12-remove-legacy-treasury",
+        "agent/sprint12-settlement-reconciliation-gate",
+        "agent/sprint12-wallet-financial-gate",
+        "agent/sprint12-webhook-durability-gate",
+        "agent/sprint13-external-readiness",
+        "agent/sprint13-external-readiness-deployment-evidence",
+        "agent/sprint13-phase3-blocker-elimination",
+        "agent/sprint13-phase3-deployment-evidence",
+        "agent/sprint-06-thredd-card-security",
+        "agent/sprint-10-railway-boot-fix",
+        "agent/sprint-10-railway-retry",
+        "agent/sprint-10-thredd-uat-contract",
+        "agent/sprint-11-card-replace-renew",
+        "agent/sprint-11-merchant-qr",
+        "agent/sprint-13-health-performance-gate",
+        "agent/sprint-13-operational-readiness-phase-2",
+        "agent/sprint-13-performance-evidence",
+        "agent/sprint-13-phase-2-deployment-evidence",
+        "agent/sprint-13-release-gate-truth-controls",
+        "agent/sprint-13-round-2-evidence",
+        "agent/sprint-13-round-3-deployment-evidence",
+        "agent/sprint-13-round-3-production-audit",
+        "agent/stage2-operator-credential-fix",
+        "agent/stage2-p0-runtime-audit",
+        "agent/stage3-daily-closing-audit-fix",
+        "agent/stage3-daily-closing-pool-fix",
+        "agent/stage3-remove-acceptance-operator",
+        "agent/thr-001-008-cross-platform-alignment",
+        "agent/thr-002-thredd-request-header-compliance",
+        "agent/thr-003-thredd-idempotency-compliance",
+        "agent/thr-004-005-oauth-mtls-dcr-compliance",
+        "agent/thredd-full-api-sprint",
+        "agent/thredd-golden-fixture-contract",
+        "agent/thredd-http-idempotency-contract",
+        "agent/thredd-inbound-lifecycle-contract",
+        "agent/thredd-integration-log-redaction",
+        "agent/thredd-outbound-sandbox-contract",
+        "agent/thredd-provider-error-normalization",
+        "agent/thredd-request-metadata-contract",
+        "agent/thredd-request-target-contract",
+        "agent/thredd-response-media-contract",
+        "agent/thredd-response-size-contract",
+        "agent/thredd-retry-budget-contract",
+        "agent/thredd-signed-persisted-lifecycle-matrix",
+        "agent/thredd-webhook-replay-contract",
+        "agent/treasury-liquidity-contract-r14",
+        "agent/wallet-history-openapi-contract-safety",
+        "agent/wallet-operation-http-integration-tests",
+        "agent/wallet-operation-status",
+        "agent/wallet-transfer-concurrent-idempotency",
+        "agent/wallet-transfer-http-contract-tests",
+        "agent/website-readiness-contract-r39",
+        "agent/week-one-card-platform",
+        "archive/test-treasury-write-smoke-20260720",
+        "ci/dev-ghcr-binding-backoff-v2",
+        "ci/dev-ghcr-contract-diagnostics",
+        "ci/dev-ghcr-docker-publish",
+        "ci/dev-ghcr-docker-schema2-source",
+        "ci/dev-ghcr-metadata-convergence-v2",
+        "ci/dev-ghcr-omitted-repository-field",
+        "ci/dev-ghcr-postcheck-backoff-v2",
+        "ci/dev-ghcr-private-package-bootstrap",
+        "ci/dev-ghcr-roundtrip-media-profile",
+        "ci/dev-ghcr-source-label",
+        "ci/dev-ghcr-token-projection-compat",
+        "ci/dev-promotion-output-key-contract",
+        "ci/dev-promotion-unsigned-receipt",
+        "ci/fix-dev-candidate-promotion-chain",
+        "ci/fix-promotion-pr-metadata-permission",
+        "ci/register-dev-candidate-promotion-dispatcher",
+        "codex/cregis-callback-link",
+        "codex/cregis-callback-log-fix",
+        "codex/cregis-callback-payload-contract",
+        "codex/cregis-callback-rejection-diagnostics",
+        "codex/cregis-checkout-language-query",
+        "codex/cregis-checkout-url-component-trace",
+        "codex/cregis-dev-checkout-allowlist",
+        "codex/cregis-exception-trace",
+        "codex/cregis-provider-cycle-trace",
+        "codex/cregis-query-deposit-shape-trace",
+        "codex/cregis-query-nested-shape-trace",
+        "codex/cregis-response-mapping-mid-trace",
+        "codex/cregis-response-shape-trace",
+        "codex/cregis-stdout-diagnostics",
+        "codex/cregis-test-catalog-tron",
+        "codex/cregis-tokens-json-string",
+        "codex/cregis-transport-error-code",
+        "codex/dev-sandbox-localhost-cors",
+        "codex/fix-cregis-callback-contract",
+        "codex/fix-cregis-query-consolidated-qrcodes",
+        "codex/fix-cregis-response-contract",
+        "codex/fix-thredd-uat-config-contract",
+        "codex/p0-02-fee-assessments",
+        "codex/p0-02-fee-evidence-response",
+        "codex/p0-02-fx-transaction-retry",
+        "codex/p1-01-fee-execution",
+        "codex/p1-01-merchant-fee-evidence",
+        "codex/p1-02-product-currency-accounts",
+        "codex/p1-03-product-identity-lock",
+        "codex/p1-04-openapi-dto",
+        "codex/p1-04-openapi-dto-followup",
+        "codex/p1-05-audit-external-provider",
+        "codex/p1-05-audit-response-followup",
+        "codex/p1-06-tenant-fee-caps",
+        "codex/p1-card-balance-authority",
+        "codex/p1-wallet-acceptance-idempotency",
+        "codex/p1-wallet-dev-seed-policy",
+        "codex/parameterize-cregis-window-verify",
+        "codex/payment-provider-spi-pluggability",
+        "codex/prime-wallet-backend-contract-audit",
+        "codex/prime-wallet-p1-be1-total-assets-openapi",
+        "codex/prime-wallet-p1-be2-direction-repair",
+        "codex/prime-wallet-p1-be3-available-guard",
+        "codex/prime-wallet-p1-be3-ledger",
+        "codex/prime-wallet-p1-funding-contracts",
+        "codex/sprint13-daily-blocker-20260722-update",
+        "codex/sprint13-fomo-official-readiness-20260722",
+        "codex/sprint13-remove-platform-bootstrap-20260722",
+        "codex/sprint13-security-provider-readiness-20260722",
+        "codex/sprint13-thredd-official-collection-20260722",
+        "codex/sprint13-treasury-statement-acquisition-20260722",
+        "codex/thredd-uat-docs-shell-invocation",
+        "codex/thredd-uat-readiness",
+        "codex/uat-postgres-rls-init",
+        "codex/uat-readiness-metadata-acl",
+        "codex/uat-tenant-provider-config-read-acl",
+        "codex/uat-webhook-retry-acl",
+        "diagnostics/sandbox-deposit-stage",
+        "docs/p0-p1-audit-archive-20260906",
+        "docs/sprint-02-final-acceptance",
+        "docs/sprint-03-final-acceptance",
+        "docs/sprint-06-acceptance",
+        "docs/sprint-07-fx-mapping",
+        "docs/sprint-07-uat-pack",
+        "docs/swagger-card-request-schema",
+        "feat/ledger-mvp",
+        "feat/sprint-02-thredd-adapter",
+        "feat/sprint-03-card-contract",
+        "feat/sprint-05-card-api-swagger",
+        "feat/sprint-06-wallet-settlement-demo",
+        "feat/sprint-07-demo-testing",
+        "feat/thredd-uat-ready-framework",
+        "feature/cregis-api-integration",
+        "feature/dependency-security-hardening-20260728",
+        "feature/flp-env-002-dev-seed-reset",
+        "feature/flp-env-002-prime-cors",
+        "feature/p2-cookie-session-backend",
+        "feature/phase2-onchain-wallet",
+        "feature/sanlx-readonly-fixture",
+        "feature/sprint07-fx-journal",
+        "feature/sprint08-business-closure",
+        "feature/sprint08-card-activation",
+        "feature/sprint08-execution-routes",
+        "feature/test-environment-baseline",
+        "feature/test-environment-logical-isolation",
+        "feature/test-environment-wallet-user-contract",
+        "feature/treasury-ledger-auto-posting",
+        "fix/cregis-contract-safety",
+        "fix/cregis-sandbox-safety-window",
+        "fix/dev-readiness-safe-rls",
+        "fix/financial-transaction-timeout",
+        "fix/flp-env-001-backend",
+        "fix/flp-env-001-trace-middleware-types",
+        "fix/ghcr-buildx-v3",
+        "fix/journal-nested-entry-write",
+        "fix/p2-cookie-session-test-contract",
+        "fix/prisma-engine-recursive-find",
+        "fix/prisma-predeploy-permission",
+        "fix/prisma-probe-bash-wrapper",
+        "fix/prisma-runtime-probe",
+        "fix/prisma-tmp-inline-start",
+        "fix/prisma-writable-engine-start",
+        "fix/readiness-supabase-schema-acl-allowlist",
+        "fix/runtime-prisma-schema-engine",
+        "fix/safari-card-api-cors",
+        "fix/shell-script-compatibility-patch",
+        "fix/swagger-currency-type",
+        "fix/thredd-adapter-logging-di",
+        "fix/webhooks-service-spec-thredd",
+        "ops/flp-env-002-p4",
+        "ops/nonprod-artifact-self-verify-round6",
+        "ops/nonprod-evidence-index-round8",
+        "ops/nonprod-jest-results-round6",
+        "ops/nonprod-license-summary-round7",
+        "ops/nonprod-production-audit-evidence-round5",
+        "ops/nonprod-sbom-provenance-round4",
+        "ops/railway-dev-p0-1",
+        "sprint-13/external-integration-readiness"
+      ]
+    },
+    {
+      "name": "fastlik-app",
+      "default_branch": "main",
+      "private": false,
+      "archived": false,
+      "language": "TypeScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/app-asset-classification-binding-r53",
+          "sha": "82175a53f86dbde15e07c5ad37ac9254a2e72aa1",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-activate-r45",
+          "sha": "0bc31114699859dd4696da8637a3975b523c3c05",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-activation-postchain-r46",
+          "sha": "30ddc8a6dbc130f6c2dbc7d456861a38edbd8ef3",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-freeze-r42",
+          "sha": "42f1e164bda7c720a340e45e4cb6f0f2f85bf6bf",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-renewal-postchain-r49",
+          "sha": "b1c0a0c92befa8c1cc24f916a64290ad80129c30",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-replacement-postchain-r48",
+          "sha": "11a6b4fb4f517f195103cc996bdb873352a3eb75",
+          "protected": false
+        },
+        {
+          "name": "agent/app-card-status-postchain-r47",
+          "sha": "e24116bed4aa5103e615f54dd4fdb04e79876ed5",
+          "protected": false
+        },
+        {
+          "name": "agent/app-fx-quote-ui-r16",
+          "sha": "c3574cd953ec24fa5f0a901d5de82bdba605204d",
+          "protected": false
+        },
+        {
+          "name": "agent/app-kyc-status-ui-r14",
+          "sha": "2e8287aee38b2ee93f2d66210a1985c1d47de129",
+          "protected": false
+        },
+        {
+          "name": "agent/app-virtual-card-create-postchain-r50",
+          "sha": "e1b79a7e5f124c7ada9ac890a3f665a935470d1f",
+          "protected": false
+        },
+        {
+          "name": "agent/app-wallet-account-history-postchain-r52",
+          "sha": "459ebe5812ce689eee924554068c674d0aa3672e",
+          "protected": false
+        },
+        {
+          "name": "agent/app-wallet-lovable-ui",
+          "sha": "91e64b79193d2145259c1df763ff5419aae54855",
+          "protected": false
+        },
+        {
+          "name": "agent/app-wallet-transfer-postchain-r51",
+          "sha": "685d5a2036f277257489b86ef090edee714c1c7d",
+          "protected": false
+        },
+        {
+          "name": "agent/card-balance-contract",
+          "sha": "5132154e7e33242b0fb47cd0215ae121722c417a",
+          "protected": false
+        },
+        {
+          "name": "agent/card-capability-actions",
+          "sha": "746e0a8a281a9dccf101c26ec3d76d3251a8a113",
+          "protected": false
+        },
+        {
+          "name": "agent/card-detail-refresh-active-cancel",
+          "sha": "9a9a2ac56cf80e36b55b61f3492a3ce9817cb255",
+          "protected": false
+        },
+        {
+          "name": "agent/card-detail-refresh-mounted-safety",
+          "sha": "830c8a61c7eb64c1dc6f37be69f08f1f96f43742",
+          "protected": false
+        },
+        {
+          "name": "agent/card-freeze-mounted-safety",
+          "sha": "dfaf2c253314ea1b1eed5de690b8f9e250147497",
+          "protected": false
+        },
+        {
+          "name": "agent/card-lifecycle-timeline-r11b",
+          "sha": "488f96551b95c988805302815736aefe0bdd38af",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-contract",
+          "sha": "7da866e9d7357a5b978622f95a6a8e6759e54dcd",
+          "protected": false
+        },
+        {
+          "name": "agent/card-limits-update-ui",
+          "sha": "f60593c5f2490141f453187222998d368fed3624",
+          "protected": false
+        },
+        {
+          "name": "agent/card-list-contract-safety-r25",
+          "sha": "370ec121eecd48ac7876543a04e3740b95e3d33b",
+          "protected": false
+        },
+        {
+          "name": "agent/card-list-pagination-consumer",
+          "sha": "edafb54b6b139f1a54ed818aa07f8c04b27a6de5",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renewal-consumer",
+          "sha": "14cde219b56193843cebf910cc47e96aea01d499",
+          "protected": false
+        },
+        {
+          "name": "agent/card-renewal-mounted-safety-v2",
+          "sha": "08491f42e4d58f7bdcaf0f38ad2da0676f725e7e",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replacement-consumer",
+          "sha": "131614ff5707cb73fb76b7a954f55f279680e7c0",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replacement-mounted-safety",
+          "sha": "66fc26c0cf74f44cf1f98f0dbc79e0443832c986",
+          "protected": false
+        },
+        {
+          "name": "agent/card-replacement-versioned",
+          "sha": "f52286043d3b8618447746caa280adb36efd676f",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-detail-panel",
+          "sha": "f7dc2bf055687dab0c32174aaaf5f45ad910dfff",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-detail-refresh",
+          "sha": "4ff1eb0040a0a5dd1c74bf6a6e8ff8ea6efae5fa",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-filter-refresh",
+          "sha": "73677dd7dd24044a270fef7bf157f6a7188fa4e3",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-public-history",
+          "sha": "561abf22e7635e685e0303c86224a87acf38c47d",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-status-filters",
+          "sha": "192b6e2b4187feb625580bb820935d887085a86a",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transactions-pagination",
+          "sha": "b2d84af018625ace3978db2071ed461a689eb569",
+          "protected": false
+        },
+        {
+          "name": "agent/consumer-transfer-ui-r15",
+          "sha": "48f14e729da29cad3aed572d2618f6e06bf8afca",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-deploy-propagation",
+          "sha": "658f1aebbb994fc3075f5a7911fb60bcd4be5f72",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-session-controls",
+          "sha": "fb2470436653e4a290e170ce99b330785a448033",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-wallet-anonymous-session-401",
+          "sha": "b8ae6dce55371b6cc32e06f96c10ecfa88f8a904",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-wallet-session-init",
+          "sha": "b911313bf21fadeaa4f1bc748139df1a637eea74",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-prd-001-version-baseline",
+          "sha": "7512177919e41945bf2760a1430bf62413588c90",
+          "protected": false
+        },
+        {
+          "name": "agent/internal-wallet-transfer-hardening",
+          "sha": "46e76ad6be9c969be3f69307f93e36df169ef842",
+          "protected": false
+        },
+        {
+          "name": "agent/production-cloudflare-20260728",
+          "sha": "8aac31bc0d66ff69285c7031ecaa1e0b1fabf08a",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-001-008-cross-platform-alignment",
+          "sha": "b2f7b17dc2f637ec71869cfbe92009b017111f97",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-full-api-wallet",
+          "sha": "7582fdc28a5c9a921fd96a21dbc3b7cab9f6b0e5",
+          "protected": false
+        },
+        {
+          "name": "agent/virtual-card-create",
+          "sha": "e24d52e80dddc0aa87b3fb2e2f0f0fd54aee0ccb",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-account-balance-lifecycle-r27",
+          "sha": "7c202c5d1f45807aa0052a395482163aa302a112",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-async-scope-isolation",
+          "sha": "851adbf7af012d279ee142d0380164566389e44a",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-balance-summary",
+          "sha": "45fe2ac415a7fc2ed6c6514a328ff76543da6d60",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-balance-summary-lifecycle-r26",
+          "sha": "f85aa9e7813651bfb7f1467467c61a59eb124c26",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-init-bounded-concurrency",
+          "sha": "351d3abc8ee30e5d580fbbd25e0ad7164404c1ab",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-activity",
+          "sha": "233ed26dd1668579556d97459d63db9a5b63a12c",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-detail",
+          "sha": "ffe1c8f4d48170576200eed2560f9132e7bc23d6",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-filters-refresh",
+          "sha": "a272c38bffa1a71e9530ad7162dee52b58f3c846",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-public-history-cursor",
+          "sha": "9dcbd84503b7b3b45713d55a2ecd5b4571be3048",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transaction-detail",
+          "sha": "5e904fb55b580193e105fe57c44d48cc28795bdf",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transaction-detail-refresh",
+          "sha": "7176a60c4cc03e32f0b2519c406fd8bb3f33894b",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transaction-filters-ui",
+          "sha": "182a9f5a7ae7df05a1b6bf6ba3b41bf3e87dc483",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transactions-history",
+          "sha": "850dd68906a2abae877231862779e7f2edafc902",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transactions-request-cancel",
+          "sha": "3eda6c1e2585d66eeea1da8ce940ca35c8b6e09a",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-transfer-receipt-status",
+          "sha": "9352d3e1197cd4c6a70ce889d63dc604bd5f9b05",
+          "protected": false
+        },
+        {
+          "name": "chore/ghcr-private-package",
+          "sha": "2109b045a4868ad507e5c41446c658d06893f263",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-app-wallet-contract-compat",
+          "sha": "bb794293e3d8731eb5cbfd7f9aa4a6039659966d",
+          "protected": false
+        },
+        {
+          "name": "deploy/sprint-06-card-center",
+          "sha": "1fd218a2af3d1e40cf2debcc2a502d851bd8e0e0",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+          "protected": true
+        },
+        {
+          "name": "docs/pr69-uat-audit-20260906",
+          "sha": "72db1fa585cdb71024eda6b6a6a8f2d4d0f1113d",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-06-card-center",
+          "sha": "a09b9132ce05380951605457d8527618043ec7e8",
+          "protected": false
+        },
+        {
+          "name": "feature/dependency-security-hardening-20260728",
+          "sha": "d57d1cd561873d263eafdeeed9e75f9a47291393",
+          "protected": false
+        },
+        {
+          "name": "feature/flp-env-002-runtime-config-path",
+          "sha": "fa2d82cb0f7ab96bbdae591e38f7f2e14ae44448",
+          "protected": false
+        },
+        {
+          "name": "feature/phase2-onchain-client",
+          "sha": "1f2d794d367dea471e7db128d87be3179de1365e",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-baseline",
+          "sha": "eb05be957ea8d31e1a9936420b5c19a985eafaa0",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-cloudflare-migration",
+          "sha": "b03899c02d618fdc1c59cedf69642e9b6853dbd1",
+          "protected": false
+        },
+        {
+          "name": "fix/flp-env-001-wallet",
+          "sha": "fe5fc128c885f77a03e89a1c065f364bd4e2ae67",
+          "protected": false
+        },
+        {
+          "name": "fix/postlogin-shell-recovery",
+          "sha": "adca36099644868b05ad806c06c4ca1dabdccf75",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "fb05291c5c68d979bbd864fae4e9493d64479560",
+          "protected": true
+        },
+        {
+          "name": "ops/wallet-pr-test-evidence",
+          "sha": "35abc717980a61b2c241e2da9e5663f3bf25536d",
+          "protected": false
+        },
+        {
+          "name": "test",
+          "sha": "89a5eed87395670f99a94e4075f25a5846d7892a",
+          "protected": true
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlik-app",
+      "noncompliant_branch_names": [
+        "agent/app-asset-classification-binding-r53",
+        "agent/app-card-activate-r45",
+        "agent/app-card-activation-postchain-r46",
+        "agent/app-card-freeze-r42",
+        "agent/app-card-renewal-postchain-r49",
+        "agent/app-card-replacement-postchain-r48",
+        "agent/app-card-status-postchain-r47",
+        "agent/app-fx-quote-ui-r16",
+        "agent/app-kyc-status-ui-r14",
+        "agent/app-virtual-card-create-postchain-r50",
+        "agent/app-wallet-account-history-postchain-r52",
+        "agent/app-wallet-lovable-ui",
+        "agent/app-wallet-transfer-postchain-r51",
+        "agent/card-balance-contract",
+        "agent/card-capability-actions",
+        "agent/card-detail-refresh-active-cancel",
+        "agent/card-detail-refresh-mounted-safety",
+        "agent/card-freeze-mounted-safety",
+        "agent/card-lifecycle-timeline-r11b",
+        "agent/card-limits-contract",
+        "agent/card-limits-update-ui",
+        "agent/card-list-contract-safety-r25",
+        "agent/card-list-pagination-consumer",
+        "agent/card-renewal-consumer",
+        "agent/card-renewal-mounted-safety-v2",
+        "agent/card-replacement-consumer",
+        "agent/card-replacement-mounted-safety",
+        "agent/card-replacement-versioned",
+        "agent/card-transaction-detail-panel",
+        "agent/card-transaction-detail-refresh",
+        "agent/card-transaction-filter-refresh",
+        "agent/card-transaction-public-history",
+        "agent/card-transaction-status-filters",
+        "agent/card-transactions-pagination",
+        "agent/consumer-transfer-ui-r15",
+        "agent/fix-dev-deploy-propagation",
+        "agent/fix-dev-session-controls",
+        "agent/fix-wallet-anonymous-session-401",
+        "agent/fix-wallet-session-init",
+        "agent/flp-env-prd-001-version-baseline",
+        "agent/internal-wallet-transfer-hardening",
+        "agent/production-cloudflare-20260728",
+        "agent/thr-001-008-cross-platform-alignment",
+        "agent/thredd-full-api-wallet",
+        "agent/virtual-card-create",
+        "agent/wallet-account-balance-lifecycle-r27",
+        "agent/wallet-async-scope-isolation",
+        "agent/wallet-balance-summary",
+        "agent/wallet-balance-summary-lifecycle-r26",
+        "agent/wallet-init-bounded-concurrency",
+        "agent/wallet-operation-activity",
+        "agent/wallet-operation-detail",
+        "agent/wallet-operation-filters-refresh",
+        "agent/wallet-public-history-cursor",
+        "agent/wallet-transaction-detail",
+        "agent/wallet-transaction-detail-refresh",
+        "agent/wallet-transaction-filters-ui",
+        "agent/wallet-transactions-history",
+        "agent/wallet-transactions-request-cancel",
+        "agent/wallet-transfer-receipt-status",
+        "chore/ghcr-private-package",
+        "codex/p1-app-wallet-contract-compat",
+        "deploy/sprint-06-card-center",
+        "docs/pr69-uat-audit-20260906",
+        "feat/sprint-06-card-center",
+        "feature/dependency-security-hardening-20260728",
+        "feature/flp-env-002-runtime-config-path",
+        "feature/phase2-onchain-client",
+        "feature/test-environment-baseline",
+        "feature/test-environment-cloudflare-migration",
+        "fix/flp-env-001-wallet",
+        "fix/postlogin-shell-recovery",
+        "ops/wallet-pr-test-evidence"
+      ]
+    },
+    {
+      "name": "fastlik-Admin",
+      "default_branch": "main",
+      "private": false,
+      "archived": false,
+      "language": "TypeScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/admin-card-detail-balance-limits-r42",
+          "sha": "12028acd3479f46117da06f1f6115cd0975c9e6f",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-programs-r63",
+          "sha": "3cca458ed17a9c81be8febeba5be5d5ca35b922e",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-snapshots-r44",
+          "sha": "d9915a4f62308bd57554b6b566d6193d6e520e6b",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-transaction-status-filters",
+          "sha": "0ba9bf0e4437ac56584cc4517cb63ba347a77a69",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-card-transactions-read-contract",
+          "sha": "b878ff3de43b550114868f3b8c9b2629da3909c6",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-dev-rollout-poll-r37",
+          "sha": "bc6d3226c0dc6ff8ab7637d17f61538d02aabddd",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-kyc-read-ui-r15",
+          "sha": "4ed19d405011bd36b5216fc9eb82600200cbe33f",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-login-rbac-gate",
+          "sha": "083978319ce9170c85eec12da1d21ea66d4e8c34",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-production-verification-retry-20260728",
+          "sha": "35c354d3c4c48b6063f7bee780be970fb31ebbd6",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-tenant-detail-r59",
+          "sha": "bb90e1b693af4d8dfcc66056c11229020443442e",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-treasury-journal-receipt-r54",
+          "sha": "61e5cc7384b6652fa3302a0c8dda13e2fda5149a",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-treasury-liquidity-r39",
+          "sha": "6aa3c4da4a620f22ceba9ea2abb22fc3bdd39634",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-wallet-operation-filters-r24",
+          "sha": "783e80c03a8cc783bd5aa4dc07fb06f92b3c3ee5",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-wallet-transactions-r29",
+          "sha": "ec60c8f27e3dbdeb8e4575bfff4467a59f6f6a52",
+          "protected": false
+        },
+        {
+          "name": "agent/card-center-typed-detail-balance",
+          "sha": "5d357a065a0d8c728347b32cbc2ed8c64e18bc65",
+          "protected": false
+        },
+        {
+          "name": "agent/card-workspace-scope-contract-tests",
+          "sha": "ec2168fe7b38a15f1d487d5900a1a38c4da54f94",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-admin-login-stability",
+          "sha": "ef7275f7194f1416ec94ee1ff0598d65fb0104b7",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-dev-admin-refresh-overlap",
+          "sha": "b1f2b580d8e1a7d3435d0a9292589d925c6b2a7a",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-sprint09-blank-page",
+          "sha": "1515d32892a24ef912f16b5dd96c229e70779dec",
+          "protected": false
+        },
+        {
+          "name": "agent/fix-treasury-independent-results",
+          "sha": "440f106d3992f013c4ac02cd8b0106d5eaf49063",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-001-website-pages-fallback",
+          "sha": "8b7812911bce4380597f83f94dfa093099465376",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-prd-001-enable-pages-revision",
+          "sha": "ec07ea20402d277d4d7826b98a034cc74564c81b",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-prd-001-version-baseline",
+          "sha": "e71a63a0c9382bdeedcc519911a8d2e2b90f6e21",
+          "protected": false
+        },
+        {
+          "name": "agent/lovable-admin-digital-assets-api-mapping",
+          "sha": "10f4284a9693589847c0f64b68eae14252d99b64",
+          "protected": false
+        },
+        {
+          "name": "agent/operations-request-generation-dev",
+          "sha": "663c206ab36ef7e5d17cf6d06bce5d21cc7a54f0",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-admin-ui-closure-r67",
+          "sha": "be593e0a661a70201ec7332e56601445604ebdaa",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-product-create-payload-r66",
+          "sha": "0dbe4b172b4b8d54412c2cdb22084f75d3f78460",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-product-template-edit-r65",
+          "sha": "f758e2df18a8a4cf9f8e68da8c30104a60ec0691",
+          "protected": false
+        },
+        {
+          "name": "agent/production-cloudflare-20260728",
+          "sha": "767b95d1656b73563deed7a9a5243a6427f5879a",
+          "protected": false
+        },
+        {
+          "name": "agent/publish-sprint09-white-screen-fix",
+          "sha": "77faa7f53f70959d615d62116f64890db86d860f",
+          "protected": false
+        },
+        {
+          "name": "agent/restore-full-admin-real-api",
+          "sha": "6bd480f6dc67d5ecf169cb9153882c0fe99d143e",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint09-business-acceptance",
+          "sha": "188da12e61889b771926c6d2234cd3348cae576f",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint12-production-readiness-console",
+          "sha": "fc83e52f7328dd529466302ad303c4bc2ae486bf",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint13-phase3-admin-auth",
+          "sha": "11fdddf22cb2e052630d1abca12595ded85d8825",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-acceptance-deeplink",
+          "sha": "63fe17fc01eccc2705e7f2311f357365760e95b6",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-deeplink-pages",
+          "sha": "c235c58d0a75c7c21203bfffceaa75644bd32cf2",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-merchant-admin",
+          "sha": "5221c1798a5af80bb4d8b4de133fc4e30057ea0a",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-11-merchant-pages",
+          "sha": "be5b5d39691f502a4ca6ee202851d294ea0afb21",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-admin-operational-gate",
+          "sha": "2239d6866a8273de1cfb9520c77859a22d47afaf",
+          "protected": false
+        },
+        {
+          "name": "agent/sprint-13-admin-pages-fallback",
+          "sha": "1017c8f00175c9010476a81faafab371c416f763",
+          "protected": false
+        },
+        {
+          "name": "agent/testing-card-wallet-contract",
+          "sha": "7d5e31a55be8b2dff7414ea6f24ad5945e12d030",
+          "protected": false
+        },
+        {
+          "name": "agent/testing-card-wallet-contract-dev",
+          "sha": "ebc3f51deec2c89a6dac954edb644d3c985786d3",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-001-008-cross-platform-alignment",
+          "sha": "9147a2b81904c5a370f4f355bb2cac49dbb73fa1",
+          "protected": false
+        },
+        {
+          "name": "agent/thredd-full-api-admin",
+          "sha": "4be428ce2b288c38a3b4c1112f69e4dfa4089bdb",
+          "protected": false
+        },
+        {
+          "name": "agent/treasury-reconciliation-dashboard",
+          "sha": "76f33a86eae00a44f66d95754c4928037c3a65bc",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-detail-dev",
+          "sha": "1f824ea6d8e837b21245a23ddb9ea83c432f79fd",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-operation-typed-detail-dev",
+          "sha": "5f3bb92ccc66bc99b5bc1c3196688bcb5de1ed15",
+          "protected": false
+        },
+        {
+          "name": "codex/lovable-admin-openapi-binding",
+          "sha": "24e7e3bcfef6e3b95abd29f6028e1bbb71e9c4ac",
+          "protected": false
+        },
+        {
+          "name": "deploy/sprint-02-card-acceptance",
+          "sha": "d3fd17e29f18d20de819222fa8b3cf28f2a502db",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+          "protected": true
+        },
+        {
+          "name": "feat/sprint-02-card-acceptance",
+          "sha": "d037b40853ad7b9c3b4134a475cc4bd30726a628",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-03-card-contract",
+          "sha": "6a9f3048b0a7a2d01a99bb9871efc302a9ddb5e4",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-06-card-admin-dashboards",
+          "sha": "112f8c38cf3fdbe967f8d19a5d2f291e0ea69440",
+          "protected": false
+        },
+        {
+          "name": "feat/sprint-07-role-merchant-dashboards",
+          "sha": "317cb5a78febd5cfad50c3ea4421e78cb68e32c2",
+          "protected": false
+        },
+        {
+          "name": "feature/dependency-security-hardening-20260728",
+          "sha": "1142c5b43da84e60554a1557b002a3c89e6d3eb6",
+          "protected": false
+        },
+        {
+          "name": "feature/flp-env-002-admin-runtime-config",
+          "sha": "2c459725140614f96c75b2e21d2bc4bbf56a8a06",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-baseline",
+          "sha": "f615bc81feb67f7ab1db755a5451a75cb246800b",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-cloudflare-migration",
+          "sha": "26b68c48b6e34abc09c094c083ae9fbc7fff99fc",
+          "protected": false
+        },
+        {
+          "name": "fix/flp-env-001-admin",
+          "sha": "98b84dd541a886083c51cc661bb12ebfe7cdf7d8",
+          "protected": false
+        },
+        {
+          "name": "fix/safari-card-api-retry",
+          "sha": "91c2f3648f495026a45414ae8ff4f89c74e73932",
+          "protected": false
+        },
+        {
+          "name": "fix/sprint-02-pages-assets",
+          "sha": "561e2d5dac1101c54de24e7f5105c0cf120cbe32",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+          "protected": true
+        },
+        {
+          "name": "ops/admin-pr-evidence",
+          "sha": "a9fc6c44834ed8726e021022366c554e9f728955",
+          "protected": false
+        },
+        {
+          "name": "test",
+          "sha": "4fd40f20f2ca27e9bb1ad9e7dd9c531964235732",
+          "protected": true
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlik-Admin",
+      "noncompliant_branch_names": [
+        "agent/admin-card-detail-balance-limits-r42",
+        "agent/admin-card-programs-r63",
+        "agent/admin-card-snapshots-r44",
+        "agent/admin-card-transaction-status-filters",
+        "agent/admin-card-transactions-read-contract",
+        "agent/admin-dev-rollout-poll-r37",
+        "agent/admin-kyc-read-ui-r15",
+        "agent/admin-login-rbac-gate",
+        "agent/admin-production-verification-retry-20260728",
+        "agent/admin-tenant-detail-r59",
+        "agent/admin-treasury-journal-receipt-r54",
+        "agent/admin-treasury-liquidity-r39",
+        "agent/admin-wallet-operation-filters-r24",
+        "agent/admin-wallet-transactions-r29",
+        "agent/card-center-typed-detail-balance",
+        "agent/card-workspace-scope-contract-tests",
+        "agent/fix-dev-admin-login-stability",
+        "agent/fix-dev-admin-refresh-overlap",
+        "agent/fix-sprint09-blank-page",
+        "agent/fix-treasury-independent-results",
+        "agent/flp-env-001-website-pages-fallback",
+        "agent/flp-env-prd-001-enable-pages-revision",
+        "agent/flp-env-prd-001-version-baseline",
+        "agent/lovable-admin-digital-assets-api-mapping",
+        "agent/operations-request-generation-dev",
+        "agent/p1-admin-ui-closure-r67",
+        "agent/p1-product-create-payload-r66",
+        "agent/p1-product-template-edit-r65",
+        "agent/production-cloudflare-20260728",
+        "agent/publish-sprint09-white-screen-fix",
+        "agent/restore-full-admin-real-api",
+        "agent/sprint09-business-acceptance",
+        "agent/sprint12-production-readiness-console",
+        "agent/sprint13-phase3-admin-auth",
+        "agent/sprint-11-acceptance-deeplink",
+        "agent/sprint-11-deeplink-pages",
+        "agent/sprint-11-merchant-admin",
+        "agent/sprint-11-merchant-pages",
+        "agent/sprint-13-admin-operational-gate",
+        "agent/sprint-13-admin-pages-fallback",
+        "agent/testing-card-wallet-contract",
+        "agent/testing-card-wallet-contract-dev",
+        "agent/thr-001-008-cross-platform-alignment",
+        "agent/thredd-full-api-admin",
+        "agent/treasury-reconciliation-dashboard",
+        "agent/wallet-operation-detail-dev",
+        "agent/wallet-operation-typed-detail-dev",
+        "codex/lovable-admin-openapi-binding",
+        "deploy/sprint-02-card-acceptance",
+        "feat/sprint-02-card-acceptance",
+        "feat/sprint-03-card-contract",
+        "feat/sprint-06-card-admin-dashboards",
+        "feat/sprint-07-role-merchant-dashboards",
+        "feature/dependency-security-hardening-20260728",
+        "feature/flp-env-002-admin-runtime-config",
+        "feature/test-environment-baseline",
+        "feature/test-environment-cloudflare-migration",
+        "fix/flp-env-001-admin",
+        "fix/safari-card-api-retry",
+        "fix/sprint-02-pages-assets",
+        "ops/admin-pr-evidence"
+      ]
+    },
+    {
+      "name": "fastlik-Website",
+      "default_branch": "main",
+      "private": true,
+      "archived": false,
+      "language": "JavaScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/accept-json-boundary",
+          "sha": "3c9be0d04c8fea0879f901d9d461dcb1bf017788",
+          "protected": false
+        },
+        {
+          "name": "agent/authorization-boundary",
+          "sha": "7be0188abf1f77e1e29eceea75b44dfb78fde7a9",
+          "protected": false
+        },
+        {
+          "name": "agent/cancel-failed-request-stream",
+          "sha": "6212e1166512887c404c0e9daf09f33d14d3ec82",
+          "protected": false
+        },
+        {
+          "name": "agent/cancel-failed-upstream-stream",
+          "sha": "23d4c5d9b8330b33003bf83d7e98d1da07f22337",
+          "protected": false
+        },
+        {
+          "name": "agent/cancel-rejected-request-bodies",
+          "sha": "1223eb533f8c7d4646bb3aa2998a224b34ab6f0b",
+          "protected": false
+        },
+        {
+          "name": "agent/cancel-rejected-upstream-bodies",
+          "sha": "3fe3b9580e75a2d27bcca440cefc3ba2ad0517d2",
+          "protected": false
+        },
+        {
+          "name": "agent/card-transaction-edge-contract",
+          "sha": "f9c8a7fadef0225349acef0edcd137fa7d209c53",
+          "protected": false
+        },
+        {
+          "name": "agent/credential-mode-exclusivity",
+          "sha": "7623886ec1f08c38eea5ad5637afcfe5952da2af",
+          "protected": false
+        },
+        {
+          "name": "agent/csrf-cookie-binding",
+          "sha": "96e062aefacb2dd920f68f5ec13f410f0192a2fe",
+          "protected": false
+        },
+        {
+          "name": "agent/flp-env-001-retry-canonical-pages",
+          "sha": "e6b6c1c14116937d7f5880ad389de6a01f6b95a7",
+          "protected": false
+        },
+        {
+          "name": "agent/hybrid-cloudflare-dev",
+          "sha": "163b2113dd95747c7f018ab95cde07d0f80adcd4",
+          "protected": false
+        },
+        {
+          "name": "agent/inbound-cookie-allowlist",
+          "sha": "a3daa20869441e671c99b818648a9fe7a62ea44d",
+          "protected": false
+        },
+        {
+          "name": "agent/integration-card-lifecycle-timeline-edge-review",
+          "sha": "a55d6c75d11ebecce1da86be72b155298eb156c9",
+          "protected": false
+        },
+        {
+          "name": "agent/integration-dev-test-worker-backend-probe-r12",
+          "sha": "1fe052e20625d752973a96057e2c7630f3d11030",
+          "protected": false
+        },
+        {
+          "name": "agent/json-duplicate-key-boundary",
+          "sha": "3af73b7ccfb5eb95bb17c5b7e56a13e5395956c3",
+          "protected": false
+        },
+        {
+          "name": "agent/json-request-boundary",
+          "sha": "003a74bf51ab4e2887438a1ac93fc1ec41d642d0",
+          "protected": false
+        },
+        {
+          "name": "agent/json-structure-limits",
+          "sha": "a4d3aefddf6e6b658ae9bc32b4a73c55a8272edc",
+          "protected": false
+        },
+        {
+          "name": "agent/login-credential-free",
+          "sha": "8b52d0e58da9a768a40e0754a871fdf1713d5707",
+          "protected": false
+        },
+        {
+          "name": "agent/production-cloudflare-20260728",
+          "sha": "030e2eace9d562a928b0dde90b3bbd85ff37a20f",
+          "protected": false
+        },
+        {
+          "name": "agent/route-body-limits",
+          "sha": "97936a143abf4d61ee2c2d2044c62dd362b4f17a",
+          "protected": false
+        },
+        {
+          "name": "agent/route-content-length-preflight",
+          "sha": "8f183cdf46f0dab9f817dfff61cc4621c1b75d33",
+          "protected": false
+        },
+        {
+          "name": "agent/route-credential-matrix",
+          "sha": "b2be6a18fe2681c5f82e8fd4381d915e15ded0c9",
+          "protected": false
+        },
+        {
+          "name": "agent/route-response-body-limits",
+          "sha": "b0bb69a4d4a3265c90b80008f0b5c82e6fbb11a7",
+          "protected": false
+        },
+        {
+          "name": "agent/thr-001-008-cross-platform-alignment",
+          "sha": "c38c07c69446364be5a5a6cd1dba74317a28d7dd",
+          "protected": false
+        },
+        {
+          "name": "agent/upstream-json-structure",
+          "sha": "41833f0879e38a542ccbbb906cfc3820181ffe89",
+          "protected": false
+        },
+        {
+          "name": "agent/wallet-account-history-edge-contract",
+          "sha": "a456d3290a9f0018501affe452ad824a71e6566b",
+          "protected": false
+        },
+        {
+          "name": "agent/website-artifact-attestation",
+          "sha": "02b681e38205b3d8614174dc3d2db0bd2a1c916f",
+          "protected": false
+        },
+        {
+          "name": "agent/website-backend-origin-guard",
+          "sha": "caf40f7763ab1ce429e7f9cc7725d43e73806ffa",
+          "protected": false
+        },
+        {
+          "name": "agent/website-card-activation-r45",
+          "sha": "c380cc32ae521124a38558b49493e1a6eba52a9d",
+          "protected": false
+        },
+        {
+          "name": "agent/website-dev-readiness-r40",
+          "sha": "d98740d3b832caff93b9606a80a36609fa5334c4",
+          "protected": false
+        },
+        {
+          "name": "agent/website-evidence-json-index",
+          "sha": "973d58fc1ff440e189e37f14352fd57def24c693",
+          "protected": false
+        },
+        {
+          "name": "agent/website-http-evidence-contract",
+          "sha": "4a4d0058f70b305ca3f760e5ee20a2bded4e6140",
+          "protected": false
+        },
+        {
+          "name": "agent/website-mutable-asset-cache-contract",
+          "sha": "23940c6f77322136c6bd29681547dfb79a4789f9",
+          "protected": false
+        },
+        {
+          "name": "agent/website-mutation-origin-guard",
+          "sha": "e786ca951c4e2dbd0dd12354b719bbfc47c055c7",
+          "protected": false
+        },
+        {
+          "name": "agent/website-provenance-coverage",
+          "sha": "382a03e1410a30800950de9b7a99205034fb11bc",
+          "protected": false
+        },
+        {
+          "name": "agent/website-readiness-contract",
+          "sha": "8fd1bbd9c25c13be05d474979a9a6a9efa89819f",
+          "protected": false
+        },
+        {
+          "name": "agent/website-readiness-rollout-r39",
+          "sha": "7cd3d6c194134af268e5df4ab954a34fffcfadf9",
+          "protected": false
+        },
+        {
+          "name": "agent/website-request-body-limit",
+          "sha": "beca606caad80833491e25f995e310c801fff1f9",
+          "protected": false
+        },
+        {
+          "name": "agent/website-request-header-allowlist",
+          "sha": "10e895c9ff15b7ffd277f3c44804083cef363891",
+          "protected": false
+        },
+        {
+          "name": "agent/website-request-media-guard",
+          "sha": "9937a5f156cc6ed0a590902a3b589293380ef528",
+          "protected": false
+        },
+        {
+          "name": "agent/website-response-cookie-policy",
+          "sha": "2ae622163a043b9f4b629517715279b2c87dbb55",
+          "protected": false
+        },
+        {
+          "name": "agent/website-response-header-allowlist",
+          "sha": "9a469a27c3f2a54e0b6b6a94c2f32ddda9f18059",
+          "protected": false
+        },
+        {
+          "name": "agent/website-route-body-policy",
+          "sha": "4e4616f4a3acbadaeb61864f475c40a22c43ef84",
+          "protected": false
+        },
+        {
+          "name": "agent/website-runtime-evidence-verifier",
+          "sha": "bd72730c9137f6d52355f369e512709ea37c4d6d",
+          "protected": false
+        },
+        {
+          "name": "agent/website-security-header-contract",
+          "sha": "75a351afbc3ae9bf55a25aff8f6954976cb887ab",
+          "protected": false
+        },
+        {
+          "name": "agent/website-static-asset-propagation-r41",
+          "sha": "3bad6d1f91f76a40d84211377d08f776a5c6c86c",
+          "protected": false
+        },
+        {
+          "name": "agent/website-static-method-contract",
+          "sha": "1645996de61fc8b84186897d585cde653557f21f",
+          "protected": false
+        },
+        {
+          "name": "agent/website-trace-correlation",
+          "sha": "4dbda826fea904f9e8c9214305f5730cc4a89671",
+          "protected": false
+        },
+        {
+          "name": "agent/website-upstream-media",
+          "sha": "ec648ebebe924302356a1e22b7752c393e6099a5",
+          "protected": false
+        },
+        {
+          "name": "agent/website-upstream-response-bound",
+          "sha": "81f76ef7d5dfad602caf43a0bb70a5ded3a3b003",
+          "protected": false
+        },
+        {
+          "name": "agent/website-upstream-timeout",
+          "sha": "b0feb4dd559406d69e02a836849ebbacd381068b",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-decision-evidence",
+          "sha": "870a9a8ab28cdc9862e3a302f7e6827c9d9461ac",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-evidence",
+          "sha": "8cba4dc70c1539769a3aa9ab1329051b993d4a66",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-evidence-verifier",
+          "sha": "0110123f2fbc9ab4d3f2fbdec8be725b58ee6f09",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-proxy-contract",
+          "sha": "d7c4fb5f87dcd096fb42754f75bb3780131da2ea",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-query-policy-source",
+          "sha": "040ffb7b0d1d0aa4fc664ce3625fa908967aa812",
+          "protected": false
+        },
+        {
+          "name": "agent/website-worker-route-inventory",
+          "sha": "d0f1aec9464ffcd6392c812cb2f3645f78405afe",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+          "protected": true
+        },
+        {
+          "name": "feature/flp-env-002-website-runtime",
+          "sha": "362925ac900f84db70edec54092e7b86223039d6",
+          "protected": false
+        },
+        {
+          "name": "feature/test-cloudflare-deployment-fix",
+          "sha": "54d04ed6e012dfd80c134dfd68efdd921767b9fe",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-baseline",
+          "sha": "f26ad2750863acfcc781c53be085214a6782d7ab",
+          "protected": false
+        },
+        {
+          "name": "feature/test-environment-cloudflare-deployment-fix",
+          "sha": "45bca8eb4f208e9a0d94b23b4dfc1988fea3f2ab",
+          "protected": false
+        },
+        {
+          "name": "fix/flp-env-001-website",
+          "sha": "dbc0ef01b9b8866cc204e03643e55d0cff1e4ad5",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "7b5440772069cecc03a1682bc5d2140317c54edb",
+          "protected": true
+        },
+        {
+          "name": "ops/website-pr-evidence",
+          "sha": "9a3bddaea767c538d733a2f57120f7c94d47160b",
+          "protected": false
+        },
+        {
+          "name": "test",
+          "sha": "90a7345e8b9e281b0acffc34f6c0971e30513ab5",
+          "protected": true
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlik-Website",
+      "noncompliant_branch_names": [
+        "agent/accept-json-boundary",
+        "agent/authorization-boundary",
+        "agent/cancel-failed-request-stream",
+        "agent/cancel-failed-upstream-stream",
+        "agent/cancel-rejected-request-bodies",
+        "agent/cancel-rejected-upstream-bodies",
+        "agent/card-transaction-edge-contract",
+        "agent/credential-mode-exclusivity",
+        "agent/csrf-cookie-binding",
+        "agent/flp-env-001-retry-canonical-pages",
+        "agent/hybrid-cloudflare-dev",
+        "agent/inbound-cookie-allowlist",
+        "agent/integration-card-lifecycle-timeline-edge-review",
+        "agent/integration-dev-test-worker-backend-probe-r12",
+        "agent/json-duplicate-key-boundary",
+        "agent/json-request-boundary",
+        "agent/json-structure-limits",
+        "agent/login-credential-free",
+        "agent/production-cloudflare-20260728",
+        "agent/route-body-limits",
+        "agent/route-content-length-preflight",
+        "agent/route-credential-matrix",
+        "agent/route-response-body-limits",
+        "agent/thr-001-008-cross-platform-alignment",
+        "agent/upstream-json-structure",
+        "agent/wallet-account-history-edge-contract",
+        "agent/website-artifact-attestation",
+        "agent/website-backend-origin-guard",
+        "agent/website-card-activation-r45",
+        "agent/website-dev-readiness-r40",
+        "agent/website-evidence-json-index",
+        "agent/website-http-evidence-contract",
+        "agent/website-mutable-asset-cache-contract",
+        "agent/website-mutation-origin-guard",
+        "agent/website-provenance-coverage",
+        "agent/website-readiness-contract",
+        "agent/website-readiness-rollout-r39",
+        "agent/website-request-body-limit",
+        "agent/website-request-header-allowlist",
+        "agent/website-request-media-guard",
+        "agent/website-response-cookie-policy",
+        "agent/website-response-header-allowlist",
+        "agent/website-route-body-policy",
+        "agent/website-runtime-evidence-verifier",
+        "agent/website-security-header-contract",
+        "agent/website-static-asset-propagation-r41",
+        "agent/website-static-method-contract",
+        "agent/website-trace-correlation",
+        "agent/website-upstream-media",
+        "agent/website-upstream-response-bound",
+        "agent/website-upstream-timeout",
+        "agent/website-worker-decision-evidence",
+        "agent/website-worker-evidence",
+        "agent/website-worker-evidence-verifier",
+        "agent/website-worker-proxy-contract",
+        "agent/website-worker-query-policy-source",
+        "agent/website-worker-route-inventory",
+        "feature/flp-env-002-website-runtime",
+        "feature/test-cloudflare-deployment-fix",
+        "feature/test-environment-baseline",
+        "feature/test-environment-cloudflare-deployment-fix",
+        "fix/flp-env-001-website",
+        "ops/website-pr-evidence"
+      ]
+    },
+    {
+      "name": "fastlink-control-plane",
+      "default_branch": "main",
+      "private": true,
+      "archived": false,
+      "language": "JavaScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "agent/activate-five-agent-development",
+          "sha": "45d139b541be2954fc44e7018588c555acf12429",
+          "protected": false
+        },
+        {
+          "name": "agent/admin-tenant-card-readonly-e2e-r59",
+          "sha": "b9ed46844f6368892b764e8063ad114917b5208d",
+          "protected": false
+        },
+        {
+          "name": "agent/automated-control-loop-20260731-1785475890530",
+          "sha": "cc9db095ac1725116b7ac493cddc4b999fe27061",
+          "protected": false
+        },
+        {
+          "name": "agent/complete-handoff-evidence-20260731",
+          "sha": "871d2a7f6542a8d7199c9937e6687e39d4012cc9",
+          "protected": false
+        },
+        {
+          "name": "agent/control-round-006-20260731",
+          "sha": "010f1db5ee88a830fca61603bb79c669f177f624",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-e2e-manual-only-cleanup-20260802",
+          "sha": "dcb23cdafc3a57c0e84fee57e30447ff08761a2e",
+          "protected": false
+        },
+        {
+          "name": "agent/dev-e2e-reusable-dispatch-20260802",
+          "sha": "68c906ca88b2b15ab2b662e4b302dc2f8f7fcd2a",
+          "protected": false
+        },
+        {
+          "name": "agent/development-round-002",
+          "sha": "2e56e6c0b415f4a57e47f3762e847d68aa547dca",
+          "protected": false
+        },
+        {
+          "name": "agent/development-round-003",
+          "sha": "e7732fd79d4ee5385660cd60268f45d44fc5e558",
+          "protected": false
+        },
+        {
+          "name": "agent/enable-specialist-runner-20260731",
+          "sha": "5796580ff430ff5c7a91dc54d8a84324d22686bc",
+          "protected": false
+        },
+        {
+          "name": "agent/handoff-review-state-machine-20260731",
+          "sha": "a89540c60547bdf86083e0ec5e84c841b59a4a77",
+          "protected": false
+        },
+        {
+          "name": "agent/main-dev-e2e-dispatcher-20260802",
+          "sha": "cbcf46ccfc9633b2b169136bb17321138acff7a1",
+          "protected": false
+        },
+        {
+          "name": "agent/main-dev-e2e-dispatcher-fix-20260802",
+          "sha": "fbfd38a4551b3ad777ff3e0b49567cb7a3b41ec8",
+          "protected": false
+        },
+        {
+          "name": "agent/ops-dev-evidence-20260801-001",
+          "sha": "570267a8b9f891db3a45f943e56074da3865633b",
+          "protected": false
+        },
+        {
+          "name": "agent/orch-001-post-merge-current-view",
+          "sha": "e8c419b8b9dcf2261f3d327deec0cd0ef77eabdb",
+          "protected": false
+        },
+        {
+          "name": "agent/orch-001-repository-audit",
+          "sha": "86af1a744e7872e18e488ccda4484e23dde4ad79",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-admin-write-e2e-r64",
+          "sha": "ffdf3eaf7ba313c2de879ebb1ae41a76313264e7",
+          "protected": false
+        },
+        {
+          "name": "agent/p1-referral-cap-isolation-r69",
+          "sha": "435e1332a2b351015e04c11b0cc8f2fcbea490f5",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-authenticated-dev-e2e-r55",
+          "sha": "36f09c772db7000aaec9a0e31d3bceb443c5f2fb",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-credential-handoff-evidence",
+          "sha": "96d5dade97741928b82315e863f055e6658c5d3f",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-prime-login-retry-r55",
+          "sha": "5214024baffec6010b9215871a6037eb40e52aba",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-round55-completion",
+          "sha": "0159ca3cb733e3a627e58d270d8dd11826faf555",
+          "protected": false
+        },
+        {
+          "name": "agent/phase1d-round55-dispatch",
+          "sha": "9cac3187f880ca7168cbb8635ff5c3e7beb4453a",
+          "protected": false
+        },
+        {
+          "name": "agent/round10-dev-e2e",
+          "sha": "544088da9ab891d0366c612f4bec7f291540fa54",
+          "protected": false
+        },
+        {
+          "name": "automation/agent-handoffs-30610109697",
+          "sha": "a6de95c22d2b554acc06ee2efb21dc70ca4e9b40",
+          "protected": false
+        },
+        {
+          "name": "automation/handoff-reviews-30611616160",
+          "sha": "65f9fef0ebe490b4912b3b14ecaef4a23d3d9208",
+          "protected": false
+        },
+        {
+          "name": "automation/handoff-reviews-30612689478",
+          "sha": "2a6fc439f9e0500ecc08bd5c8aa5da9fee629c2b",
+          "protected": false
+        },
+        {
+          "name": "codex/dev-e2e-app-sha-40766ae",
+          "sha": "16cd19f225741cfe6b8daa64516332f07bc7c82a",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-e2e-response-evidence",
+          "sha": "0c75bd8398996a3a698c6d9d1e3d08b951d66a94",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-e2e-time-budget",
+          "sha": "63425bf830883c923f66e999648c64b1f2eb1a3a",
+          "protected": false
+        },
+        {
+          "name": "codex/p0-02-fee-assessment-e2e",
+          "sha": "876be20049237f7fe08d29acf691bde99d34f9d5",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-fee-execution-e2e",
+          "sha": "d974feeb9a362fa037d165e322bfbf62cc2f970c",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-kyc-e2e-fixture",
+          "sha": "58a8a65755f6684103877bd1e86db3fe0d5b656f",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-kyc-e2e-fixture-v2",
+          "sha": "16c286f914c0baff78f79b064880b4ed2919f6c6",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-01-merchant-fee-evidence-e2e",
+          "sha": "c76597b3c1c622ffec2a7fc9e6c535b8fe861d67",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-02-product-currency-accounts-e2e",
+          "sha": "401281231b94c829c890efa90b5bfdcfd7972e91",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-02-product-currency-e2e-payload",
+          "sha": "b2d65f678aa3bcd182deb0673670f24ca2975c9e",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-03-product-identity-lock-e2e",
+          "sha": "5f6de79ee8b700470c458188186588dd3fde8a5b",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-04-openapi-dto-e2e",
+          "sha": "7c7c6ea8959c46b9ce14028dec1dfc8a1f660286",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-05-audit-external-provider-e2e",
+          "sha": "57f835626793b4da64ceed71727ab75ba48954ff",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-05-e2e-selector-followup",
+          "sha": "a97b79856c471f8bc9d75e1d923b31aca2576531",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-06-tenant-fee-caps-e2e",
+          "sha": "41bf7afc3027942ca3bed685a65cea88323042f0",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-admin-login-timeout-retry",
+          "sha": "4d5406bd5bb2fee7a6015760ccf13698271f7b38",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-backend-acceptance-direct-card",
+          "sha": "3fc9b2e95ec32d2ad00fe5183ccd560ffdbe45a9",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-e2e-repeatability-fix",
+          "sha": "b3914f5f02d857e2b6c82aace880dfd7ac75814d",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-e2e-wallet-binding-id",
+          "sha": "082b6e74d500a6b1fea9ceebddc46000955bf1b9",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-login-timeout-cooldown",
+          "sha": "082bab990d991721bc2ddc507b5686f9a86857e5",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-acceptance-followup",
+          "sha": "e3d27878aa335f73b282cf86485d70fc41e630cf",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-dev-full-acceptance",
+          "sha": "076fa37df5b06a30022ce5ba65218e6c1948d589",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-e2e-bounded-dev-waits",
+          "sha": "73b975e73be8091b03d034f101aa27950a73b864",
+          "protected": false
+        },
+        {
+          "name": "codex/p1-wallet-evidence-count",
+          "sha": "7efcf6c0cb6c583d6b89add1e17d909055d72aa0",
+          "protected": false
+        },
+        {
+          "name": "codex/prime-wallet-p1-be2-direction-e2e",
+          "sha": "4071024520381093698eee89e1ccda9c20e9bb34",
+          "protected": false
+        },
+        {
+          "name": "control/development-round-004",
+          "sha": "e685bcc4349d00cbbc8f680c0cb6a00e93f0814c",
+          "protected": false
+        },
+        {
+          "name": "dev",
+          "sha": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+          "protected": false
+        },
+        {
+          "name": "docs/dev-e2e-rotation-pass-20260803",
+          "sha": "1f5c4b88cd5bbdae94d51ee945b21127b3dfd557",
+          "protected": false
+        },
+        {
+          "name": "fix/dev-e2e-tenant-a-rotation",
+          "sha": "42861f6f38dc4f750d2e27ad4eefb051a1f4bd82",
+          "protected": false
+        },
+        {
+          "name": "fix/p1-e2e-artifact-redaction-20260820",
+          "sha": "f88251a45a36c5861f8a5601d4a43a4690302984",
+          "protected": false
+        },
+        {
+          "name": "main",
+          "sha": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+          "protected": false
+        }
+      ],
+      "tags": [],
+      "remote_identity": "github.com/<owner>/fastlink-control-plane",
+      "noncompliant_branch_names": [
+        "agent/activate-five-agent-development",
+        "agent/admin-tenant-card-readonly-e2e-r59",
+        "agent/automated-control-loop-20260731-1785475890530",
+        "agent/complete-handoff-evidence-20260731",
+        "agent/control-round-006-20260731",
+        "agent/dev-e2e-manual-only-cleanup-20260802",
+        "agent/dev-e2e-reusable-dispatch-20260802",
+        "agent/development-round-002",
+        "agent/development-round-003",
+        "agent/enable-specialist-runner-20260731",
+        "agent/handoff-review-state-machine-20260731",
+        "agent/main-dev-e2e-dispatcher-20260802",
+        "agent/main-dev-e2e-dispatcher-fix-20260802",
+        "agent/ops-dev-evidence-20260801-001",
+        "agent/orch-001-post-merge-current-view",
+        "agent/orch-001-repository-audit",
+        "agent/p1-admin-write-e2e-r64",
+        "agent/p1-referral-cap-isolation-r69",
+        "agent/phase1d-authenticated-dev-e2e-r55",
+        "agent/phase1d-credential-handoff-evidence",
+        "agent/phase1d-prime-login-retry-r55",
+        "agent/phase1d-round55-completion",
+        "agent/phase1d-round55-dispatch",
+        "agent/round10-dev-e2e",
+        "automation/agent-handoffs-30610109697",
+        "automation/handoff-reviews-30611616160",
+        "automation/handoff-reviews-30612689478",
+        "codex/dev-e2e-app-sha-40766ae",
+        "codex/p0-02-e2e-response-evidence",
+        "codex/p0-02-e2e-time-budget",
+        "codex/p0-02-fee-assessment-e2e",
+        "codex/p1-01-fee-execution-e2e",
+        "codex/p1-01-kyc-e2e-fixture",
+        "codex/p1-01-kyc-e2e-fixture-v2",
+        "codex/p1-01-merchant-fee-evidence-e2e",
+        "codex/p1-02-product-currency-accounts-e2e",
+        "codex/p1-02-product-currency-e2e-payload",
+        "codex/p1-03-product-identity-lock-e2e",
+        "codex/p1-04-openapi-dto-e2e",
+        "codex/p1-05-audit-external-provider-e2e",
+        "codex/p1-05-e2e-selector-followup",
+        "codex/p1-06-tenant-fee-caps-e2e",
+        "codex/p1-admin-login-timeout-retry",
+        "codex/p1-backend-acceptance-direct-card",
+        "codex/p1-e2e-repeatability-fix",
+        "codex/p1-e2e-wallet-binding-id",
+        "codex/p1-login-timeout-cooldown",
+        "codex/p1-wallet-acceptance-followup",
+        "codex/p1-wallet-dev-full-acceptance",
+        "codex/p1-wallet-e2e-bounded-dev-waits",
+        "codex/p1-wallet-evidence-count",
+        "codex/prime-wallet-p1-be2-direction-e2e",
+        "control/development-round-004",
+        "docs/dev-e2e-rotation-pass-20260803",
+        "fix/dev-e2e-tenant-a-rotation",
+        "fix/p1-e2e-artifact-redaction-20260820"
+      ]
+    },
+    {
+      "name": "fastlink-recovery-archive",
+      "default_branch": "main",
+      "private": true,
+      "archived": false,
+      "language": "TypeScript",
+      "accessible": true,
+      "branches": [
+        {
+          "name": "main",
+          "sha": "a09e6221f5530a42820fe35168254260560a172f",
+          "protected": false
+        }
+      ],
+      "tags": [
+        {
+          "name": "inventory-dev-2026-09-26",
+          "sha": "1efcfb00e6a1d0fbe4debde5aa543b2d74105410",
+          "protected": null
+        }
+      ],
+      "remote_identity": "github.com/<owner>/fastlink-recovery-archive",
+      "noncompliant_branch_names": []
+    }
+  ]
+}

@@ -1,0 +1,543 @@
+[
+  {
+    "path": ".",
+    "head": "7581a751d5964d481d335131c856270ccc98238b",
+    "branch": "codex/dev-version-006-snapshot",
+    "common_dir": ".git",
+    "remote": "origin\thttps://github.com/<owner>/fastlink-prime-wallet.git (fetch)\norigin\thttps://github.com/<owner>/fastlink-prime-wallet.git (push)",
+    "refs": [
+      "refs/heads/codex/dev-version-006-snapshot|7581a751d5964d481d335131c856270ccc98238b|origin/codex/dev-version-006-snapshot|[ahead 2]",
+      "refs/heads/codex/dev-version-010-bun-alignment|c9244236a3f395c523e25485693b0b56513cc55a|origin/codex/dev-version-010-bun-alignment|",
+      "refs/heads/codex/dev-version-014-baseline-appendix|f8db7bf77ef2396783bd4667567d72f21ea1e7a8|origin/codex/dev-version-014-baseline-appendix|",
+      "refs/heads/codex/dev-version-018-proxy-compat|d02e7a721224473ea5fc8153a2284d147a6bf990|origin/dev|[ahead 1]",
+      "refs/heads/dev|c15101acb5017dd45e5c4697e350729360a9e9e2|origin/dev|[behind 6]",
+      "refs/remotes/origin/HEAD|d0a7e6ac66cca34bbd607cd924a0b6eedf635467||",
+      "refs/remotes/origin/agent/fix-dev-docker-install|ff2d60af5f256ca07fabf2e2f323a9d4ca198a86||",
+      "refs/remotes/origin/agent/hybrid-cloudflare-dev|24f1530ba760b0929f9e2cadd7a8b650ed19d8a5||",
+      "refs/remotes/origin/agent/wallet-railway-backend|e8e2630f2fbe95ec1a4506876f87679f818f84be||",
+      "refs/remotes/origin/agent/week-one-card-platform|11dd70cd15ce9559126b5b5499a6661167e7d407||",
+      "refs/remotes/origin/codex/dev-infra-cregis-readiness|600cf70108f8f8a5f42a46134903505a499c6535||",
+      "refs/remotes/origin/codex/dev-version-006-snapshot|3d5b2d0beb55081c257b2acab03c337b145dac41||",
+      "refs/remotes/origin/codex/dev-version-010-bun-alignment|c9244236a3f395c523e25485693b0b56513cc55a||",
+      "refs/remotes/origin/codex/dev-version-014-baseline-appendix|f8db7bf77ef2396783bd4667567d72f21ea1e7a8||",
+      "refs/remotes/origin/codex/dev-version-018-proxy-compat|d02e7a721224473ea5fc8153a2284d147a6bf990||",
+      "refs/remotes/origin/dev|1a2d4586db8c287ac2631559b3268c9ee5ed1ec8||",
+      "refs/remotes/origin/main|d0a7e6ac66cca34bbd607cd924a0b6eedf635467||"
+    ],
+    "tags": [],
+    "worktrees": "worktree <project-root>\nHEAD 7581a751d5964d481d335131c856270ccc98238b\nbranch refs/heads/codex/dev-version-006-snapshot\n\nworktree /private/tmp/fastlink-bun-pr\nHEAD c9244236a3f395c523e25485693b0b56513cc55a\nbranch refs/heads/codex/dev-version-010-bun-alignment\nprunable gitdir file points to non-existent location\n\nworktree /private/tmp/fastlink-dev-version-014\nHEAD f8db7bf77ef2396783bd4667567d72f21ea1e7a8\nbranch refs/heads/codex/dev-version-014-baseline-appendix\nprunable gitdir file points to non-existent location\n\nworktree /private/tmp/fastlink-dev-version-018\nHEAD d02e7a721224473ea5fc8153a2284d147a6bf990\nbranch refs/heads/codex/dev-version-018-proxy-compat\nprunable gitdir file points to non-existent location",
+    "submodules": "",
+    "state_counts": {
+      "staged": 0,
+      "unstaged": 2,
+      "untracked": 58152
+    },
+    "protected": true,
+    "status_sha256": "0af5324c468ff1edcd3baaa0b4b3d81be156709aab0b708d91fc5f8dce2ef5fa",
+    "dirty_tracked_paths": [
+      "AGENTS.md",
+      "docs/history-journal.md"
+    ],
+    "status_file": "local-status-0.txt",
+    "shallow": "false",
+    "default_cached": "refs/remotes/origin/main",
+    "unmerged_local_vs_head": [
+      "codex/dev-version-010-bun-alignment",
+      "codex/dev-version-014-baseline-appendix",
+      "codex/dev-version-018-proxy-compat"
+    ],
+    "local_not_remote": [
+      "7581a751d5964d481d335131c856270ccc98238b",
+      "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a"
+    ],
+    "commit_checks": [
+      {
+        "sha": "7581a751d5964d481d335131c856270ccc98238b",
+        "compliant": false
+      },
+      {
+        "sha": "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a",
+        "compliant": false
+      },
+      {
+        "sha": "3d5b2d0beb55081c257b2acab03c337b145dac41",
+        "compliant": false
+      },
+      {
+        "sha": "c15101acb5017dd45e5c4697e350729360a9e9e2",
+        "compliant": false
+      },
+      {
+        "sha": "33d70fa51bc33c3d9858d54f7ef71315fcfefabb",
+        "compliant": false
+      },
+      {
+        "sha": "600cf70108f8f8a5f42a46134903505a499c6535",
+        "compliant": false
+      },
+      {
+        "sha": "2c5b5443c5b87e47975bb0f0f74795944549cac2",
+        "compliant": false
+      },
+      {
+        "sha": "f57f49825092a94bc98a0edf6b04f7fa38936994",
+        "compliant": false
+      },
+      {
+        "sha": "6ce4cedada92986397ce2d9d10c7dd0706e740e0",
+        "compliant": false
+      },
+      {
+        "sha": "f8616fcae3c92ebd256ba3875088bfcf373b3636",
+        "compliant": false
+      },
+      {
+        "sha": "a0ef0463cecfa4066038cf7ee2ffd17e887c1deb",
+        "compliant": false
+      },
+      {
+        "sha": "31fa785c07ff59678e970c4b71fb7b71fcea5cc1",
+        "compliant": false
+      },
+      {
+        "sha": "6172011e13c22cdc084a5665100ccb908c8eafdf",
+        "compliant": false
+      },
+      {
+        "sha": "59c606d605acd38486568390478f9838d7167087",
+        "compliant": false
+      },
+      {
+        "sha": "d9b4ddf02af056e3ec338c9423504ae22179092c",
+        "compliant": false
+      },
+      {
+        "sha": "1f8bc1a0823301964070a3065b00a6a5e2c15f65",
+        "compliant": false
+      },
+      {
+        "sha": "c213c671004532477965fcdc08f8d1f8b48a6fc7",
+        "compliant": false
+      },
+      {
+        "sha": "241a307a27feda381128110aa11bdeac87e14b91",
+        "compliant": false
+      },
+      {
+        "sha": "004104aed082d49bc9abd5b176f7d07e93d03e41",
+        "compliant": false
+      },
+      {
+        "sha": "a4f5c1326c4184630401a532ed13e56c0e1fe116",
+        "compliant": false
+      },
+      {
+        "sha": "1ceefd4353a61bab8c596f4b39ee03aa19b67ab7",
+        "compliant": false
+      },
+      {
+        "sha": "2256ccee282d232f1728569158ac7ff98a8caee6",
+        "compliant": false
+      },
+      {
+        "sha": "6440718da9ec7e6e0d45b26cb04168a0f0f8b2fc",
+        "compliant": false
+      },
+      {
+        "sha": "080701ad2c88768306e5a2a6cc92621521fe805f",
+        "compliant": false
+      },
+      {
+        "sha": "aeee6eff55999f3f1d253e4e94c355cd7f80a458",
+        "compliant": false
+      },
+      {
+        "sha": "d135bcc3a3eddae28e1d3a5650b90538c22432f8",
+        "compliant": false
+      },
+      {
+        "sha": "b70993557e54b4f4025ea664947a58c852fca2ff",
+        "compliant": false
+      },
+      {
+        "sha": "bb284b0cfd58fdbb7717f2b2cdcdf43d342d86c1",
+        "compliant": false
+      },
+      {
+        "sha": "12bf2c54faaefafed7a9fcd32541d95cdbc99b6e",
+        "compliant": false
+      },
+      {
+        "sha": "f577e8c3b8c04d43b06b22bd3816bdaca0d32084",
+        "compliant": false
+      }
+    ],
+    "refs_sha256": "374115fc7aeb2388ec1a033eb017bcdf364e62a758c6d79ee295c1e3c9c1713a",
+    "fsck_exit": 0,
+    "diff_sha256": "43732c3e4ea7d395bc503381a0ff86776d51cadb05c8dc2addaa33d8f4056b30",
+    "index_sha256": "eefa6e71064f98db4fba22af5baa090037c3a894acf23709cee65d3d6bea9c7e",
+    "long_lived": {
+      "dev": [
+        "refs/heads/dev|c15101acb5017dd45e5c4697e350729360a9e9e2|origin/dev|[behind 6]",
+        "refs/remotes/origin/dev|1a2d4586db8c287ac2631559b3268c9ee5ed1ec8||"
+      ],
+      "test": [],
+      "uat": [],
+      "main": [
+        "refs/remotes/origin/main|d0a7e6ac66cca34bbd607cd924a0b6eedf635467||"
+      ]
+    },
+    "relations": [
+      {
+        "base": "refs/remotes/origin/dev",
+        "head": "refs/remotes/origin/main",
+        "left_right": "190\t0",
+        "base_is_ancestor": false,
+        "head_is_ancestor": true
+      }
+    ],
+    "unreachable_counts": {
+      "tree": 476,
+      "blob": 99,
+      "commit": 1
+    },
+    "unreachable_commits": [
+      "4b28b89098343b19a15dc7948b7eb292bea043de"
+    ]
+  },
+  {
+    "path": "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+    "head": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+    "branch": "codex/b03-cregis-closeout-004-frontend-closure",
+    "common_dir": ".git",
+    "remote": "origin\t<project-root> (fetch)\norigin\t<project-root> (push)",
+    "refs": [
+      "refs/heads/codex/b03-cregis-closeout-004-frontend-closure|ec29d29ab39e6afff95650a8603b3a6529c86179||",
+      "refs/heads/codex/dev-version-006-snapshot|7581a751d5964d481d335131c856270ccc98238b|origin/codex/dev-version-006-snapshot|",
+      "refs/remotes/origin/HEAD|7581a751d5964d481d335131c856270ccc98238b||",
+      "refs/remotes/origin/codex/dev-version-006-snapshot|7581a751d5964d481d335131c856270ccc98238b||",
+      "refs/remotes/origin/codex/dev-version-010-bun-alignment|c9244236a3f395c523e25485693b0b56513cc55a||",
+      "refs/remotes/origin/codex/dev-version-014-baseline-appendix|f8db7bf77ef2396783bd4667567d72f21ea1e7a8||",
+      "refs/remotes/origin/codex/dev-version-018-proxy-compat|d02e7a721224473ea5fc8153a2284d147a6bf990||",
+      "refs/remotes/origin/dev|c15101acb5017dd45e5c4697e350729360a9e9e2||"
+    ],
+    "tags": [],
+    "worktrees": "worktree <project-root>/outputs/B03-CREGIS-CLOSEOUT-004/workspace\nHEAD ec29d29ab39e6afff95650a8603b3a6529c86179\nbranch refs/heads/codex/b03-cregis-closeout-004-frontend-closure",
+    "submodules": "",
+    "state_counts": {
+      "staged": 0,
+      "unstaged": 0,
+      "untracked": 0
+    },
+    "protected": false,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty_tracked_paths": [],
+    "status_file": "local-status-1.txt",
+    "shallow": "false",
+    "default_cached": "refs/remotes/origin/codex/dev-version-006-snapshot",
+    "unmerged_local_vs_head": [
+      "codex/dev-version-006-snapshot"
+    ],
+    "local_not_remote": [
+      "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "8aefe84674d0d65be093f1f7d1a64f6fad8034da"
+    ],
+    "commit_checks": [
+      {
+        "sha": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+        "compliant": false
+      },
+      {
+        "sha": "8aefe84674d0d65be093f1f7d1a64f6fad8034da",
+        "compliant": false
+      },
+      {
+        "sha": "d02e7a721224473ea5fc8153a2284d147a6bf990",
+        "compliant": false
+      },
+      {
+        "sha": "1a2d4586db8c287ac2631559b3268c9ee5ed1ec8",
+        "compliant": false
+      },
+      {
+        "sha": "f8db7bf77ef2396783bd4667567d72f21ea1e7a8",
+        "compliant": false
+      },
+      {
+        "sha": "a663e32099ef73254049c23c406d66de8894dcda",
+        "compliant": false
+      },
+      {
+        "sha": "c9244236a3f395c523e25485693b0b56513cc55a",
+        "compliant": false
+      },
+      {
+        "sha": "4597411cb1fe6c07f770d2624be93649d294f6b6",
+        "compliant": false
+      },
+      {
+        "sha": "3d5b2d0beb55081c257b2acab03c337b145dac41",
+        "compliant": false
+      },
+      {
+        "sha": "c15101acb5017dd45e5c4697e350729360a9e9e2",
+        "compliant": false
+      },
+      {
+        "sha": "33d70fa51bc33c3d9858d54f7ef71315fcfefabb",
+        "compliant": false
+      },
+      {
+        "sha": "600cf70108f8f8a5f42a46134903505a499c6535",
+        "compliant": false
+      },
+      {
+        "sha": "2c5b5443c5b87e47975bb0f0f74795944549cac2",
+        "compliant": false
+      },
+      {
+        "sha": "f57f49825092a94bc98a0edf6b04f7fa38936994",
+        "compliant": false
+      },
+      {
+        "sha": "6ce4cedada92986397ce2d9d10c7dd0706e740e0",
+        "compliant": false
+      },
+      {
+        "sha": "f8616fcae3c92ebd256ba3875088bfcf373b3636",
+        "compliant": false
+      },
+      {
+        "sha": "a0ef0463cecfa4066038cf7ee2ffd17e887c1deb",
+        "compliant": false
+      },
+      {
+        "sha": "31fa785c07ff59678e970c4b71fb7b71fcea5cc1",
+        "compliant": false
+      },
+      {
+        "sha": "6172011e13c22cdc084a5665100ccb908c8eafdf",
+        "compliant": false
+      },
+      {
+        "sha": "59c606d605acd38486568390478f9838d7167087",
+        "compliant": false
+      },
+      {
+        "sha": "d9b4ddf02af056e3ec338c9423504ae22179092c",
+        "compliant": false
+      },
+      {
+        "sha": "1f8bc1a0823301964070a3065b00a6a5e2c15f65",
+        "compliant": false
+      },
+      {
+        "sha": "c213c671004532477965fcdc08f8d1f8b48a6fc7",
+        "compliant": false
+      },
+      {
+        "sha": "241a307a27feda381128110aa11bdeac87e14b91",
+        "compliant": false
+      },
+      {
+        "sha": "004104aed082d49bc9abd5b176f7d07e93d03e41",
+        "compliant": false
+      },
+      {
+        "sha": "a4f5c1326c4184630401a532ed13e56c0e1fe116",
+        "compliant": false
+      },
+      {
+        "sha": "1ceefd4353a61bab8c596f4b39ee03aa19b67ab7",
+        "compliant": false
+      },
+      {
+        "sha": "2256ccee282d232f1728569158ac7ff98a8caee6",
+        "compliant": false
+      },
+      {
+        "sha": "6440718da9ec7e6e0d45b26cb04168a0f0f8b2fc",
+        "compliant": false
+      },
+      {
+        "sha": "080701ad2c88768306e5a2a6cc92621521fe805f",
+        "compliant": false
+      }
+    ],
+    "refs_sha256": "7e9fb7d17d0044c7f8c3a9f3f2a8f6725703ac4270433f5eb447210c0a5bd3c3",
+    "fsck_exit": 0,
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index_sha256": "f4e13d6d954ee3b4dd1054b133a64f5b96b6703bdfc317e364ca831e88c61a28",
+    "long_lived": {
+      "dev": [
+        "refs/remotes/origin/dev|c15101acb5017dd45e5c4697e350729360a9e9e2||"
+      ],
+      "test": [],
+      "uat": [],
+      "main": []
+    },
+    "relations": [],
+    "unreachable_counts": {
+      "blob": 14728,
+      "tree": 2586,
+      "commit": 6
+    },
+    "unreachable_commits": [
+      "f2258689ecbb3d4279d7a419139443784b639a07",
+      "4b28b89098343b19a15dc7948b7eb292bea043de",
+      "ff2d60af5f256ca07fabf2e2f323a9d4ca198a86",
+      "7055217c4a7348b52b015b5260b27a48a1fa006e",
+      "d1977659b1e99c2cb44807fcbee3e25c06e1b269",
+      "11dd70cd15ce9559126b5b5499a6661167e7d407"
+    ]
+  },
+  {
+    "path": "outputs/DEV-SANDBOX-FAST-001/workspace",
+    "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+    "branch": "[unavailable]",
+    "common_dir": ".git",
+    "remote": "origin\thttps://github.com/<owner>/fastlink-prime-wallet.git (fetch)\norigin\thttps://github.com/<owner>/fastlink-prime-wallet.git (push)",
+    "refs": [],
+    "tags": [],
+    "worktrees": "worktree <project-root>/outputs/DEV-SANDBOX-FAST-001/workspace\nHEAD e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18\ndetached",
+    "submodules": "",
+    "state_counts": {
+      "staged": 0,
+      "unstaged": 0,
+      "untracked": 1
+    },
+    "protected": true,
+    "status_sha256": "22b791e937151f801d706ebe3e36b30431eb9517aedf4a229dd232b5a8199a52",
+    "dirty_tracked_paths": [],
+    "status_file": "local-status-2.txt",
+    "shallow": "true",
+    "default_cached": "unknown",
+    "unmerged_local_vs_head": [],
+    "local_not_remote": [
+      "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18"
+    ],
+    "commit_checks": [
+      {
+        "sha": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+        "compliant": false
+      }
+    ],
+    "refs_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "fsck_exit": 0,
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index_sha256": "b9e4f67176ae2fc9d91d7e9a58dfa7355022410ac4a67dcb148b4aa2ce283a49",
+    "long_lived": {
+      "dev": [],
+      "test": [],
+      "uat": [],
+      "main": []
+    },
+    "relations": [],
+    "unreachable_counts": {},
+    "unreachable_commits": []
+  },
+  {
+    "path": "outputs/DEV-VERSION-032/entry-workspace",
+    "head": "d972eea0c708840f016c32444018a420f9bf62c7",
+    "branch": "codex/dev-version-032-test-manual-entry",
+    "common_dir": ".git",
+    "remote": "origin\thttps://github.com/<owner>/fastlink-prime-wallet.git (fetch)\norigin\thttps://github.com/<owner>/fastlink-prime-wallet.git (push)",
+    "refs": [
+      "refs/heads/codex/dev-version-032-test-manual-entry|d972eea0c708840f016c32444018a420f9bf62c7||",
+      "refs/remotes/origin/codex/dev-version-032-test-manual-entry|d972eea0c708840f016c32444018a420f9bf62c7||"
+    ],
+    "tags": [],
+    "worktrees": "worktree <project-root>/outputs/DEV-VERSION-032/entry-workspace\nHEAD d972eea0c708840f016c32444018a420f9bf62c7\nbranch refs/heads/codex/dev-version-032-test-manual-entry",
+    "submodules": "",
+    "state_counts": {
+      "staged": 0,
+      "unstaged": 0,
+      "untracked": 0
+    },
+    "protected": false,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty_tracked_paths": [],
+    "status_file": "local-status-3.txt",
+    "shallow": "true",
+    "default_cached": "unknown",
+    "unmerged_local_vs_head": [],
+    "local_not_remote": [],
+    "commit_checks": [
+      {
+        "sha": "d972eea0c708840f016c32444018a420f9bf62c7",
+        "compliant": false
+      },
+      {
+        "sha": "6b3a8a119d79ed912eff7c19ccd13a3d351e4efc",
+        "compliant": false
+      },
+      {
+        "sha": "561df36486151390359a34dd3f7fbcfe391dd8ff",
+        "compliant": false
+      }
+    ],
+    "refs_sha256": "c776321b9d349b4d4851a1f1032e592791c3e57846a398097ee3f5899cf88d7f",
+    "fsck_exit": 0,
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index_sha256": "b7da4ac027a4c3454697df06e24ad2e8fef4468986fddbff78f73e011340d7a2",
+    "long_lived": {
+      "dev": [],
+      "test": [],
+      "uat": [],
+      "main": []
+    },
+    "relations": [],
+    "unreachable_counts": {},
+    "unreachable_commits": []
+  },
+  {
+    "path": "outputs/DEV-VERSION-040/workspace",
+    "head": "8c1d3be110e98f39328a98cba122411b4689337f",
+    "branch": "codex/dev-version-040-single-person-guard",
+    "common_dir": ".git",
+    "remote": "origin\thttps://github.com/<owner>/fastlink-prime-wallet.git (fetch)\norigin\thttps://github.com/<owner>/fastlink-prime-wallet.git (push)",
+    "refs": [
+      "refs/heads/codex/dev-version-040-single-person-guard|8c1d3be110e98f39328a98cba122411b4689337f||",
+      "refs/remotes/origin/codex/dev-version-040-single-person-guard|8c1d3be110e98f39328a98cba122411b4689337f||"
+    ],
+    "tags": [],
+    "worktrees": "worktree <project-root>/outputs/DEV-VERSION-040/workspace\nHEAD 8c1d3be110e98f39328a98cba122411b4689337f\nbranch refs/heads/codex/dev-version-040-single-person-guard",
+    "submodules": "",
+    "state_counts": {
+      "staged": 0,
+      "unstaged": 0,
+      "untracked": 0
+    },
+    "protected": false,
+    "status_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "dirty_tracked_paths": [],
+    "status_file": "local-status-4.txt",
+    "shallow": "true",
+    "default_cached": "unknown",
+    "unmerged_local_vs_head": [],
+    "local_not_remote": [],
+    "commit_checks": [
+      {
+        "sha": "8c1d3be110e98f39328a98cba122411b4689337f",
+        "compliant": false
+      },
+      {
+        "sha": "af9a99d97871d004024ab181feb5ed8b14b5640e",
+        "compliant": false
+      }
+    ],
+    "refs_sha256": "1dddcd3c58908e366ba14c5b003243d0d5ad10cbc1e522d0f0a5470390ab8f04",
+    "fsck_exit": 0,
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "index_sha256": "33f8c01794ebf9ee4145fb879e96843ea96a1fa91b2db18f7aab981cb14f5751",
+    "long_lived": {
+      "dev": [],
+      "test": [],
+      "uat": [],
+      "main": []
+    },
+    "relations": [],
+    "unreachable_counts": {},
+    "unreachable_commits": []
+  }
+]
