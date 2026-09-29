@@ -20,9 +20,9 @@
       "id": "DEV1-T03",
       "name": "原现场保护",
       "status": "FAIL",
-      "evidence": "R02补证；详见补证与整改报告、环境矩阵及R02机器证据",
-      "failure_or_limit": "历史轮次新增1条工具引用及3目录，写入进程无直接审计凭证；本轮前后比较另列，不掩盖首次差异。",
-      "impact_and_remediation": "影响现场完整性验收；Git资产管理员确认进程、用途及保留策略；不删除。"
+      "evidence": "R04-ref-audit.json；R04前后561145文件无变化，不补证最初基线完全不变。",
+      "failure_or_limit": "最初基线新增1引用及3目录的创建工具未获管理员确认。tree含源码及4个gitlink，不能宣称与业务资产或独有提交无关。",
+      "impact_and_remediation": "保留引用/对象；管理员核验创建工具和用途。4个gitlink对应提交均在各自嵌套仓库存在。"
     },
     {
       "id": "DEV1-T04",
@@ -59,24 +59,24 @@
     {
       "id": "DEV1-T08",
       "name": "单元测试",
-      "status": "LIMITED",
-      "evidence": "R02补证；详见补证与整改报告、环境矩阵及R02机器证据",
-      "failure_or_limit": "后端1757项：1755通过、0失败、2项PostgreSQL集成跳过；前端1245通过；控制库默认写入测试及Admin生产验证未运行。",
-      "impact_and_remediation": "25项HTTP阻塞解除；数据库集成须获批固定版本本地数据库后验证，不转接生产。"
+      "status": "PASS",
+      "evidence": "R04-postgres-tests.json；固定源码HEAD、CI声明的PostgreSQL17隔离运行。",
+      "failure_or_limit": "原跳过的2项PostgreSQL测试现为2通过、0失败、0跳过；既有1755后端测试及1245前端测试成功记录保留。",
+      "impact_and_remediation": "数据库测试未改断言；控制库默认写入测试及生产验证仍按既定边界不运行。"
     },
     {
       "id": "DEV1-T09",
       "name": "本地启动及健康检查",
-      "status": "BLOCKED",
-      "evidence": "R02补证；详见补证与整改报告、环境矩阵及R02机器证据",
-      "failure_or_limit": "四前端回环HTTP200；后端主入口硬编码非回环且模块初始化连接数据库。测试辅助层已验证可覆写回环，不冒充全应用已启动。",
-      "impact_and_remediation": "本地数据库方案/版本尚未批准，Docker守护进程不可用；先批准本地隔离数据库，再审查全应用启动副作用及回环配置。"
+      "status": "PASS",
+      "evidence": "R04-backend-health.json、R04-isolation.json；非回环应用监听被隔离在无宿主端口网络中。",
+      "failure_or_limit": "完整应用容器内/api/health返回200，数据库和schema均READY；不代表宿主发布或前后端业务联调。",
+      "impact_and_remediation": "测试容器已停止保留；复用须维持无宿主DB端口及隔离网络，不启动真实供应商服务。"
     },
     {
       "id": "DEV1-T10",
       "name": "非生产连接保护",
       "status": "PASS",
-      "evidence": "R02-network-controls.json：绑定127.0.0.1:46197，未批准本地5432与保留外部地址均DENIED；原服务策略未放宽。",
+      "evidence": "R04-isolation.json：内部网络、无默认IPv4路由、宿主端口0、数据库只监听容器127.0.0.1；供应商模式DISABLED。",
       "failure_or_limit": "无",
       "impact_and_remediation": "维持现有边界，无新增整改。"
     },
@@ -92,15 +92,15 @@
       "id": "DEV1-T12",
       "name": "工作树清理安全检查",
       "status": "LIMITED",
-      "evidence": "R02补证；详见补证与整改报告、环境矩阵及R02机器证据",
-      "failure_or_limit": "三项登记路径不存在、对象及保存索引核验完成；失踪工作目录的历史未跟踪内容不可追溯，其他工单占用未知。",
-      "impact_and_remediation": "提交中间检查点；总控逐项书面批准前不prune。"
+      "evidence": "R04-worktree-checkpoint.json；actual_prune_performed=false。",
+      "failure_or_limit": "总控明确不批准prune，三条登记继续保留；其他工单占用未确认。",
+      "impact_and_remediation": "不删除登记、目录、分支、提交、对象，不GC；仅提供最新dry-run元数据不变证据。"
     },
     {
       "id": "DEV1-T13",
       "name": "秘密扫描",
       "status": "PASS",
-      "evidence": "secret-scan.json：本PR累计治理内容显式格式、高熵、真实HMAC材料均零命中。",
+      "evidence": "累计治理文件格式、高熵、HMAC材料扫描，加本次随机本地数据库/会话凭据的原值及编码比对。",
       "failure_or_limit": "无",
       "impact_and_remediation": "维持现有边界，无新增整改。"
     },
@@ -114,12 +114,11 @@
     }
   ],
   "counts": {
-    "PASS": 10,
+    "PASS": 12,
     "FAIL": 1,
-    "LIMITED": 2,
-    "BLOCKED": 1
+    "LIMITED": 1
   },
-  "gate2": "未通过，待补证评审",
+  "gate2": "未通过：T03失败、T12受控保留",
   "gate3": "未进入",
   "worktree_cleanup_performed": false
 }

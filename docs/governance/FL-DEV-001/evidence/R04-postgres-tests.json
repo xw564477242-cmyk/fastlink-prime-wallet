@@ -1,0 +1,15 @@
+{
+  "exit": 0,
+  "counts": {
+    "numTotalTests": 2,
+    "numPassedTests": 2,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numTotalTestSuites": 2,
+    "numPassedTestSuites": 2,
+    "numFailedTestSuites": 0
+  },
+  "tests_unchanged": true,
+  "authentication": "trust restricted to isolated container loopback namespace, no published host ports",
+  "raw_output_saved": false
+}

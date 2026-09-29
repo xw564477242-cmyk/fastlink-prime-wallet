@@ -1,0 +1,84 @@
+{
+  "containers": [
+    {
+      "name": "fl-dev001-r03-postgres",
+      "running": false,
+      "network_mode": "fl-dev001-r03-internal",
+      "host_port_bindings": {
+        "5432/tcp": [
+          {
+            "HostIp": "127.0.0.1",
+            "HostPort": "46196"
+          }
+        ]
+      },
+      "effective_ports": {},
+      "readonly_bind_mounts": []
+    },
+    {
+      "name": "fl-dev001-r04-postgres",
+      "running": true,
+      "network_mode": "fl-dev001-r04-internal",
+      "host_port_bindings": {},
+      "effective_ports": {},
+      "readonly_bind_mounts": []
+    },
+    {
+      "name": "fl-dev001-r04-runner",
+      "running": true,
+      "network_mode": "container:751581ca62cfd0f52cb25976b23256a28c065e79734b0d6f97b80ad2f2816318",
+      "host_port_bindings": {},
+      "effective_ports": {},
+      "readonly_bind_mounts": [
+        {
+          "destination": "/app/prisma",
+          "read_write": false
+        },
+        {
+          "destination": "/app/test",
+          "read_write": false
+        },
+        {
+          "destination": "/app/src",
+          "read_write": false
+        },
+        {
+          "destination": "/app/scripts",
+          "read_write": false
+        },
+        {
+          "destination": "/app/package.json",
+          "read_write": false
+        },
+        {
+          "destination": "/app/package-lock.json",
+          "read_write": false
+        },
+        {
+          "destination": "/app/tsconfig.json",
+          "read_write": false
+        },
+        {
+          "destination": "/app/nest-cli.json",
+          "read_write": false
+        }
+      ]
+    }
+  ],
+  "network_internal": true,
+  "database": {
+    "server_version": "17.11",
+    "listen_addresses": "127.0.0.1",
+    "database": "fastlink_dev_ci",
+    "migration_rows": 32,
+    "failed_migrations": 0
+  },
+  "route": {
+    "default_ipv4_route": false
+  },
+  "host_passwordless_tcp_exposed": false,
+  "test_authentication": "CI trust only in isolated shared container loopback namespace",
+  "business_bind_mounts_readonly": true,
+  "no_production_data_imported": true,
+  "no_external_provider_called": true
+}
