@@ -1,0 +1,302 @@
+{
+  "snapshot_provenance": [
+    {
+      "name": "SEC001-original-end",
+      "at": "2026-09-29T07:29:08.842732+00:00",
+      "manifest_sha256": "f34b79bf3409972509aaa7658b7c86f1b4aaa5f44b9e013314a42f6bddd4f298"
+    },
+    {
+      "name": "SEC001-revision-start",
+      "at": "2026-09-29T08:18:21.480095+00:00",
+      "manifest_sha256": "7f1336aa74d50739fbb710fa764b7f5ec4afc00017b612c6d658eeec0de2ba8c"
+    },
+    {
+      "name": "SEC001-revision-end",
+      "at": "2026-09-29T08:46:57.023125+00:00",
+      "manifest_sha256": "b46428f8433a10d533ca46ccba67da97e42ebd174539bc69b8fd17cd13d0899c"
+    },
+    {
+      "name": "SEC002-start",
+      "at": "2026-09-29T10:31:59.251016+00:00",
+      "manifest_sha256": "813d32bc5db60f0d0a6a9d48b7b3d90ed2185d07c308d806a88283ecbd822b49"
+    }
+  ],
+  "comparisons": [
+    {
+      "from": "SEC001-original-end",
+      "to": "SEC001-revision-start",
+      "start": "2026-09-29T07:29:08.842732+00:00",
+      "end": "2026-09-29T08:18:21.480095+00:00",
+      "tracked_major_git_states_equal": true,
+      "missing": [
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "captures",
+            "1790665647563",
+            "6d9087fc-c434-4f00-870c-05d604496108",
+            "base"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        },
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "checkpoints",
+            "59864671277e6c420f9575e599083631",
+            "e10cbd023e7db7eb9b77d97fb96728e5",
+            "1790665557626",
+            "e927ffe3-7e18-499e-ac57-2dc6c7f9dac7"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        }
+      ],
+      "added": [
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "captures",
+            "1790669519968",
+            "6adc795a-50f5-42bf-a868-73b0cbd669ee",
+            "base"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        },
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "checkpoints",
+            "59864671277e6c420f9575e599083631",
+            "eb84863ff89abd638be213610c7ba52b",
+            "1790669383545",
+            "85d37520-aea5-4f8d-a09f-75a2200ce111"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        }
+      ],
+      "changed": [],
+      "missing_added_content_equal": true
+    },
+    {
+      "from": "SEC001-revision-start",
+      "to": "SEC001-revision-end",
+      "start": "2026-09-29T08:18:21.480095+00:00",
+      "end": "2026-09-29T08:46:57.023125+00:00",
+      "tracked_major_git_states_equal": true,
+      "missing": [],
+      "added": [],
+      "changed": [],
+      "missing_added_content_equal": true
+    },
+    {
+      "from": "SEC001-revision-end",
+      "to": "SEC002-start",
+      "start": "2026-09-29T08:46:57.023125+00:00",
+      "end": "2026-09-29T10:31:59.251016+00:00",
+      "tracked_major_git_states_equal": true,
+      "missing": [
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "captures",
+            "1790669519968",
+            "6adc795a-50f5-42bf-a868-73b0cbd669ee",
+            "base"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        },
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "checkpoints",
+            "59864671277e6c420f9575e599083631",
+            "eb84863ff89abd638be213610c7ba52b",
+            "1790669383545",
+            "85d37520-aea5-4f8d-a09f-75a2200ce111"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": false,
+          "corresponding_reflog_exists": false
+        }
+      ],
+      "added": [
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "captures",
+            "1790677711249",
+            "25da2a09-c93c-494e-a1c9-f5fdf0707873",
+            "base"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": true,
+          "corresponding_reflog_exists": false
+        },
+        {
+          "repository_id": "path/fc35bddd02d08b6588fad724",
+          "ref_components": [
+            "refs",
+            "codex",
+            "turn-diffs",
+            "checkpoints",
+            "59864671277e6c420f9575e599083631",
+            "6b1c69062d5fc263c2c0288464914c73",
+            "1790677604774",
+            "3c4491ae-9e6b-4b79-9816-e0df6857319c"
+          ],
+          "ref_family": "refs/codex/turn-diffs",
+          "content_size": 41,
+          "content_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+          "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+          "oid_basis": "matches SHA-256 of a current 41-byte ref file",
+          "object_present": true,
+          "object_type": "tree",
+          "reachable_from_major_refs": false,
+          "reachability": {
+            "method": "rev-list --objects from heads/remotes/tags/stash; supports tree OIDs",
+            "exit": 0,
+            "major_reachable": false,
+            "directly_referenced_now": true
+          },
+          "current_loose_ref_exists": true,
+          "corresponding_reflog_exists": false
+        }
+      ],
+      "changed": [],
+      "missing_added_content_equal": true
+    }
+  ],
+  "all_changed_refs_in_tool_namespace": true,
+  "all_reconstructed_oids_present": true,
+  "all_reconstructed_oids_major_reachable": false,
+  "writer_or_trigger_confirmed": false,
+  "inference": "namespace is consistent with tool capture/checkpoint refs; namespace alone does not identify the writer or prove a triggering event",
+  "blocker_role": "Git资产管理员",
+  "review_role": "FastLink安全负责人",
+  "required_evidence": "限定时间窗的本机工具操作审计或进程记录，先脱敏；不得提交环境变量、秘密上下文或全量日志",
+  "next_step": "关联本机工具捕获/检查点事件与引用时间线；记录是否可证实写入者，缺日志则明确不可追溯",
+  "deadline_suggestion": "交接后24小时内认领，2个工作日内提交归因或不可追溯说明（待确认）",
+  "refs_modified_by_this_investigation": false
+}

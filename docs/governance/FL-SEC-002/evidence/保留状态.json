@@ -1,0 +1,8 @@
+{
+  "recovery_directories": 14,
+  "all_exist": true,
+  "all_mode700": true,
+  "old_evidence_exists": true,
+  "old_isolation_exists": true,
+  "no_assets_deleted_or_moved": true
+}

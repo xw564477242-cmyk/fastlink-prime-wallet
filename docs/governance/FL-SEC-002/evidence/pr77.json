@@ -1,0 +1,12 @@
+{
+  "baseRefName": "dev",
+  "headRefOid": "d7e48293a6e3eb234ad219d78c00f0422cc1ceb0",
+  "mergeCommit": {
+    "oid": "8e5c6c66e8315dce88e73a8fdd0ff5b3f95700cb"
+  },
+  "mergedAt": "2026-09-29T10:11:00Z",
+  "state": "MERGED",
+  "github_owner": "xw564477242-cmyk",
+  "github_repository": "fastlink-prime-wallet",
+  "pull_request_number": 77
+}

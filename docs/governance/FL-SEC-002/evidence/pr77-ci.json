@@ -1,0 +1,11 @@
+{
+  "conclusion": "success",
+  "databaseId": 36553966300,
+  "event": "push",
+  "headSha": "8e5c6c66e8315dce88e73a8fdd0ff5b3f95700cb",
+  "status": "completed",
+  "workflowName": "Prime Wallet Pull Request Gate",
+  "github_owner": "xw564477242-cmyk",
+  "github_repository": "fastlink-prime-wallet",
+  "pull_request_number": 77
+}

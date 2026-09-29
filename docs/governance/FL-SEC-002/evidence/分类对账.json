@@ -1,0 +1,31 @@
+{
+  "medium": 2917,
+  "high": 88,
+  "total": 3005,
+  "medium_classification": {
+    "仍无法确认": 2917
+  },
+  "high_primary_types": {
+    "credential-url": 40,
+    "authorization": 14,
+    "jwt": 3,
+    "secret-assignment": 30,
+    "service-token": 1
+  },
+  "role_coverage_including_multiple": {
+    "新钱包技术负责人": 1849,
+    "控制与归档资产负责人": 447,
+    "FastLink安全负责人": 820,
+    "后端与资金集成负责人": 82,
+    "应用资产负责人": 34
+  },
+  "owner_confirmed": 0,
+  "natural_person_assigned": 0,
+  "high_authenticated": 0,
+  "downgraded": 0,
+  "evidence_rows": 9074,
+  "missing_roles": 0,
+  "missing_evidence": 0,
+  "directory_whitelists": 0,
+  "source_manifest_sha256": "31103c45d8dfbaadfe6481324516384e19620a6f453605e8dbf92af77c43c4cb"
+}
