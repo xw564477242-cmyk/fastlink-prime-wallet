@@ -80,8 +80,8 @@
   {
     "id": "SEC-T14",
     "name": "现场保护",
-    "result": "PASS",
-    "evidence": "561144文件0变化/丢失/新增，权限及5Git状态一致"
+    "result": "PASS_WITH_LIMIT",
+    "evidence": "561144 regular files and 5 Git states unchanged; initial target-text digest absent for 580 file symlinks"
   },
   {
     "id": "SEC-T15",

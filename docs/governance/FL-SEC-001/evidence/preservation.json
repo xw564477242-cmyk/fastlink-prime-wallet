@@ -11,5 +11,7 @@
   "errors_after": 0,
   "before_manifest_sha256": "6a22eb21da75c213c883062c5e16b81a0cd349cd028c322aa3b349619745bfbb",
   "after_manifest_sha256": "f34b79bf3409972509aaa7658b7c86f1b4aaa5f44b9e013314a42f6bddd4f298",
-  "hash_algorithm": "SHA-256 raw file bytes; permissions uid gid size compared; access time excluded"
+  "hash_algorithm": "SHA-256 raw file bytes; permissions uid gid size compared; access time excluded",
+  "file_symlink_target_text_baseline": "not captured for 580 file symlinks; type/mode and independently covered target checked",
+  "directory_symlink_target_text": "837 directory symlinks covered by before/after HMAC"
 }

@@ -15,7 +15,7 @@
 |SEC-T11|大文件/二进制|PASS_WITH_LIMIT|流式ASCII和补充UTF16；内存嵌套内容补充层不完整|
 |SEC-T12|去重及分级|PASS_WITH_LIMIT|HMAC去重及分级完成；大量候选尚未确认|
 |SEC-T13|报告脱敏|PASS|报告格式规则及高熵检查零命中|
-|SEC-T14|现场保护|PASS|561144文件0变化/丢失/新增，权限及5Git状态一致|
+|SEC-T14|现场保护|PASS_WITH_LIMIT|561144常规文件及5Git状态一致；580个文件型链接缺少首次指向文本摘要|
 |SEC-T15|PR范围及新增扫描|PASS|仅新增治理目录，内容扫描零命中；远端PR与CI结果见HANDOFF|
 |SEC-T16|回滚方案|PASS|方案审阅；不执行实际revert/删除|
 
