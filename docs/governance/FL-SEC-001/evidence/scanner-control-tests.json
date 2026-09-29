@@ -1,0 +1,155 @@
+{
+  "tests": [
+    {
+      "name": "format-positive-private-key",
+      "pass": true
+    },
+    {
+      "name": "format-positive-private-key-header",
+      "pass": true
+    },
+    {
+      "name": "format-positive-github-token",
+      "pass": true
+    },
+    {
+      "name": "format-positive-aws-access-id",
+      "pass": true
+    },
+    {
+      "name": "format-positive-jwt",
+      "pass": true
+    },
+    {
+      "name": "format-positive-credential-url",
+      "pass": true
+    },
+    {
+      "name": "format-positive-service-token",
+      "pass": true
+    },
+    {
+      "name": "format-positive-secret-assignment",
+      "pass": true
+    },
+    {
+      "name": "format-positive-authorization",
+      "pass": true
+    },
+    {
+      "name": "format-positive-mnemonic-shape",
+      "pass": true
+    },
+    {
+      "name": "entropy-positive",
+      "pass": true
+    },
+    {
+      "name": "sensitive-name",
+      "pass": true
+    },
+    {
+      "name": "hmac-repeatable",
+      "pass": true
+    },
+    {
+      "name": "hmac-distinct",
+      "pass": true
+    },
+    {
+      "name": "zip-safe",
+      "pass": true
+    },
+    {
+      "name": "zip-traversal",
+      "pass": true
+    },
+    {
+      "name": "zip-absolute",
+      "pass": true
+    },
+    {
+      "name": "zip-windows",
+      "pass": true
+    },
+    {
+      "name": "zip-symlink",
+      "pass": true
+    },
+    {
+      "name": "zip-device",
+      "pass": true
+    },
+    {
+      "name": "tar-symlink",
+      "pass": true
+    },
+    {
+      "name": "tar-hardlink",
+      "pass": true
+    },
+    {
+      "name": "tar-device",
+      "pass": true
+    },
+    {
+      "name": "tar-traversal",
+      "pass": true
+    },
+    {
+      "name": "gzip-valid",
+      "pass": true
+    },
+    {
+      "name": "gzip-bomb",
+      "pass": true
+    },
+    {
+      "name": "depth-limit",
+      "pass": true
+    },
+    {
+      "name": "damaged-zip",
+      "pass": true
+    },
+    {
+      "name": "unsupported-format",
+      "pass": true
+    },
+    {
+      "name": "zip-encrypted",
+      "pass": true
+    },
+    {
+      "name": "zip-ratio-bomb",
+      "pass": true
+    },
+    {
+      "name": "tar-directory-count",
+      "pass": true
+    },
+    {
+      "name": "single-size-limit",
+      "pass": true
+    },
+    {
+      "name": "disk-reserve-limit",
+      "pass": true
+    },
+    {
+      "name": "chunk-boundary-detection",
+      "pass": true
+    },
+    {
+      "name": "wide-string-utf-16-le",
+      "pass": true
+    },
+    {
+      "name": "wide-string-utf-16-be",
+      "pass": true
+    }
+  ],
+  "passed": 37,
+  "failed": 0,
+  "samples": "fictional local-only; no authentication; not included in PR"
+}

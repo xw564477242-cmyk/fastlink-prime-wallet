@@ -1,0 +1,30 @@
+{
+  "unique_fingerprints": 37079,
+  "severity_counts": {
+    "Medium": 36013,
+    "High": 159,
+    "Low": 901,
+    "Critical": 6
+  },
+  "unique_contents": 60782,
+  "source_occurrences": 619701,
+  "streams": 1075,
+  "stream_bytes_this_process": 263048506,
+  "unique_content_bytes": 1315376043,
+  "expanded_bytes": 1010983383,
+  "sensitive_filename_occurrences": 575,
+  "archive_occurrences": 1434,
+  "limits": {
+    "member_bytes": 536870912,
+    "archive_bytes": 4294967296,
+    "task_expanded_bytes": 21474836480,
+    "members": 100000,
+    "ratio": 100,
+    "depth": 3,
+    "disk_reserve_bytes": 10737418240
+  },
+  "fingerprint_scheme": "FLSEC-HMAC-SHA256-v1",
+  "key_id": "FL-SEC-001-local-01",
+  "values_recorded": false,
+  "authentication_attempts": 0
+}

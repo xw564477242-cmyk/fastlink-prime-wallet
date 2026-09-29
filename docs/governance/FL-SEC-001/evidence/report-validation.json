@@ -1,0 +1,18 @@
+{
+  "scope": "governance reports and redacted metadata only",
+  "initial_report_files_scanned": 31,
+  "format_hits": 0,
+  "entropy_hits": 0,
+  "key_material_included": false,
+  "source_or_archive_included": false,
+  "permissions": {
+    "root": "0700",
+    "key": "0600"
+  },
+  "tests": {
+    "PASS": 13,
+    "PASS_WITH_LIMIT": 3,
+    "FAIL": 0
+  },
+  "note": "post-manifest final recheck stored with local handoff; metadata paths/reference names aliased before scan"
+}

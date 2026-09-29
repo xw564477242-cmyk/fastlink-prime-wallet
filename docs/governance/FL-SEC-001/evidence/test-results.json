@@ -1,0 +1,98 @@
+[
+  {
+    "id": "SEC-T01",
+    "name": "范围清单完整性",
+    "result": "PASS",
+    "evidence": "561144项，与基准集合一致"
+  },
+  {
+    "id": "SEC-T02",
+    "name": "七仓全引用历史",
+    "result": "PASS",
+    "evidence": "七仓可见引用对象枚举及fsck；归档限制单列"
+  },
+  {
+    "id": "SEC-T03",
+    "name": "4个本地提交",
+    "result": "PASS",
+    "evidence": "本地全对象扫描覆盖4 SHA"
+  },
+  {
+    "id": "SEC-T04",
+    "name": "45个源码候选",
+    "result": "PASS",
+    "evidence": "45项范围映射；重叠不累加"
+  },
+  {
+    "id": "SEC-T05",
+    "name": "023差异",
+    "result": "PASS",
+    "evidence": "59项均有记录"
+  },
+  {
+    "id": "SEC-T06",
+    "name": "20归档识别隔离",
+    "result": "PASS_WITH_LIMIT",
+    "evidence": "20项识别；19完整运行既定规则，ARC-08未完整"
+  },
+  {
+    "id": "SEC-T07",
+    "name": "路径/链接防护",
+    "result": "PASS",
+    "evidence": "ZIP/TAR越界、链接、特殊文件及加密控制测试"
+  },
+  {
+    "id": "SEC-T08",
+    "name": "炸弹/递归上限",
+    "result": "PASS",
+    "evidence": "压缩比、深度、数量、大小、磁盘保留测试"
+  },
+  {
+    "id": "SEC-T09",
+    "name": "格式及合成正例",
+    "result": "PASS",
+    "evidence": "37控制测试通过，0失败"
+  },
+  {
+    "id": "SEC-T10",
+    "name": "高熵及文件名",
+    "result": "PASS",
+    "evidence": "规则运行，候选保留不等于确认秘密"
+  },
+  {
+    "id": "SEC-T11",
+    "name": "大文件/二进制",
+    "result": "PASS_WITH_LIMIT",
+    "evidence": "流式ASCII和补充UTF16；内存嵌套内容补充层不完整"
+  },
+  {
+    "id": "SEC-T12",
+    "name": "去重及分级",
+    "result": "PASS_WITH_LIMIT",
+    "evidence": "HMAC去重及分级完成；大量候选尚未确认"
+  },
+  {
+    "id": "SEC-T13",
+    "name": "报告脱敏",
+    "result": "PASS",
+    "evidence": "all generated report content: format and entropy rules zero matches; no sample/key material"
+  },
+  {
+    "id": "SEC-T14",
+    "name": "现场保护",
+    "result": "PASS",
+    "evidence": "561144文件0变化/丢失/新增，权限及5Git状态一致"
+  },
+  {
+    "id": "SEC-T15",
+    "name": "PR范围及新增扫描",
+    "result": "PASS",
+    "evidence": "only governance directory added; final manifest/content scan checked; remote PR and CI recorded in HANDOFF"
+  },
+  {
+    "id": "SEC-T16",
+    "name": "回滚方案",
+    "result": "PASS",
+    "evidence": "方案审阅；不执行实际revert/删除"
+  }
+]

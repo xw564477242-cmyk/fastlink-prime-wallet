@@ -1,0 +1,202 @@
+[
+  {
+    "id": "ARC-01",
+    "path": "path/f970dac3f9db8921",
+    "bytes": 109935,
+    "sha256": "be6e1d0bd9ddc959d0135ce344be25e8a39dd38965e90b11af5c53108445e627",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-02",
+    "path": "path/22b9730eef4f6fb6",
+    "bytes": 1586370,
+    "sha256": "c40819f4c4070262954b4cbd09e376621dc821b0df679dc00f88e6b857ef1f79",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-03",
+    "path": "path/1a52c2ed040f7f66",
+    "bytes": 576708,
+    "sha256": "d4e9145cabaadcf258b37df1d7345ab54796dab7da4a1a546509232a3efb0f14",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-04",
+    "path": "path/32146a9837de8760",
+    "bytes": 495315,
+    "sha256": "0b3ea9411ee2887d39a55b7ffb1f9bff7f821023baf88d7286f39b1c6ea0f1e9",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-05",
+    "path": "path/e5fea3e5b60c446b",
+    "bytes": 110887,
+    "sha256": "d4e470ffebf508974675148fdb696909af4a85520f9d12f23bb15a1a49cbe74d",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-06",
+    "path": "path/a31c5181af362e65",
+    "bytes": 23632,
+    "sha256": "34c7984af2f376484343a9f8009bbe086670f77f9206f45b1a3edf90be29f7f2",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-07",
+    "path": "path/3281aa303c191201",
+    "bytes": 11727,
+    "sha256": "a66a9a77eecee1a5b98f31b61ab046f6e6040c21ba9463080d765df9a0ff2714",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-08",
+    "path": "path/976e1e49ed670a72",
+    "bytes": 607766,
+    "sha256": "9c72c47b9b2b223b9724cf3bc609113d5197ced7bc623b3420448fb751c851ee",
+    "format": "gzip",
+    "status": "not-completely-scanned",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": "nested member rejected or unavailable"
+  },
+  {
+    "id": "ARC-09",
+    "path": "path/b6d1ae8e2d1c62bb",
+    "bytes": 45012,
+    "sha256": "015a3a634dc2456eb2b874139580e46b394157013ba0268cfcd7f6c03ac658b8",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-10",
+    "path": "path/1088ef13fbeaed25",
+    "bytes": 16952,
+    "sha256": "a89c1b083707890eb78d9d612a6c409a919e19ec81e921a7ef6fca2d72121183",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-11",
+    "path": "path/4b7dca80af1efb83",
+    "bytes": 738275,
+    "sha256": "a628bd93429a406ec53671d41276e568c3b3402a37eca6f8e0aaad4f74915192",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-12",
+    "path": "path/f4e5d0a5b5371c54",
+    "bytes": 22434,
+    "sha256": "52a5259a16370925f6b3414dc358ccb7e2f6d331a5f5830c8e646ba32453e80b",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-13",
+    "path": "path/46a72300801ec1c8",
+    "bytes": 76145,
+    "sha256": "6c6316d4eae729a0c50cc962faff06144a3c54ac60c2c231a2553dbb9ea87651",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-14",
+    "path": "path/76df73cf1fb0cffe",
+    "bytes": 95316,
+    "sha256": "c983ccb21d1a45131616103e1b12426ba27f601d6e07c5f2533810b0294121b5",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-15",
+    "path": "path/0cb260103d46497f",
+    "bytes": 112576,
+    "sha256": "ec4657367d5a5a559732cd13b3bbc2a5043a6ecf3e176a175ff875611820e2c1",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-16",
+    "path": "path/0c0bc8de5dd600b2",
+    "bytes": 3049,
+    "sha256": "b5ece93a60c8745bce50bb4fd602e0e2e9f14c0f95b33d484b36bf491f629fa9",
+    "format": "bundle",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-17",
+    "path": "path/f400bf6e7ca07a2c",
+    "bytes": 443689,
+    "sha256": "b00df248d239d217b21db3cd76bc2b64032634d16b8250ea2df9e299d00407f6",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-18",
+    "path": "path/a47d591c2472a268",
+    "bytes": 641979,
+    "sha256": "501592fa952698958ea34195993c7cf79725955c8331295119178a3973a33346",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-19",
+    "path": "path/f823f1522f23ec3f",
+    "bytes": 364301,
+    "sha256": "001825214ca9f2bff81667ddc4dd23681bd11d830ce9056bd82f2c6ab80b542b",
+    "format": "zip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  },
+  {
+    "id": "ARC-20",
+    "path": "path/de6bf2820e63b88d",
+    "bytes": 1490534,
+    "sha256": "630377876111120043513f5652c31283ce98415b9be8495e81e96b72e8549b37",
+    "format": "gzip",
+    "status": "scanned-with-declared-rules",
+    "isolation": "original read-only; in-memory safe members; bundle isolated object store; no original permission change",
+    "reason": null
+  }
+]
