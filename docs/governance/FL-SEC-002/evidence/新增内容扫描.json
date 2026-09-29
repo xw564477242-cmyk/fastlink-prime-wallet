@@ -1,0 +1,14 @@
+{
+  "format_hits": 0,
+  "entropy_hits": 0,
+  "key_material_hits": 0,
+  "synthetic_positive_pass": true,
+  "negative_pass": true,
+  "key_forms": [
+    "raw",
+    "hex",
+    "base64",
+    "base64url"
+  ],
+  "no_secret_values_recorded": true
+}

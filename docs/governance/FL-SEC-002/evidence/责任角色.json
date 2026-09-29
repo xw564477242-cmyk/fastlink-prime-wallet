@@ -1,0 +1,26 @@
+{
+  "approved_roles": [
+    "FastLink安全负责人",
+    "新钱包技术负责人",
+    "后端与资金集成负责人",
+    "应用资产负责人",
+    "控制与归档资产负责人",
+    "Git资产管理员"
+  ],
+  "scope_mapping": {
+    "fastlink-prime-wallet": "新钱包技术负责人",
+    "local-L2": "新钱包技术负责人",
+    "fastlik-backend": "后端与资金集成负责人",
+    "fastlik-app": "应用资产负责人",
+    "fastlik-Admin": "应用资产负责人",
+    "fastlik-Website": "应用资产负责人",
+    "fastlink-control-plane": "控制与归档资产负责人",
+    "fastlink-recovery-archive": "控制与归档资产负责人",
+    "path/c642c9298533b7474633de6c": "新钱包技术负责人",
+    "path/c90572454d458f720ba700f1": "新钱包技术负责人",
+    "path/5a8e977d3fe6a35351a9e2b6": "新钱包技术负责人",
+    "path/b21af3d940f19bd1a7e2cdb1": "新钱包技术负责人"
+  },
+  "role_assignment_is_not_owner_confirmation": true,
+  "deadline_type": "suggested, not committed"
+}

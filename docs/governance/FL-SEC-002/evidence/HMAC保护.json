@@ -1,0 +1,16 @@
+{
+  "version": "FLSEC-HMAC-SHA256-v2",
+  "domains": [
+    "finding",
+    "path",
+    "link-target"
+  ],
+  "key_id": "FL-SEC-001-local-01",
+  "key_mode": "0o600",
+  "parent_mode": "0o700",
+  "owner_is_current_user": true,
+  "key_deleted": false,
+  "new_key_generated": false,
+  "old_evidence_deleted": false,
+  "domain_separation_control": true
+}
