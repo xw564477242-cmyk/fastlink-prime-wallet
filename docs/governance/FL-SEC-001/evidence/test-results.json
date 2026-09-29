@@ -1,98 +1,111 @@
-[
-  {
-    "id": "SEC-T01",
-    "name": "范围清单完整性",
-    "result": "PASS",
-    "evidence": "561144项，与基准集合一致"
-  },
-  {
-    "id": "SEC-T02",
-    "name": "七仓全引用历史",
-    "result": "PASS",
-    "evidence": "七仓可见引用对象枚举及fsck；归档限制单列"
-  },
-  {
-    "id": "SEC-T03",
-    "name": "4个本地提交",
-    "result": "PASS",
-    "evidence": "本地全对象扫描覆盖4 SHA"
-  },
-  {
-    "id": "SEC-T04",
-    "name": "45个源码候选",
-    "result": "PASS",
-    "evidence": "45项范围映射；重叠不累加"
-  },
-  {
-    "id": "SEC-T05",
-    "name": "023差异",
-    "result": "PASS",
-    "evidence": "59项均有记录"
-  },
-  {
-    "id": "SEC-T06",
-    "name": "20归档识别隔离",
-    "result": "PASS_WITH_LIMIT",
-    "evidence": "20项识别；19完整运行既定规则，ARC-08未完整"
-  },
-  {
-    "id": "SEC-T07",
-    "name": "路径/链接防护",
-    "result": "PASS",
-    "evidence": "ZIP/TAR越界、链接、特殊文件及加密控制测试"
-  },
-  {
-    "id": "SEC-T08",
-    "name": "炸弹/递归上限",
-    "result": "PASS",
-    "evidence": "压缩比、深度、数量、大小、磁盘保留测试"
-  },
-  {
-    "id": "SEC-T09",
-    "name": "格式及合成正例",
-    "result": "PASS",
-    "evidence": "37控制测试通过，0失败"
-  },
-  {
-    "id": "SEC-T10",
-    "name": "高熵及文件名",
-    "result": "PASS",
-    "evidence": "规则运行，候选保留不等于确认秘密"
-  },
-  {
-    "id": "SEC-T11",
-    "name": "大文件/二进制",
-    "result": "PASS_WITH_LIMIT",
-    "evidence": "流式ASCII和补充UTF16；内存嵌套内容补充层不完整"
-  },
-  {
-    "id": "SEC-T12",
-    "name": "去重及分级",
-    "result": "PASS_WITH_LIMIT",
-    "evidence": "HMAC去重及分级完成；大量候选尚未确认"
-  },
-  {
-    "id": "SEC-T13",
-    "name": "报告脱敏",
-    "result": "PASS",
-    "evidence": "all generated report content: format and entropy rules zero matches; no sample/key material"
-  },
-  {
-    "id": "SEC-T14",
-    "name": "现场保护",
-    "result": "PASS_WITH_LIMIT",
-    "evidence": "561144 regular files and 5 Git states unchanged; initial target-text digest absent for 580 file symlinks"
-  },
-  {
-    "id": "SEC-T15",
-    "name": "PR范围及新增扫描",
-    "result": "PASS",
-    "evidence": "only governance directory added; final manifest/content scan checked; remote PR and CI recorded in HANDOFF"
-  },
-  {
-    "id": "SEC-T16",
-    "name": "回滚方案",
-    "result": "PASS",
-    "evidence": "方案审阅；不执行实际revert/删除"
-  }
-]
+{
+  "tests": [
+    {
+      "id": "SEC-T01",
+      "name": "扫描范围完整性",
+      "status": "PASS",
+      "evidence": "固定561144文件与此前60782唯一内容；本轮重读覆盖，无静默排除"
+    },
+    {
+      "id": "SEC-T02",
+      "name": "七仓全引用历史扫描",
+      "status": "PASS",
+      "evidence": "固定引用集合，重新枚举blob/commit/tag并严格fsck"
+    },
+    {
+      "id": "SEC-T03",
+      "name": "4个不可达提交扫描",
+      "status": "PASS",
+      "evidence": "原四提交对象范围+本轮内容摘要复核"
+    },
+    {
+      "id": "SEC-T04",
+      "name": "45个源码候选扫描",
+      "status": "PASS",
+      "evidence": "45个候选范围映射和内容复读"
+    },
+    {
+      "id": "SEC-T05",
+      "name": "后端023差异扫描",
+      "status": "PASS",
+      "evidence": "15修改44新增，原副本不变"
+    },
+    {
+      "id": "SEC-T06",
+      "name": "20个归档识别与隔离",
+      "status": "PASS",
+      "evidence": "ARC08所有431个常规成员；链接只登记"
+    },
+    {
+      "id": "SEC-T07",
+      "name": "路径穿越及符号链接防护",
+      "status": "PASS",
+      "evidence": "TAR/ZIP独立防护控制测试，链接绝不创建/跟随"
+    },
+    {
+      "id": "SEC-T08",
+      "name": "压缩炸弹和递归上限",
+      "status": "PASS",
+      "evidence": "输出字节、比例、数量、递归和余量测试"
+    },
+    {
+      "id": "SEC-T09",
+      "name": "已知规则与合成正例",
+      "status": "PASS",
+      "evidence": "本地虚构不可认证样本；不入PR"
+    },
+    {
+      "id": "SEC-T10",
+      "name": "高熵与敏感文件名扫描",
+      "status": "PASS",
+      "evidence": "全内容扫描；结构化逐项依据，无目录豁免"
+    },
+    {
+      "id": "SEC-T11",
+      "name": "大文件及二进制检查",
+      "status": "PASS",
+      "evidence": "UTF16双对齐及12/24词补充层；1309独立重读"
+    },
+    {
+      "id": "SEC-T12",
+      "name": "发现项去重与分级",
+      "status": "LIMITED",
+      "evidence": "全部逐项分类；仍有2917项纯高熵性质待责任人确认，不能称为验收已满足"
+    },
+    {
+      "id": "SEC-T13",
+      "name": "报告脱敏检查",
+      "status": "PASS",
+      "evidence": "显式格式、高熵、实际HMAC密钥材料分别检查"
+    },
+    {
+      "id": "SEC-T14",
+      "name": "原现场前后完整性复核",
+      "status": "LIMITED",
+      "evidence": "本轮内容/权限/属主/Git/链接一致；580个历史目标证据缺口、跨轮2缺2增引用路径及1个本地库相对初始扫描的引用差异保留"
+    },
+    {
+      "id": "SEC-T15",
+      "name": "PR范围及新增内容秘密扫描",
+      "status": "PASS",
+      "evidence": "仅docs/governance/FL-SEC-001；远端CI由新HEAD独立确认"
+    },
+    {
+      "id": "SEC-T16",
+      "name": "回滚方案检查",
+      "status": "PASS",
+      "evidence": "独立revert PR、原资产及旧密钥不清理"
+    }
+  ],
+  "passed": 14,
+  "limited": 2,
+  "failed": 0,
+  "not_run": [
+    "真实凭据认证/轮换/吊销",
+    "部署与环境晋升",
+    "Git历史清理",
+    "BIP39校验和与未知自定义编码穷尽验证"
+  ],
+  "pure_entropy_nature_unresolved": 2917,
+  "gate3": "not-approved; reviewer decision required"
+}

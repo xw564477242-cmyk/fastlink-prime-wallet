@@ -1,0 +1,110 @@
+[
+  {
+    "repository": "fastlik-Admin",
+    "refs_equal_to_original_scan": true,
+    "refs": 126,
+    "required_content_objects": 932,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlik-Website",
+    "refs_equal_to_original_scan": true,
+    "refs": 128,
+    "required_content_objects": 471,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlik-app",
+    "refs_equal_to_original_scan": true,
+    "refs": 153,
+    "required_content_objects": 1097,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlik-backend",
+    "refs_equal_to_original_scan": true,
+    "refs": 650,
+    "required_content_objects": 4384,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlink-control-plane",
+    "refs_equal_to_original_scan": true,
+    "refs": 121,
+    "required_content_objects": 826,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlink-prime-wallet",
+    "refs_equal_to_original_scan": true,
+    "refs": 159,
+    "required_content_objects": 1620,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "fastlink-recovery-archive",
+    "refs_equal_to_original_scan": true,
+    "refs": 2,
+    "required_content_objects": 1402,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all visible refs reachable objects"
+  },
+  {
+    "repository": "local-L2",
+    "refs_equal_to_original_scan": true,
+    "refs": 8,
+    "required_content_objects": 16261,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all local objects"
+  },
+  {
+    "repository": "path/c90572454d458f720ba700f1",
+    "refs_equal_to_original_scan": false,
+    "refs": 26,
+    "required_content_objects": 19351,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all local objects"
+  },
+  {
+    "repository": "path/c642c9298533b7474633de6c",
+    "refs_equal_to_original_scan": true,
+    "refs": 0,
+    "required_content_objects": 109,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all local objects"
+  },
+  {
+    "repository": "path/b21af3d940f19bd1a7e2cdb1",
+    "refs_equal_to_original_scan": true,
+    "refs": 2,
+    "required_content_objects": 112,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all local objects"
+  },
+  {
+    "repository": "path/5a8e977d3fe6a35351a9e2b6",
+    "refs_equal_to_original_scan": true,
+    "refs": 2,
+    "required_content_objects": 112,
+    "missing_scanned_content_objects": 0,
+    "fsck_exit": 0,
+    "scope": "all local objects"
+  }
+]

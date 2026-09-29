@@ -1,0 +1,21 @@
+{
+  "version": "FLSEC-HMAC-SHA256-v2",
+  "key_id": "FL-SEC-001-local-01",
+  "framing": "FLSEC-v2 + NUL + domain + NUL + unsigned 8-byte big-endian value length + value bytes",
+  "domains": [
+    "finding",
+    "path",
+    "link-target"
+  ],
+  "old_scheme": "unprefixed-HMAC-SHA256-v1",
+  "old_key_retained": true,
+  "old_evidence_retained_in_git_commit": "28a759eeba8f39c403fbd5a4fe348605aaebd144",
+  "old_private_evidence_untouched": true,
+  "fingerprints_stable_within_same_key_domain_and_exact_byte_sequence": true,
+  "old_findings": 37079,
+  "mapped_old_findings": 37079,
+  "path_alias_mappings": 6219,
+  "unmapped_prior_path_aliases": [],
+  "rotation_or_destruction": "not performed; require separate confirmation after migration review and gate5",
+  "value_disclosure": false
+}

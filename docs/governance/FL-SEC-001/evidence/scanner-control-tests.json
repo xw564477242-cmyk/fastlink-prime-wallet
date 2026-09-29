@@ -147,9 +147,193 @@
     {
       "name": "wide-string-utf-16-be",
       "pass": true
+    },
+    {
+      "name": "v2-domain-separation",
+      "pass": true
+    },
+    {
+      "name": "v2-stable-finding",
+      "pass": true
+    },
+    {
+      "name": "v1-v2-migration-different",
+      "pass": true
+    },
+    {
+      "name": "inline-utf-16-le-alignment-0",
+      "pass": true
+    },
+    {
+      "name": "inline-utf-16-le-alignment-1",
+      "pass": true
+    },
+    {
+      "name": "inline-utf-16-be-alignment-0",
+      "pass": true
+    },
+    {
+      "name": "inline-utf-16-be-alignment-1",
+      "pass": true
+    },
+    {
+      "name": "inline-unlabelled-12",
+      "pass": true
+    },
+    {
+      "name": "inline-unlabelled-24",
+      "pass": true
+    },
+    {
+      "name": "tar-continue-after-link",
+      "pass": true
+    },
+    {
+      "name": "archive-replay-chain",
+      "pass": true
+    },
+    {
+      "name": "noise-integrity-positive",
+      "pass": true
+    },
+    {
+      "name": "secret-in-lockfile-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "secret-in-cache-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "noise-declaration-positive",
+      "pass": true
+    },
+    {
+      "name": "opaque-literal-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "pgp-public-signature-packet-positive",
+      "pass": true
+    },
+    {
+      "name": "pgp-private-packet-negative",
+      "pass": true
+    },
+    {
+      "name": "pgp-truncated-packet-negative",
+      "pass": true
+    },
+    {
+      "name": "public-signature-span-exact",
+      "pass": true
+    },
+    {
+      "name": "invalid-armor-negative",
+      "pass": true
+    },
+    {
+      "name": "signature-escaped-json-lines",
+      "pass": true
+    },
+    {
+      "name": "secret-outside-signature-not-covered",
+      "pass": true
+    },
+    {
+      "name": "compressed-region-requires-complete-child-scan",
+      "pass": true
+    },
+    {
+      "name": "compressed-region-offset-positive",
+      "pass": true
+    },
+    {
+      "name": "stored-member-never-noise-exempt",
+      "pass": true
+    },
+    {
+      "name": "macho-symbol-reference-positive",
+      "pass": true
+    },
+    {
+      "name": "macho-unreferenced-data-negative",
+      "pass": true
+    },
+    {
+      "name": "macho-truncated-negative",
+      "pass": true
+    },
+    {
+      "name": "elf-truncated-negative",
+      "pass": true
+    },
+    {
+      "name": "named-digest-positive",
+      "pass": true
+    },
+    {
+      "name": "named-digest-invalid-length-negative",
+      "pass": true
+    },
+    {
+      "name": "registry-signature-der-positive",
+      "pass": true
+    },
+    {
+      "name": "registry-signature-missing-context-negative",
+      "pass": true
+    },
+    {
+      "name": "registry-signature-invalid-der-negative",
+      "pass": true
+    },
+    {
+      "name": "exact-path-positive",
+      "pass": true
+    },
+    {
+      "name": "unregistered-path-negative",
+      "pass": true
+    },
+    {
+      "name": "sensitive-path-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "observed-ref-positive",
+      "pass": true
+    },
+    {
+      "name": "package-version-url-positive",
+      "pass": true
+    },
+    {
+      "name": "package-escaped-url-positive",
+      "pass": true
+    },
+    {
+      "name": "package-query-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "package-userinfo-not-exempt",
+      "pass": true
+    },
+    {
+      "name": "package-untrusted-host-negative",
+      "pass": true
+    },
+    {
+      "name": "escaped-known-path-positive",
+      "pass": true
+    },
+    {
+      "name": "escaped-unknown-path-negative",
+      "pass": true
     }
   ],
-  "passed": 37,
+  "passed": 83,
   "failed": 0,
-  "samples": "fictional local-only; no authentication; not included in PR"
+  "samples": "fictional synthetic local only; omitted from PR"
 }

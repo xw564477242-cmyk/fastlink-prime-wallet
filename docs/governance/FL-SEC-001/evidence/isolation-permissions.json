@@ -1,27 +1,9 @@
 {
-  "root_from_creation": "0700",
-  "key_from_creation": "0600",
-  "inherited_git_files_hardened": [
-    {
-      "path_id": "32e111aa752f95e484818ff16dedaa5bf4a768785886e9fa705b2b41764be060",
-      "old_mode": "0o644"
-    },
-    {
-      "path_id": "99547de4f7462e688bde73dad9763d263840e6fdf5bd981a116371de10ba68f0",
-      "old_mode": "0o644"
-    },
-    {
-      "path_id": "8d609b820a43e9e28fe7d05ae0f47c18a0aca37a6d3ab5be60194df0cd060be4",
-      "old_mode": "0o644"
-    },
-    {
-      "path_id": "1a18344dc5a7d5a24a2230ec913f9829e6bab1d08b5c167a2327b97f30f0c2ef",
-      "old_mode": "0o644"
-    },
-    {
-      "path_id": "3c54b1fd2c0482001713d55fc0a9adf3e5b8708946f3eb5a092aab867fd909dd",
-      "old_mode": "0o644"
-    }
-  ],
-  "note": "parent700 protected these files throughout; original assets untouched"
+  "revision_root_mode": "0o700",
+  "private_directory_mode": "0o700",
+  "key_mode": "0o600",
+  "key_parent_mode": "0o700",
+  "old_key_retained": true,
+  "same_uid_and_root_not_isolated": true,
+  "temporary_directory_not_long_term_backup": true
 }

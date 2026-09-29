@@ -1,0 +1,9 @@
+{
+  "at": "2026-09-29T09:09:38.966982+00:00",
+  "scope": "independent-governance-report-checkout-only",
+  "before_mode": "0o755",
+  "after_mode": "0o700",
+  "owner_unchanged": true,
+  "original_project_permissions_changed": false,
+  "residual_risk": "Earlier local readability cannot be excluded; 700 does not isolate same UID or root."
+}

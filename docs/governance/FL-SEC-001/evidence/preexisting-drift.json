@@ -1,0 +1,31 @@
+{
+  "missing": [
+    {
+      "path_id": "path/a80cebf727246bd1afbf58bc",
+      "category": "git-ref-path",
+      "same_sha_at_added_path": true,
+      "bytes": 41
+    },
+    {
+      "path_id": "path/8b534737c273e5b9c5f1cfce",
+      "category": "git-ref-path",
+      "same_sha_at_added_path": true,
+      "bytes": 41
+    }
+  ],
+  "added": [
+    {
+      "path_id": "path/fd4a1c6fbe310a6df0c59d3a",
+      "category": "git-ref-path",
+      "bytes": 41
+    },
+    {
+      "path_id": "path/0fe7c6b3be9b6c9e930ca795",
+      "category": "git-ref-path",
+      "bytes": 41
+    }
+  ],
+  "directory_sets_equal": false,
+  "timing": "already present at revision start; not changed by this round",
+  "cause": "not established"
+}

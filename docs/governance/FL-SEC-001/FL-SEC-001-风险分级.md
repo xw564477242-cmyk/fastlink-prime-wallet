@@ -1,100 +1,11 @@
-# 脱敏发现项与风险分级
+# 风险分级与结构化降噪
 
-去重后候选指纹共37,079项，分级为{'Medium': 36115, 'High': 90, 'Low': 874}。这不是已确认有效凭据数量。显式格式/赋值候选进行离线结构复核；高熵和无法重载的内存成员上下文保留未确认状态，不能全部判为真风险或误报。未执行登录、接口调用、字典反推或线上有效性验证。
+当前去重指纹37082项：Critical 0、High 88、Medium 3554、Low 33440。没有使用候选凭据登录、外部查询、字典反推或接口有效性验证。
 
-HMAC-SHA-256，方案FLSEC-HMAC-SHA256-v1，密钥标识FL-SEC-001-local-01。密钥随机生成，只用于本工单去重；报告不显示任何值或首尾字符。同一字节值跨位置合并，不同编码/包装的等价凭据未保证规范化去重。
+原36115项Medium的迁移分布：{"Low": 32567, "Medium": 3548}。原90项High迁移分布：{"High": 88, "Medium": 1, "Low": 1}。所有旧新ID在finding-migration.csv，逐项结构依据在classification-evidence.csv；指纹按完整匹配字节去重，不保证不同编码/包装的语义等价值合并。
 
-完整索引包含每项指纹、类型、级别、状态、定位标识及处置方案编号。高优先级明细提供仓库、对象、脱敏路径和环境/责任人待确认状态。首次/末次Git位置按可见引用可达提交树逐一枚举、按提交时间排序；不代表远端发布时间。工作区仅代表本次观察时点；内存嵌套成员的历史时间不推断。单项示例位置最多30处，完整内容到来源关系保留在受限本地清单，不能把示例列表当成所有出现位置。
+降噪规则要求可复核结构：带算法和正确字节长度的完整性摘要；明确完整性字段；语言声明/成员标识；模块资源引用；公开PGP/SSH签名的包结构及匹配区间；带keyid元数据的ECDSA签名DER；ELF/Mach-O符号表引用名称；清单中可核对的具体源码路径和Git引用；公钥/证书DER外层结构；已成功展开并扫描成员的ZIP压缩区间。同一候选若还有不能解释的来源，公开结构规则不会直接覆盖它。没有依赖、缓存、锁文件整目录白名单。
 
-|发现ID|级别|类型|处置方案|
-|---|---|---|---|
-|SEC-bec5c94996977b73|High|high-entropy, secret-assignment|P-ROTATE|
-|SEC-9d904084c4b264fa|High|authorization|P-ROTATE|
-|SEC-6f9d0b6e8444a37f|High|authorization|P-ROTATE|
-|SEC-b04c62e4a514f26e|High|authorization|P-ROTATE|
-|SEC-224ea48ed04c2e99|High|authorization|P-ROTATE|
-|SEC-6a3eb5196e454b72|High|authorization|P-ROTATE|
-|SEC-c95bc3ae310af3bc|High|authorization|P-ROTATE|
-|SEC-306d40036254a2d1|High|authorization|P-ROTATE|
-|SEC-c6e7031a399ca926|High|authorization|P-ROTATE|
-|SEC-9793de30a6fb0ee5|High|authorization|P-ROTATE|
-|SEC-cb29af65ae45eb65|High|authorization|P-ROTATE|
-|SEC-e7877ee511abd9c0|High|secret-assignment|P-ROTATE|
-|SEC-ec5c681a5b551458|High|secret-assignment|P-ROTATE|
-|SEC-e774b5450a25e653|High|secret-assignment|P-ROTATE|
-|SEC-310a1b2362247c0e|High|secret-assignment|P-ROTATE|
-|SEC-41d8da16a941f062|High|secret-assignment|P-ROTATE|
-|SEC-74603621231eaa81|High|credential-url|P-ROTATE|
-|SEC-179c5c679f081f30|High|credential-url|P-ROTATE|
-|SEC-ecd890b607363b59|High|credential-url|P-ROTATE|
-|SEC-5f4adc67118cfb44|High|credential-url|P-ROTATE|
-|SEC-afdc4eb05b773f31|High|secret-assignment|P-ROTATE|
-|SEC-2cf6dc2056c696a9|High|authorization|P-ROTATE|
-|SEC-9786babbd0033e64|High|secret-assignment|P-ROTATE|
-|SEC-6abe630cea6092fd|High|credential-url|P-ROTATE|
-|SEC-be64e60f3394e2c2|High|credential-url|P-ROTATE|
-|SEC-5dec2eac5972265d|High|credential-url|P-ROTATE|
-|SEC-51d5d7ccce3e7371|High|credential-url|P-ROTATE|
-|SEC-1c1d2b56c661cb9b|High|credential-url|P-ROTATE|
-|SEC-84f6634d0c36afe5|High|credential-url|P-ROTATE|
-|SEC-cf0151b7b36ca842|High|credential-url|P-ROTATE|
-|SEC-33f8e1c9930bb7d0|High|credential-url|P-ROTATE|
-|SEC-3c6f54b872497fba|High|credential-url|P-ROTATE|
-|SEC-07a85deb688df9ba|High|credential-url|P-ROTATE|
-|SEC-18df68faf4462e76|High|credential-url|P-ROTATE|
-|SEC-c622f68abd3bfa53|High|secret-assignment|P-ROTATE|
-|SEC-46e9158f6ae39cd4|High|secret-assignment|P-ROTATE|
-|SEC-a1976a1181d4c72b|High|authorization|P-ROTATE|
-|SEC-c61d3aa7ce767a66|High|authorization|P-ROTATE|
-|SEC-62a3ddd0fc8b41c0|High|credential-url|P-ROTATE|
-|SEC-29924ca769f9684c|High|secret-assignment|P-ROTATE|
-|SEC-7d46402d11a73ab6|High|secret-assignment|P-ROTATE|
-|SEC-6a7a74e9115c5224|High|secret-assignment|P-ROTATE|
-|SEC-47779a10428bc4bc|High|secret-assignment|P-ROTATE|
-|SEC-6fd1c5f280a81bc6|High|secret-assignment|P-ROTATE|
-|SEC-255d726c65336cb8|High|secret-assignment|P-ROTATE|
-|SEC-fb12572f0c5b0d02|High|credential-url|P-ROTATE|
-|SEC-770ac50a269cec8d|High|jwt|P-ROTATE|
-|SEC-063cc33d641d891c|High|authorization|P-ROTATE|
-|SEC-714bcd633c68743c|High|jwt|P-ROTATE|
-|SEC-dde85739e27b0164|High|credential-url|P-ROTATE|
-|SEC-785eecd752e14a2e|High|secret-assignment|P-ROTATE|
-|SEC-86bb78358e17fabc|High|credential-url|P-ROTATE|
-|SEC-aaa6094642bbc667|High|credential-url|P-ROTATE|
-|SEC-271fcbed16d70be7|High|credential-url|P-ROTATE|
-|SEC-794044182f67a1c5|High|credential-url|P-ROTATE|
-|SEC-c6c35cab65a61c55|High|credential-url|P-ROTATE|
-|SEC-020bcf4deae0444e|High|credential-url|P-ROTATE|
-|SEC-6b36e430ca99bec5|High|credential-url|P-ROTATE|
-|SEC-722a5424d8d72bfa|High|jwt|P-ROTATE|
-|SEC-4631c3f2d2ca5275|High|secret-assignment|P-ROTATE|
-|SEC-084a1c45a90b3984|High|credential-url|P-ROTATE|
-|SEC-ef60602b6fc2a1c5|High|credential-url|P-ROTATE|
-|SEC-9512fb915b81f370|High|credential-url|P-ROTATE|
-|SEC-bc37ab767869a188|High|credential-url|P-ROTATE|
-|SEC-b90176df83ac7f6f|High|secret-assignment|P-ROTATE|
-|SEC-513d2c941d2e2367|High|secret-assignment|P-REVIEW|
-|SEC-6d0388b85c1c294d|High|secret-assignment|P-ROTATE|
-|SEC-11e912fc6a7cea67|High|secret-assignment|P-ROTATE|
-|SEC-ac0bfad4c2d8683d|High|secret-assignment|P-ROTATE|
-|SEC-2e51a1d9a3da2f3d|High|secret-assignment|P-ROTATE|
-|SEC-e4faee6dbe90d977|High|credential-url|P-ROTATE|
-|SEC-af8160d23a53121e|High|credential-url|P-ROTATE|
-|SEC-414943a7ad667259|High|credential-url|P-ROTATE|
-|SEC-05bbac204de0b13a|High|credential-url|P-ROTATE|
-|SEC-4dbe9392c239be91|High|service-token|P-ROTATE|
-|SEC-db4b3f18288f37c6|High|credential-url|P-ROTATE|
-|SEC-a4b83018d1176aaa|High|secret-assignment|P-ROTATE|
-|SEC-02c38590a1a3897c|High|credential-url|P-ROTATE|
-|SEC-6dc781c024e841af|High|credential-url|P-ROTATE|
-|SEC-1b945a79d2d3947a|High|credential-url|P-ROTATE|
-|SEC-0a831c5dc414aa38|High|credential-url|P-ROTATE|
-|SEC-bf3febad4f313102|High|secret-assignment|P-ROTATE|
-|SEC-e9cc39c108111617|High|secret-assignment|P-ROTATE|
-|SEC-2b8ef632d4eb72a6|High|secret-assignment|P-ROTATE|
-|SEC-2d35b985ac9eabd1|High|secret-assignment|P-ROTATE|
-|SEC-430604272e45fc9f|High|secret-assignment|P-ROTATE|
-|SEC-0f2a021f9e491c28|High|secret-assignment|P-ROTATE|
-|SEC-b63fee7a46496a72|High|credential-url|P-ROTATE|
-|SEC-c37343ff285623c7|High|credential-url|P-ROTATE|
-|SEC-ef153e1bdf37469a|High|secret-assignment|P-REVIEW|
+Low是明确示例或非秘密结构；其余是需要负责人确认的风险候选，不声称已确认有效。Medium仍有3554项，逐项已绑定证据和优先级；对于没有充分结构依据的候选，仍保留为风险，不能以本轮完成自动分类替代负责人复核。若总控要求每项最终确认为真实风险或误报，剩余候选仍是门禁3验收限制。
+
+HMAC方案v2，密钥标识FL-SEC-001-local-01；finding/path/link-target域长度分帧，同域同字节稳定。旧密钥和v1映射保留；在门禁5和另行确认前不销毁。报告不显示值或首尾字符。
