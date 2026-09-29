@@ -1,10 +1,10 @@
 {
   "number": 79,
-  "audited_head": "041ea6153594943931c29f84d8c1856d5a16432d",
+  "audited_head": "666f256d8b57f3575fb489ee5c712178f64e944f",
   "base": "dev",
   "draft": true,
   "only_governance_files": true,
-  "file_count": 25,
+  "file_count": 31,
   "rollback_checked": true,
-  "scope_rechecked_after_revision": "见最终HANDOFF"
+  "final_revision_scope_audit": "见最终HANDOFF"
 }

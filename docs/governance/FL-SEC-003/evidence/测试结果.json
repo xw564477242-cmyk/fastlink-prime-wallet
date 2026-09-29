@@ -4,96 +4,99 @@
       "id": "SEC3-T01",
       "name": "88项范围完整性",
       "status": "PASS",
-      "evidence": "88项指纹/ID对账；三级58/26/4，实际High均不变"
+      "evidence": "88项ID/指纹集合逐项一致"
     },
     {
       "id": "SEC3-T02",
-      "name": "逐项字段及审核状态",
+      "name": "逐项字段及审核状态完整性",
       "status": "PASS",
-      "evidence": "保留未知，不冒称自然人审核或实际权限已确认"
+      "evidence": "全部保持High及待人工审核状态"
     },
     {
       "id": "SEC3-T03",
       "name": "P0处置触发规则",
       "status": "PASS",
-      "evidence": "独立P0触发条件已列；合成测试通过，不执行认证或处置；High队列由T01至T03覆盖"
+      "evidence": "三级58/26/4，获批合成P0触发测试通过"
     },
     {
       "id": "SEC3-T04",
       "name": "秘密值及密钥材料零泄露",
       "status": "PASS",
-      "evidence": "新增治理报告/规则/测试的格式、高熵及实际密钥材料检查"
+      "evidence": "全部治理材料含获批样例的格式、高熵及实际密钥材料扫描零命中"
     },
     {
       "id": "SEC3-T05",
       "name": "Git引用/OID对账",
       "status": "PASS",
-      "evidence": "再次核验对象、直接引用及packed-refs摘要；本轮git fsck --full --strict退出0；不替代管理员归因"
+      "evidence": "22826本库对象及4个外部目标核验，OID受工具引用保护"
     },
     {
       "id": "SEC3-T06",
       "name": "根因确认凭证",
-      "status": "BLOCKED",
-      "evidence": "已登记本轮授权及“确认”回复；缺少具体根因/OID确认正文，一致性无法判定；重新fsck成功不替代确认凭证"
+      "status": "PASS",
+      "evidence": "R03正式管理员确认；与核验OID/完整性无直接冲突，保留维护时序取证限制"
     },
     {
       "id": "SEC3-T07",
-      "name": "规则确定性和获批样例测试",
-      "status": "LIMITED",
-      "evidence": "49项合成测试重跑两轮，结果一致；2917项dry-run逐项重复结果一致；外部样例记录0，仍LIMITED"
+      "name": "规则确定性及获批样例测试",
+      "status": "PASS",
+      "evidence": "49项获批控制SHA绑定及51项v1补充控制，各两轮通过；非真实候选语义确认"
     },
     {
       "id": "SEC3-T08",
       "name": "保守回退与未知保留",
       "status": "PASS",
-      "evidence": "冲突或证据不足维持原等级；每项保存结构依据/规则版本/人工状态"
+      "evidence": "全部保持原等级，结构线索不足不降级"
     },
     {
       "id": "SEC3-T09",
       "name": "禁止整目录白名单",
       "status": "PASS",
-      "evidence": "路径只调整审核顺序，不触发降级；反例控制通过"
+      "evidence": "目录白名单/路径覆盖及冲突反例测试通过"
     },
     {
       "id": "SEC3-T10",
       "name": "dry-run不写入",
       "status": "PASS",
-      "evidence": "原High矩阵和分类表SHA不变，原High和Medium等级不变"
+      "evidence": "原分类及High矩阵SHA不变，重复dry-run一致"
     },
     {
       "id": "SEC3-T11",
       "name": "原现场保护",
       "status": "PASS",
-      "evidence": "561144文件、1417链接及目录/主要Git状态前后一致"
+      "evidence": "561144文件、1417链接及主要Git状态一致"
     },
     {
       "id": "SEC3-T12",
-      "name": "基线拟追加文本",
+      "name": "基线拟追加文本检查",
       "status": "PASS",
-      "evidence": "仅拟追加，未更新正式基线和历史日志"
+      "evidence": "仅拟追加，未修改正式基线/日志"
     },
     {
       "id": "SEC3-T13",
       "name": "PR范围及回滚方案",
       "status": "PASS",
-      "evidence": "PR创建后检查实际文件范围、dev目标和独立revert方案；最终HEAD再次核验见HANDOFF"
+      "evidence": "既有PR实际范围及独立revert方案核验，修订HEAD推送后再次核对见HANDOFF"
     }
   ],
   "counts": {
-    "PASS": 11,
-    "LIMITED": 1,
-    "BLOCKED": 1,
+    "PASS": 13,
+    "LIMITED": 0,
+    "BLOCKED": 0,
     "FAIL": 0
   },
-  "gate2_ready": false,
-  "phase_b_authorized": true,
-  "approved_sample_records_read": 0,
-  "specific_root_cause_confirmation_read": false,
+  "external_confirmation": "FL-SEC-003-R03",
+  "gate2_status": "待总控评审，未自行放行",
+  "gate3_status": "未进入",
+  "approved_synthetic_controls": 49,
+  "v1_supplemental_controls": 51,
+  "approved_real_candidate_samples": 0,
   "not_run": [
-    "真实获批样例验证（记录未定位）",
-    "候选认证、轮换、吊销",
-    "生产/业务修改、部署、环境晋升",
-    "引用修复、GC、历史重写",
+    "候选认证/调用/轮换/吊销",
+    "风险原等级写回",
+    "引用修复/GC/历史重写",
+    "业务或生产变更",
+    "资产清理/部署/环境晋升",
     "正式基线更新"
   ]
 }

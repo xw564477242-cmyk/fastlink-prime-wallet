@@ -1,10 +1,10 @@
 {
-  "phase_b_authorized": true,
-  "source": "本轮用户阶段B授权结论",
+  "revision": "R03",
+  "formal_confirmation_received": true,
+  "source": "最终外部确认凭证R03及补充正式确认书/规则集v1",
+  "specific_root_cause_confirmation_received": true,
+  "approved_synthetic_control_count": 49,
+  "supplemental_v1_controls": 51,
   "gate2_passed": false,
-  "administrator_role_named_by_user": "项目所有者兼Git资产管理员",
-  "specific_root_cause_statement_attached": false,
-  "approved_sample_records_attached": false,
-  "high_severity_changes_authorized": false,
-  "original_classification_writes_authorized": false
+  "merge_authorized": false
 }
