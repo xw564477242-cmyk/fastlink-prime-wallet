@@ -1,0 +1,96 @@
+{
+  "tests": [
+    {
+      "id": "DEV1-T01",
+      "name": "六仓工作区完整性",
+      "status": "PASS",
+      "evidence": "workspaces.json；六仓独立远端克隆，不借用恢复目录。"
+    },
+    {
+      "id": "DEV1-T02",
+      "name": "远端及HEAD核验",
+      "status": "PASS",
+      "evidence": "workspaces.json、formal-final.json；固定核验时SHA，不代表未来远端不变。"
+    },
+    {
+      "id": "DEV1-T03",
+      "name": "原现场保护",
+      "status": "FAIL",
+      "evidence": "source-protection.json；共同561144个文件内容/权限/属主未变，终检新增1条refs/codex工具引用及3个目录，写入进程未确认；不判原现场完全未变。历史580个链接缺口仍保留。"
+    },
+    {
+      "id": "DEV1-T04",
+      "name": "长期分支矩阵",
+      "status": "PASS",
+      "evidence": "分支基线与晋升矩阵.md；缺失、分叉记录，不创建、不修复。"
+    },
+    {
+      "id": "DEV1-T05",
+      "name": "工具链版本和锁文件",
+      "status": "PASS",
+      "evidence": "toolchain.json、runtime-versions.json；来源为本机既有工具，锁文件未改。"
+    },
+    {
+      "id": "DEV1-T06",
+      "name": "依赖安装",
+      "status": "PASS",
+      "evidence": "runtime-results.json；四仓有依赖，另两仓零依赖无需安装；生命周期脚本禁用。"
+    },
+    {
+      "id": "DEV1-T07",
+      "name": "构建、lint、类型检查",
+      "status": "PASS",
+      "evidence": "runtime-results.json；失败项：无；无对应脚本的仓库不适用，不修改既有业务错误。"
+    },
+    {
+      "id": "DEV1-T08",
+      "name": "单元测试",
+      "status": "FAIL",
+      "evidence": "runtime-results.json；失败仓库：fastlik-backend。后端完整运行报告1757项、25项失败、5个失败套件；定向复核25项均有网络权限拒绝，未放宽限制，也不冒称业务断言通过。控制库仅只读validate，默认测试含写入未运行；Admin排除生产验证脚本。"
+    },
+    {
+      "id": "DEV1-T09",
+      "name": "本地启动及健康检查",
+      "status": "BLOCKED",
+      "evidence": "health-results.json；前端回环检查4/4；后端数据库/非回环监听阻塞；控制库无Web服务。首页不代表业务联通。"
+    },
+    {
+      "id": "DEV1-T10",
+      "name": "非生产连接保护",
+      "status": "PASS",
+      "evidence": "network-policy.json；执行进程受系统沙箱限制、无生产秘密。未验证外部浏览器业务流程。"
+    },
+    {
+      "id": "DEV1-T11",
+      "name": "独有资产归属覆盖",
+      "status": "PASS",
+      "evidence": "asset-attribution.json；只读建议，未冒充资产所有者最终确认。"
+    },
+    {
+      "id": "DEV1-T12",
+      "name": "工作树清理安全检查",
+      "status": "LIMITED",
+      "evidence": "worktree-checkpoint.json；三项只读证据和dry-run齐备；占用及具体登记项批准未取得，实际prune为0。"
+    },
+    {
+      "id": "DEV1-T13",
+      "name": "秘密扫描",
+      "status": "PASS",
+      "evidence": "secret-scan.json；显式格式、高熵及实际HMAC密钥材料检查。"
+    },
+    {
+      "id": "DEV1-T14",
+      "name": "PR范围及回滚方案",
+      "status": "LIMITED",
+      "evidence": "改动与回滚.md；本地范围限定治理目录；PR创建后需补充远端核验。未经门禁3不合并。"
+    }
+  ],
+  "counts": {
+    "PASS": 9,
+    "FAIL": 2,
+    "BLOCKED": 1,
+    "LIMITED": 2
+  },
+  "gate2": "待评审，存在明确失败/阻塞/限制，不宣称全部通过",
+  "worktree_cleanup_performed": false
+}

@@ -1,0 +1,13 @@
+{
+  "policy_compile_exit": 0,
+  "allowed_install_proxy": "127.0.0.1:46198",
+  "direct_external_network_allowed": false,
+  "private_config_read_denied": true,
+  "proxy_source_sha256": "3981c87f1d6e62f74b73801d73d24e69bc57ca7d8eafbf29af7cbbf08c48eddf",
+  "proxy_version": "FL-DEV-001-registry-proxy-v2",
+  "fixed_package_source_hosts": [
+    "registry.npmjs.org",
+    "europe-west4-npm.pkg.dev",
+    "europe-west1-npm.pkg.dev"
+  ]
+}

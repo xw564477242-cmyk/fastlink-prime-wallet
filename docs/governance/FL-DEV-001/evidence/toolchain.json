@@ -1,0 +1,130 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "locks": [
+      "package-lock.json"
+    ],
+    "manifest_sha256": {
+      "package.json": "b7c622bcbf81572d44b562a9c27451e9d684db2ec915f759de208eee57765c2b",
+      "package-lock.json": "3dee91c3e8c43d2f855f3a2a4d16634c349d58f18a31fcbb3e1d8bf7a81498b9"
+    },
+    "install_command": "npm ci --ignore-scripts --no-audit --no-fund --include=dev",
+    "build_command": "npm run build",
+    "test_command": "node --test tests/*.test.mjs；不执行生产验证脚本",
+    "start_command": "受限Vite进程 --host 127.0.0.1 --strictPort；端口见启动说明",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {
+      "react": "18.3.1",
+      "vite": "8.1.5",
+      "typescript": "5.7.2"
+    }
+  },
+  {
+    "repo": "fastlik-Website",
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "locks": [],
+    "manifest_sha256": {
+      "package.json": "b761f84ad689cfbdd808701b8bdbaab00b913fa3de89dad691280fa1429f86b2"
+    },
+    "install_command": "不适用：零依赖",
+    "build_command": "不适用：无构建脚本",
+    "test_command": "npm run test:worker",
+    "start_command": "受限回环静态HTTP服务，端口46104",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {}
+  },
+  {
+    "repo": "fastlik-app",
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "locks": [
+      "package-lock.json"
+    ],
+    "manifest_sha256": {
+      "package.json": "f9e81324f622c0b89aec9049d6de3d04ccc08d2b93b768ef63029e0b32ca364e",
+      "package-lock.json": "3380ae92d7612f1d88701865d66a27fb5d136f6f9679ae90238438ad029b4c49"
+    },
+    "install_command": "npm ci --ignore-scripts --no-audit --no-fund --include=dev",
+    "build_command": "npm run build",
+    "test_command": "node --experimental-strip-types --test tests/*.test.ts",
+    "start_command": "受限Vite进程 --host 127.0.0.1 --strictPort；端口见启动说明",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {
+      "react": "18.3.1",
+      "vite": "8.1.5",
+      "typescript": "5.9.3"
+    }
+  },
+  {
+    "repo": "fastlik-backend",
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "locks": [
+      "package-lock.json"
+    ],
+    "manifest_sha256": {
+      "package.json": "c0f07401efb2994e4a1e701b323f72772eb7f7a4b1cb33a10265143bcc8c1282",
+      "package-lock.json": "cd4057fcc21d8af02360da967ed9722658cba36e6c38f0c7d724de29e6a99b1d"
+    },
+    "install_command": "npm ci --ignore-scripts --no-audit --no-fund --include=dev",
+    "build_command": "npm run build",
+    "test_command": "npm test -- --runInBand（系统沙箱内）",
+    "start_command": "BLOCKED：本地数据库不可用且服务监听非回环",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {
+      "typescript": "5.9.3",
+      "@nestjs/core": "11.1.28",
+      "prisma": "6.19.3",
+      "@prisma/client": "6.19.3",
+      "jest": "30.4.2",
+      "eslint": "9.39.5"
+    }
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "locks": [],
+    "manifest_sha256": {
+      "package.json": "d4d7aa6bf881b7683b76864007381fb4b6f1c7039db44e3f259fecb06c790c72"
+    },
+    "install_command": "不适用：零依赖",
+    "build_command": "不适用：无构建脚本",
+    "test_command": "node control/scripts/validate-control-package.mjs；不执行带--write的默认测试",
+    "start_command": "不适用：CLI治理包，运行只读validate",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {}
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "runtime": "Node 22.22.1 / npm 10.9.4 / Bun 1.3.14",
+    "locks": [
+      "bun.lock"
+    ],
+    "manifest_sha256": {
+      "package.json": "13461b79ef7f70f1fd74cc38a17c1eb4edd7f637086c52c155ebd6b1a2e64d8f",
+      "bun.lock": "b82083e44516830eac8b9eeb369e9d800148a4c53a9062bd487ac5684f5f8112"
+    },
+    "install_command": "bun install --frozen-lockfile --ignore-scripts",
+    "build_command": "npm run build",
+    "test_command": "按CI隔离方式逐文件bun test（系统沙箱内）",
+    "start_command": "受限Vite进程 --host 127.0.0.1 --strictPort；端口见启动说明",
+    "package_runtime_declaration": {},
+    "package_manager_declaration": null,
+    "lifecycle_scripts": [],
+    "installed_framework_versions": {
+      "react": "19.2.5",
+      "vite": "8.1.5",
+      "typescript": "5.9.3",
+      "eslint": "9.39.4"
+    }
+  }
+]

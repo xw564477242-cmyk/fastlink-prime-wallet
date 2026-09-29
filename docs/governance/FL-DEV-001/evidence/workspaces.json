@@ -1,0 +1,320 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "path": "/Users/ck/Developer/FastLink/fastlik-Admin",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-Admin.git",
+    "default_branch": "main",
+    "default_head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+    "checked_out_branch": "dev",
+    "head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "test": "4fd40f20f2ca27e9bb1ad9e7dd9c531964235732",
+      "uat": null,
+      "main": "7228905b4319187db40754832d30c6d9bbe2ff8f"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "test",
+        "merge_base": "8fec73157b68be01a997225ad6dd19d67712ef4a",
+        "left_only": 66,
+        "right_only": 1,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "5295daf6dc38774af6f3a63f522c901d9f1a0865",
+        "left_only": 90,
+        "right_only": 7,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "test",
+        "right": "main",
+        "merge_base": "5295daf6dc38774af6f3a63f522c901d9f1a0865",
+        "left_only": 25,
+        "right_only": 7,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 64,
+    "tag_count": 0,
+    "commits": 309,
+    "head_tree": "0e26d08043cd34e3c8412ba0ac018101474779d6"
+  },
+  {
+    "repo": "fastlik-Website",
+    "path": "/Users/ck/Developer/FastLink/fastlik-Website",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-Website.git",
+    "default_branch": "main",
+    "default_head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+    "checked_out_branch": "dev",
+    "head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "test": "90a7345e8b9e281b0acffc34f6c0971e30513ab5",
+      "uat": null,
+      "main": "7b5440772069cecc03a1682bc5d2140317c54edb"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "test",
+        "merge_base": "54d04ed6e012dfd80c134dfd68efdd921767b9fe",
+        "left_only": 107,
+        "right_only": 2,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "fcf1ad948ab27201b31b94b276798b10aa6aa35c",
+        "left_only": 145,
+        "right_only": 6,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "test",
+        "right": "main",
+        "merge_base": "fcf1ad948ab27201b31b94b276798b10aa6aa35c",
+        "left_only": 40,
+        "right_only": 6,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 66,
+    "tag_count": 0,
+    "commits": 176,
+    "head_tree": "2f4d7a6df293202b018c12f705337656f1050975"
+  },
+  {
+    "repo": "fastlik-app",
+    "path": "/Users/ck/Developer/FastLink/fastlik-app",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-app.git",
+    "default_branch": "main",
+    "default_head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+    "checked_out_branch": "dev",
+    "head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "test": "89a5eed87395670f99a94e4075f25a5846d7892a",
+      "uat": null,
+      "main": "fb05291c5c68d979bbd864fae4e9493d64479560"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "test",
+        "merge_base": "87a27555df5c33cca0ebf3f3c10ba51b58a97559",
+        "left_only": 150,
+        "right_only": 1,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "0fef644720beffe59ed9f94e477a34df79659355",
+        "left_only": 175,
+        "right_only": 12,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "test",
+        "right": "main",
+        "merge_base": "0fef644720beffe59ed9f94e477a34df79659355",
+        "left_only": 26,
+        "right_only": 12,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 76,
+    "tag_count": 0,
+    "commits": 278,
+    "head_tree": "5b886324b1f5e5e61af7595db7400456c0e84436"
+  },
+  {
+    "repo": "fastlik-backend",
+    "path": "/Users/ck/Developer/FastLink/fastlik-backend",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-backend.git",
+    "default_branch": "main",
+    "default_head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+    "checked_out_branch": "dev",
+    "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "test": "1efc76ea79d61dd0affda87b014ea4a36101cf26",
+      "uat": null,
+      "main": "74e5be019c8c91acee6ca241956fc24dfe8ae826"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "test",
+        "merge_base": "f6e7ce81b89c662531267c6e6092404cd7144a17",
+        "left_only": 499,
+        "right_only": 1,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "731c7682990198a3636c2309e7863e97c2af6e8b",
+        "left_only": 645,
+        "right_only": 2,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "test",
+        "right": "main",
+        "merge_base": "731c7682990198a3636c2309e7863e97c2af6e8b",
+        "left_only": 147,
+        "right_only": 2,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 314,
+    "tag_count": 0,
+    "commits": 1463,
+    "head_tree": "497e4c143977970235545f4c8c5d42880b4d1c53"
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "path": "/Users/ck/Developer/FastLink/fastlink-control-plane",
+    "remote": "https://github.com/xw564477242-cmyk/fastlink-control-plane.git",
+    "default_branch": "main",
+    "default_head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+    "checked_out_branch": "dev",
+    "head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "test": null,
+      "uat": null,
+      "main": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "ad5defe6df7c59766a8b9eba81114c51ef8febfa",
+        "left_only": 88,
+        "right_only": 2,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 58,
+    "tag_count": 0,
+    "commits": 349,
+    "head_tree": "b015c5e5ac40c7648d5f88f563c9c167c02a69a0"
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "path": "/Users/ck/Developer/FastLink/fastlink-prime-wallet",
+    "remote": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet.git",
+    "default_branch": "main",
+    "default_head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+    "checked_out_branch": "dev",
+    "head": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+    "upstream": "origin/dev",
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false,
+    "fsck_exit": 0,
+    "clean": true,
+    "mode": "0o700",
+    "uid": 501,
+    "branches": {
+      "dev": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+      "test": "7433607f6b10135e0f116853687cae614db13d6d",
+      "uat": null,
+      "main": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18"
+    },
+    "branch_pairs": [
+      {
+        "left": "dev",
+        "right": "test",
+        "merge_base": "614e16fea3ecfaf474845f48d4d44a8f2311b0f1",
+        "left_only": 184,
+        "right_only": 4,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "dev",
+        "right": "main",
+        "merge_base": "d0a7e6ac66cca34bbd607cd924a0b6eedf635467",
+        "left_only": 208,
+        "right_only": 11,
+        "left_contains_right": false,
+        "right_contains_left": false
+      },
+      {
+        "left": "test",
+        "right": "main",
+        "merge_base": "d0a7e6ac66cca34bbd607cd924a0b6eedf635467",
+        "left_only": 28,
+        "right_only": 11,
+        "left_contains_right": false,
+        "right_contains_left": false
+      }
+    ],
+    "remote_branch_count": 85,
+    "tag_count": 0,
+    "commits": 446,
+    "head_tree": "5a6f6c4044b98d53f92883882e6326468403b780"
+  }
+]

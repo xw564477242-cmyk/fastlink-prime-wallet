@@ -1,0 +1,87 @@
+{
+  "exit": 1,
+  "scope": "onlyFailures from complete prior run; diagnostic repetition does not replace complete results",
+  "failed_test_suites": 5,
+  "failed_tests": 25,
+  "rows": [
+    {
+      "suite_id": "BACKEND-FAIL-01",
+      "location": "[backend]/src/wallet/end-user-wallet-assets.http.spec.ts",
+      "failed_cases": 4,
+      "network_permission_failures": 4,
+      "file_permission_failures": 0,
+      "permission_failures": 4,
+      "unclassified_failure_count": 0,
+      "uses_supertest": true,
+      "explicit_loopback_literal_present": false
+    },
+    {
+      "suite_id": "BACKEND-FAIL-02",
+      "location": "[backend]/src/card-service/admin-card-snapshots.http.spec.ts",
+      "failed_cases": 8,
+      "network_permission_failures": 8,
+      "file_permission_failures": 0,
+      "permission_failures": 8,
+      "unclassified_failure_count": 0,
+      "uses_supertest": true,
+      "explicit_loopback_literal_present": false
+    },
+    {
+      "suite_id": "BACKEND-FAIL-03",
+      "location": "[backend]/src/card-service/admin-card-timeline.http.spec.ts",
+      "failed_cases": 5,
+      "network_permission_failures": 5,
+      "file_permission_failures": 0,
+      "permission_failures": 5,
+      "unclassified_failure_count": 0,
+      "uses_supertest": true,
+      "explicit_loopback_literal_present": false
+    },
+    {
+      "suite_id": "BACKEND-FAIL-04",
+      "location": "[backend]/src/test-support/thredd-webhook-replay-http.spec.ts",
+      "failed_cases": 6,
+      "network_permission_failures": 6,
+      "file_permission_failures": 0,
+      "permission_failures": 6,
+      "unclassified_failure_count": 0,
+      "uses_supertest": true,
+      "explicit_loopback_literal_present": false
+    },
+    {
+      "suite_id": "BACKEND-FAIL-05",
+      "location": "[backend]/src/security.e2e.spec.ts",
+      "failed_cases": 2,
+      "network_permission_failures": 2,
+      "file_permission_failures": 0,
+      "permission_failures": 2,
+      "unclassified_failure_count": 0,
+      "uses_supertest": true,
+      "explicit_loopback_literal_present": false
+    },
+    {
+      "suite_id": "BACKEND-FAIL-06",
+      "location": "[backend]/src/health/end-user-auth-readiness.postgres.spec.ts",
+      "failed_cases": 0,
+      "network_permission_failures": 0,
+      "file_permission_failures": 0,
+      "permission_failures": 0,
+      "unclassified_failure_count": 0,
+      "uses_supertest": false,
+      "explicit_loopback_literal_present": true
+    },
+    {
+      "suite_id": "BACKEND-FAIL-07",
+      "location": "[backend]/src/health/end-user-auth-rls.contract.postgres.spec.ts",
+      "failed_cases": 0,
+      "network_permission_failures": 0,
+      "file_permission_failures": 0,
+      "permission_failures": 0,
+      "unclassified_failure_count": 0,
+      "uses_supertest": false,
+      "explicit_loopback_literal_present": true
+    }
+  ],
+  "raw_messages_saved": false,
+  "source_changed": false
+}

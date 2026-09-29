@@ -1,0 +1,13 @@
+{
+  "phase": "after",
+  "files": 561145,
+  "errors": 0,
+  "links": 1417,
+  "manifest_sha256": "b4deb74dfec8bf5844a875e849cf353f3036af19db7ba29c21b01772c22f1fcd",
+  "changed": 0,
+  "missing": 0,
+  "added": 1,
+  "directories_equal": false,
+  "git_states_equal": true,
+  "links_equal": true
+}

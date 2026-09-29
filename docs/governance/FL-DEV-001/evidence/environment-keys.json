@@ -1,0 +1,121 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "variable_names_only": [
+      "VITE_FASTLINK_API_URL",
+      "VITE_FASTLINK_BUILD_SHA",
+      "VITE_FASTLINK_ENVIRONMENT",
+      "VITE_PUBLIC_BASE"
+    ],
+    "original_values_exported": false
+  },
+  {
+    "repo": "fastlik-Website",
+    "variable_names_only": [
+      "FASTLINK_ADMIN_URL",
+      "FASTLINK_API_URL",
+      "FASTLINK_BUILD_SHA",
+      "FASTLINK_ENVIRONMENT",
+      "FASTLINK_WALLET_URL",
+      "VITE_FASTLINK_API_URL",
+      "VITE_FASTLINK_BUILD_SHA",
+      "VITE_FASTLINK_ENVIRONMENT"
+    ],
+    "original_values_exported": false
+  },
+  {
+    "repo": "fastlik-app",
+    "variable_names_only": [
+      "VITE_FASTLINK_API_URL",
+      "VITE_FASTLINK_BUILD_SHA",
+      "VITE_FASTLINK_DATA_SOURCE",
+      "VITE_FASTLINK_ENVIRONMENT",
+      "VITE_PUBLIC_BASE"
+    ],
+    "original_values_exported": false
+  },
+  {
+    "repo": "fastlik-backend",
+    "variable_names_only": [
+      "ADMIN_API_KEY",
+      "ADMIN_SESSION_TTL_SECONDS",
+      "ALLOW_SANDBOX_FX_ADAPTER",
+      "ALLOW_SANDBOX_PROVIDER_MOCK",
+      "ALLOW_TEST_PROVIDER_STUB",
+      "CARD_TRANSACTION_PROVIDER_MODE",
+      "CORS_ORIGIN",
+      "DATABASE_URL",
+      "DEV_CARD_FEE_MIGRATION_CONFIRMATION",
+      "DEV_SEED_CONFIRMATION",
+      "DIRECT_URL",
+      "ENABLE_API_DOCS",
+      "ENABLE_END_USER_API",
+      "END_USER_LOCKOUT_SECONDS",
+      "END_USER_LOGIN_MAX_ATTEMPTS",
+      "END_USER_SESSION_ABSOLUTE_TTL_SECONDS",
+      "END_USER_SESSION_IDLE_TTL_SECONDS",
+      "END_USER_SESSION_SECRET",
+      "END_USER_SESSION_TTL_SECONDS",
+      "FASTLINK_DEV_DATABASE_HOST",
+      "FASTLINK_DEV_PROJECT_HOST_FINGERPRINT",
+      "FASTLINK_DEV_PROJECT_REF",
+      "FASTLINK_ENVIRONMENT",
+      "FASTLINK_PRODUCTION_PROJECT_HOST_FINGERPRINT",
+      "FASTLINK_SANDBOX_FEE_POLICY_JSON",
+      "FASTLINK_SMOKE_ORIGIN",
+      "FASTLINK_TEST_BACKEND_URL",
+      "FASTLINK_TEST_DATABASE_HOST",
+      "FASTLINK_TEST_DATABASE_SCHEMA",
+      "FASTLINK_TEST_ISOLATION_MODE",
+      "FASTLINK_TEST_PROJECT_HOST_FINGERPRINT",
+      "FASTLINK_TEST_PROJECT_REF",
+      "FASTLINK_TEST_PROJECT_SCHEMA_FINGERPRINT",
+      "FX_MODE",
+      "NODE_ENV",
+      "PHASE2_CHAIN_WEBHOOK_SECRET",
+      "PHASE2_INTERNAL_POLLER_TOKEN",
+      "PORT",
+      "RATE_LIMIT_MAX",
+      "REDIS_URL",
+      "TEST_SEED_CONFIRMATION",
+      "TEST_SEED_PASSWORD",
+      "THREDD_API_HUB_URL",
+      "THREDD_APP_ID",
+      "THREDD_BASE_URL",
+      "THREDD_CLIENT_ID",
+      "THREDD_DCR_URL",
+      "THREDD_FREEZE_STATUS_CODE",
+      "THREDD_HTTP_RESPONSE_MAX_BYTES",
+      "THREDD_HTTP_RETRY_BASE_MS",
+      "THREDD_HTTP_RETRY_MAX",
+      "THREDD_HTTP_TIMEOUT_MS",
+      "THREDD_KID",
+      "THREDD_MODE",
+      "THREDD_OAUTH_SCOPE",
+      "THREDD_ORG_ID",
+      "THREDD_PHYSICAL_ADDRESS_MODE",
+      "THREDD_SIGNING_KEY",
+      "THREDD_SSA",
+      "THREDD_TOKEN_URL",
+      "THREDD_TRANSPORT_CERT",
+      "THREDD_TRANSPORT_KEY",
+      "THREDD_WEBHOOK_SECRET",
+      "WEBHOOK_TIMESTAMP_TOLERANCE_SECONDS"
+    ],
+    "original_values_exported": false
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "variable_names_only": [],
+    "original_values_exported": false
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "variable_names_only": [
+      "VITE_FASTLINK_API_URL",
+      "VITE_FASTLINK_BUILD_SHA",
+      "VITE_FASTLINK_ENVIRONMENT"
+    ],
+    "original_values_exported": false
+  }
+]

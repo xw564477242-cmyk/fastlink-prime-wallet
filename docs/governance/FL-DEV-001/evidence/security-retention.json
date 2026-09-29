@@ -1,0 +1,10 @@
+{
+  "key_identifier": "FL-SEC-001-local-01",
+  "exists": true,
+  "key_mode": "0o600",
+  "parent_mode": "0o700",
+  "owner_matches_current_user": true,
+  "key_material_exported": false,
+  "retention": "保留；本工单不销毁、不迁移、不轮换",
+  "old_evidence_roots_retained": true
+}

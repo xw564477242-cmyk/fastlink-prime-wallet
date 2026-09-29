@@ -1,0 +1,24 @@
+{
+  "added_count": 1,
+  "items": [
+    {
+      "id": "NEW-adc910cfcc9c",
+      "reference_prefix": "refs/codex",
+      "matches_ticket_report_branch": false,
+      "is_tool_reference": true,
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "object_type": "tree",
+      "object_present": true,
+      "attribution": "未确认写入进程；保留原样"
+    }
+  ],
+  "no_cleanup_performed": true,
+  "directory_comparison": {
+    "added": 3,
+    "missing": 0,
+    "common_metadata_changed": 0
+  },
+  "common_regular_files_unchanged": 561144,
+  "report_checkout_git_is_independent": true,
+  "formal_prime_git_is_independent": true
+}

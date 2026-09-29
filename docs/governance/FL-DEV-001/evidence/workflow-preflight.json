@@ -1,0 +1,32 @@
+{
+  "workflows": [
+    {
+      "file": "prime-wallet-pr.yml",
+      "sha256": "73fb45b877d932c92f708738be1dd2b7386b16a4e7b52bfa21f563c9756393b2",
+      "pr_target_dev": true,
+      "push_target_dev": true,
+      "push_target_test": false,
+      "manual_dispatch": false
+    },
+    {
+      "file": "deploy-cloudflare-dev.yml",
+      "sha256": "f385b1735690011abe0dcfed3abec2b1841cb908440c5878d35873ac5d3b6d83",
+      "pr_target_dev": false,
+      "push_target_dev": false,
+      "push_target_test": false,
+      "manual_dispatch": true
+    },
+    {
+      "file": "deploy-cloudflare-test.yml",
+      "sha256": "b47cf908624a4ab2466c9c330caf3b44b0c715fedf8d3241f8544a2921f00a6b",
+      "pr_target_dev": false,
+      "push_target_dev": false,
+      "push_target_test": true,
+      "manual_dispatch": true
+    }
+  ],
+  "feature_branch_push_deploy_trigger": false,
+  "pull_request_deploy_trigger": false,
+  "manual_deployment_dispatched": false,
+  "workflow_modified": false
+}
