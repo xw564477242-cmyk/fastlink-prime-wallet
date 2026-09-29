@@ -28,19 +28,19 @@
       "id": "SEC3-T05",
       "name": "Git引用/OID对账",
       "status": "PASS",
-      "evidence": "再次核验对象、直接引用及packed-refs摘要；不替代管理员归因"
+      "evidence": "再次核验对象、直接引用及packed-refs摘要；本轮git fsck --full --strict退出0；不替代管理员归因"
     },
     {
       "id": "SEC3-T06",
       "name": "根因确认凭证",
       "status": "BLOCKED",
-      "evidence": "执行授权已收到；具体根因确认正文和依据尚未定位，不能伪造凭证"
+      "evidence": "已登记本轮授权及“确认”回复；缺少具体根因/OID确认正文，一致性无法判定；重新fsck成功不替代确认凭证"
     },
     {
       "id": "SEC3-T07",
       "name": "规则确定性和获批样例测试",
       "status": "LIMITED",
-      "evidence": "49项合成测试通过；获批外部样例记录0，不能称样例验证完成"
+      "evidence": "49项合成测试重跑两轮，结果一致；2917项dry-run逐项重复结果一致；外部样例记录0，仍LIMITED"
     },
     {
       "id": "SEC3-T08",

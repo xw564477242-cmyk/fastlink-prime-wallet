@@ -129,6 +129,5 @@
   "oid_statement_consistency": "NOT_EVALUABLE_WITHOUT_CONFIRMATION",
   "final_cause": "未确认",
   "SEC3_T06": "BLOCKED",
-  "no_refs_modified": true,
-  "matches_phase_a_packed_refs": true
+  "no_refs_modified": true
 }

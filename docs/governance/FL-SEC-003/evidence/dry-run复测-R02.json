@@ -1,0 +1,24 @@
+{
+  "rule_version": "0.1.0-phase-A",
+  "input_count": 2917,
+  "structural_hints_not_matches": {
+    "R00-unknown": 2915,
+    "R30-identifier": 2
+  },
+  "eligible_rule_match_count": 0,
+  "confirmed_conflict_count": 0,
+  "conflict_assessment_unknown_count": 2917,
+  "fallback_count": 2917,
+  "proposed_downgrade_count": 0,
+  "retain_original_count": 2917,
+  "severity_changes": 0,
+  "source_writes": 0,
+  "deterministic_repeat_equal": true,
+  "source_hashes": {
+    "高熵候选分类表.csv": "1d289e21b748aec6c5a7703d69749d6ccfa80455b90129b6732aa134c84fb17d",
+    "High风险归属矩阵.csv": "210aa008da50aefd3268270845c4dc3de96af0f90af993d71bf26e64511de363"
+  },
+  "source_hashes_unchanged": true,
+  "approved_external_samples_tested": 0,
+  "no_conflicts_claimed": false
+}
