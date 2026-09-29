@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-09-29T05:32:20.209689+00:00",
+  "report_count": 7,
+  "scanned_files": 18,
+  "findings": [],
+  "rules": [
+    "private-key",
+    "github-token",
+    "jwt",
+    "credential-url",
+    "aws-access-id",
+    "secret-assignment"
+  ],
+  "json_parse": "PASS",
+  "relative_markdown_links": "PASS",
+  "repository_count": "5 local / 7 remote PASS",
+  "inventory_count_reconciliation": "PASS",
+  "new_code_or_ci_scripts": false,
+  "secret_scan_limitations": "explicit-pattern heuristic; not complete Git-history or entropy-based scan",
+  "existing_tests": {
+    "bun_readiness": {
+      "passed": 4,
+      "failed": 0,
+      "assertions": 22
+    },
+    "node_readiness_deployment_contract": {
+      "passed": 7,
+      "failed": 0
+    }
+  }
+}

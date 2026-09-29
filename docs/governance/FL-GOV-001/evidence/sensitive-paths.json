@@ -1,0 +1,537 @@
+{
+  "scope": "current plain-text files <=8MiB; no history or archive expansion; no secret values stored",
+  "scanned_files": 88749,
+  "skipped": {
+    "binary": 929,
+    "dependencies": 448789,
+    "over_8MiB": 10
+  },
+  "findings": [
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/backend/dist/src/phase2/card-provider/phase2-card-provider.service.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        69
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/backend/dist/src/modules/thredd/auth/thredd-http.client.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        47
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-022/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/backend/dist/src/phase2/card-provider/phase2-card-provider.service.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        69
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/backend/dist/src/modules/thredd/auth/thredd-http.client.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        47
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-023/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-008/candidate/dist/src/phase2/card-provider/phase2-card-provider.service.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        69
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-008/candidate/dist/src/modules/thredd/auth/thredd-http.client.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        47
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-008/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-008/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-006/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-006/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/bun-cache/@types/node@22.19.17@@@1/http.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        1817
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/bun-cache/@types/node@22.19.17@@@1/url.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        353,
+        364,
+        571,
+        577,
+        736,
+        742
+      ],
+      "match_count": 6
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/bun-cache/@types/node@22.19.17@@@1/https.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        429
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/bun-cache/zod@4.4.3@@@1/src/v4/mini/tests/string.test.ts",
+      "risk_type": "jwt",
+      "lines": [
+        326,
+        329
+      ],
+      "match_count": 2
+    },
+    {
+      "path": "outputs/DEV-VERSION-035/bun-cache/zod@4.4.3@@@1/src/v4/classic/tests/string.test.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        338
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-007/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-007/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/recovery/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/recovery/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/new/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-009/build-contexts/new/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/bun-cache/@types/node@22.19.17@@@1/http.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        1817
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/bun-cache/@types/node@22.19.17@@@1/url.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        353,
+        364,
+        571,
+        577,
+        736,
+        742
+      ],
+      "match_count": 6
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/bun-cache/@types/node@22.19.17@@@1/https.d.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        429
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/bun-cache/zod@4.4.3@@@1/src/v4/mini/tests/string.test.ts",
+      "risk_type": "jwt",
+      "lines": [
+        326,
+        329
+      ],
+      "match_count": 2
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/bun-cache/zod@4.4.3@@@1/src/v4/classic/tests/string.test.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        338
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005-R1/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005-R1/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-021/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-021/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/backend/dist/src/phase2/card-provider/phase2-card-provider.service.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        69
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/backend/dist/src/modules/thredd/auth/thredd-http.client.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        47
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/build-context/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-019/build-context/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-018/candidate/backend/dist/src/phase2/card-provider/phase2-card-provider.service.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        69
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-018/candidate/backend/dist/src/modules/thredd/auth/thredd-http.client.spec.js",
+      "risk_type": "credential-url",
+      "lines": [
+        47
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-018/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-018/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-020/candidate/backend/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-020/candidate/backend/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/base/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-002/base/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-005/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-004/candidate/src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        72
+      ],
+      "match_count": 1
+    },
+    {
+      "path": "outputs/CREGIS-FUNDS-004/candidate/src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "risk_type": "credential-url",
+      "lines": [
+        65
+      ],
+      "match_count": 1
+    }
+  ],
+  "filename_candidates": [
+    ".env.development.example",
+    ".env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002/candidate/.env.development.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002/candidate/.env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R1/candidate/.env.development.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R1/candidate/.env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-004/workspace/.env.development.example",
+    "outputs/B03-CREGIS-CLOSEOUT-004/workspace/.env.example",
+    "outputs/CREGIS-DEPOSIT-MAPPING/candidate/.env.development.example",
+    "outputs/CREGIS-DEPOSIT-MAPPING/candidate/.env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/source-snapshot/.env.development.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/source-snapshot/.env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/evidence/online-baseline/.env.example",
+    "outputs/CREGIS-FUNDS-022/candidate/frontend/.env.development.example",
+    "outputs/CREGIS-FUNDS-022/candidate/frontend/.env.example",
+    "outputs/CREGIS-FUNDS-022/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-022/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-022/candidate/backend/.env.example",
+    "outputs/CREGIS-FUNDS-023/candidate/frontend/.env.development.example",
+    "outputs/CREGIS-FUNDS-023/candidate/frontend/.env.example",
+    "outputs/CREGIS-FUNDS-023/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-023/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-023/candidate/backend/.env.example",
+    "outputs/CREGIS-FUNDS-008/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-008/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-008/candidate/.env.example",
+    "outputs/CREGIS-FUNDS-006/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-006/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-006/candidate/.env.example",
+    "outputs/DEV-VERSION-035/workspace/.env.example",
+    "outputs/DEV-VERSION-032/entry-workspace/.env.example",
+    "outputs/CREGIS-FUNDS-007/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-007/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-007/candidate/.env.example",
+    "outputs/DEV-SANDBOX-FAST-001/workspace/.env.example",
+    "outputs/CREGIS-FUNDS-005-R1/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-005-R1/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-005-R1/candidate/.env.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R2/candidate/.env.development.example",
+    "outputs/B03-CREGIS-CLOSEOUT-002-R2/candidate/.env.example",
+    "outputs/CREGIS-FUNDS-021/candidate/frontend/.env.development.example",
+    "outputs/CREGIS-FUNDS-021/candidate/frontend/.env.example",
+    "outputs/CREGIS-FUNDS-021/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-021/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-021/candidate/backend/.env.example",
+    "outputs/CREGIS-FUNDS-019/candidate/frontend/.env.development.example",
+    "outputs/CREGIS-FUNDS-019/candidate/frontend/.env.example",
+    "outputs/CREGIS-FUNDS-019/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-019/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-019/candidate/backend/.env.example",
+    "outputs/CREGIS-FUNDS-018/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-018/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-018/candidate/backend/.env.example",
+    "outputs/CREGIS-FUNDS-020/candidate/frontend/.env.development.example",
+    "outputs/CREGIS-FUNDS-020/candidate/frontend/.env.example",
+    "outputs/CREGIS-FUNDS-020/candidate/backend/.env.development.example",
+    "outputs/CREGIS-FUNDS-020/candidate/backend/.env.test.example",
+    "outputs/CREGIS-FUNDS-020/candidate/backend/.env.example",
+    "outputs/DEV-SANDBOX-FAST-004-R1/candidate/.env.development.example",
+    "outputs/DEV-SANDBOX-FAST-004-R1/candidate/.env.example",
+    "outputs/DEV-VERSION-040/workspace/.env.example",
+    "outputs/CREGIS-FUNDS-002/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-002/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-002/candidate/.env.example",
+    "outputs/CREGIS-FUNDS-002/base/.env.development.example",
+    "outputs/CREGIS-FUNDS-002/base/.env.test.example",
+    "outputs/CREGIS-FUNDS-002/base/.env.example",
+    "outputs/CREGIS-FUNDS-005/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-005/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-005/candidate/.env.example",
+    "outputs/CREGIS-FUNDS-004/candidate/.env.development.example",
+    "outputs/CREGIS-FUNDS-004/candidate/.env.test.example",
+    "outputs/CREGIS-FUNDS-004/candidate/.env.example",
+    "outputs/DEV-SANDBOX-FAST-002/candidate/.env.development.example",
+    "outputs/DEV-SANDBOX-FAST-002/candidate/.env.example",
+    "outputs/DEV-SANDBOX-FAST-002/base/.env.development.example",
+    "outputs/DEV-SANDBOX-FAST-002/base/.env.example",
+    "outputs/DEV-SANDBOX-FAST-004/candidate/.env.development.example",
+    "outputs/DEV-SANDBOX-FAST-004/candidate/.env.example"
+  ],
+  "review": "All content matches are in outputs, including dependency cache test fixtures; candidate != confirmed secret. Historical bundles remain unreviewed/held. No matching values retained."
+}

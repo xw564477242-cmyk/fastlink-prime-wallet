@@ -1,0 +1,122 @@
+[
+  {
+    "path": "outputs/DEV-MILESTONE-002-v1.zip",
+    "size": 109935,
+    "symlink": false,
+    "sha256": "be6e1d0bd9ddc959d0135ce344be25e8a39dd38965e90b11af5c53108445e627"
+  },
+  {
+    "path": "outputs/DEV-MILESTONE-001-v1.zip",
+    "size": 1586370,
+    "symlink": false,
+    "sha256": "c40819f4c4070262954b4cbd09e376621dc821b0df679dc00f88e6b857ef1f79"
+  },
+  {
+    "path": "outputs/B03-CREGIS-CLOSEOUT-004/artifacts/SANDBOX-build-ec29d29ab39e.tar.gz",
+    "size": 576708,
+    "symlink": false,
+    "sha256": "d4e9145cabaadcf258b37df1d7345ab54796dab7da4a1a546509232a3efb0f14"
+  },
+  {
+    "path": "outputs/B03-CREGIS-CLOSEOUT-002-R2-SNAPSHOT-v1/B03-CREGIS-CLOSEOUT-002-R2-source-snapshot.tar.gz",
+    "size": 495315,
+    "symlink": false,
+    "sha256": "0b3ea9411ee2887d39a55b7ffb1f9bff7f821023baf88d7286f39b1c6ea0f1e9"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/THR-013-CARD-STATUS-TRANSITION-PATCH.tar.gz",
+    "size": 110887,
+    "symlink": false,
+    "sha256": "d4e470ffebf508974675148fdb696909af4a85520f9d12f23bb15a1a49cbe74d"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/FLP-ENV-PRD-002-phase-2-runtime-acceptance.zip",
+    "size": 23632,
+    "symlink": false,
+    "sha256": "34c7984af2f376484343a9f8009bbe086670f77f9206f45b1a3edf90be29f7f2"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/FastLink_Control_Initialization_2026-07-30.zip",
+    "size": 11727,
+    "symlink": false,
+    "sha256": "a66a9a77eecee1a5b98f31b61ab046f6e6040c21ba9463080d765df9a0ff2714"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/THR-015-LIST-CARD-BALANCE-PATCH.tar.gz",
+    "size": 607766,
+    "symlink": false,
+    "sha256": "9c72c47b9b2b223b9724cf3bc609113d5197ced7bc623b3420448fb751c851ee"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/FLP-ORCH-001_CONTROL_PACKAGE.zip",
+    "size": 45012,
+    "symlink": false,
+    "sha256": "015a3a634dc2456eb2b874139580e46b394157013ba0268cfcd7f6c03ac658b8"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/FLP-ENV-PRD-003-stage-3-production-audit.zip",
+    "size": 16952,
+    "symlink": false,
+    "sha256": "a89c1b083707890eb78d9d612a6c409a919e19ec81e921a7ef6fca2d72121183"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/FLP-ENV-PRD-001-phase-1-production-recovery.zip",
+    "size": 738275,
+    "symlink": false,
+    "sha256": "a628bd93429a406ec53671d41276e568c3b3402a37eca6f8e0aaad4f74915192"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/fastlink-local-dev-mock-harness.zip",
+    "size": 22434,
+    "symlink": false,
+    "sha256": "52a5259a16370925f6b3414dc358ccb7e2f6d331a5f5830c8e646ba32453e80b"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/THR-018-CREATE-TRANSACTION-PATCH.tar.gz",
+    "size": 76145,
+    "symlink": false,
+    "sha256": "6c6316d4eae729a0c50cc962faff06144a3c54ac60c2c231a2553dbb9ea87651"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/THR-017-SINGLE-TRANSACTION-DETAIL-PATCH.tar.gz",
+    "size": 95316,
+    "symlink": false,
+    "sha256": "c983ccb21d1a45131616103e1b12426ba27f601d6e07c5f2533810b0294121b5"
+  },
+  {
+    "path": "outputs/FASTLINK-INVENTORY/library-review-20260928/THR-016-GET-CARD-TRANSACTIONS-PATCH.tar.gz",
+    "size": 112576,
+    "symlink": false,
+    "sha256": "ec4657367d5a5a559732cd13b3bbc2a5043a6ecf3e176a175ff875611820e2c1"
+  },
+  {
+    "path": "outputs/DEV-MILESTONE-002-v1/02-version-backup/candidate-requires-parent.bundle",
+    "size": 3049,
+    "symlink": false,
+    "sha256": "b5ece93a60c8745bce50bb4fd602e0e2e9f14c0f95b33d484b36bf491f629fa9"
+  },
+  {
+    "path": "outputs/DEV-SANDBOX-FAST-001/SANDBOX-build-e8ccb6a508.tar.gz",
+    "size": 443689,
+    "symlink": false,
+    "sha256": "b00df248d239d217b21db3cd76bc2b64032634d16b8250ea2df9e299d00407f6"
+  },
+  {
+    "path": "outputs/DEV-MILESTONE-001-v1/03-entry-design/021-R1/real-normal-final/bundle/payload.zip",
+    "size": 641979,
+    "symlink": false,
+    "sha256": "501592fa952698958ea34195993c7cf79725955c8331295119178a3973a33346"
+  },
+  {
+    "path": "outputs/DEV-MILESTONE-001-v1/01-version-evidence/legacy/FastLink-Lovable-2026-09-15.zip",
+    "size": 364301,
+    "symlink": false,
+    "sha256": "001825214ca9f2bff81667ddc4dd23681bd11d830ce9056bd82f2c6ab80b542b"
+  },
+  {
+    "path": "outputs/CREGIS-FUNDS-002/evidence/backend-base.tar.gz",
+    "size": 1490534,
+    "symlink": false,
+    "sha256": "630377876111120043513f5652c31283ce98415b9be8495e81e96b72e8549b37"
+  }
+]

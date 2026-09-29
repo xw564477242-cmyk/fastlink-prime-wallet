@@ -1,0 +1,62 @@
+[
+  {
+    "filename": "asset-files.json",
+    "bytes": 118634570,
+    "sha256": "8582b5f1119d68b7a5227a50bf4ed8719725bb9c170b41bb91d749e405cf0607",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "duplicate-content.json",
+    "bytes": 11826071,
+    "sha256": "896a8f7611c83aaa5049bb7a2689ce536a3a3613a447df90d8a185c352410ee5",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-repositories.json",
+    "bytes": 1218035,
+    "sha256": "953899b470840cb08e65c4c2bc8175329fb3eb950bd8ebef7928c6129e4c9657",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-status-0.txt",
+    "bytes": 5252400,
+    "sha256": "0af5324c468ff1edcd3baaa0b4b3d81be156709aab0b708d91fc5f8dce2ef5fa",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-status-1.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-status-2.txt",
+    "bytes": 26,
+    "sha256": "22b791e937151f801d706ebe3e36b30431eb9517aedf4a229dd232b5a8199a52",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-status-3.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "local-status-4.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "remote-relations.json",
+    "bytes": 52702,
+    "sha256": "81110ec1ef5d423983c7c7eb9da50dffc3184ee0ebb8a4b41f81703c4f6f50d6",
+    "delivery": "local evidence package; not copied to public PR"
+  },
+  {
+    "filename": "sensitive-paths.json",
+    "bytes": 12374,
+    "sha256": "a04551356b9f613b70895528da432a3bd0a719b0dd1b0595d35952674ddd48c1",
+    "delivery": "local evidence package; not copied to public PR"
+  }
+]
