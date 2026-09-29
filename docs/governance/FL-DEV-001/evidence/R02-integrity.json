@@ -1,0 +1,32 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlik-Website",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlik-app",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlik-backend",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "fsck_exit": 0,
+    "raw_output_saved": false
+  }
+]

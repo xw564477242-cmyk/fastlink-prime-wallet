@@ -1,0 +1,114 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "b7c622bcbf81572d44b562a9c27451e9d684db2ec915f759de208eee57765c2b",
+      "package-lock.json": "3dee91c3e8c43d2f855f3a2a4d16634c349d58f18a31fcbb3e1d8bf7a81498b9"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  },
+  {
+    "repo": "fastlik-Website",
+    "head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "b761f84ad689cfbdd808701b8bdbaab00b913fa3de89dad691280fa1429f86b2"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  },
+  {
+    "repo": "fastlik-app",
+    "head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "f9e81324f622c0b89aec9049d6de3d04ccc08d2b93b768ef63029e0b32ca364e",
+      "package-lock.json": "3380ae92d7612f1d88701865d66a27fb5d136f6f9679ae90238438ad029b4c49"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  },
+  {
+    "repo": "fastlik-backend",
+    "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "c0f07401efb2994e4a1e701b323f72772eb7f7a4b1cb33a10265143bcc8c1282",
+      "package-lock.json": "cd4057fcc21d8af02360da967ed9722658cba36e6c38f0c7d724de29e6a99b1d"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "d4d7aa6bf881b7683b76864007381fb4b6f1c7039db44e3f259fecb06c790c72"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "head": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+    "upstream": "origin/dev",
+    "mode": "0o700",
+    "uid": 501,
+    "tracked_clean": true,
+    "untracked_nonignored_count": 0,
+    "head_unchanged": true,
+    "long_remote_refs_unchanged": true,
+    "manifests_unchanged": true,
+    "manifest_sha256": {
+      "package.json": "13461b79ef7f70f1fd74cc38a17c1eb4edd7f637086c52c155ebd6b1a2e64d8f",
+      "bun.lock": "b82083e44516830eac8b9eeb369e9d800148a4c53a9062bd487ac5684f5f8112"
+    },
+    "shallow": "false",
+    "alternates": false,
+    "partial_clone": false
+  }
+]

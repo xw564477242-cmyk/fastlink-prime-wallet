@@ -1,0 +1,162 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "path": "/Users/ck/Developer/FastLink/fastlik-Admin",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-Admin.git",
+    "head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "framework_versions": {
+      "react": "18.3.1",
+      "vite": "8.1.5",
+      "typescript": "5.7.2"
+    },
+    "lockfiles": [
+      "package-lock.json"
+    ],
+    "install": "PASS",
+    "build": "PASS",
+    "lint": "N/A：未声明对应脚本/零依赖",
+    "typecheck": "PASS",
+    "tests": "PASS：162项",
+    "startup": "127.0.0.1:46103 HTTP 200；已停止",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  },
+  {
+    "repo": "fastlik-Website",
+    "path": "/Users/ck/Developer/FastLink/fastlik-Website",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-Website.git",
+    "head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "framework_versions": {},
+    "lockfiles": [],
+    "install": "N/A：未声明对应脚本/零依赖",
+    "build": "N/A：未声明对应脚本/零依赖",
+    "lint": "N/A：未声明对应脚本/零依赖",
+    "typecheck": "N/A：未声明对应脚本/零依赖",
+    "tests": "PASS：95项",
+    "startup": "127.0.0.1:46104 HTTP 200；已停止",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  },
+  {
+    "repo": "fastlik-app",
+    "path": "/Users/ck/Developer/FastLink/fastlik-app",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-app.git",
+    "head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "framework_versions": {
+      "react": "18.3.1",
+      "vite": "8.1.5",
+      "typescript": "5.9.3"
+    },
+    "lockfiles": [
+      "package-lock.json"
+    ],
+    "install": "PASS",
+    "build": "PASS",
+    "lint": "N/A：未声明对应脚本/零依赖",
+    "typecheck": "PASS",
+    "tests": "PASS：409项",
+    "startup": "127.0.0.1:46102 HTTP 200；已停止",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  },
+  {
+    "repo": "fastlik-backend",
+    "path": "/Users/ck/Developer/FastLink/fastlik-backend",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlik-backend.git",
+    "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "framework_versions": {
+      "typescript": "5.9.3",
+      "@nestjs/core": "11.1.28",
+      "prisma": "6.19.3",
+      "@prisma/client": "6.19.3",
+      "jest": "30.4.2",
+      "eslint": "9.39.5"
+    },
+    "lockfiles": [
+      "package-lock.json"
+    ],
+    "install": "PASS",
+    "build": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "tests": "1755通过/0失败/2跳过（LIMITED）",
+    "startup": "BLOCKED：本地数据库未配置；仅HTTP Mock测试通过",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "path": "/Users/ck/Developer/FastLink/fastlink-control-plane",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlink-control-plane.git",
+    "head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4",
+    "framework_versions": {},
+    "lockfiles": [],
+    "install": "N/A：未声明对应脚本/零依赖",
+    "build": "N/A：未声明对应脚本/零依赖",
+    "lint": "N/A：未声明对应脚本/零依赖",
+    "typecheck": "N/A：未声明对应脚本/零依赖",
+    "tests": "只读validate PASS；默认写入测试未运行",
+    "startup": "CLI只读校验PASS；无Web服务",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "path": "/Users/ck/Developer/FastLink/fastlink-prime-wallet",
+    "mode": "0o700",
+    "remote": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet.git",
+    "head": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+    "branch": "dev",
+    "upstream": "origin/dev",
+    "fsck": 0,
+    "tracked_clean": true,
+    "untracked_nonignored": 0,
+    "runtime": "Node 22.22.1 / npm 10.9.4 / Bun 1.3.14",
+    "framework_versions": {
+      "react": "19.2.5",
+      "vite": "8.1.5",
+      "typescript": "5.9.3",
+      "eslint": "9.39.4"
+    },
+    "lockfiles": [
+      "bun.lock"
+    ],
+    "install": "PASS",
+    "build": "PASS",
+    "lint": "PASS",
+    "typecheck": "PASS",
+    "tests": "PASS：579项",
+    "startup": "127.0.0.1:46101 HTTP 200；已停止",
+    "validation_origin": "unchanged HEAD/manifests; earlier successful install/build/frontend evidence retained; backend tests rerun R02"
+  }
+]

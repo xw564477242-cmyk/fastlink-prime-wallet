@@ -1,0 +1,106 @@
+{
+  "rows": [
+    {
+      "id": "NEW-REF",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e",
+        "1790691234817",
+        "878db407-6b68-4838-9b57-552ef1d68269"
+      ],
+      "mode": "0o644",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830791+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.831724+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "size": 41,
+      "sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "object_type": "tree",
+      "object_exists": true
+    },
+    {
+      "id": "NEW-DIR-1",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830420+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830679+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-2",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830677+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830728+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "1790691234817"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-3",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e",
+        "1790691234817"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830726+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.831886+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "878db407-6b68-4838-9b57-552ef1d68269"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    }
+  ],
+  "original_files_modified": false,
+  "process_attribution_confirmed": false,
+  "deleted": 0
+}

@@ -1,0 +1,108 @@
+{
+  "recovery_directories": [
+    {
+      "round": "round-1",
+      "repo": "fastlik-Admin",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-Website",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-app",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-backend",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-control-plane",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-prime-wallet",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-recovery-archive",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Admin",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Website",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-app",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-backend",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-control-plane",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-prime-wallet",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-recovery-archive",
+      "mode": "0o700",
+      "uid": 501,
+      "tracked_clean": true
+    }
+  ],
+  "recovery_count": 14,
+  "key_exists": true,
+  "key_mode": "0o600",
+  "key_parent_mode": "0o700",
+  "key_material_exported": false,
+  "deleted_assets": 0
+}

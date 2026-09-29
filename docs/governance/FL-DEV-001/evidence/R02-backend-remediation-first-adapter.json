@@ -1,0 +1,2015 @@
+{
+  "exit": 1,
+  "duration_seconds": 15.81,
+  "counts": {
+    "numTotalTests": 1757,
+    "numPassedTests": 1730,
+    "numFailedTests": 25,
+    "numPendingTests": 2,
+    "numTodoTests": 0,
+    "numTotalTestSuites": 199,
+    "numPassedTestSuites": 192,
+    "numFailedTestSuites": 5,
+    "numPendingTestSuites": 2
+  },
+  "suites": [
+    {
+      "path": "src/wallet/end-user-wallet-assets.http.spec.ts",
+      "status": "failed",
+      "passed": 0,
+      "failed": 4,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 4
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.http.spec.ts",
+      "status": "failed",
+      "passed": 0,
+      "failed": 8,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 8
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.http.spec.ts",
+      "status": "failed",
+      "passed": 0,
+      "failed": 5,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 5
+    },
+    {
+      "path": "src/test-support/thredd-webhook-replay-http.spec.ts",
+      "status": "failed",
+      "passed": 1,
+      "failed": 6,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 6
+    },
+    {
+      "path": "src/security.e2e.spec.ts",
+      "status": "failed",
+      "passed": 0,
+      "failed": 2,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 2
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.postgres.spec.ts",
+      "status": "skipped",
+      "passed": 0,
+      "failed": 0,
+      "pending": 1,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/health/end-user-auth-readiness.postgres.spec.ts",
+      "status": "skipped",
+      "passed": 0,
+      "failed": 0,
+      "pending": 1,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.database-diagnostics.spec.ts",
+      "status": "passed",
+      "passed": 9,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/admin-auth/admin-auth.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.swagger.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/fx.service.spec.ts",
+      "status": "passed",
+      "passed": 8,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis.provider.spec.ts",
+      "status": "passed",
+      "passed": 76,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.service.spec.ts",
+      "status": "passed",
+      "passed": 9,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-transaction-history.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/fx.swagger.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/admin-wallet-account-history.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "status": "passed",
+      "passed": 97,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/health/third-party-readiness-migration.spec.ts",
+      "status": "passed",
+      "passed": 18,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet-accounting.service.spec.ts",
+      "status": "passed",
+      "passed": 38,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet.swagger.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.swagger.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.swagger.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/admin-wallet-operation-history.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/p1-openapi-request-dto.swagger.spec.ts",
+      "status": "passed",
+      "passed": 28,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-operation-history.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.production.spec.ts",
+      "status": "passed",
+      "passed": 17,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-transactions.swagger.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-account-balance.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/admin-wallet-transaction-history.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.swagger.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/cards.swagger.spec.ts",
+      "status": "passed",
+      "passed": 14,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/treasury/treasury.service.spec.ts",
+      "status": "passed",
+      "passed": 15,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet-settlement.swagger.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/settlement/settlement.service.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/cards-api.swagger.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.swagger.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/thredd-module.integration.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet.service.spec.ts",
+      "status": "passed",
+      "passed": 19,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/webhooks/card-financial-accounting.service.spec.ts",
+      "status": "passed",
+      "passed": 41,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/settlement/treasury-liquidity.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/onboarding/admin-kyc-read.swagger.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/operations-trace/operations-trace.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/tenants/tenants.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/card.service.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment-fee-execution.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/cards.service.spec.ts",
+      "status": "passed",
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.service.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.swagger.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-quote.spec.ts",
+      "status": "passed",
+      "passed": 58,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/fx.production.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.swagger.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/fx.module.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/onboarding/user-onboarding.service.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/third-party-asset.service.spec.ts",
+      "status": "passed",
+      "passed": 31,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.service.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/thredd-uat-card-business-flow.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-replacement-provider.spec.ts",
+      "status": "passed",
+      "passed": 30,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/end-user-card-activation.service.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-transaction-detail.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/dto/third-party.dto.spec.ts",
+      "status": "passed",
+      "passed": 23,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/health/health.controller.spec.ts",
+      "status": "passed",
+      "passed": 24,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/card-timeline-parity-adversarial.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/onboarding/admin-kyc-read.service.spec.ts",
+      "status": "passed",
+      "passed": 14,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/health/health.swagger.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/end-user-fx-quote.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.service.spec.ts",
+      "status": "passed",
+      "passed": 18,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet-fee-execution.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-transaction.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/settlement/treasury-liquidity.service.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/cards-api.controller.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.service.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.service.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet-queries.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.module.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/card-service/dto/card-service.dto.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/prime-wallet-address-book.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/third-party-amount.spec.ts",
+      "status": "passed",
+      "passed": 26,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.controller.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/operations-trace/operations-trace.service.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.service.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fees/fee-policy.service.spec.ts",
+      "status": "passed",
+      "passed": 13,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider.spec.ts",
+      "status": "passed",
+      "passed": 31,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-creation-provider.spec.ts",
+      "status": "passed",
+      "passed": 32,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/ledger/ledger.service.spec.ts",
+      "status": "passed",
+      "passed": 17,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.spec.ts",
+      "status": "passed",
+      "passed": 37,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-renewal-provider.spec.ts",
+      "status": "passed",
+      "passed": 30,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.manager.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.service.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/end-user-session/guards/origin.guard.spec.ts",
+      "status": "passed",
+      "passed": 14,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/test-support/thredd-outbound-card-golden.spec.ts",
+      "status": "passed",
+      "passed": 8,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/test-support/thredd-inbound-lifecycle-golden.spec.ts",
+      "status": "passed",
+      "passed": 13,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/payment-provider.config.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/adapter/sandbox-fx.adapter.spec.ts",
+      "status": "passed",
+      "passed": 22,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/thredd/thredd.adapter.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/cregis-external-execution.gate.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-error.spec.ts",
+      "status": "passed",
+      "passed": 23,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.registry.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.production.spec.ts",
+      "status": "passed",
+      "passed": 16,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/test-support/thredd-adapter-golden.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/cards-transaction-detail.service.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/card-topup.service.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.normalizer.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/runtime-bound-card.provider.spec.ts",
+      "status": "passed",
+      "passed": 42,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/thredd/mock-card-processor.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/evidence-center/evidence-center.service.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-provider-execution.policy.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-submit.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/webhooks/thredd-event.handler.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-financial-event.contract.spec.ts",
+      "status": "passed",
+      "passed": 16,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-outbound-policy.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/test-support/card-provider-conformance.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.service.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.manager.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/cards-timeline.service.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/cards-list.database-diagnostics.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/card-timeline-pagination.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.client.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/secret-reference-resolver.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/guards/api-scope.guard.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/tenants/tenants.service.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/pr69-funding-coordination.service.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/config/cors-origin.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.security.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.service.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/third-party-provider.registry.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-security-guards.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/persisted-card-transaction.provider.spec.ts",
+      "status": "passed",
+      "passed": 9,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/config/env.validation.spec.ts",
+      "status": "passed",
+      "passed": 20,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/third-party-no-store.middleware.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly.interceptor.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.adapter.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/mock-card.provider.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.client.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-status-provider.spec.ts",
+      "status": "passed",
+      "passed": 17,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/interceptors/audit.interceptor.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider-error.spec.ts",
+      "status": "passed",
+      "passed": 19,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/thredd/thredd-auth.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/prisma/prisma.service.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.service.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/mock-thredd.adapter.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/card-lifecycle.policy.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-provider-gateway.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider.spec.ts",
+      "status": "passed",
+      "passed": 13,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly-policy.service.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-lifecycle-event.contract.spec.ts",
+      "status": "passed",
+      "passed": 9,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.security.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/simulation-invariants.spec.ts",
+      "status": "passed",
+      "passed": 10,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/canonical/card-provider-rollout.resolver.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-seed-guard.spec.ts",
+      "status": "passed",
+      "passed": 11,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/api-clients/api-clients.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/certificate-loader.service.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-callback-signature-capture.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/filters/audit-exception.filter.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.service.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-card-fee-migration-contract.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/logging/cregis-exception-trace.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/guards/api-key.guard.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-non-card-wallet-constraint-migration-contract.spec.ts",
+      "status": "passed",
+      "passed": 12,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-integration-logger.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/thredd/token-cache.service.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.security.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-end-user-auth-rls-migration-guard.spec.ts",
+      "status": "passed",
+      "passed": 8,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-cookie.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-card-fee-migration-guard.spec.ts",
+      "status": "passed",
+      "passed": 7,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-database-identity.spec.ts",
+      "status": "passed",
+      "passed": 6,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider-error.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-pagination.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/test-support/provider-stub-scenarios.spec.ts",
+      "status": "passed",
+      "passed": 15,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.module.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-status-provider-error.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-transfer-state.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-fee-accounting.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/ucard.contract.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.nonce.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/seed-wallet-transaction-direction.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-payment-engine-contract.v2026-09-01.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider-error.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/scripts/verify-cregis-callback-window.spec.ts",
+      "status": "passed",
+      "passed": 5,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/admin-card-config/dev-admin-write-migration-contract.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/cards/canonical/card-provider-control-plane.migration.spec.ts",
+      "status": "passed",
+      "passed": 4,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/health/end-user-auth-rls-migration.contract.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.output.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/seed-tenant-financial-bootstrap.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-p1-fee-execution-migration-contract.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-dev-migration.contract.spec.ts",
+      "status": "passed",
+      "passed": 3,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-correlation.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/modules/thredd/thredd-architecture.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/common/config/uat-deployment-contract.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/third-party/cregis-sandbox-safety-migration.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-withdrawal-address-rls-migration-contract.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/dev-simulation/dev-wallet-transaction-direction-repair-contract.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/wallet/wallet-architecture.spec.ts",
+      "status": "passed",
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    },
+    {
+      "path": "src/admin-auth/bootstrap-admin.security.spec.ts",
+      "status": "passed",
+      "passed": 2,
+      "failed": 0,
+      "pending": 0,
+      "network_permission": 0,
+      "address_in_use": 0,
+      "other_failures": 0
+    }
+  ],
+  "raw_output_saved": false,
+  "source_edits": 0,
+  "adapter": "localhost binding and fixed port only; assertions and handlers unchanged",
+  "outbound_allowlist": [
+    "127.0.0.1:46197"
+  ],
+  "policy_sha256": "5c06611ef478dbd5ee6c2b6be5de05165176b331dfaf58014f8c287d942b85c7",
+  "adapter_sha256": "e0386791f1ac77508c66392eaf9d709c6593a12314abd365105663c2f950d718"
+}
