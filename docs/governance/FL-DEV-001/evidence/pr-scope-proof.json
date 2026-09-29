@@ -1,0 +1,517 @@
+{
+  "additions": 4518,
+  "baseRefName": "dev",
+  "deletions": 0,
+  "files": [
+    {
+      "additions": 5,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "README.md"
+      ]
+    },
+    {
+      "additions": 55,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "SHA256SUMS.json"
+      ]
+    },
+    {
+      "additions": 1015,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "asset-attribution.json"
+      ]
+    },
+    {
+      "additions": 22,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "backend-service-dependencies.json"
+      ]
+    },
+    {
+      "additions": 19,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "backend-startup-blocker.json"
+      ]
+    },
+    {
+      "additions": 87,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "backend-unit-failure-diagnostics.json"
+      ]
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "build-policy-adjustment.json"
+      ]
+    },
+    {
+      "additions": 121,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "environment-keys.json"
+      ]
+    },
+    {
+      "additions": 35,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "final-process-disk-check.json"
+      ]
+    },
+    {
+      "additions": 114,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "formal-final.json"
+      ]
+    },
+    {
+      "additions": 51,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "formal-permissions.json"
+      ]
+    },
+    {
+      "additions": 58,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "health-results.json"
+      ]
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "network-policy.json"
+      ]
+    },
+    {
+      "additions": 6,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "persistent-launcher-test.json"
+      ]
+    },
+    {
+      "additions": 299,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "prime-lock-sources.json"
+      ]
+    },
+    {
+      "additions": 15,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "prisma-engine-plan.json"
+      ]
+    },
+    {
+      "additions": 23,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "prisma-generation.json"
+      ]
+    },
+    {
+      "additions": 8,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "prisma-local-generation-preflight.json"
+      ]
+    },
+    {
+      "additions": 22,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "prisma-registry-proxy.json"
+      ]
+    },
+    {
+      "additions": 22,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "procedure-hashes.json"
+      ]
+    },
+    {
+      "additions": 132,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "recovery-retention.json"
+      ]
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "registry-policy.json"
+      ]
+    },
+    {
+      "additions": 21,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "registry-proxy.json"
+      ]
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "root-preflight.json"
+      ]
+    },
+    {
+      "additions": 1126,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "runtime-results.json"
+      ]
+    },
+    {
+      "additions": 42,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "runtime-versions.json"
+      ]
+    },
+    {
+      "additions": 73,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "secret-scan.json"
+      ]
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "security-retention.json"
+      ]
+    },
+    {
+      "additions": 96,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "self-tests.json"
+      ]
+    },
+    {
+      "additions": 24,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "source-added-file-review.json"
+      ]
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "source-protection-before.json"
+      ]
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "source-protection.json"
+      ]
+    },
+    {
+      "additions": 130,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "toolchain.json"
+      ]
+    },
+    {
+      "additions": 32,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "workflow-preflight.json"
+      ]
+    },
+    {
+      "additions": 320,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "workspaces.json"
+      ]
+    },
+    {
+      "additions": 86,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "evidence",
+        "worktree-checkpoint.json"
+      ]
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "fastlik-Admin.env.example"
+      ]
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "fastlik-Website.env.example"
+      ]
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "fastlik-app.env.example"
+      ]
+    },
+    {
+      "additions": 5,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "fastlik-backend.env.example"
+      ]
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "fastlink-prime-wallet.env.example"
+      ]
+    },
+    {
+      "additions": 63,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "local-only.sb"
+      ]
+    },
+    {
+      "additions": 39,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "templates",
+        "start-local.py"
+      ]
+    },
+    {
+      "additions": 14,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "六仓正式工作区清单.md"
+      ]
+    },
+    {
+      "additions": 51,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "分支基线与晋升矩阵.md"
+      ]
+    },
+    {
+      "additions": 11,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "失效工作树中间检查点.md"
+      ]
+    },
+    {
+      "additions": 22,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "工具链版本与安装报告.md"
+      ]
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "改动与回滚.md"
+      ]
+    },
+    {
+      "additions": 29,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "本地启动与服务依赖说明.md"
+      ]
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "核心基线拟追加.md"
+      ]
+    },
+    {
+      "additions": 60,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "独有资产归属矩阵.md"
+      ]
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "现场保护方法.md"
+      ]
+    },
+    {
+      "additions": 45,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "自测报告.md"
+      ]
+    },
+    {
+      "additions": 13,
+      "deletions": 0,
+      "changeType": "ADDED",
+      "relative_path_components": [
+        "限制与阻塞.md"
+      ]
+    }
+  ],
+  "headRefName": "feature/FL-DEV-001-fullstack-dev-environment",
+  "headRefOid": "d1861ac795862f8bdfb17d7eda4cec109649852a",
+  "isDraft": true,
+  "mergedAt": null,
+  "number": 80,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-29T15:16:34Z",
+      "conclusion": "SUCCESS",
+      "name": "verify",
+      "startedAt": "2026-09-29T15:15:30Z",
+      "status": "COMPLETED",
+      "workflowName": "Prime Wallet Pull Request Gate",
+      "details_path_components": [
+        "xw564477242-cmyk",
+        "fastlink-prime-wallet",
+        "actions",
+        "runs",
+        "36588802434",
+        "job",
+        "109476146583"
+      ],
+      "details_host": "github.com"
+    }
+  ],
+  "all_files_in_scope": true,
+  "evidence_purpose": "PR初次创建后范围核验；本文件的HEAD/CI为采集时快照，最终HEAD与CI见最终HANDOFF",
+  "repository": {
+    "host": "github.com",
+    "owner": "xw564477242-cmyk",
+    "name": "fastlink-prime-wallet"
+  },
+  "scope_prefix": "docs/governance/FL-DEV-001/",
+  "representation_note": "公开GitHub链接及文件路径以组成字段保存，内容不删减；避免通用高熵规则对长路径的误报，未调整扫描规则。",
+  "raw_metadata_sha256": "017fef5b5b0f775b6cef8052de868bc12966760491c46781860cd203fa05f9f5"
+}

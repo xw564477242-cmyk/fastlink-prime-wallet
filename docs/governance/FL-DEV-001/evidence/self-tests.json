@@ -81,15 +81,15 @@
     {
       "id": "DEV1-T14",
       "name": "PR范围及回滚方案",
-      "status": "LIMITED",
-      "evidence": "改动与回滚.md；本地范围限定治理目录；PR创建后需补充远端核验。未经门禁3不合并。"
+      "status": "PASS",
+      "evidence": "改动与回滚.md；PR范围已由远端逐文件核验。未经门禁3不合并。"
     }
   ],
   "counts": {
-    "PASS": 9,
+    "PASS": 10,
     "FAIL": 2,
     "BLOCKED": 1,
-    "LIMITED": 2
+    "LIMITED": 1
   },
   "gate2": "待评审，存在明确失败/阻塞/限制，不宣称全部通过",
   "worktree_cleanup_performed": false
