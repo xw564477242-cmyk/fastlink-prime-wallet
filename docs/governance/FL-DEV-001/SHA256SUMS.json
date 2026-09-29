@@ -2,6 +2,7 @@
   "README.md": "95a790f02aab599c266b4aa3dd968db6a07d1b91fea167dac5d32706dff6def3",
   "evidence/R02-backend-remediation-first-adapter.json": "3377e25b2c5b5cddfeb01529d3a84359f2c2e9962716badda3a38b24ae4d4d7a",
   "evidence/R02-backend-remediation.json": "fb533493f6e76f04aa956328b8146ee35a3982aba33cc68e873241e07c9bec83",
+  "evidence/R02-ci-first-failure.json": "0d8a26cdfa62e05925af72f878fe3d27ee4692471916f98f2527c458f061e5b6",
   "evidence/R02-environment-matrix.json": "04da7582e0090cc9f60fd16da7f640ad2c3ad0641f51119ce3d0890a6bedd19a",
   "evidence/R02-formal-final.json": "cfcb1b6002e56d6494b357baacfc00a0b0a1b4f05033faf4ec670233fbca770a",
   "evidence/R02-integrity.json": "36486f68f5901ca29c459a17e973cd4ac780f0b02e077c3f32655f69d76a75b3",
@@ -37,7 +38,7 @@
   "evidence/root-preflight.json": "cca19954be03e2997cd23c000614548333d9cee4f8b9417d1f646783b3444b39",
   "evidence/runtime-results.json": "0b8a80f88eac094af43cc034be1713d3235c0160b5f34ffc84e4352f3180040d",
   "evidence/runtime-versions.json": "2964fb72556d41b300cb32658ae4d72c6a99f8e823f8911b6a717f5e3f8a2c21",
-  "evidence/secret-scan.json": "2e945ed1a182e4b58206cc73582593acbd9e0673b5c68592d419a3cc23e3d149",
+  "evidence/secret-scan.json": "9a74bbb6912995af4b61e69cf62fd3fdf73998adc925266e99b768ef0d1d857b",
   "evidence/security-retention.json": "b572ea0d23fd4c367126c9535c4c98dd1557d830db8eb425f1deeac41ce9a1e2",
   "evidence/self-tests.json": "8639143db73eb32e27ce78559cc326ce17d32c70c5d39755dcf5869dd821b2a7",
   "evidence/source-added-file-review.json": "e9e4398f23bfbf510bda37d90be74de640c7f8117b573d340b5c1f9724ce3353",
@@ -47,7 +48,7 @@
   "evidence/workflow-preflight.json": "c5c0e57e57e0321bd3e35f0559216d7192f4245b896900fbd258cc8d5baa8eae",
   "evidence/workspaces.json": "1b7d759d70327d7edc7b21185fcde90e30e4bcd41d18252eebbec3132753d577",
   "evidence/worktree-checkpoint.json": "4de53f96a3eceb4dabd51e8693d864133e6923c8084fbbe5485c3b5931fe8bd7",
-  "templates/backend-loopback-test.cjs": "b39d0afa7278d1925aa4665c130ea454b328bc7a93a346fa8c5193f5f0fec9c3",
+  "templates/backend-loopback-test.cjs": "9282881fd06be2efc56857e6594fc11b9346b5a6dde204596797d8caed0f9308",
   "templates/backend-test.sb": "5c06611ef478dbd5ee6c2b6be5de05165176b331dfaf58014f8c287d942b85c7",
   "templates/fastlik-Admin.env.example": "1388b58f43f82da32d6e326c6f5e10b6df06ed0bf5ad51db61be0fc5dbedeeaf",
   "templates/fastlik-Website.env.example": "1388b58f43f82da32d6e326c6f5e10b6df06ed0bf5ad51db61be0fc5dbedeeaf",
@@ -68,6 +69,6 @@
   "独有资产归属矩阵.md": "95315943545fe34cd81d5f0d7eec2205a60ac2b5097c7aecdc7af633e8fe78cb",
   "现场保护方法.md": "56c5c6c0e2bfbab6b7d0bee2dc8d5ca8616b05521c9cbd143f3801c03d918663",
   "自测报告.md": "35bea22eda3199b57712e2b5be6769cfc86afd6babbc26b77d939d76b0e3bf82",
-  "补证与整改报告.md": "3883f738b5d0952f11e84a14b838dcf21ba26a2eaa274051d891f6ba8adb0821",
+  "补证与整改报告.md": "ef8ee0907aee8ac7d39dcf168f28e0342f374e6374924e07c69090386cf1424f",
   "限制与阻塞.md": "daccea422cba12ad07e852d21c605a967fd53c9697aa700b4d6c1a685ecb40cb"
 }

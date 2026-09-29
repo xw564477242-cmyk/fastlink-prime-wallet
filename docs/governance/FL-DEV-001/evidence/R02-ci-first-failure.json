@@ -1,0 +1,104 @@
+{
+  "run": 36596904304,
+  "head": "0528256f801513d98b893269712e3455d05ea1db",
+  "failed_step": "Lint",
+  "rules": [],
+  "locations": [
+    {
+      "line": 2,
+      "column": 1,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 3,
+      "column": 21,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 6,
+      "column": 51,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 8,
+      "column": 26,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 9,
+      "column": 16,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 10,
+      "column": 9,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 11,
+      "column": 33,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 12,
+      "column": 16,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 13,
+      "column": 28,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 14,
+      "column": 18,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 15,
+      "column": 7,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 16,
+      "column": 26,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 17,
+      "column": 25,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 18,
+      "column": 15,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 19,
+      "column": 34,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 20,
+      "column": 27,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 23,
+      "column": 15,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 24,
+      "column": 5,
+      "rule": "prettier/prettier"
+    },
+    {
+      "line": 25,
+      "column": 40,
+      "rule": "prettier/prettier"
+    }
+  ],
+  "raw_logs_saved": false
+}
