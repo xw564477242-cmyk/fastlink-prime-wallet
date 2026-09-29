@@ -1,0 +1,99 @@
+{
+  "tests": [
+    {
+      "id": "SEC3-T01",
+      "name": "88项范围完整性",
+      "status": "PASS",
+      "evidence": "88项指纹/ID对账；三级58/26/4，实际High均不变"
+    },
+    {
+      "id": "SEC3-T02",
+      "name": "逐项字段及审核状态",
+      "status": "PASS",
+      "evidence": "保留未知，不冒称自然人审核或实际权限已确认"
+    },
+    {
+      "id": "SEC3-T03",
+      "name": "P0处置触发规则",
+      "status": "PASS",
+      "evidence": "独立P0触发条件已列；合成测试通过，不执行认证或处置；High队列由T01至T03覆盖"
+    },
+    {
+      "id": "SEC3-T04",
+      "name": "秘密值及密钥材料零泄露",
+      "status": "PASS",
+      "evidence": "新增治理报告/规则/测试的格式、高熵及实际密钥材料检查"
+    },
+    {
+      "id": "SEC3-T05",
+      "name": "Git引用/OID对账",
+      "status": "PASS",
+      "evidence": "再次核验对象、直接引用及packed-refs摘要；不替代管理员归因"
+    },
+    {
+      "id": "SEC3-T06",
+      "name": "根因确认凭证",
+      "status": "BLOCKED",
+      "evidence": "执行授权已收到；具体根因确认正文和依据尚未定位，不能伪造凭证"
+    },
+    {
+      "id": "SEC3-T07",
+      "name": "规则确定性和获批样例测试",
+      "status": "LIMITED",
+      "evidence": "49项合成测试通过；获批外部样例记录0，不能称样例验证完成"
+    },
+    {
+      "id": "SEC3-T08",
+      "name": "保守回退与未知保留",
+      "status": "PASS",
+      "evidence": "冲突或证据不足维持原等级；每项保存结构依据/规则版本/人工状态"
+    },
+    {
+      "id": "SEC3-T09",
+      "name": "禁止整目录白名单",
+      "status": "PASS",
+      "evidence": "路径只调整审核顺序，不触发降级；反例控制通过"
+    },
+    {
+      "id": "SEC3-T10",
+      "name": "dry-run不写入",
+      "status": "PASS",
+      "evidence": "原High矩阵和分类表SHA不变，原High和Medium等级不变"
+    },
+    {
+      "id": "SEC3-T11",
+      "name": "原现场保护",
+      "status": "PASS",
+      "evidence": "561144文件、1417链接及目录/主要Git状态前后一致"
+    },
+    {
+      "id": "SEC3-T12",
+      "name": "基线拟追加文本",
+      "status": "PASS",
+      "evidence": "仅拟追加，未更新正式基线和历史日志"
+    },
+    {
+      "id": "SEC3-T13",
+      "name": "PR范围及回滚方案",
+      "status": "LIMITED",
+      "evidence": "须在PR创建后核验；当前回滚方案已准备，不用High审核测试替代"
+    }
+  ],
+  "counts": {
+    "PASS": 10,
+    "LIMITED": 2,
+    "BLOCKED": 1,
+    "FAIL": 0
+  },
+  "gate2_ready": false,
+  "phase_b_authorized": true,
+  "approved_sample_records_read": 0,
+  "specific_root_cause_confirmation_read": false,
+  "not_run": [
+    "真实获批样例验证（记录未定位）",
+    "候选认证、轮换、吊销",
+    "生产/业务修改、部署、环境晋升",
+    "引用修复、GC、历史重写",
+    "正式基线更新"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "rule_version": "0.1.0-phase-A",
+  "input_count": 2917,
+  "proposed_downgrade_count": 0,
+  "remain_original_grade": 2917,
+  "proposal_counts": {
+    "仍无法确认": 2917
+  },
+  "fallback_counts": {
+    "secret-use-unknown-or-present": 2917
+  },
+  "source_write_count": 0,
+  "severity_change_count": 0,
+  "human_confirmation_count": 0,
+  "approved_external_samples_tested": 0,
+  "approved_sample_status": "records not located in available inputs",
+  "synthetic_sample_status": "tested separately, not relabeled as external approval",
+  "source_hashes_unchanged": true,
+  "sources": [
+    {
+      "name": "High风险归属矩阵.csv",
+      "sha256": "210aa008da50aefd3268270845c4dc3de96af0f90af993d71bf26e64511de363"
+    },
+    {
+      "name": "高熵候选分类表.csv",
+      "sha256": "1d289e21b748aec6c5a7703d69749d6ccfa80455b90129b6732aa134c84fb17d"
+    }
+  ]
+}

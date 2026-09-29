@@ -1,0 +1,14 @@
+{
+  "count": 88,
+  "fingerprint_count": 88,
+  "tier_counts": {
+    "1": 58,
+    "2": 26,
+    "3": 4
+  },
+  "high_before": 88,
+  "high_after": 88,
+  "severity_changes": 0,
+  "unconfirmed": 88,
+  "historical_explicit_secrets_remain_high": true
+}

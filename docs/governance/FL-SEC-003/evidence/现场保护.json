@@ -1,0 +1,22 @@
+{
+  "before": {
+    "phase": "before",
+    "files": 561144,
+    "errors": 0,
+    "links": 1417,
+    "manifest_sha256": "30a7f4580228cbd41bae7f3afaabbbb3734eabedb84e0fdbe04104d51a9ee8de"
+  },
+  "after": {
+    "phase": "after",
+    "files": 561144,
+    "errors": 0,
+    "links": 1417,
+    "manifest_sha256": "5fc6c40a42fa0fed7151f1fe358714d8924b106868d84ba5833ee285f089574d",
+    "changed": 0,
+    "missing": 0,
+    "added": 0,
+    "directories_equal": true,
+    "git_states_equal": true,
+    "links_equal": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "owner_reviews": {
+    "records": [],
+    "required_fields": [
+      "finding_id",
+      "asset",
+      "suspected_environment",
+      "classification",
+      "nonsecret_basis",
+      "privilege_impact",
+      "reviewer_role",
+      "reviewed_at",
+      "recommended_action"
+    ]
+  },
+  "git_admin_confirmation": {
+    "records": [],
+    "required_fields": [
+      "refs_and_oids",
+      "writer_tool_or_process",
+      "trigger_and_time_window",
+      "root_cause_and_evidence",
+      "data_loss_assessment",
+      "ref_protection_and_gc_advice",
+      "confirming_role",
+      "confirmed_at"
+    ]
+  },
+  "approved_samples": {
+    "records": [],
+    "required_fields": [
+      "sample_id",
+      "irreversible_or_synthetic_structure_features",
+      "expected_classification",
+      "applicable_rules",
+      "nonsecret_confirmed",
+      "approver_role",
+      "approved_at"
+    ]
+  },
+  "contains_approval": false,
+  "instructions": "只接收非秘密记录，模板字段完整不代表确认真实；由总控明确认可输入来源。"
+}
