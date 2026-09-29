@@ -1,0 +1,451 @@
+{
+  "approval": "R03及后续正式根因确认书/获批脱敏样例规则集v1",
+  "approved_at": "2026-09-29",
+  "approved_role": "项目所有者兼Git资产管理员、全局安全负责人",
+  "literal_examples_copied": false,
+  "examples_transformed_to_boolean_structure_only": true,
+  "positive_families": [
+    "placeholder",
+    "test-generated",
+    "public-integrity",
+    "documented-example"
+  ],
+  "negative_families": [
+    "token",
+    "jwt",
+    "credential-url",
+    "secret-assignment",
+    "authorization",
+    "private-key"
+  ],
+  "supplemental_positive_test_evidence": "完全合成的完整佐证，仅用于验证条件控制；用户原始例子单独不构成实际降级证据",
+  "raw_format_parser_coverage_claimed": false,
+  "first": {
+    "tests": [
+      {
+        "name": "placeholder_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_token",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_jwt",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_credential-url",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_secret-assignment",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_private-key",
+        "status": "PASS"
+      },
+      {
+        "name": "conflict_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "unknown_conflict_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "multiple_rules_fall_back",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_placeholder",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_test-generated",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_public-integrity",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_documented-example",
+        "status": "PASS"
+      },
+      {
+        "name": "test_prefix_alone",
+        "status": "PASS"
+      },
+      {
+        "name": "fixed_magic_alone",
+        "status": "PASS"
+      },
+      {
+        "name": "incomplete_digest",
+        "status": "PASS"
+      },
+      {
+        "name": "invalid_input",
+        "status": "PASS"
+      },
+      {
+        "name": "human_review_required",
+        "status": "PASS"
+      },
+      {
+        "name": "deterministic",
+        "status": "PASS"
+      }
+    ],
+    "passed": 51,
+    "failed": 0,
+    "fixture_kind": "synthetic-boolean-structures",
+    "literal_user_examples_copied": false,
+    "supplemental_evidence_in_positive_controls": "synthetic only; not a claim about real candidates"
+  },
+  "second": {
+    "tests": [
+      {
+        "name": "placeholder_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "placeholder_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "test-generated_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "public-integrity_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_with_synthetic_complete_evidence",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_structure_alone_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_input_unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_approved_structure_bound",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_all_occurrences_checked",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_nonsecret_semantics_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_non_authenticating_use_proven",
+        "status": "PASS"
+      },
+      {
+        "name": "documented-example_missing_reference_bindings_verified",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_token",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_jwt",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_credential-url",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_secret-assignment",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_authorization",
+        "status": "PASS"
+      },
+      {
+        "name": "negative_private-key",
+        "status": "PASS"
+      },
+      {
+        "name": "conflict_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "unknown_conflict_falls_back",
+        "status": "PASS"
+      },
+      {
+        "name": "multiple_rules_fall_back",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_placeholder",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_test-generated",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_public-integrity",
+        "status": "PASS"
+      },
+      {
+        "name": "path_alone_documented-example",
+        "status": "PASS"
+      },
+      {
+        "name": "test_prefix_alone",
+        "status": "PASS"
+      },
+      {
+        "name": "fixed_magic_alone",
+        "status": "PASS"
+      },
+      {
+        "name": "incomplete_digest",
+        "status": "PASS"
+      },
+      {
+        "name": "invalid_input",
+        "status": "PASS"
+      },
+      {
+        "name": "human_review_required",
+        "status": "PASS"
+      },
+      {
+        "name": "deterministic",
+        "status": "PASS"
+      }
+    ],
+    "passed": 51,
+    "failed": 0,
+    "fixture_kind": "synthetic-boolean-structures",
+    "literal_user_examples_copied": false,
+    "supplemental_evidence_in_positive_controls": "synthetic only; not a claim about real candidates"
+  },
+  "identical_results": true,
+  "rules_version": "1.0.0-R03"
+}

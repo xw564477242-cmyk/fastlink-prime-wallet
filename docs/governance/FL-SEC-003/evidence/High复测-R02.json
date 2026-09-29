@@ -1,0 +1,17 @@
+{
+  "count": 88,
+  "id_fingerprint_set_equal": true,
+  "high_remains": 88,
+  "severity_changes": 0,
+  "tiers": {
+    "1": 58,
+    "2": 26,
+    "3": 4
+  },
+  "source_matrix_sha256": "210aa008da50aefd3268270845c4dc3de96af0f90af993d71bf26e64511de363",
+  "test_ids": [
+    "SEC3-T01",
+    "SEC3-T02",
+    "SEC3-T03"
+  ]
+}

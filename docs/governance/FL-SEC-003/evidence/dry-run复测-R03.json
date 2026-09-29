@@ -1,0 +1,29 @@
+{
+  "rule_version": "1.0.0-R03",
+  "count": 2917,
+  "eligible_rule_match_count": 0,
+  "confirmed_conflict_count": 0,
+  "conflict_assessment_unknown_count": 2917,
+  "fallback_count": 2917,
+  "proposed_downgrade_count": 0,
+  "retain_original_count": 2917,
+  "source_writes": 0,
+  "severity_changes": 0,
+  "two_runs_equal": true,
+  "source_hashes_unchanged": true,
+  "source_hashes": {
+    "高熵候选分类表.csv": "1d289e21b748aec6c5a7703d69749d6ccfa80455b90129b6732aa134c84fb17d",
+    "High风险归属矩阵.csv": "210aa008da50aefd3268270845c4dc3de96af0f90af993d71bf26e64511de363"
+  },
+  "approved_control_set": "R03 approved 49 controls + structural v1 supplemental controls",
+  "candidate_binding_absent": 2917,
+  "explanation": "合成控制获批不等于真实候选具备完整语义、无冲突和引用关系依据；保持回退，不把控制样例绑定伪造为逐项事实。",
+  "high_count": 88,
+  "high_id_fingerprint_set_equal": true,
+  "high_tiers": {
+    "1": 58,
+    "2": 26,
+    "3": 4
+  },
+  "supplemental_controls_passed": 51
+}

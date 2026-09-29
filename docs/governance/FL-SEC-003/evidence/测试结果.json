@@ -1,0 +1,102 @@
+{
+  "tests": [
+    {
+      "id": "SEC3-T01",
+      "name": "88项范围完整性",
+      "status": "PASS",
+      "evidence": "88项ID/指纹集合逐项一致"
+    },
+    {
+      "id": "SEC3-T02",
+      "name": "逐项字段及审核状态完整性",
+      "status": "PASS",
+      "evidence": "全部保持High及待人工审核状态"
+    },
+    {
+      "id": "SEC3-T03",
+      "name": "P0处置触发规则",
+      "status": "PASS",
+      "evidence": "三级58/26/4，获批合成P0触发测试通过"
+    },
+    {
+      "id": "SEC3-T04",
+      "name": "秘密值及密钥材料零泄露",
+      "status": "PASS",
+      "evidence": "全部治理材料含获批样例的格式、高熵及实际密钥材料扫描零命中"
+    },
+    {
+      "id": "SEC3-T05",
+      "name": "Git引用/OID对账",
+      "status": "PASS",
+      "evidence": "22826本库对象及4个外部目标核验，OID受工具引用保护"
+    },
+    {
+      "id": "SEC3-T06",
+      "name": "根因确认凭证",
+      "status": "PASS",
+      "evidence": "R03正式管理员确认；与核验OID/完整性无直接冲突，保留维护时序取证限制"
+    },
+    {
+      "id": "SEC3-T07",
+      "name": "规则确定性及获批样例测试",
+      "status": "PASS",
+      "evidence": "49项获批控制SHA绑定及51项v1补充控制，各两轮通过；非真实候选语义确认"
+    },
+    {
+      "id": "SEC3-T08",
+      "name": "保守回退与未知保留",
+      "status": "PASS",
+      "evidence": "全部保持原等级，结构线索不足不降级"
+    },
+    {
+      "id": "SEC3-T09",
+      "name": "禁止整目录白名单",
+      "status": "PASS",
+      "evidence": "目录白名单/路径覆盖及冲突反例测试通过"
+    },
+    {
+      "id": "SEC3-T10",
+      "name": "dry-run不写入",
+      "status": "PASS",
+      "evidence": "原分类及High矩阵SHA不变，重复dry-run一致"
+    },
+    {
+      "id": "SEC3-T11",
+      "name": "原现场保护",
+      "status": "PASS",
+      "evidence": "561144文件、1417链接及主要Git状态一致"
+    },
+    {
+      "id": "SEC3-T12",
+      "name": "基线拟追加文本检查",
+      "status": "PASS",
+      "evidence": "仅拟追加，未修改正式基线/日志"
+    },
+    {
+      "id": "SEC3-T13",
+      "name": "PR范围及回滚方案",
+      "status": "PASS",
+      "evidence": "既有PR实际范围及独立revert方案核验，修订HEAD推送后再次核对见HANDOFF"
+    }
+  ],
+  "counts": {
+    "PASS": 13,
+    "LIMITED": 0,
+    "BLOCKED": 0,
+    "FAIL": 0
+  },
+  "external_confirmation": "FL-SEC-003-R03",
+  "gate2_status": "待总控评审，未自行放行",
+  "gate3_status": "未进入",
+  "approved_synthetic_controls": 49,
+  "v1_supplemental_controls": 51,
+  "approved_real_candidate_samples": 0,
+  "not_run": [
+    "候选认证/调用/轮换/吊销",
+    "风险原等级写回",
+    "引用修复/GC/历史重写",
+    "业务或生产变更",
+    "资产清理/部署/环境晋升",
+    "正式基线更新"
+  ]
+}

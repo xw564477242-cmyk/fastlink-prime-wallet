@@ -1,0 +1,156 @@
+{
+  "approval_id": "FL-SEC-003-R03",
+  "administrator_confirmation_received": true,
+  "administrator_root_cause_confirmed": true,
+  "administrator_conclusion": "松散引用写入packed-refs及临时工具引用清理，属于正常Git引用维护；无已知对象数据丢失，无外部篡改证据",
+  "confirmation_date": "2026-09-29",
+  "confirming_role": "项目所有者兼Git资产管理员",
+  "object": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+  "type": "tree",
+  "direct_tool_ref_count": 3,
+  "current_tool_refs": [
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790685215996",
+        "4984e10d-879a-40b7-8800-95e2c465bb44",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "8cacfd2bbba88c3c5beccb6de2844469",
+        "1790685001924",
+        "2c272d9c-68c1-4a24-bc15-8ca10243695e"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "779d9deeb0fb0119143b8a3f5be1bb18",
+        "5a29573a7663eec1e9ec6d10b0f47487",
+        "1790610154055",
+        "7f9af6b1-1fb3-442f-b1f5-1eb9a44bf3db"
+      ],
+      "oid": "1dde0f51e2e59e6c1890841a16e3e4ce502c64ed",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "98b9456b4fc90d5ee4e62bd5938730c6",
+        "de967b8ac08e0e652d119197d183c2d1",
+        "1790657277036",
+        "bc076664-dfea-4520-ad18-ce5c62c1f5eb"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "a9452f4572685e502e953bf85dfb7f9e64908551af56e9c6f79bc948c1603cdc",
+        "16fb415cccca4d800607105c963ba929d7e151fe9d426d985cefa08670d3a9a4",
+        "1790417639699",
+        "ddb96a18-749f-4e44-8793-5be3077854c0"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d3119881819cdad6170238756fda6906a0222f70e33988a439b85ab67c4f2f5e",
+        "b3d8abe43e90834b72a5f72e875b6d674f58ca29b75d26d7a7af87a7abe1052b",
+        "1790185574138",
+        "fc711098-c46c-461a-9c8e-6f4015920085"
+      ],
+      "oid": "2b82289d3a6aacd1724ec913e7dccef836e8e312",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d53326a726fc0ef30116d9498199a4a6a361bfd8e1d1caaa1a87f5975499a946",
+        "8eeb0aa48611f5bfe5008acf1a873cdee542e55e22a4132ed7f7b9a3795b7c17",
+        "1790267200183",
+        "f4d3fbd4-a2e6-4364-b5a4-0412c198c912"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "f060ef016efdbad6b100efb91e7978f3226a405764eddbea98de8630892f233c",
+        "e381fc473c22bbd1371c5d53e0f608a32338da5fb16cadfb18435ff23e7e2e56",
+        "1790156114315",
+        "03d01fac-f731-4f7b-95c4-81975d5427b5"
+      ],
+      "oid": "93421a0ae225e6b3aff64692794e373987ad9d96",
+      "type": "tree"
+    }
+  ],
+  "owned_objects_checked": 22826,
+  "missing_owned_objects": 0,
+  "external_gitlink_targets": [
+    {
+      "oid": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "exists_in_corresponding_local_store": true
+    },
+    {
+      "oid": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "exists_in_corresponding_local_store": true
+    },
+    {
+      "oid": "d972eea0c708840f016c32444018a420f9bf62c7",
+      "exists_in_corresponding_local_store": true
+    },
+    {
+      "oid": "8c1d3be110e98f39328a98cba122411b4689337f",
+      "exists_in_corresponding_local_store": true
+    }
+  ],
+  "missing_external_targets": 0,
+  "strict_fsck_exit": 0,
+  "major_refs_reachable": false,
+  "packed_refs_sha256": "bc0db565c5120460795bda1fd906f4cf882e21c09678ea60114b0ed9bc87748c",
+  "matches_historical_packed_refs": true,
+  "technical_snapshot_limitation": "已保存时点packed-refs摘要一致且历史漂移工具引用当前不在packed-refs；不能独立复现打包事件，但不排除未捕获中间维护操作。根因凭证属于管理员确认，技术快照不证明写入进程。",
+  "scope_limitation": "完整性仅覆盖已核验对象集合；可达性包含保留工具引用及相应本地对象库，不等于主要分支均包含目标tree，也不代表所有本机进程已完成取证。",
+  "contradicting_observation_found": false,
+  "consistency_basis": "OID目标及其对象仍受引用保护，完整性缺失0；历史快照不足以独立确认维护时序，但未证明管理员结论不可能。",
+  "no_refs_modified": true,
+  "no_gc": true,
+  "SEC3_T06": "PASS"
+}

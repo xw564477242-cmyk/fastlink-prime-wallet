@@ -1,0 +1,133 @@
+{
+  "object": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+  "type": "tree",
+  "direct_tool_ref_count": 3,
+  "tool_refs": [
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790684447700",
+        "aebbfd42-e618-4e36-9f23-641e3055011b",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "79319cffe924102b7539480ae1b2240f",
+        "1790684168294",
+        "12073031-8b74-484e-b67b-fecc9fdf105d"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "779d9deeb0fb0119143b8a3f5be1bb18",
+        "5a29573a7663eec1e9ec6d10b0f47487",
+        "1790610154055",
+        "7f9af6b1-1fb3-442f-b1f5-1eb9a44bf3db"
+      ],
+      "oid": "1dde0f51e2e59e6c1890841a16e3e4ce502c64ed",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "98b9456b4fc90d5ee4e62bd5938730c6",
+        "de967b8ac08e0e652d119197d183c2d1",
+        "1790657277036",
+        "bc076664-dfea-4520-ad18-ce5c62c1f5eb"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "a9452f4572685e502e953bf85dfb7f9e64908551af56e9c6f79bc948c1603cdc",
+        "16fb415cccca4d800607105c963ba929d7e151fe9d426d985cefa08670d3a9a4",
+        "1790417639699",
+        "ddb96a18-749f-4e44-8793-5be3077854c0"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d3119881819cdad6170238756fda6906a0222f70e33988a439b85ab67c4f2f5e",
+        "b3d8abe43e90834b72a5f72e875b6d674f58ca29b75d26d7a7af87a7abe1052b",
+        "1790185574138",
+        "fc711098-c46c-461a-9c8e-6f4015920085"
+      ],
+      "oid": "2b82289d3a6aacd1724ec913e7dccef836e8e312",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d53326a726fc0ef30116d9498199a4a6a361bfd8e1d1caaa1a87f5975499a946",
+        "8eeb0aa48611f5bfe5008acf1a873cdee542e55e22a4132ed7f7b9a3795b7c17",
+        "1790267200183",
+        "f4d3fbd4-a2e6-4364-b5a4-0412c198c912"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree"
+    },
+    {
+      "ref_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "f060ef016efdbad6b100efb91e7978f3226a405764eddbea98de8630892f233c",
+        "e381fc473c22bbd1371c5d53e0f608a32338da5fb16cadfb18435ff23e7e2e56",
+        "1790156114315",
+        "03d01fac-f731-4f7b-95c4-81975d5427b5"
+      ],
+      "oid": "93421a0ae225e6b3aff64692794e373987ad9d96",
+      "type": "tree"
+    }
+  ],
+  "packed_refs_sha256": "bc0db565c5120460795bda1fd906f4cf882e21c09678ea60114b0ed9bc87748c",
+  "matches_previous_packed_refs": true,
+  "integrity": {
+    "command": "git fsck --full --strict",
+    "exit_code": 0,
+    "raw_output_not_exported": true,
+    "stdout_lines": 183,
+    "stderr_lines": 0,
+    "root_cause_proven_by_fsck": false
+  },
+  "specific_confirmation_record_present": false,
+  "oid_statement_consistency": "NOT_EVALUABLE_WITHOUT_CONFIRMATION",
+  "final_cause": "未确认",
+  "SEC3_T06": "BLOCKED",
+  "no_refs_modified": true
+}

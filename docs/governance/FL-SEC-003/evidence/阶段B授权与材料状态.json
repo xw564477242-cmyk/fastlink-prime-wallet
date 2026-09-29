@@ -1,0 +1,10 @@
+{
+  "revision": "R03",
+  "formal_confirmation_received": true,
+  "source": "最终外部确认凭证R03及补充正式确认书/规则集v1",
+  "specific_root_cause_confirmation_received": true,
+  "approved_synthetic_control_count": 49,
+  "supplemental_v1_controls": 51,
+  "gate2_passed": false,
+  "merge_authorized": false
+}
