@@ -75,13 +75,13 @@
     {
       "id": "SEC3-T13",
       "name": "PR范围及回滚方案",
-      "status": "LIMITED",
-      "evidence": "须在PR创建后核验；当前回滚方案已准备，不用High审核测试替代"
+      "status": "PASS",
+      "evidence": "PR创建后检查实际文件范围、dev目标和独立revert方案；最终HEAD再次核验见HANDOFF"
     }
   ],
   "counts": {
-    "PASS": 10,
-    "LIMITED": 2,
+    "PASS": 11,
+    "LIMITED": 1,
     "BLOCKED": 1,
     "FAIL": 0
   },
