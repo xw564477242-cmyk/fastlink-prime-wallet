@@ -5,7 +5,7 @@
   },
   {
     "name": "build.py",
-    "sha256": "2f222b75e88babcc2987fb704c6a5e4a5b1e1cebac033c922fc84a0e7833355a"
+    "sha256": "00c561f141fe1d5b9e9fa21fe0cca6840d41e0342d9d3494ddee0be6f56826de"
   },
   {
     "name": "diagnose.py",
@@ -69,7 +69,7 @@
   },
   {
     "name": "validate.py",
-    "sha256": "97723e074f6f2156b6b4c60d7d9f3b4d6cd7c25f6013d2989b1e23594f69116f"
+    "sha256": "5971acc7cae4a7c79bcc8e613c706101f8dd7d9348f3b2201c4ffe7ff4d143ff"
   },
   {
     "name": "verify_scope.py",
