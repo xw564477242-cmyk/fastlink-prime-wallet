@@ -1,0 +1,92 @@
+{
+  "at": "2026-09-29T06:25:51.912800+00:00",
+  "base": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+  "staged_before_audit_file": [
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-七仓恢复基线报告.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-仓库完整性矩阵.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-回滚方案.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-异常与风险清单.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-改动说明.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-现有副本来源映射表.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/FL-REC-001-自测报告.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/README.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/dependency-audit.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/local-evidence-hashes.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/original-git-before.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/preflight.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/preservation-check.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/procedure-hashes.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/recovery-rounds.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/remote-identities.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/repeatability.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/security-scan.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/source-mappings.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/governance/FL-REC-001/evidence/test-results.json"
+    }
+  ],
+  "only_new_governance_files": true,
+  "existing_files_modified": 0,
+  "business_code_or_production_config": false,
+  "new_ci_or_executable_scripts": false,
+  "diff_check": "PASS",
+  "final_scope": "plus this evidence/scope-validation.json and FILE-SHA256SUMS.txt; exact final names rechecked before commit"
+}

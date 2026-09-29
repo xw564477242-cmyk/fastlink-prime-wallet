@@ -1,0 +1,64 @@
+{
+  "at": "2026-09-29T06:20:43.758241+00:00",
+  "files_checked": 89688,
+  "changed": [],
+  "missing": [],
+  "original_git": [
+    {
+      "path": ".",
+      "checks": {
+        "head": true,
+        "status_sha256": true,
+        "diff_sha256": true,
+        "refs_sha256": true,
+        "index_sha256": true
+      }
+    },
+    {
+      "path": "outputs/B03-CREGIS-CLOSEOUT-004/workspace",
+      "checks": {
+        "head": true,
+        "status_sha256": true,
+        "diff_sha256": true,
+        "refs_sha256": true,
+        "index_sha256": true
+      }
+    },
+    {
+      "path": "outputs/DEV-SANDBOX-FAST-001/workspace",
+      "checks": {
+        "head": true,
+        "status_sha256": true,
+        "diff_sha256": true,
+        "refs_sha256": true,
+        "index_sha256": true
+      }
+    },
+    {
+      "path": "outputs/DEV-VERSION-032/entry-workspace",
+      "checks": {
+        "head": true,
+        "status_sha256": true,
+        "diff_sha256": true,
+        "refs_sha256": true,
+        "index_sha256": true
+      }
+    },
+    {
+      "path": "outputs/DEV-VERSION-040/workspace",
+      "checks": {
+        "head": true,
+        "status_sha256": true,
+        "diff_sha256": true,
+        "refs_sha256": true,
+        "index_sha256": true
+      }
+    }
+  ],
+  "exclusions": [
+    ".git object files (separate Git state checks)",
+    "node_modules"
+  ],
+  "application_checkpoint_refs": "not part of stable heads/remotes/tags/stash comparison",
+  "free_bytes": 113395273728
+}

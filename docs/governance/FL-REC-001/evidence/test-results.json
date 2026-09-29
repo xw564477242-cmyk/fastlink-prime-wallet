@@ -1,0 +1,69 @@
+{
+  "at": "2026-09-29T06:24:35.655762+00:00",
+  "checks": [
+    {
+      "id": "REC-T01",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T02",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T03",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T04",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T05",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T06",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T07",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T08",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T09",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T10",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T11",
+      "result": "PASS",
+      "detail": "new report explicit secret patterns zero findings"
+    },
+    {
+      "id": "REC-T12",
+      "result": "PASS",
+      "detail": "all staged files are added under docs/governance/FL-REC-001"
+    },
+    {
+      "id": "REC-T13",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T14",
+      "result": "PASS"
+    },
+    {
+      "id": "REC-T15",
+      "result": "PASS"
+    }
+  ],
+  "pending_precommit": [],
+  "meaning": "evidence assertions and documented process checks; not application unit tests"
+}

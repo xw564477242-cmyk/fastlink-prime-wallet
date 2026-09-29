@@ -1,0 +1,72 @@
+[
+  {
+    "name": "fastlink-prime-wallet",
+    "all_local_tree_objects_checked": 1239,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlik-backend",
+    "all_local_tree_objects_checked": 4130,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlik-app",
+    "all_local_tree_objects_checked": 625,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlik-Admin",
+    "all_local_tree_objects_checked": 636,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlik-Website",
+    "all_local_tree_objects_checked": 271,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlink-control-plane",
+    "all_local_tree_objects_checked": 932,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  },
+  {
+    "name": "fastlink-recovery-archive",
+    "all_local_tree_objects_checked": 286,
+    "gitlinks": [],
+    "gitattributes_blobs": [],
+    "gitmodules_blobs": [],
+    "lfs_pointer_blob_count": 0,
+    "lfs_objects_needed": false,
+    "scope": "all Git tree objects plus small blob LFS-pointer scan, no archive expansion"
+  }
+]

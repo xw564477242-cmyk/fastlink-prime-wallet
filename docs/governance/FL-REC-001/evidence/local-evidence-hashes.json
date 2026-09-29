@@ -1,0 +1,122 @@
+[
+  {
+    "file": "dependency-audit.json",
+    "bytes": 2255,
+    "sha256": "8bf7fdf0898e66a43bc65d4acfa8f986f7a138b6af5a76e704ae1ecbb354185e"
+  },
+  {
+    "file": "original-files-before.json",
+    "bytes": 20078824,
+    "sha256": "dd8ea152b8bdc48ca00d0a4c120828221d03f6ae352c886e1dbd210488d0c961"
+  },
+  {
+    "file": "original-git-before.json",
+    "bytes": 2848,
+    "sha256": "1df5849de6736272e3963a2dccd21e40ea1d32c6b0e4ac309f9377ae3ab0a807"
+  },
+  {
+    "file": "preflight.json",
+    "bytes": 406,
+    "sha256": "b77a6e0bc792b1fd944e5fb61efc6f60d9d915f267431bbe0b3c324cbcef8f9c"
+  },
+  {
+    "file": "preservation-check.json",
+    "bytes": 1484,
+    "sha256": "58b270064bed5c5295220d3f695f69d08e630a6184020b32993e96c393339e7d"
+  },
+  {
+    "file": "remote-after-recovery.json",
+    "bytes": 87093,
+    "sha256": "913e27e78844d308ba7afb22b87426f61901534ca26d5c3e07c2d0a3be027658"
+  },
+  {
+    "file": "remote-before.json",
+    "bytes": 87986,
+    "sha256": "7433349f35358911e4c812b457b357774a2f0479f851a6b7e7f2eb5020da9297"
+  },
+  {
+    "file": "repeatability.json",
+    "bytes": 3629,
+    "sha256": "908da4c32dbe4a44946b6769e5e9a10f4e42b519dbd4fba3bc10c80eee61deb1"
+  },
+  {
+    "file": "round-1-fastlik-Admin.json",
+    "bytes": 8835,
+    "sha256": "d80136b36ccc6910ee6f87801ddf718e3a7067c63b66e33130ade71aafc4fc21"
+  },
+  {
+    "file": "round-1-fastlik-Website.json",
+    "bytes": 9006,
+    "sha256": "215ea480ac9cd8a11fe136a32934ddd7077945af259a558957a3a653a44c02eb"
+  },
+  {
+    "file": "round-1-fastlik-app.json",
+    "bytes": 10059,
+    "sha256": "c634f0f6206da5cfce36f3c266e7eec8505635ff3f224d25a56b173784420146"
+  },
+  {
+    "file": "round-1-fastlik-backend.json",
+    "bytes": 36592,
+    "sha256": "224c4515e75de15c00b58343384528025ce1c3cf84a525a6c4d60755b52f79a8"
+  },
+  {
+    "file": "round-1-fastlink-control-plane.json",
+    "bytes": 8194,
+    "sha256": "c19bfbdf3df8d960209021c53e46dfe0f50261d1b588d37b5df7ca68f954decc"
+  },
+  {
+    "file": "round-1-fastlink-prime-wallet.json",
+    "bytes": 10817,
+    "sha256": "728d1e9716637d59c7594ebf9b89edc01eb46eeba09f1b71961d4e479f9db57a"
+  },
+  {
+    "file": "round-1-fastlink-recovery-archive.json",
+    "bytes": 2021,
+    "sha256": "b0aa0e6fd1c63b644543c0364da52d9e5e99ec9d04a7e4ead4b9440b3fdd8fbf"
+  },
+  {
+    "file": "round-2-fastlik-Admin.json",
+    "bytes": 8835,
+    "sha256": "4a625d5ef3d948e6efda1368e0d59f99511a39954c7e26effcf14d4f28cfa9a9"
+  },
+  {
+    "file": "round-2-fastlik-Website.json",
+    "bytes": 9006,
+    "sha256": "0f69cbc5c2f605d0dae9fc2ddfad4d920d98bd194a2d62f4457fe70a71c458b8"
+  },
+  {
+    "file": "round-2-fastlik-app.json",
+    "bytes": 10057,
+    "sha256": "2e7220dbf8a79aec402ce2900358b6cc11b447796e12c93fac4862de12cc7e95"
+  },
+  {
+    "file": "round-2-fastlik-backend.json",
+    "bytes": 36592,
+    "sha256": "8d4ed15158e75be4c9ea37cc4f0b2c374323ab8519b3af7c6b78ce72fa4fb91b"
+  },
+  {
+    "file": "round-2-fastlink-control-plane.json",
+    "bytes": 8193,
+    "sha256": "e02b41198a4ff0b8deb355d809a06bcae9909a49da115c0c832f546eb366aa5a"
+  },
+  {
+    "file": "round-2-fastlink-prime-wallet.json",
+    "bytes": 10817,
+    "sha256": "fe09fbbee025bb3656895cb3e6432a22ef99806d5bc39671187604d983a651d4"
+  },
+  {
+    "file": "round-2-fastlink-recovery-archive.json",
+    "bytes": 2019,
+    "sha256": "a526ee78261e37d85997e72754b57259328f922969cd1f9eb9a3e4e5176d8ed6"
+  },
+  {
+    "file": "source-candidates.json",
+    "bytes": 11803,
+    "sha256": "f546081719d115f6ff9244df4ad7910ce9d0448385e58bfcb3be587ec359a9d6"
+  },
+  {
+    "file": "source-mappings.json",
+    "bytes": 56479,
+    "sha256": "d762e3e0ffb648c7ce1d1d27525da2bf1ce2980c679feb453b491d6e8075b0c4"
+  }
+]

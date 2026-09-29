@@ -1,0 +1,17 @@
+[
+  {
+    "file": "recover.py",
+    "sha256": "f083e2aba244c06ebc1267e0166480cc59de100f5ee8e4dbe3b83fe7468c5259",
+    "delivery": "local evidence only; not installed in repository or CI"
+  },
+  {
+    "file": "map_sources.py",
+    "sha256": "16bee16d6cbba0fec64bb9461c1a08cd558b1e75a455643e289e5cb1e1422e09",
+    "delivery": "local evidence only; not installed in repository or CI"
+  },
+  {
+    "file": "build_reports.py",
+    "sha256": "b213e353c8a0f091afb02bd8081b289e12d0d569ca0324137d515aa9002c4d3c",
+    "delivery": "local evidence only; not installed in repository or CI"
+  }
+]
