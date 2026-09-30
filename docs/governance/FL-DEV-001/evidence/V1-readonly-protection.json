@@ -1,0 +1,13 @@
+{
+  "files_before": 561124,
+  "files_after": 561124,
+  "changed": 0,
+  "missing": 0,
+  "added": 0,
+  "directories_equal": true,
+  "symlinks_equal": true,
+  "before_sha256": "ee057185bb688b08e4ba1f5006e594934ff5af91d29b6f6e25b2e85a7cd7f181",
+  "after_sha256": "ee057185bb688b08e4ba1f5006e594934ff5af91d29b6f6e25b2e85a7cd7f181",
+  "this_round_only": true,
+  "historical_incidents_not_repaired": true
+}

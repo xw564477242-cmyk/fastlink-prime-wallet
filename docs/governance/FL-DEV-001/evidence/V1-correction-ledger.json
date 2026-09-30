@@ -1,0 +1,80 @@
+{
+  "reviewed_head": "dd95241a07f95ccfdd1a63b3998b85334f44d9fb",
+  "corrections": [
+    {
+      "id": "C01",
+      "rejected": "grep --after-time作为时间证明",
+      "correction": "无效命令参数；执行时间仅用真实日志时间戳，mtime不当作创建时间。",
+      "source_status": "本轮评审明确指出；先前可检索工具调用中未发现执行此命令的记录。"
+    },
+    {
+      "id": "C02",
+      "rejected": "使用refs/historical查回已删除登记",
+      "correction": "不能证明历史登记，不创建任何验证引用；只读现存备份、清理前快照及当前登记列表。"
+    },
+    {
+      "id": "C03",
+      "rejected": "git write-tree或所谓dry-run作为只读证明",
+      "correction": "可能写入对象，禁止执行；仅读HEAD tree OID、stage清单、raw diff和对象清单。"
+    },
+    {
+      "id": "C04",
+      "rejected": "普通status或仅关闭可选锁即保证所有Git差异读取不写入",
+      "correction": "本轮显式禁用可选锁和diff.autoRefreshIndex，并逐命令检查index元数据/摘要，整轮文件集合前后复核。"
+    },
+    {
+      "id": "C05",
+      "rejected": "porcelain v2完整覆盖skip-worktree及assume-unchanged",
+      "correction": "另读ls-files -v与--debug，记录标志计数和私有原文SHA。"
+    },
+    {
+      "id": "C06",
+      "rejected": "默认macOS有sha256sum或没有工具版本的哈希证明",
+      "correction": "使用本机Python hashlib.sha256并记录Python/OpenSSL版本，另记录已存在shasum版本。"
+    },
+    {
+      "id": "C07",
+      "rejected": "所有Git元数据必在工作区.git内",
+      "correction": "逐仓解析实际git-dir、common-dir及index路径，再读真实文件。"
+    },
+    {
+      "id": "C08",
+      "rejected": "mtime自动等同创建时间",
+      "correction": "mtime仅为修改时间；单独记录文件系统birth time，无该属性则创建时间无法证实；两者都不证明创建工具。"
+    },
+    {
+      "id": "C09",
+      "rejected": "占位哈希作为证据",
+      "correction": "占位摘要全部无效、不得再次引用。评审未给出具体字面值/文件位置，未将任何推测值补成真实摘要；当前旧HEAD校验清单104项实物匹配，新证据重新计算真实SHA。该核验不证明全部历史摘要均真实。"
+    },
+    {
+      "id": "C10",
+      "rejected": "R06将DEV1-T12标为PASS",
+      "correction": "依最新评审撤回当前PASS状态，保持FAIL。登记已删除是技术事实，但不替代审计充分性验收。原提交历史保留。"
+    },
+    {
+      "id": "C11",
+      "rejected": "R06对索引刷新实际写入进程作确定性表述",
+      "correction": "合成测试只证明可复现机制；现有时序支持采集副作用推断，不构成独立写入进程审计或原索引字节恢复证明。"
+    },
+    {
+      "id": "C12",
+      "rejected": "原始五工作区状态为空",
+      "correction": "原主工作区历史有2项未暂存及58152未跟踪；另有1个派生工作区未跟踪1项。新建六仓干净状态不得套用于原现场。"
+    },
+    {
+      "id": "C13",
+      "rejected": "refs/codex被当作单条完整引用",
+      "correction": "它是命名空间；必须枚举每条完整名称和OID/type，单条新增检查点不等于全部工具引用。"
+    },
+    {
+      "id": "C14",
+      "rejected": "三个登记备份目录与此前三个新增检查点目录是同一组",
+      "correction": "前者在私有R06备份根目录，保存21文件；后者在原Git common-dir的检查点路径层级。用途、位置、生成阶段不同。"
+    }
+  ],
+  "prior_manifest_entries_verified": 104,
+  "prior_manifest_matches_real_files": true,
+  "unknown_placeholder_values_not_fabricated": true,
+  "historical_commits_preserved": true
+}

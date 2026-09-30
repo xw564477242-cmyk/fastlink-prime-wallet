@@ -1,0 +1,319 @@
+{
+  "common_dir_components": [
+    "/",
+    "Users",
+    "ck",
+    "Downloads",
+    "fastlink-prime-wallet-dev-release",
+    ".git"
+  ],
+  "all_ref_count": 27,
+  "all_refs_sha256": "619767180fec205c087421b189b30ab2dca857dd24f181222f3342b8fef9f045",
+  "object_count": 25809,
+  "object_inventory_sorted_sha256": "ff9cd12f7e9cbf65a44f07f4e9005a15b9e75cd5ab52bac17f6069289d2abd94",
+  "codex_namespace_count": 9,
+  "codex_refs": [
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790741427636",
+        "80b95e45-fbdc-4df5-8c00-3019572f7924",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-30T04:10:27.668992+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-30T04:10:27.649432+00:00",
+        "sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "1441d4ea0f05bd269ce69d36873723cc",
+        "1790740120757",
+        "22592e23-2b15-42c2-86d3-961207556aee"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-30T03:48:40.769556+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-30T03:48:40.768788+00:00",
+        "sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "779d9deeb0fb0119143b8a3f5be1bb18",
+        "5a29573a7663eec1e9ec6d10b0f47487",
+        "1790610154055",
+        "7f9af6b1-1fb3-442f-b1f5-1eb9a44bf3db"
+      ],
+      "oid": "1dde0f51e2e59e6c1890841a16e3e4ce502c64ed",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-28T15:42:34.069812+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-28T15:42:34.068535+00:00",
+        "sha256": "c02b3c46384543115b22ff4f028342aabedd6169cd2ffebfea96b546f59ccfa2"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "98b9456b4fc90d5ee4e62bd5938730c6",
+        "de967b8ac08e0e652d119197d183c2d1",
+        "1790657277036",
+        "bc076664-dfea-4520-ad18-ce5c62c1f5eb"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-29T04:47:57.047177+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-29T04:47:57.046411+00:00",
+        "sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "a9452f4572685e502e953bf85dfb7f9e64908551af56e9c6f79bc948c1603cdc",
+        "16fb415cccca4d800607105c963ba929d7e151fe9d426d985cefa08670d3a9a4",
+        "1790417639699",
+        "ddb96a18-749f-4e44-8793-5be3077854c0"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-26T10:13:59.712760+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-26T10:13:59.712019+00:00",
+        "sha256": "8e6086624f1eb58fd45efb6258d60c048a4dafcdb4ce77526c58af805485cf4f"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e",
+        "1790691234817",
+        "878db407-6b68-4838-9b57-552ef1d68269"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-29T14:13:54.831724+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-29T14:13:54.830791+00:00",
+        "sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d3119881819cdad6170238756fda6906a0222f70e33988a439b85ab67c4f2f5e",
+        "b3d8abe43e90834b72a5f72e875b6d674f58ca29b75d26d7a7af87a7abe1052b",
+        "1790185574138",
+        "fc711098-c46c-461a-9c8e-6f4015920085"
+      ],
+      "oid": "2b82289d3a6aacd1724ec913e7dccef836e8e312",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-23T17:46:14.152403+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-23T17:46:14.151590+00:00",
+        "sha256": "a9cdbfd16bba7a60ff6b9a5d7e16b54f291428f90489958d9b71ddee283f21d0"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "d53326a726fc0ef30116d9498199a4a6a361bfd8e1d1caaa1a87f5975499a946",
+        "8eeb0aa48611f5bfe5008acf1a873cdee542e55e22a4132ed7f7b9a3795b7c17",
+        "1790267200183",
+        "f4d3fbd4-a2e6-4364-b5a4-0412c198c912"
+      ],
+      "oid": "7b191fdbe72adb8e55c9b43800085d593209ec8b",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-24T16:26:40.196609+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-24T16:26:40.195769+00:00",
+        "sha256": "8e6086624f1eb58fd45efb6258d60c048a4dafcdb4ce77526c58af805485cf4f"
+      },
+      "in_packed_refs": false
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "f060ef016efdbad6b100efb91e7978f3226a405764eddbea98de8630892f233c",
+        "e381fc473c22bbd1371c5d53e0f608a32338da5fb16cadfb18435ff23e7e2e56",
+        "1790156114315",
+        "03d01fac-f731-4f7b-95c4-81975d5427b5"
+      ],
+      "oid": "93421a0ae225e6b3aff64692794e373987ad9d96",
+      "type": "tree",
+      "loose_file_exists": true,
+      "loose_metadata": {
+        "mode": "0o644",
+        "size": 41,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-23T09:35:14.328684+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-23T09:35:14.327489+00:00",
+        "sha256": "562493acc9061f467c2ba650c950089cd670896e1a46d00ee8364606de37dfce"
+      },
+      "in_packed_refs": false
+    }
+  ],
+  "packed_refs_metadata": {
+    "mode": "0o644",
+    "size": 1291,
+    "uid": 501,
+    "gid": 20,
+    "mtime_utc": "2026-09-22T02:49:20.206074+00:00",
+    "mtime_is_creation_time": false,
+    "birth_time_utc": "2026-09-22T02:49:20.206006+00:00",
+    "sha256": "bc0db565c5120460795bda1fd906f4cf882e21c09678ea60114b0ed9bc87748c"
+  },
+  "refs_codex_is_namespace_not_single_ref": true,
+  "same_as_R06_ref_inventory": false,
+  "same_as_R06_object_inventory": true,
+  "since_R06_removed_refs": [
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790738718961",
+        "45850f7d-e6f9-4f3a-b308-d2cd24ff4ff8",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "607a2f8796d68dd96f30dbf25514327c",
+        "1790703059190",
+        "c526b964-883c-48a8-872b-340dfde5835f"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    }
+  ],
+  "since_R06_added_refs": [
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790741427636",
+        "80b95e45-fbdc-4df5-8c00-3019572f7924",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    },
+    {
+      "name_components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "1441d4ea0f05bd269ce69d36873723cc",
+        "1790740120757",
+        "22592e23-2b15-42c2-86d3-961207556aee"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    }
+  ],
+  "non_codex_refs_equal": true,
+  "cross_round_attribution": "Two tool reference names absent and two newly present; OIDs preserved. Actual writer/time not independently audited; not attributed or repaired. Current V1 interval separately unchanged."
+}
