@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-09-30T06:29:07.981880+00:00",
+  "pull_requests": [
+    {
+      "base": "dev",
+      "head": "3da3cbec899d2d4f58e7c3a75289ebf12a0b8581",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/75",
+      "merge_commit_sha": "fa984fdce190cc2c4216332fb33da5ee5d3f1c2a",
+      "merged": true,
+      "merged_at": "2026-09-29T05:52:50Z",
+      "number": 75,
+      "state": "closed"
+    },
+    {
+      "base": "dev",
+      "head": "bbc56dea5b0f924d390265d57cd29c3085b0b79a",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/76",
+      "merge_commit_sha": "77d462e93c892de2e41dfd534d34ca8c407a87df",
+      "merged": true,
+      "merged_at": "2026-09-29T06:53:27Z",
+      "number": 76,
+      "state": "closed"
+    },
+    {
+      "base": "dev",
+      "head": "d7e48293a6e3eb234ad219d78c00f0422cc1ceb0",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/77",
+      "merge_commit_sha": "8e5c6c66e8315dce88e73a8fdd0ff5b3f95700cb",
+      "merged": true,
+      "merged_at": "2026-09-29T10:11:00Z",
+      "number": 77,
+      "state": "closed"
+    },
+    {
+      "base": "dev",
+      "head": "7580a808114f12306b6e83f8de48e22a1908ae59",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/78",
+      "merge_commit_sha": "950629c45fa3277b509cb869ba193037f6f3b5ad",
+      "merged": true,
+      "merged_at": "2026-09-29T11:03:19Z",
+      "number": 78,
+      "state": "closed"
+    },
+    {
+      "base": "dev",
+      "head": "5b38cf9d45750bb82938d08c6be29e357cfea0f1",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/79",
+      "merge_commit_sha": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+      "merged": true,
+      "merged_at": "2026-09-29T12:57:13Z",
+      "number": 79,
+      "state": "closed"
+    },
+    {
+      "base": "dev",
+      "head": "798dc304bd148963cb561563d295eecccf551ae4",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/80",
+      "merge_commit_sha": "6c1473b93cb3d2ad122cf974a6c843950a0f4da6",
+      "merged": true,
+      "merged_at": "2026-09-30T05:04:06Z",
+      "number": 80,
+      "state": "closed"
+    }
+  ],
+  "FL_DEV_001_post_merge_ci": {
+    "conclusion": "success",
+    "event": "push",
+    "head_sha": "6c1473b93cb3d2ad122cf974a6c843950a0f4da6",
+    "html_url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/actions/runs/36671709135",
+    "id": 36671709135,
+    "name": "Prime Wallet Pull Request Gate",
+    "status": "completed"
+  }
+}
