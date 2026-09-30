@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "check": "business-head",
+      "status": "PASS"
+    },
+    {
+      "check": "two-file-scope",
+      "status": "PASS"
+    },
+    {
+      "check": "exact-version-upgrade",
+      "status": "PASS"
+    },
+    {
+      "check": "no-other-package-json-change",
+      "status": "PASS"
+    },
+    {
+      "check": "no-other-lock-change",
+      "status": "PASS"
+    },
+    {
+      "check": "lock-determinism-evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "high-critical-zero",
+      "status": "PASS"
+    },
+    {
+      "check": "five-moderates-unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "existing-results-preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "mock-loopback-evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "draft-ci-bound-to-head",
+      "status": "PASS"
+    },
+    {
+      "check": "no-symlinks-or-bytecode",
+      "status": "PASS"
+    },
+    {
+      "check": "governance-secret-scan",
+      "status": "PASS"
+    }
+  ],
+  "secretFindings": [],
+  "highEntropyMetadataReviewed": 4,
+  "scanLimits": "New governance UTF-8 files only; exact public reference URL forms, three protected path names, hex OIDs/SHA256 and npm SHA512 integrity are metadata. No actual key file read. Not a full-project rescan.",
+  "failed": 0
+}

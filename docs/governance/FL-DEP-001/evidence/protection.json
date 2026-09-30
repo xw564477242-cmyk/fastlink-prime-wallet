@@ -1,0 +1,41 @@
+{
+  "observedAt": "2026-09-30T17:37:45.199099+00:00",
+  "scope": "HEAD and Git status only; protected file contents and extra file metadata not read. No byte-level preservation claim.",
+  "repositories": {
+    "formalBackend": {
+      "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "statusEntries": []
+    },
+    "formalEvidence": {
+      "head": "2e25033595b5f1ea1aaea0ed65d3c6ae73db5914",
+      "statusEntries": [
+        {
+          "path": "docs/governance/baseline/CHANGE-HISTORY.md",
+          "status": " M",
+          "discoveryTime": "2026-09-30T17:37:45.199099+00:00",
+          "impact": "local overlay; excluded from this ticket"
+        },
+        {
+          "path": "docs/governance/baseline/PROJECT-STATUS-SUMMARY.md",
+          "status": " M",
+          "discoveryTime": "2026-09-30T17:37:45.199099+00:00",
+          "impact": "local overlay; excluded from this ticket"
+        },
+        {
+          "path": "docs/governance/baseline/FULL-ARCHIVE-INDEX.md",
+          "status": "??",
+          "discoveryTime": "2026-09-30T17:37:45.199099+00:00",
+          "impact": "local overlay; excluded from this ticket"
+        }
+      ]
+    },
+    "frozenDb3Backend": {
+      "head": "4fead5f3e007d6226d63e263991c2de680744424",
+      "statusEntries": []
+    },
+    "frozenDb3Evidence": {
+      "head": "2db834ee5fe79a1aed19426924a3e8543250ee7d",
+      "statusEntries": []
+    }
+  }
+}
