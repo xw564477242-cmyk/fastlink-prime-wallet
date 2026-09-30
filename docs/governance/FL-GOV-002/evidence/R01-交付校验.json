@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "files": 45,
+  "inherited_git_entries": 548,
+  "templates_validated": 11,
+  "brief_characters": {
+    "启动简报模板.md": 382,
+    "启动简报实例.md": 553
+  },
+  "sensitive_candidates": 0,
+  "format_rule_classes": 6,
+  "high_entropy_rule": "length>=32; >=3 character classes; Shannon>=4.5; exact 40/64 lowercase hex integrity metadata excluded",
+  "scanner_synthetic_positive_controls": 7,
+  "scanner_synthetic_negative_controls": 4,
+  "actual_key_material_read": false,
+  "key_material_limit": "No actual HMAC key read or byte comparison; checks cover recognizable formats and non-hash mixed entropy only; not a full-project no-secret assertion.",
+  "protected_schema": "exact four fields; whole batch validated before serialization",
+  "protected_records_checked": 1,
+  "manifest_verified": null,
+  "existing_files_changed": 0,
+  "writes": 0,
+  "original_reports_prefix_preserved": [
+    "README.md",
+    "自测报告.md",
+    "限制与偏差.md",
+    "漂移检测规范.md"
+  ],
+  "original_evidence_files_unchanged": true,
+  "protected_original_files_accessed_this_revision": false,
+  "manifest_note": "清单自身SHA及最终校验外置HANDOFF；该报告纳入当前清单。"
+}

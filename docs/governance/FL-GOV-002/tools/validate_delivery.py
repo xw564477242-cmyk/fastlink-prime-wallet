@@ -11,6 +11,7 @@ from pathlib import Path
 import re
 import subprocess
 from model import validate_template
+from protected_record import encode_records
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parents[2]
@@ -70,6 +71,8 @@ def validate(pre_manifest=False):
     for n,b in content.items():
         for rule in scan(b.decode('utf-8')): hits.append({'file':n,'rule':rule})
     assert not hits, json.dumps({'sensitive_candidates':hits},ensure_ascii=False)
+    protected = json.loads(content['evidence/R01-四字段合成记录.json'])
+    encode_records(protected)  # Fail closed before accepting protected-evidence records.
     template_count=0
     for n,b in content.items():
         if n.startswith('templates/') and n!='templates/README.md':
@@ -111,7 +114,7 @@ def validate(pre_manifest=False):
         'brief_characters':chars,'sensitive_candidates':0,'format_rule_classes':len(RULES),'high_entropy_rule':'length>=32; >=3 character classes; Shannon>=4.5; exact 40/64 lowercase hex integrity metadata excluded',
         'scanner_synthetic_positive_controls':7,'scanner_synthetic_negative_controls':4,'actual_key_material_read':False,
         'key_material_limit':'No actual HMAC key read or byte comparison; checks cover recognizable formats and non-hash mixed entropy only; not a full-project no-secret assertion.',
-        'manifest_verified':manifest_ok,'existing_files_changed':0,'writes':0}
+        'protected_schema':'exact four fields; whole batch validated before serialization','protected_records_checked':len(protected),'manifest_verified':manifest_ok,'existing_files_changed':0,'writes':0}
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--pre-manifest',action='store_true');args=parser.parse_args()

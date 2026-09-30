@@ -1,0 +1,177 @@
+{
+  "artifact_status": "PENDING",
+  "summary": {
+    "PASS": 13,
+    "LIMITED": 1,
+    "BLOCKED": 0,
+    "FAIL": 0
+  },
+  "tests": [
+    {
+      "id": "GOV2-T01",
+      "name": "基准版本与SHA可追溯",
+      "result": "PASS",
+      "basis": "reference.json；evidence/基点与授权来源.json",
+      "limitation": "固定合并对象及用户门禁5，不从本地覆盖层重新批准基线。"
+    },
+    {
+      "id": "GOV2-T02",
+      "name": "五种状态定义完整",
+      "result": "PASS",
+      "basis": "状态模型与继承规范.md；合成测试",
+      "limitation": "PENDING仅已产出待验收；另两类为不可覆盖约束。"
+    },
+    {
+      "id": "GOV2-T03",
+      "name": "永久偏差及历史缺口强制继承",
+      "result": "PASS",
+      "basis": "永久偏差与冷启动.md；全部模板；状态迁移测试",
+      "limitation": "保留原FAIL/错误证据/V1/21项备份及引用；不重新读取或修改其内容。"
+    },
+    {
+      "id": "GOV2-T04",
+      "name": "VERIFIED复用边界",
+      "result": "PASS",
+      "basis": "reusable及输入/范围/证据/到期测试",
+      "limitation": "不能用新工具结果替代资金、权限或生产验收。"
+    },
+    {
+      "id": "GOV2-T05",
+      "name": "输入变化传播为STALE",
+      "result": "PASS",
+      "basis": "evidence/影响传播案例.json；实际迁移摘要变化合成测试",
+      "limitation": "RLS影响租户权限/API/钱包和后台，身份与资金变化由人工非秘密事件输入。"
+    },
+    {
+      "id": "GOV2-T06",
+      "name": "不触发无关全量复验",
+      "result": "PASS",
+      "basis": "无关文件与无关事件测试；六仓结果automatic_retests=0",
+      "limitation": "输出定向建议，不自动执行。"
+    },
+    {
+      "id": "GOV2-T07",
+      "name": "有期限的豁免与回补",
+      "result": "PASS",
+      "basis": "豁免及到期机制.md；48小时/红线/临时到期测试",
+      "limitation": "不授予实际豁免；持久变更从实际生效与审批较早时间算48小时。"
+    },
+    {
+      "id": "GOV2-T08",
+      "name": "冷启动不补造历史",
+      "result": "PASS",
+      "basis": "永久偏差与冷启动.md；基线拟变更摘要.md",
+      "limitation": "旧版本不改，缺失原文仅索引；后补只追加，不按旧日期插入。"
+    },
+    {
+      "id": "GOV2-T09",
+      "name": "漂移检查不改写索引及现场",
+      "result": "LIMITED",
+      "basis": "原只读对账；R01偏差接受原文；严格四字段校验及8项新增合成测试",
+      "limitation": "原超范围采集事实继续保留；管理侧已接受，不表示从未发生或原现场可完全证明。整改未再次读取三项受保护文件。"
+    },
+    {
+      "id": "GOV2-T10",
+      "name": "不读取、输出或提交秘密值",
+      "result": "PASS",
+      "basis": "R01交付校验；仅本工单新增及修改材料敏感扫描",
+      "limitation": "仅治理范围格式和高熵候选检查；未读真实密钥，不宣称与未知密钥做字节级比对或全项目无秘密。"
+    },
+    {
+      "id": "GOV2-T11",
+      "name": "启动简报不超过800字",
+      "result": "PASS",
+      "basis": "evidence/简报字符数.json",
+      "limitation": "按全部Unicode字符含Markdown与空白计数，模板382，实例553。"
+    },
+    {
+      "id": "GOV2-T12",
+      "name": "HANDOFF包含基线差量",
+      "result": "PASS",
+      "basis": "templates/HANDOFF基线差量.md；基线拟变更摘要.md",
+      "limitation": "新成果PENDING；门禁5前不写正式基线，最终提交/PR/CI外置HANDOFF承接。"
+    },
+    {
+      "id": "GOV2-T13",
+      "name": "PR仅含授权治理范围",
+      "result": "PASS",
+      "basis": "evidence/交付校验.json；最终PR文件对账",
+      "limitation": "本地新增均在docs/governance/FL-GOV-002/；远端最终核对在HANDOFF提供。"
+    },
+    {
+      "id": "GOV2-T14",
+      "name": "回滚保留历史证据旧基线",
+      "result": "PASS",
+      "basis": "改动与回滚.md",
+      "limitation": "停止使用/追加停用记录；需回滚另开普通PR，不在原现场演练删除或恢复。"
+    }
+  ],
+  "revision": "R01",
+  "acceptance": "项目所有者接受T09偏差；门禁2仍待最终复核，门禁3未进入",
+  "synthetic_tests": {
+    "passed": 58,
+    "failed": 0,
+    "old_tests": 50,
+    "new_tests": 8,
+    "names": [
+      "test_governance.ModelTests.test_48h_starts_at_actual_change",
+      "test_governance.ModelTests.test_api_not_database",
+      "test_governance.ModelTests.test_changed_scope_not_reusable",
+      "test_governance.ModelTests.test_constraints_survive_verification",
+      "test_governance.ModelTests.test_deterministic_propagation",
+      "test_governance.ModelTests.test_exception_48h_limit",
+      "test_governance.ModelTests.test_exception_active",
+      "test_governance.ModelTests.test_exception_expired_persistent",
+      "test_governance.ModelTests.test_exception_red_lines",
+      "test_governance.ModelTests.test_expired_exception_not_reusable",
+      "test_governance.ModelTests.test_five_states",
+      "test_governance.ModelTests.test_immutable_input",
+      "test_governance.ModelTests.test_missing_approval",
+      "test_governance.ModelTests.test_no_ungated_verification",
+      "test_governance.ModelTests.test_overlay_does_not_invalidate_official",
+      "test_governance.ModelTests.test_pending_not_reusable",
+      "test_governance.ModelTests.test_produced_pending",
+      "test_governance.ModelTests.test_removed_constraint_rejected",
+      "test_governance.ModelTests.test_rls_reaches_wallet_and_admin",
+      "test_governance.ModelTests.test_seven_input_families",
+      "test_governance.ModelTests.test_stale_preserves_constraints",
+      "test_governance.ModelTests.test_temporary_expiry_archive_proposal",
+      "test_governance.ModelTests.test_temporary_requires_no_effect_evidence",
+      "test_governance.ModelTests.test_unconstrained_result_not_reusable",
+      "test_governance.ModelTests.test_unknown_event_rejected",
+      "test_governance.ModelTests.test_unrelated_no_full_retest",
+      "test_governance.ModelTests.test_unstarted_not_pending",
+      "test_governance.ModelTests.test_verified_reuse",
+      "test_governance.ReadOnlyTests.test_arbitrary_manifest_scope_rejected",
+      "test_governance.ReadOnlyTests.test_changed_lock_is_targeted",
+      "test_governance.ReadOnlyTests.test_clean_no_drift",
+      "test_governance.ReadOnlyTests.test_directory_symlink_rejected",
+      "test_governance.ReadOnlyTests.test_empty_scope_rejected",
+      "test_governance.ReadOnlyTests.test_env_and_key_paths_not_monitored",
+      "test_governance.ReadOnlyTests.test_file_size_cap",
+      "test_governance.ReadOnlyTests.test_file_symlink_rejected",
+      "test_governance.ReadOnlyTests.test_git_write_command_denied",
+      "test_governance.ReadOnlyTests.test_hardlink_rejected",
+      "test_governance.ReadOnlyTests.test_index_not_rewritten_with_dirty_file",
+      "test_governance.ReadOnlyTests.test_invalid_cli_no_raw_error",
+      "test_governance.ReadOnlyTests.test_missing_file_is_unsafe",
+      "test_governance.ReadOnlyTests.test_new_migration_detected_without_read",
+      "test_governance.ReadOnlyTests.test_protected_object_never_opened",
+      "test_governance.ReadOnlyTests.test_protected_read_denied",
+      "test_governance.ReadOnlyTests.test_rls_actual_digest_change",
+      "test_governance.ReadOnlyTests.test_run_twice_zero_mutation",
+      "test_governance.ReadOnlyTests.test_sensitive_content_reads_rejected",
+      "test_governance.ReadOnlyTests.test_three_result_values",
+      "test_governance.ReadOnlyTests.test_traversal_rejected",
+      "test_governance.ReadOnlyTests.test_unrelated_file_no_retest",
+      "test_protected_record.ProtectedRecordTests.test_accept_exact_four",
+      "test_protected_record.ProtectedRecordTests.test_batch_fail_closed",
+      "test_protected_record.ProtectedRecordTests.test_no_filesystem_access",
+      "test_protected_record.ProtectedRecordTests.test_no_mutation",
+      "test_protected_record.ProtectedRecordTests.test_reject_each_extra",
+      "test_protected_record.ProtectedRecordTests.test_reject_each_missing",
+      "test_protected_record.ProtectedRecordTests.test_reject_nested_or_empty_values",
+      "test_protected_record.ProtectedRecordTests.test_safe_errors"
+    ]
+  }
+}
