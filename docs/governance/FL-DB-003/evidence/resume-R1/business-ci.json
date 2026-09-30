@@ -1,0 +1,757 @@
+{
+  "capturedAt": "2026-09-30T19:27:11.048190+00:00",
+  "runs": [
+    {
+      "conclusion": "success",
+      "createdAt": "2026-09-30T19:16:55Z",
+      "databaseId": 36764566816,
+      "headSha": "d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e",
+      "jobs": [
+        {
+          "completedAt": "2026-09-30T19:24:00Z",
+          "conclusion": "success",
+          "databaseId": 110055357991,
+          "name": "Backend PR Gate",
+          "startedAt": "2026-09-30T19:16:58Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-09-30T19:17:00Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-09-30T19:16:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:14Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "number": 2,
+              "startedAt": "2026-09-30T19:17:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:15Z",
+              "conclusion": "success",
+              "name": "Checkout PR Head",
+              "number": 3,
+              "startedAt": "2026-09-30T19:17:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:15Z",
+              "conclusion": "success",
+              "name": "Assert checked out Head SHA",
+              "number": 4,
+              "startedAt": "2026-09-30T19:17:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:16Z",
+              "conclusion": "success",
+              "name": "Set up Node",
+              "number": 5,
+              "startedAt": "2026-09-30T19:17:15Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:16Z",
+              "conclusion": "success",
+              "name": "Configure masked ephemeral CI values",
+              "number": 6,
+              "startedAt": "2026-09-30T19:17:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:29Z",
+              "conclusion": "success",
+              "name": "Dependency Install",
+              "number": 7,
+              "startedAt": "2026-09-30T19:17:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:33Z",
+              "conclusion": "success",
+              "name": "Validate DEV no-preDeploy candidate",
+              "number": 8,
+              "startedAt": "2026-09-30T19:17:29Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:35Z",
+              "conclusion": "success",
+              "name": "Prisma Validate",
+              "number": 9,
+              "startedAt": "2026-09-30T19:17:33Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:37Z",
+              "conclusion": "success",
+              "name": "Prisma Generate",
+              "number": 10,
+              "startedAt": "2026-09-30T19:17:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:45Z",
+              "conclusion": "success",
+              "name": "Dev Migration on Ephemeral PostgreSQL",
+              "number": 11,
+              "startedAt": "2026-09-30T19:17:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:00Z",
+              "conclusion": "success",
+              "name": "Provision and verify DEV auth RLS on the migrated ephemeral schema",
+              "number": 12,
+              "startedAt": "2026-09-30T19:17:45Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:26Z",
+              "conclusion": "success",
+              "name": "Type Check and Build",
+              "number": 13,
+              "startedAt": "2026-09-30T19:18:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:32Z",
+              "conclusion": "success",
+              "name": "Set up the pinned OCI image builder",
+              "number": 14,
+              "startedAt": "2026-09-30T19:18:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:21:01Z",
+              "conclusion": "success",
+              "name": "Build and probe the no-lifecycle-script DEV candidate image",
+              "number": 15,
+              "startedAt": "2026-09-30T19:18:32Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:21:38Z",
+              "conclusion": "success",
+              "name": "Lint",
+              "number": 16,
+              "startedAt": "2026-09-30T19:21:01Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:22:28Z",
+              "conclusion": "success",
+              "name": "Unit Test",
+              "number": 17,
+              "startedAt": "2026-09-30T19:21:38Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:06Z",
+              "conclusion": "success",
+              "name": "Integration and Security Test",
+              "number": 18,
+              "startedAt": "2026-09-30T19:22:28Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:12Z",
+              "conclusion": "success",
+              "name": "Card Status Recovery HTTP Safety Test (TEST)",
+              "number": 19,
+              "startedAt": "2026-09-30T19:23:06Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:19Z",
+              "conclusion": "success",
+              "name": "Card Lifecycle Recovery HTTP Safety Test (TEST)",
+              "number": 20,
+              "startedAt": "2026-09-30T19:23:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:27Z",
+              "conclusion": "success",
+              "name": "Card Transaction Pagination HTTP Safety Test (SANDBOX)",
+              "number": 21,
+              "startedAt": "2026-09-30T19:23:19Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:35Z",
+              "conclusion": "success",
+              "name": "Card Transaction Pagination HTTP Safety Test (TEST)",
+              "number": 22,
+              "startedAt": "2026-09-30T19:23:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:35Z",
+              "conclusion": "success",
+              "name": "Production Seed Rejection Test",
+              "number": 23,
+              "startedAt": "2026-09-30T19:23:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:46Z",
+              "conclusion": "success",
+              "name": "Production Dependency Runtime Health Check",
+              "number": 24,
+              "startedAt": "2026-09-30T19:23:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:47Z",
+              "conclusion": "success",
+              "name": "Secret Scan",
+              "number": 25,
+              "startedAt": "2026-09-30T19:23:46Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:56Z",
+              "conclusion": "success",
+              "name": "Post Set up the pinned OCI image builder",
+              "number": 47,
+              "startedAt": "2026-09-30T19:23:47Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:57Z",
+              "conclusion": "success",
+              "name": "Post Set up Node",
+              "number": 48,
+              "startedAt": "2026-09-30T19:23:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:58Z",
+              "conclusion": "success",
+              "name": "Post Checkout PR Head",
+              "number": 49,
+              "startedAt": "2026-09-30T19:23:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:58Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "number": 50,
+              "startedAt": "2026-09-30T19:23:58Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:58Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 51,
+              "startedAt": "2026-09-30T19:23:58Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566816/job/110055357991"
+        },
+        {
+          "completedAt": "2026-09-30T19:16:56Z",
+          "conclusion": "skipped",
+          "databaseId": 110055360137,
+          "name": "Draft PR lint and syntax check",
+          "startedAt": "2026-09-30T19:16:56Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566816/job/110055360137"
+        },
+        {
+          "completedAt": "2026-09-30T19:16:56Z",
+          "conclusion": "skipped",
+          "databaseId": 110055360343,
+          "name": "Backend PR Gate",
+          "startedAt": "2026-09-30T19:16:56Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566816/job/110055360343"
+        }
+      ],
+      "status": "completed",
+      "updatedAt": "2026-09-30T19:24:01Z",
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566816",
+      "workflowName": "Backend Pull Request Gate"
+    },
+    {
+      "conclusion": "success",
+      "createdAt": "2026-09-30T19:16:55Z",
+      "databaseId": 36764566826,
+      "headSha": "d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e",
+      "jobs": [
+        {
+          "completedAt": "2026-09-30T19:18:18Z",
+          "conclusion": "success",
+          "databaseId": 110055360624,
+          "name": "Dev Reset Round Trip",
+          "startedAt": "2026-09-30T19:16:58Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-09-30T19:17:00Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-09-30T19:17:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:12Z",
+              "conclusion": "success",
+              "name": "Initialize containers",
+              "number": 2,
+              "startedAt": "2026-09-30T19:17:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:13Z",
+              "conclusion": "success",
+              "name": "Checkout Feature Head",
+              "number": 3,
+              "startedAt": "2026-09-30T19:17:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:13Z",
+              "conclusion": "success",
+              "name": "Assert checked out Head SHA",
+              "number": 4,
+              "startedAt": "2026-09-30T19:17:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:14Z",
+              "conclusion": "success",
+              "name": "Set up Node",
+              "number": 5,
+              "startedAt": "2026-09-30T19:17:13Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:14Z",
+              "conclusion": "success",
+              "name": "Configure masked ephemeral values",
+              "number": 6,
+              "startedAt": "2026-09-30T19:17:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:10Z",
+              "conclusion": "success",
+              "name": "Install and build",
+              "number": 7,
+              "startedAt": "2026-09-30T19:17:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:11Z",
+              "conclusion": "success",
+              "name": "Seed deterministic SANDBOX fixtures",
+              "number": 8,
+              "startedAt": "2026-09-30T19:18:10Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:11Z",
+              "conclusion": "success",
+              "name": "Create representative runtime audit evidence",
+              "number": 9,
+              "startedAt": "2026-09-30T19:18:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:12Z",
+              "conclusion": "success",
+              "name": "Reset while preserving runtime audit evidence",
+              "number": 10,
+              "startedAt": "2026-09-30T19:18:11Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:12Z",
+              "conclusion": "success",
+              "name": "Verify reset result",
+              "number": 11,
+              "startedAt": "2026-09-30T19:18:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:14Z",
+              "conclusion": "success",
+              "name": "Re-seed and reset idempotently",
+              "number": 12,
+              "startedAt": "2026-09-30T19:18:12Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:14Z",
+              "conclusion": "success",
+              "name": "Verify final clean state",
+              "number": 13,
+              "startedAt": "2026-09-30T19:18:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:16Z",
+              "conclusion": "success",
+              "name": "Post Set up Node",
+              "number": 24,
+              "startedAt": "2026-09-30T19:18:14Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:16Z",
+              "conclusion": "success",
+              "name": "Post Checkout Feature Head",
+              "number": 25,
+              "startedAt": "2026-09-30T19:18:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:17Z",
+              "conclusion": "success",
+              "name": "Stop containers",
+              "number": 26,
+              "startedAt": "2026-09-30T19:18:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:17Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 27,
+              "startedAt": "2026-09-30T19:18:17Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566826/job/110055360624"
+        },
+        {
+          "completedAt": "2026-09-30T19:16:56Z",
+          "conclusion": "skipped",
+          "databaseId": 110055361960,
+          "name": "Draft PR lint and syntax check",
+          "startedAt": "2026-09-30T19:16:57Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566826/job/110055361960"
+        },
+        {
+          "completedAt": "2026-09-30T19:16:56Z",
+          "conclusion": "skipped",
+          "databaseId": 110055362549,
+          "name": "Dev Reset Round Trip",
+          "startedAt": "2026-09-30T19:16:57Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566826/job/110055362549"
+        }
+      ],
+      "status": "completed",
+      "updatedAt": "2026-09-30T19:18:19Z",
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566826",
+      "workflowName": "Dev Reset Round Trip"
+    },
+    {
+      "conclusion": "success",
+      "createdAt": "2026-09-30T19:16:55Z",
+      "databaseId": 36764566814,
+      "headSha": "d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e",
+      "jobs": [
+        {
+          "completedAt": "2026-09-30T19:24:30Z",
+          "conclusion": "success",
+          "databaseId": 110055360030,
+          "name": "verify",
+          "startedAt": "2026-09-30T19:16:58Z",
+          "status": "completed",
+          "steps": [
+            {
+              "completedAt": "2026-09-30T19:17:37Z",
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "startedAt": "2026-09-30T19:17:35Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:39Z",
+              "conclusion": "success",
+              "name": "Checkout exact source commit",
+              "number": 2,
+              "startedAt": "2026-09-30T19:17:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:39Z",
+              "conclusion": "success",
+              "name": "Assert checked out source commit",
+              "number": 3,
+              "startedAt": "2026-09-30T19:17:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:40Z",
+              "conclusion": "success",
+              "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "number": 4,
+              "startedAt": "2026-09-30T19:17:39Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:56Z",
+              "conclusion": "success",
+              "name": "Run npm ci --ignore-scripts --prefer-offline --no-audit",
+              "number": 5,
+              "startedAt": "2026-09-30T19:17:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:56Z",
+              "conclusion": "success",
+              "name": "Assert source tree remains immutable after dependency install",
+              "number": 6,
+              "startedAt": "2026-09-30T19:17:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:17:59Z",
+              "conclusion": "success",
+              "name": "Validate immutable DEV no-preDeploy candidate",
+              "number": 7,
+              "startedAt": "2026-09-30T19:17:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:00Z",
+              "conclusion": "success",
+              "name": "Record production dependency audit evidence",
+              "number": 8,
+              "startedAt": "2026-09-30T19:17:59Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:04Z",
+              "conclusion": "success",
+              "name": "Run node node_modules/prisma/build/index.js generate --schema=prisma/schema.prisma",
+              "number": 9,
+              "startedAt": "2026-09-30T19:18:00Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:18:37Z",
+              "conclusion": "success",
+              "name": "Run npm run lint",
+              "number": 10,
+              "startedAt": "2026-09-30T19:18:04Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:19:31Z",
+              "conclusion": "success",
+              "name": "Run unit tests and retain machine-readable results",
+              "number": 11,
+              "startedAt": "2026-09-30T19:18:37Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:19:40Z",
+              "conclusion": "success",
+              "name": "Run card status recovery HTTP safety tests in SANDBOX",
+              "number": 12,
+              "startedAt": "2026-09-30T19:19:31Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:19:47Z",
+              "conclusion": "success",
+              "name": "Run card status recovery HTTP safety tests in TEST",
+              "number": 13,
+              "startedAt": "2026-09-30T19:19:40Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:19:55Z",
+              "conclusion": "success",
+              "name": "Run card lifecycle recovery HTTP safety tests in SANDBOX",
+              "number": 14,
+              "startedAt": "2026-09-30T19:19:47Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:02Z",
+              "conclusion": "success",
+              "name": "Run card lifecycle recovery HTTP safety tests in TEST",
+              "number": 15,
+              "startedAt": "2026-09-30T19:19:55Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:09Z",
+              "conclusion": "success",
+              "name": "Run card transaction pagination HTTP safety tests in SANDBOX",
+              "number": 16,
+              "startedAt": "2026-09-30T19:20:02Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:17Z",
+              "conclusion": "success",
+              "name": "Run card transaction pagination HTTP safety tests in TEST",
+              "number": 17,
+              "startedAt": "2026-09-30T19:20:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:23Z",
+              "conclusion": "success",
+              "name": "Run persisted Card timeline HTTP safety tests in SANDBOX",
+              "number": 18,
+              "startedAt": "2026-09-30T19:20:17Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:30Z",
+              "conclusion": "success",
+              "name": "Run persisted Card timeline HTTP safety tests in TEST",
+              "number": 19,
+              "startedAt": "2026-09-30T19:20:23Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:20:56Z",
+              "conclusion": "success",
+              "name": "Run npm --ignore-scripts run build",
+              "number": 20,
+              "startedAt": "2026-09-30T19:20:30Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:21:03Z",
+              "conclusion": "success",
+              "name": "Set up the pinned OCI image builder",
+              "number": 21,
+              "startedAt": "2026-09-30T19:20:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:54Z",
+              "conclusion": "success",
+              "name": "Build and probe immutable DEV candidate image",
+              "number": 22,
+              "startedAt": "2026-09-30T19:21:03Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:56Z",
+              "conclusion": "success",
+              "name": "Generate production dependency SBOM",
+              "number": 23,
+              "startedAt": "2026-09-30T19:23:54Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:56Z",
+              "conclusion": "success",
+              "name": "Generate production dependency license summary",
+              "number": 24,
+              "startedAt": "2026-09-30T19:23:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:57Z",
+              "conclusion": "success",
+              "name": "Generate immutable build manifest",
+              "number": 25,
+              "startedAt": "2026-09-30T19:23:56Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:23:57Z",
+              "conclusion": "success",
+              "name": "Generate deterministic evidence index",
+              "number": 26,
+              "startedAt": "2026-09-30T19:23:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:09Z",
+              "conclusion": "success",
+              "name": "Verify non-production artifact integrity",
+              "number": 27,
+              "startedAt": "2026-09-30T19:23:57Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:16Z",
+              "conclusion": "success",
+              "name": "Upload verified non-production build artifact",
+              "number": 28,
+              "startedAt": "2026-09-30T19:24:09Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:26Z",
+              "conclusion": "success",
+              "name": "Post Set up the pinned OCI image builder",
+              "number": 54,
+              "startedAt": "2026-09-30T19:24:16Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:27Z",
+              "conclusion": "success",
+              "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+              "number": 55,
+              "startedAt": "2026-09-30T19:24:26Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:27Z",
+              "conclusion": "success",
+              "name": "Post Checkout exact source commit",
+              "number": 56,
+              "startedAt": "2026-09-30T19:24:27Z",
+              "status": "completed"
+            },
+            {
+              "completedAt": "2026-09-30T19:24:28Z",
+              "conclusion": "success",
+              "name": "Complete job",
+              "number": 57,
+              "startedAt": "2026-09-30T19:24:27Z",
+              "status": "completed"
+            }
+          ],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566814/job/110055360030"
+        },
+        {
+          "completedAt": "2026-09-30T19:16:56Z",
+          "conclusion": "skipped",
+          "databaseId": 110055361577,
+          "name": "Draft PR lint and syntax check",
+          "startedAt": "2026-09-30T19:16:57Z",
+          "status": "completed",
+          "steps": [],
+          "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566814/job/110055361577"
+        }
+      ],
+      "status": "completed",
+      "updatedAt": "2026-09-30T19:24:31Z",
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36764566814",
+      "workflowName": "FastLink Backend Non-Production CI"
+    }
+  ],
+  "boundary": "GitHub PR CI only. No deployed-environment validation or promotion authorized."
+}

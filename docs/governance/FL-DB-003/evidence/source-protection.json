@@ -1,0 +1,18 @@
+{
+  "schema": "FL-DB-003-source-protection-v1",
+  "formalBackend": {
+    "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "status": []
+  },
+  "formalEvidence": {
+    "head": "2e25033595b5f1ea1aaea0ed65d3c6ae73db5914",
+    "status": [
+      "1 .M N... 100644 100644 100644 786634f93f4b0679b56c323df13d502a7074d459 786634f93f4b0679b56c323df13d502a7074d459 docs/governance/baseline/CHANGE-HISTORY.md",
+      "1 .M N... 100644 100644 100644 234654262d25b32f8b7ff27ff1e017c4c83b400c 234654262d25b32f8b7ff27ff1e017c4c83b400c docs/governance/baseline/PROJECT-STATUS-SUMMARY.md",
+      "? docs/governance/baseline/FULL-ARCHIVE-INDEX.md"
+    ]
+  },
+  "contentRead": false,
+  "modifiedByTicket": false,
+  "note": "Only Git porcelain-v2 metadata, paths and HEADs are recorded; protected file contents were not read."
+}

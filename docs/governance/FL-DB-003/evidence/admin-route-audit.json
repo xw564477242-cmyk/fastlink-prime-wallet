@@ -1,0 +1,5790 @@
+{
+  "schema": "FL-DB-003-admin-route-audit-v1",
+  "backendHead": "4fead5f3e007d6226d63e263991c2de680744424",
+  "inheritedMatrixHead": "4fead5f3e007d6226d63e263991c2de680744424",
+  "guardRouteCount": 131,
+  "complete": true,
+  "counts": {
+    "PASS_STATIC": 92,
+    "LIMITED": 38,
+    "PASS_LOCAL": 1
+  },
+  "routes": [
+    {
+      "id": "API-002",
+      "method": "POST",
+      "route": "/api/admin/auth/logout",
+      "controller": "AdminAuthController.logout",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "authenticated administrator session",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.auth.logout",
+          "arguments": [
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "adminSession.updateMany"
+      ],
+      "authorizationObjectMismatch": "no tenant resource selector",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "static plus existing session tests",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-003",
+      "method": "GET",
+      "route": "/api/admin/auth/me",
+      "controller": "AdminAuthController.me",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "authenticated administrator session",
+      "controllerAndServiceCalls": [],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "no tenant resource selector",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "static plus existing session tests",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-004",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/card-products",
+      "controller": "AdminCardConfigController.listProducts",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.listProducts",
+          "arguments": [
+            "tenantId",
+            "auth.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardProductTemplate.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-005",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/fee-policy",
+      "controller": "AdminCardConfigController.feePolicy",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.getFeePolicy",
+          "arguments": [
+            "tenantId",
+            "auth.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-006",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/card-products",
+      "controller": "AdminCardConfigController.createProduct",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.createProduct",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-007",
+      "method": "PUT",
+      "route": "/api/admin/tenants/:tenantId/card-products/:productId",
+      "controller": "AdminCardConfigController.updateProduct",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "productId"
+          ],
+          "parameter": "productId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.updateProduct",
+          "arguments": [
+            "tenantId",
+            "productId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-008",
+      "method": "PUT",
+      "route": "/api/admin/tenants/:tenantId/fee-policy/referral-cap",
+      "controller": "AdminCardConfigController.setReferralCap",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.setReferralCap",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-009",
+      "method": "PUT",
+      "route": "/api/admin/tenants/:tenantId/fee-policy/caps",
+      "controller": "AdminCardConfigController.setFeeCaps",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.setFeeCaps",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-010",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/customers/:customerId/referral",
+      "controller": "AdminCardConfigController.getCustomerReferral",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "customerId"
+          ],
+          "parameter": "customerId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.getCustomerReferral",
+          "arguments": [
+            "tenantId",
+            "customerId",
+            "auth.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "customerReferral.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-011",
+      "method": "PUT",
+      "route": "/api/admin/tenants/:tenantId/customers/:customerId/referral",
+      "controller": "AdminCardConfigController.bindCustomerReferral",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "customerId"
+          ],
+          "parameter": "customerId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.bindCustomerReferral",
+          "arguments": [
+            "tenantId",
+            "customerId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-012",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/card-applications",
+      "controller": "AdminCardConfigController.createApplication",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.createApplication",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-013",
+      "method": "PUT",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/fees",
+      "controller": "AdminCardConfigController.setCardFees",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.setCardFees",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "auth.environment",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findUniqueOrThrow",
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-014",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/api-clients",
+      "controller": "ApiClientsController.create",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.clients.create",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-015",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/api-clients",
+      "controller": "ApiClientsController.list",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.clients.list",
+          "arguments": [
+            "tenantId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "apiClient.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-016",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/api-clients/:clientId/rotate",
+      "controller": "ApiClientsController.rotate",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "clientId"
+          ],
+          "parameter": "clientId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.clients.rotate",
+          "arguments": [
+            "tenantId",
+            "clientId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "apiClient.findFirst",
+        "apiKey.create",
+        "apiKey.updateMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-017",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/api-clients/:clientId/revoke",
+      "controller": "ApiClientsController.revoke",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "clientId"
+          ],
+          "parameter": "clientId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.clients.revoke",
+          "arguments": [
+            "tenantId",
+            "clientId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "apiClient.findFirst",
+        "apiClient.update",
+        "apiKey.updateMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-018",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/dashboards/treasury",
+      "controller": "BusinessDashboardsController.treasury",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.dashboards.treasury",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "treasuryPosition.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-019",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/dashboards/settlement",
+      "controller": "BusinessDashboardsController.settlement",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.dashboards.settlement",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findMany",
+        "treasuryPosition.findMany",
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-020",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/dashboards/risk",
+      "controller": "BusinessDashboardsController.risk",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "highValueThresholdMinor"
+          ],
+          "parameter": "threshold"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.dashboards.risk",
+          "arguments": [
+            "tenantId",
+            "environment",
+            "ConditionalExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.count",
+        "cardTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-021",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/virtual",
+      "controller": "CardServiceController.createVirtual",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.createVirtualCard",
+          "arguments": [
+            "tenantId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-022",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/physical",
+      "controller": "CardServiceController.createPhysical",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.createPhysicalCard",
+          "arguments": [
+            "tenantId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-023",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId",
+      "controller": "CardServiceController.retrieve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCard",
+          "arguments": [
+            "tenantId",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-024",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot",
+      "controller": "CardServiceController.detailSnapshot",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getAdminCardDetailSnapshot",
+          "arguments": [
+            "params.tenantId",
+            "params.cardId",
+            "CallExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-025",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot/balance",
+      "controller": "CardServiceController.balanceSnapshot",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getAdminCardBalanceSnapshot",
+          "arguments": [
+            "params.tenantId",
+            "params.cardId",
+            "CallExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-026",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot/limits",
+      "controller": "CardServiceController.limitsSnapshot",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getAdminCardLimitsSnapshot",
+          "arguments": [
+            "params.tenantId",
+            "params.cardId",
+            "CallExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-027",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/freeze",
+      "controller": "CardServiceController.freeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.freezeCard",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-028",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/unfreeze",
+      "controller": "CardServiceController.unfreeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unfreezeCard",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-029",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/replace",
+      "controller": "CardServiceController.replace",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.replaceCard",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardReplacement.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-030",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/renew",
+      "controller": "CardServiceController.renew",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.renewCard",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardRenewal.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-031",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/timeline",
+      "controller": "CardServiceController.timeline",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getAdminCardTimeline",
+          "arguments": [
+            "auth.tenantId",
+            "params.cardId",
+            "query",
+            "{actorId,environment}"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.findMany",
+        "cardLifecycleEvent.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-032",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/balance",
+      "controller": "CardServiceController.balance",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getCardBalance",
+          "arguments": [
+            "tenantId",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-033",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/pin",
+      "controller": "CardServiceController.setPin",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.setCardPin",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-034",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/pin",
+      "controller": "CardServiceController.retrievePin",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCardPin",
+          "arguments": [
+            "tenantId",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-035",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/cvv",
+      "controller": "CardServiceController.retrieveCvv",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCardCvv",
+          "arguments": [
+            "tenantId",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-036",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/transactions",
+      "controller": "CardServiceController.listTransactions",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.listAdminCardTransactions",
+          "arguments": [
+            "params.tenantId",
+            "params.cardId",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst",
+        "cardTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-037",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/cards/:cardId/transactions/:transactionId",
+      "controller": "CardServiceController.getTransaction",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getAdminCardTransaction",
+          "arguments": [
+            "params.tenantId",
+            "params.cardId",
+            "params.transactionId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-038",
+      "method": "POST",
+      "route": "/api/cards",
+      "controller": "CardsApiController.createCard",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [],
+      "databaseCalls": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-039",
+      "method": "POST",
+      "route": "/api/cards/create",
+      "controller": "CardsApiController.create",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [],
+      "databaseCalls": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-040",
+      "method": "POST",
+      "route": "/api/cards/activate",
+      "controller": "CardsApiController.activate",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.activateCard",
+          "arguments": [
+            "dto.tenantId",
+            "dto.cardId",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-041",
+      "method": "POST",
+      "route": "/api/cards/freeze",
+      "controller": "CardsApiController.freeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.freezeCard",
+          "arguments": [
+            "dto.tenantId",
+            "dto.cardId",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-042",
+      "method": "POST",
+      "route": "/api/cards/unfreeze",
+      "controller": "CardsApiController.unfreeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unfreezeCard",
+          "arguments": [
+            "dto.tenantId",
+            "dto.cardId",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-043",
+      "method": "PATCH",
+      "route": "/api/cards/:id/activate",
+      "controller": "CardsApiController.activateById",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.activateCard",
+          "arguments": [
+            "dto.tenantId",
+            "id",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-044",
+      "method": "PATCH",
+      "route": "/api/cards/:id/freeze",
+      "controller": "CardsApiController.freezeById",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.freezeCard",
+          "arguments": [
+            "dto.tenantId",
+            "id",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-045",
+      "method": "PATCH",
+      "route": "/api/cards/:id/unfreeze",
+      "controller": "CardsApiController.unfreezeById",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unfreezeCard",
+          "arguments": [
+            "dto.tenantId",
+            "id",
+            "{idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-046",
+      "method": "POST",
+      "route": "/api/cards/:id/replace",
+      "controller": "CardsApiController.replace",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.replaceCard",
+          "arguments": [
+            "tenantId",
+            "id",
+            "command",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardReplacement.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-047",
+      "method": "POST",
+      "route": "/api/cards/:id/renew",
+      "controller": "CardsApiController.renew",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.renewCard",
+          "arguments": [
+            "tenantId",
+            "id",
+            "command",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardRenewal.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-048",
+      "method": "GET",
+      "route": "/api/cards/:id/timeline",
+      "controller": "CardsApiController.timeline",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getCardTimeline",
+          "arguments": [
+            "query.tenantId",
+            "id"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.findMany",
+        "cardLifecycleEvent.findMany"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-049",
+      "method": "GET",
+      "route": "/api/cards/balance",
+      "controller": "CardsApiController.balance",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getCardBalance",
+          "arguments": [
+            "query.tenantId",
+            "query.cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-050",
+      "method": "GET",
+      "route": "/api/cards/:id/balance",
+      "controller": "CardsApiController.balanceById",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getCardBalance",
+          "arguments": [
+            "query.tenantId",
+            "id"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-051",
+      "method": "POST",
+      "route": "/api/cards/:id/pin",
+      "controller": "CardsApiController.setPin",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.setCardPin",
+          "arguments": [
+            "dto.tenantId",
+            "id",
+            "{pin,idempotencyKey}",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-052",
+      "method": "GET",
+      "route": "/api/cards/:id/pin",
+      "controller": "CardsApiController.retrievePin",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCardPin",
+          "arguments": [
+            "query.tenantId",
+            "id"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-053",
+      "method": "GET",
+      "route": "/api/cards/:id/cvv",
+      "controller": "CardsApiController.retrieveCvv",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCardCvv",
+          "arguments": [
+            "query.tenantId",
+            "id"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-054",
+      "method": "GET",
+      "route": "/api/cards/:id/transactions",
+      "controller": "CardsApiController.listTransactions",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.listCardTransactions",
+          "arguments": [
+            "query.tenantId",
+            "id",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst",
+        "cardTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-055",
+      "method": "GET",
+      "route": "/api/cards/:id/transactions/:transactionId",
+      "controller": "CardsApiController.getTransaction",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "transactionId"
+          ],
+          "parameter": "transactionId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.getCardTransaction",
+          "arguments": [
+            "query.tenantId",
+            "id",
+            "transactionId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-056",
+      "method": "GET",
+      "route": "/api/cards/:id",
+      "controller": "CardsApiController.retrieve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "id"
+          ],
+          "parameter": "id"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.retrieveCard",
+          "arguments": [
+            "query.tenantId",
+            "id"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardEvent.create"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-089",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/events",
+      "controller": "DomainEventBusController.list",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.events.list",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "webhookEvent.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-090",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/evidence",
+      "controller": "EvidenceCenterController.create",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.evidence.create",
+          "arguments": [
+            "tenantId",
+            "BinaryExpression",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "evidenceArtifact.create"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-091",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/evidence",
+      "controller": "EvidenceCenterController.list",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.evidence.list",
+          "arguments": [
+            "tenantId",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "evidenceArtifact.count",
+        "evidenceArtifact.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-092",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/evidence/summary",
+      "controller": "EvidenceCenterController.summary",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.evidence.summary",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "evidenceArtifact.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-095",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/integrations/readiness",
+      "controller": "IntegrationReadinessController.report",
+      "guard": "AdminBearerGuard",
+      "requestSources": [],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.readiness.report",
+          "arguments": []
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-098",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/ledger/accounts",
+      "controller": "LedgerController.createAccount",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.ledger.createAccount",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findFirst",
+        "walletAccount.create"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-099",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/ledger/accounts",
+      "controller": "LedgerController.accounts",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.ledger.listAccounts",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-100",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/ledger/journals",
+      "controller": "LedgerController.postJournal",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.ledger.postJournal",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-101",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/ledger/journals",
+      "controller": "LedgerController.journals",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.ledger.listJournals",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-102",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/ledger/trial-balance",
+      "controller": "LedgerController.trialBalance",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            "environment"
+          ],
+          "parameter": "environment"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.ledger.trialBalance",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-103",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchants",
+      "controller": "MerchantPaymentController.createMerchant",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.createMerchant",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-104",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/merchants",
+      "controller": "MerchantPaymentController.listMerchants",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.listMerchants",
+          "arguments": [
+            "tenantId",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "merchant.count",
+        "merchant.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-105",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/merchants/:merchantId",
+      "controller": "MerchantPaymentController.merchantDetail",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "merchantId"
+          ],
+          "parameter": "merchantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.merchantDetail",
+          "arguments": [
+            "tenantId",
+            "merchantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "merchant.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-106",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchants/:merchantId/qr-codes",
+      "controller": "MerchantPaymentController.createQrCode",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "merchantId"
+          ],
+          "parameter": "merchantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.createQrCode",
+          "arguments": [
+            "tenantId",
+            "merchantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "merchant.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-107",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/pay",
+      "controller": "MerchantPaymentController.authorize",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.authorize",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "feeAssessment.findFirst",
+        "merchantPayment.findUnique",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-108",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/qr/pay",
+      "controller": "MerchantPaymentController.payQrCode",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.payQrCode",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "merchantPayment.findUnique",
+        "merchantQrCode.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-109",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments",
+      "controller": "MerchantPaymentController.paymentHistory",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.paymentHistory",
+          "arguments": [
+            "tenantId",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "merchantPayment.count",
+        "merchantPayment.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-110",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/clear",
+      "controller": "MerchantPaymentController.clear",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "paymentId"
+          ],
+          "parameter": "paymentId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.clear",
+          "arguments": [
+            "tenantId",
+            "paymentId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-111",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/settle",
+      "controller": "MerchantPaymentController.settle",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "paymentId"
+          ],
+          "parameter": "paymentId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.settle",
+          "arguments": [
+            "tenantId",
+            "paymentId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-112",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/reverse",
+      "controller": "MerchantPaymentController.reverse",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "paymentId"
+          ],
+          "parameter": "paymentId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.reverse",
+          "arguments": [
+            "tenantId",
+            "paymentId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-113",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/refund",
+      "controller": "MerchantPaymentController.refund",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "paymentId"
+          ],
+          "parameter": "paymentId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.refund",
+          "arguments": [
+            "tenantId",
+            "paymentId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-114",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId",
+      "controller": "MerchantPaymentController.retrieve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "paymentId"
+          ],
+          "parameter": "paymentId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.retrieve",
+          "arguments": [
+            "tenantId",
+            "paymentId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "merchantPayment.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-115",
+      "method": "POST",
+      "route": "/api/merchant/pay",
+      "controller": "MerchantPaymentCompatibilityController.authorize",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.authorize",
+          "arguments": [
+            "tenantId",
+            "payment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "feeAssessment.findFirst",
+        "merchantPayment.findUnique",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-116",
+      "method": "POST",
+      "route": "/api/merchant/qr/pay",
+      "controller": "MerchantPaymentCompatibilityController.payQrCode",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.payments.payQrCode",
+          "arguments": [
+            "tenantId",
+            "payment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "merchantPayment.findUnique",
+        "merchantQrCode.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-117",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/users/register",
+      "controller": "UserOnboardingController.register",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.users.register",
+          "arguments": [
+            "tenantId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "customer.findFirst",
+        "tenant.findFirst",
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-118",
+      "method": "PATCH",
+      "route": "/api/admin/tenants/:tenantId/users/:userId/kyc",
+      "controller": "UserOnboardingController.updateKyc",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "userId"
+          ],
+          "parameter": "userId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.users.updateKyc",
+          "arguments": [
+            "tenantId",
+            "userId",
+            "dto",
+            "request?.fastlinkAuth?.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "customer.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-119",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/users/:userId/kyc",
+      "controller": "UserOnboardingController.readKyc",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "path"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.users.readKyc",
+          "arguments": [
+            "auth.tenantId",
+            "path.userId",
+            "auth.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "customer.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-120",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/users/:userId",
+      "controller": "UserOnboardingController.retrieve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "userId"
+          ],
+          "parameter": "userId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.users.retrieve",
+          "arguments": [
+            "tenantId",
+            "userId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "customer.findFirst",
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-121",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/operations/traces/:traceId",
+      "controller": "OperationsTraceController.trace",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "traceId"
+          ],
+          "parameter": "traceId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.traces.trace",
+          "arguments": [
+            "tenantId",
+            "query.environment",
+            "traceId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "auditLog.findMany",
+        "card.findMany",
+        "cardTransaction.findMany",
+        "customer.findMany",
+        "journal.findMany",
+        "merchant.findMany",
+        "merchantPayment.findMany",
+        "settlementBatch.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.findMany",
+        "webhookEvent.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-122",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/operations/mock-contamination",
+      "controller": "OperationsTraceController.mockContamination",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.traces.mockContamination",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.count",
+        "cardTransaction.count",
+        "customer.count",
+        "merchant.count",
+        "merchantPayment.count",
+        "walletAccount.count",
+        "webhookEvent.count"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-123",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/card-provider",
+      "controller": "Phase2CardProviderController.config",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.getConfig",
+          "arguments": [
+            "tenantId",
+            "CallExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantCardProviderConfig.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-124",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/card-provider/readiness",
+      "controller": "Phase2CardProviderController.readiness",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.readiness",
+          "arguments": [
+            "tenantId",
+            "CallExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantCardProviderConfig.findUnique"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-125",
+      "method": "PUT",
+      "route": "/api/v2/admin/tenants/:tenantId/card-provider",
+      "controller": "Phase2CardProviderController.save",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.service.saveConfig",
+          "arguments": [
+            "tenantId",
+            "CallExpression",
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-141",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/settlement/dashboard",
+      "controller": "SettlementController.dashboard",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.dashboard",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.count"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-142",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/settlement/liquidity",
+      "controller": "SettlementController.liquidity",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.liquidity",
+          "arguments": [
+            "params.tenantId",
+            "request.fastlinkAuth!.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "treasuryPosition.findMany"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-143",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/settlement/reconciliation",
+      "controller": "SettlementController.reconciliation",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.reconcile",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardTransaction.findMany",
+        "journalEntry.groupBy",
+        "merchantPayment.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-144",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/settlement/trial-balance",
+      "controller": "SettlementController.trialBalance",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.trialBalance",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-145",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/settlement/daily-closing",
+      "controller": "SettlementController.dailyClosing",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.dailyClosing",
+          "arguments": [
+            "tenantId",
+            "query.environment",
+            "query.businessDate"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "auditLog.findMany",
+        "cardTransaction.count",
+        "cardTransaction.findMany",
+        "evidenceArtifact.findMany",
+        "journal.count",
+        "journalEntry.groupBy",
+        "merchantPayment.count",
+        "merchantPayment.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-146",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/settlement/runs",
+      "controller": "SettlementController.run",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.settlement.run",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-147",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/settlement/sponsor-reserve",
+      "controller": "SettlementController.sponsorReserve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.configureReserve",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-148",
+      "method": "POST",
+      "route": "/api/admin/tenants",
+      "controller": "TenantsController.create",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        },
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.tenants.create",
+          "arguments": [
+            "dto",
+            "auth.actorId",
+            "BinaryExpression"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-149",
+      "method": "GET",
+      "route": "/api/admin/tenants",
+      "controller": "TenantsController.findAll",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "session or guard-validated request tenant depending on the route DTO",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.tenants.findAll",
+          "arguments": [
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findMany"
+      ],
+      "authorizationObjectMismatch": "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; no new permission conclusion",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-150",
+      "method": "GET",
+      "route": "/api/admin/tenants/:id",
+      "controller": "TenantsController.findOne",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from the tenant resource path",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.tenants.findOne",
+          "arguments": [
+            "tenantId",
+            "environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "DB2-R01 fixed; controller no longer consumes the raw path id",
+      "repairStatus": "PASS_LOCAL",
+      "regressionCoverage": "same DB2-R01 dynamic case plus unit and HTTP regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-155",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/config",
+      "controller": "AdminThirdPartyAssetController.configs",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.listConfig",
+          "arguments": [
+            "tenantId",
+            "this.admin(req).environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenantThirdPartyConfig.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-156",
+      "method": "POST",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/config",
+      "controller": "AdminThirdPartyAssetController.config",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.saveConfig",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "dto",
+            "auth.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "auditLog.create",
+        "tenantThirdPartyConfig.upsert"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-157",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/orders",
+      "controller": "AdminThirdPartyAssetController.orders",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.adminOrders",
+          "arguments": [
+            "tenantId",
+            "this.admin(req).environment",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "thirdPartyAssetOrder.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-158",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/orders/:localOrderId",
+      "controller": "AdminThirdPartyAssetController.order",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "localOrderId"
+          ],
+          "parameter": "localOrderId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.adminOrder",
+          "arguments": [
+            "tenantId",
+            "this.admin(req).environment",
+            "localOrderId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "thirdPartyAssetOrder.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-159",
+      "method": "POST",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/orders/:localOrderId/reconcile",
+      "controller": "AdminThirdPartyAssetController.reconcile",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "localOrderId"
+          ],
+          "parameter": "localOrderId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.reconcileOrder",
+          "arguments": [
+            "tenantId",
+            "auth.environment",
+            "localOrderId",
+            "auth.actorId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "auditLog.create",
+        "thirdPartyAssetOrder.findFirst",
+        "thirdPartyAssetOrder.update"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-160",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/third-party/callback-logs",
+      "controller": "AdminThirdPartyAssetController.callbacks",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.assets.adminCallbacks",
+          "arguments": [
+            "tenantId",
+            "this.admin(req).environment",
+            "query"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "thirdPartyCallbackEvent.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-166",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards",
+      "controller": "AdminUcardController.list",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.adminList",
+          "arguments": [
+            "tenantId",
+            "this.scope(req).environment",
+            "query.status"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "ucardCardBase.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-167",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId",
+      "controller": "AdminUcardController.card",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.adminGet",
+          "arguments": [
+            "tenantId",
+            "this.scope(req).environment",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "ucardCardBase.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-168",
+      "method": "GET",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/transactions",
+      "controller": "AdminUcardController.transactions",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "req"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.adminTransactions",
+          "arguments": [
+            "tenantId",
+            "this.scope(req).environment",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "ucardCardBase.findFirst",
+        "ucardTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-169",
+      "method": "POST",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/freeze",
+      "controller": "AdminUcardController.freeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unavailableWrite",
+          "arguments": []
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-170",
+      "method": "POST",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/unfreeze",
+      "controller": "AdminUcardController.unfreeze",
+      "guard": "AdminBearerGuard",
+      "requestSources": [],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unavailableWrite",
+          "arguments": []
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-171",
+      "method": "POST",
+      "route": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/limit",
+      "controller": "AdminUcardController.updateLimit",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.cards.unavailableWrite",
+          "arguments": []
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-172",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/treasury/funds-instructions",
+      "controller": "TreasuryController.execute",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.treasury.executeFundsInstruction",
+          "arguments": [
+            "tenantId",
+            "dto",
+            "{actorId,sessionId,environment}"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-173",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/treasury/funds-instructions/:operationId",
+      "controller": "TreasuryController.retrieve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.treasury.retrieveFundsInstruction",
+          "arguments": [
+            "params.tenantId",
+            "query.environment",
+            "params.operationId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "journal.findFirst",
+        "walletOperation.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-197",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/accounts",
+      "controller": "WalletController.createAccount",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.createCustomerWallet",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findFirst",
+        "walletAccount.upsert"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-198",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/deposits",
+      "controller": "WalletController.deposit",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.deposit",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-199",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/transfers",
+      "controller": "WalletController.transfer",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.internalTransfer",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-200",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/withdrawals",
+      "controller": "WalletController.withdraw",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.withdraw",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-201",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/withdrawals/:operationId/settle",
+      "controller": "WalletController.settle",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "operationId"
+          ],
+          "parameter": "operationId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.settleWithdrawal",
+          "arguments": [
+            "tenantId",
+            "operationId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-202",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/cards/:cardId/monthly-fees",
+      "controller": "WalletController.chargeCardMonthlyFee",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.chargeCardMonthlyFee",
+          "arguments": [
+            "tenantId",
+            "cardId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-203",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/operations",
+      "controller": "WalletController.operations",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.history",
+          "arguments": [
+            "params.tenantId",
+            "{306,environment}"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findFirst",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-204",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/operations/:operationId",
+      "controller": "WalletController.operation",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.operation",
+          "arguments": [
+            "params.tenantId",
+            "query.environment",
+            "params.operationId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletOperation.findFirst"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-205",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/balance",
+      "controller": "WalletController.balance",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "accountId"
+          ],
+          "parameter": "accountId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.balance",
+          "arguments": [
+            "tenantId",
+            "accountId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-206",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/history",
+      "controller": "WalletController.accountHistory",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.history",
+          "arguments": [
+            "params.tenantId",
+            "{306,environment}",
+            "params.accountId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.findFirst",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-207",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/transactions",
+      "controller": "WalletController.transactions",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Req",
+          "keys": [
+            ""
+          ],
+          "parameter": "request"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            ""
+          ],
+          "parameter": "params"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.transactionHistory",
+          "arguments": [
+            "params.tenantId",
+            "{306,environment}"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findMany",
+        "walletAccount.findFirst",
+        "walletOperation.findMany",
+        "walletTransaction.count",
+        "walletTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "path scope is guard-validated, but static service-call argument evidence is indirect",
+      "repairStatus": "LIMITED",
+      "regressionCoverage": "static only; targeted dynamic route coverage required before deployment reuse",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-208",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/transactions",
+      "controller": "WalletController.accountTransactions",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "accountId"
+          ],
+          "parameter": "accountId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.transactionHistory",
+          "arguments": [
+            "tenantId",
+            "query",
+            "accountId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findMany",
+        "walletAccount.findFirst",
+        "walletOperation.findMany",
+        "walletTransaction.count",
+        "walletTransaction.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-209",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/asset-summary",
+      "controller": "WalletController.assetSummary",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.assetSummary",
+          "arguments": [
+            "tenantId",
+            "query.environment",
+            "query.customerId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "walletAccount.groupBy"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-210",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/treasury",
+      "controller": "WalletController.treasury",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.treasuryDashboard",
+          "arguments": [
+            "tenantId",
+            "query.environment"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-211",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/treasury/reserve",
+      "controller": "WalletController.reserve",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.configureReserve",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-212",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/fx/quotes",
+      "controller": "WalletController.createFxQuote",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.createFxQuote",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "tenant.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-213",
+      "method": "POST",
+      "route": "/api/admin/tenants/:tenantId/wallet/fx/conversions",
+      "controller": "WalletController.convertFx",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Body",
+          "keys": [
+            ""
+          ],
+          "parameter": "dto"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.convertFx",
+          "arguments": [
+            "tenantId",
+            "dto"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "fxConversion.findUnique",
+        "tenantFeePolicy.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-214",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/fx/conversions/:conversionId",
+      "controller": "WalletController.fxConversion",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "conversionId"
+          ],
+          "parameter": "conversionId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.getFxConversion",
+          "arguments": [
+            "tenantId",
+            "query.environment",
+            "conversionId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "fxConversion.findFirst"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    },
+    {
+      "id": "API-215",
+      "method": "GET",
+      "route": "/api/admin/tenants/:tenantId/wallet/cards/:cardId/funding-snapshot",
+      "controller": "WalletController.cardFundingSnapshot",
+      "guard": "AdminBearerGuard",
+      "requestSources": [
+        {
+          "kind": "Param",
+          "keys": [
+            "tenantId"
+          ],
+          "parameter": "tenantId"
+        },
+        {
+          "kind": "Param",
+          "keys": [
+            "cardId"
+          ],
+          "parameter": "cardId"
+        },
+        {
+          "kind": "Query",
+          "keys": [
+            ""
+          ],
+          "parameter": "query"
+        }
+      ],
+      "authoritativeTenantSource": "fastlinkAuth.authorizedTenantId normalized from path tenantId",
+      "controllerAndServiceCalls": [
+        {
+          "target": "this.wallet.cardFundingSnapshot",
+          "arguments": [
+            "tenantId",
+            "query.environment",
+            "cardId"
+          ]
+        }
+      ],
+      "databaseCalls": [
+        "card.findFirst",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany"
+      ],
+      "authorizationObjectMismatch": "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      "repairStatus": "PASS_STATIC",
+      "regressionCoverage": "131-route static audit plus shared read/write/update/delete conflict regression",
+      "deployedEnvironment": "BLOCKED_UNAUTHORIZED"
+    }
+  ],
+  "limits": [
+    "PASS_STATIC proves source-level alignment and shared guard coverage, not deployed runtime behavior.",
+    "LIMITED routes retain a targeted dynamic-review requirement and are not treated as authorization-safe for deployment.",
+    "Platform permission semantics are preserved from the existing code and tests; no permission is added.",
+    "No database, JWT provider, deployed proxy or external service was accessed."
+  ]
+}

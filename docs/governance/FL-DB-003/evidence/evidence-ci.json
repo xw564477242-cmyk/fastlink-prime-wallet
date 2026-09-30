@@ -1,0 +1,19 @@
+{
+  "schema": "FL-DB-003-evidence-ci-v1",
+  "repository": "fastlink-prime-wallet",
+  "pullRequest": 85,
+  "draft": true,
+  "runs": [
+    {
+      "head": "e7c918cb4625d26e1cbd11e89bddc95bcf8a8a81",
+      "run": 36740976789,
+      "workflow": "Prime Wallet Pull Request Gate",
+      "check": "verify",
+      "conclusion": "FAILURE",
+      "failedStep": "Lint",
+      "cause": "Prettier formatting violations in the authorized governance route-audit tool",
+      "remediation": "Format only the affected governance tool and preserve this failed run in the audit trail"
+    }
+  ],
+  "finalRun": "REPORTED_IN_GATE2_HANDOFF_FOR_FINAL_HEAD"
+}

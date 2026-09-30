@@ -1,0 +1,14 @@
+{
+  "schema": "FL-DB-003-business-ci-v1",
+  "repository": "fastlik-backend",
+  "pullRequest": 334,
+  "head": "4fead5f3e007d6226d63e263991c2de680744424",
+  "draft": true,
+  "checks": [
+    {"workflow": "Backend Pull Request Gate", "run": 36738172734, "check": "Draft PR lint and syntax check", "conclusion": "SUCCESS"},
+    {"workflow": "Dev Reset Round Trip", "run": 36738172880, "check": "Draft PR lint and syntax check", "conclusion": "SUCCESS"},
+    {"workflow": "FastLink Backend Non-Production CI", "run": 36738172997, "check": "Draft PR lint and syntax check", "conclusion": "SUCCESS"}
+  ],
+  "fullChecks": "SKIPPED_BY_EXISTING_DRAFT_WORKFLOW_CONDITION",
+  "note": "Local complete test evidence is recorded separately; PR remains Draft by gate requirement."
+}

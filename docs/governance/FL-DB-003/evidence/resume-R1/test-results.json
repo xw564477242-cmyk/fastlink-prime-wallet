@@ -1,0 +1,171 @@
+{
+  "backendHead": "d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e",
+  "devBase": "3f29b332f665e98082def9209df3bd799a429789",
+  "commands": [
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=dev",
+        "--audit-level=high",
+        "--json",
+        "--registry=https://registry.npmjs.org"
+      ],
+      "exitCode": 0,
+      "seconds": 5.58
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "seconds": 12.73
+    },
+    {
+      "name": "full-jest",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand",
+        "--json",
+        "--outputFile=/private/tmp/FL-DB-003-resume-aibowz5_/logs/full-jest.json"
+      ],
+      "exitCode": 0,
+      "seconds": 22.21
+    },
+    {
+      "name": "http-regression",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--runInBand",
+        "admin-tenant-scope.integration.e2e-spec.ts",
+        "--json",
+        "--outputFile=/private/tmp/FL-DB-003-resume-aibowz5_/logs/http-regression.json"
+      ],
+      "exitCode": 0,
+      "seconds": 3.11
+    },
+    {
+      "name": "install",
+      "command": [
+        "npm",
+        "ci",
+        "--ignore-scripts",
+        "--no-audit",
+        "--registry=https://registry.npmjs.org"
+      ],
+      "exitCode": 0,
+      "seconds": 31.04
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "seconds": 13.49
+    },
+    {
+      "name": "prisma-generate",
+      "command": [
+        "node",
+        "node_modules/prisma/build/index.js",
+        "generate",
+        "--schema=prisma/schema.prisma"
+      ],
+      "exitCode": 0,
+      "seconds": 1.1
+    },
+    {
+      "name": "secret-scan",
+      "command": [
+        "npm",
+        "run",
+        "secret:scan"
+      ],
+      "exitCode": 0,
+      "seconds": 0.28
+    },
+    {
+      "name": "targeted",
+      "command": [
+        "npm",
+        "test",
+        "--",
+        "--runInBand",
+        "src/admin-auth/admin-bearer.guard.spec.ts",
+        "src/tenants/tenants.controller.spec.ts",
+        "--json",
+        "--outputFile=/private/tmp/FL-DB-003-resume-aibowz5_/logs/targeted.json"
+      ],
+      "exitCode": 0,
+      "seconds": 4.48
+    }
+  ],
+  "tests": {
+    "targeted": {
+      "success": true,
+      "numPassedTests": 12,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numPassedTestSuites": 2,
+      "numFailedTestSuites": 0
+    },
+    "http-regression": {
+      "success": true,
+      "numPassedTests": 10,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "numPassedTestSuites": 1,
+      "numFailedTestSuites": 0
+    },
+    "full-jest": {
+      "success": true,
+      "numPassedTests": 1761,
+      "numFailedTests": 0,
+      "numPendingTests": 2,
+      "numPassedTestSuites": 198,
+      "numFailedTestSuites": 0
+    }
+  },
+  "auditCounts": {
+    "info": 0,
+    "low": 0,
+    "moderate": 5,
+    "high": 0,
+    "critical": 0,
+    "total": 5
+  },
+  "network": {
+    "targeted": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    },
+    "http-regression": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    },
+    "full-jest": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    }
+  },
+  "worktree": "clean",
+  "lockSha256": "19a8246171068f3ed08eca89c8db79474b3415b3c21b74b59afd326c9ee5ff94",
+  "limits": [
+    "No database or existing environment connected; 2 DB-gated Jest tests skipped.",
+    "No UAT or Railway operations.",
+    "No fresh whole-project route, migration or secret inventory.",
+    "Node socket guard only, not OS firewall."
+  ]
+}

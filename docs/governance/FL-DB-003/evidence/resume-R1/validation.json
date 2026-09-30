@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "name": "exact-new-head",
+      "status": "PASS"
+    },
+    {
+      "name": "ordinary-merge-parents",
+      "status": "PASS"
+    },
+    {
+      "name": "six-original-business-files",
+      "status": "PASS"
+    },
+    {
+      "name": "six-business-blobs-unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "merge-only-dependency-update",
+      "status": "PASS"
+    },
+    {
+      "name": "test-head-and-exits",
+      "status": "PASS"
+    },
+    {
+      "name": "exact-machine-counts",
+      "status": "PASS"
+    },
+    {
+      "name": "no-external-connection-attempt",
+      "status": "PASS"
+    },
+    {
+      "name": "audit-high-critical-zero",
+      "status": "PASS"
+    },
+    {
+      "name": "original-route-matrix-preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "old-evidence-manifest-retained",
+      "status": "PASS"
+    },
+    {
+      "name": "business-full-ci-new-head",
+      "status": "PASS"
+    },
+    {
+      "name": "no-symlinks-bytecode",
+      "status": "PASS"
+    },
+    {
+      "name": "governance-sensitive-scan",
+      "status": "PASS"
+    }
+  ],
+  "findings": [],
+  "failed": 0,
+  "scanScope": "FL-DB-003 governance only; no original credentials or protected source overlays read; format scan is not proof that no unknown secret exists.",
+  "oldSnapshotDeliveryTests": {
+    "count": 5,
+    "status": "PASS",
+    "scope": "Original immutable delivery evidence validation; not new business tests."
+  },
+  "machineSummariesComparedToPrivateLogs": true
+}

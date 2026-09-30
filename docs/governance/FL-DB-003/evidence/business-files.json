@@ -1,0 +1,31 @@
+{
+  "schema": "FL-DB-003-business-files-v1",
+  "base": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+  "head": "4fead5f3e007d6226d63e263991c2de680744424",
+  "files": [
+    {
+      "path": "src/admin-auth/admin-bearer.guard.spec.ts",
+      "sha256": "1b5702e2111d5d736dd65755852970903779514a88bdb2ce048d7a4507bf92ea"
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.ts",
+      "sha256": "492a64d39d4297ffc3201b31642e026f10ee642868de6281bd171676ca32d082"
+    },
+    {
+      "path": "src/common/auth/request-auth.ts",
+      "sha256": "065faadc63473f6fa0b66047b8b4a8b2d9ef13af98b92e97b5195a8ac4b51df8"
+    },
+    {
+      "path": "src/tenants/tenants.controller.spec.ts",
+      "sha256": "de1c38dd4877a66315e72ea19f4e5aca8e5906eba6938feb99cfd7a51aa49124"
+    },
+    {
+      "path": "src/tenants/tenants.controller.ts",
+      "sha256": "864ecb34d9c4bd51f5d8f7de2c9a128eeb7fd56d39d442c560cdeca87f679e26"
+    },
+    {
+      "path": "test/admin-tenant-scope.integration.e2e-spec.ts",
+      "sha256": "205d8b947d6824b8b8274b8a02c3bc2214892ca87fbaa437b535e46a4760cf65"
+    }
+  ]
+}
