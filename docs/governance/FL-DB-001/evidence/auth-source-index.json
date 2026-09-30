@@ -1,0 +1,106 @@
+{
+  "scope": "tracked backend src/**/*.ts; symbol search only, not endpoint security proof",
+  "matches": [
+    {
+      "path": "src/card-service/card-service.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        159,
+        238
+      ]
+    },
+    {
+      "path": "src/cards/cards.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        426
+      ]
+    },
+    {
+      "path": "src/end-user-session/end-user-session.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        123,
+        142
+      ]
+    },
+    {
+      "path": "src/end-user-session/guards/end-user-session.guard.ts",
+      "pattern": "session_guard",
+      "lines": [
+        8
+      ]
+    },
+    {
+      "path": "src/health/end-user-auth-readiness.postgres.spec.ts",
+      "pattern": "database_role_switch",
+      "lines": [
+        46
+      ]
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.postgres.spec.ts",
+      "pattern": "database_role_switch",
+      "lines": [
+        291
+      ]
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.ts",
+      "pattern": "database_role_switch",
+      "lines": [
+        10
+      ]
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        65
+      ]
+    },
+    {
+      "path": "src/onboarding/user-onboarding.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        71
+      ]
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        162
+      ]
+    },
+    {
+      "path": "src/sandbox/sandbox.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        22
+      ]
+    },
+    {
+      "path": "src/third-party/third-party-asset.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        22
+      ]
+    },
+    {
+      "path": "src/third-party/ucard.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        16
+      ]
+    },
+    {
+      "path": "src/wallet/end-user-wallet.controller.ts",
+      "pattern": "tenant_filter",
+      "lines": [
+        399,
+        417
+      ]
+    }
+  ]
+}

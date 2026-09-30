@@ -1,0 +1,15 @@
+{
+  "database": "fastlink_db001",
+  "initializer_role": "fl_db001_owner",
+  "server_version": "17.11",
+  "initial_public_objects": 0,
+  "image_digest": "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+  "image_id": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+  "host_port_bindings": {},
+  "network_internal": true,
+  "listen_addresses": "127.0.0.1 inside container namespace",
+  "authentication": "SCRAM; random local-only credentials, retained mode600; parent700; no secret values output",
+  "production_connection": false,
+  "real_data_import": false,
+  "original_containers_started": false
+}

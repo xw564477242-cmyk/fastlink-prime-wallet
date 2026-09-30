@@ -1,0 +1,11 @@
+{
+  "migration": "20260913000400_card_provider_control_plane_v1",
+  "finished_count": 31,
+  "unfinished_count": 1,
+  "database_error_category": "UAT Thredd sandbox tenant is missing",
+  "secondary_error": "current transaction is aborted",
+  "status": "BLOCKED",
+  "original_sql_changed": false,
+  "missing_tenant_fabricated": false,
+  "repaired_migration_ledger": false
+}

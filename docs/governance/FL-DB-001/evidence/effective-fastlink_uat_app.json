@@ -1,0 +1,434 @@
+[
+  {
+    "schema": "public",
+    "name": "AdminSession",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "ApiClient",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "ApiKey",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "AuditLog",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Card",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardBalance",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardEvent",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardHolder",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardLifecycleEvent",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardLimit",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardRenewal",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardReplacement",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardRestriction",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardSecurityProfile",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "CardTransaction",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Customer",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "EndUserRefreshToken",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "EndUserSession",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "EvidenceArtifact",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "FxConversion",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "FxOrder",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "FxRate",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Journal",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "JournalEntry",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Merchant",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "MerchantPayment",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "MerchantQrCode",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Permission",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "ProviderOperation",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Role",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "RolePermission",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "SettlementBatch",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "SettlementItem",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "SimulationRecord",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "SimulationScenario",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "Tenant",
+    "sel": true,
+    "ins": true,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "TenantUser",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "TenantUserRole",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "TreasuryPosition",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "WalletAccount",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "WalletOperation",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "WalletTransaction",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "WebhookEvent",
+    "sel": true,
+    "ins": false,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "WithdrawalAddress",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "_prisma_migrations",
+    "sel": true,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "tenant_third_party_config",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "third_party_asset_orders",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "third_party_callback_events",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "treasury_accounts",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "treasury_fx_orders",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "treasury_operation_logs",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "treasury_settlements",
+    "sel": false,
+    "ins": false,
+    "upd": false,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "ucard_card_base",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  },
+  {
+    "schema": "public",
+    "name": "ucard_transactions",
+    "sel": true,
+    "ins": true,
+    "upd": true,
+    "del": false
+  }
+]

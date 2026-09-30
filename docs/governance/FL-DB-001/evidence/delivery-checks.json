@@ -1,0 +1,97 @@
+{
+  "checked_at_utc": "2026-09-30T09:45:27.312485+00:00",
+  "python_version": "3.14.3",
+  "base_sha": "5bd2f24ecf4497e44bde52d20a02d269c00ec98d",
+  "existing_git_files": 593,
+  "existing_git_tree_record_sha256": "4ae4cedeb294a16cb052dec2a5014cd1964c701464ccf954887d29cdfc6b8635",
+  "existing_tracked_diff_count": 0,
+  "allowed_prefix": "docs/governance/FL-DB-001/",
+  "synthetic_and_evidence_controls": {
+    "count": 25,
+    "exit": 0,
+    "tests": [
+      "test_anonymous_effective_no_dml",
+      "test_data_unchanged_each_case",
+      "test_formal_source_checksum_matches_ledger",
+      "test_inventory_51",
+      "test_no_gate2_pass_claim",
+      "test_nonowner_identities",
+      "test_risks_not_promoted",
+      "test_service_stopped_retained",
+      "test_source_no_change",
+      "test_sql_draft_comments_only",
+      "test_two_tenants_42_cases",
+      "test_uat_failure_not_hidden",
+      "test_dollar_body",
+      "test_drop_kind",
+      "test_dynamic_template",
+      "test_line_comment",
+      "test_line_number",
+      "test_nested_comment",
+      "test_non_executable_truncate_requires_review",
+      "test_policy_with_check",
+      "test_quoted_noise",
+      "test_regular_table",
+      "test_rls_force",
+      "test_schema_table",
+      "test_security_definer"
+    ]
+  },
+  "sensitive_scan": {
+    "files_before_this_result_and_manifest": 32,
+    "format_hits": 0,
+    "positive_rule_controls": {
+      "private_key": true,
+      "provider_token": true,
+      "jwt": true,
+      "credential_url": true,
+      "literal_secret": true,
+      "key_material_file": true
+    },
+    "high_entropy_candidates": [
+      {
+        "path": "evidence/catalog-default.json",
+        "line": 3994,
+        "rule": "high_entropy",
+        "length": 41,
+        "classification": "STRUCTURED_NON_SECRET",
+        "basis": "exact formal migration identifier; source SHA equals executed migration ledger checksum; no value copied"
+      },
+      {
+        "path": "evidence/catalog-uat-partial.json",
+        "line": 4367,
+        "rule": "high_entropy",
+        "length": 41,
+        "classification": "STRUCTURED_NON_SECRET",
+        "basis": "exact formal migration identifier; source SHA equals executed migration ledger checksum; no value copied"
+      },
+      {
+        "path": "evidence/migration-run-r02.json",
+        "line": 29,
+        "rule": "high_entropy",
+        "length": 41,
+        "classification": "STRUCTURED_NON_SECRET",
+        "basis": "exact formal migration identifier; source SHA equals executed migration ledger checksum; no value copied"
+      },
+      {
+        "path": "evidence/migration-run-uat.json",
+        "line": 30,
+        "rule": "high_entropy",
+        "length": 41,
+        "classification": "STRUCTURED_NON_SECRET",
+        "basis": "exact formal migration identifier; source SHA equals executed migration ledger checksum; no value copied"
+      }
+    ],
+    "unresolved_entropy_candidates": 0,
+    "actual_hmac_or_existing_secret_read": false,
+    "limitations": "Known-format and structural checks only; hex audit identifiers and path/identifier tokens structurally excluded. No actual key comparison or full-project scan. Does not establish absence of every possible secret."
+  },
+  "sha_manifest_rule": "SHA256SUMS includes every delivered file except itself; its hash supplied externally in submission receipt",
+  "ci_scope": "existing repository verify automatically triggered by Draft PR; no local full business rerun",
+  "safety_test_summary": {
+    "PASS": 3,
+    "LIMITED": 10,
+    "FAIL": 2,
+    "BLOCKED": 1
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "exit": 1,
+  "source": "unchanged 32 formal migration.sql; Prisma migrate deploy; readonly source mount",
+  "runner_image_id": "sha256:6622b5ce13429346f91fcdb936ec2e026ccc28465409fd25b7f79c623e7a20af",
+  "error_codes": [
+    "P1012"
+  ],
+  "raw_output_retained": false,
+  "applied_reported": 0
+}
