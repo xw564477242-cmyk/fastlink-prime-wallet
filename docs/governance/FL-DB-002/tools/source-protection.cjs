@@ -1,14 +1,58 @@
-'use strict';
-const fs=require('fs'),crypto=require('crypto'),cp=require('child_process');
-const [root,beforePath,outputPath]=process.argv.slice(2);
-if(!root||!beforePath||!outputPath)throw Error('root, before, output required');
-const before=JSON.parse(fs.readFileSync(beforePath,'utf8'));
-const raw=cp.execFileSync('python3',[root+'/docs/governance/FL-DB-002/tools/source-boundary.py'],{encoding:'utf8',maxBuffer:128*1024*1024});
-const after=JSON.parse(raw);
-const compact=x=>x.repositories.map(r=>({repository:r.repository,head:r.head,index_sha256:r.index_sha256,refs_sha256:r.refs_sha256,files:r.files,existingBundles:r.existingBundles,skipped:r.skipped}));
-const a=compact(before),b=compact(after);
-const digest=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex');
-const results=a.map((old,i)=>({repository:old.repository,headBefore:old.head,headAfter:b[i].head,indexEqual:old.index_sha256===b[i].index_sha256,refsEqual:old.refs_sha256===b[i].refs_sha256,trackedSourceAndBundleEqual:digest({files:old.files,bundles:old.existingBundles,skipped:old.skipped})===digest({files:b[i].files,bundles:b[i].existingBundles,skipped:b[i].skipped})}));
-const out={schema:'FL-DB-002-source-protection-v1',results,allEqual:results.every(x=>x.headBefore===x.headAfter&&x.indexEqual&&x.refsEqual&&x.trackedSourceAndBundleEqual),protectedPrimeOverlays:{paths:['docs/governance/baseline/CHANGE-HISTORY.md','docs/governance/baseline/PROJECT-STATUS-SUMMARY.md','docs/governance/baseline/FULL-ARCHIVE-INDEX.md'],operations:['NOT_READ','NOT_STAT','NOT_HASHED','NOT_STAGED']},limits:['Comparison covers the selected tracked first-party source and existing bundle inventory defined by source-boundary.py.','It does not remove inherited permanent evidence gaps or prove all processes and files were unchanged.']};
-fs.writeFileSync(outputPath,JSON.stringify(out,null,2)+'\n',{mode:0o600});
-console.log(JSON.stringify({allEqual:out.allEqual,repositories:results.length}));
+"use strict";
+const fs = require("fs"),
+  crypto = require("crypto"),
+  cp = require("child_process");
+const [root, beforePath, outputPath] = process.argv.slice(2);
+if (!root || !beforePath || !outputPath) throw Error("root, before, output required");
+const before = JSON.parse(fs.readFileSync(beforePath, "utf8"));
+const raw = cp.execFileSync(
+  "python3",
+  [root + "/docs/governance/FL-DB-002/tools/source-boundary.py"],
+  { encoding: "utf8", maxBuffer: 128 * 1024 * 1024 },
+);
+const after = JSON.parse(raw);
+const compact = (x) =>
+  x.repositories.map((r) => ({
+    repository: r.repository,
+    head: r.head,
+    index_sha256: r.index_sha256,
+    refs_sha256: r.refs_sha256,
+    files: r.files,
+    existingBundles: r.existingBundles,
+    skipped: r.skipped,
+  }));
+const a = compact(before),
+  b = compact(after);
+const digest = (x) => crypto.createHash("sha256").update(JSON.stringify(x)).digest("hex");
+const results = a.map((old, i) => ({
+  repository: old.repository,
+  headBefore: old.head,
+  headAfter: b[i].head,
+  indexEqual: old.index_sha256 === b[i].index_sha256,
+  refsEqual: old.refs_sha256 === b[i].refs_sha256,
+  trackedSourceAndBundleEqual:
+    digest({ files: old.files, bundles: old.existingBundles, skipped: old.skipped }) ===
+    digest({ files: b[i].files, bundles: b[i].existingBundles, skipped: b[i].skipped }),
+}));
+const out = {
+  schema: "FL-DB-002-source-protection-v1",
+  results,
+  allEqual: results.every(
+    (x) =>
+      x.headBefore === x.headAfter && x.indexEqual && x.refsEqual && x.trackedSourceAndBundleEqual,
+  ),
+  protectedPrimeOverlays: {
+    paths: [
+      "docs/governance/baseline/CHANGE-HISTORY.md",
+      "docs/governance/baseline/PROJECT-STATUS-SUMMARY.md",
+      "docs/governance/baseline/FULL-ARCHIVE-INDEX.md",
+    ],
+    operations: ["NOT_READ", "NOT_STAT", "NOT_HASHED", "NOT_STAGED"],
+  },
+  limits: [
+    "Comparison covers the selected tracked first-party source and existing bundle inventory defined by source-boundary.py.",
+    "It does not remove inherited permanent evidence gaps or prove all processes and files were unchanged.",
+  ],
+};
+fs.writeFileSync(outputPath, JSON.stringify(out, null, 2) + "\n", { mode: 0o600 });
+console.log(JSON.stringify({ allEqual: out.allEqual, repositories: results.length }));

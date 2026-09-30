@@ -1,22 +1,99 @@
-'use strict';
-const fs=require('fs'),path=require('path'),crypto=require('crypto'),cp=require('child_process');
-const root=path.resolve(__dirname,'..');const repo=path.resolve(root,'../../..');
-const rel=p=>path.relative(root,p).split(path.sep).join('/');
-const files=()=>{
- const out=[];const walk=d=>{for(const e of fs.readdirSync(d,{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))){const p=path.join(d,e.name);if(e.isDirectory()){if(e.name!=='__pycache__')walk(p);}else if(e.isFile()&&e.name!=='SHA256SUMS')out.push(p);}};walk(root);return out;
+"use strict";
+const fs = require("fs"),
+  path = require("path"),
+  crypto = require("crypto"),
+  cp = require("child_process");
+const root = path.resolve(__dirname, "..");
+const repo = path.resolve(root, "../../..");
+const rel = (p) => path.relative(root, p).split(path.sep).join("/");
+const files = () => {
+  const out = [];
+  const walk = (d) => {
+    for (const e of fs
+      .readdirSync(d, { withFileTypes: true })
+      .sort((a, b) => a.name.localeCompare(b.name))) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) {
+        if (e.name !== "__pycache__") walk(p);
+      } else if (e.isFile() && e.name !== "SHA256SUMS") out.push(p);
+    }
+  };
+  walk(root);
+  return out;
 };
-const hash=p=>crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
-const git=(args)=>cp.execFileSync('git',['--no-optional-locks',...args],{cwd:repo,encoding:'utf8'}).trim();
-const status=git(['status','--porcelain=v2','--untracked-files=all']).split('\n').filter(Boolean);
-const paths=status.map(x=>x.replace(/^\? /,'').split(' ').at(-1));
-const allowed=paths.every(x=>x.startsWith('docs/governance/FL-DB-002/'));
-const tests=JSON.parse(fs.readFileSync(path.join(root,'evidence/test-results.json'),'utf8'));
-const staticMatrix=JSON.parse(fs.readFileSync(path.join(root,'evidence/api-static-matrix.json'),'utf8'));
-const probe=JSON.parse(fs.readFileSync(path.join(root,'evidence/local-admin-probe.json'),'utf8'));
-const protection=JSON.parse(fs.readFileSync(path.join(root,'evidence/source-protection.json'),'utf8'));
-const delivery={schema:'FL-DB-002-delivery-v1',branch:git(['branch','--show-current']),baseHead:git(['merge-base','HEAD','origin/dev']),workingTreeHeadBeforeCommit:git(['rev-parse','HEAD']),commitAndPrIdentity:'RECORDED_EXTERNALLY_AFTER_COMMIT',target:'dev',stageA:'STOPPED_AFTER_CONFIRMED_P0',stageB:'BLOCKED_UNAUTHORIZED',production:'UNAUTHORIZED',range:{onlyAuthorizedDirectory:allowed,statusEntries:status.length},evidence:{controllers:staticMatrix.controllerCount,routes:staticMatrix.routes.length,registeredRoutes:staticMatrix.routes.filter(x=>x.registeredFromAppModule).length,dynamicCases:probe.cases.length,expandedAfterP0:probe.expandedTestsAfterStop,externalNetworkAttempts:probe.deniedNetworkAttempts,sourceProtection:protection.allEqual},db2Tests:{PASS:5,LIMITED:5,BLOCKED:2,FAIL:2},controlTests:tests.summary,statements:{businessCodeChanged:false,databaseChanged:false,productionAccessed:false,deployed:false,baselineUpdated:false,riskSourceWrittenBack:false}};
-fs.writeFileSync(path.join(root,'evidence/delivery-checks.json'),JSON.stringify(delivery,null,2)+'\n',{mode:0o600});
-const sums=files().map(p=>`${hash(p)}  ${rel(p)}`).join('\n')+'\n';fs.writeFileSync(path.join(root,'SHA256SUMS'),sums,{mode:0o600});
-const bad=sums.trim().split('\n').filter(line=>{const m=line.match(/^([0-9a-f]{64})  (.+)$/);return !m||hash(path.join(root,m[2]))!==m[1];});
-if(!allowed||bad.length||tests.summary.fail||!protection.allEqual)process.exitCode=1;
-console.log(JSON.stringify({files:files().length,shaEntries:sums.trim().split('\n').length,scope:allowed,shaValid:!bad.length,controlTests:tests.summary}));
+const hash = (p) => crypto.createHash("sha256").update(fs.readFileSync(p)).digest("hex");
+const git = (args) =>
+  cp.execFileSync("git", ["--no-optional-locks", ...args], { cwd: repo, encoding: "utf8" }).trim();
+const status = git(["status", "--porcelain=v2", "--untracked-files=all"])
+  .split("\n")
+  .filter(Boolean);
+const paths = status.map((x) => x.replace(/^\? /, "").split(" ").at(-1));
+const allowed = paths.every((x) => x.startsWith("docs/governance/FL-DB-002/"));
+const tests = JSON.parse(fs.readFileSync(path.join(root, "evidence/test-results.json"), "utf8"));
+const staticMatrix = JSON.parse(
+  fs.readFileSync(path.join(root, "evidence/api-static-matrix.json"), "utf8"),
+);
+const probe = JSON.parse(
+  fs.readFileSync(path.join(root, "evidence/local-admin-probe.json"), "utf8"),
+);
+const protection = JSON.parse(
+  fs.readFileSync(path.join(root, "evidence/source-protection.json"), "utf8"),
+);
+const delivery = {
+  schema: "FL-DB-002-delivery-v1",
+  branch: git(["branch", "--show-current"]),
+  baseHead: git(["merge-base", "HEAD", "origin/dev"]),
+  workingTreeHeadBeforeCommit: git(["rev-parse", "HEAD"]),
+  commitAndPrIdentity: "RECORDED_EXTERNALLY_AFTER_COMMIT",
+  target: "dev",
+  stageA: "STOPPED_AFTER_CONFIRMED_P0",
+  stageB: "BLOCKED_UNAUTHORIZED",
+  production: "UNAUTHORIZED",
+  range: { onlyAuthorizedDirectory: allowed, statusEntries: status.length },
+  evidence: {
+    controllers: staticMatrix.controllerCount,
+    routes: staticMatrix.routes.length,
+    registeredRoutes: staticMatrix.routes.filter((x) => x.registeredFromAppModule).length,
+    dynamicCases: probe.cases.length,
+    expandedAfterP0: probe.expandedTestsAfterStop,
+    externalNetworkAttempts: probe.deniedNetworkAttempts,
+    sourceProtection: protection.allEqual,
+  },
+  db2Tests: { PASS: 5, LIMITED: 5, BLOCKED: 2, FAIL: 2 },
+  controlTests: tests.summary,
+  statements: {
+    businessCodeChanged: false,
+    databaseChanged: false,
+    productionAccessed: false,
+    deployed: false,
+    baselineUpdated: false,
+    riskSourceWrittenBack: false,
+  },
+};
+fs.writeFileSync(
+  path.join(root, "evidence/delivery-checks.json"),
+  JSON.stringify(delivery, null, 2) + "\n",
+  { mode: 0o600 },
+);
+const sums =
+  files()
+    .map((p) => `${hash(p)}  ${rel(p)}`)
+    .join("\n") + "\n";
+fs.writeFileSync(path.join(root, "SHA256SUMS"), sums, { mode: 0o600 });
+const bad = sums
+  .trim()
+  .split("\n")
+  .filter((line) => {
+    const m = line.match(/^([0-9a-f]{64})  (.+)$/);
+    return !m || hash(path.join(root, m[2])) !== m[1];
+  });
+if (!allowed || bad.length || tests.summary.fail || !protection.allEqual) process.exitCode = 1;
+console.log(
+  JSON.stringify({
+    files: files().length,
+    shaEntries: sums.trim().split("\n").length,
+    scope: allowed,
+    shaValid: !bad.length,
+    controlTests: tests.summary,
+  }),
+);

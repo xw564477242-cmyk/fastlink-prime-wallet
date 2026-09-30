@@ -2,7 +2,7 @@
   "schema": "FL-DB-002-delivery-v1",
   "branch": "feature/FL-DB-002-access-reachability",
   "baseHead": "a4ca25bd53033f22b21415e30e04d4dabb241b70",
-  "workingTreeHeadBeforeCommit": "a4ca25bd53033f22b21415e30e04d4dabb241b70",
+  "workingTreeHeadBeforeCommit": "f295cad9bcb89f7e59063e0dd957db3e44f14ccb",
   "commitAndPrIdentity": "RECORDED_EXTERNALLY_AFTER_COMMIT",
   "target": "dev",
   "stageA": "STOPPED_AFTER_CONFIRMED_P0",
@@ -10,7 +10,7 @@
   "production": "UNAUTHORIZED",
   "range": {
     "onlyAuthorizedDirectory": true,
-    "statusEntries": 26
+    "statusEntries": 4
   },
   "evidence": {
     "controllers": 35,
