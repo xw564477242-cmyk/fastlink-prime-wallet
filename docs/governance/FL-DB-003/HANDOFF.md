@@ -6,6 +6,7 @@
 - 131/131 Admin守卫路由完成审计：1 PASS_LOCAL、92 PASS_STATIC、38 LIMITED。
 - 普通管理员、既有显式platform权限、读写更新删除冲突及资源归属回归完成。
 - 后端完整既有测试1,761项通过、2项既有跳过、0失败；build、lint及秘密扫描通过。
+- 证据Draft PR #85已创建；首次CI运行`36740976789`因治理工具Prettier格式检查失败，失败历史已保留并在后续提交中仅修正格式。
 
 ⚠️未改动/保留原样：
 - 未修改数据库、迁移、RLS、GRANT、JWT协议、前端、生产配置或正式基线。
@@ -21,4 +22,4 @@
 📌下一任务仅需读取文件：
 - `P0-BEFORE-AFTER.md`、`ADMIN-ROUTE-AUDIT.md`、`TENANT-REGRESSION.md`、`SELF-TEST.md`、`BASELINE-DELTA.md`及`evidence/`。
 
-门禁2待两仓最终HEAD、证据PR CI和SHA校验完成后提交；未经门禁3不得合并。
+门禁2待证据PR最终HEAD对应CI完成后提交；未经门禁3不得合并。

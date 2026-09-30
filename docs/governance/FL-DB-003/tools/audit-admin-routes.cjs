@@ -4,12 +4,14 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const [matrixPath, backendRoot, outputPath] = process.argv.slice(2);
-if (!matrixPath || !backendRoot || !outputPath) throw new Error("matrix, backend and output paths are required");
+if (!matrixPath || !backendRoot || !outputPath)
+  throw new Error("matrix, backend and output paths are required");
 
 const ts = require(path.join(backendRoot, "node_modules/typescript"));
 const matrix = JSON.parse(fs.readFileSync(matrixPath, "utf8"));
 const routes = matrix.routes.filter((route) => route.guards.includes("AdminBearerGuard"));
-if (routes.length !== 131) throw new Error(`expected 131 AdminBearerGuard routes, got ${routes.length}`);
+if (routes.length !== 131)
+  throw new Error(`expected 131 AdminBearerGuard routes, got ${routes.length}`);
 
 const parsedFiles = new Map();
 function sourceFile(relativePath) {
@@ -17,7 +19,12 @@ function sourceFile(relativePath) {
   const full = path.join(backendRoot, relativePath);
   const stat = fs.lstatSync(full);
   if (stat.isSymbolicLink()) throw new Error("controller symlink rejected");
-  const parsed = ts.createSourceFile(relativePath, fs.readFileSync(full, "utf8"), ts.ScriptTarget.Latest, true);
+  const parsed = ts.createSourceFile(
+    relativePath,
+    fs.readFileSync(full, "utf8"),
+    ts.ScriptTarget.Latest,
+    true,
+  );
   parsedFiles.set(relativePath, parsed);
   return parsed;
 }
@@ -28,7 +35,8 @@ function methodNode(route) {
   sf.forEachChild((node) => {
     if (!ts.isClassDeclaration(node) || node.name?.text !== route.controller) return;
     for (const member of node.members) {
-      if (ts.isMethodDeclaration(member) && member.name?.getText(sf) === route.handler) found = member;
+      if (ts.isMethodDeclaration(member) && member.name?.getText(sf) === route.handler)
+        found = member;
     }
   });
   if (!found) throw new Error(`handler missing: ${route.controller}.${route.handler}`);
@@ -51,7 +59,10 @@ function serviceCalls(route) {
     if (ts.isCallExpression(node) && ts.isPropertyAccessExpression(node.expression)) {
       const target = node.expression.getText(sf);
       if (/^this\.[A-Za-z_]\w*\.[A-Za-z_]\w*$/.test(target)) {
-        calls.push({ target, arguments: node.arguments.map((argument) => safeArgument(argument, sf)) });
+        calls.push({
+          target,
+          arguments: node.arguments.map((argument) => safeArgument(argument, sf)),
+        });
       }
     }
     ts.forEachChild(node, visit);
@@ -74,7 +85,9 @@ function classify(route, calls) {
   const session = route.path === "/api/admin/auth/me" || route.path === "/api/admin/auth/logout";
   const tenantDetail = route.verb === "GET" && route.path === "/api/admin/tenants/:id";
   const pathTenant = route.path.includes(":tenantId");
-  const passesTenant = calls.some((call) => call.arguments.includes("tenantId") || call.arguments.includes("auth.tenantId"));
+  const passesTenant = calls.some(
+    (call) => call.arguments.includes("tenantId") || call.arguments.includes("auth.tenantId"),
+  );
   if (tenantDetail) {
     return {
       status: "PASS_LOCAL",
@@ -95,7 +108,8 @@ function classify(route, calls) {
     return {
       status: "PASS_STATIC",
       authorizedSource: "fastlinkAuth.authorizedTenantId normalized from path tenantId",
-      mismatch: "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
+      mismatch:
+        "shared guard rejects conflicting query/body tenant claims; controller forwards the validated path tenant",
       coverage: "131-route static audit plus shared read/write/update/delete conflict regression",
     };
   }
@@ -103,14 +117,16 @@ function classify(route, calls) {
     return {
       status: "LIMITED",
       authorizedSource: "fastlinkAuth.authorizedTenantId normalized from path tenantId",
-      mismatch: "path scope is guard-validated, but static service-call argument evidence is indirect",
+      mismatch:
+        "path scope is guard-validated, but static service-call argument evidence is indirect",
       coverage: "static only; targeted dynamic route coverage required before deployment reuse",
     };
   }
   return {
     status: "LIMITED",
     authorizedSource: "session or guard-validated request tenant depending on the route DTO",
-    mismatch: "no canonical tenant path; resource ownership remains dependent on controller/service logic",
+    mismatch:
+      "no canonical tenant path; resource ownership remains dependent on controller/service logic",
     coverage: "static only; no new permission conclusion",
   };
 }
@@ -142,7 +158,10 @@ const counts = audited.reduce((all, row) => {
 
 const result = {
   schema: "FL-DB-003-admin-route-audit-v1",
-  backendHead: require("node:child_process").execFileSync("git", ["rev-parse", "HEAD"], { cwd: backendRoot }).toString().trim(),
+  backendHead: require("node:child_process")
+    .execFileSync("git", ["rev-parse", "HEAD"], { cwd: backendRoot })
+    .toString()
+    .trim(),
   inheritedMatrixHead: matrix.sourceHead,
   guardRouteCount: audited.length,
   complete: audited.length === 131,
