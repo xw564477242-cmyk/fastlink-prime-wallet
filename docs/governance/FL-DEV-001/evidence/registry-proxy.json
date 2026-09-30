@@ -1,0 +1,21 @@
+{
+  "proxy_version": "FL-DEV-001-registry-proxy-v2",
+  "runtime": "Python 3.14.3 standard library",
+  "allowed_connect_authorities": [
+    "registry.npmjs.org:443",
+    "europe-west4-npm.pkg.dev:443",
+    "europe-west1-npm.pkg.dev:443"
+  ],
+  "bind": "127.0.0.1:46198",
+  "other_target_denied_test": true,
+  "port_closed_after_run": true,
+  "counts": {
+    "accepted_registry_tunnels": 7,
+    "rejected_other_targets": 2,
+    "connection_failures": 0
+  },
+  "tls_intercepted": false,
+  "raw_headers_or_bodies_logged": false,
+  "child_exit": 0,
+  "test_only": false
+}

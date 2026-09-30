@@ -1,0 +1,41 @@
+{
+  "version_source": {
+    "repo": "fastlik-backend",
+    "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "workflow": ".github/workflows/pull-request.yml",
+    "line": 52,
+    "declared_image": "postgres:17-alpine",
+    "resolved_version": "17.11",
+    "resolved_digest": "sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+    "note": "CI fixes major 17 and alpine family, not minor; 17.11 is the locally resolved image patch, not an explicit repository patch pin."
+  },
+  "isolation": {
+    "old_instance": "retain stopped",
+    "new_database_host_ports": [],
+    "network": "dedicated internal Docker network",
+    "database_listen": "127.0.0.1 inside container namespace only",
+    "test_network": "share database container network namespace so CI loopback guards remain intact",
+    "external_network": "runtime internal network only; dependency installer receives manifests/schema only, no credentials or business source",
+    "backend_health": "container namespace loopback only; no host port publication"
+  },
+  "authentication": {
+    "postgres_admin": "random local password retained in ignored mode600 file",
+    "test_trust": "dedicated container loopback only, CI-compatible dynamic roles; no host TCP trust",
+    "production_credentials": false
+  },
+  "schema_plan": [
+    "new empty database fastlink_dev_ci",
+    "repository Prisma migrate deploy",
+    "repository dev card fee and wallet constraint migrations",
+    "CI test roles and restricted-runtime grants",
+    "repository RLS PREPARE and ACTIVATE",
+    "two unchanged PostgreSQL test files",
+    "full backend health within isolated namespace"
+  ],
+  "data_boundary": "no production connection, dump, customer data, provider calls, or seeding",
+  "gate_controls": {
+    "T03": "administrator confirmation still required",
+    "T12": "LIMITED; no prune/GC/deletion",
+    "PR80": "draft; no merge/deploy"
+  }
+}

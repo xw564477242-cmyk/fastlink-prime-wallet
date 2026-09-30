@@ -1,0 +1,101 @@
+{
+  "confirmation_source": "User batch closeout instruction, followed by instruction to continue unfinished work",
+  "confirmed_creator_tool": "Codex",
+  "confirmed_purpose": "FL-DEV-001 normal turn-diff checkpoint",
+  "confirmation_basis": "User governance attribution plus unchanged reference and directory metadata",
+  "independent_process_forensics_performed": false,
+  "prior_read_only_evidence_sha256": "964a261857ebf86f4586239b73de9a66f838e5868613eddc9b5feb0f9f0ba962",
+  "ref_name_components": [
+    "refs",
+    "codex",
+    "turn-diffs",
+    "checkpoints",
+    "aaf04669127ad373fd36a4e328452df6",
+    "fe15c87200590c88fc46d423ab29887e",
+    "1790691234817",
+    "878db407-6b68-4838-9b57-552ef1d68269"
+  ],
+  "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+  "ref_bytes": 41,
+  "ref_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+  "directories": [
+    {
+      "id": "NEW-DIR-1",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830420+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830679+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-2",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830677+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830728+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "1790691234817"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-3",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e",
+        "1790691234817"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830726+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.831886+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "878db407-6b68-4838-9b57-552ef1d68269"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    }
+  ],
+  "referenced_tree_business_objects_and_gitlinks_retained": true,
+  "no_claim_referenced_tree_is_secret_free": true,
+  "earliest_file_count": 561144,
+  "file_count_after_checkpoint": 561145,
+  "authorized_exception": "one tool reference and three ancestor directories",
+  "T03_basis": "accepted checkpoint attribution and unchanged protected assets, allowing separately authorized registration pruning"
+}

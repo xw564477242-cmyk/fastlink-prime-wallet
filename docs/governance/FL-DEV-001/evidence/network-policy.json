@@ -1,0 +1,11 @@
+{
+  "policy_created": true,
+  "validation_exit": 0,
+  "checks": {
+    "loopback_bind": true,
+    "external": 1,
+    "unapproved_local": 1
+  },
+  "external_network_denied": true,
+  "nonapproved_local_port_denied": true
+}

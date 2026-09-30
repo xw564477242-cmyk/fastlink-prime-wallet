@@ -1,0 +1,132 @@
+{
+  "count": 14,
+  "entries": [
+    {
+      "repo": "fastlink-prime-wallet",
+      "round": 1,
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-backend",
+      "round": 1,
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-app",
+      "round": 1,
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-Admin",
+      "round": 1,
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-Website",
+      "round": 1,
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlink-control-plane",
+      "round": 1,
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlink-recovery-archive",
+      "round": 1,
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlink-prime-wallet",
+      "round": 2,
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-backend",
+      "round": 2,
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-app",
+      "round": 2,
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-Admin",
+      "round": 2,
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlik-Website",
+      "round": 2,
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlink-control-plane",
+      "round": 2,
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    },
+    {
+      "repo": "fastlink-recovery-archive",
+      "round": 2,
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "head_matches_recovery_record": true,
+      "clean": true,
+      "mode": "0o700",
+      "archive_expanded": false
+    }
+  ],
+  "read_only_repository_checks": true
+}

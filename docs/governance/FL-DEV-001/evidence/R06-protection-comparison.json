@@ -1,0 +1,79 @@
+{
+  "files_before": 561145,
+  "files_after": 561124,
+  "authorized_registration_files_removed": 21,
+  "expected_metadata_files_removed": 21,
+  "unexpected_missing": 0,
+  "unexpected_added": 0,
+  "common_files_changed": 1,
+  "removed_directory_components": [
+    [
+      ".git",
+      "worktrees"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-bun-pr"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-bun-pr",
+      "logs"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-bun-pr",
+      "refs"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-014"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-014",
+      "logs"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-014",
+      "refs"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-018"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-018",
+      "logs"
+    ],
+    [
+      ".git",
+      "worktrees",
+      "fastlink-dev-version-018",
+      "refs"
+    ]
+  ],
+  "unexpected_directory_changes": 0,
+  "git_main_states_equal": true,
+  "symlink_targets_equal": true,
+  "objects_equal": true,
+  "object_count_before": 25809,
+  "object_count_after": 25809,
+  "object_inventory_sha256": "ff9cd12f7e9cbf65a44f07f4e9005a15b9e75cd5ab52bac17f6069289d2abd94",
+  "refs_equal": true,
+  "ref_inventory_sha256": "541927c57c7975e9fcd61a4ccc2f3740ecf73e4edcd71c5681f0ec87796feb65",
+  "before_manifest_sha256": "cff4a9f0cb7beaf2a60a3ce038748cbdf02496780c54fd799009773325a7059a",
+  "after_manifest_sha256": "72203edf3286d08d52f810d0e588173a651934ff4c03308ad4feac87e304a7ea",
+  "business_assets_deleted": 0,
+  "gc_executed": false
+}

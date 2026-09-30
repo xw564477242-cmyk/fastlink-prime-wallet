@@ -1,0 +1,1015 @@
+{
+  "candidate_count": 45,
+  "matched": 7,
+  "unmatched": 38,
+  "candidate_rows": [
+    {
+      "candidate_id": "CAND-01",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 254,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": true
+    },
+    {
+      "candidate_id": "CAND-02",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 255,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-03",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 259,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-04",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 260,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": true
+    },
+    {
+      "candidate_id": "CAND-05",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 255,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-06",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 259,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-07",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 108,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-08",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 263,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-09",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 806,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-10",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 263,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-11",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 806,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-12",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 783,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-13",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 777,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-14",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 108,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-15",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 108,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": true
+    },
+    {
+      "candidate_id": "CAND-16",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 777,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-17",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 7,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-18",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 7,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-19",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 6,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-20",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 657,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-21",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 678,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-22",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 108,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": true
+    },
+    {
+      "candidate_id": "CAND-23",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 777,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-24",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 259,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-25",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 11,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-26",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 9,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-27",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 11,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-28",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 8,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-29",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 263,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-30",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 795,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-31",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 263,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-32",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 789,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-33",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 682,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-34",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 785,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-35",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 263,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-36",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 789,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-37",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 251,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-38",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 108,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": true
+    },
+    {
+      "candidate_id": "CAND-39",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 765,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-40",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 762,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-41",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 772,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-42",
+      "inferred_repo": "fastlik-backend",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 767,
+      "responsible_role": "后端与资金集成负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-43",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 255,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-44",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": true,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 255,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "已知历史源码副本，仍需保留其范围外资产",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    },
+    {
+      "candidate_id": "CAND-45",
+      "inferred_repo": "fastlink-prime-wallet",
+      "prior_exact_remote_tree_match": false,
+      "current_scoped_tree_equals_prior": true,
+      "scoped_file_count": 251,
+      "responsible_role": "新钱包技术负责人",
+      "attribution_status": "技术线索归属，未冒称资产所有者最终确认",
+      "value": "可能包含未推送业务或资金相关实现，保留审核",
+      "recommendation": "只读保留，另单评审长期保全；不导入正式工作区、不降级、不归档",
+      "untracked_scope_caveat": false
+    }
+  ],
+  "unique_commits": [
+    {
+      "sha": "7581a751d5964d481d335131c856270ccc98238b",
+      "source_candidates": [
+        "CAND-01",
+        "CAND-04"
+      ],
+      "present_in_original_sources": true,
+      "reachable_in_new_remote_refs": false,
+      "owner_role": "新钱包技术负责人",
+      "value": "未推送历史资产，需保全及业务审核",
+      "recommendation": "保留原提交/引用；另单决定是否移植，当前不复制、不合并"
+    },
+    {
+      "sha": "8aefe84674d0d65be093f1f7d1a64f6fad8034da",
+      "source_candidates": [
+        "CAND-04"
+      ],
+      "present_in_original_sources": true,
+      "reachable_in_new_remote_refs": false,
+      "owner_role": "新钱包技术负责人",
+      "value": "未推送历史资产，需保全及业务审核",
+      "recommendation": "保留原提交/引用；另单决定是否移植，当前不复制、不合并"
+    },
+    {
+      "sha": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "source_candidates": [
+        "CAND-04"
+      ],
+      "present_in_original_sources": true,
+      "reachable_in_new_remote_refs": false,
+      "owner_role": "新钱包技术负责人",
+      "value": "未推送历史资产，需保全及业务审核",
+      "recommendation": "保留原提交/引用；另单决定是否移植，当前不复制、不合并"
+    },
+    {
+      "sha": "f9d14f1570b6aebeabd57093e0b749c5d0ee6f0a",
+      "source_candidates": [
+        "CAND-01",
+        "CAND-04"
+      ],
+      "present_in_original_sources": true,
+      "reachable_in_new_remote_refs": false,
+      "owner_role": "新钱包技术负责人",
+      "value": "未推送历史资产，需保全及业务审核",
+      "recommendation": "保留原提交/引用；另单决定是否移植，当前不复制、不合并"
+    }
+  ],
+  "backend023_differences": [
+    {
+      "difference_id": "B023-01",
+      "type": "modified",
+      "category": "文档",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-02",
+      "type": "modified",
+      "category": "文档",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-03",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-04",
+      "type": "modified",
+      "category": "账本",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-05",
+      "type": "modified",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-06",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-07",
+      "type": "modified",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-08",
+      "type": "modified",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-09",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-10",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-11",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-12",
+      "type": "modified",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-13",
+      "type": "modified",
+      "category": "钱包",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-14",
+      "type": "modified",
+      "category": "钱包",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-15",
+      "type": "modified",
+      "category": "测试",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-16",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-17",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-18",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-19",
+      "type": "additional",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-20",
+      "type": "additional",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-21",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-22",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-23",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-24",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-25",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-26",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-27",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-28",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-29",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-30",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-31",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-32",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-33",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-34",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-35",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-36",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-37",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-38",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-39",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-40",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-41",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-42",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-43",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-44",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-45",
+      "type": "additional",
+      "category": "其他业务或支持文件",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-46",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-47",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-48",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-49",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-50",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-51",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-52",
+      "type": "additional",
+      "category": "结算",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-53",
+      "type": "additional",
+      "category": "钱包",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-54",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-55",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-56",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-57",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-58",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    },
+    {
+      "difference_id": "B023-59",
+      "type": "additional",
+      "category": "资金供应商",
+      "owner_role": "后端与资金集成负责人",
+      "status": "独有风险资产，禁止导入或处置"
+    }
+  ],
+  "backend023_modified": 15,
+  "backend023_additional": 44,
+  "mapping_limitations": "归属为既有非秘密结构线索，非所有者最终确认；原Git候选仅跟踪文件参与树匹配，未跟踪文件由全现场快照另行保护",
+  "read_only": true,
+  "imported_into_formal_workspaces": 0
+}

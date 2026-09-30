@@ -1,0 +1,434 @@
+{
+  "head": "0541c88e3d1e586a39ca813f7106bc5ea0f41008",
+  "files": [
+    {
+      "path_components": [
+        "README.md"
+      ],
+      "added": 5,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "SHA256SUMS.json"
+      ],
+      "added": 56,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "asset-attribution.json"
+      ],
+      "added": 1015,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "backend-service-dependencies.json"
+      ],
+      "added": 22,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "backend-startup-blocker.json"
+      ],
+      "added": 19,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "backend-unit-failure-diagnostics.json"
+      ],
+      "added": 87,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "build-policy-adjustment.json"
+      ],
+      "added": 13,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "environment-keys.json"
+      ],
+      "added": 121,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "final-process-disk-check.json"
+      ],
+      "added": 35,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "formal-final.json"
+      ],
+      "added": 114,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "formal-permissions.json"
+      ],
+      "added": 51,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "health-results.json"
+      ],
+      "added": 58,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "network-policy.json"
+      ],
+      "added": 11,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "persistent-launcher-test.json"
+      ],
+      "added": 6,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "pr-scope-proof.json"
+      ],
+      "added": 517,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "prime-lock-sources.json"
+      ],
+      "added": 299,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "prisma-engine-plan.json"
+      ],
+      "added": 15,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "prisma-generation.json"
+      ],
+      "added": 23,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "prisma-local-generation-preflight.json"
+      ],
+      "added": 8,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "prisma-registry-proxy.json"
+      ],
+      "added": 22,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "procedure-hashes.json"
+      ],
+      "added": 22,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "recovery-retention.json"
+      ],
+      "added": 132,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "registry-policy.json"
+      ],
+      "added": 13,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "registry-proxy.json"
+      ],
+      "added": 21,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "root-preflight.json"
+      ],
+      "added": 11,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "runtime-results.json"
+      ],
+      "added": 1126,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "runtime-versions.json"
+      ],
+      "added": 42,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "secret-scan.json"
+      ],
+      "added": 74,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "security-retention.json"
+      ],
+      "added": 10,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "self-tests.json"
+      ],
+      "added": 96,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "source-added-file-review.json"
+      ],
+      "added": 24,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "source-protection-before.json"
+      ],
+      "added": 7,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "source-protection.json"
+      ],
+      "added": 13,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "toolchain.json"
+      ],
+      "added": 130,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "workflow-preflight.json"
+      ],
+      "added": 32,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "workspaces.json"
+      ],
+      "added": 320,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "evidence",
+        "worktree-checkpoint.json"
+      ],
+      "added": 86,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "fastlik-Admin.env.example"
+      ],
+      "added": 2,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "fastlik-Website.env.example"
+      ],
+      "added": 2,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "fastlik-app.env.example"
+      ],
+      "added": 2,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "fastlik-backend.env.example"
+      ],
+      "added": 5,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "fastlink-prime-wallet.env.example"
+      ],
+      "added": 2,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "local-only.sb"
+      ],
+      "added": 63,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "templates",
+        "start-local.py"
+      ],
+      "added": 39,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "六仓正式工作区清单.md"
+      ],
+      "added": 14,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "分支基线与晋升矩阵.md"
+      ],
+      "added": 51,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "失效工作树中间检查点.md"
+      ],
+      "added": 11,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "工具链版本与安装报告.md"
+      ],
+      "added": 22,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "改动与回滚.md"
+      ],
+      "added": 7,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "本地启动与服务依赖说明.md"
+      ],
+      "added": 29,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "核心基线拟追加.md"
+      ],
+      "added": 7,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "独有资产归属矩阵.md"
+      ],
+      "added": 60,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "现场保护方法.md"
+      ],
+      "added": 7,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "自测报告.md"
+      ],
+      "added": 45,
+      "deleted": 0
+    },
+    {
+      "path_components": [
+        "限制与阻塞.md"
+      ],
+      "added": 13,
+      "deleted": 0
+    }
+  ],
+  "additions": 5037,
+  "deletions": 0
+}

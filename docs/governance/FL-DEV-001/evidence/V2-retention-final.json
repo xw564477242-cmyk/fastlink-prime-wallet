@@ -1,0 +1,253 @@
+{
+  "formal_workspaces": [
+    {
+      "repo": "fastlik-Admin",
+      "head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    },
+    {
+      "repo": "fastlik-Website",
+      "head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    },
+    {
+      "repo": "fastlik-app",
+      "head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    },
+    {
+      "repo": "fastlik-backend",
+      "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    },
+    {
+      "repo": "fastlink-control-plane",
+      "head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    },
+    {
+      "repo": "fastlink-prime-wallet",
+      "head": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+      "mode": "0o700",
+      "upstream": "origin/dev",
+      "status_empty": true,
+      "manifest_lock_match_head": true,
+      "index_unchanged": true
+    }
+  ],
+  "original_indices": [
+    {
+      "workspace_id": "original-0",
+      "unchanged_since_V1": true
+    },
+    {
+      "workspace_id": "original-1",
+      "unchanged_since_V1": true
+    },
+    {
+      "workspace_id": "original-2",
+      "unchanged_since_V1": true
+    },
+    {
+      "workspace_id": "original-3",
+      "unchanged_since_V1": true
+    },
+    {
+      "workspace_id": "original-4",
+      "unchanged_since_V1": true
+    }
+  ],
+  "backup_files_verified": 21,
+  "backup_checklist_sha256": "877f59231fda08944f3bc9202d34168f66e0c8b1c76e2608cfcf771562bf4c8b",
+  "recovery_directories": [
+    {
+      "round": "round-1",
+      "repo": "fastlik-Admin",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-Website",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-app",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-backend",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-control-plane",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-prime-wallet",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-recovery-archive",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Admin",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Website",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-app",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-backend",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-control-plane",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-prime-wallet",
+      "mode": "700",
+      "retained": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-recovery-archive",
+      "mode": "700",
+      "retained": true
+    }
+  ],
+  "hmac_retained_mode": "600/700",
+  "containers": [
+    {
+      "name": "fl-dev001-r03-postgres",
+      "running": false,
+      "retained": true
+    },
+    {
+      "name": "fl-dev001-r04-postgres",
+      "running": false,
+      "retained": true
+    },
+    {
+      "name": "fl-dev001-r04-runner",
+      "running": false,
+      "retained": true
+    },
+    {
+      "name": "fl-dev001-r04-dependency-install",
+      "running": false,
+      "retained": true
+    }
+  ],
+  "refs_same_as_V1": false,
+  "tool_refs_removed_since_V1": [
+    {
+      "components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790741427636",
+        "80b95e45-fbdc-4df5-8c00-3019572f7924",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    },
+    {
+      "components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "1441d4ea0f05bd269ce69d36873723cc",
+        "1790740120757",
+        "22592e23-2b15-42c2-86d3-961207556aee"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    }
+  ],
+  "tool_refs_added_since_V1": [
+    {
+      "components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "captures",
+        "1790743650046",
+        "a10d097d-58c0-44d5-a6aa-d0d5bb5c9860",
+        "base"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    },
+    {
+      "components": [
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "59864671277e6c420f9575e599083631",
+        "8604c113a15c5c8463e0a9ad905fa2cf",
+        "1790742295299",
+        "8990c641-8c93-49b5-bc8d-646133ad477e"
+      ],
+      "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645"
+    }
+  ],
+  "no_original_restore_or_cleanup_performed": true,
+  "no_gc_performed": true,
+  "runtime_tests_reused_at_unchanged_source_heads": true,
+  "object_count": 25809,
+  "object_inventory_sha256": "ff9cd12f7e9cbf65a44f07f4e9005a15b9e75cd5ab52bac17f6069289d2abd94",
+  "objects_same_as_V1": true,
+  "reference_drift_attribution": "Unresolved; retain under accepted permanent tool-reference writer risk; no reference write performed by this revision"
+}

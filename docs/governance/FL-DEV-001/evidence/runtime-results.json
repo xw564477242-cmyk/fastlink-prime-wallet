@@ -1,0 +1,1126 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "action": "build",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "build"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 5.19,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-Admin",
+    "action": "install",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--loglevel=error",
+      "--include=dev",
+      "--registry=https://registry.npmjs.org/"
+    ],
+    "network_policy": "registry download with lifecycle scripts disabled",
+    "exit": 0,
+    "duration_seconds": 343.64,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-Admin",
+    "action": "typecheck",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 0.13,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-Admin",
+    "action": "unit-tests",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "--experimental-strip-types",
+      "--test",
+      "tests/adminCardBalanceMountedLifecycle.test.mjs",
+      "tests/adminKycContract.test.mjs",
+      "tests/adminKycMountedLifecycle.test.mjs",
+      "tests/adminRoutes.test.mjs",
+      "tests/adminWalletTransaction.integration.test.mjs",
+      "tests/adminWalletTransactionContract.test.mjs",
+      "tests/adminWalletTransactionMountedRoute.test.mjs",
+      "tests/cardProductTemplateEdit.test.mjs",
+      "tests/cardProgramsMountedRoute.test.mjs",
+      "tests/cardTimelineContract.test.mjs",
+      "tests/cardTimelineMountedLifecycle.test.mjs",
+      "tests/cardTransactionContract.test.mjs",
+      "tests/cardTransactionMountedLifecycle.test.mjs",
+      "tests/cardWorkspaceContract.test.mjs",
+      "tests/changeDiffDialog.test.mjs",
+      "tests/feeCapVisualValidation.test.mjs",
+      "tests/lovableAdminContractMap.test.mjs",
+      "tests/requestGeneration.test.mjs",
+      "tests/scopedRequestLifecycleMounted.test.mjs",
+      "tests/tenantDetailContract.test.mjs",
+      "tests/tenantReferralCap.test.mjs",
+      "tests/tenantSelectorRefresh.test.mjs",
+      "tests/treasuryFundsInstructionContract.test.mjs",
+      "tests/treasuryJournalReceiptMountedLifecycle.test.mjs",
+      "tests/treasuryReconciliationContract.test.mjs",
+      "tests/treasuryReconciliationMountedLifecycle.test.mjs",
+      "tests/walletOperationDetail.test.mjs",
+      "tests/walletOperationListContract.test.mjs",
+      "tests/walletOperationMountedLifecycle.test.mjs",
+      "tests/walletOperationParser.test.mjs"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 1.01,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [
+      "# tests 162",
+      "# suites 0",
+      "# pass 162",
+      "# fail 0",
+      "# cancelled 0",
+      "# skipped 0",
+      "# todo 0"
+    ],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-Website",
+    "action": "unit-tests",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "test:worker"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 0.42,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [
+      "# tests 95",
+      "# suites 0",
+      "# pass 95",
+      "# fail 0",
+      "# cancelled 0",
+      "# skipped 0",
+      "# todo 0"
+    ],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-app",
+    "action": "build",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "build"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 7.58,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-app",
+    "action": "install",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--loglevel=error",
+      "--include=dev",
+      "--prefer-offline",
+      "--registry=https://registry.npmjs.org/"
+    ],
+    "network_policy": "registry download with lifecycle scripts disabled",
+    "exit": 0,
+    "duration_seconds": 205.33,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-app",
+    "action": "typecheck",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 2.26,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-app",
+    "action": "unit-tests",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "--experimental-strip-types",
+      "--test",
+      "tests/cardActivation.integration.test.ts",
+      "tests/cardActivation.test.ts",
+      "tests/cardBalance.test.ts",
+      "tests/cardDetailRefresh.integration.test.ts",
+      "tests/cardDetailRefresh.test.ts",
+      "tests/cardLimits.test.ts",
+      "tests/cardLimitsUpdate.integration.test.ts",
+      "tests/cardLimitsUpdate.test.ts",
+      "tests/cardList.integration.test.ts",
+      "tests/cardList.test.ts",
+      "tests/cardRenewal.integration.test.ts",
+      "tests/cardRenewal.test.ts",
+      "tests/cardRenewalPostChain.integration.test.ts",
+      "tests/cardReplacement.integration.test.ts",
+      "tests/cardReplacement.test.ts",
+      "tests/cardReplacementPostChain.integration.test.ts",
+      "tests/cardStatusAction.integration.test.ts",
+      "tests/cardStatusAction.test.ts",
+      "tests/cardStatusPostChain.integration.test.ts",
+      "tests/cardTimeline.integration.test.ts",
+      "tests/cardTimeline.test.ts",
+      "tests/cardTimelineRefresh.test.ts",
+      "tests/cardTransactionDetail.test.ts",
+      "tests/cardTransactionDetailRefresh.integration.test.ts",
+      "tests/cardTransactionDetailRefresh.test.ts",
+      "tests/cardTransactionFilters.integration.test.ts",
+      "tests/cardTransactionHistory.test.ts",
+      "tests/cardTransactionRefresh.integration.test.ts",
+      "tests/cardTransactionRefresh.test.ts",
+      "tests/cardTransactions.test.ts",
+      "tests/consumerOverview.test.ts",
+      "tests/consumerTransferFlow.integration.test.ts",
+      "tests/consumerTransferFlow.test.ts",
+      "tests/fxQuote.integration.test.ts",
+      "tests/fxQuote.mounted.integration.test.ts",
+      "tests/fxQuote.test.ts",
+      "tests/kycStatus.mounted.integration.test.ts",
+      "tests/kycStatus.test.ts",
+      "tests/phase2WalletUat.test.ts",
+      "tests/pr69LocalApiContracts.test.ts",
+      "tests/sessionLifecycle.test.ts",
+      "tests/virtualCardCreate.test.ts",
+      "tests/virtualCardCreatePostChain.integration.test.ts",
+      "tests/walletAccountBalance.test.ts",
+      "tests/walletAccountTransactions.integration.test.ts",
+      "tests/walletAssets.integration.test.ts",
+      "tests/walletAssets.test.ts",
+      "tests/walletBalanceSummary.test.ts",
+      "tests/walletData.test.ts",
+      "tests/walletGatewayArchitecture.test.ts",
+      "tests/walletGatewayContracts.test.ts",
+      "tests/walletGatewayFlow.integration.test.ts",
+      "tests/walletOperationFilters.integration.test.ts",
+      "tests/walletOperations.test.ts",
+      "tests/walletTransactions.integration.test.ts",
+      "tests/walletTransactions.test.ts",
+      "tests/walletTransfer.integration.test.ts",
+      "tests/walletTransfer.test.ts",
+      "tests/walletTransferPostChain.integration.test.ts",
+      "tests/workerPreviewOrigin.test.ts"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 2.05,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [
+      "# tests 409",
+      "# suites 0",
+      "# pass 409",
+      "# fail 0",
+      "# cancelled 0",
+      "# skipped 0",
+      "# todo 0"
+    ],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlik-backend",
+    "action": "build",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "build"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 10.31,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlik-backend",
+    "action": "install",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "ci",
+      "--ignore-scripts",
+      "--no-audit",
+      "--no-fund",
+      "--loglevel=error",
+      "--include=dev",
+      "--prefer-offline",
+      "--registry=https://registry.npmjs.org/"
+    ],
+    "network_policy": "registry download with lifecycle scripts disabled",
+    "exit": 0,
+    "duration_seconds": 490.18,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlik-backend",
+    "action": "lint",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "node_modules/eslint/bin/eslint.js",
+      "--no-fix",
+      "{src,test}/**/*.ts"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 9.84,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlik-backend",
+    "action": "typecheck",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 6.03,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlik-backend",
+    "action": "unit-tests",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "test",
+      "--",
+      "--runInBand"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 1,
+    "duration_seconds": 22.68,
+    "raw_output_saved": false,
+    "diagnostic_categories": [
+      "permission_denied",
+      "failed_tests"
+    ],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [
+      "EPERM"
+    ],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": 1757,
+      "jest_tests_failed": 25,
+      "jest_suites_failed": 5
+    }
+  },
+  {
+    "repo": "fastlink-control-plane",
+    "action": "validate",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "control/scripts/validate-control-package.mjs"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 0.07,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": []
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "action": "build",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "build"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 2.12,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "action": "install",
+    "command": [
+      "/Users/ck/.bun/bin/bun",
+      "install",
+      "--config=/Users/ck/Developer/FastLink/.tooling/empty-bunfig.toml",
+      "--registry=https://registry.npmjs.org/",
+      "--frozen-lockfile",
+      "--ignore-scripts",
+      "--cache-dir=/Users/ck/Developer/FastLink/.tooling/bun-cache"
+    ],
+    "network_policy": "registry download with lifecycle scripts disabled",
+    "exit": 0,
+    "duration_seconds": 8.78,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    },
+    "manifest_staging_used": true,
+    "staging_manifests_match_formal": true,
+    "dependencies_placed_in_formal_workspace": true
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "action": "lint",
+    "command": [
+      "/opt/homebrew/bin/npm",
+      "run",
+      "lint"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 5.25,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "action": "typecheck",
+    "command": [
+      "/opt/homebrew/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 4.04,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "error_class_or_verb_only": [],
+    "http_error_statuses": [],
+    "dependency_error_codes": [],
+    "test_count_summary": {
+      "bun_pass": null,
+      "bun_fail": null,
+      "jest_tests_total": null,
+      "jest_tests_failed": null,
+      "jest_suites_failed": null
+    }
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "action": "unit-tests",
+    "command": [
+      "bun test <each tracked test file separately, matching CI isolation>"
+    ],
+    "network_policy": "loopback mock only",
+    "exit": 0,
+    "duration_seconds": 4.45,
+    "raw_output_saved": false,
+    "diagnostic_categories": [],
+    "test_summary_lines": [],
+    "typescript_codes": [],
+    "file_count": 63,
+    "files_run": 63,
+    "files_not_run": 0,
+    "failed_file_count": 0,
+    "passed_cases": 579,
+    "failed_cases": 0,
+    "cases": [
+      {
+        "test_file_id": "PRIME-UNIT-001",
+        "path_sha256": "e38a41ac0956915cc84ad0554b1f6de434a8a76087e6855647f83de37fdaed05",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-002",
+        "path_sha256": "48bbed5f73ef725d24bb84c8941485955c0696a9ff12af0d7aec241d80c49eca",
+        "exit": 0,
+        "passed_cases": 1,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-003",
+        "path_sha256": "20838573ddaa79402e739d63d123e15259b8a9199a18dbdc384120e8e462d5eb",
+        "exit": 0,
+        "passed_cases": 14,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-004",
+        "path_sha256": "aab9a220a1a6f5b88239e3e2f617910426c59f7bc524f34e0f738078dd28d7b2",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-005",
+        "path_sha256": "a9c39d1cc1bf3c6e23ca4544d654dca5d39d7f3f071d2ee003789fa8be6aa58c",
+        "exit": 0,
+        "passed_cases": 11,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-006",
+        "path_sha256": "84afd6ef724c98f3fcc6352afc5960695b06ab61877255fa5b000cd5d9148c1c",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-007",
+        "path_sha256": "36435fc088ecbe63000be516414cb661eae9b1549c7e501a9e912fb314ba6a47",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-008",
+        "path_sha256": "942530e46fc4dfc5715894402c1814901622a49f8a719711cafad2acdcca0996",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-009",
+        "path_sha256": "27d10fb67da9455853f87d4ecae99a56806740ba3bd3d3548381c98aacd8089a",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-010",
+        "path_sha256": "82a787c6a9ea97f0a5bb93d421d965b2c369fb21e5529a897a9bc40eb8d4f630",
+        "exit": 0,
+        "passed_cases": 14,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-011",
+        "path_sha256": "5138df85ae69ccc71c0b78caf8b23b1e8ffcf7d320943580ae3843afd4568784",
+        "exit": 0,
+        "passed_cases": 3,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-012",
+        "path_sha256": "dbc9d4a44a75354531c824c681d41e9640427b8a27ded6921ec361ab9e742340",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-013",
+        "path_sha256": "a13d91d7c05ed56008137d52d94b42065e60cbdf0752ab99983fbbbb0f1a2237",
+        "exit": 0,
+        "passed_cases": 42,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-014",
+        "path_sha256": "71d46b702a64ae46d067d3709eabc0f9cbdcc9b1392f7e12365d015eb7d50971",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-015",
+        "path_sha256": "4be60d50f3afbb28751c2787a6cd13a5f7f5233261be8f8482e3fd1407fc4e74",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-016",
+        "path_sha256": "64320bf6591949088ab69e2a8cd170532e48b9cabcdebed38d1122da1d4ff763",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-017",
+        "path_sha256": "fa8fcf5c8c637aa44bd881c77b347261c834dc42921ede8ea55e647df777a1eb",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-018",
+        "path_sha256": "47d555b294bfa8de01b240b657762d7e8d3852ce9a501e898f4dcae295099db8",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-019",
+        "path_sha256": "8f5f406706bfdb80299d58deede7f1f65691d1e65b2cb96d2fca66dc42717e62",
+        "exit": 0,
+        "passed_cases": 12,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-020",
+        "path_sha256": "3f3acecb937c21d3059e44029301a8cce551ca7c60de5f1da6fcfc78408b0783",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-021",
+        "path_sha256": "42af8ad7dd728c9c5bc37da9c8fd24c5670ddfcde332732b3e3f01df3c7de5fc",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-022",
+        "path_sha256": "9d174d760b60dafe0b22a7d3870f8ac4236f9b3ad50fe7f26cd35d256bb2148b",
+        "exit": 0,
+        "passed_cases": 10,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-023",
+        "path_sha256": "b0696d72d7f2d6d79ad3a0174f051767d89335ba34b3a32709ee03f5af3e29cc",
+        "exit": 0,
+        "passed_cases": 14,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-024",
+        "path_sha256": "02eafababb00e6650334dd9ac1dc389e91bc79e8dc3e65651a28daae1050da24",
+        "exit": 0,
+        "passed_cases": 14,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-025",
+        "path_sha256": "25fa71f98d42358cbaac7e403c57f26d21a785eee8d0d9c72650d2dbcadb92c4",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-026",
+        "path_sha256": "69c45e3db721a0e63036cc910b35419de9f950264183df4377c1f9c3e661229e",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-027",
+        "path_sha256": "f88f8f9cc3edb7f4419944f4d408fc62a2049421484e868c56b96ad3e230fd7d",
+        "exit": 0,
+        "passed_cases": 13,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-028",
+        "path_sha256": "65d8d5ebb8e9a2c852f6aae188451e7c6003ac4a47a2670cb9eb7ba2614cab72",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-029",
+        "path_sha256": "33b40578d9739d26386c02657c24df9b90bb8cc170740f7954a62678e7a45319",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-030",
+        "path_sha256": "e11bc5d1cee87db64954adde42a88ddbc29eaab4558a888feec0ccb0c241e553",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-031",
+        "path_sha256": "3743845af09955fad343ac1efc0cbda81d5fa6eb7426ba8b86aff7420f385b49",
+        "exit": 0,
+        "passed_cases": 10,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-032",
+        "path_sha256": "2de50d5530378d4909f36c701745bda72c3e2d2b1f477967fdd7343c047c7fb0",
+        "exit": 0,
+        "passed_cases": 3,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-033",
+        "path_sha256": "e6460ded1093293387a145c4ab2b6d8c701ed83bc7cf3c55009d3d0946450230",
+        "exit": 0,
+        "passed_cases": 2,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-034",
+        "path_sha256": "27c7b44f18eed8ad2bdc612aef34599bec2125e5cc7b72d424b7162033338816",
+        "exit": 0,
+        "passed_cases": 1,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-035",
+        "path_sha256": "b31c69cc2dd6a5faff79f8ee9de45a3fd66093afb65598f56b2058d42f0dbe6c",
+        "exit": 0,
+        "passed_cases": 10,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-036",
+        "path_sha256": "7103c68c22394c54767caebe5b46b6b1b966cf7dc614c622d955e220706850ea",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-037",
+        "path_sha256": "1f2d9bbb15520bcc6433fb6bb8cba530f0f00771d2fcfd7469a2878ca1f085f9",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-038",
+        "path_sha256": "6e78eb40fe0b6c8cc5f337ce4fbd50248949a1b6e9115455b7489053bf616a0d",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-039",
+        "path_sha256": "fcbd7f2edcf3b0a7b36e5d08f122f7e817446a6cf4327905221a53bf3370042a",
+        "exit": 0,
+        "passed_cases": 16,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-040",
+        "path_sha256": "fa4ef7d1eb4de6db59f0dc9cd5f864f3cd41d55c70fa0505910b19b55969545d",
+        "exit": 0,
+        "passed_cases": 13,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-041",
+        "path_sha256": "bc263d84130cfda02775e6f2d0b9e1710a15dcbd5371ac64e9a7131611ef8e1d",
+        "exit": 0,
+        "passed_cases": 12,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-042",
+        "path_sha256": "75849271e516d490bd8cf9e42cd9a77b816bd63a8c3cececd65570ed7439fedf",
+        "exit": 0,
+        "passed_cases": 23,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-043",
+        "path_sha256": "90ca51452525399d085aa16a70bcc1d271a62b28c0b349eeb514ffcfcd229961",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-044",
+        "path_sha256": "f575f06a3a2b368ba42003263ea7efa2ab4a8eb17d89332b382d15d132a3542c",
+        "exit": 0,
+        "passed_cases": 11,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-045",
+        "path_sha256": "11e5d4d276500f68a209235c308c84656a29c148ee879bc95760ab25ee1320ff",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-046",
+        "path_sha256": "6b83ba4dbd699794d9a3dfe832fc1a3112b8f4735e5338596f014b9683cd42b7",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-047",
+        "path_sha256": "cfa541f505bb7c03e0ee2cc6aa0b89d085d8e1b4311588a1f1124bd3e99037e8",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-048",
+        "path_sha256": "a0d3d138b345e5d9953104044b7ccf63421b88b48624b10b35dbf62338ea8d27",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-049",
+        "path_sha256": "fb39c3748e60e66c8660df74cf4b672f6c6f290b9cd270429ae69d3d45e796f9",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-050",
+        "path_sha256": "d26c871d8f7058ccb479d20c3180945e13ba3fa6c9b64cc865ef25fc4657ba22",
+        "exit": 0,
+        "passed_cases": 5,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-051",
+        "path_sha256": "1c64aec8560bfd4d724e6eb242875d541be61595b90a63290fddbad01b613f32",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-052",
+        "path_sha256": "0108b5ac9a741d837a283ff58623755d2ae1a73259652ecaf8b0fa77fa8ff17c",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-053",
+        "path_sha256": "26b9a60cf77e5fbea4ec2994b5028ff2098a39db1da654ef67293352a5c69f4a",
+        "exit": 0,
+        "passed_cases": 22,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-054",
+        "path_sha256": "ce2b0557e829404ba27cdbc353b44408e98983ff3706c1b11b2323360123b37b",
+        "exit": 0,
+        "passed_cases": 13,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-055",
+        "path_sha256": "23d20792d21dda2e776a8b4fb8df305e29b1b2241050e4cf48f8e9194514b9f9",
+        "exit": 0,
+        "passed_cases": 4,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-056",
+        "path_sha256": "32d2c71869de2339250b21058b0cc82a53885f5b3dd83fa64e8b2efa93f1224c",
+        "exit": 0,
+        "passed_cases": 13,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-057",
+        "path_sha256": "2edb3b22e2cffc68fa74722789f31b14e9d2c949e9d691771906f32f07d0c0b4",
+        "exit": 0,
+        "passed_cases": 43,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-058",
+        "path_sha256": "75ea6a05a6553ede9fd06e4f3b07c7b7f74e29e6e5574a7d2d64eb0db3e497a4",
+        "exit": 0,
+        "passed_cases": 7,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-059",
+        "path_sha256": "7b3438223b55a2951a0f2054d15e20850d27642215545c2dbed41603311aca62",
+        "exit": 0,
+        "passed_cases": 6,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-060",
+        "path_sha256": "b655d37e2e7cc3fc30868e6f194fd509da3dfa30b0a29b736f2c50d02874c6bf",
+        "exit": 0,
+        "passed_cases": 1,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-061",
+        "path_sha256": "dd23d0505604b234042bd562edd0692da8b33b4ca22da3516e7a304198759017",
+        "exit": 0,
+        "passed_cases": 8,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-062",
+        "path_sha256": "1b690307c94e86c29b6b0121bfb8051bc2c7866bd9569ddef5d16beafd179984",
+        "exit": 0,
+        "passed_cases": 16,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      },
+      {
+        "test_file_id": "PRIME-UNIT-063",
+        "path_sha256": "4d061eb835b917d4f4f74d30a61c3ca75fc732d24ee5ac1e65e90f607db59cd4",
+        "exit": 0,
+        "passed_cases": 15,
+        "failed_cases": 0,
+        "dependency_missing": false,
+        "permission_denied": false
+      }
+    ]
+  }
+]

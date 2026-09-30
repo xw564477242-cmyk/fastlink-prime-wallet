@@ -1,0 +1,23 @@
+{
+  "repo": "fastlik-backend",
+  "action": "prisma-generate",
+  "exit": 0,
+  "duration_seconds": 326.55,
+  "raw_output_saved": false,
+  "diagnostic_codes": [],
+  "checksum_bypass_used": false,
+  "database_connection_requested": false,
+  "migration_or_seed_executed": false,
+  "source_files_unchanged": true,
+  "client_generated": true,
+  "engine_files": [
+    {
+      "name": "libquery_engine-darwin-arm64.dylib.node",
+      "sha256": "afb9cb5a12ea42caa6f6498e40e9cb75059cae17098aadcc1001c99bb262e1ee"
+    },
+    {
+      "name": "schema-engine-darwin-arm64",
+      "sha256": "caa2cf90d5b2cfe6cc06e47974f7e3275dd395b4d35cf140d5d4b2362c3b5bb1"
+    }
+  ]
+}

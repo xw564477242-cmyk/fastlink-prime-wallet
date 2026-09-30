@@ -1,0 +1,95 @@
+{
+  "scope": "list/dry-run only",
+  "dry_run_exit": 0,
+  "dry_run_output_lines": 3,
+  "registrations": [
+    {
+      "registration_id": "fastlink-bun-pr",
+      "target_exists": false,
+      "target_is_symlink": false,
+      "head_oid": "c9244236a3f395c523e25485693b0b56513cc55a",
+      "object_exists": true,
+      "containing_ref_count": 7,
+      "locked": false,
+      "metadata_sha256": {
+        "AUTO_MERGE": "f0f96242e023d3931ce26794f84e57ca54da493c55400054f2c9818b58b82033",
+        "HEAD": "6bf3606fe262790c6bd0ed6ca1e0fcea44ff488ed7b9b55d6960fafb410ba8a3",
+        "ORIG_HEAD": "53ce87075a3fec0a6a7e64f2687400f3f4c5a71621ebf3edf968f3f6102ff6e7",
+        "commondir": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47",
+        "gitdir": "32c3bb4facf74aceddf2d1f7006c0a700708a5e4d28b90caa00b56502db2dc8f",
+        "index": "98bd4e0af276a05425316a5b019ca15a4fdfb7792420beb4047592f8c853499c",
+        "logs/HEAD": "53de44b36e9c962a4aaa914bbfd33cf04e8d022e89153abcec578abaf4c35a42"
+      },
+      "uncommitted_content_verifiable": false,
+      "other_ticket_occupancy_confirmed": false,
+      "decision": "保留，等待具体登记项审批及占用/独有内容充分证明",
+      "target_path_components": [
+        "/",
+        "private",
+        "tmp",
+        "fastlink-bun-pr"
+      ],
+      "control_decision": "Not approved for prune; preserve registration, directories, branches, commits and objects; no GC"
+    },
+    {
+      "registration_id": "fastlink-dev-version-014",
+      "target_exists": false,
+      "target_is_symlink": false,
+      "head_oid": "f8db7bf77ef2396783bd4667567d72f21ea1e7a8",
+      "object_exists": true,
+      "containing_ref_count": 5,
+      "locked": false,
+      "metadata_sha256": {
+        "AUTO_MERGE": "24468cc64b4f2b18ee91b4d8de8ebdb5834bc8a77a308321f3bf322f1c8393d1",
+        "HEAD": "5184f90f578ac023e770fd5a781196ab188e3e775bef6307ec0dfd09cc70071c",
+        "ORIG_HEAD": "9fe6f1154bdea15a53872e5f051dfbdd364c9d3aa4ca0181d95440f99a3f8bfb",
+        "commondir": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47",
+        "gitdir": "474ab2637d2dd94b52261c34797da5e2b1f8e9b966450cd6807c6c73912196ea",
+        "index": "11b4c8d80f94bbb3d39334ffb8ab4881a08b25c2ed8fe483ce13a0a765a9e05c",
+        "logs/HEAD": "dfe73841dc63aa411e3accaaa4b5331c4ee60d6b963d83a5fce7ccbd605fd671"
+      },
+      "uncommitted_content_verifiable": false,
+      "other_ticket_occupancy_confirmed": false,
+      "decision": "保留，等待具体登记项审批及占用/独有内容充分证明",
+      "target_path_components": [
+        "/",
+        "private",
+        "tmp",
+        "fastlink-dev-version-014"
+      ],
+      "control_decision": "Not approved for prune; preserve registration, directories, branches, commits and objects; no GC"
+    },
+    {
+      "registration_id": "fastlink-dev-version-018",
+      "target_exists": false,
+      "target_is_symlink": false,
+      "head_oid": "d02e7a721224473ea5fc8153a2284d147a6bf990",
+      "object_exists": true,
+      "containing_ref_count": 2,
+      "locked": false,
+      "metadata_sha256": {
+        "COMMIT_EDITMSG": "a28024856b2b3d7e3a2b3ad33c571910a8e14787225f919e5681c04f3413f4f6",
+        "HEAD": "5b85a0fd592212e4dc46622589d9ba57c7719804be17e5125dcf2cab7b139067",
+        "ORIG_HEAD": "eb84d65dcae8a1deb1eb1ffda6c8f466d1435dedeacb378dd99dbfc1422640f4",
+        "commondir": "340ddcb67a6204f742cd1e28e5b462622dde7daaa8ee36001897196aacdc6d47",
+        "gitdir": "e6d31b4b18c5b7b2b9d163d65835eba1ff4bdb927ec78b429d4b7f9cce5b103e",
+        "index": "d7e9f84ec14cf7412e4c56ca6e484799a3d6dfc10ccaffae88518e04a9b0bdcd",
+        "logs/HEAD": "861a5b0fcf1458a3337567b17e792a1a47727b2abe0076e555abf05ae26d8434"
+      },
+      "uncommitted_content_verifiable": false,
+      "other_ticket_occupancy_confirmed": false,
+      "decision": "保留，等待具体登记项审批及占用/独有内容充分证明",
+      "target_path_components": [
+        "/",
+        "private",
+        "tmp",
+        "fastlink-dev-version-018"
+      ],
+      "control_decision": "Not approved for prune; preserve registration, directories, branches, commits and objects; no GC"
+    }
+  ],
+  "metadata_unchanged": true,
+  "actual_prune_performed": false,
+  "cleanup_authorized": false,
+  "checkpoint_required": true
+}

@@ -1,0 +1,157 @@
+{
+  "ref_name_components": [
+    "refs",
+    "codex",
+    "turn-diffs",
+    "checkpoints",
+    "aaf04669127ad373fd36a4e328452df6",
+    "fe15c87200590c88fc46d423ab29887e",
+    "1790691234817",
+    "878db407-6b68-4838-9b57-552ef1d68269"
+  ],
+  "oid": "0f5d32ddc5451e4f88688a9e2f16fc59b0713645",
+  "type": "tree",
+  "file_content": "single existing tree OID and newline only",
+  "file_bytes": 41,
+  "file_sha256": "9c8a5975e7b8862a4a29043f4b101bc8411d53a9d08b53b613047fa0a4f28dfc",
+  "creator_tool": "UNCONFIRMED; Codex turn-diffs/checkpoints namespace inference only",
+  "confirming_role": "Git asset administrator confirmation absent",
+  "initial_regular_files": 561144,
+  "later_regular_files": 561145,
+  "difference": "one Git tool reference metadata file; three ancestor directories not counted as regular files",
+  "referenced_tree_entries": 67414,
+  "referenced_blobs": 58402,
+  "gitlinks": 4,
+  "referenced_objects_not_reachable_from_other_refs": 4,
+  "tree_ref_is_commit": false,
+  "no_secret_value_in_reference_metadata": true,
+  "referenced_tree_content_is_business_source": true,
+  "limit": "Metadata file is not business source or a credential, but its tree points to source objects; no claim that the referenced contents contain no secrets. Do not delete or GC. Gitlink OIDs are reference entries, not embedded commit contents; absent objects in this database do not by themselves prove asset loss.",
+  "directories": [
+    {
+      "id": "NEW-DIR-1",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830420+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830679+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-2",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830677+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.830728+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "1790691234817"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    },
+    {
+      "id": "NEW-DIR-3",
+      "path_components": [
+        ".git",
+        "refs",
+        "codex",
+        "turn-diffs",
+        "checkpoints",
+        "aaf04669127ad373fd36a4e328452df6",
+        "fe15c87200590c88fc46d423ab29887e",
+        "1790691234817"
+      ],
+      "mode": "0o755",
+      "uid": 501,
+      "gid": 20,
+      "birth_utc": "2026-09-29T14:13:54.830726+00:00",
+      "mtime_utc": "2026-09-29T14:13:54.831886+00:00",
+      "source_assessment": "Codex turn-diffs/checkpoints namespace; writer process not independently evidenced",
+      "purpose_assessment": "tool difference checkpoint inferred from namespace; not an administrator-confirmed process attribution",
+      "rollback": "Retain. Any future registration/reference removal requires separate approval and object reachability/retention check. No cleanup performed.",
+      "child_names": [
+        "878db407-6b68-4838-9b57-552ef1d68269"
+      ],
+      "content_kind": "directories and tool reference metadata only"
+    }
+  ],
+  "T03": "FAIL until administrator confirmation and risk review",
+  "gitlink_rows": [
+    {
+      "path_alias": "GITLINK-d1cb116017e8",
+      "oid": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "commit_object_present_in_original_object_database": false,
+      "purpose": "nested repository snapshot gitlink; not proof of source completeness"
+    },
+    {
+      "path_alias": "GITLINK-12d71e2616d4",
+      "oid": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "commit_object_present_in_original_object_database": false,
+      "purpose": "nested repository snapshot gitlink; not proof of source completeness"
+    },
+    {
+      "path_alias": "GITLINK-46d6e876fcd2",
+      "oid": "d972eea0c708840f016c32444018a420f9bf62c7",
+      "commit_object_present_in_original_object_database": false,
+      "purpose": "nested repository snapshot gitlink; not proof of source completeness"
+    },
+    {
+      "path_alias": "GITLINK-6404e60735c2",
+      "oid": "8c1d3be110e98f39328a98cba122411b4689337f",
+      "commit_object_present_in_original_object_database": false,
+      "purpose": "nested repository snapshot gitlink; not proof of source completeness"
+    }
+  ],
+  "nested_repository_verification": [
+    {
+      "path_alias": "GITLINK-d1cb116017e8",
+      "oid": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "nested_path_exists": true,
+      "commit_present_in_corresponding_nested_repo": true
+    },
+    {
+      "path_alias": "GITLINK-12d71e2616d4",
+      "oid": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "nested_path_exists": true,
+      "commit_present_in_corresponding_nested_repo": true
+    },
+    {
+      "path_alias": "GITLINK-46d6e876fcd2",
+      "oid": "d972eea0c708840f016c32444018a420f9bf62c7",
+      "nested_path_exists": true,
+      "commit_present_in_corresponding_nested_repo": true
+    },
+    {
+      "path_alias": "GITLINK-6404e60735c2",
+      "oid": "8c1d3be110e98f39328a98cba122411b4689337f",
+      "nested_path_exists": true,
+      "commit_present_in_corresponding_nested_repo": true
+    }
+  ]
+}

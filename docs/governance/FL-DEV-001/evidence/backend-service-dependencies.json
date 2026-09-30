@@ -1,0 +1,22 @@
+{
+  "repo": "fastlik-backend",
+  "database_or_cache_dependency_declarations": {
+    "@prisma/client": "^6.12.0",
+    "prisma": "^6.12.0"
+  },
+  "root_container_declarations": [
+    "Dockerfile",
+    ".dockerignore"
+  ],
+  "postgresql_server_version_confirmed": false,
+  "database_server_running_for_ticket": false,
+  "cache_or_queue_server_started_for_ticket": false,
+  "recommended_start_order": [
+    "approve local database/cache versions and isolation",
+    "provide nonsecret local configuration and loopback binding through separate approved change if needed",
+    "start local backend and verify health",
+    "start frontends on fixed loopback ports",
+    "run Mock-only integration after approval"
+  ],
+  "production_and_real_funds_connections": false
+}

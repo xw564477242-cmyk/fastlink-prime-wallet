@@ -1,0 +1,20 @@
+{
+  "diagnostics": {
+    "process_returncode": 1,
+    "application_started": false,
+    "known_config_errors": [
+      "Non-local CORS_ORIGIN entries must use HTTPS"
+    ],
+    "missing_env_keys": [],
+    "missing_modules": [],
+    "output_bytes": 1114
+  },
+  "full_application": true,
+  "health": null,
+  "passed": false,
+  "bind_source": "unchanged main.ts: 0.0.0.0 within isolated namespace",
+  "host_ports": [],
+  "raw_logs_saved": false,
+  "process_stopped_after_check": true,
+  "startup_error_categories": []
+}

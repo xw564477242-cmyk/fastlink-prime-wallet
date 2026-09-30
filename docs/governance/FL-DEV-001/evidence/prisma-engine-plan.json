@@ -1,0 +1,15 @@
+{
+  "prisma_version": "6.19.3",
+  "engine_revision_candidates": [],
+  "generator_provider": "prisma-client-js",
+  "custom_generator_output": false,
+  "root_prisma_config_files": [],
+  "schema_sha256": "7a95658ba9b15652749cf2bb595b1862e8c609c367cffb15da2e3386a3a21501",
+  "platform": "darwin-arm64",
+  "candidate_source_host": "binaries.prisma.sh",
+  "global_install": false,
+  "planned_action": "generate only; no migration or database connection",
+  "engine_package_version": "7.1.1-3.c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+  "engine_revision": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+  "proxy_source_sha256": "e48a729dfeda7c0cb2de9c369149e21210be907ce9c497301a2378d55abb4308"
+}

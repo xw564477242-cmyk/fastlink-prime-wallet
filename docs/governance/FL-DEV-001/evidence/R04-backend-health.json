@@ -1,0 +1,23 @@
+{
+  "full_application": true,
+  "health": {
+    "status": 200,
+    "databaseStatus": "READY",
+    "schemaStatus": "READY"
+  },
+  "passed": true,
+  "application_started": true,
+  "known_config_errors": [],
+  "probe_statuses": [
+    {
+      "status": 200,
+      "databaseStatus": "READY",
+      "schemaStatus": "READY"
+    }
+  ],
+  "process_returncode_after_stop": 143,
+  "bind_source": "unchanged main.ts: 0.0.0.0 inside isolated namespace",
+  "host_ports": [],
+  "raw_logs_saved": false,
+  "process_stopped_after_check": true
+}

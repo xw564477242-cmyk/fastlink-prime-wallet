@@ -1,0 +1,13 @@
+{
+  "reason": "Vite/TanStack writes ignored build output directories; no tracked source permission added",
+  "allowed_generated_directories": [
+    "[formal-prime]/.output",
+    "[formal-prime]/.tanstack",
+    "[formal-prime]/.wrangler"
+  ],
+  "tracked_files_in_directories": 0,
+  "network_rules_unchanged": true,
+  "before_sha256": "5a657ec08e1f73199ac73432bff969456dd645f9be381066bc025f740db7a01a",
+  "after_sha256": "c5454a45813ecf27206bc1c62888461b651a775acc865753c70f963e2df9362b",
+  "deployment_permission_added": false
+}

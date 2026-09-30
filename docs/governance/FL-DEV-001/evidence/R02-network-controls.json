@@ -1,0 +1,10 @@
+{
+  "bound_address": "127.0.0.1",
+  "bound_port": 46197,
+  "positive": "CONNECTED",
+  "unapproved_local_database": "DENIED",
+  "reserved_external": "DENIED",
+  "requested_wildcard_overridden": true,
+  "exit": 0,
+  "passed": true
+}

@@ -1,0 +1,51 @@
+[
+  {
+    "directory": "FastLink",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlink-prime-wallet",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlik-backend",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlik-app",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlik-Admin",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlik-Website",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  },
+  {
+    "directory": "fastlink-control-plane",
+    "mode": "0o700",
+    "owner_current_user": true,
+    "symlink": false,
+    "acl_allow_entry_count": 0
+  }
+]

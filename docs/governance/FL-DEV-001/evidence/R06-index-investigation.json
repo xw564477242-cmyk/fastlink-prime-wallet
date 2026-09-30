@@ -1,0 +1,148 @@
+{
+  "index_before": {
+    "path": ".git/index",
+    "size": 26235,
+    "mode": 420,
+    "uid": 501,
+    "gid": 20,
+    "sha256": "eefa6e71064f98db4fba22af5baa090037c3a894acf23709cee65d3d6bea9c7e"
+  },
+  "index_after": {
+    "path": ".git/index",
+    "size": 26235,
+    "mode": 384,
+    "uid": 501,
+    "gid": 20,
+    "sha256": "d88ba77babe34149933c69766c675018a0dfd7c9dd83d1086c46169d5f3ef08d"
+  },
+  "before_collection_completed_at": "2026-09-30T03:33:11.167252+00:00",
+  "after_collection_completed_at": "2026-09-30T03:35:13.233981+00:00",
+  "index_already_changed_before_prune": true,
+  "git_main_state_equal_during_collection": true,
+  "synthetic_controls": [
+    {
+      "optional_locks": "0",
+      "synthetic_repo_alias": "fl-dev001-index-control-kjssaptf",
+      "results": [
+        {
+          "command": "rev-parse",
+          "before": {
+            "sha256": "264e21a9b9106086114421c56dda89656c2a4535ca1365e68fec7c3ee52d8f37",
+            "mode": "0o644"
+          },
+          "after": {
+            "sha256": "264e21a9b9106086114421c56dda89656c2a4535ca1365e68fec7c3ee52d8f37",
+            "mode": "0o644"
+          },
+          "index_changed": false
+        },
+        {
+          "command": "status",
+          "before": {
+            "sha256": "264e21a9b9106086114421c56dda89656c2a4535ca1365e68fec7c3ee52d8f37",
+            "mode": "0o644"
+          },
+          "after": {
+            "sha256": "264e21a9b9106086114421c56dda89656c2a4535ca1365e68fec7c3ee52d8f37",
+            "mode": "0o644"
+          },
+          "index_changed": false
+        },
+        {
+          "command": "diff",
+          "before": {
+            "sha256": "264e21a9b9106086114421c56dda89656c2a4535ca1365e68fec7c3ee52d8f37",
+            "mode": "0o644"
+          },
+          "after": {
+            "sha256": "55ea3b37db078558720c87b585538b1dab2e3d965ec3fe549f37444ed56e8243",
+            "mode": "0o600"
+          },
+          "index_changed": true
+        },
+        {
+          "command": "prune",
+          "before": {
+            "sha256": "55ea3b37db078558720c87b585538b1dab2e3d965ec3fe549f37444ed56e8243",
+            "mode": "0o600"
+          },
+          "after": {
+            "sha256": "55ea3b37db078558720c87b585538b1dab2e3d965ec3fe549f37444ed56e8243",
+            "mode": "0o600"
+          },
+          "index_changed": false
+        }
+      ],
+      "only_synthetic_content": true
+    },
+    {
+      "optional_locks": "1",
+      "synthetic_repo_alias": "fl-dev001-index-control-002k_3q7",
+      "results": [
+        {
+          "command": "rev-parse",
+          "before": {
+            "sha256": "340f3fa91bd21167d4787ec5a9701b89bdce25a4da8d0c3169c41933c4384fa6",
+            "mode": "0o644"
+          },
+          "after": {
+            "sha256": "340f3fa91bd21167d4787ec5a9701b89bdce25a4da8d0c3169c41933c4384fa6",
+            "mode": "0o644"
+          },
+          "index_changed": false
+        },
+        {
+          "command": "status",
+          "before": {
+            "sha256": "340f3fa91bd21167d4787ec5a9701b89bdce25a4da8d0c3169c41933c4384fa6",
+            "mode": "0o644"
+          },
+          "after": {
+            "sha256": "16162b4bd54673ed3438186fe5cc5ad676d264871e78b904b588e2678744f6ec",
+            "mode": "0o600"
+          },
+          "index_changed": true
+        },
+        {
+          "command": "diff",
+          "before": {
+            "sha256": "16162b4bd54673ed3438186fe5cc5ad676d264871e78b904b588e2678744f6ec",
+            "mode": "0o600"
+          },
+          "after": {
+            "sha256": "16162b4bd54673ed3438186fe5cc5ad676d264871e78b904b588e2678744f6ec",
+            "mode": "0o600"
+          },
+          "index_changed": false
+        },
+        {
+          "command": "prune",
+          "before": {
+            "sha256": "16162b4bd54673ed3438186fe5cc5ad676d264871e78b904b588e2678744f6ec",
+            "mode": "0o600"
+          },
+          "after": {
+            "sha256": "16162b4bd54673ed3438186fe5cc5ad676d264871e78b904b588e2678744f6ec",
+            "mode": "0o600"
+          },
+          "index_changed": false
+        }
+      ],
+      "only_synthetic_content": true
+    }
+  ],
+  "original_index_not_modified_by_investigation": true,
+  "cause_status": "Synthetic reproduction and timing evidence only; no process audit attribution",
+  "previous_R04_git_head_status_diff_refs_equal": [
+    {"path_components": ["."], "equal": true},
+    {"path_components": ["outputs", "B03-CREGIS-CLOSEOUT-004", "workspace"], "equal": true},
+    {"path_components": ["outputs", "DEV-SANDBOX-FAST-001", "workspace"], "equal": true},
+    {"path_components": ["outputs", "DEV-VERSION-032", "entry-workspace"], "equal": true},
+    {"path_components": ["outputs", "DEV-VERSION-040", "workspace"], "equal": true}
+  ],
+  "identified_mechanism": "Current Git diff HEAD --binary auto-refreshes index despite GIT_OPTIONAL_LOCKS=0, reproduced using synthetic content. Timing matches pre-prune evidence collection. No independent process forensics claimed.",
+  "index_original_bytes_backup_available": false,
+  "original_index_not_restored": true,
+  "T03": "FAIL",
+  "required_next_decision": "Review whether to accept documented index-cache mutation and permission tightening as residual incident; no silent restoration or PASS assertion"
+}

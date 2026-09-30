@@ -1,0 +1,80 @@
+{
+  "source": "Current Codex session JSONL; scoped search before latest review message",
+  "actual_tool_calls": [
+    {
+      "timestamp_utc": "2026-09-30T03:31:21.201Z",
+      "record_line_sha256": "4211a637cdf46c2777af547906e8cc80b0e0e1023bd25286e5e2ae4194b486bf",
+      "exact_tool_input_private_sha256": "7349c62de2aa2f1d438877a19b2d549b1fb6f847ea29ec0e36da33464641b518",
+      "call_id_chunks": [
+        "call_t0B7EpDR5Xv",
+        "oIFlrBXBnflPT"
+      ],
+      "directly_logged_entry_argv": [
+        "python3",
+        {
+          "path_components": [
+            "private",
+            "tmp",
+            "FL-DEV-001",
+            "closeout-r06.py"
+          ],
+          "absolute": true
+        }
+      ]
+    }
+  ],
+  "entry_command_recovered": true,
+  "entry_command_if_missing": null,
+  "script_sha256": "d42fbf44514759bf320c273d1db89d049ab26d0fb8448f486a92011ed20dd873",
+  "prune_argv_per_command_runtime_audit_available": false,
+  "limitation": "Entry script call is directly logged; script source and result record are corroboration only. No independent child-process argv audit record. 实际prune子进程命令无法从现有逐命令审计记录中恢复。",
+  "earlier_bad_command_mentions_in_tool_calls": [],
+  "result_record_sha256": "3686a0172397f9d167cd6ced7550828cecb79099892ddb93f597834d3cfa2847",
+  "earlier_direct_shell_records": [
+    {
+      "timestamp_utc": "2026-09-29T17:29:39.706Z",
+      "exact_recorded_shell_command": "git -C /Users/ck/Downloads/fastlink-prime-wallet-dev-release worktree prune --dry-run --verbose --expire now",
+      "record_line_sha256": "3f949b6066dc7677f45a57c3aac0a7de1ade3baa272a3f2cf362050fc8e51335",
+      "result_timestamp_utc": "2026-09-29T17:29:39.812Z",
+      "result_record_sha256": "a9c603e48834f70d619d781aa35f7c07f0777fbf3382abafbe5cb55d6d695ab2",
+      "permission_denied_reported": false,
+      "automatic_approval_or_usage_rejection": false,
+      "is_dry_run": true,
+      "successful_cleanup_proven_by_this_record": false,
+      "call_id_chunks": [
+        "call_X4ifH0GZV9b",
+        "fX28creGRme8m"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-09-29T17:29:42.969Z",
+      "exact_recorded_shell_command": "git -C /Users/ck/Downloads/fastlink-prime-wallet-dev-release worktree prune --verbose --expire now && git -C /Users/ck/Downloads/fastlink-prime-wallet-dev-release worktree list --porcelain",
+      "record_line_sha256": "55166b6ecbd61bef36b759f95218614a312ae1dbba337efa20d7722bc6b03866",
+      "result_timestamp_utc": "2026-09-29T17:29:43.097Z",
+      "result_record_sha256": "07a78100e4a527679c711656ce7fa203d5c47b9025e23e62722fdc961897a1a5",
+      "permission_denied_reported": true,
+      "automatic_approval_or_usage_rejection": false,
+      "is_dry_run": false,
+      "successful_cleanup_proven_by_this_record": false,
+      "call_id_chunks": [
+        "call_Q7XQnpbPcnb",
+        "Lf1n66r8Cry7x"
+      ]
+    },
+    {
+      "timestamp_utc": "2026-09-29T17:29:47.598Z",
+      "exact_recorded_shell_command": "git -C /Users/ck/Downloads/fastlink-prime-wallet-dev-release worktree prune --verbose --expire now",
+      "record_line_sha256": "a180e52ee993488f79359445723e56025720d3c38be499a8f11de4696c2dd5f0",
+      "result_timestamp_utc": "2026-09-29T17:29:48.955Z",
+      "result_record_sha256": "c5c957911ec9973258893e7830f2798827bf6c6b479e5e047ed36fe3f9290cdc",
+      "permission_denied_reported": false,
+      "automatic_approval_or_usage_rejection": true,
+      "is_dry_run": false,
+      "successful_cleanup_proven_by_this_record": false,
+      "call_id_chunks": [
+        "call_BgYDoDLwLEl",
+        "EHg7Pg1BqfNAh"
+      ]
+    }
+  ]
+}

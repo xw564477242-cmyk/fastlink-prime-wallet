@@ -1,0 +1,21 @@
+{
+  "containers": [
+    {
+      "container": "fl-dev001-r04-runner",
+      "stop_exit": 0,
+      "removed": false
+    },
+    {
+      "container": "fl-dev001-r04-postgres",
+      "stop_exit": 0,
+      "removed": false
+    }
+  ],
+  "volumes_and_networks_retained": true,
+  "credential_file_mode": "0o600",
+  "credential_git_ignored": true,
+  "credential_values_exported": false,
+  "old_instance_retained_stopped": true,
+  "prune_performed": false,
+  "gc_performed": false
+}

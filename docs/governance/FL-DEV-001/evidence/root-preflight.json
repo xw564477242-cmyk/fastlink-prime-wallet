@@ -1,0 +1,11 @@
+{
+  "root": "/Users/ck/Developer/FastLink",
+  "created": true,
+  "mode": "700",
+  "uid": 501,
+  "outside_standard_sync_roots": true,
+  "known_remote_backup_process_detected": false,
+  "system_time_machine_destination_precheck": "none reported",
+  "backup_configuration_changed": false,
+  "limitation": "No claim of exhaustive third-party backup policy audit; root is outside configured standard sync paths and this task configures no upload."
+}

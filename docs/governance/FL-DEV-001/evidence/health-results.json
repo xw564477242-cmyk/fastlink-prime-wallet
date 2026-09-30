@@ -1,0 +1,58 @@
+[
+  {
+    "repo": "fastlik-Admin",
+    "bind": "127.0.0.1",
+    "port": 46103,
+    "http_status": 200,
+    "minimal_http_health": true,
+    "browser_js_executed": false,
+    "production_or_funds_flow_tested": false,
+    "backend_integration_verified": false,
+    "process_exit_before_stop": null,
+    "external_network_guard": true,
+    "server_stopped_after_check": true,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlik-Website",
+    "bind": "127.0.0.1",
+    "port": 46104,
+    "http_status": 200,
+    "minimal_http_health": true,
+    "browser_js_executed": false,
+    "production_or_funds_flow_tested": false,
+    "backend_integration_verified": false,
+    "process_exit_before_stop": null,
+    "external_network_guard": true,
+    "server_stopped_after_check": true,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlik-app",
+    "bind": "127.0.0.1",
+    "port": 46102,
+    "http_status": 200,
+    "minimal_http_health": true,
+    "browser_js_executed": false,
+    "production_or_funds_flow_tested": false,
+    "backend_integration_verified": false,
+    "process_exit_before_stop": null,
+    "external_network_guard": true,
+    "server_stopped_after_check": true,
+    "raw_output_saved": false
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "bind": "127.0.0.1",
+    "port": 46101,
+    "http_status": 200,
+    "minimal_http_health": true,
+    "browser_js_executed": false,
+    "production_or_funds_flow_tested": false,
+    "backend_integration_verified": false,
+    "process_exit_before_stop": null,
+    "external_network_guard": true,
+    "server_stopped_after_check": true,
+    "raw_output_saved": false
+  }
+]

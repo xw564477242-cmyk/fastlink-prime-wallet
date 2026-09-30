@@ -1,0 +1,133 @@
+{
+  "tests": [
+    {
+      "id": "DEV1-T01",
+      "name": "六仓工作区完整性",
+      "status": "PASS",
+      "evidence": "workspaces.json；六仓独立远端克隆，不借用恢复目录。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T02",
+      "name": "远端及HEAD核验",
+      "status": "PASS",
+      "evidence": "workspaces.json、formal-final.json；固定核验时SHA，不代表未来远端不变。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T03",
+      "name": "原现场保护",
+      "status": "LIMITED",
+      "evidence": "偏差接受原文V2.md；V2-acceptance-record.json；原始FAIL及V1证据原样保留。",
+      "failure_or_limit": "无变更前原始index字节备份，无法证明字节级一致，也无法恢复原SHA-256；项目所有者正式接受永久证据缺口。",
+      "impact_and_remediation": "不恢复index、不修改权限；不把偏差接受写成证据缺口消失，持续保留审计。",
+      "status_detail": "永久证据缺口已接受"
+    },
+    {
+      "id": "DEV1-T04",
+      "name": "长期分支矩阵",
+      "status": "PASS",
+      "evidence": "分支基线与晋升矩阵.md；缺失、分叉记录，不创建、不修复。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T05",
+      "name": "工具链版本和锁文件",
+      "status": "PASS",
+      "evidence": "toolchain.json、runtime-versions.json；来源为本机既有工具，锁文件未改。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T06",
+      "name": "依赖安装",
+      "status": "PASS",
+      "evidence": "runtime-results.json；四仓有依赖，另两仓零依赖无需安装；生命周期脚本禁用。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T07",
+      "name": "构建、lint、类型检查",
+      "status": "PASS",
+      "evidence": "runtime-results.json；失败项：无；无对应脚本的仓库不适用，不修改既有业务错误。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T08",
+      "name": "单元测试",
+      "status": "PASS",
+      "evidence": "R04-postgres-tests.json；固定源码HEAD、CI声明的PostgreSQL17隔离运行。",
+      "failure_or_limit": "原跳过的2项PostgreSQL测试现为2通过、0失败、0跳过；既有1755后端测试及1245前端测试成功记录保留。",
+      "impact_and_remediation": "数据库测试未改断言；控制库默认写入测试及生产验证仍按既定边界不运行。"
+    },
+    {
+      "id": "DEV1-T09",
+      "name": "本地启动及健康检查",
+      "status": "PASS",
+      "evidence": "R04-backend-health.json、R04-isolation.json；非回环应用监听被隔离在无宿主端口网络中。",
+      "failure_or_limit": "完整应用容器内/api/health返回200，数据库和schema均READY；不代表宿主发布或前后端业务联调。",
+      "impact_and_remediation": "测试容器已停止保留；复用须维持无宿主DB端口及隔离网络，不启动真实供应商服务。"
+    },
+    {
+      "id": "DEV1-T10",
+      "name": "非生产连接保护",
+      "status": "PASS",
+      "evidence": "R04-isolation.json：内部网络、无默认IPv4路由、宿主端口0、数据库只监听容器127.0.0.1；供应商模式DISABLED。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T11",
+      "name": "独有资产归属覆盖",
+      "status": "PASS",
+      "evidence": "asset-attribution.json；只读建议，未冒充资产所有者最终确认。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T12",
+      "name": "工作树清理安全检查",
+      "status": "LIMITED",
+      "evidence": "偏差接受原文V2.md；V2-acceptance-record.json；21个登记备份及V1校验清单保留。",
+      "failure_or_limit": "按项目所有者最终结论，工作树清理未经事前批准，流程越权偏差已接受；逐子进程审计缺口保留。",
+      "impact_and_remediation": "不恢复登记、不删除备份、引用或对象、不执行GC；不得将接受偏差改写为补齐事前批准。",
+      "status_detail": "流程越权偏差已接受"
+    },
+    {
+      "id": "DEV1-T13",
+      "name": "秘密扫描",
+      "status": "PASS",
+      "evidence": "累计治理文件格式、高熵、HMAC材料扫描，加本次随机本地数据库/会话凭据的原值及编码比对。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持现有边界，无新增整改。"
+    },
+    {
+      "id": "DEV1-T14",
+      "name": "PR范围及回滚方案",
+      "status": "PASS",
+      "evidence": "仅工单治理目录；草稿PR/dev；回滚仅停止辅助流程、保留资产，报告撤销需独立revert PR。",
+      "failure_or_limit": "无",
+      "impact_and_remediation": "维持草稿/dev；登记恢复须另行批准、无新占用且不可覆盖；报告撤销采用独立revert PR。"
+    }
+  ],
+  "counts": {
+    "PASS": 12,
+    "LIMITED": 2,
+    "FAIL": 0
+  },
+  "gate2": "等待新HEAD、测试和CI证据复核；尚未通过",
+  "gate3": "未进入",
+  "worktree_cleanup_performed": true,
+  "verification_policy": "复用未变源码的既有运行结果；本轮重新执行现场对账、登记清理安全检查、治理文件扫描与PR范围检查",
+  "site_frozen": true,
+  "historical_FAIL_records_retained": 2,
+  "prior_record": "self-tests.json",
+  "prior_record_sha256": "4e68fadd3c91812b593e8d221d77e9bad7b27c001728e36e57af8afbf4331de6",
+  "acceptance_source": "偏差接受原文V2.md",
+  "acceptance_source_sha256": "ea398d975dd22d3c491528c8baf8c5de1020a620f56ab6b332e4472636b1e00b"
+}

@@ -1,0 +1,19 @@
+{
+  "repo": "fastlik-backend",
+  "read_only_source_checks": {
+    "prisma_generator": "prisma-client-js",
+    "generator_count": 1,
+    "datasource": "postgresql",
+    "database_url_from_environment": true,
+    "direct_url_from_environment": true,
+    "bootstrap_nonloopback_binding": true,
+    "on_module_init_connects_database": true
+  },
+  "docker_client_version": "25.0.3",
+  "docker_daemon_available": false,
+  "local_database_provisioned": false,
+  "startup_attempted": false,
+  "reason": "No approved available local database; bootstrap binds nonloopback. No business source changes authorized.",
+  "production_connections_attempted": false,
+  "database_migration_executed": false
+}

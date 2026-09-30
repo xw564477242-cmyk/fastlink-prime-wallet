@@ -1,0 +1,42 @@
+[
+  {
+    "tool": "git",
+    "version": "git version 2.54.0 (Apple Git-157)",
+    "executable": "/usr/bin/git",
+    "resolved_executable": "/usr/bin/git",
+    "source": "pre-existing local installation",
+    "new_global_install": false
+  },
+  {
+    "tool": "python3",
+    "version": "Python 3.14.3",
+    "executable": "/opt/homebrew/bin/python3",
+    "resolved_executable": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/bin/python3.14",
+    "source": "pre-existing local installation",
+    "new_global_install": false
+  },
+  {
+    "tool": "node",
+    "version": "v22.22.1",
+    "executable": "/opt/homebrew/bin/node",
+    "resolved_executable": "/opt/homebrew/Cellar/node@22/22.22.1_3/bin/node",
+    "source": "pre-existing local installation",
+    "new_global_install": false
+  },
+  {
+    "tool": "npm",
+    "version": "10.9.4",
+    "executable": "/opt/homebrew/bin/npm",
+    "resolved_executable": "/opt/homebrew/Cellar/node@22/22.22.1_3/lib/node_modules/npm/bin/npm-cli.js",
+    "source": "pre-existing local installation",
+    "new_global_install": false
+  },
+  {
+    "tool": "bun",
+    "version": "1.3.14",
+    "executable": "/Users/ck/.bun/bin/bun",
+    "resolved_executable": "/Users/ck/.bun/bin/bun",
+    "source": "pre-existing local installation",
+    "new_global_install": false
+  }
+]

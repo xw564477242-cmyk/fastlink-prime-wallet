@@ -1,0 +1,35 @@
+{
+  "loopback_ports": [
+    {
+      "port": 46101,
+      "listener_detected": false
+    },
+    {
+      "port": 46102,
+      "listener_detected": false
+    },
+    {
+      "port": 46103,
+      "listener_detected": false
+    },
+    {
+      "port": 46104,
+      "listener_detected": false
+    },
+    {
+      "port": 46105,
+      "listener_detected": false
+    },
+    {
+      "port": 46198,
+      "listener_detected": false
+    },
+    {
+      "port": 46199,
+      "listener_detected": false
+    }
+  ],
+  "ticket_services_left_running": false,
+  "final_disk_free_bytes": 107091075072,
+  "source_or_temporary_assets_deleted_for_space": false
+}

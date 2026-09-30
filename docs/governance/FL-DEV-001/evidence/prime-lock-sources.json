@@ -1,0 +1,299 @@
+[
+  {
+    "package_key": "@lovable.dev/vite-plugin-dev-server-bridge",
+    "locked_package_version": "@lovable.dev/vite-plugin-dev-server-bridge@1.2.0",
+    "host": "europe-west4-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@lovable.dev/vite-plugin-hmr-gate",
+    "locked_package_version": "@lovable.dev/vite-plugin-hmr-gate@1.1.4",
+    "host": "europe-west4-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@lovable.dev/vite-tanstack-config",
+    "locked_package_version": "@lovable.dev/vite-tanstack-config@2.7.6",
+    "host": "europe-west4-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-android-arm-eabi",
+    "locked_package_version": "@oxc-parser/binding-android-arm-eabi@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-android-arm64",
+    "locked_package_version": "@oxc-parser/binding-android-arm64@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-darwin-arm64",
+    "locked_package_version": "@oxc-parser/binding-darwin-arm64@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-darwin-x64",
+    "locked_package_version": "@oxc-parser/binding-darwin-x64@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-freebsd-x64",
+    "locked_package_version": "@oxc-parser/binding-freebsd-x64@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-arm-gnueabihf",
+    "locked_package_version": "@oxc-parser/binding-linux-arm-gnueabihf@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-arm-musleabihf",
+    "locked_package_version": "@oxc-parser/binding-linux-arm-musleabihf@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-arm64-gnu",
+    "locked_package_version": "@oxc-parser/binding-linux-arm64-gnu@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-arm64-musl",
+    "locked_package_version": "@oxc-parser/binding-linux-arm64-musl@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-ppc64-gnu",
+    "locked_package_version": "@oxc-parser/binding-linux-ppc64-gnu@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-riscv64-gnu",
+    "locked_package_version": "@oxc-parser/binding-linux-riscv64-gnu@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-riscv64-musl",
+    "locked_package_version": "@oxc-parser/binding-linux-riscv64-musl@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-s390x-gnu",
+    "locked_package_version": "@oxc-parser/binding-linux-s390x-gnu@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-x64-gnu",
+    "locked_package_version": "@oxc-parser/binding-linux-x64-gnu@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-linux-x64-musl",
+    "locked_package_version": "@oxc-parser/binding-linux-x64-musl@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-openharmony-arm64",
+    "locked_package_version": "@oxc-parser/binding-openharmony-arm64@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-wasm32-wasi",
+    "locked_package_version": "@oxc-parser/binding-wasm32-wasi@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-win32-arm64-msvc",
+    "locked_package_version": "@oxc-parser/binding-win32-arm64-msvc@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-win32-ia32-msvc",
+    "locked_package_version": "@oxc-parser/binding-win32-ia32-msvc@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@oxc-parser/binding-win32-x64-msvc",
+    "locked_package_version": "@oxc-parser/binding-win32-x64-msvc@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@tanstack/devtools-client",
+    "locked_package_version": "@tanstack/devtools-client@0.0.8",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@tanstack/devtools-event-bus",
+    "locked_package_version": "@tanstack/devtools-event-bus@0.4.2",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@tanstack/devtools-event-client",
+    "locked_package_version": "@tanstack/devtools-event-client@0.5.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@tanstack/devtools-vite",
+    "locked_package_version": "@tanstack/devtools-vite@0.8.1",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "launch-editor",
+    "locked_package_version": "launch-editor@2.14.1",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "oxc-parser",
+    "locked_package_version": "oxc-parser@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "shell-quote",
+    "locked_package_version": "shell-quote@1.9.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "ws",
+    "locked_package_version": "ws@8.21.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "@tanstack/devtools-vite/chalk",
+    "locked_package_version": "chalk@5.6.2",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  },
+  {
+    "package_key": "oxc-parser/@oxc-project/types",
+    "locked_package_version": "@oxc-project/types@0.120.0",
+    "host": "europe-west1-npm.pkg.dev",
+    "has_url_query": false,
+    "has_userinfo": false,
+    "integrity_present": true,
+    "registry_project": "lovable-core-prod"
+  }
+]

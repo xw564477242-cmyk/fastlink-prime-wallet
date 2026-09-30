@@ -1,0 +1,21 @@
+{
+  "command_count": 70,
+  "all_exit_zero": true,
+  "private_log_sha256": "6af3d242f2df433db0693b11a68e4009f0f8e8947c9f54c0d32be5eec97df54d",
+  "versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.3",
+    "sha256_implementation": "Python hashlib.sha256; no sha256sum assumption",
+    "openssl": "OpenSSL 3.6.3 9 Jun 2026",
+    "shasum": "6.02"
+  },
+  "git_controls": [
+    "--no-optional-locks",
+    "diff.autoRefreshIndex=false",
+    "core.hooksPath=/dev/null",
+    "gc.auto=0",
+    "maintenance.auto=false"
+  ],
+  "forbidden_write_operations_run": false,
+  "timestamps_are_execution_log_times": true
+}

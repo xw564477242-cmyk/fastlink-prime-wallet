@@ -1,0 +1,606 @@
+{
+  "workspaces": [
+    {
+      "workspace_id": "original-0",
+      "path_components": [],
+      "git_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        ".git"
+      ],
+      "common_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        ".git"
+      ],
+      "index_path_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        ".git",
+        "index"
+      ],
+      "index_before": {
+        "mode": "0o600",
+        "size": 26235,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-30T03:33:10.924681+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-30T03:33:10.923119+00:00",
+        "sha256": "d88ba77babe34149933c69766c675018a0dfd7c9dd83d1086c46169d5f3ef08d"
+      },
+      "index_after": {
+        "mode": "0o600",
+        "size": 26235,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-30T03:33:10.924681+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-30T03:33:10.923119+00:00",
+        "sha256": "d88ba77babe34149933c69766c675018a0dfd7c9dd83d1086c46169d5f3ef08d"
+      },
+      "head": "7581a751d5964d481d335131c856270ccc98238b",
+      "head_tree": "5d88eb3e1db348fdc5a095d09c4baddeb287eb36",
+      "status_empty": false,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 2,
+        "untracked": 58152,
+        "unmerged": 0
+      },
+      "historical_counts": {
+        "staged": 0,
+        "unstaged": 2,
+        "untracked": 58152
+      },
+      "cached_diff_records": 0,
+      "worktree_diff_records": 2,
+      "stage_entries": 254,
+      "assume_unchanged_count": 0,
+      "skip_worktree_count": 0,
+      "debug_flags_counts": {
+        "0": 254
+      },
+      "outputs": {
+        "status-v2": {
+          "bytes": 5194468,
+          "sha256": "30434ef0ee0c2981a9acf652fe7adb672e83ff9abb86a1e1cf39d609e0f03351",
+          "raw_retained_privately": true
+        },
+        "cached-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "worktree-raw": {
+          "bytes": 100,
+          "sha256": "fcd546a720dd9fb55fa7cf03ccff78218c36a2fadaab6c2552cba7e67b7d5e0d",
+          "raw_retained_privately": true
+        },
+        "stage": {
+          "bytes": 21569,
+          "sha256": "7b5fdb79134f44cac8d514df1078ff1e4b5913965d9b32747d7bbe40f7879533",
+          "raw_retained_privately": true
+        },
+        "flags-v": {
+          "bytes": 9377,
+          "sha256": "0f716562338c8d305d23afff7d6aec7250336c9f57bb4108abdec17022021654",
+          "raw_retained_privately": true
+        },
+        "flags-debug": {
+          "bytes": 41703,
+          "sha256": "926365c43762baf97d3f55894f0f5d60b0b7e2e8723cf5b73f9625cf2789b2e7",
+          "raw_retained_privately": true
+        },
+        "head-tree": {
+          "bytes": 41,
+          "sha256": "24468cc64b4f2b18ee91b4d8de8ebdb5834bc8a77a308321f3bf322f1c8393d1",
+          "raw_retained_privately": true
+        }
+      }
+    },
+    {
+      "workspace_id": "original-1",
+      "path_components": [
+        "outputs",
+        "B03-CREGIS-CLOSEOUT-004",
+        "workspace"
+      ],
+      "git_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "B03-CREGIS-CLOSEOUT-004",
+        "workspace",
+        ".git"
+      ],
+      "common_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "B03-CREGIS-CLOSEOUT-004",
+        "workspace",
+        ".git"
+      ],
+      "index_path_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "B03-CREGIS-CLOSEOUT-004",
+        "workspace",
+        ".git",
+        "index"
+      ],
+      "index_before": {
+        "mode": "0o644",
+        "size": 26795,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-22T05:47:19.416371+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-22T05:47:19.412524+00:00",
+        "sha256": "f4e13d6d954ee3b4dd1054b133a64f5b96b6703bdfc317e364ca831e88c61a28"
+      },
+      "index_after": {
+        "mode": "0o644",
+        "size": 26795,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-22T05:47:19.416371+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-22T05:47:19.412524+00:00",
+        "sha256": "f4e13d6d954ee3b4dd1054b133a64f5b96b6703bdfc317e364ca831e88c61a28"
+      },
+      "head": "ec29d29ab39e6afff95650a8603b3a6529c86179",
+      "head_tree": "ce8a7d35842ace22fca480d0d9ae554e3e294f6a",
+      "status_empty": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0,
+        "unmerged": 0
+      },
+      "historical_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "cached_diff_records": 0,
+      "worktree_diff_records": 0,
+      "stage_entries": 260,
+      "assume_unchanged_count": 0,
+      "skip_worktree_count": 0,
+      "debug_flags_counts": {
+        "0": 260
+      },
+      "outputs": {
+        "status-v2": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "cached-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "worktree-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "stage": {
+          "bytes": 22039,
+          "sha256": "f59e38dc5df7e1361b1c09255fdaf0898c1a5acdad4cc791479d5ecd9ecb7b1e",
+          "raw_retained_privately": true
+        },
+        "flags-v": {
+          "bytes": 9559,
+          "sha256": "ad8954223ffe4e01d5196468f062df56de6d0d807bbdabba357daee9f308ac88",
+          "raw_retained_privately": true
+        },
+        "flags-debug": {
+          "bytes": 40879,
+          "sha256": "8ad8ba4c03945b58aea68256a3000eeab29a8960fbd5d795435bee8f4255260a",
+          "raw_retained_privately": true
+        },
+        "head-tree": {
+          "bytes": 41,
+          "sha256": "8456318887dab26cb2e9752e23c8b34cec0ebc341d6682a32b89a626ddffb6f8",
+          "raw_retained_privately": true
+        }
+      }
+    },
+    {
+      "workspace_id": "original-2",
+      "path_components": [
+        "outputs",
+        "DEV-SANDBOX-FAST-001",
+        "workspace"
+      ],
+      "git_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-SANDBOX-FAST-001",
+        "workspace",
+        ".git"
+      ],
+      "common_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-SANDBOX-FAST-001",
+        "workspace",
+        ".git"
+      ],
+      "index_path_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-SANDBOX-FAST-001",
+        "workspace",
+        ".git",
+        "index"
+      ],
+      "index_before": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-17T12:39:50.513561+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-17T12:39:50.510839+00:00",
+        "sha256": "b9e4f67176ae2fc9d91d7e9a58dfa7355022410ac4a67dcb148b4aa2ce283a49"
+      },
+      "index_after": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-17T12:39:50.513561+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-17T12:39:50.510839+00:00",
+        "sha256": "b9e4f67176ae2fc9d91d7e9a58dfa7355022410ac4a67dcb148b4aa2ce283a49"
+      },
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "head_tree": "6e1fb5764988e5aded8f96704852b42a5c7478b8",
+      "status_empty": false,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 1,
+        "unmerged": 0
+      },
+      "historical_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 1
+      },
+      "cached_diff_records": 0,
+      "worktree_diff_records": 0,
+      "stage_entries": 108,
+      "assume_unchanged_count": 0,
+      "skip_worktree_count": 0,
+      "debug_flags_counts": {
+        "0": 108
+      },
+      "outputs": {
+        "status-v2": {
+          "bytes": 25,
+          "sha256": "32e1b8b1dff8b71eeacd621d58a86b0f4b62586031a438ff183275b3f11dc032",
+          "raw_retained_privately": true
+        },
+        "cached-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "worktree-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "stage": {
+          "bytes": 8311,
+          "sha256": "bf0d5fe4bffb9620152c0a3250896fd1faf5229674684bcb33c82113d57e19dc",
+          "raw_retained_privately": true
+        },
+        "flags-v": {
+          "bytes": 3127,
+          "sha256": "e8a8bb446a6beb2ec8c834e8d565152a36c60322e20095553de887c55d7b2e63",
+          "raw_retained_privately": true
+        },
+        "flags-debug": {
+          "bytes": 17030,
+          "sha256": "97a79cadd069fafd65d706269568e9506edbc09957c95062b3f33445b4c48fc5",
+          "raw_retained_privately": true
+        },
+        "head-tree": {
+          "bytes": 41,
+          "sha256": "61756a4515ebdc57f920293126fabe386bef241acc41bee7e5c430a0dd75a274",
+          "raw_retained_privately": true
+        }
+      }
+    },
+    {
+      "workspace_id": "original-3",
+      "path_components": [
+        "outputs",
+        "DEV-VERSION-032",
+        "entry-workspace"
+      ],
+      "git_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-032",
+        "entry-workspace",
+        ".git"
+      ],
+      "common_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-032",
+        "entry-workspace",
+        ".git"
+      ],
+      "index_path_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-032",
+        "entry-workspace",
+        ".git",
+        "index"
+      ],
+      "index_before": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-15T22:51:05.215751+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-15T22:51:05.214368+00:00",
+        "sha256": "b7da4ac027a4c3454697df06e24ad2e8fef4468986fddbff78f73e011340d7a2"
+      },
+      "index_after": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-15T22:51:05.215751+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-15T22:51:05.214368+00:00",
+        "sha256": "b7da4ac027a4c3454697df06e24ad2e8fef4468986fddbff78f73e011340d7a2"
+      },
+      "head": "d972eea0c708840f016c32444018a420f9bf62c7",
+      "head_tree": "e1da457200c00784fdd96c99b688c571fa084760",
+      "status_empty": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0,
+        "unmerged": 0
+      },
+      "historical_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "cached_diff_records": 0,
+      "worktree_diff_records": 0,
+      "stage_entries": 108,
+      "assume_unchanged_count": 0,
+      "skip_worktree_count": 0,
+      "debug_flags_counts": {
+        "0": 108
+      },
+      "outputs": {
+        "status-v2": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "cached-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "worktree-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "stage": {
+          "bytes": 8311,
+          "sha256": "9fb3279571858a55dc7a8d12d5fa068ab88cc0c2fcf0d42d85450b5362062258",
+          "raw_retained_privately": true
+        },
+        "flags-v": {
+          "bytes": 3127,
+          "sha256": "e8a8bb446a6beb2ec8c834e8d565152a36c60322e20095553de887c55d7b2e63",
+          "raw_retained_privately": true
+        },
+        "flags-debug": {
+          "bytes": 17030,
+          "sha256": "5cc82283f2c3b6ce58ed4729a5db0158ff1bedac89b301b5531523d7e593d5e4",
+          "raw_retained_privately": true
+        },
+        "head-tree": {
+          "bytes": 41,
+          "sha256": "2f52e17879b588fe41988f40c2e98f0acc191f11c4ce0a6cf1044af643deafd2",
+          "raw_retained_privately": true
+        }
+      }
+    },
+    {
+      "workspace_id": "original-4",
+      "path_components": [
+        "outputs",
+        "DEV-VERSION-040",
+        "workspace"
+      ],
+      "git_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-040",
+        "workspace",
+        ".git"
+      ],
+      "common_dir_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-040",
+        "workspace",
+        ".git"
+      ],
+      "index_path_components": [
+        "/",
+        "Users",
+        "ck",
+        "Downloads",
+        "fastlink-prime-wallet-dev-release",
+        "outputs",
+        "DEV-VERSION-040",
+        "workspace",
+        ".git",
+        "index"
+      ],
+      "index_before": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-16T08:53:06.328295+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-16T08:53:06.326467+00:00",
+        "sha256": "33f8c01794ebf9ee4145fb879e96843ea96a1fa91b2db18f7aab981cb14f5751"
+      },
+      "index_after": {
+        "mode": "0o644",
+        "size": 10516,
+        "uid": 501,
+        "gid": 20,
+        "mtime_utc": "2026-09-16T08:53:06.328295+00:00",
+        "mtime_is_creation_time": false,
+        "birth_time_utc": "2026-09-16T08:53:06.326467+00:00",
+        "sha256": "33f8c01794ebf9ee4145fb879e96843ea96a1fa91b2db18f7aab981cb14f5751"
+      },
+      "head": "8c1d3be110e98f39328a98cba122411b4689337f",
+      "head_tree": "6e1fb5764988e5aded8f96704852b42a5c7478b8",
+      "status_empty": true,
+      "status_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0,
+        "unmerged": 0
+      },
+      "historical_counts": {
+        "staged": 0,
+        "unstaged": 0,
+        "untracked": 0
+      },
+      "cached_diff_records": 0,
+      "worktree_diff_records": 0,
+      "stage_entries": 108,
+      "assume_unchanged_count": 0,
+      "skip_worktree_count": 0,
+      "debug_flags_counts": {
+        "0": 108
+      },
+      "outputs": {
+        "status-v2": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "cached-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "worktree-raw": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "raw_retained_privately": true
+        },
+        "stage": {
+          "bytes": 8311,
+          "sha256": "bf0d5fe4bffb9620152c0a3250896fd1faf5229674684bcb33c82113d57e19dc",
+          "raw_retained_privately": true
+        },
+        "flags-v": {
+          "bytes": 3127,
+          "sha256": "e8a8bb446a6beb2ec8c834e8d565152a36c60322e20095553de887c55d7b2e63",
+          "raw_retained_privately": true
+        },
+        "flags-debug": {
+          "bytes": 17030,
+          "sha256": "fd2a09ccee81867499aa3cbe6607259ed1a199cfbcc50a7280056916e40d5b83",
+          "raw_retained_privately": true
+        },
+        "head-tree": {
+          "bytes": 41,
+          "sha256": "61756a4515ebdc57f920293126fabe386bef241acc41bee7e5c430a0dd75a274",
+          "raw_retained_privately": true
+        }
+      }
+    }
+  ],
+  "versions": {
+    "git": "git version 2.54.0 (Apple Git-157)",
+    "python": "3.14.3",
+    "sha256_implementation": "Python hashlib.sha256; no sha256sum assumption",
+    "openssl": "OpenSSL 3.6.3 9 Jun 2026",
+    "shasum": "6.02"
+  },
+  "before_index_bytes_available": false,
+  "mandatory_limitation": "无变更前原始字节备份，无法证明字节级一致，也无法恢复原SHA-256。",
+  "raw_content_uploaded": false
+}
