@@ -1,0 +1,2365 @@
+{
+  "scope": "51 SQL sources; static occurrences are not live catalog or effective privilege proof",
+  "limitations": [
+    "Conservative lexical extraction, not a PostgreSQL parser",
+    "Dynamic templates retained as unresolved identifiers; no invented expansion",
+    "Dollar bodies inspected conservatively, environment guards require manual review",
+    "No assertions about unseen live objects, extensions, defaults or application SQL"
+  ],
+  "records": [
+    {
+      "path": "prisma/migrations/20260719000100_baseline/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 1,
+      "forward_order": 1,
+      "sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
+      "blob_oid": "9e20b8aada9baecd3a7ffc5cf2d4fa8da32cb12e",
+      "lines": 179,
+      "events": [
+        {
+          "kind": "schema",
+          "identifiers": [
+            "public"
+          ],
+          "line": 2,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "Tenant"
+          ],
+          "line": 11,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "TenantUser"
+          ],
+          "line": 25,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "Role"
+          ],
+          "line": 38,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "Permission"
+          ],
+          "line": 50,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "RolePermission"
+          ],
+          "line": 61,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "TenantUserRole"
+          ],
+          "line": 69,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ApiClient"
+          ],
+          "line": 77,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ApiKey"
+          ],
+          "line": 91,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "AuditLog"
+          ],
+          "line": 105,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 2,
+      "forward_order": 2,
+      "sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
+      "blob_oid": "6a51f1bbe0fe01d7db66cca04218625e6c39e578",
+      "lines": 24,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "WebhookEvent"
+          ],
+          "line": 3,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 3,
+      "forward_order": 3,
+      "sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
+      "blob_oid": "6e03eadf979958ba923f87a568df908c455f46d8",
+      "lines": 15,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 8,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "INDEX"
+          ],
+          "line": 11,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 4,
+      "forward_order": 4,
+      "sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
+      "blob_oid": "e629c61bbdca429ab234b18dac91d34dafdc33c4",
+      "lines": 106,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "Customer"
+          ],
+          "line": 6,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "Card"
+          ],
+          "line": 17,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardBalance"
+          ],
+          "line": 38,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardTransaction"
+          ],
+          "line": 49,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ProviderOperation"
+          ],
+          "line": 67,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 5,
+      "forward_order": 5,
+      "sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
+      "blob_oid": "0179d2266f3e4156060612027e0fad0b3b6893c4",
+      "lines": 42,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardRestriction"
+          ],
+          "line": 5,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardLifecycleEvent"
+          ],
+          "line": 19,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 6,
+      "forward_order": 6,
+      "sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
+      "blob_oid": "bf683f68d94a1a4ea909c78330e8f188ddbdcf2f",
+      "lines": 15,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 7,
+      "forward_order": 7,
+      "sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
+      "blob_oid": "c2d12eb729487891eca9db40f9600cd41388f598",
+      "lines": 17,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardLimit"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 8,
+      "forward_order": 8,
+      "sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
+      "blob_oid": "1316f18800a9927f0f24be1a3fecd48e0072f470",
+      "lines": 22,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardReplacement"
+          ],
+          "line": 3,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 9,
+      "forward_order": 9,
+      "sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
+      "blob_oid": "bcece3e772819f6f67453c0ba300884bbcaf6f81",
+      "lines": 18,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardRenewal"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 10,
+      "forward_order": 10,
+      "sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
+      "blob_oid": "9f0f9a3c93a04837165bacd4fe4953de6d866da8",
+      "lines": 60,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "treasury_accounts"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "treasury_settlements"
+          ],
+          "line": 12,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "treasury_fx_orders"
+          ],
+          "line": 23,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "treasury_operation_logs"
+          ],
+          "line": 35,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 11,
+      "forward_order": 11,
+      "sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
+      "blob_oid": "194b4e7d2ca975b174176416fae22e5e0e7e2062",
+      "lines": 6,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 12,
+      "forward_order": 12,
+      "sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
+      "blob_oid": "ccad26ad8981460ed5a4201681d0e099d861ee48",
+      "lines": 72,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "WalletAccount"
+          ],
+          "line": 7,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "Journal"
+          ],
+          "line": 27,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "JournalEntry"
+          ],
+          "line": 42,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 13,
+      "forward_order": 13,
+      "sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
+      "blob_oid": "32e48bab029a0923fda62890351a68beba5ba08d",
+      "lines": 48,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "TreasuryPosition"
+          ],
+          "line": 4,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "WalletOperation"
+          ],
+          "line": 19,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 14,
+      "forward_order": 14,
+      "sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
+      "blob_oid": "9bf6b65fc6887aa4adf0f39ebbc0c4f9ad135be7",
+      "lines": 12,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardSecurityProfile"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 15,
+      "forward_order": 15,
+      "sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
+      "blob_oid": "083788dff513b3db30c097ab275365b824a3bbe0",
+      "lines": 41,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardHolder"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardEvent"
+          ],
+          "line": 12,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 16,
+      "forward_order": 16,
+      "sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
+      "blob_oid": "9b15dd61a598b6e36c4718fec6fe8f03f39c2cfc",
+      "lines": 32,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "FxConversion"
+          ],
+          "line": 3,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 17,
+      "forward_order": 17,
+      "sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
+      "blob_oid": "7ac89a5e00ba4815f868f7da62b2b0e306dfa505",
+      "lines": 44,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "Merchant"
+          ],
+          "line": 17,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "MerchantPayment"
+          ],
+          "line": 18,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "WalletTransaction"
+          ],
+          "line": 19,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "SettlementBatch"
+          ],
+          "line": 20,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "SettlementItem"
+          ],
+          "line": 21,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "FxOrder"
+          ],
+          "line": 22,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "FxRate"
+          ],
+          "line": 23,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 18,
+      "forward_order": 18,
+      "sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
+      "blob_oid": "f96c868812c6fc16410108fcbdf3d5d168bdb29c",
+      "lines": 12,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 19,
+      "forward_order": 19,
+      "sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
+      "blob_oid": "90bede875898e387a547ecbff0826c053af19c95",
+      "lines": 27,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "MerchantQrCode"
+          ],
+          "line": 3,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 20,
+      "forward_order": 20,
+      "sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
+      "blob_oid": "8a43eaead64774b142e5f94dd816de03088f43ed",
+      "lines": 56,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 21,
+      "forward_order": 21,
+      "sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
+      "blob_oid": "2df56761910725b6345c80e88fca3a730c09260d",
+      "lines": 19,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "AdminSession"
+          ],
+          "line": 1,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 22,
+      "forward_order": 22,
+      "sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
+      "blob_oid": "c987405c9d02e43f1e97ec1189e8dfda411190f6",
+      "lines": 35,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "EvidenceArtifact"
+          ],
+          "line": 4,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 23,
+      "forward_order": 23,
+      "sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
+      "blob_oid": "43f99f73f2aea1b7fd62450403132c9c8f7fe283",
+      "lines": 84,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "EndUserSession"
+          ],
+          "line": 11,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "EndUserRefreshToken"
+          ],
+          "line": 33,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/rollback.sql",
+      "source_class": "rollback",
+      "lexical_inventory_order": 24,
+      "forward_order": null,
+      "sha256": "cfd28ce60f2a78cf4fbd65ac56a681673aaa3473c4c64d3b23d8f0c71d7c2f70",
+      "blob_oid": "1ce2595f8b8b5bec1004f134e43066fa70be31c2",
+      "lines": 15,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "TABLE"
+          ],
+          "line": 5,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "TABLE"
+          ],
+          "line": 6,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 9,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 10,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 11,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 12,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 13,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 14,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "COLUMN"
+          ],
+          "line": 15,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "NOT_RUN",
+      "execution_reason": "5份回滚脚本不是前向迁移；按禁止回滚/删除边界不执行"
+    },
+    {
+      "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 25,
+      "forward_order": 24,
+      "sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
+      "blob_oid": "ec982e3e7a88951d9ccf41d5a19f5a051b1f8d0c",
+      "lines": 55,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "SimulationScenario"
+          ],
+          "line": 17,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "SimulationRecord"
+          ],
+          "line": 30,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 26,
+      "forward_order": 25,
+      "sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
+      "blob_oid": "80118f363cf81ef8f11bd29d82bd346d0fecdfcc",
+      "lines": 1,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 27,
+      "forward_order": 26,
+      "sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
+      "blob_oid": "430a2248a44f7bb1fe9ab24a5f64f5f4033896c3",
+      "lines": 28,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "WithdrawalAddress"
+          ],
+          "line": 3,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 28,
+      "forward_order": 27,
+      "sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
+      "blob_oid": "f5fb489daac0393f14dfb40f9483cdf5555cf03d",
+      "lines": 192,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "tenant_third_party_config"
+          ],
+          "line": 44,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "third_party_asset_orders"
+          ],
+          "line": 60,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "third_party_callback_events"
+          ],
+          "line": 91,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ucard_card_base"
+          ],
+          "line": 109,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ucard_transactions"
+          ],
+          "line": 129,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 172,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 175,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 184,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_dev_app_service_access",
+            "%I"
+          ],
+          "line": 184,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 184,
+          "dynamic_literal": true
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 29,
+      "forward_order": 28,
+      "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "lines": 53,
+      "events": [],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 30,
+      "forward_order": 29,
+      "sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
+      "blob_oid": "1583c8ae28779b96f7eb09aaebfa79f7c632e3c2",
+      "lines": 104,
+      "events": [
+        {
+          "kind": "role",
+          "identifiers": [
+            "fastlink_uat_app"
+          ],
+          "line": 31,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 40,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 41,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 42,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 44,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 45,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 46,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 47,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 48,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 49,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 50,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 52,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 69,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 70,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "%I"
+          ],
+          "line": 72,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 72,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 85,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_insert_v1",
+            "%I"
+          ],
+          "line": 85,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 97,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_update_v1",
+            "%I"
+          ],
+          "line": 97,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 97,
+          "dynamic_literal": true
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/rollback.sql",
+      "source_class": "rollback",
+      "lexical_inventory_order": 31,
+      "forward_order": null,
+      "sha256": "9ae78c92199b16f76157022acecd6dbddab56c556d215383d6131c7ed470526f",
+      "blob_oid": "8837454f5549cc704e3f6abaabf96c5e41867eff",
+      "lines": 40,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 26,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 27,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 28,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 29,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "rls_disable",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 30,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "rls_disable",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 31,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 34,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 35,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "ROLE"
+          ],
+          "line": 36,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "NOT_RUN",
+      "execution_reason": "5份回滚脚本不是前向迁移；按禁止回滚/删除边界不执行"
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 32,
+      "forward_order": 30,
+      "sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
+      "blob_oid": "bb78d022012c3a04b3a181d11dc2ebed1b9fce54",
+      "lines": 32,
+      "events": [
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 23,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/rollback.sql",
+      "source_class": "rollback",
+      "lexical_inventory_order": 33,
+      "forward_order": null,
+      "sha256": "0e655c4547c2f55197be61bffd6b01beea2ffd480810150d05ee935e9948a2d6",
+      "blob_oid": "b0c795ea6280fba5752d261fed2bf61611e569c3",
+      "lines": 25,
+      "events": [
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 15,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "NOT_RUN",
+      "execution_reason": "5份回滚脚本不是前向迁移；按禁止回滚/删除边界不执行"
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 34,
+      "forward_order": 31,
+      "sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
+      "blob_oid": "249dd28be923be4d1b7901fe8885c5f798f6a8c3",
+      "lines": 23,
+      "events": [
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 19,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "PASS"
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/rollback.sql",
+      "source_class": "rollback",
+      "lexical_inventory_order": 35,
+      "forward_order": null,
+      "sha256": "26f1fd754672a4119fbc6c28d80e1985b65833e108be2f310cbb01be58eaf16a",
+      "blob_oid": "be2cc6e852e6289defeaf7a932e12534e05fc711",
+      "lines": 20,
+      "events": [
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 15,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "NOT_RUN",
+      "execution_reason": "5份回滚脚本不是前向迁移；按禁止回滚/删除边界不执行"
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
+      "source_class": "formal_forward",
+      "lexical_inventory_order": 36,
+      "forward_order": 32,
+      "sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
+      "blob_oid": "2b9d2ab0ab111a921910e90137aa7573df9a768d",
+      "lines": 190,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 42,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 165,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 166,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 167,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_uat_provider_config_select_v1",
+            "TenantCardProviderConfig"
+          ],
+          "line": 175,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "PASS_DEFAULT",
+      "execution_reason": "原文 Prisma deploy 成功；条件内 SQL 可能跳过，须看条件分支结果",
+      "uat_conditional_execution": "BLOCKED"
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/rollback.sql",
+      "source_class": "rollback",
+      "lexical_inventory_order": 37,
+      "forward_order": null,
+      "sha256": "906cddda4d288bb79a7f7577702500a719c16f623bf2b5740cc876c0c53ceadc",
+      "blob_oid": "97cf641c486f2cfc773dd957a6f51191c2c218b4",
+      "lines": 31,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 19,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_disable",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 21,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_disable",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 22,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 23,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "TABLE"
+          ],
+          "line": 25,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "TYPE"
+          ],
+          "line": 26,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "TYPE"
+          ],
+          "line": 27,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "NOT_RUN",
+      "execution_reason": "5份回滚脚本不是前向迁移；按禁止回滚/删除边界不执行"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 1,
+      "forward_order": 1,
+      "sha256": "35bbad00b1395fe5ae7c674bcb4ca6ee12dd192a12996d5cfb2ab42979350b67",
+      "blob_oid": "b2c9012e0a911e8f8655b1959071de3c5f11e639",
+      "lines": 68,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardApplication"
+          ],
+          "line": 20,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "lexical_inventory_order": 2,
+      "forward_order": null,
+      "sha256": "02bdd0e17022a6fab1a092c88ff230ef669cfa64ca39c41f7461701fd67111bb",
+      "blob_oid": "198c395bea3464460497b97d2495ebd98209abbb",
+      "lines": 28,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 10,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 20,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_rls_policy_fix/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 3,
+      "forward_order": 2,
+      "sha256": "f39017e1ba76f4b397ac6737832fd37f6423803743a1da9e5b6ea1ee91e361fd",
+      "blob_oid": "d6bc0c17e3081173d345e1e7544f1b521481c5b4",
+      "lines": 48,
+      "events": [
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "%I"
+          ],
+          "line": 32,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 41,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_dev_app_service_access",
+            "%I"
+          ],
+          "line": 41,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 41,
+          "dynamic_literal": true
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 4,
+      "forward_order": 3,
+      "sha256": "d93242f622c3316638091fa2eb6218eb4ff97ba7fcd6dbc1e39487093d1683cb",
+      "blob_oid": "fdba18024813bc6643229810d0721b3332cf2d45",
+      "lines": 281,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "_FastlinkDevMigration"
+          ],
+          "line": 15,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "TenantFeePolicy"
+          ],
+          "line": 51,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardProductTemplate"
+          ],
+          "line": 102,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CardFeeOverride"
+          ],
+          "line": 136,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "CustomerReferral"
+          ],
+          "line": 163,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "FeeAssessment"
+          ],
+          "line": 230,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "lexical_inventory_order": 5,
+      "forward_order": null,
+      "sha256": "fddcf4fc19a41f154fa7df158753f5eae91c63c2de3f308708d61c8920449a93",
+      "blob_oid": "a017d052d78ff2e83b45d9216594e7e5cdc0631e",
+      "lines": 33,
+      "events": [],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 6,
+      "forward_order": 4,
+      "sha256": "2b7de04d08fdb662a2a2551b8b9d9ed3109e48789de4f0cdbb890b07b21c2a83",
+      "blob_oid": "29efa1f6cabf4c3cb98d4fb14d986c215c8f95d4",
+      "lines": 11,
+      "events": [],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "lexical_inventory_order": 7,
+      "forward_order": null,
+      "sha256": "49fbd4b3a02e37d6dc9c42e98acab717a84ecdb132cf61119bda91388735b428",
+      "blob_oid": "1da3e6c334cb765f9417546802da9b0a9632e402",
+      "lines": 18,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 10,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_non_card_wallet_flow_constraint/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 8,
+      "forward_order": 5,
+      "sha256": "1c1f989eb1ada336ad4f072a8bacfa68e57b6fd9a29d7a38da18ed5dd0c415ef",
+      "blob_oid": "fb5e5c50b31d1049da0b2ec7ab0800794cde1cef",
+      "lines": 37,
+      "events": [
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 12,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "CONSTRAINT"
+          ],
+          "line": 27,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_withdrawal_address_rls_policy_fix/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 9,
+      "forward_order": 6,
+      "sha256": "f115ff9ba6e13ed2e393bf96fa0b49e2290793ce21236e774ff65a39399a9d77",
+      "blob_oid": "4b208bf083d870401fc544f29200231f91297e61",
+      "lines": 38,
+      "events": [
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "WithdrawalAddress"
+          ],
+          "line": 18,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_dev_app_service_access",
+            "WithdrawalAddress"
+          ],
+          "line": 29,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 33,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 34,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260820_phase2_onchain_card_provider/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 10,
+      "forward_order": 7,
+      "sha256": "25adb7ed37e066a3788039ed667f29eed01292b8aedb3582b0a87c19a36b4da8",
+      "blob_oid": "1ec73becd09899f8bf3076675d6f53d05ee29d51",
+      "lines": 168,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "OnchainDepositAddress"
+          ],
+          "line": 20,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "OnchainFxQuote"
+          ],
+          "line": 48,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "OnchainTransfer"
+          ],
+          "line": 72,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "OnchainTransferEvent"
+          ],
+          "line": 129,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "TenantCardProviderConfig"
+          ],
+          "line": 148,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260825_ucard_core_saas_platform/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 11,
+      "forward_order": 8,
+      "sha256": "565e51be2f6f216df9b4f204e3bace4149e61edf21883a292966c97944d8ea60",
+      "blob_oid": "c13cf407c47ccad7cfa60c2d4731236482c8142e",
+      "lines": 118,
+      "events": [
+        {
+          "kind": "table",
+          "identifiers": [
+            "tenant_third_party_config"
+          ],
+          "line": 12,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "third_party_asset_orders"
+          ],
+          "line": 28,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "third_party_callback_events"
+          ],
+          "line": 59,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ucard_card_base"
+          ],
+          "line": 77,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "table",
+          "identifiers": [
+            "ucard_transactions"
+          ],
+          "line": 97,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_cregis_sandbox_safety_window/migration.sql",
+      "source_class": "dev_forward",
+      "lexical_inventory_order": 12,
+      "forward_order": 9,
+      "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "lines": 53,
+      "events": [],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/activate.sql",
+      "source_class": "dev_activate",
+      "lexical_inventory_order": 13,
+      "forward_order": null,
+      "sha256": "d791954056ee6b4fdd4c636264f74d2389d3855e195599a00ab06e5b601e45df",
+      "blob_oid": "a6bc94832a9efe1be5734b1e7b8413b1e84f9dab",
+      "lines": 327,
+      "events": [
+        {
+          "kind": "schema",
+          "identifiers": [
+            "objects"
+          ],
+          "line": 152,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "truncate",
+          "identifiers": [
+            "TRUNCATE"
+          ],
+          "line": 277,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "truncate",
+          "identifiers": [
+            "TRUNCATE"
+          ],
+          "line": 285,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "Tenant"
+          ],
+          "line": 307,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "Tenant"
+          ],
+          "line": 308,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "Customer"
+          ],
+          "line": 309,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "Customer"
+          ],
+          "line": 310,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "EndUserSession"
+          ],
+          "line": 311,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "EndUserSession"
+          ],
+          "line": 312,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "EndUserRefreshToken"
+          ],
+          "line": 313,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "EndUserRefreshToken"
+          ],
+          "line": 314,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "SimulationScenario"
+          ],
+          "line": 315,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "SimulationScenario"
+          ],
+          "line": 316,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_enable",
+          "identifiers": [
+            "SimulationRecord"
+          ],
+          "line": 317,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "rls_force",
+          "identifiers": [
+            "SimulationRecord"
+          ],
+          "line": 318,
+          "dynamic_literal": false
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/prepare.sql",
+      "source_class": "dev_prepare",
+      "lexical_inventory_order": 14,
+      "forward_order": null,
+      "sha256": "58f407946ceb0fbe801f4f2aea4e02edd49f2d7fe9c52c88cdf62af558818806",
+      "blob_oid": "3dd5f127e65f8c9c1765d55cc8bd81d79d109773",
+      "lines": 481,
+      "events": [
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 172,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 173,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 174,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 175,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 176,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 190,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "revoke",
+          "identifiers": [
+            "REVOKE"
+          ],
+          "line": 191,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "drop",
+          "identifiers": [
+            "POLICY"
+          ],
+          "line": 198,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 203,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 204,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 205,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 206,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 207,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "grant",
+          "identifiers": [
+            "GRANT"
+          ],
+          "line": 208,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "Tenant"
+          ],
+          "line": 210,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 211,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_insert_v1",
+            "Tenant"
+          ],
+          "line": 212,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 213,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "Customer"
+          ],
+          "line": 214,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 215,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_insert_v1",
+            "Customer"
+          ],
+          "line": 216,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 217,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_update_v1",
+            "Customer"
+          ],
+          "line": 218,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 219,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 219,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "EndUserSession"
+          ],
+          "line": 220,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 221,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_insert_v1",
+            "EndUserSession"
+          ],
+          "line": 222,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 223,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_update_v1",
+            "EndUserSession"
+          ],
+          "line": 224,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 225,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 225,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "EndUserRefreshToken"
+          ],
+          "line": 226,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 227,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_insert_v1",
+            "EndUserRefreshToken"
+          ],
+          "line": 228,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 229,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_update_v1",
+            "EndUserRefreshToken"
+          ],
+          "line": 230,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "check_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 231,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 231,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "SimulationScenario"
+          ],
+          "line": 232,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 233,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "policy",
+          "identifiers": [
+            "fastlink_end_user_auth_select_v1",
+            "SimulationRecord"
+          ],
+          "line": 234,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "using_true",
+          "identifiers": [
+            "true"
+          ],
+          "line": 235,
+          "dynamic_literal": false
+        },
+        {
+          "kind": "truncate",
+          "identifiers": [
+            "TRUNCATE"
+          ],
+          "line": 433,
+          "dynamic_literal": true
+        },
+        {
+          "kind": "truncate",
+          "identifiers": [
+            "TRUNCATE"
+          ],
+          "line": 441,
+          "dynamic_literal": true
+        }
+      ],
+      "execution": "BLOCKED",
+      "execution_reason": "开发分支所需独立历史基点/角色拓扑未重建；prepare 含未获授权 DROP POLICY，未绕过前置条件或改写脚本。词法序号不是已批准执行顺序。"
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "revision": "R01",
+  "source_review": "FL-DB-001门禁2复核结论：唯一阻断DB-R02旧P1记录须调整",
+  "prior_head": "ad8cd697a1c15b64eb4a33395a6863539fbf2f0d",
+  "time_utc": "2026-09-30T10:04:00.934594+00:00",
+  "current_risk": "DB-R02 潜在P0权限风险",
+  "production_exploit_confirmed": false,
+  "database_tests_rerun": false,
+  "original_42_cases_reused": true,
+  "original_25_control_tests_reused": true,
+  "checks": [
+    {
+      "name": "16 statuses and original test evidence unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "T08 T09 FAIL and T13 BLOCKED",
+      "status": "PASS"
+    },
+    {
+      "name": "markdown and JSON all16 statuses match",
+      "status": "PASS"
+    },
+    {
+      "name": "current DB-R02 row potential P0",
+      "status": "PASS"
+    },
+    {
+      "name": "no current P1 risk row",
+      "status": "PASS"
+    },
+    {
+      "name": "RISKS-AND-REMEDIATION.md risk boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "HANDOFF.md risk boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "SELF-TEST.md risk boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "BASELINE-DELTA.md risk boundary",
+      "status": "PASS"
+    },
+    {
+      "name": "three independent P0 work packages",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/REMEDIATION-DRAFT.sql retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/QUERY-PROTOCOL.md retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/auth-source-index.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/catalog-default.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/catalog-uat-partial.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/delivery-checks.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/effective-fastlink_uat_app.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/effective-fl_db001_anonymous.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/isolation.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/migration-inventory.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/migration-run-r02.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/migration-run-uat.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/migration-run.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/retention.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/source-protection.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/tenant-probes.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/test-results.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/uat-failure.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/evidence/unauthenticated.json retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/tests/test_inventory.py retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/tools/inventory.py retained",
+      "status": "PASS"
+    },
+    {
+      "name": "docs/governance/FL-DB-001/tools/scan_delivery.py retained",
+      "status": "PASS"
+    },
+    {
+      "name": "sensitive formats zero",
+      "status": "PASS"
+    },
+    {
+      "name": "six synthetic rule controls",
+      "status": "PASS"
+    },
+    {
+      "name": "entropy candidate exact source identifier",
+      "status": "PASS"
+    },
+    {
+      "name": "entropy candidate exact source identifier",
+      "status": "PASS"
+    },
+    {
+      "name": "entropy candidate exact source identifier",
+      "status": "PASS"
+    },
+    {
+      "name": "entropy candidate exact source identifier",
+      "status": "PASS"
+    }
+  ],
+  "unchanged_artifacts": [
+    "docs/governance/FL-DB-001/REMEDIATION-DRAFT.sql",
+    "docs/governance/FL-DB-001/evidence/QUERY-PROTOCOL.md",
+    "docs/governance/FL-DB-001/evidence/auth-source-index.json",
+    "docs/governance/FL-DB-001/evidence/catalog-default.json",
+    "docs/governance/FL-DB-001/evidence/catalog-uat-partial.json",
+    "docs/governance/FL-DB-001/evidence/delivery-checks.json",
+    "docs/governance/FL-DB-001/evidence/effective-fastlink_uat_app.json",
+    "docs/governance/FL-DB-001/evidence/effective-fl_db001_anonymous.json",
+    "docs/governance/FL-DB-001/evidence/isolation.json",
+    "docs/governance/FL-DB-001/evidence/migration-inventory.json",
+    "docs/governance/FL-DB-001/evidence/migration-run-r02.json",
+    "docs/governance/FL-DB-001/evidence/migration-run-uat.json",
+    "docs/governance/FL-DB-001/evidence/migration-run.json",
+    "docs/governance/FL-DB-001/evidence/retention.json",
+    "docs/governance/FL-DB-001/evidence/source-protection.json",
+    "docs/governance/FL-DB-001/evidence/tenant-probes.json",
+    "docs/governance/FL-DB-001/evidence/test-results.json",
+    "docs/governance/FL-DB-001/evidence/uat-failure.json",
+    "docs/governance/FL-DB-001/evidence/unauthenticated.json",
+    "docs/governance/FL-DB-001/tests/test_inventory.py",
+    "docs/governance/FL-DB-001/tools/inventory.py",
+    "docs/governance/FL-DB-001/tools/scan_delivery.py"
+  ],
+  "test_summary": {
+    "PASS": 3,
+    "LIMITED": 10,
+    "FAIL": 2,
+    "BLOCKED": 1
+  },
+  "sensitive_scan": {
+    "format_hits": 0,
+    "structural_entropy_candidates": 4,
+    "unresolved_entropy_candidates": 0,
+    "actual_key_material_read": false,
+    "scope": "governance files only; not full-project secrecy proof"
+  },
+  "gate2": "pending_review",
+  "pr_state": "Draft",
+  "manifest": "SHA256SUMS covers all delivered files except itself; own digest supplied externally"
+}

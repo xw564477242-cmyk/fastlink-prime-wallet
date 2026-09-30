@@ -1,0 +1,25 @@
+-- FL-DB-001 REVIEW ONLY / 禁止执行。
+-- 文件故意不是可直接执行的迁移：角色、对象、可信身份入口须独立工单批准。
+-- 不授权DROP/TRUNCATE/历史修复，也不授权应用到当前隔离库。
+-- 方案A：维持后端唯一入口，先确认终端无直连GRANT，再逐API验证tenant/user归属。
+-- 拟议SQL（全部注释，必须替换经审核的对象及角色）：
+-- REVOKE ALL ON TABLE <approved_table> FROM <untrusted_client_role>;
+-- 方案B：若决定支持租户直连，可信身份函数、owner及连接隔离须先设计。
+-- ALTER TABLE <approved_table> ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE <approved_table> FORCE ROW LEVEL SECURITY;
+-- CREATE POLICY <approved_select_policy> ON <approved_table>
+--   FOR SELECT TO <approved_tenant_role> USING (<trusted_tenant_and_user_predicate>);
+-- CREATE POLICY <approved_insert_policy> ON <approved_table>
+--   FOR INSERT TO <approved_tenant_role> WITH CHECK (<trusted_tenant_and_user_predicate>);
+-- CREATE POLICY <approved_update_policy> ON <approved_table>
+--   FOR UPDATE TO <approved_tenant_role>
+--   USING (<trusted_tenant_and_user_predicate>) WITH CHECK (<trusted_tenant_and_user_predicate>);
+-- CREATE POLICY <approved_delete_policy> ON <approved_table>
+--   FOR DELETE TO <approved_tenant_role> USING (<trusted_tenant_and_user_predicate>);
+-- 只授予业务所需操作，并分别检验SELECT/UPDATE可见性及跨租户归属不可更改。
+-- 函数方案：先限定schema、owner、search_path和依赖，再按精确签名撤销PUBLIC EXECUTE。
+-- REVOKE EXECUTE ON FUNCTION <schema.function(signature)> FROM PUBLIC;
+-- GRANT EXECUTE ON FUNCTION <schema.function(signature)> TO <approved_server_role>;
+-- ALTER DEFAULT PRIVILEGES FOR ROLE <actual_creator> IN SCHEMA <approved_schema>
+--   REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC;
+-- 未获批前保留全部现状；不得以这些概念草案冒充已完成整改。

@@ -1,0 +1,17 @@
+{
+  "database_container": "fl-db001-audit-pg",
+  "running": false,
+  "host_port_bindings": {},
+  "retained": true,
+  "network_retained": true,
+  "volume_retained": true,
+  "credential_parent_mode": "0o700",
+  "credential_file_modes": {
+    "postgres.env": "0o600",
+    "runner.env": "0o600",
+    "runner-r02.env": "0o600",
+    "runner-uat.env": "0o600",
+    "pgpass": "0o600"
+  },
+  "cleanup_executed": false
+}

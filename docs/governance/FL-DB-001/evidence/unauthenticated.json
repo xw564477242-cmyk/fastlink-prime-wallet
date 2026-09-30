@@ -1,0 +1,7 @@
+{
+  "connection": "local namespace loopback TCP",
+  "password_provided": false,
+  "exit": 2,
+  "authentication_rejected": true,
+  "raw_error_saved": false
+}
