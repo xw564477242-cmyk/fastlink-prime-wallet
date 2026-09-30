@@ -1,0 +1,27 @@
+{
+  "ticket": "FL-DEP-001",
+  "controllerThread": "019fa6b7-4f28-7b62-b676-757be88c22f8",
+  "ownerScopeApproval": "Verified owner confirmation in controller conversation; gate1 approved",
+  "branch": "feature/FL-DEP-001-undici-security-fix",
+  "backendBase": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+  "evidenceBase": "7ecf0a86193c169427ddb8e7d576067b836ffc0c",
+  "db3FrozenHeads": {
+    "backend": "4fead5f3e007d6226d63e263991c2de680744424",
+    "evidence": "2db834ee5fe79a1aed19426924a3e8543250ee7d"
+  },
+  "allowedBusinessFiles": [
+    "package.json",
+    "package-lock.json",
+    "necessary minimal compatibility tests"
+  ],
+  "prohibited": [
+    "other dependencies",
+    "workflow and audit thresholds",
+    "DB3 changes",
+    "production or real supplier calls",
+    "database and policy changes",
+    "deployment",
+    "history rewrite",
+    "evidence deletion"
+  ]
+}

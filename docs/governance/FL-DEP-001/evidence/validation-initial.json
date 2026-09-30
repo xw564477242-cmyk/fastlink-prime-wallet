@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "check": "business-head",
+      "status": "PASS"
+    },
+    {
+      "check": "two-file-scope",
+      "status": "PASS"
+    },
+    {
+      "check": "exact-version-upgrade",
+      "status": "PASS"
+    },
+    {
+      "check": "no-other-package-json-change",
+      "status": "PASS"
+    },
+    {
+      "check": "no-other-lock-change",
+      "status": "PASS"
+    },
+    {
+      "check": "lock-determinism-evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "high-critical-zero",
+      "status": "PASS"
+    },
+    {
+      "check": "five-moderates-unchanged",
+      "status": "PASS"
+    },
+    {
+      "check": "existing-results-preserved",
+      "status": "PASS"
+    },
+    {
+      "check": "mock-loopback-evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "draft-ci-bound-to-head",
+      "status": "PASS"
+    },
+    {
+      "check": "no-symlinks-or-bytecode",
+      "status": "PASS"
+    },
+    {
+      "check": "governance-secret-scan",
+      "status": "FAIL"
+    }
+  ],
+  "secretFindings": [
+    {
+      "file": "DEPENDENCY-AND-RISK.md",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "README.md",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/audit-after.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/audit-before.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/audit-before.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/business-ci.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/moderate-residuals.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/protection.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/protection.json",
+      "rule": "unclassified-high-entropy"
+    },
+    {
+      "file": "evidence/protection.json",
+      "rule": "unclassified-high-entropy"
+    }
+  ],
+  "highEntropyMetadataReviewed": 25,
+  "scanLimits": "New governance UTF-8 files only; hex OIDs/SHA256 and npm SHA512 integrity are public metadata. No actual key file read. Not a full-project rescan.",
+  "failed": 1
+}

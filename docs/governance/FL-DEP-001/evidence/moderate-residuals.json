@@ -1,0 +1,116 @@
+[
+  {
+    "name": "@nestjs/platform-express",
+    "version": "11.1.28",
+    "isDirect": true,
+    "via": [
+      "multer"
+    ],
+    "severity": "moderate",
+    "unchangedFromBaseline": true
+  },
+  {
+    "name": "@nestjs/swagger",
+    "version": "11.4.6",
+    "isDirect": true,
+    "via": [
+      "js-yaml"
+    ],
+    "severity": "moderate",
+    "unchangedFromBaseline": true
+  },
+  {
+    "name": "js-yaml",
+    "version": "5.2.2",
+    "isDirect": false,
+    "via": [
+      {
+        "source": 1239991,
+        "name": "js-yaml",
+        "dependency": "js-yaml",
+        "title": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+        "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
+        "severity": "moderate",
+        "cwe": [
+          "CWE-400",
+          "CWE-407"
+        ],
+        "cvss": {
+          "score": 5.3,
+          "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "range": ">=5.0.0 <=5.4.0"
+      }
+    ],
+    "severity": "moderate",
+    "unchangedFromBaseline": true
+  },
+  {
+    "name": "multer",
+    "version": "2.3.0",
+    "isDirect": false,
+    "via": [
+      {
+        "source": 1239935,
+        "name": "multer",
+        "dependency": "multer",
+        "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
+        "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
+        "severity": "moderate",
+        "cwe": [
+          "CWE-400",
+          "CWE-459"
+        ],
+        "cvss": {
+          "score": 5.3,
+          "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "range": ">=2.2.0 <2.4.0"
+      }
+    ],
+    "severity": "moderate",
+    "unchangedFromBaseline": true
+  },
+  {
+    "name": "qs",
+    "version": "6.15.3",
+    "isDirect": false,
+    "via": [
+      {
+        "source": 1158506,
+        "name": "qs",
+        "dependency": "qs",
+        "title": "qs array-limit bypass via bracket-key comma parsing",
+        "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+        "severity": "moderate",
+        "cwe": [
+          "CWE-770"
+        ],
+        "cvss": {
+          "score": 3.7,
+          "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "range": ">=6.14.2 <=6.15.3"
+      },
+      {
+        "source": 1158507,
+        "name": "qs",
+        "dependency": "qs",
+        "title": "qs: Denial of Service via Attacker Controlled isBuffer",
+        "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+        "severity": "moderate",
+        "cwe": [
+          "CWE-248",
+          "CWE-703"
+        ],
+        "cvss": {
+          "score": 5.3,
+          "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "range": ">=2.2.5 <6.16.0"
+      }
+    ],
+    "severity": "moderate",
+    "unchangedFromBaseline": true
+  }
+]
