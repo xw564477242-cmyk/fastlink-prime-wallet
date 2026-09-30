@@ -1,0 +1,97 @@
+{
+  "version": "BASE-V1.0-20260930",
+  "base_commit": "6c1473b93cb3d2ad122cf974a6c843950a0f4da6",
+  "tests": [
+    {
+      "id": "BASE-T01",
+      "name": "文件拓扑完整检查",
+      "status": "PASS",
+      "evidence": "四类文件及首页强制声明存在；专项基线仅引用。"
+    },
+    {
+      "id": "BASE-T02",
+      "name": "版本号一致性检查",
+      "status": "PASS",
+      "evidence": "四类文件版本一致；待合并与门禁5生效，不提前闭环。"
+    },
+    {
+      "id": "BASE-T03",
+      "name": "工单及SHA一致性校验",
+      "status": "PASS",
+      "evidence": "六PR合并元数据、父节点、树、合并后CI与权威正文一致；本次未重新执行业务测试。"
+    },
+    {
+      "id": "BASE-T04",
+      "name": "历史只追加模式检查",
+      "status": "PASS",
+      "evidence": "原文完整嵌入且顺序保留；基点全部531个已有文件比对，变更0。旧日志前缀未取得，不声称已验证。"
+    },
+    {
+      "id": "BASE-T05",
+      "name": "归档原文保留校验",
+      "status": "PASS",
+      "evidence": "完整活跃基线、闭环意见及3个归档区块保留原文字节。"
+    },
+    {
+      "id": "BASE-T06",
+      "name": "永久偏差完整性检查",
+      "status": "PASS",
+      "evidence": "T03/T12持续LIMITED；原FAIL、错误证据、V1、21备份及工具引用留存要求完整；既有文件未改写。"
+    },
+    {
+      "id": "BASE-T07",
+      "name": "可复用/禁止重复清单完整性",
+      "status": "PASS",
+      "evidence": "八类禁止重复执行条目齐备，复用不构成执行授权。"
+    },
+    {
+      "id": "BASE-T08",
+      "name": "链接及引用有效性检查",
+      "status": "PASS",
+      "evidence": {
+        "relative_links": 39,
+        "broken": [],
+        "remote_PRs_verified": 6,
+        "CI_run": 36671709135
+      }
+    },
+    {
+      "id": "BASE-T09",
+      "name": "SHA-256全量校验",
+      "status": "PASS",
+      "evidence": "文件定稿后生成SHA256SUMS并逐字节验证；清单自身SHA由最终HANDOFF和PR正文提供。最终核验输出保存在外部HANDOFF证据包。"
+    },
+    {
+      "id": "BASE-T10",
+      "name": "敏感信息扫描",
+      "status": "PASS",
+      "evidence": {
+        "scope": "全部新增文件UTF-8全文；不读取实际密钥或秘密候选",
+        "format_rules": 6,
+        "format_hits": [],
+        "unexplained_entropy_hits": [],
+        "key_material_filename_hits": [],
+        "known_digest_occurrences": 187,
+        "synthetic_controls": 6,
+        "negative_control": true,
+        "limitations": "已知SHA/OID按来源逐项豁免，非通用hash或目录白名单；未做凭据认证；结构检查不等于实际秘密不存在。"
+      }
+    },
+    {
+      "id": "BASE-T11",
+      "name": "PR范围合规检查",
+      "status": "PASS",
+      "evidence": "本地全部差异限定授权目录；PR创建后另核对远端base、head、文件清单和未合并状态。"
+    },
+    {
+      "id": "BASE-T12",
+      "name": "回滚方案有效性检查",
+      "status": "PASS",
+      "evidence": "只新增授权目录，无原业务文件覆盖；只读逆向差异检查在提交后完成。不执行实际回滚。"
+    }
+  ],
+  "pass": 12,
+  "fail": 0,
+  "existing_files_compared": 531,
+  "existing_changes": []
+}
