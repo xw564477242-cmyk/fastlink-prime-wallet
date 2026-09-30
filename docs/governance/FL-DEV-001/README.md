@@ -11,3 +11,10 @@
 报告分支feature/FL-DEV-001-fullstack-dev-environment，PR #80保持Draft，仅指向dev。提交补证和异常报告，门禁2仍因T03阻塞；未经门禁3不合并，不启用自动合并。
 
 R02/R04及更早机器证据保留为历史事实，其中失败、LIMITED和当时的禁止清理状态不改写。原55文件清单为旧HEAD快照；早期73文件口径已被后续补证扩展。最新累计范围以交付的最终PR清单为准。
+
+
+## V2追加：项目所有者偏差接受正式生效
+
+本节为最新状态，前文FAIL及原始证据按原样保留，不删除、不覆盖。依据新增evidence/偏差接受原文V2.md，T03调整为LIMITED—永久证据缺口已接受；T12调整为LIMITED—流程越权偏差已接受。最新机器汇总为evidence/self-tests-V2.json，原self-tests.json仍保存V1失败状态。
+
+当前12 PASS、2 LIMITED、0当前FAIL；历史2项FAIL不撤销。偏差接受不构成门禁2或门禁3通过，门禁2等待最终HEAD、测试及CI证据复核。PR #80继续Draft/dev；原现场冻结，不恢复或清理，不执行GC，不更新正式基线。

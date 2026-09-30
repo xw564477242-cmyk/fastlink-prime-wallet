@@ -1,0 +1,41 @@
+{
+  "type": "Project owner deviation acceptance, appended V2",
+  "source": "Latest user message in this conversation",
+  "source_file": "偏差接受原文V2.md",
+  "source_file_sha256": "ea398d975dd22d3c491528c8baf8c5de1020a620f56ab6b332e4472636b1e00b",
+  "encoding": "UTF-8, LF, one final newline",
+  "source_role": "项目所有者（依用户正式接受结论）",
+  "independent_signature_or_process_forensics_claimed": false,
+  "status_changes": [
+    {
+      "id": "DEV1-T03",
+      "from": "FAIL",
+      "to": "LIMITED",
+      "detail": "永久证据缺口已接受"
+    },
+    {
+      "id": "DEV1-T12",
+      "from": "FAIL",
+      "to": "LIMITED",
+      "detail": "流程越权偏差已接受"
+    }
+  ],
+  "preserved_historical_files_sha256": {
+    "evidence/self-tests.json": "4e68fadd3c91812b593e8d221d77e9bad7b27c001728e36e57af8afbf4331de6",
+    "补证更正包V1.md": "18c6c9b75f83dc80e4715056e5e87ee101337b18b8f7ce1ea522be553217dd84",
+    "evidence/V1-correction-ledger.json": "4b1228460b315d4b5fe26c466b7c5e8a5fb03c71deb1283ab439de78aef163a5",
+    "evidence/V1-registration-backup-verification.json": "877f59231fda08944f3bc9202d34168f66e0c8b1c76e2608cfcf771562bf4c8b",
+    "evidence/V1-execution-provenance.json": "e009bdc09f552e956657ffb2fa0c873ba34204b46aab90d8a367a40d4125b47b",
+    "evidence/R06-index-investigation.json": "fdefa123087cd57e25401bf04c079c2f016bae02d0e6459aec7439d3a4105205",
+    "evidence/R06-worktree-cleanup.json": "69f7d631ee51f5b210c5adf0037f9de9c457e7d1c7cb46aedb23a95e4812f816"
+  },
+  "historical_commit": "e05483d41727ae175fa937275cd68b75e2cf2d49",
+  "permanent_risks": [
+    "工作树清理未经事前批准",
+    "index变更前字节不可恢复",
+    "工具引用写入进程未最终归因"
+  ],
+  "no_retroactive_preapproval_claim": true,
+  "no_risk_closed": true,
+  "gate2_passed": false
+}
