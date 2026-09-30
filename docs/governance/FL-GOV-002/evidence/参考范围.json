@@ -1,0 +1,95 @@
+{
+  "fastlink-prime-wallet": {
+    "source_commit": "1686d504ec2c44f06718d70e6e4b0c6f92452de8",
+    "counts": {
+      "branch_base": 3,
+      "toolchain_lock": 3,
+      "environment_config": 6,
+      "governance_digest": 5,
+      "api_contract": 2
+    },
+    "monitored_files": 19,
+    "excluded_protected_paths": [
+      "docs/governance/baseline/CHANGE-HISTORY.md",
+      "docs/governance/baseline/PROJECT-STATUS-SUMMARY.md"
+    ],
+    "absent_categories": [
+      "rls_functions"
+    ]
+  },
+  "fastlik-backend": {
+    "source_commit": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+    "counts": {
+      "branch_base": 5,
+      "api_contract": 80,
+      "toolchain_lock": 2,
+      "rls_functions": 52,
+      "environment_config": 1
+    },
+    "monitored_files": 140,
+    "excluded_protected_paths": [],
+    "absent_categories": [
+      "governance_digest"
+    ]
+  },
+  "fastlik-app": {
+    "source_commit": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+    "counts": {
+      "branch_base": 6,
+      "api_contract": 2,
+      "toolchain_lock": 2,
+      "environment_config": 1
+    },
+    "monitored_files": 11,
+    "excluded_protected_paths": [],
+    "absent_categories": [
+      "rls_functions",
+      "governance_digest"
+    ]
+  },
+  "fastlik-Admin": {
+    "source_commit": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+    "counts": {
+      "branch_base": 6,
+      "toolchain_lock": 2,
+      "api_contract": 10,
+      "environment_config": 1
+    },
+    "monitored_files": 19,
+    "excluded_protected_paths": [],
+    "absent_categories": [
+      "rls_functions",
+      "governance_digest"
+    ]
+  },
+  "fastlik-Website": {
+    "source_commit": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+    "counts": {
+      "branch_base": 5,
+      "toolchain_lock": 1
+    },
+    "monitored_files": 6,
+    "excluded_protected_paths": [],
+    "absent_categories": [
+      "environment_config",
+      "rls_functions",
+      "api_contract",
+      "governance_digest"
+    ]
+  },
+  "fastlink-control-plane": {
+    "source_commit": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+    "counts": {
+      "branch_base": 5,
+      "toolchain_lock": 3
+    },
+    "monitored_files": 8,
+    "excluded_protected_paths": [],
+    "absent_categories": [
+      "environment_config",
+      "rls_functions",
+      "api_contract",
+      "governance_digest"
+    ]
+  }
+}

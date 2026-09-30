@@ -1,0 +1,144 @@
+{
+  "artifact_status": "PENDING",
+  "automatic_retests": 0,
+  "baseline": {
+    "merge_sha": "1686d504ec2c44f06718d70e6e4b0c6f92452de8",
+    "version": "BASE-V1.0-20260930"
+  },
+  "baseline_mutated": false,
+  "mandatory_constraints": [
+    {
+      "id": "DEV1-T03",
+      "state": "PERMANENT-DEVIATION"
+    },
+    {
+      "id": "DEV1-T12",
+      "state": "PERMANENT-DEVIATION"
+    },
+    {
+      "id": "EARLY-HISTORY",
+      "state": "HISTORY-GAP"
+    },
+    {
+      "id": "EVIDENCE-RETENTION",
+      "state": "PERMANENT-DEVIATION"
+    }
+  ],
+  "repositories": {
+    "fastlik-Admin": {
+      "affected": [],
+      "automatic_retests": 0,
+      "blocked": [],
+      "changes": [],
+      "checked_files": 19,
+      "observed_head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "observed_upstream": "origin/dev",
+      "result": "无漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    },
+    "fastlik-Website": {
+      "affected": [],
+      "automatic_retests": 0,
+      "blocked": [],
+      "changes": [],
+      "checked_files": 6,
+      "observed_head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "observed_upstream": "origin/dev",
+      "result": "无漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    },
+    "fastlik-app": {
+      "affected": [],
+      "automatic_retests": 0,
+      "blocked": [],
+      "changes": [],
+      "checked_files": 11,
+      "observed_head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "observed_upstream": "origin/dev",
+      "result": "无漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    },
+    "fastlik-backend": {
+      "affected": [],
+      "automatic_retests": 0,
+      "blocked": [],
+      "changes": [],
+      "checked_files": 140,
+      "observed_head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "observed_upstream": "origin/dev",
+      "result": "无漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    },
+    "fastlink-control-plane": {
+      "affected": [],
+      "automatic_retests": 0,
+      "blocked": [],
+      "changes": [],
+      "checked_files": 8,
+      "observed_head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "observed_upstream": "origin/dev",
+      "result": "无漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    },
+    "fastlink-prime-wallet": {
+      "affected": [
+        {
+          "conclusion": "local_history_reuse",
+          "next_action": "定向复验建议；须另经工单授权，不自动执行",
+          "suggested_status": "STALE"
+        },
+        {
+          "conclusion": "local_summary_reuse",
+          "next_action": "定向复验建议；须另经工单授权，不自动执行",
+          "suggested_status": "STALE"
+        },
+        {
+          "conclusion": "promotion_proof",
+          "next_action": "定向复验建议；须另经工单授权，不自动执行",
+          "suggested_status": "STALE"
+        },
+        {
+          "conclusion": "provenance",
+          "next_action": "定向复验建议；须另经工单授权，不自动执行",
+          "suggested_status": "STALE"
+        }
+      ],
+      "automatic_retests": 0,
+      "blocked": [
+        {
+          "path": "docs/governance/baseline/CHANGE-HISTORY.md",
+          "reason": "受保护本地覆盖层；正文不读取，不计算摘要"
+        },
+        {
+          "path": "docs/governance/baseline/FULL-ARCHIVE-INDEX.md",
+          "reason": "受保护本地覆盖层；正文不读取，不计算摘要"
+        },
+        {
+          "path": "docs/governance/baseline/PROJECT-STATUS-SUMMARY.md",
+          "reason": "受保护本地覆盖层；正文不读取，不计算摘要"
+        }
+      ],
+      "changes": [
+        {
+          "kind": "HEAD"
+        },
+        {
+          "kind": "upstream"
+        }
+      ],
+      "checked_files": 19,
+      "observed_head": "2e25033595b5f1ea1aaea0ed65d3c6ae73db5914",
+      "observed_upstream": "origin/feature/FL-BASE-001-baseline-v1",
+      "result": "发现漂移",
+      "risk_level_changes": 0,
+      "writes": 0
+    }
+  },
+  "result": "发现漂移",
+  "risk_level_changes": 0
+}

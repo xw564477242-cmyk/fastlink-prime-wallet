@@ -1,0 +1,208 @@
+{
+  "command": "PYTHONDONTWRITEBYTECODE=1 python3 -B -m unittest discover -s docs/governance/FL-GOV-002/tests -p test_*.py -v",
+  "passed": 50,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "test_governance.ModelTests.test_48h_starts_at_actual_change",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_api_not_database",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_changed_scope_not_reusable",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_constraints_survive_verification",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_deterministic_propagation",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_exception_48h_limit",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_exception_active",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_exception_expired_persistent",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_exception_red_lines",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_expired_exception_not_reusable",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_five_states",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_immutable_input",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_missing_approval",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_no_ungated_verification",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_overlay_does_not_invalidate_official",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_pending_not_reusable",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_produced_pending",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_removed_constraint_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_rls_reaches_wallet_and_admin",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_seven_input_families",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_stale_preserves_constraints",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_temporary_expiry_archive_proposal",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_temporary_requires_no_effect_evidence",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_unconstrained_result_not_reusable",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_unknown_event_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_unrelated_no_full_retest",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_unstarted_not_pending",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ModelTests.test_verified_reuse",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_arbitrary_manifest_scope_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_changed_lock_is_targeted",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_clean_no_drift",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_directory_symlink_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_empty_scope_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_env_and_key_paths_not_monitored",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_file_size_cap",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_file_symlink_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_git_write_command_denied",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_hardlink_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_index_not_rewritten_with_dirty_file",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_invalid_cli_no_raw_error",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_missing_file_is_unsafe",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_new_migration_detected_without_read",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_protected_object_never_opened",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_protected_read_denied",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_rls_actual_digest_change",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_run_twice_zero_mutation",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_sensitive_content_reads_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_three_result_values",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_traversal_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "test_governance.ReadOnlyTests.test_unrelated_file_no_retest",
+      "result": "PASS"
+    }
+  ],
+  "limits": "仅合成临时仓库和纯状态模型；临时测试夹具可清理，不操作正式资产。实际六仓证据另列。"
+}
