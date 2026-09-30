@@ -1,0 +1,33 @@
+{
+  "rls_change": [
+    {
+      "conclusion": "admin_views",
+      "suggested_status": "STALE",
+      "next_action": "定向复验建议；须另经工单授权，不自动执行"
+    },
+    {
+      "conclusion": "authenticated_api",
+      "suggested_status": "STALE",
+      "next_action": "定向复验建议；须另经工单授权，不自动执行"
+    },
+    {
+      "conclusion": "tenant_admin",
+      "suggested_status": "STALE",
+      "next_action": "定向复验建议；须另经工单授权，不自动执行"
+    },
+    {
+      "conclusion": "tenant_isolation",
+      "suggested_status": "STALE",
+      "next_action": "定向复验建议；须另经工单授权，不自动执行"
+    },
+    {
+      "conclusion": "wallet_reads",
+      "suggested_status": "STALE",
+      "next_action": "定向复验建议；须另经工单授权，不自动执行"
+    }
+  ],
+  "unrelated_change": [],
+  "risk_level_changes": 0,
+  "automatic_retests": 0,
+  "artifact_status": "PENDING"
+}

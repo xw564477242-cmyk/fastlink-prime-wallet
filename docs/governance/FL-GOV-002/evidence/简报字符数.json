@@ -1,0 +1,8 @@
+{
+  "metric": "Unicode code points, including whitespace and Markdown",
+  "counts": {
+    "启动简报模板.md": 382,
+    "启动简报实例.md": 553
+  },
+  "limit": 800
+}

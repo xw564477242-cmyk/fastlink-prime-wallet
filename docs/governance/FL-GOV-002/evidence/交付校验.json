@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "files": 38,
+  "inherited_git_entries": 548,
+  "templates_validated": 11,
+  "brief_characters": {
+    "启动简报模板.md": 382,
+    "启动简报实例.md": 553
+  },
+  "sensitive_candidates": 0,
+  "format_rule_classes": 6,
+  "high_entropy_rule": "length>=32; >=3 character classes; Shannon>=4.5; exact 40/64 lowercase hex integrity metadata excluded",
+  "scanner_synthetic_positive_controls": 7,
+  "scanner_synthetic_negative_controls": 4,
+  "actual_key_material_read": false,
+  "key_material_limit": "No actual HMAC key read or byte comparison; checks cover recognizable formats and non-hash mixed entropy only; not a full-project no-secret assertion.",
+  "manifest_verified": null,
+  "existing_files_changed": 0,
+  "writes": 0,
+  "manifest_note": "该文件纳入SHA256SUMS；最终完整校验结果及清单自身SHA在外置HANDOFF中记录，避免自引用。"
+}

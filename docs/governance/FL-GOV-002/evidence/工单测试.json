@@ -1,0 +1,109 @@
+{
+  "artifact_status": "PENDING",
+  "summary": {
+    "PASS": 13,
+    "LIMITED": 1,
+    "BLOCKED": 0,
+    "FAIL": 0
+  },
+  "tests": [
+    {
+      "id": "GOV2-T01",
+      "name": "基准版本与SHA可追溯",
+      "result": "PASS",
+      "basis": "reference.json；evidence/基点与授权来源.json",
+      "limitation": "固定合并对象及用户门禁5，不从本地覆盖层重新批准基线。"
+    },
+    {
+      "id": "GOV2-T02",
+      "name": "五种状态定义完整",
+      "result": "PASS",
+      "basis": "状态模型与继承规范.md；合成测试",
+      "limitation": "PENDING仅已产出待验收；另两类为不可覆盖约束。"
+    },
+    {
+      "id": "GOV2-T03",
+      "name": "永久偏差及历史缺口强制继承",
+      "result": "PASS",
+      "basis": "永久偏差与冷启动.md；全部模板；状态迁移测试",
+      "limitation": "保留原FAIL/错误证据/V1/21项备份及引用；不重新读取或修改其内容。"
+    },
+    {
+      "id": "GOV2-T04",
+      "name": "VERIFIED复用边界",
+      "result": "PASS",
+      "basis": "reusable及输入/范围/证据/到期测试",
+      "limitation": "不能用新工具结果替代资金、权限或生产验收。"
+    },
+    {
+      "id": "GOV2-T05",
+      "name": "输入变化传播为STALE",
+      "result": "PASS",
+      "basis": "evidence/影响传播案例.json；实际迁移摘要变化合成测试",
+      "limitation": "RLS影响租户权限/API/钱包和后台，身份与资金变化由人工非秘密事件输入。"
+    },
+    {
+      "id": "GOV2-T06",
+      "name": "不触发无关全量复验",
+      "result": "PASS",
+      "basis": "无关文件与无关事件测试；六仓结果automatic_retests=0",
+      "limitation": "输出定向建议，不自动执行。"
+    },
+    {
+      "id": "GOV2-T07",
+      "name": "有期限的豁免与回补",
+      "result": "PASS",
+      "basis": "豁免及到期机制.md；48小时/红线/临时到期测试",
+      "limitation": "不授予实际豁免；持久变更从实际生效与审批较早时间算48小时。"
+    },
+    {
+      "id": "GOV2-T08",
+      "name": "冷启动不补造历史",
+      "result": "PASS",
+      "basis": "永久偏差与冷启动.md；基线拟变更摘要.md",
+      "limitation": "旧版本不改，缺失原文仅索引；后补只追加，不按旧日期插入。"
+    },
+    {
+      "id": "GOV2-T09",
+      "name": "漂移检查不改写索引及现场",
+      "result": "LIMITED",
+      "basis": "evidence/只读执行前后对账.json；限制与偏差.md",
+      "limitation": "技术零写入通过；预检额外记录三项受保护文件元数据超出四字段授权，待评审。未读正文或重算其SHA；不得宣称完全合规。"
+    },
+    {
+      "id": "GOV2-T10",
+      "name": "不读取、输出或提交秘密值",
+      "result": "PASS",
+      "basis": "路径拒绝/异常脱敏合成测试；evidence/交付校验.json",
+      "limitation": "仅治理范围格式和高熵候选检查；未读真实密钥，不宣称与未知密钥做字节级比对或全项目无秘密。"
+    },
+    {
+      "id": "GOV2-T11",
+      "name": "启动简报不超过800字",
+      "result": "PASS",
+      "basis": "evidence/简报字符数.json",
+      "limitation": "按全部Unicode字符含Markdown与空白计数，模板382，实例553。"
+    },
+    {
+      "id": "GOV2-T12",
+      "name": "HANDOFF包含基线差量",
+      "result": "PASS",
+      "basis": "templates/HANDOFF基线差量.md；基线拟变更摘要.md",
+      "limitation": "新成果PENDING；门禁5前不写正式基线，最终提交/PR/CI外置HANDOFF承接。"
+    },
+    {
+      "id": "GOV2-T13",
+      "name": "PR仅含授权治理范围",
+      "result": "PASS",
+      "basis": "evidence/交付校验.json；最终PR文件对账",
+      "limitation": "本地新增均在docs/governance/FL-GOV-002/；远端最终核对在HANDOFF提供。"
+    },
+    {
+      "id": "GOV2-T14",
+      "name": "回滚保留历史证据旧基线",
+      "result": "PASS",
+      "basis": "改动与回滚.md",
+      "limitation": "停止使用/追加停用记录；需回滚另开普通PR，不在原现场演练删除或恢复。"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "baseline_version": "BASE-V1.0-20260930",
+  "baseline_merge_sha": "1686d504ec2c44f06718d70e6e4b0c6f92452de8",
+  "feature_start_sha": "1686d504ec2c44f06718d70e6e4b0c6f92452de8",
+  "clean_start": "独立远端dev克隆，无本地未提交或未跟踪文件导入",
+  "baseline_path": "docs/governance/baseline/BASE-V1.0-20260930.md",
+  "baseline_file_sha256": "2d96d216a8ada228b8d2eeacd6566840a5b114c2e622be266ad38c14e8f2015b",
+  "feature_branch": "feature/FL-GOV-002-baseline-inheritance",
+  "target": "dev",
+  "source": "项目所有者FL-BASE-001门禁5生效声明及FL-GOV-002门禁1隔离授权",
+  "artifact_status": "PENDING",
+  "tools": {
+    "python": "3.14.3",
+    "git": "git version 2.54.0 (Apple Git-157)"
+  },
+  "protected_local_overlay": "未作为新基准；未读取其正文或重算旧摘要"
+}
