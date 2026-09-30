@@ -1,0 +1,71 @@
+{
+  "schema": "FL-DB-002-source-protection-v1",
+  "results": [
+    {
+      "repository": "fastlink-prime-wallet",
+      "headBefore": "2e25033595b5f1ea1aaea0ed65d3c6ae73db5914",
+      "headAfter": "2e25033595b5f1ea1aaea0ed65d3c6ae73db5914",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    },
+    {
+      "repository": "fastlik-backend",
+      "headBefore": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "headAfter": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    },
+    {
+      "repository": "fastlik-app",
+      "headBefore": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "headAfter": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    },
+    {
+      "repository": "fastlik-Admin",
+      "headBefore": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "headAfter": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    },
+    {
+      "repository": "fastlik-Website",
+      "headBefore": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "headAfter": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    },
+    {
+      "repository": "fastlink-control-plane",
+      "headBefore": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "headAfter": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "indexEqual": true,
+      "refsEqual": true,
+      "trackedSourceAndBundleEqual": true
+    }
+  ],
+  "allEqual": true,
+  "protectedPrimeOverlays": {
+    "paths": [
+      "docs/governance/baseline/CHANGE-HISTORY.md",
+      "docs/governance/baseline/PROJECT-STATUS-SUMMARY.md",
+      "docs/governance/baseline/FULL-ARCHIVE-INDEX.md"
+    ],
+    "operations": [
+      "NOT_READ",
+      "NOT_STAT",
+      "NOT_HASHED",
+      "NOT_STAGED"
+    ]
+  },
+  "limits": [
+    "Comparison covers the selected tracked first-party source and existing bundle inventory defined by source-boundary.py.",
+    "It does not remove inherited permanent evidence gaps or prove all processes and files were unchanged."
+  ]
+}

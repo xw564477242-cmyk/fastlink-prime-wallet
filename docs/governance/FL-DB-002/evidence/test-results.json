@@ -1,0 +1,74 @@
+{
+  "schema": "FL-DB-002-delivery-tests-v1",
+  "checks": [
+    {
+      "name": "required-documents",
+      "status": "PASS",
+      "detail": "13"
+    },
+    {
+      "name": "static-route-count",
+      "status": "PASS",
+      "detail": "216 routes / 35 controllers"
+    },
+    {
+      "name": "static-registration",
+      "status": "PASS",
+      "detail": "all registered"
+    },
+    {
+      "name": "local-cases",
+      "status": "PASS",
+      "detail": "expected 401/200/403/200 evidence"
+    },
+    {
+      "name": "stop-after-p0",
+      "status": "PASS",
+      "detail": "zero expanded requests"
+    },
+    {
+      "name": "isolation",
+      "status": "PASS",
+      "detail": "loopback stopped unchanged"
+    },
+    {
+      "name": "material-permissions",
+      "status": "PASS",
+      "detail": "600/700"
+    },
+    {
+      "name": "source-protection",
+      "status": "PASS",
+      "detail": "six repositories unchanged"
+    },
+    {
+      "name": "test-statuses",
+      "status": "PASS",
+      "detail": "{'01': 'PASS', '02': 'LIMITED', '03': 'BLOCKED', '04': 'LIMITED', '05': 'LIMITED', '06': 'LIMITED', '07': 'FAIL', '08': 'PASS', '09': 'FAIL', '10': 'BLOCKED', '11': 'LIMITED', '12': 'PASS', '13': 'PASS', '14': 'PASS'}"
+    },
+    {
+      "name": "boundary-language",
+      "status": "PASS",
+      "detail": "deployment boundary present"
+    },
+    {
+      "name": "rollback-boundary",
+      "status": "PASS",
+      "detail": "non-destructive"
+    },
+    {
+      "name": "scanner-synthetic",
+      "status": "PASS",
+      "detail": "6/6 synthetic positives"
+    },
+    {
+      "name": "delivery-sensitive-formats",
+      "status": "PASS",
+      "detail": "[]"
+    }
+  ],
+  "summary": {
+    "pass": 13,
+    "fail": 0
+  }
+}

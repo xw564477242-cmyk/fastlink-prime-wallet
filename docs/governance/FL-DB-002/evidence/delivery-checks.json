@@ -1,0 +1,42 @@
+{
+  "schema": "FL-DB-002-delivery-v1",
+  "branch": "feature/FL-DB-002-access-reachability",
+  "baseHead": "a4ca25bd53033f22b21415e30e04d4dabb241b70",
+  "workingTreeHeadBeforeCommit": "f295cad9bcb89f7e59063e0dd957db3e44f14ccb",
+  "commitAndPrIdentity": "RECORDED_EXTERNALLY_AFTER_COMMIT",
+  "target": "dev",
+  "stageA": "STOPPED_AFTER_CONFIRMED_P0",
+  "stageB": "BLOCKED_UNAUTHORIZED",
+  "production": "UNAUTHORIZED",
+  "range": {
+    "onlyAuthorizedDirectory": true,
+    "statusEntries": 4
+  },
+  "evidence": {
+    "controllers": 35,
+    "routes": 216,
+    "registeredRoutes": 216,
+    "dynamicCases": 4,
+    "expandedAfterP0": 0,
+    "externalNetworkAttempts": 0,
+    "sourceProtection": true
+  },
+  "db2Tests": {
+    "PASS": 5,
+    "LIMITED": 5,
+    "BLOCKED": 2,
+    "FAIL": 2
+  },
+  "controlTests": {
+    "pass": 13,
+    "fail": 0
+  },
+  "statements": {
+    "businessCodeChanged": false,
+    "databaseChanged": false,
+    "productionAccessed": false,
+    "deployed": false,
+    "baselineUpdated": false,
+    "riskSourceWrittenBack": false
+  }
+}
