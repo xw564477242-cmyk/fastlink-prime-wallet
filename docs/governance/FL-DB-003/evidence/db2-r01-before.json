@@ -1,0 +1,147 @@
+{
+  "schema": "FL-DB-002-local-probe-v1",
+  "startedAt": "2026-09-30T14:09:34.996Z",
+  "finishedAt": "2026-09-30T14:09:35.127Z",
+  "sourceKind": "original controller + guard + service, transpiled in memory",
+  "persistence": "strict in-memory Prisma boundary mock; no database connection",
+  "scope": "isolated local behavior, not deployed environment",
+  "globalPipeline": "native Nest routing + actual class guard + ValidationPipe; full AppModule not booted",
+  "omitted": [
+    "global throttler",
+    "audit interceptor/filter",
+    "read-only interceptor",
+    "login issuance",
+    "actual Prisma/GRANT/RLS"
+  ],
+  "binding": {
+    "address": "127.0.0.1",
+    "family": "IPv4",
+    "ephemeralPort": true,
+    "serverStopped": true
+  },
+  "environmentAllowlist": [
+    "PATH",
+    "LANG",
+    "TMPDIR"
+  ],
+  "deniedNetworkAttempts": 0,
+  "roles": {
+    "actor": "TENANT_ADMIN",
+    "permissions": [
+      "admin:read"
+    ],
+    "platformPermissions": [],
+    "tenants": 2,
+    "users": 2
+  },
+  "cases": [
+    {
+      "id": "D01",
+      "name": "unauthenticated",
+      "actor": "anonymous",
+      "expected": 401,
+      "actual": 401,
+      "foreignTenantReturned": false,
+      "status": "PASS"
+    },
+    {
+      "id": "D02",
+      "name": "same-tenant-A",
+      "actor": "synthetic-A-tenant-admin",
+      "expected": 200,
+      "actual": 200,
+      "foreignTenantReturned": false,
+      "status": "PASS"
+    },
+    {
+      "id": "D03",
+      "name": "cross-tenant-B-no-override",
+      "actor": "synthetic-A-tenant-admin",
+      "expected": 403,
+      "actual": 403,
+      "foreignTenantReturned": false,
+      "status": "PASS"
+    },
+    {
+      "id": "D04",
+      "name": "cross-tenant-B-query-conflict",
+      "actor": "synthetic-A-tenant-admin",
+      "expected": 403,
+      "actual": 200,
+      "foreignTenantReturned": true,
+      "status": "FAIL"
+    }
+  ],
+  "stopOnConfirmedCrossTenant": true,
+  "expandedTestsAfterStop": 0,
+  "databaseQueries": [
+    {
+      "model": "Tenant",
+      "predicateKeys": [
+        "id",
+        "environment"
+      ],
+      "targetTenant": "A"
+    },
+    {
+      "model": "Tenant",
+      "predicateKeys": [
+        "id",
+        "environment"
+      ],
+      "targetTenant": "B"
+    }
+  ],
+  "syntheticBusinessData": {
+    "beforeSha256": "26cc10eaf0e14d9b8dd82c1995be4cce5b9fed94bb350bef2fb9acae494e0525",
+    "afterSha256": "26cc10eaf0e14d9b8dd82c1995be4cce5b9fed94bb350bef2fb9acae494e0525",
+    "equal": true
+  },
+  "syntheticSessionTouches": 2,
+  "materials": {
+    "keyId": "FL-DB-002-local-admin-01",
+    "fileMode": "600",
+    "parentMode": "700",
+    "fingerprints": [
+      "8db5da2bf1e1152093401db28750d43c72fcca7d16af5ecbf444f0cf1b93a834",
+      "2b018b21d8c80ece7c468d8379f6f8a13594c8fc67e4cb2d71ad021d66aa6bad"
+    ],
+    "retained": true,
+    "remoteUsability": "none; synthetic sessions only",
+    "expiry": "10 minutes from generation"
+  },
+  "loadedSources": [
+    {
+      "path": "src/tenants/tenants.controller.ts",
+      "sha256": "edb246288b61b8e6bebee8881c012fb5fcf48aff4583e5041625021491799ef7"
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.ts",
+      "sha256": "b5764b4d42dd73a99d14d4ec2f9c0030ccae0f3e4ae4d1e0050e568848930287"
+    },
+    {
+      "path": "src/prisma/prisma.service.ts",
+      "sha256": "cc4a675fc63ce4c7be743c8d1a7a90b65272146fab01bffe4fc718d0deab20b7"
+    },
+    {
+      "path": "src/admin-auth/admin-auth.service.ts",
+      "sha256": "8eb29403fc76a65c3dcc1243353740dd4ba62ad84ce211e4944c115a997d9353"
+    },
+    {
+      "path": "src/common/auth/request-auth.ts",
+      "sha256": "6af4727423bf2adf687906ef868f827d63b0c584ea9f97c4d86a69302f05c742"
+    },
+    {
+      "path": "src/tenants/dto/create-tenant.dto.ts",
+      "sha256": "e403cad7556a6615c0179ec03235ee5661c2777e425e9797dfa5d58cf968a273"
+    },
+    {
+      "path": "src/tenants/dto/tenant-response.dto.ts",
+      "sha256": "25b7251d4fc20a8283841e8c3c78c394f88161596dfeb27821663478ae485266"
+    },
+    {
+      "path": "src/tenants/tenants.service.ts",
+      "sha256": "94b2f664a1c8924e5efc9e44e48f19cd3f5c5238a604bc48859d8dd835d6c53e"
+    }
+  ]
+}

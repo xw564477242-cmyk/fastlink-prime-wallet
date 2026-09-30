@@ -1,0 +1,20 @@
+{
+  "schema": "FL-DB-003-delivery-checks-v1",
+  "scannedFiles": 24,
+  "secretRules": [
+    "private-key",
+    "aws-access-key",
+    "github-token",
+    "jwt",
+    "connection-secret"
+  ],
+  "syntheticPositive": {
+    "private-key": true,
+    "aws-access-key": true,
+    "github-token": true,
+    "jwt": true,
+    "connection-secret": true
+  },
+  "hits": [],
+  "range": "docs/governance/FL-DB-003 only"
+}

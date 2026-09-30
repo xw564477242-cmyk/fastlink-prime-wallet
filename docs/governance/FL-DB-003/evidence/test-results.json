@@ -1,0 +1,18 @@
+{
+  "schema": "FL-DB-003-test-results-v1",
+  "backendHead": "4fead5f3e007d6226d63e263991c2de680744424",
+  "results": [
+    {"name": "targeted-unit", "status": "PASS", "passed": 16, "failed": 0},
+    {"name": "tenant-scope-http-regression", "status": "PASS", "passed": 10, "failed": 0},
+    {"name": "complete-existing-jest", "status": "PASS", "passed": 1761, "skipped": 2, "failed": 0},
+    {"name": "build", "status": "PASS"},
+    {"name": "lint", "status": "PASS"},
+    {"name": "repository-secret-scan", "status": "PASS"},
+    {"name": "db2-r01-same-case-after-fix", "status": "PASS", "expected": 403, "actual": 403, "foreignTenantReturned": false}
+  ],
+  "executionLimits": [
+    "All dynamic data was synthetic.",
+    "No database or external provider was started.",
+    "The first unprivileged complete run had only local-listen permission failures; the authorized isolated rerun passed."
+  ]
+}
