@@ -20,9 +20,9 @@
       "id": "DEV1-T03",
       "name": "原现场保护",
       "status": "FAIL",
-      "evidence": "R04-ref-audit.json；R04前后561145文件无变化，不补证最初基线完全不变。",
-      "failure_or_limit": "最初基线新增1引用及3目录的创建工具未获管理员确认。tree含源码及4个gitlink，不能宣称与业务资产或独有提交无关。",
-      "impact_and_remediation": "保留引用/对象；管理员核验创建工具和用途。4个gitlink对应提交均在各自嵌套仓库存在。"
+      "evidence": "R06-attribution-confirmation.json、R06-protection-comparison.json、R06-index-investigation.json。",
+      "failure_or_limit": "原检查点归因阻断已解除，但本轮前置差异采集刷新了原.git/index的摘要和权限644→600；该额外变化不在登记清理授权内。",
+      "impact_and_remediation": "已停止原仓库写入；业务内容、引用和对象未变，当前与R04的HEAD/status/diff/refs一致。保留原始失败证据及合成复现，未备份到变更前索引字节，不能宣称已恢复。待总控评审该事件。"
     },
     {
       "id": "DEV1-T04",
@@ -91,10 +91,10 @@
     {
       "id": "DEV1-T12",
       "name": "工作树清理安全检查",
-      "status": "LIMITED",
-      "evidence": "R04-worktree-checkpoint.json；actual_prune_performed=false。",
-      "failure_or_limit": "总控明确不批准prune，三条登记继续保留；其他工单占用未确认。",
-      "impact_and_remediation": "不删除登记、目录、分支、提交、对象，不GC；仅提供最新dry-run元数据不变证据。"
+      "status": "PASS",
+      "evidence": "R06-prune-preflight.json、R06-worktree-cleanup.json；精确三条登记、备份校验、dry-run一致及清理后对象/引用对账。",
+      "failure_or_limit": "用户最新批量指令已明确授权精确三项登记清理；不追溯声称取得独立的历史占用证据。",
+      "impact_and_remediation": "仅登记元数据移除，实体路径清理前后均不存在；不删除工作区、分支、提交、对象或风险资产。备份受限保留，恢复需另行批准并检查冲突。"
     },
     {
       "id": "DEV1-T13",
@@ -110,15 +110,16 @@
       "status": "PASS",
       "evidence": "仅工单治理目录；草稿PR/dev；回滚仅停止辅助流程、保留资产，报告撤销需独立revert PR。",
       "failure_or_limit": "无",
-      "impact_and_remediation": "维持现有边界，无新增整改。"
+      "impact_and_remediation": "维持草稿/dev；登记恢复须另行批准、无新占用且不可覆盖；报告撤销采用独立revert PR。"
     }
   ],
   "counts": {
-    "PASS": 12,
+    "PASS": 13,
     "FAIL": 1,
-    "LIMITED": 1
+    "LIMITED": 0
   },
-  "gate2": "未通过：T03失败、T12受控保留",
+  "gate2": "补证及异常报告提交；T03失败，门禁2继续阻塞，不能提交为全通过评审",
   "gate3": "未进入",
-  "worktree_cleanup_performed": false
+  "worktree_cleanup_performed": true,
+  "verification_policy": "复用未变源码的既有运行结果；本轮重新执行现场对账、登记清理安全检查、治理文件扫描与PR范围检查"
 }

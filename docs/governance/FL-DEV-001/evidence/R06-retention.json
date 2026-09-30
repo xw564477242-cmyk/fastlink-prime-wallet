@@ -1,0 +1,216 @@
+{
+  "formal_workspaces": [
+    {
+      "repo": "fastlik-Admin",
+      "head": "9c2ae0034e5104e331f01dd2146d00e164b1d844",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    },
+    {
+      "repo": "fastlik-Website",
+      "head": "798a9f8f51dce62c7136962f99c04e51b650cf2c",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    },
+    {
+      "repo": "fastlik-app",
+      "head": "91ce890fcb27ed042d9547d3083c63bd2e2e31d6",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    },
+    {
+      "repo": "fastlik-backend",
+      "head": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    },
+    {
+      "repo": "fastlink-control-plane",
+      "head": "ccaeaeca55fba2b0c50bdfb971d60af00e4bb16c",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    },
+    {
+      "repo": "fastlink-prime-wallet",
+      "head": "c7ec540b35feae9a4744556d7f535f37a5c30c33",
+      "mode": "0o700",
+      "uid": 501,
+      "upstream": "origin/dev",
+      "tracked_clean": true,
+      "untracked_nonignored_count": 0,
+      "head_unchanged": true,
+      "long_remote_refs_unchanged": true,
+      "manifests_match_head": true
+    }
+  ],
+  "recovery_directories": [
+    {
+      "round": "round-1",
+      "repo": "fastlik-Admin",
+      "mode": "0o700",
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-Website",
+      "mode": "0o700",
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-app",
+      "mode": "0o700",
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlik-backend",
+      "mode": "0o700",
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-control-plane",
+      "mode": "0o700",
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-prime-wallet",
+      "mode": "0o700",
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-1",
+      "repo": "fastlink-recovery-archive",
+      "mode": "0o700",
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Admin",
+      "mode": "0o700",
+      "head": "7228905b4319187db40754832d30c6d9bbe2ff8f",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-Website",
+      "mode": "0o700",
+      "head": "7b5440772069cecc03a1682bc5d2140317c54edb",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-app",
+      "mode": "0o700",
+      "head": "fb05291c5c68d979bbd864fae4e9493d64479560",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlik-backend",
+      "mode": "0o700",
+      "head": "74e5be019c8c91acee6ca241956fc24dfe8ae826",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-control-plane",
+      "mode": "0o700",
+      "head": "3396b1e57fd4e94981bfe626d1e4bbf1844643c6",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-prime-wallet",
+      "mode": "0o700",
+      "head": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "tracked_clean": true
+    },
+    {
+      "round": "round-2",
+      "repo": "fastlink-recovery-archive",
+      "mode": "0o700",
+      "head": "a09e6221f5530a42820fe35168254260560a172f",
+      "tracked_clean": true
+    }
+  ],
+  "hmac_key": {
+    "retained": true,
+    "file_mode": "0o600",
+    "parent_mode": "0o700",
+    "value_read_or_exported": false
+  },
+  "local_credential_file": {
+    "retained": true,
+    "file_mode": "0o600",
+    "git_ignored": true,
+    "value_exported": false
+  },
+  "containers": [
+    {
+      "name": "fl-dev001-r03-postgres",
+      "retained": true,
+      "running": false,
+      "status": "exited"
+    },
+    {
+      "name": "fl-dev001-r04-postgres",
+      "retained": true,
+      "running": false,
+      "status": "exited"
+    },
+    {
+      "name": "fl-dev001-r04-runner",
+      "retained": true,
+      "running": false,
+      "status": "exited"
+    },
+    {
+      "name": "fl-dev001-r04-dependency-install",
+      "retained": true,
+      "running": false,
+      "status": "exited"
+    }
+  ],
+  "no_asset_cleanup_performed": true,
+  "scope_exception": "Only explicitly approved worktree registration metadata removed; original assets and risk evidence retained"
+}
