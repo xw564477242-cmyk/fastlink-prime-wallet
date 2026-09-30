@@ -1,0 +1,27 @@
+{
+  "sourceThread": "019fa6b7-4f28-7b62-b676-757be88c22f8",
+  "recordedAt": "2026-09-30T19:13:00.218385+00:00",
+  "gate5": "PASS",
+  "ticket": "FL-DEP-001",
+  "closed": true,
+  "backendMerge": "3f29b332f665e98082def9209df3bd799a429789",
+  "governanceMerge": "74f0d9c8a2374759f09632d3549908680b0d61dd",
+  "approvedBaselineDelta": "dev code results only: undici8.10.2, exact lockfile change, specified High findings cleared, isolated compatibility verified",
+  "remainingModerate": 5,
+  "uatIncident": "platform native auto-deployment governance blind spot; not classified as execution-side intentional overreach; not compliant promotion; not UAT security acceptance",
+  "containment": "controller confirms specific UAT backend dev auto-deploy disabled",
+  "uatInstruction": "Leave current state; no rollback, no verification, no further operation",
+  "retainedRisks": [
+    "DEV1-T03",
+    "DEV1-T12",
+    "GOV2-T09",
+    "history gaps",
+    "DB-R02",
+    "DB1-T08/T09 FAIL",
+    "DB1-T13 BLOCKED",
+    "DB2-R01",
+    "FL-DB-003 unfinished items"
+  ],
+  "db3Resume": "ordinary merge latest dev into both isolated feature branches; limited retests and updated evidence; PRs unmerged for gate2/3 re-review",
+  "formalBaselineFilesModified": false
+}

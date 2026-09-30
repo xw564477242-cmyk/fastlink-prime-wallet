@@ -1,0 +1,56 @@
+{
+  "backendOldHead": "4fead5f3e007d6226d63e263991c2de680744424",
+  "backendHead": "d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e",
+  "backendDev": "3f29b332f665e98082def9209df3bd799a429789",
+  "backendParents": [
+    "4fead5f3e007d6226d63e263991c2de680744424",
+    "3f29b332f665e98082def9209df3bd799a429789"
+  ],
+  "mergeDiff": [
+    "package.json",
+    "package-lock.json"
+  ],
+  "businessFiles": [
+    {
+      "path": "src/admin-auth/admin-bearer.guard.spec.ts",
+      "oldBlob": "6df5063c64ce82a182e51a89fc37c56e2463ac82",
+      "newBlob": "6df5063c64ce82a182e51a89fc37c56e2463ac82"
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.ts",
+      "oldBlob": "48797a7170a87e841f825aef134d3ab08596510a",
+      "newBlob": "48797a7170a87e841f825aef134d3ab08596510a"
+    },
+    {
+      "path": "src/common/auth/request-auth.ts",
+      "oldBlob": "51d91720f370f1a43177dba63384a02abcca34b8",
+      "newBlob": "51d91720f370f1a43177dba63384a02abcca34b8"
+    },
+    {
+      "path": "src/tenants/tenants.controller.spec.ts",
+      "oldBlob": "780822067e48393df41c014cfa6c1419f559192c",
+      "newBlob": "780822067e48393df41c014cfa6c1419f559192c"
+    },
+    {
+      "path": "src/tenants/tenants.controller.ts",
+      "oldBlob": "812ed7440c72f9b5ee113882f4ad123e0bb527b6",
+      "newBlob": "812ed7440c72f9b5ee113882f4ad123e0bb527b6"
+    },
+    {
+      "path": "test/admin-tenant-scope.integration.e2e-spec.ts",
+      "oldBlob": "e20094a608304f2e8a9edd965de35a3ca68a0765",
+      "newBlob": "e20094a608304f2e8a9edd965de35a3ca68a0765"
+    }
+  ],
+  "businessImplementationUnchanged": true,
+  "priorRouteMatrixReused": "131/131; 1 PASS_LOCAL,92 PASS_STATIC,38 LIMITED",
+  "workdir": "/private/tmp/FL-DB-003-backend/repo",
+  "logsRoot": "/private/tmp/FL-DB-003-resume-aibowz5_",
+  "versions": {
+    "node": "v22.22.1",
+    "npm": "10.9.4"
+  },
+  "governanceOldHead": "2db834ee5fe79a1aed19426924a3e8543250ee7d",
+  "governanceMergeHead": "fc5174c677ed48e81aa117f5dddff2965bd9597f",
+  "governanceDev": "74f0d9c8a2374759f09632d3549908680b0d61dd"
+}

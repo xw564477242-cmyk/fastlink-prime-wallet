@@ -13,3 +13,7 @@
 - `TENANT-REGRESSION.md`：普通管理员、平台管理员及读写更新删除回归。
 - `SELF-TEST.md`：DB3-T01～T16。
 - `BASELINE-DELTA.md`：门禁5前仅为PENDING拟追加内容。
+
+## FL-DEP-001闭环后追加（R1）
+
+原文保留为旧HEAD时点记录。本轮已普通merge继承最新dev，业务HEAD为`d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e`；当前结果、定向12项与旧16项口径区别、CI与风险边界以`RESUME-AFTER-DEP-R1.md`及`evidence/resume-R1/`为准。业务#334保持Ready未合并，治理#85保持Draft未合并；等待新HEAD门禁2/3复评。正式基线文件未修改。

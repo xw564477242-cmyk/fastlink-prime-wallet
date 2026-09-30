@@ -9,3 +9,7 @@
 继续保留：DB-R02潜在P0；FL-DB-001 T08/T09 FAIL、T13 BLOCKED；实际GRANT、RLS、部署JWT、客户端可达性和阶段B未验证；38项LIMITED定向复验；资金功能关闭；受影响后端在门禁5及后续发布门禁前不得晋升。
 
 继续继承DEV1-T03、DEV1-T12、GOV2-T09、HISTORY-GAP、580链接证据缺口、88 High、2,917候选及全部证据保留要求。
+
+## FL-DEP-001闭环后追加（R1）
+
+原文保留为旧HEAD时点记录。本轮已普通merge继承最新dev，业务HEAD为`d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e`；当前结果、定向12项与旧16项口径区别、CI与风险边界以`RESUME-AFTER-DEP-R1.md`及`evidence/resume-R1/`为准。业务#334保持Ready未合并，治理#85保持Draft未合并；等待新HEAD门禁2/3复评。正式基线文件未修改。

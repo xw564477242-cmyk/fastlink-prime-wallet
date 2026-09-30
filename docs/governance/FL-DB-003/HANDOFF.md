@@ -23,3 +23,9 @@
 - `P0-BEFORE-AFTER.md`、`ADMIN-ROUTE-AUDIT.md`、`TENANT-REGRESSION.md`、`SELF-TEST.md`、`BASELINE-DELTA.md`及`evidence/`。
 
 门禁2待证据PR最终HEAD对应CI完成后提交；未经门禁3不得合并。
+
+## FL-DEP-001闭环后追加（R1）
+
+原文保留为旧HEAD时点记录。本轮已普通merge继承最新dev，业务HEAD为`d8dc183f6ff91f3d00c9e2e533e57ee68fce8b9e`；当前结果、定向12项与旧16项口径区别、CI与风险边界以`RESUME-AFTER-DEP-R1.md`及`evidence/resume-R1/`为准。业务#334保持Ready未合并，治理#85保持Draft未合并；等待新HEAD门禁2/3复评。正式基线文件未修改。
+
+R1业务远端CI已全部成功（36764566816、36764566826、36764566814）；治理新提交的CI待提交后绑定。完整证据见 `evidence/resume-R1/business-ci.json`，复评边界见 `RESUME-AFTER-DEP-R1.md`。
