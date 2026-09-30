@@ -1,0 +1,104 @@
+{
+  "businessHead": "9d95caa41fa5bbb9e46a5a7c6b73f5505a5cb359",
+  "runtime": {
+    "node": "22.22.1",
+    "npm": "10.9.4"
+  },
+  "results": [
+    {
+      "name": "prisma-generate",
+      "exitCode": 1,
+      "seconds": 0.53
+    },
+    {
+      "name": "prisma-generate-authorized",
+      "exitCode": 0,
+      "seconds": 1.02
+    },
+    {
+      "name": "targeted",
+      "exitCode": 0,
+      "seconds": 5.93
+    },
+    {
+      "name": "build",
+      "exitCode": 0,
+      "seconds": 13.77
+    },
+    {
+      "name": "lint",
+      "exitCode": 0,
+      "seconds": 14.69
+    },
+    {
+      "name": "full-jest",
+      "exitCode": 0,
+      "seconds": 22.57
+    },
+    {
+      "name": "adapter-probe",
+      "exitCode": 0,
+      "seconds": 0.16
+    },
+    {
+      "name": "secret-scan",
+      "exitCode": 0,
+      "seconds": 0.26
+    },
+    {
+      "name": "audit-installed",
+      "exitCode": 0,
+      "seconds": 1.25
+    },
+    {
+      "name": "lock-determinism",
+      "exitCode": 0,
+      "seconds": 0.42
+    }
+  ],
+  "targeted": {
+    "numPassedTests": 76,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "numPassedTestSuites": 1,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "fullJest": {
+    "numPassedTests": 1755,
+    "numFailedTests": 0,
+    "numPendingTests": 2,
+    "numPassedTestSuites": 197,
+    "numFailedTestSuites": 0,
+    "success": true
+  },
+  "network": {
+    "targeted": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    },
+    "full-jest": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    },
+    "adapter-probe": {
+      "externalAttemptsDenied": 0,
+      "boundary": "loopback-only"
+    }
+  },
+  "adapter": {
+    "status": "PASS",
+    "undici": "8.10.2",
+    "node": "v22.22.1",
+    "adapter": "Agent + Dispatcher1Wrapper + built-in fetch",
+    "bind": "127.0.0.1",
+    "httpStatus": 200,
+    "requests": 1,
+    "realSupplierCalls": 0
+  },
+  "limits": [
+    "2 existing skipped Jest tests; no DB3 tests cherry-picked",
+    "No production or vendor service called",
+    "Mock tests and loopback compatibility only"
+  ]
+}

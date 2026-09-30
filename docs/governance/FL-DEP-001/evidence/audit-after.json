@@ -1,0 +1,161 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@nestjs/platform-express": {
+      "name": "@nestjs/platform-express",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "multer"
+      ],
+      "effects": [],
+      "range": "11.1.28 - 11.2.5 || 12.0.0-alpha.0 - 12.0.2",
+      "nodes": [
+        "node_modules/@nestjs/platform-express"
+      ],
+      "fixAvailable": true
+    },
+    "@nestjs/swagger": {
+      "name": "@nestjs/swagger",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "js-yaml"
+      ],
+      "effects": [],
+      "range": "11.4.6 - 12.0.0",
+      "nodes": [
+        "node_modules/@nestjs/swagger"
+      ],
+      "fixAvailable": true
+    },
+    "js-yaml": {
+      "name": "js-yaml",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1239991,
+          "name": "js-yaml",
+          "dependency": "js-yaml",
+          "title": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+          "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-407"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=5.0.0 <=5.4.0"
+        }
+      ],
+      "effects": [
+        "@nestjs/swagger"
+      ],
+      "range": "5.0.0 - 5.4.0",
+      "nodes": [
+        "node_modules/js-yaml"
+      ],
+      "fixAvailable": true
+    },
+    "multer": {
+      "name": "multer",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1239935,
+          "name": "multer",
+          "dependency": "multer",
+          "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
+          "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-400",
+            "CWE-459"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=2.2.0 <2.4.0"
+        }
+      ],
+      "effects": [
+        "@nestjs/platform-express"
+      ],
+      "range": "2.2.0 - 2.3.0",
+      "nodes": [
+        "node_modules/multer"
+      ],
+      "fixAvailable": true
+    },
+    "qs": {
+      "name": "qs",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1158506,
+          "name": "qs",
+          "dependency": "qs",
+          "title": "qs array-limit bypass via bracket-key comma parsing",
+          "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-770"
+          ],
+          "cvss": {
+            "score": 3.7,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=6.14.2 <=6.15.3"
+        },
+        {
+          "source": 1158507,
+          "name": "qs",
+          "dependency": "qs",
+          "title": "qs: Denial of Service via Attacker Controlled isBuffer",
+          "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-248",
+            "CWE-703"
+          ],
+          "cvss": {
+            "score": 5.3,
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+          },
+          "range": ">=2.2.5 <6.16.0"
+        }
+      ],
+      "effects": [],
+      "range": "2.2.5 - 6.15.3",
+      "nodes": [
+        "node_modules/qs"
+      ],
+      "fixAvailable": true
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 5,
+      "high": 0,
+      "critical": 0,
+      "total": 5
+    },
+    "dependencies": {
+      "prod": 175,
+      "dev": 616,
+      "optional": 57,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 790
+    }
+  }
+}
