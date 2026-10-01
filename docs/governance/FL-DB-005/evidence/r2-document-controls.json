@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "matrix_rows": 52,
+  "exact_scope_match": true,
+  "required_fields": [
+    "finding_id",
+    "table",
+    "module",
+    "ownership_chain",
+    "proposed_subject_roles",
+    "proposed_select",
+    "proposed_insert",
+    "proposed_update",
+    "proposed_delete",
+    "sensitive_column_names",
+    "indirect_access",
+    "default_deny_reason",
+    "approval_roles",
+    "approval_status"
+  ],
+  "positive_permissions_added": 0,
+  "all_approval_statuses": "BLOCKED",
+  "original_denominator": 54,
+  "schema_only_stale": [
+    "CardApplication",
+    "CardFeeOverride",
+    "CardProductTemplate",
+    "CustomerReferral",
+    "FeeAssessment",
+    "OnchainDepositAddress",
+    "OnchainFxQuote",
+    "OnchainTransfer",
+    "OnchainTransferEvent",
+    "TenantFeePolicy"
+  ],
+  "catalog_only_stale": [
+    "treasury_accounts",
+    "treasury_fx_orders",
+    "treasury_operation_logs",
+    "treasury_settlements"
+  ],
+  "new_rounds": [
+    3,
+    4
+  ],
+  "original_migration_count_per_round": 32,
+  "candidate_count_per_round": 3,
+  "previous_evidence_preserved": true
+}

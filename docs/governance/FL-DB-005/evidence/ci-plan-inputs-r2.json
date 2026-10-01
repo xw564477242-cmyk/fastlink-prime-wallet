@@ -1,0 +1,27 @@
+{
+  "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d",
+  "status": "PROPOSAL_ONLY_NOT_EXECUTED",
+  "workflows": [
+    {
+      "path": ".github/workflows/pull-request.yml",
+      "sha256": "9e4479032ed1c2d32947a536bf514c836e58badcdfd795184f20e1fbd399e8a0"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "a93145b08113d9af601cab8a73bb9afefc307a051542d64bac259c35495fc0b8"
+    },
+    {
+      "path": ".github/workflows/dev-reset-round-trip.yml",
+      "sha256": "1e444c7344405be5402c8e97097c4eccc19eb7fa9d2e6939b980a87c6e7534a9"
+    }
+  ],
+  "blockers": [
+    "Draft full-job conditions",
+    "PostgreSQL17-alpine/16-alpine do not pin approved17.11",
+    "existing normal database names do not satisfy DB5 isolation guard",
+    "legacy reset/seed lifecycle not authorized for DB5",
+    "production audit metadata awaits owner authorization",
+    "Prisma model/catalog mismatch and 52 contracts unresolved"
+  ],
+  "changes_applied": 0
+}

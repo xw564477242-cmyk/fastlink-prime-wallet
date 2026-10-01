@@ -1,0 +1,104 @@
+{
+  "scope": "DB5 task containers only",
+  "containers": [
+    {
+      "name": "fl-db005-p8ryoi9-r1",
+      "running": false,
+      "host_ports": 0,
+      "volumes_retained": [
+        "fl-db005-p8ryoi9-r1-data"
+      ]
+    },
+    {
+      "name": "fl-db005-p8ryoi9-r2",
+      "running": false,
+      "host_ports": 0,
+      "volumes_retained": [
+        "fl-db005-p8ryoi9-r2-data"
+      ]
+    },
+    {
+      "name": "fl-db005-p8ryoi9-r3",
+      "running": false,
+      "host_ports": 0,
+      "volumes_retained": [
+        "fl-db005-p8ryoi9-r3-data"
+      ]
+    },
+    {
+      "name": "fl-db005-p8ryoi9-r4",
+      "running": false,
+      "host_ports": 0,
+      "volumes_retained": [
+        "fl-db005-p8ryoi9-r4-data"
+      ]
+    }
+  ],
+  "authentication": [
+    {
+      "round": 1,
+      "directory_mode": "0o700",
+      "files": [
+        {
+          "name": "initializer-password",
+          "mode": "0o600"
+        },
+        {
+          "name": "credentials.json",
+          "mode": "0o600"
+        }
+      ],
+      "retained": true,
+      "raw_values_exported": false
+    },
+    {
+      "round": 2,
+      "directory_mode": "0o700",
+      "files": [
+        {
+          "name": "initializer-password",
+          "mode": "0o600"
+        },
+        {
+          "name": "credentials.json",
+          "mode": "0o600"
+        }
+      ],
+      "retained": true,
+      "raw_values_exported": false
+    },
+    {
+      "round": 3,
+      "directory_mode": "0o700",
+      "files": [
+        {
+          "name": "initializer-password",
+          "mode": "0o600"
+        },
+        {
+          "name": "credentials.json",
+          "mode": "0o600"
+        }
+      ],
+      "retained": true,
+      "raw_values_exported": false
+    },
+    {
+      "round": 4,
+      "directory_mode": "0o700",
+      "files": [
+        {
+          "name": "initializer-password",
+          "mode": "0o600"
+        },
+        {
+          "name": "credentials.json",
+          "mode": "0o600"
+        }
+      ],
+      "retained": true,
+      "raw_values_exported": false
+    }
+  ],
+  "old_assets_untouched": true
+}

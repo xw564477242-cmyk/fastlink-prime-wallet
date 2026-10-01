@@ -1,0 +1,1412 @@
+{
+  "scope": "new local isolation only; no production claim",
+  "rounds": [
+    {
+      "round": 3,
+      "cases": [
+        {
+          "name": "54_tables_rls_force",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime_nonprivileged",
+          "status": "PASS"
+        },
+        {
+          "name": "safe_function_owners_paths_execute",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_same_a",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "40c943c73392deec5735fe8cb56a4b44f5d3afc573320469afe43caa61ac09fa",
+          "after_sha256": "40c943c73392deec5735fe8cb56a4b44f5d3afc573320469afe43caa61ac09fa"
+        },
+        {
+          "name": "address_insert_context_a",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_same_b",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "e20f13445a826a00800a3cbcaed67348b1b86b5a6a63a6322d811c0b13d73262",
+          "after_sha256": "e20f13445a826a00800a3cbcaed67348b1b86b5a6a63a6322d811c0b13d73262"
+        },
+        {
+          "name": "address_insert_context_b",
+          "status": "PASS"
+        },
+        {
+          "name": "address_select_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_update_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_delete_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_insert_forged_owner_a",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_update_owner_a",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_same_update_delete_a",
+          "status": "PASS"
+        },
+        {
+          "name": "address_select_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_update_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_delete_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_insert_forged_owner_b",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_update_owner_b",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "address_same_update_delete_b",
+          "status": "PASS"
+        },
+        {
+          "name": "db5_platform_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "db5_task_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "tenant_admin_same_select",
+          "status": "PASS"
+        },
+        {
+          "name": "tenant_admin_cross_select",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69",
+          "after_sha256": "3154071d68856b1dfe8adcb58ac56dee73a0d92eb52538d08309b67114f94d69"
+        },
+        {
+          "name": "pool_unbound_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "pool_concurrent_interleaving",
+          "status": "PASS",
+          "transactions": 8,
+          "connection_limit": 2
+        },
+        {
+          "name": "pool_after_commit_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "same_transaction_savepoint_replay_rejected",
+          "status": "PASS",
+          "scope": "same approved subject and transaction; not a cross-tenant observation"
+        }
+      ],
+      "catalog": {
+        "roles": [
+          {
+            "rolname": "db5_admin_a",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_initializer",
+            "rolsuper": true,
+            "rolbypassrls": true,
+            "rolcreaterole": true,
+            "rolcreatedb": true
+          },
+          {
+            "rolname": "db5_issuer",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_platform",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_pool",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_task",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_user_a",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_user_b",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          }
+        ],
+        "tables": [
+          {
+            "relname": "AdminSession",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ApiClient",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ApiKey",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "AuditLog",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Card",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardBalance",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardHolder",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardLifecycleEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardLimit",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardRenewal",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardReplacement",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardRestriction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardSecurityProfile",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardTransaction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Customer",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EndUserRefreshToken",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EndUserSession",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EvidenceArtifact",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxConversion",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxOrder",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxRate",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Journal",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "JournalEntry",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Merchant",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "MerchantPayment",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "MerchantQrCode",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Permission",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ProviderOperation",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Role",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "RolePermission",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SettlementBatch",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SettlementItem",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SimulationRecord",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SimulationScenario",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Tenant",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantCardProviderConfig",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantUser",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantUserRole",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TreasuryPosition",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletAccount",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletOperation",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletTransaction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WebhookEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WithdrawalAddress",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "tenant_third_party_config",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "third_party_asset_orders",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "third_party_callback_events",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_accounts",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_fx_orders",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_operation_logs",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_settlements",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ucard_card_base",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ucard_transactions",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          }
+        ],
+        "functions": [
+          {
+            "proname": "address_ownership",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "bind_ticket",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "current_identity",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "issue_ticket",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          }
+        ],
+        "memberships": [
+          {
+            "role": "fl_db005_issuer",
+            "member": "db5_issuer",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_admin_a",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_platform",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_pool",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_task",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_user_a",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_user_b",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          }
+        ],
+        "policies": [
+          {
+            "tablename": "Customer",
+            "policyname": "db5_customer_select",
+            "cmd": "SELECT",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.tenant_id = \"Customer\".\"tenantId\") AND (i.environment = (\"Customer\".environment)::text) AND (i.purpose = ANY (ARRAY['profile'::text, 'address-book'::text])) AND ((i.actor_kind = 'TENANT_ADMIN'::text) OR ((i.actor_kind = 'USER'::text) AND (i.subject_id = \"Customer\".id))))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_delete",
+            "cmd": "DELETE",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_insert",
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))"
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_select",
+            "cmd": "SELECT",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_update",
+            "cmd": "UPDATE",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))"
+          }
+        ]
+      },
+      "verdict": "PASS_WITH_SCOPE_LIMITS",
+      "data_after_probes_unchanged": true
+    },
+    {
+      "round": 4,
+      "cases": [
+        {
+          "name": "54_tables_rls_force",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime_nonprivileged",
+          "status": "PASS"
+        },
+        {
+          "name": "safe_function_owners_paths_execute",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_same_a",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "22fdc90fd1b390a9eed32282e3b5241da4ab0b1d957c638b9d9670b6d45605ba",
+          "after_sha256": "22fdc90fd1b390a9eed32282e3b5241da4ab0b1d957c638b9d9670b6d45605ba"
+        },
+        {
+          "name": "address_insert_context_a",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_same_b",
+          "status": "PASS"
+        },
+        {
+          "name": "customer_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "2f1d83244e88cb31278eafb10a9ca4f10d070962e316bc4dcebd66d2c975cdac",
+          "after_sha256": "2f1d83244e88cb31278eafb10a9ca4f10d070962e316bc4dcebd66d2c975cdac"
+        },
+        {
+          "name": "address_insert_context_b",
+          "status": "PASS"
+        },
+        {
+          "name": "address_select_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_update_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_delete_cross_a",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_insert_forged_owner_a",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_update_owner_a",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_same_update_delete_a",
+          "status": "PASS"
+        },
+        {
+          "name": "address_select_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_update_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_delete_cross_b",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_insert_forged_owner_b",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_update_owner_b",
+          "status": "PASS",
+          "rows": null,
+          "sqlstate": "42501",
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "address_same_update_delete_b",
+          "status": "PASS"
+        },
+        {
+          "name": "db5_platform_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "db5_task_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "tenant_admin_same_select",
+          "status": "PASS"
+        },
+        {
+          "name": "tenant_admin_cross_select",
+          "status": "PASS",
+          "rows": 0,
+          "sqlstate": null,
+          "data_unchanged": true,
+          "before_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0",
+          "after_sha256": "c5eeb3b46c47e9d498de9250242a0a8de896d6f082436e911d2ffad265d621b0"
+        },
+        {
+          "name": "pool_unbound_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "pool_concurrent_interleaving",
+          "status": "PASS",
+          "transactions": 8,
+          "connection_limit": 2
+        },
+        {
+          "name": "pool_after_commit_denied",
+          "status": "PASS"
+        },
+        {
+          "name": "same_transaction_savepoint_replay_rejected",
+          "status": "PASS",
+          "scope": "same approved subject and transaction; not a cross-tenant observation"
+        }
+      ],
+      "catalog": {
+        "roles": [
+          {
+            "rolname": "db5_admin_a",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_initializer",
+            "rolsuper": true,
+            "rolbypassrls": true,
+            "rolcreaterole": true,
+            "rolcreatedb": true
+          },
+          {
+            "rolname": "db5_issuer",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_platform",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_pool",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_task",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_user_a",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          },
+          {
+            "rolname": "db5_user_b",
+            "rolsuper": false,
+            "rolbypassrls": false,
+            "rolcreaterole": false,
+            "rolcreatedb": false
+          }
+        ],
+        "tables": [
+          {
+            "relname": "AdminSession",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ApiClient",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ApiKey",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "AuditLog",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Card",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardBalance",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardHolder",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardLifecycleEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardLimit",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardRenewal",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardReplacement",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardRestriction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardSecurityProfile",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "CardTransaction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Customer",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EndUserRefreshToken",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EndUserSession",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "EvidenceArtifact",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxConversion",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxOrder",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "FxRate",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Journal",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "JournalEntry",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Merchant",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "MerchantPayment",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "MerchantQrCode",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Permission",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ProviderOperation",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Role",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "RolePermission",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SettlementBatch",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SettlementItem",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SimulationRecord",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "SimulationScenario",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "Tenant",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantCardProviderConfig",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantUser",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TenantUserRole",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "TreasuryPosition",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletAccount",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletOperation",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WalletTransaction",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WebhookEvent",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "WithdrawalAddress",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "tenant_third_party_config",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "third_party_asset_orders",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "third_party_callback_events",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_accounts",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_fx_orders",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_operation_logs",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "treasury_settlements",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ucard_card_base",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          },
+          {
+            "relname": "ucard_transactions",
+            "relrowsecurity": true,
+            "relforcerowsecurity": true,
+            "owner": "db5_initializer"
+          }
+        ],
+        "functions": [
+          {
+            "proname": "address_ownership",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "bind_ticket",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "current_identity",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          },
+          {
+            "proname": "issue_ticket",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=pg_catalog, pg_temp"
+            ],
+            "owner": "fl_db005_identity_owner",
+            "public_execute": false
+          }
+        ],
+        "memberships": [
+          {
+            "role": "fl_db005_issuer",
+            "member": "db5_issuer",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_admin_a",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_platform",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_pool",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_task",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_user_a",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          },
+          {
+            "role": "fl_db005_runtime",
+            "member": "db5_user_b",
+            "admin_option": false,
+            "inherit_option": true,
+            "set_option": false
+          }
+        ],
+        "policies": [
+          {
+            "tablename": "Customer",
+            "policyname": "db5_customer_select",
+            "cmd": "SELECT",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.tenant_id = \"Customer\".\"tenantId\") AND (i.environment = (\"Customer\".environment)::text) AND (i.purpose = ANY (ARRAY['profile'::text, 'address-book'::text])) AND ((i.actor_kind = 'TENANT_ADMIN'::text) OR ((i.actor_kind = 'USER'::text) AND (i.subject_id = \"Customer\".id))))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_delete",
+            "cmd": "DELETE",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_insert",
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))"
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_select",
+            "cmd": "SELECT",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": null
+          },
+          {
+            "tablename": "WithdrawalAddress",
+            "policyname": "db5_address_update",
+            "cmd": "UPDATE",
+            "qual": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))",
+            "with_check": "(EXISTS ( SELECT 1\n   FROM fl_identity.current_identity() i(tenant_id, subject_id, environment, actor_kind, purpose)\n  WHERE ((i.actor_kind = 'USER'::text) AND (i.purpose = 'address-book'::text) AND (i.tenant_id = \"WithdrawalAddress\".\"tenantId\") AND (i.subject_id = \"WithdrawalAddress\".\"customerId\") AND (i.environment = (\"WithdrawalAddress\".environment)::text))))"
+          }
+        ]
+      },
+      "verdict": "PASS_WITH_SCOPE_LIMITS",
+      "data_after_probes_unchanged": true
+    }
+  ],
+  "stopped": false
+}
