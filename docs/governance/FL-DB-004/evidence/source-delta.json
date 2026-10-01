@@ -1,0 +1,478 @@
+{
+  "backend_base": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+  "inherited_source": "b337bc96dfd587326a3c43d890d22ca251ca932d",
+  "records": [
+    {
+      "path": "prisma/migrations/20260719000100_baseline/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
+      "current_sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
+      "prior_blob_oid": "9e20b8aada9baecd3a7ffc5cf2d4fa8da32cb12e",
+      "current_blob_oid": "9e20b8aada9baecd3a7ffc5cf2d4fa8da32cb12e",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
+      "current_sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
+      "prior_blob_oid": "6a51f1bbe0fe01d7db66cca04218625e6c39e578",
+      "current_blob_oid": "6a51f1bbe0fe01d7db66cca04218625e6c39e578",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
+      "current_sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
+      "prior_blob_oid": "6e03eadf979958ba923f87a568df908c455f46d8",
+      "current_blob_oid": "6e03eadf979958ba923f87a568df908c455f46d8",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
+      "current_sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
+      "prior_blob_oid": "e629c61bbdca429ab234b18dac91d34dafdc33c4",
+      "current_blob_oid": "e629c61bbdca429ab234b18dac91d34dafdc33c4",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
+      "current_sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
+      "prior_blob_oid": "0179d2266f3e4156060612027e0fad0b3b6893c4",
+      "current_blob_oid": "0179d2266f3e4156060612027e0fad0b3b6893c4",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
+      "current_sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
+      "prior_blob_oid": "bf683f68d94a1a4ea909c78330e8f188ddbdcf2f",
+      "current_blob_oid": "bf683f68d94a1a4ea909c78330e8f188ddbdcf2f",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
+      "current_sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
+      "prior_blob_oid": "c2d12eb729487891eca9db40f9600cd41388f598",
+      "current_blob_oid": "c2d12eb729487891eca9db40f9600cd41388f598",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
+      "current_sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
+      "prior_blob_oid": "1316f18800a9927f0f24be1a3fecd48e0072f470",
+      "current_blob_oid": "1316f18800a9927f0f24be1a3fecd48e0072f470",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
+      "current_sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
+      "prior_blob_oid": "bcece3e772819f6f67453c0ba300884bbcaf6f81",
+      "current_blob_oid": "bcece3e772819f6f67453c0ba300884bbcaf6f81",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
+      "current_sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
+      "prior_blob_oid": "9f0f9a3c93a04837165bacd4fe4953de6d866da8",
+      "current_blob_oid": "9f0f9a3c93a04837165bacd4fe4953de6d866da8",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
+      "current_sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
+      "prior_blob_oid": "194b4e7d2ca975b174176416fae22e5e0e7e2062",
+      "current_blob_oid": "194b4e7d2ca975b174176416fae22e5e0e7e2062",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
+      "current_sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
+      "prior_blob_oid": "ccad26ad8981460ed5a4201681d0e099d861ee48",
+      "current_blob_oid": "ccad26ad8981460ed5a4201681d0e099d861ee48",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
+      "current_sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
+      "prior_blob_oid": "32e48bab029a0923fda62890351a68beba5ba08d",
+      "current_blob_oid": "32e48bab029a0923fda62890351a68beba5ba08d",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
+      "current_sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
+      "prior_blob_oid": "9bf6b65fc6887aa4adf0f39ebbc0c4f9ad135be7",
+      "current_blob_oid": "9bf6b65fc6887aa4adf0f39ebbc0c4f9ad135be7",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
+      "current_sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
+      "prior_blob_oid": "083788dff513b3db30c097ab275365b824a3bbe0",
+      "current_blob_oid": "083788dff513b3db30c097ab275365b824a3bbe0",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
+      "current_sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
+      "prior_blob_oid": "9b15dd61a598b6e36c4718fec6fe8f03f39c2cfc",
+      "current_blob_oid": "9b15dd61a598b6e36c4718fec6fe8f03f39c2cfc",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
+      "current_sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
+      "prior_blob_oid": "7ac89a5e00ba4815f868f7da62b2b0e306dfa505",
+      "current_blob_oid": "7ac89a5e00ba4815f868f7da62b2b0e306dfa505",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
+      "current_sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
+      "prior_blob_oid": "f96c868812c6fc16410108fcbdf3d5d168bdb29c",
+      "current_blob_oid": "f96c868812c6fc16410108fcbdf3d5d168bdb29c",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
+      "current_sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
+      "prior_blob_oid": "90bede875898e387a547ecbff0826c053af19c95",
+      "current_blob_oid": "90bede875898e387a547ecbff0826c053af19c95",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
+      "current_sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
+      "prior_blob_oid": "8a43eaead64774b142e5f94dd816de03088f43ed",
+      "current_blob_oid": "8a43eaead64774b142e5f94dd816de03088f43ed",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
+      "current_sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
+      "prior_blob_oid": "2df56761910725b6345c80e88fca3a730c09260d",
+      "current_blob_oid": "2df56761910725b6345c80e88fca3a730c09260d",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
+      "current_sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
+      "prior_blob_oid": "c987405c9d02e43f1e97ec1189e8dfda411190f6",
+      "current_blob_oid": "c987405c9d02e43f1e97ec1189e8dfda411190f6",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
+      "current_sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
+      "prior_blob_oid": "43f99f73f2aea1b7fd62450403132c9c8f7fe283",
+      "current_blob_oid": "43f99f73f2aea1b7fd62450403132c9c8f7fe283",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/rollback.sql",
+      "source_class": "rollback",
+      "prior_sha256": "cfd28ce60f2a78cf4fbd65ac56a681673aaa3473c4c64d3b23d8f0c71d7c2f70",
+      "current_sha256": "cfd28ce60f2a78cf4fbd65ac56a681673aaa3473c4c64d3b23d8f0c71d7c2f70",
+      "prior_blob_oid": "1ce2595f8b8b5bec1004f134e43066fa70be31c2",
+      "current_blob_oid": "1ce2595f8b8b5bec1004f134e43066fa70be31c2",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
+      "current_sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
+      "prior_blob_oid": "ec982e3e7a88951d9ccf41d5a19f5a051b1f8d0c",
+      "current_blob_oid": "ec982e3e7a88951d9ccf41d5a19f5a051b1f8d0c",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
+      "current_sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
+      "prior_blob_oid": "80118f363cf81ef8f11bd29d82bd346d0fecdfcc",
+      "current_blob_oid": "80118f363cf81ef8f11bd29d82bd346d0fecdfcc",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
+      "current_sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
+      "prior_blob_oid": "430a2248a44f7bb1fe9ab24a5f64f5f4033896c3",
+      "current_blob_oid": "430a2248a44f7bb1fe9ab24a5f64f5f4033896c3",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
+      "current_sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
+      "prior_blob_oid": "f5fb489daac0393f14dfb40f9483cdf5555cf03d",
+      "current_blob_oid": "f5fb489daac0393f14dfb40f9483cdf5555cf03d",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "current_sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "prior_blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "current_blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
+      "current_sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
+      "prior_blob_oid": "1583c8ae28779b96f7eb09aaebfa79f7c632e3c2",
+      "current_blob_oid": "1583c8ae28779b96f7eb09aaebfa79f7c632e3c2",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/rollback.sql",
+      "source_class": "rollback",
+      "prior_sha256": "9ae78c92199b16f76157022acecd6dbddab56c556d215383d6131c7ed470526f",
+      "current_sha256": "9ae78c92199b16f76157022acecd6dbddab56c556d215383d6131c7ed470526f",
+      "prior_blob_oid": "8837454f5549cc704e3f6abaabf96c5e41867eff",
+      "current_blob_oid": "8837454f5549cc704e3f6abaabf96c5e41867eff",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
+      "current_sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
+      "prior_blob_oid": "bb78d022012c3a04b3a181d11dc2ebed1b9fce54",
+      "current_blob_oid": "bb78d022012c3a04b3a181d11dc2ebed1b9fce54",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/rollback.sql",
+      "source_class": "rollback",
+      "prior_sha256": "0e655c4547c2f55197be61bffd6b01beea2ffd480810150d05ee935e9948a2d6",
+      "current_sha256": "0e655c4547c2f55197be61bffd6b01beea2ffd480810150d05ee935e9948a2d6",
+      "prior_blob_oid": "b0c795ea6280fba5752d261fed2bf61611e569c3",
+      "current_blob_oid": "b0c795ea6280fba5752d261fed2bf61611e569c3",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
+      "current_sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
+      "prior_blob_oid": "249dd28be923be4d1b7901fe8885c5f798f6a8c3",
+      "current_blob_oid": "249dd28be923be4d1b7901fe8885c5f798f6a8c3",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/rollback.sql",
+      "source_class": "rollback",
+      "prior_sha256": "26f1fd754672a4119fbc6c28d80e1985b65833e108be2f310cbb01be58eaf16a",
+      "current_sha256": "26f1fd754672a4119fbc6c28d80e1985b65833e108be2f310cbb01be58eaf16a",
+      "prior_blob_oid": "be2cc6e852e6289defeaf7a932e12534e05fc711",
+      "current_blob_oid": "be2cc6e852e6289defeaf7a932e12534e05fc711",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
+      "source_class": "formal_forward",
+      "prior_sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
+      "current_sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
+      "prior_blob_oid": "2b9d2ab0ab111a921910e90137aa7573df9a768d",
+      "current_blob_oid": "2b9d2ab0ab111a921910e90137aa7573df9a768d",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/rollback.sql",
+      "source_class": "rollback",
+      "prior_sha256": "906cddda4d288bb79a7f7577702500a719c16f623bf2b5740cc876c0c53ceadc",
+      "current_sha256": "906cddda4d288bb79a7f7577702500a719c16f623bf2b5740cc876c0c53ceadc",
+      "prior_blob_oid": "97cf641c486f2cfc773dd957a6f51191c2c218b4",
+      "current_blob_oid": "97cf641c486f2cfc773dd957a6f51191c2c218b4",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "35bbad00b1395fe5ae7c674bcb4ca6ee12dd192a12996d5cfb2ab42979350b67",
+      "current_sha256": "35bbad00b1395fe5ae7c674bcb4ca6ee12dd192a12996d5cfb2ab42979350b67",
+      "prior_blob_oid": "b2c9012e0a911e8f8655b1959071de3c5f11e639",
+      "current_blob_oid": "b2c9012e0a911e8f8655b1959071de3c5f11e639",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "prior_sha256": "02bdd0e17022a6fab1a092c88ff230ef669cfa64ca39c41f7461701fd67111bb",
+      "current_sha256": "02bdd0e17022a6fab1a092c88ff230ef669cfa64ca39c41f7461701fd67111bb",
+      "prior_blob_oid": "198c395bea3464460497b97d2495ebd98209abbb",
+      "current_blob_oid": "198c395bea3464460497b97d2495ebd98209abbb",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_rls_policy_fix/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "f39017e1ba76f4b397ac6737832fd37f6423803743a1da9e5b6ea1ee91e361fd",
+      "current_sha256": "f39017e1ba76f4b397ac6737832fd37f6423803743a1da9e5b6ea1ee91e361fd",
+      "prior_blob_oid": "d6bc0c17e3081173d345e1e7544f1b521481c5b4",
+      "current_blob_oid": "d6bc0c17e3081173d345e1e7544f1b521481c5b4",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "d93242f622c3316638091fa2eb6218eb4ff97ba7fcd6dbc1e39487093d1683cb",
+      "current_sha256": "d93242f622c3316638091fa2eb6218eb4ff97ba7fcd6dbc1e39487093d1683cb",
+      "prior_blob_oid": "fdba18024813bc6643229810d0721b3332cf2d45",
+      "current_blob_oid": "fdba18024813bc6643229810d0721b3332cf2d45",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "prior_sha256": "fddcf4fc19a41f154fa7df158753f5eae91c63c2de3f308708d61c8920449a93",
+      "current_sha256": "fddcf4fc19a41f154fa7df158753f5eae91c63c2de3f308708d61c8920449a93",
+      "prior_blob_oid": "a017d052d78ff2e83b45d9216594e7e5cdc0631e",
+      "current_blob_oid": "a017d052d78ff2e83b45d9216594e7e5cdc0631e",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "2b7de04d08fdb662a2a2551b8b9d9ed3109e48789de4f0cdbb890b07b21c2a83",
+      "current_sha256": "2b7de04d08fdb662a2a2551b8b9d9ed3109e48789de4f0cdbb890b07b21c2a83",
+      "prior_blob_oid": "29efa1f6cabf4c3cb98d4fb14d986c215c8f95d4",
+      "current_blob_oid": "29efa1f6cabf4c3cb98d4fb14d986c215c8f95d4",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/post-constraints.sql",
+      "source_class": "dev_post_constraints",
+      "prior_sha256": "49fbd4b3a02e37d6dc9c42e98acab717a84ecdb132cf61119bda91388735b428",
+      "current_sha256": "49fbd4b3a02e37d6dc9c42e98acab717a84ecdb132cf61119bda91388735b428",
+      "prior_blob_oid": "1da3e6c334cb765f9417546802da9b0a9632e402",
+      "current_blob_oid": "1da3e6c334cb765f9417546802da9b0a9632e402",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_non_card_wallet_flow_constraint/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "1c1f989eb1ada336ad4f072a8bacfa68e57b6fd9a29d7a38da18ed5dd0c415ef",
+      "current_sha256": "1c1f989eb1ada336ad4f072a8bacfa68e57b6fd9a29d7a38da18ed5dd0c415ef",
+      "prior_blob_oid": "fb5e5c50b31d1049da0b2ec7ab0800794cde1cef",
+      "current_blob_oid": "fb5e5c50b31d1049da0b2ec7ab0800794cde1cef",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_withdrawal_address_rls_policy_fix/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "f115ff9ba6e13ed2e393bf96fa0b49e2290793ce21236e774ff65a39399a9d77",
+      "current_sha256": "f115ff9ba6e13ed2e393bf96fa0b49e2290793ce21236e774ff65a39399a9d77",
+      "prior_blob_oid": "4b208bf083d870401fc544f29200231f91297e61",
+      "current_blob_oid": "4b208bf083d870401fc544f29200231f91297e61",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260820_phase2_onchain_card_provider/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "25adb7ed37e066a3788039ed667f29eed01292b8aedb3582b0a87c19a36b4da8",
+      "current_sha256": "25adb7ed37e066a3788039ed667f29eed01292b8aedb3582b0a87c19a36b4da8",
+      "prior_blob_oid": "1ec73becd09899f8bf3076675d6f53d05ee29d51",
+      "current_blob_oid": "1ec73becd09899f8bf3076675d6f53d05ee29d51",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260825_ucard_core_saas_platform/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "565e51be2f6f216df9b4f204e3bace4149e61edf21883a292966c97944d8ea60",
+      "current_sha256": "565e51be2f6f216df9b4f204e3bace4149e61edf21883a292966c97944d8ea60",
+      "prior_blob_oid": "c13cf407c47ccad7cfa60c2d4731236482c8142e",
+      "current_blob_oid": "c13cf407c47ccad7cfa60c2d4731236482c8142e",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_cregis_sandbox_safety_window/migration.sql",
+      "source_class": "dev_forward",
+      "prior_sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "current_sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+      "prior_blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "current_blob_oid": "6472dc0e45e35e108996ad667cd9f4ecefa95ce8",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/activate.sql",
+      "source_class": "dev_activate",
+      "prior_sha256": "d791954056ee6b4fdd4c636264f74d2389d3855e195599a00ab06e5b601e45df",
+      "current_sha256": "d791954056ee6b4fdd4c636264f74d2389d3855e195599a00ab06e5b601e45df",
+      "prior_blob_oid": "a6bc94832a9efe1be5734b1e7b8413b1e84f9dab",
+      "current_blob_oid": "a6bc94832a9efe1be5734b1e7b8413b1e84f9dab",
+      "unchanged": true
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/prepare.sql",
+      "source_class": "dev_prepare",
+      "prior_sha256": "58f407946ceb0fbe801f4f2aea4e02edd49f2d7fe9c52c88cdf62af558818806",
+      "current_sha256": "58f407946ceb0fbe801f4f2aea4e02edd49f2d7fe9c52c88cdf62af558818806",
+      "prior_blob_oid": "3dd5f127e65f8c9c1765d55cc8bd81d79d109773",
+      "current_blob_oid": "3dd5f127e65f8c9c1765d55cc8bd81d79d109773",
+      "unchanged": true
+    }
+  ],
+  "unchanged_count": 51,
+  "prisma_diff": "",
+  "all_changed_paths": [
+    "package-lock.json",
+    "package.json",
+    "src/admin-auth/admin-bearer.guard.spec.ts",
+    "src/admin-auth/admin-bearer.guard.ts",
+    "src/common/auth/request-auth.ts",
+    "src/tenants/tenants.controller.spec.ts",
+    "src/tenants/tenants.controller.ts",
+    "test/admin-tenant-scope.integration.e2e-spec.ts"
+  ],
+  "no_inventory_reparse": true
+}

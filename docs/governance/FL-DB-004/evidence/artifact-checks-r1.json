@@ -1,0 +1,104 @@
+{
+  "scope": "offline artifact/control verification; NOT DB4 security PASS",
+  "checks": [
+    {
+      "name": "51 source hashes/OIDs match",
+      "status": "PASS"
+    },
+    {
+      "name": "prisma no change",
+      "status": "PASS"
+    },
+    {
+      "name": "32 original steps ordered",
+      "status": "PASS"
+    },
+    {
+      "name": "32 source streams unchanged/success",
+      "status": "PASS"
+    },
+    {
+      "name": "no Prisma ledger claim",
+      "status": "PASS"
+    },
+    {
+      "name": "17.11/no network/no ports",
+      "status": "PASS"
+    },
+    {
+      "name": "three nonprivileged authenticated roles",
+      "status": "PASS"
+    },
+    {
+      "name": "private credential modes",
+      "status": "PASS"
+    },
+    {
+      "name": "54 business tables/no absent count fudging",
+      "status": "PASS"
+    },
+    {
+      "name": "RLS absence preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "162 native role/table rights",
+      "status": "PASS"
+    },
+    {
+      "name": "native DML not added",
+      "status": "PASS"
+    },
+    {
+      "name": "42 actual cases",
+      "status": "PASS"
+    },
+    {
+      "name": "same and cross paths present",
+      "status": "PASS"
+    },
+    {
+      "name": "four operations represented",
+      "status": "PASS"
+    },
+    {
+      "name": "denial attributable to ACL",
+      "status": "PASS"
+    },
+    {
+      "name": "before/after row snapshots stable",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic dual tenant/user fixture",
+      "status": "PASS"
+    },
+    {
+      "name": "draft is comments only",
+      "status": "PASS"
+    },
+    {
+      "name": "historical FAIL/BLOCKED retained",
+      "status": "PASS"
+    },
+    {
+      "name": "control all-denied not accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "control cross success not accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "control unmapped identity not accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "control valid requirements accepted",
+      "status": "PASS"
+    }
+  ],
+  "summary": {
+    "PASS": 24
+  }
+}

@@ -1,0 +1,83 @@
+import pathlib,subprocess,json,hashlib,re,os,time
+os.umask(0o077)
+R=pathlib.Path(__file__).parent.parent; B=R/'backend'; G=R/'evidence'; D=G/'docs/governance/FL-DB-004'; E=D/'evidence'; P=R/'private'; C='fl-db004-isolated-ejfk09ec'; INIT='fl_db004_initializer'
+IMAGE='sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62'
+def write(n,x): (E/n).write_text(json.dumps(x,ensure_ascii=False,indent=2)+'\n')
+def sql(q,role=INIT):
+ args=['docker','exec','-i','-e','PGPASSFILE=/run/fl-db004/pgpass',C,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-v','VERBOSITY=sqlstate','-h','127.0.0.1','-U',role,'-d','fl_db004']
+ return subprocess.run(args,input=q,text=True,capture_output=True)
+def one(q):
+ p=sql(q)
+ if p.returncode: raise RuntimeError('query_failed_sqlstate_'+','.join(re.findall(r'\b[0-9A-Z]{5}\b',p.stderr)))
+ return p.stdout.strip()
+def rows(q): return json.loads(one('SELECT COALESCE(json_agg(x),\'[]\'::json) FROM ('+q+') x;'))
+info=json.loads(subprocess.check_output(['docker','inspect',C]))[0]
+assert info['Image']==IMAGE and info['HostConfig']['NetworkMode']=='none' and not info['HostConfig']['PortBindings']
+subprocess.run(['docker','start',C],check=True,capture_output=True)
+for _ in range(30):
+ if sql('SELECT 1;').returncode==0:break
+ time.sleep(1)
+assert one('SHOW server_version;')=='17.11'
+assert one("SELECT count(*) FROM pg_class c JOIN pg_namespace n ON c.relnamespace=n.oid WHERE n.nspname='public'")=='0'
+inv=json.loads((G/'docs/governance/FL-DB-001/evidence/migration-inventory.json').read_text())
+records=sorted([x for x in inv['records'] if x['source_class']=='formal_forward'],key=lambda x:x['forward_order'])
+results=[]
+for x in records:
+ raw=(B/x['path']).read_bytes();assert hashlib.sha256(raw).hexdigest()==x['sha256']
+ p=sql(raw.decode());item={'order':x['forward_order'],'path':x['path'],'sha256':x['sha256'],'exit':p.returncode,'sqlstate':re.findall(r'ERROR:\s*([0-9A-Z]{5})',p.stderr),'bytes_unmodified':True}
+ results.append(item);write('migration-execution-r1.json',{'runner':'psql17.11 original SQL byte stream, one connection per original file; no inserted transaction wrapper; source BEGIN/COMMIT retained','condition':'default; fastlink.environment unset','prisma_engine_used':False,'prisma_internal_ledger_created':False,'records':results})
+ if p.returncode:raise RuntimeError('migration_blocked_step_'+str(x['forward_order']))
+queries={
+'relations':"SELECT n.nspname AS schema,c.relname AS name,c.relkind AS kind,pg_get_userbyid(c.relowner) AS owner,c.relrowsecurity AS rls,c.relforcerowsecurity AS force_rls,c.relacl::text AS acl,c.reloptions FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' ORDER BY c.relname",
+'roles':"SELECT rolname,rolsuper,rolinherit,rolcreaterole,rolcreatedb,rolcanlogin,rolreplication,rolbypassrls FROM pg_roles ORDER BY rolname",
+'memberships':"SELECT pg_get_userbyid(roleid) AS granted_role,pg_get_userbyid(member) AS member,admin_option,inherit_option,set_option FROM pg_auth_members ORDER BY 1,2",
+'policies':"SELECT schemaname,tablename,policyname,permissive,roles,cmd,qual,with_check FROM pg_policies WHERE schemaname='public' ORDER BY tablename,policyname",
+'default_privileges':"SELECT pg_get_userbyid(defaclrole) AS creator,defaclnamespace::regnamespace::text AS namespace,defaclobjtype,defaclacl::text FROM pg_default_acl ORDER BY 1,2,3",
+'functions':"SELECT n.nspname AS schema,p.proname,pg_get_function_identity_arguments(p.oid) AS arguments,p.prokind,p.prosecdef,pg_get_userbyid(p.proowner) AS owner,p.proconfig,p.proacl::text FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname NOT IN ('pg_catalog','information_schema') ORDER BY 1,2,3",
+'schemas':"SELECT nspname,pg_get_userbyid(nspowner) AS owner,nspacl::text FROM pg_namespace WHERE nspname='public'",
+'grants':"SELECT grantor,grantee,table_schema,table_name,privilege_type,is_grantable FROM information_schema.table_privileges WHERE table_schema='public' ORDER BY table_name,grantee,privilege_type",
+'constraints':"SELECT c.conname,c.contype,c.conrelid::regclass::text AS relation,c.confrelid::regclass::text AS referenced_relation FROM pg_constraint c JOIN pg_namespace n ON n.oid=c.connamespace WHERE n.nspname='public' ORDER BY 3,1",
+'columns':"SELECT table_name,column_name,data_type,udt_name,is_nullable,column_default FROM information_schema.columns WHERE table_schema='public' ORDER BY table_name,ordinal_position",
+'extensions':"SELECT extname,extversion FROM pg_extension ORDER BY extname",
+'role_effective_privileges':"SELECT r.rolname,c.relname,has_schema_privilege(r.oid,n.oid,'USAGE') AS schema_usage,has_table_privilege(r.oid,c.oid,'SELECT') AS can_select,has_table_privilege(r.oid,c.oid,'INSERT') AS can_insert,has_table_privilege(r.oid,c.oid,'UPDATE') AS can_update,has_table_privilege(r.oid,c.oid,'DELETE') AS can_delete FROM pg_roles r CROSS JOIN pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE r.rolname IN ('fl_db004_tenant_a','fl_db004_tenant_b','fl_db004_anonymous') AND n.nspname='public' AND c.relkind IN ('r','p','v','m') ORDER BY 1,2"
+}
+cat={k:rows(q) for k,q in queries.items()};write('catalog-r1.json',cat)
+(D/'tools/catalog-queries.sql').write_text('-- Read-only catalog queries. No secrets or pg_authid.\n'+'\n'.join('-- '+k+'\n'+q+';' for k,q in queries.items())+'\n')
+fixture=[]
+for t in ['a','b']:
+ fixture.append('INSERT INTO "Tenant" (id,"legalName","brandName",slug,environment,"updatedAt") VALUES (\'synthetic_db4_'+t+'\',\'Synthetic\',\'Synthetic\',\'synthetic-db4-'+t+'\',\'SANDBOX\',\'2026-01-01\');')
+ fixture.append('INSERT INTO "TenantUser" (id,"tenantId",email,"updatedAt") VALUES (\'synthetic_db4_user_'+t+'\',\'synthetic_db4_'+t+'\',\'synthetic-'+t+'@example.invalid\',\'2026-01-01\');')
+ fixture.append('INSERT INTO "Customer" (id,"tenantId",environment,"externalUserId","providerCustomerRef","updatedAt") VALUES (\'synthetic_db4_customer_'+t+'\',\'synthetic_db4_'+t+'\',\'SANDBOX\',\'synthetic-user-'+t+'\',\'synthetic-provider-'+t+'\',\'2026-01-01\');')
+p=sql('BEGIN;\n'+'\n'.join(fixture)+'\nCOMMIT;')
+if p.returncode:raise RuntimeError('synthetic_fixture_failed')
+(D/'tools/synthetic-fixture.sql').write_text('-- Synthetic-only local fixture; not migration or remediation.\n'+'\n'.join(fixture)+'\n')
+def snapshot():
+ return hashlib.sha256(one("SELECT json_build_object('tenants',(SELECT json_agg(x) FROM (SELECT * FROM \"Tenant\" ORDER BY id)x),'users',(SELECT json_agg(x) FROM (SELECT * FROM \"TenantUser\" ORDER BY id)x),'customers',(SELECT json_agg(x) FROM (SELECT * FROM \"Customer\" ORDER BY id)x))").encode()).hexdigest()
+initial=snapshot();cases=[];stopped=set()
+for table in ['Tenant','Customer']:
+ for role,own in [('fl_db004_tenant_a','a'),('fl_db004_tenant_b','b'),('fl_db004_anonymous','a')]:
+  for relation,t in [('same',own),('cross','b' if own=='a' else 'a')]:
+   id='synthetic_db4_'+('customer_' if table=='Customer' else '')+t
+   if table=='Customer':
+    insert='INSERT INTO "Customer" (id,"tenantId",environment,"externalUserId","providerCustomerRef","updatedAt") VALUES (\'synthetic_db4_probe\',\'synthetic_db4_'+t+'\',\'SANDBOX\',\'synthetic-probe\',\'synthetic-probe\',\'2026-01-01\') RETURNING id'
+    update='UPDATE "Customer" SET "firstName"=\'Synthetic probe\' WHERE id=\''+id+'\' RETURNING id'
+   else:
+    insert='INSERT INTO "Tenant" (id,"legalName","brandName",slug,environment,"updatedAt") VALUES (\'synthetic_db4_probe\',\'Synthetic\',\'Synthetic\',\'synthetic-db4-probe\',\'SANDBOX\',\'2026-01-01\') RETURNING id'
+    update='UPDATE "Tenant" SET "brandName"=\'Synthetic probe\' WHERE id=\''+id+'\' RETURNING id'
+   ops={'SELECT':'SELECT count(*) FROM "'+table+'" WHERE id=\''+id+'\'','INSERT':'WITH affected AS ('+insert+') SELECT count(*) FROM affected','UPDATE':'WITH affected AS ('+update+') SELECT count(*) FROM affected','DELETE':'WITH affected AS (DELETE FROM "'+table+'" WHERE id=\''+id+'\' RETURNING id) SELECT count(*) FROM affected'}
+   for op,q in ops.items():
+    if table in stopped:continue
+    # Inserting a Tenant is platform creation, not an existing tenant-owned object test.
+    if table=='Tenant' and op=='INSERT':continue
+    before=snapshot();p=sql('BEGIN;\n'+q+';\nROLLBACK;',role);after=snapshot()
+    counts=[int(s) for s in p.stdout.splitlines() if s.isdigit()]
+    count=counts[-1] if counts else None
+    states=re.findall(r'ERROR:\s*([0-9A-Z]{5})',p.stderr)
+    item={'object':table,'role':role,'relation':relation,'operation':op,'exit':p.returncode,'sqlstate':states,'rows':count,'before_sha256':before,'after_sha256':after,'unchanged':before==after,'grant_source':'native default migration only; no fixture DML grant','meaning':'ACL denial is NOT RLS success if legitimate same-tenant also denied'}
+    cases.append(item)
+    if relation=='cross' and p.returncode==0 and count and count>0:
+     stopped.add(table);write('P0-stop.json',{'scope':'isolated current source only; not deployed environment','case':item,'stop':'all further probes for this object stopped','fix_executed':False})
+    write('native-role-probes-r1.json',{'scope':'native ACL boundary; not repeated DB1 hypothetical granted DML test','cases':cases,'stopped_objects':sorted(stopped),'initial_sha256':initial,'current_sha256':after,'synthetic_tenants':2,'synthetic_users':2,'synthetic_customers':2,'DML_grants_added':0})
+write('runtime-summary-r1.json',{'migrations':len(results),'business_tables':sum(x['kind']=='r' for x in cat['relations']),'rls_enabled':sum(x['rls'] for x in cat['relations']),'functions':len(cat['functions']),'native_role_cases':len(cases),'native_acl_denials':sum('42501' in x['sqlstate'] for x in cases),'cross_tenant_successes':len(stopped),'data_unchanged':snapshot()==initial,'prisma_ledger_difference':'Direct psql execution does not create _prisma_migrations; DB1 Prisma catalog has one additional internal table','same_tenant_allowed':False,'risk_closed':False})
+subprocess.run(['docker','stop',C],capture_output=True,check=True)
+print(json.dumps(json.loads((E/'runtime-summary-r1.json').read_text())))

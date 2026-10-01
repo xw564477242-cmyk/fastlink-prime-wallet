@@ -1,0 +1,13 @@
+{
+  "container": "fl-db004-isolated-ejfk09ec",
+  "state": "exited",
+  "network_mode": "none",
+  "host_port_bindings": {},
+  "business_migrations_executed": 32,
+  "synthetic_business_rows_created": 6,
+  "container_removed": false,
+  "volumes_removed": false,
+  "authentication_retained": true,
+  "raw_material_in_git": false,
+  "remediation_executed": false
+}

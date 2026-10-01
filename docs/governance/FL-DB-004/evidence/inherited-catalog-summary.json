@@ -1,0 +1,35 @@
+{
+  "provenance": "FL-DB-001 committed evidence; NOT fresh DB4 runtime",
+  "catalogs": {
+    "catalog-default.json": {
+      "relations": 55,
+      "policies": 0,
+      "roles": 16,
+      "functions": 0,
+      "default_privileges": 0,
+      "grants": 385,
+      "schemas": 1,
+      "memberships": 3,
+      "extensions": 1,
+      "migrations": 32,
+      "columns": 624,
+      "constraints": 150,
+      "triggers": 312
+    },
+    "catalog-uat-partial.json": {
+      "relations": 54,
+      "policies": 13,
+      "roles": 17,
+      "functions": 0,
+      "default_privileges": 0,
+      "grants": 412,
+      "schemas": 1,
+      "memberships": 3,
+      "extensions": 1,
+      "migrations": 32,
+      "columns": 606,
+      "constraints": 143,
+      "triggers": 308
+    }
+  }
+}

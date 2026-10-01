@@ -1,0 +1,21 @@
+import subprocess,json,pathlib,time
+R=pathlib.Path('/private/tmp/FL-DB-004-ejfk09ec');D=R/'evidence/docs/governance/FL-DB-004';C='fl-db004-isolated-ejfk09ec'
+subprocess.run(['docker','start',C],capture_output=True,check=True)
+args=['docker','exec','-i','-e','PGPASSFILE=/run/fl-db004/pgpass',C,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-h','127.0.0.1','-U','fl_db004_initializer','-d','fl_db004']
+for _ in range(30):
+ if subprocess.run(args,input='SELECT 1;',capture_output=True,text=True).returncode==0:break
+ time.sleep(1)
+queries={
+ 'triggers':"SELECT n.nspname AS schema,c.relname AS relation,t.tgname,t.tgisinternal,p.proname AS function,pn.nspname AS function_schema FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid JOIN pg_namespace n ON n.oid=c.relnamespace JOIN pg_proc p ON p.oid=t.tgfoid JOIN pg_namespace pn ON pn.oid=p.pronamespace WHERE n.nspname='public' ORDER BY 2,3",
+ 'test_role_attributes_after_migration':"SELECT r.rolname,r.rolsuper,r.rolbypassrls,r.rolcreaterole,r.rolcreatedb,(SELECT count(*) FROM pg_auth_members WHERE member=r.oid) AS memberships,(SELECT count(*) FROM pg_class WHERE relowner=r.oid) AS owned_relations FROM pg_roles r WHERE r.rolname IN ('fl_db004_tenant_a','fl_db004_tenant_b','fl_db004_anonymous') ORDER BY 1"
+}
+output={}
+for name,q in queries.items():
+ p=subprocess.run(args,input="BEGIN READ ONLY; SELECT COALESCE(json_agg(x),'[]'::json) FROM ("+q+")x; COMMIT;",capture_output=True,text=True)
+ if p.returncode:raise RuntimeError('read_only_catalog_query_failed')
+ output[name]=json.loads(p.stdout.strip())
+(D/'evidence/indirect-catalog-r1.json').write_text(json.dumps(output,indent=2)+'\n')
+with (D/'tools/catalog-queries.sql').open('a') as f:
+ for n,q in queries.items():f.write('-- '+n+'\n'+q+';\n')
+subprocess.run(['docker','stop',C],capture_output=True,check=True)
+print(json.dumps({'triggers':len(output['triggers']),'user_triggers':sum(not x['tgisinternal'] for x in output['triggers']),'test_roles_nonprivileged':all(not x['rolsuper'] and not x['rolbypassrls'] and not x['memberships'] and not x['owned_relations'] for x in output['test_role_attributes_after_migration']),'container':'stopped'}))

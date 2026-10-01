@@ -1,0 +1,49 @@
+{
+  "server_version": "17.11",
+  "image_id": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+  "container": "fl-db004-isolated-ejfk09ec",
+  "network_mode": "none",
+  "host_port_bindings": {},
+  "initial_public_objects": 0,
+  "roles": [
+    {
+      "current_user": "fl_db004_tenant_a",
+      "session_user": "fl_db004_tenant_a",
+      "superuser": false,
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "memberships": 0,
+      "owned_relations": 0
+    },
+    {
+      "current_user": "fl_db004_tenant_b",
+      "session_user": "fl_db004_tenant_b",
+      "superuser": false,
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "memberships": 0,
+      "owned_relations": 0
+    },
+    {
+      "current_user": "fl_db004_anonymous",
+      "session_user": "fl_db004_anonymous",
+      "superuser": false,
+      "bypassrls": false,
+      "createdb": false,
+      "createrole": false,
+      "memberships": 0,
+      "owned_relations": 0
+    }
+  ],
+  "credential_directory_mode": "0o700",
+  "credential_file_modes": [
+    "0o600",
+    "0o600"
+  ],
+  "credential_values_output": false,
+  "migration_execution": "BLOCKED",
+  "real_data": false,
+  "roles_have_no_added_DML_grants": true
+}

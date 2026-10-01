@@ -1,0 +1,13 @@
+{
+  "ticket": "FL-DB-004",
+  "source": "总控对话转达项目所有者专项批准",
+  "allowed": "仅本工单当前全新空白任务隔离数据库中，原样执行正式迁移所含DROP CONSTRAINT和DROP INDEX",
+  "prohibited": [
+    "现有或共享环境",
+    "DEV/TEST/UAT/生产/Railway",
+    "修改/跳过/重排/重写迁移",
+    "整改SQL",
+    "扩大权限"
+  ],
+  "prior_checkpoint_retained": true
+}
