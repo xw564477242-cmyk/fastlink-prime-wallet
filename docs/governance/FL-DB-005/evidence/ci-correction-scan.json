@@ -1,0 +1,122 @@
+{
+  "scope": "current governance and six business additions before this scan report and manifest regeneration",
+  "files": 46,
+  "format_rule_count": 6,
+  "format_hits": 0,
+  "task_secret_hits": 0,
+  "entropy_candidates": [
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/run_node.py",
+      "sha256": "e9e3dbfae0aba0c3283969d7606a48e61c12592e6c4af9969908c7aff1a85f57",
+      "classification": "fixed Prisma engine cache path and version"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/run_node.py",
+      "sha256": "592e34a77968cfd635a4830f48c80971be46032a81776850256d1fb338799fd5",
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/rebuild.py",
+      "sha256": "fe18c8e16315781064d7d51b470760301d5d9c25c1183a1bf6d454d211b237b6",
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/rebuild.py",
+      "sha256": "f51a0571c22cfac73f86d333606916a8f551d6a5f8c4ced283dacd9dd265d44b",
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/business-files.json",
+      "sha256": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/business-files.json",
+      "sha256": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "sha256": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "b31509f9495daba5ed8d05eadd72116e48f9b63d38760a4f244158a2236960d7",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "55ee5484a00b10315713ca82e6523313ac1ef79556ef75dd41bc80b7145015da",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "67b6de5d35c0dea8c5f53409ad066d48026912a289e96ba23905f86d82f7973c",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "b519fc3def5f55e3524ba4e1c39c6a7eb03ab4632b9ea49dd76c7364e3d56bec",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "5117ce81e531fd4ee121d8747164d8115e5a6228987845ca96324c5203c77787",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "b6c72b2192a439c3c7dade4d7f78765ec973405b62fa0f27b79ce6db92bc1e5a",
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "sha256": "c380cfe47934b88265eefbe4f22f0171f6a667557c316afee937feafd43cdf75",
+      "classification": "source/evidence file path"
+    }
+  ],
+  "unresolved": 0,
+  "limitations": [
+    "tokenizer yields 21 occurrences, previous nine-candidate evidence preserved",
+    "literal path/tool-option classification, no directory exclusions",
+    "hex digest exception after exact credential comparison",
+    "no full-project scan or old credential reads"
+  ],
+  "probe_correction": "initial private probe included nonsecret container identifiers and failed closed; corrected to initializer and role-password fields"
+}

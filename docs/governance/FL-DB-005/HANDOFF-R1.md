@@ -36,3 +36,9 @@
 - BASELINE-DELTA-R1-PROPOSED.md
 
 双PR链接、当前完整HEAD、CI及清单自身SHA在提交后的外置HANDOFF补齐，避免提交自引用。
+
+## CI格式补正（追加记录）
+
+治理首次CI运行36819354068对应20d3921b97c0f31275d7e10ee201934516c7ea54，在Lint步骤失败，原因是四份治理工具副本的Prettier格式。只修订tools下四份.cjs的排版；归一化AST逐份一致，本地ESLint通过。已执行的私有脚本、SQL、动态证据及业务HEAD均未改动，未重跑数据库测试。原提交及失败保留；新HEAD对应CI在外置HANDOFF记录。
+
+业务Draft PR #336的三个工作流36819344723、36819344750、36819344721中lint成功，完整流水线因Draft跳过，不等同完整CI通过。治理Draft PR #88继续保持Draft；无门禁2/3通过结论。
