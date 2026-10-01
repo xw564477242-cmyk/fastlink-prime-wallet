@@ -1,0 +1,22 @@
+{
+  "run": 36825857182,
+  "head": "571199a5b990ba0f616a68fa101f0cc93119fdf9",
+  "retrieval": "existing GitHub saved logs; memory-only raw processing",
+  "raw_log_saved": false,
+  "raw_log_displayed": false,
+  "extracted": [
+    {
+      "time": "2026-10-01T06:40:05.2615587Z",
+      "category": "APPLICATION_STOPPED_REVIEW_REQUIRED",
+      "input_checks_reported": 1
+    },
+    {
+      "time": "2026-10-01T06:40:05.2746319Z",
+      "category": "ACTION_PROCESS_EXIT",
+      "exit_code": 1
+    }
+  ],
+  "specific_preparation_cause": "NOT_IDENTIFIED_FROM_EXISTING_RECORDS",
+  "further_network_downloads": 0,
+  "reruns": 0
+}

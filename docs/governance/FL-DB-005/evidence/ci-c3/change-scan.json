@@ -1,0 +1,13 @@
+{
+  "scope": "new C2/C3 governance files and exact approved business patch provenance",
+  "scanned_new_files_before_this_record": 33,
+  "rules": 6,
+  "explicit_format_hits": 0,
+  "actual_secret_material_read": false,
+  "limits": [
+    "not a whole-project scan",
+    "not a comparison against actual HMAC/authentication values",
+    "high entropy reviewed as approved SHA/digest/public package metadata; not an entropy-zero claim"
+  ],
+  "no_business_changes_outside_approved_patch": true
+}

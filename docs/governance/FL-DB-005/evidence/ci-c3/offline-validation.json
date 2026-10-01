@@ -1,0 +1,98 @@
+{
+  "results": [
+    {
+      "test": "syntax run.py",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "syntax prepare_downloads.py",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact http401",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact http407",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact transport",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact tls",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact timeout",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact integrity",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact disk",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact unknown value",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact nonstring value",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact assertion",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact os error",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "classify and redact controlled",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "All finite stage names accepted",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "Unknown stage/domain rejected",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "Executable AST unchanged except diagnostics run.py",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    },
+    {
+      "test": "Executable AST unchanged except diagnostics prepare_downloads.py",
+      "status": "PASS",
+      "scope": "offline synthetic"
+    }
+  ],
+  "pass": 18,
+  "network_requests": 0,
+  "runtime_executions": 0,
+  "patch_applied": false
+}

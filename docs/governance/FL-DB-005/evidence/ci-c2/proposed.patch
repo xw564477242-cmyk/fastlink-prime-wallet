@@ -1,0 +1,2165 @@
+diff --git a/.github/workflows/fl-db005-isolated-review.yml b/.github/workflows/fl-db005-isolated-review.yml
+new file mode 100644
+--- /dev/null
++++ b/.github/workflows/fl-db005-isolated-review.yml
+@@ -0,0 +1,68 @@
++name: DB5等价隔离检查 (Draft only)
++on:
++  pull_request:
++    branches: [dev]
++    types: [opened, reopened, synchronize]
++permissions:
++  contents: read
++  pull-requests: read
++concurrency:
++  group: db5-isolated-${{ github.event.pull_request.number }}
++  cancel-in-progress: false
++jobs:
++  db5-isolated-review:
++    if: >-
++      github.event.pull_request.number == 336 &&
++      github.event.pull_request.draft == true &&
++      github.event.pull_request.head.repo.full_name == github.repository &&
++      github.event.pull_request.head.ref == 'feature/FL-DB-005-tenant-identity-rls'
++    runs-on: ubuntu-24.04
++    timeout-minutes: 60
++    steps:
++      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
++        with:
++          ref: ${{ github.event.pull_request.head.sha }}
++          persist-credentials: false
++          fetch-depth: 1
++      - name: Confirm Draft, exact event HEAD, dev and auto-merge disabled
++        env:
++          GH_TOKEN: ${{ github.token }}
++          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
++        run: |
++          gh api repos/xw564477242-cmyk/fastlik-backend/pulls/336 \
++            --jq '{draft, head: .head.sha, base: .base.ref, auto_merge, state}' \
++            > "$RUNNER_TEMP/db5-pr-before.json"
++          python3 - <<'PY'
++          import json,os
++          from pathlib import Path
++          p=json.loads((Path(os.environ['RUNNER_TEMP'])/'db5-pr-before.json').read_text())
++          assert p['draft'] and p['state']=='open' and p['auto_merge'] is None
++          assert p['head']==os.environ['EXPECTED_HEAD'] and p['base']=='dev'
++          PY
++      - name: DB5等价隔离检查：Jest build lint and offline prior-audit verification
++        run: python3 scripts/fl-db005-ci/run.py
++      - name: Recheck unchanged PR boundary
++        if: ${{ always() && !cancelled() }}
++        env:
++          GH_TOKEN: ${{ github.token }}
++          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
++        run: |
++          gh api repos/xw564477242-cmyk/fastlik-backend/pulls/336 \
++            --jq '{draft, head: .head.sha, base: .base.ref, auto_merge, state}' \
++            > "$RUNNER_TEMP/db5-pr-after.json"
++          python3 - <<'PY'
++          import json,os
++          from pathlib import Path
++          p=json.loads((Path(os.environ['RUNNER_TEMP'])/'db5-pr-after.json').read_text())
++          assert p['draft'] and p['state']=='open' and p['auto_merge'] is None
++          assert p['head']==os.environ['EXPECTED_HEAD'] and p['base']=='dev'
++          PY
++      - name: Upload only constructed nonsecret summary
++        if: ${{ always() && !cancelled() }}
++        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
++        with:
++          name: db5-summary-${{ github.event.pull_request.head.sha }}-${{ github.run_id }}
++          path: ${{ runner.temp }}/db5-public-summary.json
++          if-no-files-found: error
++          retention-days: 7
++          include-hidden-files: false
+diff --git a/scripts/fl-db005-ci/approved-audit-payload.json b/scripts/fl-db005-ci/approved-audit-payload.json
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/approved-audit-payload.json
+@@ -0,0 +1,704 @@
++{
++  "destination": "registry.npmjs.org npm audit",
++  "excluded": "root project identity, source, credentials, lockfile contents beyond public package names/versions",
++  "packages": [
++    {
++      "name": "@borewit/text-codec",
++      "version": "0.2.2"
++    },
++    {
++      "name": "@epic-web/invariant",
++      "version": "1.0.0"
++    },
++    {
++      "name": "@lukeed/csprng",
++      "version": "1.1.0"
++    },
++    {
++      "name": "@microsoft/tsdoc",
++      "version": "0.16.0"
++    },
++    {
++      "name": "@nestjs/common",
++      "version": "11.1.28"
++    },
++    {
++      "name": "@nestjs/config",
++      "version": "4.0.4"
++    },
++    {
++      "name": "@nestjs/core",
++      "version": "11.1.28"
++    },
++    {
++      "name": "@nestjs/mapped-types",
++      "version": "2.1.1"
++    },
++    {
++      "name": "@nestjs/platform-express",
++      "version": "11.1.28"
++    },
++    {
++      "name": "@nestjs/swagger",
++      "version": "11.4.6"
++    },
++    {
++      "name": "@nestjs/throttler",
++      "version": "6.5.0"
++    },
++    {
++      "name": "@phc/format",
++      "version": "1.0.0"
++    },
++    {
++      "name": "@prisma/client",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@prisma/config",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@prisma/debug",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@prisma/engines",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@prisma/engines-version",
++      "version": "7.1.1-3.c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
++    },
++    {
++      "name": "@prisma/fetch-engine",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@prisma/get-platform",
++      "version": "6.19.3"
++    },
++    {
++      "name": "@scarf/scarf",
++      "version": "1.4.0"
++    },
++    {
++      "name": "@standard-schema/spec",
++      "version": "1.1.0"
++    },
++    {
++      "name": "@tokenizer/inflate",
++      "version": "0.4.1"
++    },
++    {
++      "name": "@tokenizer/token",
++      "version": "0.3.0"
++    },
++    {
++      "name": "@types/validator",
++      "version": "13.15.10"
++    },
++    {
++      "name": "accepts",
++      "version": "2.0.0"
++    },
++    {
++      "name": "append-field",
++      "version": "1.0.0"
++    },
++    {
++      "name": "argon2",
++      "version": "0.44.0"
++    },
++    {
++      "name": "argparse",
++      "version": "2.0.1"
++    },
++    {
++      "name": "bcrypt",
++      "version": "6.0.0"
++    },
++    {
++      "name": "body-parser",
++      "version": "2.3.0"
++    },
++    {
++      "name": "content-type",
++      "version": "2.0.0"
++    },
++    {
++      "name": "buffer-from",
++      "version": "1.1.2"
++    },
++    {
++      "name": "busboy",
++      "version": "1.6.0"
++    },
++    {
++      "name": "bytes",
++      "version": "3.1.2"
++    },
++    {
++      "name": "c12",
++      "version": "3.1.0"
++    },
++    {
++      "name": "dotenv",
++      "version": "16.6.1"
++    },
++    {
++      "name": "call-bind-apply-helpers",
++      "version": "1.0.2"
++    },
++    {
++      "name": "call-bound",
++      "version": "1.0.4"
++    },
++    {
++      "name": "chokidar",
++      "version": "4.0.3"
++    },
++    {
++      "name": "citty",
++      "version": "0.1.6"
++    },
++    {
++      "name": "class-transformer",
++      "version": "0.5.1"
++    },
++    {
++      "name": "class-validator",
++      "version": "0.14.4"
++    },
++    {
++      "name": "concat-stream",
++      "version": "2.0.0"
++    },
++    {
++      "name": "confbox",
++      "version": "0.2.4"
++    },
++    {
++      "name": "consola",
++      "version": "3.4.2"
++    },
++    {
++      "name": "content-disposition",
++      "version": "1.1.0"
++    },
++    {
++      "name": "content-type",
++      "version": "1.0.5"
++    },
++    {
++      "name": "cookie",
++      "version": "0.7.2"
++    },
++    {
++      "name": "cookie-signature",
++      "version": "1.2.2"
++    },
++    {
++      "name": "cors",
++      "version": "2.8.6"
++    },
++    {
++      "name": "cross-env",
++      "version": "10.1.0"
++    },
++    {
++      "name": "cross-spawn",
++      "version": "7.0.6"
++    },
++    {
++      "name": "debug",
++      "version": "4.4.3"
++    },
++    {
++      "name": "deepmerge-ts",
++      "version": "8.0.0"
++    },
++    {
++      "name": "defu",
++      "version": "6.1.7"
++    },
++    {
++      "name": "depd",
++      "version": "2.0.0"
++    },
++    {
++      "name": "destr",
++      "version": "2.0.5"
++    },
++    {
++      "name": "dotenv",
++      "version": "17.4.1"
++    },
++    {
++      "name": "dotenv-expand",
++      "version": "12.0.3"
++    },
++    {
++      "name": "dotenv",
++      "version": "16.6.1"
++    },
++    {
++      "name": "dunder-proto",
++      "version": "1.0.1"
++    },
++    {
++      "name": "ee-first",
++      "version": "1.1.1"
++    },
++    {
++      "name": "effect",
++      "version": "3.21.0"
++    },
++    {
++      "name": "empathic",
++      "version": "2.0.0"
++    },
++    {
++      "name": "encodeurl",
++      "version": "2.0.0"
++    },
++    {
++      "name": "es-define-property",
++      "version": "1.0.1"
++    },
++    {
++      "name": "es-errors",
++      "version": "1.3.0"
++    },
++    {
++      "name": "es-object-atoms",
++      "version": "1.1.2"
++    },
++    {
++      "name": "escape-html",
++      "version": "1.0.3"
++    },
++    {
++      "name": "etag",
++      "version": "1.8.1"
++    },
++    {
++      "name": "express",
++      "version": "5.2.1"
++    },
++    {
++      "name": "exsolve",
++      "version": "1.1.0"
++    },
++    {
++      "name": "fast-check",
++      "version": "3.23.2"
++    },
++    {
++      "name": "fast-safe-stringify",
++      "version": "2.1.1"
++    },
++    {
++      "name": "file-type",
++      "version": "21.3.4"
++    },
++    {
++      "name": "finalhandler",
++      "version": "2.1.1"
++    },
++    {
++      "name": "forwarded",
++      "version": "0.2.0"
++    },
++    {
++      "name": "fresh",
++      "version": "2.0.0"
++    },
++    {
++      "name": "function-bind",
++      "version": "1.1.2"
++    },
++    {
++      "name": "get-intrinsic",
++      "version": "1.3.0"
++    },
++    {
++      "name": "get-proto",
++      "version": "1.0.1"
++    },
++    {
++      "name": "giget",
++      "version": "2.0.0"
++    },
++    {
++      "name": "gopd",
++      "version": "1.2.0"
++    },
++    {
++      "name": "has-symbols",
++      "version": "1.1.0"
++    },
++    {
++      "name": "hasown",
++      "version": "2.0.4"
++    },
++    {
++      "name": "helmet",
++      "version": "8.3.0"
++    },
++    {
++      "name": "http-errors",
++      "version": "2.0.1"
++    },
++    {
++      "name": "iconv-lite",
++      "version": "0.7.3"
++    },
++    {
++      "name": "ieee754",
++      "version": "1.2.1"
++    },
++    {
++      "name": "inherits",
++      "version": "2.0.4"
++    },
++    {
++      "name": "ipaddr.js",
++      "version": "1.9.1"
++    },
++    {
++      "name": "is-promise",
++      "version": "4.0.0"
++    },
++    {
++      "name": "isexe",
++      "version": "2.0.0"
++    },
++    {
++      "name": "iterare",
++      "version": "1.2.1"
++    },
++    {
++      "name": "jiti",
++      "version": "2.7.0"
++    },
++    {
++      "name": "jose",
++      "version": "5.10.0"
++    },
++    {
++      "name": "js-yaml",
++      "version": "5.2.2"
++    },
++    {
++      "name": "libphonenumber-js",
++      "version": "1.13.9"
++    },
++    {
++      "name": "load-esm",
++      "version": "1.0.3"
++    },
++    {
++      "name": "lodash",
++      "version": "4.18.1"
++    },
++    {
++      "name": "math-intrinsics",
++      "version": "1.1.0"
++    },
++    {
++      "name": "media-typer",
++      "version": "1.1.0"
++    },
++    {
++      "name": "merge-descriptors",
++      "version": "2.0.0"
++    },
++    {
++      "name": "mime-db",
++      "version": "1.54.0"
++    },
++    {
++      "name": "mime-types",
++      "version": "3.0.2"
++    },
++    {
++      "name": "ms",
++      "version": "2.1.3"
++    },
++    {
++      "name": "multer",
++      "version": "2.3.0"
++    },
++    {
++      "name": "media-typer",
++      "version": "0.3.0"
++    },
++    {
++      "name": "mime-db",
++      "version": "1.52.0"
++    },
++    {
++      "name": "mime-types",
++      "version": "2.1.35"
++    },
++    {
++      "name": "type-is",
++      "version": "1.6.18"
++    },
++    {
++      "name": "negotiator",
++      "version": "1.0.0"
++    },
++    {
++      "name": "node-addon-api",
++      "version": "8.9.0"
++    },
++    {
++      "name": "node-fetch-native",
++      "version": "1.6.7"
++    },
++    {
++      "name": "node-gyp-build",
++      "version": "4.8.4"
++    },
++    {
++      "name": "nypm",
++      "version": "0.6.8"
++    },
++    {
++      "name": "citty",
++      "version": "0.2.2"
++    },
++    {
++      "name": "object-assign",
++      "version": "4.1.1"
++    },
++    {
++      "name": "object-inspect",
++      "version": "1.13.4"
++    },
++    {
++      "name": "ohash",
++      "version": "2.0.11"
++    },
++    {
++      "name": "on-finished",
++      "version": "2.4.1"
++    },
++    {
++      "name": "once",
++      "version": "1.4.0"
++    },
++    {
++      "name": "parseurl",
++      "version": "1.3.3"
++    },
++    {
++      "name": "path-key",
++      "version": "3.1.1"
++    },
++    {
++      "name": "path-to-regexp",
++      "version": "8.4.2"
++    },
++    {
++      "name": "pathe",
++      "version": "2.0.3"
++    },
++    {
++      "name": "perfect-debounce",
++      "version": "1.0.0"
++    },
++    {
++      "name": "pkg-types",
++      "version": "2.3.1"
++    },
++    {
++      "name": "prisma",
++      "version": "6.19.3"
++    },
++    {
++      "name": "proxy-addr",
++      "version": "2.0.7"
++    },
++    {
++      "name": "pure-rand",
++      "version": "6.1.0"
++    },
++    {
++      "name": "qs",
++      "version": "6.15.3"
++    },
++    {
++      "name": "range-parser",
++      "version": "1.3.0"
++    },
++    {
++      "name": "raw-body",
++      "version": "3.0.2"
++    },
++    {
++      "name": "rc9",
++      "version": "2.1.2"
++    },
++    {
++      "name": "readable-stream",
++      "version": "3.6.2"
++    },
++    {
++      "name": "readdirp",
++      "version": "4.1.2"
++    },
++    {
++      "name": "reflect-metadata",
++      "version": "0.2.2"
++    },
++    {
++      "name": "router",
++      "version": "2.2.0"
++    },
++    {
++      "name": "rxjs",
++      "version": "7.8.2"
++    },
++    {
++      "name": "safe-buffer",
++      "version": "5.2.1"
++    },
++    {
++      "name": "safer-buffer",
++      "version": "2.1.2"
++    },
++    {
++      "name": "send",
++      "version": "1.2.1"
++    },
++    {
++      "name": "serve-static",
++      "version": "2.2.1"
++    },
++    {
++      "name": "setprototypeof",
++      "version": "1.2.0"
++    },
++    {
++      "name": "shebang-command",
++      "version": "2.0.0"
++    },
++    {
++      "name": "shebang-regex",
++      "version": "3.0.0"
++    },
++    {
++      "name": "side-channel",
++      "version": "1.1.1"
++    },
++    {
++      "name": "side-channel-list",
++      "version": "1.0.1"
++    },
++    {
++      "name": "side-channel-map",
++      "version": "1.0.1"
++    },
++    {
++      "name": "side-channel-weakmap",
++      "version": "1.0.2"
++    },
++    {
++      "name": "statuses",
++      "version": "2.0.2"
++    },
++    {
++      "name": "streamsearch",
++      "version": "1.1.0"
++    },
++    {
++      "name": "string_decoder",
++      "version": "1.3.0"
++    },
++    {
++      "name": "strtok3",
++      "version": "10.3.5"
++    },
++    {
++      "name": "swagger-ui-dist",
++      "version": "5.32.8"
++    },
++    {
++      "name": "swagger-ui-express",
++      "version": "5.0.1"
++    },
++    {
++      "name": "tinyexec",
++      "version": "1.2.4"
++    },
++    {
++      "name": "toidentifier",
++      "version": "1.0.1"
++    },
++    {
++      "name": "token-types",
++      "version": "6.1.2"
++    },
++    {
++      "name": "tslib",
++      "version": "2.8.1"
++    },
++    {
++      "name": "type-is",
++      "version": "2.1.0"
++    },
++    {
++      "name": "content-type",
++      "version": "2.0.0"
++    },
++    {
++      "name": "typedarray",
++      "version": "0.0.6"
++    },
++    {
++      "name": "typescript",
++      "version": "5.9.3"
++    },
++    {
++      "name": "uid",
++      "version": "2.0.2"
++    },
++    {
++      "name": "uint8array-extras",
++      "version": "1.5.0"
++    },
++    {
++      "name": "undici",
++      "version": "8.10.2"
++    },
++    {
++      "name": "unpipe",
++      "version": "1.0.0"
++    },
++    {
++      "name": "util-deprecate",
++      "version": "1.0.2"
++    },
++    {
++      "name": "validator",
++      "version": "13.15.35"
++    },
++    {
++      "name": "vary",
++      "version": "1.1.2"
++    },
++    {
++      "name": "which",
++      "version": "2.0.2"
++    },
++    {
++      "name": "wrappy",
++      "version": "1.0.2"
++    }
++  ],
++  "unknown": [],
++  "sent": false
++}
+diff --git a/scripts/fl-db005-ci/catalog.py b/scripts/fl-db005-ci/catalog.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/catalog.py
+@@ -0,0 +1,26 @@
++import json,subprocess,hashlib,pathlib,os
++ROOT=pathlib.Path(os.environ['DB5_TASK_ROOT'])
++PREFIX=os.environ['DB5_RUN_PREFIX']
++queries={
++"columns": "SELECT n.nspname AS schema,c.relname AS object,a.attname AS column,format_type(a.atttypid,a.atttypmod) AS type,a.attnotnull FROM pg_attribute a JOIN pg_class c ON c.oid=a.attrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname IN ('public','fl_identity') AND c.relkind IN ('r','v','m') AND a.attnum>0 AND NOT a.attisdropped ORDER BY 1,2,a.attnum",
++"objects": "SELECT n.nspname AS schema,c.relname AS object,c.relkind,c.relrowsecurity,c.relforcerowsecurity,pg_get_userbyid(c.relowner) AS owner,c.relacl::text AS acl FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname IN ('public','fl_identity') AND c.relkind IN ('r','v','m') ORDER BY 1,2",
++"policies": "SELECT schemaname,tablename,policyname,permissive,roles,cmd,qual,with_check FROM pg_policies WHERE schemaname IN ('public','fl_identity') ORDER BY 1,2,3",
++"functions": "SELECT n.nspname AS schema,p.proname,pg_get_function_identity_arguments(p.oid) AS arguments,p.prosecdef,p.proconfig,pg_get_userbyid(p.proowner) AS owner,p.proacl::text AS acl,pg_get_functiondef(p.oid) AS definition FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname IN ('public','fl_identity') AND p.prokind IN ('f','p') ORDER BY 1,2,3",
++"memberships": "SELECT pg_get_userbyid(roleid) AS role,pg_get_userbyid(member) AS member,admin_option,inherit_option,set_option FROM pg_auth_members WHERE pg_get_userbyid(member) LIKE 'db5_%' ORDER BY 1,2",
++"role_attributes": "SELECT rolname,rolsuper,rolinherit,rolcreaterole,rolcreatedb,rolcanlogin,rolreplication,rolbypassrls FROM pg_roles WHERE rolname LIKE 'db5_%' OR rolname LIKE 'fl_db005_%' ORDER BY rolname",
++"table_grants": "SELECT table_schema,table_name,grantee,privilege_type,is_grantable FROM information_schema.table_privileges WHERE table_schema IN ('public','fl_identity') ORDER BY 1,2,3,4",
++"default_privileges": "SELECT pg_get_userbyid(defaclrole) AS creator,defaclnamespace::regnamespace::text AS namespace,defaclobjtype,defaclacl::text AS acl FROM pg_default_acl ORDER BY 1,2,3",
++"triggers": "SELECT n.nspname AS schema,c.relname AS object,t.tgname,pg_get_triggerdef(t.oid) AS definition FROM pg_trigger t JOIN pg_class c ON c.oid=t.tgrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname IN ('public','fl_identity') AND NOT t.tgisinternal ORDER BY 1,2,3",
++"constraints": "SELECT n.nspname AS schema,c.relname AS object,k.conname,pg_get_constraintdef(k.oid) AS definition FROM pg_constraint k JOIN pg_class c ON c.oid=k.conrelid JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname IN ('public','fl_identity') ORDER BY 1,2,3"
++}
++result={"scope":"schema and privilege metadata only; no authid/password/rows queried", "rounds":[]}
++for i in [3,4]:
++ c=f'{PREFIX}-r{i}';d=f'fl_db005_r{i}';entry={"round":i,"catalog":{}}
++ for name,q in queries.items():
++  x=subprocess.run(['docker','exec','-i',c,'psql','-X','-qAt','-v','ON_ERROR_STOP=1','-v','VERBOSITY=sqlstate','-U','db5_initializer','-d',d],input="SELECT coalesce(json_agg(x),'[]'::json) FROM ("+q+") x;",text=True,capture_output=True)
++  assert x.returncode==0,'catalog_read_failed'
++  entry['catalog'][name]=json.loads(x.stdout)
++ encoded=json.dumps(entry['catalog'],sort_keys=True,separators=(',',':')).encode();entry['catalog_sha256']=hashlib.sha256(encoded).hexdigest();result['rounds'].append(entry)
++result['catalog_equal']=result['rounds'][0]['catalog']==result['rounds'][1]['catalog'];assert result['catalog_equal']
++(ROOT/'results/final-chain-catalog.json').write_text(json.dumps(result,indent=2)+'\n')
++print(json.dumps({'catalog_equal':result['catalog_equal'],'hashes':[r['catalog_sha256'] for r in result['rounds']]}))
+diff --git a/scripts/fl-db005-ci/completed-audit-evidence.json b/scripts/fl-db005-ci/completed-audit-evidence.json
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/completed-audit-evidence.json
+@@ -0,0 +1,88 @@
++{
++  "time_utc": "2026-10-01T05:43:50.613759+00:00",
++  "approved_source_sha256": "afc58daba124d5073884690020487b5c5042fb1cc66e8aa4148c20ff6b8e53f4",
++  "wire_sha256": "b90bf1b07a0949b2345cd72686ea500ec8021aff84ebe02a9eb771386acc883e",
++  "source_pairs": 174,
++  "unique_package_names": 165,
++  "endpoint": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
++  "protocol": "official Bulk Advisory, package-name to installed-version list; approved-source wrapper omitted",
++  "network_destinations": 1,
++  "fallback": false,
++  "credentials_sent": false,
++  "private_context_sent": false,
++  "advisories": [
++    {
++      "package": "js-yaml",
++      "installed_versions": [
++        "5.2.2"
++      ],
++      "id": 1239991,
++      "severity": "moderate",
++      "vulnerable_versions": ">=5.0.0 <=5.4.0",
++      "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
++      "title": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
++      "affected_installed_versions": [
++        "5.2.2"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "multer",
++      "installed_versions": [
++        "2.3.0"
++      ],
++      "id": 1239935,
++      "severity": "moderate",
++      "vulnerable_versions": ">=2.2.0 <2.4.0",
++      "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
++      "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
++      "affected_installed_versions": [
++        "2.3.0"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "qs",
++      "installed_versions": [
++        "6.15.3"
++      ],
++      "id": 1158506,
++      "severity": "moderate",
++      "vulnerable_versions": ">=6.14.2 <=6.15.3",
++      "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
++      "title": "qs array-limit bypass via bracket-key comma parsing",
++      "affected_installed_versions": [
++        "6.15.3"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "qs",
++      "installed_versions": [
++        "6.15.3"
++      ],
++      "id": 1158507,
++      "severity": "moderate",
++      "vulnerable_versions": ">=2.2.5 <6.16.0",
++      "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
++      "title": "qs: Denial of Service via Attacker Controlled isBuffer",
++      "affected_installed_versions": [
++        "6.15.3"
++      ],
++      "installed_affected": true
++    }
++  ],
++  "http_status": 200,
++  "status": "KNOWN_VULNERABILITIES_FOUND",
++  "version_matcher": {
++    "library": "semver",
++    "version": "7.8.5",
++    "network": false
++  },
++  "matched_advisories": 4,
++  "limitations": [
++    "bulk installed-version advisories only; npm metavulnerability calculation not performed",
++    "does not establish application exploitability or justify dependency changes",
++    "original approved file unchanged; wire uses only approved name/version content"
++  ]
++}
+diff --git a/scripts/fl-db005-ci/dynamic-final-r3-r4.cjs b/scripts/fl-db005-ci/dynamic-final-r3-r4.cjs
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/dynamic-final-r3-r4.cjs
+@@ -0,0 +1,285 @@
++const fs = require("node:fs");
++const crypto = require("node:crypto");
++const { PrismaClient } = require("/work/node_modules/@prisma/client");
++const {
++  withIsolatedTenantTransaction,
++} = require("/work/dist/src/prisma/isolated-tenant-transaction");
++const output = {
++  scope: "fresh CI isolation only; no deployed-environment claim",
++  rounds: [],
++  stopped: false,
++};
++const allClients = [];
++const save = () =>
++  fs.writeFileSync("/results/dynamic-final-r3-r4.json", JSON.stringify(output, null, 2));
++const hash = (v) => crypto.createHash("sha256").update(JSON.stringify(v)).digest("hex");
++function client(c, role) {
++  const password = role === "db5_initializer" ? c.initializer : c.roles[role];
++  const url = new URL(`postgresql://${c.container}:5432/${c.database}`);
++  url.username = role;
++  url.password = password;
++  url.searchParams.set("connection_limit", "2");
++  const p = new PrismaClient({
++    datasources: { db: { url: url.toString() } },
++    log: [],
++    errorFormat: "minimal",
++  });
++  allClients.push(p);
++  return p;
++}
++function sqlstate(error) {
++  return typeof error?.meta?.code === "string" ? error.meta.code : error?.code || "UNKNOWN";
++}
++async function main() {
++  for (const round of [3, 4]) {
++    const c = JSON.parse(fs.readFileSync(`/auth/r${round}/credentials.json`, "utf8"));
++    if (c.container !== `${process.env.DB5_RUN_PREFIX}-r${round}` || c.database !== `fl_db005_r${round}`)
++      throw new Error("invalid target");
++    const owner = client(c, "db5_initializer"),
++      issuer = client(c, "db5_issuer"),
++      pool = client(c, "db5_pool");
++    const roles = Object.fromEntries(
++      ["db5_user_a", "db5_user_b", "db5_admin_a", "db5_platform", "db5_task"].map((r) => [
++        r,
++        client(c, r),
++      ]),
++    );
++    const result = { round, cases: [], catalog: {}, verdict: "IN_PROGRESS" };
++    output.rounds.push(result);
++    save();
++    const add = (name, pass, details = {}) => {
++      result.cases.push({ name, status: pass ? "PASS" : "FAIL", ...details });
++      save();
++    };
++    result.catalog.roles = await owner.$queryRawUnsafe(
++      "SELECT rolname,rolsuper,rolbypassrls,rolcreaterole,rolcreatedb FROM pg_roles WHERE rolname LIKE 'db5_%' ORDER BY rolname",
++    );
++    result.catalog.tables = await owner.$queryRawUnsafe(
++      "SELECT c.relname,c.relrowsecurity,c.relforcerowsecurity,pg_get_userbyid(c.relowner) AS owner FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind='r' ORDER BY c.relname",
++    );
++    result.catalog.functions = await owner.$queryRawUnsafe(
++      "SELECT p.proname,p.prosecdef,p.proconfig,pg_get_userbyid(p.proowner) AS owner,EXISTS(SELECT 1 FROM aclexplode(COALESCE(p.proacl,acldefault('f',p.proowner))) a WHERE a.grantee=0 AND a.privilege_type='EXECUTE') AS public_execute FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='fl_identity' ORDER BY p.proname",
++    );
++    result.catalog.memberships = await owner.$queryRawUnsafe(
++      "SELECT pg_get_userbyid(roleid) AS role,pg_get_userbyid(member) AS member,admin_option,inherit_option,set_option FROM pg_auth_members WHERE pg_get_userbyid(member) LIKE 'db5_%' ORDER BY 1,2",
++    );
++    result.catalog.policies = await owner.$queryRawUnsafe(
++      "SELECT tablename,policyname,cmd,qual,with_check FROM pg_policies WHERE schemaname='public' ORDER BY tablename,policyname",
++    );
++    add(
++      "54_tables_rls_force",
++      result.catalog.tables.length === 54 &&
++        result.catalog.tables.every((x) => x.relrowsecurity && x.relforcerowsecurity),
++    );
++    add(
++      "runtime_nonprivileged",
++      result.catalog.roles
++        .filter((x) => x.rolname !== "db5_initializer")
++        .every((x) => !x.rolsuper && !x.rolbypassrls && !x.rolcreaterole && !x.rolcreatedb),
++    );
++    add(
++      "safe_function_owners_paths_execute",
++      result.catalog.functions.every(
++        (x) =>
++          x.owner === "fl_db005_identity_owner" &&
++          x.proconfig.includes("search_path=pg_catalog, pg_temp") &&
++          !x.public_execute,
++      ),
++    );
++    const snapshot = async () =>
++      hash(
++        await owner.$queryRawUnsafe(
++          `SELECT json_build_object('customer',(SELECT json_agg(x) FROM (SELECT * FROM public."Customer" ORDER BY id)x),'address',(SELECT json_agg(x) FROM (SELECT * FROM public."WithdrawalAddress" ORDER BY id)x)) AS data`,
++        ),
++      );
++    async function cross(name, action) {
++      const before = await snapshot();
++      let rows = null,
++        code = null;
++      try {
++        const v = await action();
++        rows = Number(v?.[0]?.n ?? 0);
++      } catch (e) {
++        code = sqlstate(e);
++      }
++      const after = await snapshot();
++      if (rows > 0 || before !== after) {
++        add(name, false, { rows, sqlstate: code, before_sha256: before, after_sha256: after });
++        output.stopped = true;
++        output.emergency = "P0: cross-tenant success or target change; no further expanded tests";
++        save();
++        throw new Error("P0_STOP");
++      }
++      add(name, rows === 0 || code === "42501", {
++        rows,
++        sqlstate: code,
++        data_unchanged: before === after,
++        before_sha256: before,
++        after_sha256: after,
++      });
++    }
++    for (const t of ["a", "b"]) {
++      const role = roles[`db5_user_${t}`],
++        other = t === "a" ? "b" : "a";
++      const own =
++        await role.$queryRaw`SELECT count(*)::int AS n FROM public."Customer" WHERE id=${`db5_customer_${t}`}`;
++      add(`customer_same_${t}`, own[0].n === 1);
++      await cross(
++        `customer_cross_${t}`,
++        () =>
++          role.$queryRaw`SELECT count(*)::int AS n FROM public."Customer" WHERE id=${`db5_customer_${other}`}`,
++      );
++      const created =
++        await role.$queryRaw`INSERT INTO public."WithdrawalAddress"(id,"assetCode","networkId",address,label,"updatedAt") VALUES (${`db5_address_r3_${t}`},'SYNTHETIC','synthetic','not-a-real-address-r3','synthetic',now()) RETURNING "tenantId","customerId",environment::text`;
++      add(
++        `address_insert_context_${t}`,
++        created[0].tenantId === `db5_tenant_${t}` &&
++          created[0].customerId === `db5_customer_${t}` &&
++          created[0].environment === "SANDBOX",
++      );
++    }
++    const stableData = await snapshot();
++    for (const t of ["a", "b"]) {
++      const role = roles[`db5_user_${t}`],
++        other = t === "a" ? "b" : "a";
++      await cross(
++        `address_select_cross_${t}`,
++        () =>
++          role.$queryRaw`SELECT count(*)::int AS n FROM public."WithdrawalAddress" WHERE id=${`db5_address_r3_${other}`}`,
++      );
++      await cross(
++        `address_update_cross_${t}`,
++        () =>
++          role.$queryRaw`WITH x AS(UPDATE public."WithdrawalAddress" SET label='synthetic-change' WHERE id=${`db5_address_r3_${other}`} RETURNING id) SELECT count(*)::int AS n FROM x`,
++      );
++      await cross(
++        `address_delete_cross_${t}`,
++        () =>
++          role.$queryRaw`WITH x AS(DELETE FROM public."WithdrawalAddress" WHERE id=${`db5_address_r3_${other}`} RETURNING id) SELECT count(*)::int AS n FROM x`,
++      );
++      await cross(
++        `address_insert_forged_owner_${t}`,
++        () =>
++          role.$queryRaw`WITH x AS(INSERT INTO public."WithdrawalAddress"(id,"tenantId","customerId",environment,"assetCode","networkId",address,label,"updatedAt") VALUES (${`db5_forged_${t}`},${`db5_tenant_${other}`},${`db5_customer_${other}`},'SANDBOX','SYNTHETIC','synthetic','not-a-real-address-r3','synthetic',now()) RETURNING id) SELECT count(*)::int AS n FROM x`,
++      );
++      await cross(
++        `address_update_owner_${t}`,
++        () =>
++          role.$queryRaw`WITH x AS(UPDATE public."WithdrawalAddress" SET "tenantId"=${`db5_tenant_${other}`},"customerId"=${`db5_customer_${other}`} WHERE id=${`db5_address_r3_${t}`} RETURNING id) SELECT count(*)::int AS n FROM x`,
++      );
++      let updated = 0,
++        deleted = 0;
++      try {
++        await role.$transaction(async (tx) => {
++          const u =
++            await tx.$queryRaw`WITH x AS(UPDATE public."WithdrawalAddress" SET label='synthetic-own-change' WHERE id=${`db5_address_r3_${t}`} RETURNING id) SELECT count(*)::int AS n FROM x`;
++          updated = u[0].n;
++          const d =
++            await tx.$queryRaw`WITH x AS(DELETE FROM public."WithdrawalAddress" WHERE id=${`db5_address_r3_${t}`} RETURNING id) SELECT count(*)::int AS n FROM x`;
++          deleted = d[0].n;
++          throw new Error("SYNTHETIC_ROLLBACK");
++        });
++      } catch (e) {
++        if (e.message !== "SYNTHETIC_ROLLBACK") throw e;
++      }
++      add(
++        `address_same_update_delete_${t}`,
++        updated === 1 && deleted === 1 && (await snapshot()) === stableData,
++      );
++    }
++    for (const name of ["db5_platform", "db5_task"]) {
++      const v = await roles[name].$queryRaw`SELECT count(*)::int AS n FROM public."Customer"`;
++      add(`${name}_denied`, v[0].n === 0);
++    }
++    const adminOwn = await roles.db5_admin_a
++      .$queryRaw`SELECT count(*)::int AS n FROM public."Customer" WHERE "tenantId"='db5_tenant_a'`;
++    add("tenant_admin_same_select", adminOwn[0].n === 1);
++    await cross(
++      "tenant_admin_cross_select",
++      () =>
++        roles.db5_admin_a
++          .$queryRaw`SELECT count(*)::int AS n FROM public."Customer" WHERE "tenantId"='db5_tenant_b'`,
++    );
++    const issueFor = (principal) => ({
++      issue: async (target, purpose) => {
++        const value = crypto.randomBytes(32).toString("hex"),
++          digest = crypto.createHash("sha256").update(value).digest("hex");
++        await issuer.$queryRaw`SELECT fl_identity.issue_ticket(decode(${digest},'hex'),${principal},${target.databaseLogin}::name,${target.backendPid}::int,${target.transactionId}::xid8,${purpose},clock_timestamp()+interval '50 seconds')::text`;
++        return value;
++      },
++    });
++    const poolUnbound = await pool.$queryRaw`SELECT count(*)::int AS n FROM public."Customer"`;
++    add("pool_unbound_denied", poolUnbound[0].n === 0);
++    const expected = [];
++    for (let batch = 0; batch < 4; batch++) {
++      const cases = await Promise.all(
++        ["a", "b"].map((t) =>
++          withIsolatedTenantTransaction(pool, issueFor(`pool_${t}`), "address-book", async (tx) => {
++            await tx.$executeRaw`SELECT pg_sleep(0.02)`;
++            const v = await tx.$queryRaw`SELECT id FROM public."Customer" ORDER BY id`;
++            return { t, ok: v.length === 1 && v[0].id === `db5_customer_${t}` };
++          }),
++        ),
++      );
++      for (const c of cases) {
++        if (!c.ok) {
++          output.stopped = true;
++          output.emergency = "P0: shared pool tenant mismatch";
++          save();
++          throw new Error("P0_STOP");
++        }
++        expected.push(c.ok);
++      }
++    }
++    add("pool_concurrent_interleaving", expected.length === 8 && expected.every(Boolean), {
++      transactions: expected.length,
++      connection_limit: 2,
++    });
++    const afterPool = await pool.$queryRaw`SELECT count(*)::int AS n FROM public."Customer"`;
++    add("pool_after_commit_denied", afterPool[0].n === 0);
++    // Savepoint replay is explicitly tested rather than inferred from a full rollback.
++    let replayAccepted = false;
++    await pool.$transaction(async (tx) => {
++      const [target] =
++        await tx.$queryRaw`SELECT session_user::text AS "databaseLogin",pg_backend_pid() AS "backendPid",pg_current_xact_id()::text AS "transactionId"`;
++      const ticket = await issueFor("pool_a").issue(target, "address-book");
++      await tx.$executeRawUnsafe("SAVEPOINT before_binding");
++      await tx.$queryRaw`SELECT fl_identity.bind_ticket(${ticket},'address-book')::text`;
++      await tx.$executeRawUnsafe("ROLLBACK TO SAVEPOINT before_binding");
++      try {
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${ticket},'address-book')::text`;
++        replayAccepted = true;
++      } catch {}
++    });
++    add("same_transaction_savepoint_replay_rejected", !replayAccepted, {
++      scope: "same approved subject and transaction; not a cross-tenant observation",
++    });
++    result.data_after_probes_unchanged = (await snapshot()) === stableData;
++    result.verdict = result.cases.every((x) => x.status === "PASS")
++      ? "PASS_WITH_SCOPE_LIMITS"
++      : "FAIL_WITH_SCOPE_LIMITS";
++    save();
++  }
++}
++main()
++  .catch((e) => {
++    output.stopped = true;
++    output.failure =
++      e.message === "P0_STOP" ? "P0_STOP" : { category: e.constructor.name, code: sqlstate(e) };
++    save();
++    process.exitCode = 1;
++  })
++  .finally(async () => {
++    await Promise.all(allClients.map((p) => p.$disconnect().catch(() => {})));
++    console.log(
++      JSON.stringify({
++        rounds: output.rounds.length,
++        stopped: output.stopped,
++        cases: output.rounds.map((r) => ({
++          round: r.round,
++          pass: r.cases.filter((x) => x.status === "PASS").length,
++          fail: r.cases.filter((x) => x.status === "FAIL").length,
++        })),
++      }),
++    );
++  });
+diff --git a/scripts/fl-db005-ci/inputs.json b/scripts/fl-db005-ci/inputs.json
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/inputs.json
+@@ -0,0 +1,207 @@
++{
++  "source_business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d",
++  "original": [
++    {
++      "path": "prisma/migrations/20260719000100_baseline/migration.sql",
++      "sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
++      "order": 1
++    },
++    {
++      "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
++      "sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
++      "order": 2
++    },
++    {
++      "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
++      "sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
++      "order": 3
++    },
++    {
++      "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
++      "sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
++      "order": 4
++    },
++    {
++      "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
++      "sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
++      "order": 5
++    },
++    {
++      "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
++      "sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
++      "order": 6
++    },
++    {
++      "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
++      "sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
++      "order": 7
++    },
++    {
++      "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
++      "sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
++      "order": 8
++    },
++    {
++      "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
++      "sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
++      "order": 9
++    },
++    {
++      "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
++      "sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
++      "order": 10
++    },
++    {
++      "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
++      "sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
++      "order": 11
++    },
++    {
++      "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
++      "sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
++      "order": 12
++    },
++    {
++      "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
++      "sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
++      "order": 13
++    },
++    {
++      "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
++      "sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
++      "order": 14
++    },
++    {
++      "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
++      "sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
++      "order": 15
++    },
++    {
++      "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
++      "sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
++      "order": 16
++    },
++    {
++      "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
++      "sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
++      "order": 17
++    },
++    {
++      "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
++      "sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
++      "order": 18
++    },
++    {
++      "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
++      "sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
++      "order": 19
++    },
++    {
++      "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
++      "sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
++      "order": 20
++    },
++    {
++      "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
++      "sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
++      "order": 21
++    },
++    {
++      "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
++      "sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
++      "order": 22
++    },
++    {
++      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
++      "sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
++      "order": 23
++    },
++    {
++      "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
++      "sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
++      "order": 24
++    },
++    {
++      "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
++      "sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
++      "order": 25
++    },
++    {
++      "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
++      "sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
++      "order": 26
++    },
++    {
++      "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
++      "sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
++      "order": 27
++    },
++    {
++      "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
++      "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
++      "order": 28
++    },
++    {
++      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
++      "sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
++      "order": 29
++    },
++    {
++      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
++      "sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
++      "order": 30
++    },
++    {
++      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
++      "sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
++      "order": 31
++    },
++    {
++      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
++      "sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
++      "order": 32
++    }
++  ],
++  "candidate": [
++    {
++      "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
++      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3"
++    },
++    {
++      "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
++      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a"
++    },
++    {
++      "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
++      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b"
++    }
++  ],
++  "lock_sha256": "19a8246171068f3ed08eca89c8db79474b3415b3c21b74b59afd326c9ee5ff94",
++  "package_sha256": "3847ce2f0d188dd9106a4e0ebd4375fb4f5b624ed4778d03ecfa28d798e9aeef",
++  "approved_audit_payload_sha256": "afc58daba124d5073884690020487b5c5042fb1cc66e8aa4148c20ff6b8e53f4",
++  "source_scripts": {
++    "rebuild-final-r3-r4.py": "021e326c1e9c4a494d5812fe607a40b51cb065e58591daf7156e9274bf132032",
++    "dynamic-final-r3-r4.cjs": "a9a4b236a001fc9476e654c59347bc0cc5ebd81b9b2b0b2704506478eeaabc31",
++    "negative-final-r3-r4.cjs": "254644ca602c1a9d33ec53e77322145ae5869bb3239ff4bc7e3e6c1f046f4f9b",
++    "final_catalog.py": "bc2685ee966c5609041c6e11492ebeed1080110b536b47bd3ed25bc23e052f01"
++  },
++  "schema_sha256": "7a95658ba9b15652749cf2bb595b1862e8c609c367cffb15da2e3386a3a21501",
++  "completed_audit_evidence_sha256": "d0667a02758c67dc753d52196eedad192b897a19b00318b584deda3137ab0fc9",
++  "completed_audit_evidence_source": "FL-DB-005 governance R2 evidence/npm-audit-r2.json",
++  "engine_commit": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
++  "engine_platform": "debian-openssl-3.0.x",
++  "engines": [
++    {
++      "file": "libquery-engine",
++      "url": "https://binaries.prisma.sh/all_commits/c2990dca591cba766e3b7ef5d9e8a84796e47ab7/debian-openssl-3.0.x/libquery_engine.so.node.gz",
++      "gzip_sha256": "d380872cc8a17310c6ebb249dc000f4fcbfbbd51ddc36beb57b1ed0c54c6d610",
++      "sha256": "a2924eab1c78a0a7bb67edac5738939fa10589ef073af5542f53812a22e4a7d8"
++    },
++    {
++      "file": "schema-engine",
++      "url": "https://binaries.prisma.sh/all_commits/c2990dca591cba766e3b7ef5d9e8a84796e47ab7/debian-openssl-3.0.x/schema-engine.gz",
++      "gzip_sha256": "6c1dfdfe34538487b088fd21b3152147e1bd3c9d0c00b4fc6ecae40ceba83d8a",
++      "sha256": "5d42b181631fd20bb0ecc5abcdba72575e7f467a0d52f4d5ef1ff28f0c74e6e9"
++    }
++  ]
++}
+diff --git a/scripts/fl-db005-ci/negative-final-r3-r4.cjs b/scripts/fl-db005-ci/negative-final-r3-r4.cjs
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/negative-final-r3-r4.cjs
+@@ -0,0 +1,180 @@
++const fs = require("node:fs"),
++  crypto = require("node:crypto");
++const { PrismaClient } = require("/work/node_modules/@prisma/client");
++const output = { rounds: [], scope: "isolated identity and least-privilege controls" };
++const clients = [];
++const save = () =>
++  fs.writeFileSync("/results/negative-final-r3-r4.json", JSON.stringify(output, null, 2));
++function make(c, r) {
++  const u = new URL(`postgresql://${c.container}:5432/${c.database}`);
++  u.username = r;
++  u.password = r === "db5_initializer" ? c.initializer : c.roles[r];
++  u.searchParams.set("connection_limit", "2");
++  const p = new PrismaClient({
++    datasources: { db: { url: u.toString() } },
++    log: [],
++    errorFormat: "minimal",
++  });
++  clients.push(p);
++  return p;
++}
++const code = (e) => e.meta?.code || e.code || "UNKNOWN";
++(async () => {
++  for (const round of [3, 4]) {
++    const c = JSON.parse(fs.readFileSync(`/auth/r${round}/credentials.json`));
++    if (c.container !== `${process.env.DB5_RUN_PREFIX}-r${round}` || c.database !== `fl_db005_r${round}`) throw new Error("invalid target");
++    const pool = make(c, "db5_pool"),
++      issuer = make(c, "db5_issuer"),
++      owner = make(c, "db5_initializer"),
++      ordinary = make(c, "db5_user_a");
++    const r = { round, cases: [] };
++    output.rounds.push(r);
++    const add = (name, ok, details = {}) => {
++      r.cases.push({ name, status: ok ? "PASS" : "FAIL", ...details });
++      save();
++    };
++    async function denied(name, fn) {
++      try {
++        await fn();
++        add(name, false);
++        throw new Error("CONTROL_STOP");
++      } catch (e) {
++        if (e.message === "CONTROL_STOP") throw e;
++        add(name, code(e) === "42501", { sqlstate: code(e) });
++        if (code(e) !== "42501") throw new Error("CONTROL_STOP");
++      }
++    }
++    async function issue(tx, seconds = 30) {
++      const [t] =
++        await tx.$queryRaw`SELECT session_user::text AS login,pg_backend_pid() AS pid,pg_current_xact_id()::text AS xid`;
++      const value = crypto.randomBytes(32).toString("hex"),
++        digest = crypto.createHash("sha256").update(value).digest("hex");
++      await issuer.$queryRaw`SELECT fl_identity.issue_ticket(decode(${digest},'hex'),'pool_a',${t.login}::name,${t.pid}::int,${t.xid}::xid8,'address-book',clock_timestamp()+${seconds}::int*interval '1 second')::text`;
++      return value;
++    }
++    await denied(
++      "runtime_cannot_read_mapping",
++      () => pool.$queryRaw`SELECT principal_id FROM fl_identity.principal`,
++    );
++    await denied(
++      "runtime_cannot_read_ticket_digests",
++      () => pool.$queryRaw`SELECT digest FROM fl_identity.ticket`,
++    );
++    await denied("runtime_cannot_set_identity_owner", () =>
++      pool.$executeRawUnsafe("SET ROLE fl_db005_identity_owner"),
++    );
++    await denied(
++      "runtime_cannot_issue",
++      () =>
++        pool.$queryRaw`SELECT fl_identity.issue_ticket(decode(repeat('0',64),'hex'),'pool_a','db5_pool'::name,1,'1'::xid8,'address-book',clock_timestamp()+interval '20 seconds')::text`,
++    );
++    await denied(
++      "customer_insert_denied",
++      () =>
++        ordinary.$executeRaw`INSERT INTO public."Customer" (id) VALUES ('synthetic-disallowed')`,
++    );
++    await denied(
++      "customer_update_denied",
++      () =>
++        ordinary.$executeRaw`UPDATE public."Customer" SET "firstName"='synthetic' WHERE id='db5_customer_a'`,
++    );
++    await denied(
++      "customer_delete_denied",
++      () => ordinary.$executeRaw`DELETE FROM public."Customer" WHERE id='db5_customer_a'`,
++    );
++    await denied("purpose_conflict_denied", () =>
++      pool.$transaction(async (tx) => {
++        const v = await issue(tx);
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${v},'wrong-purpose')::text`;
++      }),
++    );
++    await denied(
++      "random_ticket_denied",
++      () =>
++        pool.$queryRaw`SELECT fl_identity.bind_ticket(${crypto.randomBytes(32).toString("hex")},'address-book')::text`,
++    );
++    await denied("wrong_login_pid_denied", () =>
++      pool.$transaction(async (tx) => {
++        const v = await issue(tx);
++        await ordinary.$queryRaw`SELECT fl_identity.bind_ticket(${v},'address-book')::text`;
++      }),
++    );
++    await denied("expiry_denied", () =>
++      pool.$transaction(async (tx) => {
++        const v = await issue(tx, 1);
++        await tx.$executeRaw`SELECT pg_sleep(1.1)`;
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${v},'address-book')::text`;
++      }),
++    );
++    await denied("same_transaction_duplicate_denied", () =>
++      pool.$transaction(async (tx) => {
++        const v = await issue(tx);
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${v},'address-book')::text`;
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${v},'address-book')::text`;
++      }),
++    );
++    let old;
++    await pool.$transaction(async (tx) => {
++      old = await issue(tx);
++      await tx.$queryRaw`SELECT fl_identity.bind_ticket(${old},'address-book')::text`;
++    });
++    await denied(
++      "new_transaction_after_commit_replay_denied",
++      () => pool.$queryRaw`SELECT fl_identity.bind_ticket(${old},'address-book')::text`,
++    );
++    try {
++      await pool.$transaction(async (tx) => {
++        old = await issue(tx);
++        await tx.$queryRaw`SELECT fl_identity.bind_ticket(${old},'address-book')::text`;
++        throw new Error("SYNTHETIC_ROLLBACK");
++      });
++    } catch (e) {
++      if (e.message !== "SYNTHETIC_ROLLBACK") throw e;
++    }
++    await denied(
++      "new_transaction_after_rollback_replay_denied",
++      () => pool.$queryRaw`SELECT fl_identity.bind_ticket(${old},'address-book')::text`,
++    );
++    const unbound = await pool.$queryRaw`SELECT count(*)::int AS n FROM public."Customer"`;
++    add("rollback_pool_context_absent", unbound[0].n === 0);
++    const seq = await owner.$queryRawUnsafe(
++      "SELECT count(*)::int AS n FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='fl_identity' AND c.relkind='S' AND (has_sequence_privilege('fl_db005_runtime',c.oid,'USAGE') OR has_sequence_privilege('fl_db005_runtime',c.oid,'SELECT') OR has_sequence_privilege('fl_db005_runtime',c.oid,'UPDATE') OR has_sequence_privilege('fl_db005_issuer',c.oid,'USAGE') OR EXISTS(SELECT 1 FROM aclexplode(coalesce(c.relacl,acldefault('S',c.relowner))) a WHERE a.grantee=0))",
++    );
++    add("private_sequence_no_runtime_issuer_public_rights", seq[0].n === 0);
++    r.default_privileges = await owner.$queryRawUnsafe(
++      "SELECT pg_get_userbyid(defaclrole) AS creator,defaclnamespace::regnamespace::text AS namespace,defaclobjtype,defaclacl::text AS acl FROM pg_default_acl ORDER BY 1,2,3",
++    );
++    r.table_grants = await owner.$queryRawUnsafe(
++      "SELECT table_name,privilege_type FROM information_schema.table_privileges WHERE grantee='fl_db005_runtime' ORDER BY table_name,privilege_type",
++    );
++    add(
++      "runtime_positive_grants_only_two_objects",
++      r.table_grants.length === 5 &&
++        r.table_grants.every((x) => ["Customer", "WithdrawalAddress"].includes(x.table_name)),
++    );
++    r.sequence_count = (
++      await owner.$queryRawUnsafe(
++        "SELECT count(*)::int AS n FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='fl_identity' AND c.relkind='S'",
++      )
++    )[0].n;
++    r.lifecycle = "LIMITED: retained; no automatic cleanup; isolation prototype only";
++    save();
++  }
++})()
++  .catch((e) => {
++    output.error = { code: code(e), category: e.constructor.name };
++    save();
++    process.exitCode = 1;
++  })
++  .finally(async () => {
++    await Promise.all(clients.map((c) => c.$disconnect().catch(() => {})));
++    console.log(
++      JSON.stringify(
++        output.rounds.map((r) => ({
++          round: r.round,
++          pass: r.cases.filter((x) => x.status === "PASS").length,
++          fail: r.cases.filter((x) => x.status === "FAIL").length,
++        })),
++      ),
++    );
++  });
+diff --git a/scripts/fl-db005-ci/prepare_downloads.py b/scripts/fl-db005-ci/prepare_downloads.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/prepare_downloads.py
+@@ -0,0 +1,121 @@
++"""HTTPS GET of fixed package/engine bytes only; never sends audit data or credentials."""
++import base64
++import gzip
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import re
++import shutil
++import ssl
++import urllib.parse
++import urllib.request
++
++MAX_FILE = 128 * 1024 * 1024
++MAX_TOTAL = 2 * 1024 * 1024 * 1024
++MAX_ENGINE = 256 * 1024 * 1024
++
++
++def check_url(url, allowed_urls):
++    u = urllib.parse.urlsplit(url)
++    if (url not in allowed_urls or u.scheme != 'https' or u.username is not None
++            or u.password is not None or u.port not in (None, 443) or u.query or u.fragment
++            or u.hostname not in {'registry.npmjs.org', 'binaries.prisma.sh'}):
++        raise ValueError('unapproved_download_target')
++    # Narrower than domain allowlist: only exact reviewed package or engine file URLs.
++    if u.hostname == 'registry.npmjs.org' and ('/-/' not in u.path or not u.path.endswith('.tgz')):
++        raise ValueError('not_package_tarball')
++    if u.hostname == 'binaries.prisma.sh' and not u.path.startswith('/all_commits/'):
++        raise ValueError('not_pinned_engine')
++
++
++class CheckedRedirect(urllib.request.HTTPRedirectHandler):
++    def __init__(self, allowed_urls):
++        self.allowed_urls = allowed_urls
++
++    def redirect_request(self, req, fp, code, msg, headers, newurl):
++        check_url(newurl, self.allowed_urls)
++        if req.get_method() != 'GET':
++            raise ValueError('non_get_denied')
++        return super().redirect_request(req, fp, code, msg, headers, newurl)
++
++
++def verify_sri(raw, integrity):
++    tokens = integrity.split()
++    parsed = []
++    for token in tokens:
++        algorithm, encoded = token.split('-', 1)
++        if algorithm not in {'sha256', 'sha384', 'sha512'}:
++            raise ValueError('unsupported_integrity')
++        parsed.append((algorithm, base64.b64decode(encoded, validate=True)))
++    if not parsed or not all(hashlib.new(a, raw).digest() == expected for a, expected in parsed):
++        raise ValueError('integrity_mismatch')
++
++
++def main(task_root, source):
++    task_root, source = Path(task_root), Path(source)
++    # No ambient proxy or registry authentication is accepted.
++    if any(v for k, v in os.environ.items() if k.lower() in {
++        'http_proxy', 'https_proxy', 'all_proxy', 'npm_token', 'node_auth_token',
++        'npm_config_proxy', 'npm_config_https_proxy'}):
++        raise ValueError('ambient_proxy_or_auth_denied')
++    if (task_root/'private').exists() and any((task_root/'private').iterdir()):
++        raise ValueError('authentication_already_exists')
++    manifest = json.loads((source/'inputs.json').read_text())
++    lock_path = task_root/'prepare/package-lock.json'
++    if hashlib.sha256(lock_path.read_bytes()).hexdigest() != manifest['lock_sha256']:
++        raise ValueError('lock_hash_changed')
++    packages = {}
++    for path, row in json.loads(lock_path.read_text())['packages'].items():
++        if not path:
++            continue
++        url, integrity = row['resolved'], row['integrity']
++        if url in packages and packages[url] != integrity:
++            raise ValueError('inconsistent_lock_integrity')
++        packages[url] = integrity
++    allowed = set(packages) | {x['url'] for x in manifest['engines']}
++    for url in allowed:
++        check_url(url, allowed)
++    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}),
++        CheckedRedirect(allowed), urllib.request.HTTPSHandler(context=ssl.create_default_context()))
++    total = 0
++
++    def fetch(url):
++        nonlocal total
++        check_url(url, allowed)
++        if shutil.disk_usage(task_root).free < 6 * 1024**3:
++            raise ValueError('insufficient_disk')
++        req = urllib.request.Request(url, method='GET', headers={'Accept': 'application/octet-stream'})
++        with opener.open(req, timeout=45) as response:
++            check_url(response.url, allowed)
++            if response.status != 200:
++                raise ValueError('http_not_200')
++            # 401/407 also fail in urllib; no auth handler, netrc, cookies or retry credentials.
++            raw = response.read(MAX_FILE + 1)
++        if len(raw) > MAX_FILE:
++            raise ValueError('download_size_limit')
++        total += len(raw)
++        if total > MAX_TOTAL:
++            raise ValueError('total_size_limit')
++        return raw
++
++    downloads = task_root/'downloads'; downloads.mkdir(mode=0o700)
++    cache = task_root/'npm-cache'; cache.mkdir(mode=0o700)
++    engines = task_root/'engines'; engines.mkdir(mode=0o700)
++    for index, (url, integrity) in enumerate(sorted(packages.items())):
++        raw = fetch(url); verify_sri(raw, integrity)
++        (downloads/f'{index:04d}.tgz').write_bytes(raw)
++    for engine in manifest['engines']:
++        raw = fetch(engine['url'])
++        if hashlib.sha256(raw).hexdigest() != engine['gzip_sha256']:
++            raise ValueError('engine_gzip_hash_mismatch')
++        with gzip.GzipFile(fileobj=io.BytesIO(raw)) as stream:
++            content = stream.read(MAX_ENGINE + 1)
++        if len(content) > MAX_ENGINE or hashlib.sha256(content).hexdigest() != engine['sha256']:
++            raise ValueError('engine_hash_mismatch')
++        if engine['file'] not in {'libquery-engine', 'schema-engine'}:
++            raise ValueError('engine_filename_denied')
++        dest = engines/engine['file']; dest.write_bytes(content); dest.chmod(0o700)
++    return {'packages': len(packages), 'engines': 2, 'audit_requests': 0,
++            'verified_bytes': total, 'redirects': 'exact reviewed URLs only'}
+diff --git a/scripts/fl-db005-ci/rebuild.py b/scripts/fl-db005-ci/rebuild.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/rebuild.py
+@@ -0,0 +1,96 @@
++# Review-only proposal: runtime paths generalized; migration and fixture SQL retained.
++import pathlib, subprocess, os, json, secrets, hashlib, time, re
++os.umask(0o077)
++ROOT=pathlib.Path(os.environ['DB5_TASK_ROOT'])
++SOURCE=pathlib.Path(__file__).resolve().parent
++PREFIX=os.environ['DB5_RUN_PREFIX']
++OUT=ROOT/'results'
++IMAGE='postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24'
++NETWORK=PREFIX+'-isolated'
++def run(args, **kw): return subprocess.run(args,capture_output=True,text=True,**kw)
++def save(name,obj): (OUT/name).write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n')
++def main():
++    info=run(['docker','image','inspect',IMAGE]); assert info.returncode==0
++    assert IMAGE in json.loads(info.stdout)[0]['RepoDigests']
++    assert json.loads(run(['docker','network','inspect',NETWORK]).stdout)[0]['Internal'] is True
++    manifest=json.loads((SOURCE/'inputs.json').read_text())
++    original=manifest['original']
++    assert len(original)==32
++    states=[]
++    for iteration in [3,4]:
++        container=f'{PREFIX}-r{iteration}'; database=f'fl_db005_r{iteration}'
++        auth=ROOT/'private'/f'r{iteration}'; assert not auth.exists(); auth.mkdir(mode=0o700)
++        assert run(['docker','inspect',container]).returncode != 0
++        password=secrets.token_hex(32); password_file=auth/'initializer-password'
++        password_file.write_text(password);password_file.chmod(0o600)
++        roles={n:secrets.token_hex(32) for n in ['db5_pool','db5_issuer','db5_user_a','db5_user_b','db5_admin_a','db5_platform','db5_task']}
++        volume=container+'-data'
++        assert run(['docker','volume','inspect',volume]).returncode != 0
++        assert run(['docker','volume','create','--label','fl-db005.ci-session='+os.environ['DB5_SESSION_LABEL'],volume]).returncode==0
++        result=run(['docker','run','-d','--platform','linux/amd64','--name',container,'--label','fl-db005.ci-session='+os.environ['DB5_SESSION_LABEL'],'--network',NETWORK,
++          '-e','POSTGRES_USER=db5_initializer','-e',f'POSTGRES_DB={database}',
++          '-e','POSTGRES_PASSWORD_FILE=/run/db5/password','-e','POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256',
++          '--mount',f'type=bind,src={password_file},dst=/run/db5/password,readonly',
++          '--mount',f'type=volume,src={volume},dst=/var/lib/postgresql/data','--memory','1g','--cpus','2',IMAGE,
++          '-c','log_statement=none','-c','log_min_error_statement=panic','-c','log_error_verbosity=terse',
++          '-c','log_parameter_max_length=0','-c','log_parameter_max_length_on_error=0'])
++        assert result.returncode==0,'container_creation_failed'
++        def sql(q): return run(['docker','exec','-i',container,'psql','-X','-qAt','-v','ON_ERROR_STOP=1',
++                         '-v','VERBOSITY=sqlstate','-U','db5_initializer','-d',database],input=q)
++        for _ in range(60):
++            check=sql('SELECT 1;')
++            if check.returncode==0:break
++            time.sleep(.5)
++        assert check.returncode==0,'database_not_ready'
++        assert sql('SHOW server_version;').stdout.strip()=='17.11'
++        assert sql("SELECT count(*) FROM pg_class c JOIN pg_namespace n ON c.relnamespace=n.oid WHERE n.nspname='public';").stdout.strip()=='0'
++        state={'round':iteration,'image':IMAGE,'version':'17.11','blank_confirmed':True,'original_migrations':[]};states.append(state)
++        for item in original:
++            raw=(ROOT/'backend'/item['path']).read_bytes();assert hashlib.sha256(raw).hexdigest()==item['sha256']
++            p=sql(raw.decode());state['original_migrations'].append({'path':item['path'],'order':item['order'],
++              'sha256':item['sha256'],'exit':p.returncode,'sqlstate':re.findall(r'ERROR:\s*([0-9A-Z]{5})',p.stderr)})
++            save('rebuild-final-r3-r4.json',states);assert p.returncode==0,'original_migration_failed_no_rewrite'
++        state['candidate_migrations']=[]
++        for rel in [
++          'prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql',
++          'prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql',
++          'prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql']:
++            migration=ROOT/'backend'/rel
++            raw=migration.read_bytes()
++            approved=next(x for x in manifest['candidate'] if x['path']==rel)
++            assert hashlib.sha256(raw).hexdigest()==approved['sha256'],'candidate_hash_changed'
++            p=sql("SET fl_db005.isolated_validation='approved-blank-task';\n"+raw.decode())
++            state['candidate_migrations'].append({'path':rel,'sha256':hashlib.sha256(raw).hexdigest(),
++              'exit':p.returncode,'sqlstate':re.findall(r'ERROR:\s*([0-9A-Z]{5})',p.stderr)})
++            save('rebuild-final-r3-r4.json',states)
++            assert p.returncode==0,'candidate_migration_failed'
++        state['execution_order']='32 original files then three final candidate files; synthetic fixtures afterward'
++        for t in ['a','b']:
++            fixture=f'''INSERT INTO public."Tenant" (id,"legalName","brandName",slug,environment,"updatedAt")
++VALUES ('db5_tenant_{t}','Synthetic','Synthetic','db5-synthetic-{t}','SANDBOX','2026-01-01');
++INSERT INTO public."Customer" (id,"tenantId",environment,"externalUserId","providerCustomerRef","updatedAt")
++VALUES ('db5_customer_{t}','db5_tenant_{t}','SANDBOX','db5-subject-{t}','db5-synthetic-provider-{t}','2026-01-01');'''
++            assert sql(fixture).returncode==0,'synthetic_fixture_failed'
++        for name,pw in roles.items():
++            q=f"CREATE ROLE {name} LOGIN PASSWORD '{pw}' NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION NOBYPASSRLS;"
++            q+=f"GRANT {'fl_db005_issuer' if name=='db5_issuer' else 'fl_db005_runtime'} TO {name} WITH INHERIT TRUE, SET FALSE;"
++            assert sql(q).returncode==0,'synthetic_role_setup_failed'
++        for role,tenant,kind in [('db5_user_a','a','USER'),('db5_user_b','b','USER'),('db5_admin_a','a','TENANT_ADMIN'),('db5_platform','a','PLATFORM_ADMIN'),('db5_task','a','TASK')]:
++            q=f"INSERT INTO fl_identity.principal VALUES ('{role}','{role}','db5_tenant_{tenant}','db5_customer_{tenant}','SANDBOX','{kind}','address-book',true,true,clock_timestamp()+interval '2 hours');"
++            assert sql(q).returncode==0,'direct_mapping_failed'
++        for t in ['a','b']:
++            assert sql(f"INSERT INTO fl_identity.principal VALUES ('pool_{t}','db5_pool','db5_tenant_{t}','db5_customer_{t}','SANDBOX','USER','address-book',false,true,clock_timestamp()+interval '2 hours');").returncode==0
++        inspect=json.loads(run(['docker','inspect',container]).stdout)[0]
++        assert not inspect['HostConfig'].get('PortBindings') and not any(inspect['NetworkSettings']['Ports'].values())
++        assert json.loads(run(['docker','network','inspect',NETWORK]).stdout)[0]['Internal'] is True
++        state['network']={'internal':True,'host_ports':0,'network':NETWORK}
++        state['authentication']={'parent_mode':'700','file_mode':'600','origin':'new task-only random','raw_values_exported':False}
++        state['retention']={'container':container,'volume':volume,'automatic_delete':False}
++        credentials={'container':container,'database':database,'initializer':password,'roles':roles}
++        f=auth/'credentials.json';f.write_text(json.dumps(credentials));f.chmod(0o600)
++        save('rebuild-final-r3-r4.json',states)
++    print('Two additional blank databases rebuilt from final committed migration chain; original databases untouched.')
++if __name__=='__main__':
++    try:main()
++    except Exception as exc:
++        print('STOP:',type(exc).__name__,'; see sanitized checkpoint.');raise SystemExit(1)
+diff --git a/scripts/fl-db005-ci/run.py b/scripts/fl-db005-ci/run.py
+new file mode 100644
+--- /dev/null
++++ b/scripts/fl-db005-ci/run.py
+@@ -0,0 +1,340 @@
++"""Proposed DB5 CI only. Never import/run locally as part of reviewing this patch."""
++import hashlib
++import json
++import os
++from pathlib import Path
++import re
++import shutil
++import signal
++import secrets
++import subprocess
++import sys
++import time
++
++PG = 'postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24'
++NODE = 'node@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d'
++HERE = Path(__file__).resolve().parent
++REPORT = {'status': 'BLOCKED', 'checks': {}, 'limits': ['historical dependency audit reused offline; no fresh audit','isolation prototype only',
++    'not actual Prisma/JWT/task integration', 'legacy full CI remains skipped while Draft',
++    'two existing conditional DB Jest tests remain skipped', 'no funds prerequisite release']}
++TASK = None
++PREFIX = None
++SESSION = None
++SECRET_VALUES = []
++
++
++def digest(path):
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def run(argv, *, data=None, timeout=600, env=None):
++    p = subprocess.run(argv, input=data, capture_output=True, text=True,
++                       timeout=timeout, env=env)
++    if p.returncode:
++        # No captured stdout, stderr, command arguments, exception strings or SQL in logs.
++        raise RuntimeError('subprocess_failed')
++    return p.stdout
++
++
++def node(name, network, work, command, auth=False):
++    argv = ['docker', 'run', '--name', PREFIX+'-'+name, '--platform', 'linux/amd64',
++            '--label', 'fl-db005.ci-session='+SESSION, '--network', network, '--user', f'{os.getuid()}:{os.getgid()}',
++            '--cap-drop', 'ALL', '--security-opt', 'no-new-privileges', '--memory', '4g',
++            '--cpus', '2', '--pids-limit', '512', '--workdir', '/work',
++            '--mount', f'type=bind,src={work},dst=/work',
++            '--mount', f'type=bind,src={TASK}/modules,dst=/work/node_modules',
++            '--mount', f'type=bind,src={HERE},dst=/runner,readonly',
++            '--mount', f'type=bind,src={TASK}/results,dst=/results',
++            '-e', 'HOME=/tmp', '-e', 'NPM_CONFIG_USERCONFIG=/dev/null',
++            '-e', 'NPM_CONFIG_GLOBALCONFIG=/dev/null', '-e', 'NPM_CONFIG_AUDIT=false',
++            '-e', 'NPM_CONFIG_FUND=false', '-e', 'PRISMA_HIDE_UPDATE_MESSAGE=true', '-e', 'CHECKPOINT_DISABLE=1',
++
++            '-e', 'NODE_ENV=test', '-e', 'CI=true', '-e', 'DB5_RUN_PREFIX='+PREFIX]
++    argv += ['--mount', f'type=bind,src={TASK}/downloads,dst=/downloads,readonly',
++             '--mount', f'type=bind,src={TASK}/npm-cache,dst=/npm-cache',
++             '--mount', f'type=bind,src={TASK}/engines,dst=/engines,readonly',
++             '-e', 'PRISMA_QUERY_ENGINE_LIBRARY=/engines/libquery-engine',
++             '-e', 'PRISMA_SCHEMA_ENGINE_BINARY=/engines/schema-engine',
++             '-e', 'PRISMA_GENERATE_SKIP_AUTOINSTALL=1', '-e', 'NPM_CONFIG_OFFLINE=true',
++             '-e', 'NPM_CONFIG_IGNORE_SCRIPTS=true', '-e', 'NPM_CONFIG_CACHE=/npm-cache']
++    if auth:
++        for i in [3, 4]:
++            argv += ['--mount', f'type=bind,src={TASK}/private/r{i},dst=/auth/r{i},readonly']
++    # DATABASE_URL / DIRECT_URL / JWT / cloud credentials / GITHUB_TOKEN are not forwarded.
++    argv += [NODE] + command
++    return run(argv, timeout=1800)
++
++
++def validate_inputs(repo):
++    m = json.loads((HERE/'inputs.json').read_text())
++    assert digest(repo/'package-lock.json') == m['lock_sha256']
++    assert digest(repo/'package.json') == m['package_sha256']
++    assert digest(repo/'prisma/schema.prisma') == m['schema_sha256']
++    assert len(m['original']) == 32 and len(m['candidate']) == 3
++    assert [r['order'] for r in m['original']] == list(range(1, 33))
++    for row in m['original'] + m['candidate']:
++        assert row['path'].startswith('prisma/migrations/')
++        assert '..' not in Path(row['path']).parts
++        assert digest(repo/row['path']) == row['sha256']
++    lock = json.loads((repo/'package-lock.json').read_text())
++    for path, item in lock['packages'].items():
++        if not path:
++            continue
++        assert not item.get('link'), 'local_dependency_not_approved'
++        assert item.get('resolved', '').startswith('https://registry.npmjs.org/')
++        assert item.get('integrity', '').startswith(('sha512-', 'sha256-'))
++    payload = HERE/'approved-audit-payload.json'
++    assert digest(payload) == m['approved_audit_payload_sha256']
++    assert digest(HERE/'completed-audit-evidence.json') == m['completed_audit_evidence_sha256']
++    REPORT['checks']['input_hashes'] = 'PASS'
++    return m
++
++
++def audit(m):
++    """Offline association only. No Bulk, QuickAudit, npm audit or network calls."""
++    src = HERE/'approved-audit-payload.json'
++    evidence = HERE/'completed-audit-evidence.json'
++    assert digest(src) == m['approved_audit_payload_sha256']
++    assert digest(evidence) == m['completed_audit_evidence_sha256']
++    approved = json.loads(src.read_text())
++    prior = json.loads(evidence.read_text())
++    assert len(approved['packages']) == 174 and not approved['unknown']
++    assert prior['approved_source_sha256'] == digest(src)
++    assert prior['http_status'] == 200 and prior['source_pairs'] == 174
++    assert prior['time_utc'] == '2026-10-01T05:43:50.613759+00:00'
++    assert prior['endpoint'] == 'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk'
++    assert prior['fallback'] is False and prior['credentials_sent'] is False
++    assert prior['private_context_sent'] is False and prior['matched_advisories'] == 4
++    inventory = json.loads(node('inventory', 'none', TASK/'backend', ['node', '-e',
++        "const fs=require('fs'),path=require('path'),out=[];"
++        "function scan(d){for(const x of fs.readdirSync(d,{withFileTypes:true})){"
++        "if(x.name.startsWith('.'))continue;const p=path.join(d,x.name);"
++        "if(x.name.startsWith('@')){scan(p);continue;}"
++        "const f=path.join(p,'package.json');if(!fs.existsSync(f))continue;"
++        "const j=JSON.parse(fs.readFileSync(f));out.push({name:j.name,version:j.version});"
++        "const n=path.join(p,'node_modules');if(fs.existsSync(n))scan(n);}}"
++        "scan('/work/node_modules');console.log(JSON.stringify(out));"]))
++    installed = {(p['name'], p['version']) for p in inventory}
++    pairs = {(p['name'], p['version']) for p in approved['packages']}
++    assert len(pairs) == 172 and len({name for name, _ in pairs}) == 165 and pairs <= installed
++    packages = {}
++    for name, version in sorted(pairs):
++        assert re.fullmatch(r'(?:@[a-z0-9._-]+/)?[a-z0-9._-]+', name)
++        assert re.fullmatch(r'[0-9A-Za-z.+_-]+', version)
++        packages.setdefault(name, []).append(version)
++    wire = json.dumps(packages, separators=(',', ':')).encode()
++    assert hashlib.sha256(wire).hexdigest() == prior['wire_sha256']
++    candidates = []
++    for item in prior['advisories']:
++        assert item['package'] in packages and item['severity'] == 'moderate'
++        assert item['installed_affected'] is True
++        for version in item['affected_installed_versions']:
++            assert (item['package'], version) in pairs
++            candidates.append({'version': version, 'range': item['vulnerable_versions'],
++                               'severity': item['severity']})
++    assert len(prior['advisories']) == 4 and len(candidates) == 4
++    (TASK/'results/audit-candidates.json').write_text(json.dumps(candidates))
++    matching = json.loads(node('audit-match', 'none', TASK/'backend', ['node', '-e',
++        "const fs=require('fs'),semver=require('/work/node_modules/semver');"
++        "const c=JSON.parse(fs.readFileSync('/results/audit-candidates.json'));"
++        "if(c.some(x=>!semver.validRange(x.range)))process.exit(2);"
++        "console.log(JSON.stringify(c.filter(x=>semver.satisfies(x.version,x.range))"
++        ".map(x=>x.severity))); "]))
++    assert matching == ['moderate'] * 4
++    REPORT['audit'] = {'mode': 'REUSED_OFFLINE_NOT_FRESH_AUDIT', 'network_requests': 0,
++        'approved_source_sha256': digest(src), 'evidence_sha256': digest(evidence),
++        'prior_audit_time': prior['time_utc'], 'prior_http_status': 200,
++        'endpoint_class': 'official npm Bulk (historical only)',
++        'wire_sha256': prior['wire_sha256'], 'source_records': 174, 'unique_pairs': 172, 'package_names': 165,
++        'matching_severity_counts': {'moderate': 4, 'high': 0, 'critical': 0},
++        'response_summary': 'four retained matching advisories; not raw-response hash',
++        'limit': 'No new advisories fetched; unchanged approved dependency snapshot only.'}
++    REPORT['checks']['prior_audit_offline_linkage'] = 'PASS_WITH_FOUR_MODERATE'
++
++
++def stop():
++    if not PREFIX:
++        return
++    # Only this invocation's exact named containers. No rm, volume/network deletion or prune.
++    names = [PREFIX+'-'+n for n in ['install', 'build', 'lint', 'jest', 'targeted',
++        'inventory', 'audit-match', 'r3', 'r4', 'dynamic', 'negative']]
++    for name in names:
++        inspected = subprocess.run(['docker', 'inspect', name], capture_output=True, text=True, timeout=10)
++        if inspected.returncode:
++            if 'No such object' in inspected.stderr or 'No such container' in inspected.stderr:
++                continue
++            raise RuntimeError('container_state_unverified')
++        labels = json.loads(inspected.stdout)[0]['Config'].get('Labels') or {}
++        if labels.get('fl-db005.ci-session') != SESSION:
++            continue
++        stopped = subprocess.run(['docker', 'stop', '--time', '5', name],
++                       stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
++        if stopped.returncode:
++            raise RuntimeError('container_stop_unverified')
++        state = json.loads(run(['docker', 'inspect', name], timeout=10))[0]['State']
++        if state['Running']:
++            raise RuntimeError('container_still_running')
++
++
++def main():
++    global TASK, PREFIX, SESSION
++    os.umask(0o077)
++    assert os.environ.get('GITHUB_ACTIONS') == 'true'
++    assert os.environ.get('GITHUB_EVENT_NAME') == 'pull_request'
++    event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
++    pr = event['pull_request']
++    assert event['number'] == 336 and pr['draft'] is True
++    assert pr['base']['ref'] == 'dev' and pr['auto_merge'] is None
++    assert pr['head']['repo']['full_name'] == 'xw564477242-cmyk/fastlik-backend'
++    assert pr['head']['ref'] == 'feature/FL-DB-005-tenant-identity-rls'
++    repo = Path(os.environ['GITHUB_WORKSPACE'])
++    head = run(['git', '-C', str(repo), 'rev-parse', 'HEAD']).strip()
++    assert head == pr['head']['sha'] and re.fullmatch('[0-9a-f]{40}', head)
++    REPORT['head'] = head
++    runid = os.environ['GITHUB_RUN_ID']; attempt = os.environ['GITHUB_RUN_ATTEMPT']
++    assert runid.isdigit() and attempt.isdigit()
++    PREFIX = f'fl-db005-ci-{runid}-{attempt}'
++    SESSION = secrets.token_hex(16)
++    TASK = Path(os.environ['RUNNER_TEMP'])/PREFIX
++    assert not TASK.exists(); TASK.mkdir(mode=0o700)
++    for n in ['backend', 'private', 'results', 'modules', 'prepare']:
++        (TASK/n).mkdir(mode=0o700)
++    m = validate_inputs(repo)
++    REPORT['input_manifest_sha256'] = digest(HERE/'inputs.json')
++    REPORT['images'] = {'postgres': PG, 'node': NODE}
++    # Copy tracked source only; never copy any .env, .npmrc, Git metadata or runner credentials.
++    paths = run(['git', '-C', str(repo), 'ls-files', '-z']).split('\0')
++    for name in filter(None, paths):
++        rel = Path(name)
++        assert not rel.is_absolute() and '..' not in rel.parts
++        if rel.name.startswith('.env') or rel.name == '.npmrc':
++            continue
++        original = repo/rel
++        assert original.is_file() and not original.is_symlink()
++        target = TASK/'backend'/rel; target.parent.mkdir(parents=True, exist_ok=True)
++        shutil.copyfile(original, target)
++    for n in ['package.json', 'package-lock.json', 'prisma/schema.prisma']:
++        target = TASK/'prepare'/n; target.parent.mkdir(parents=True, exist_ok=True)
++        shutil.copyfile(repo/n, target)
++    # Network preparation precedes generation of any DB credentials or fixtures.
++    for image in [PG, NODE]:
++        run(['docker', 'pull', '--platform', 'linux/amd64', image])
++        assert image in json.loads(run(['docker', 'image', 'inspect', image]))[0]['RepoDigests']
++    # Fetch fixed bytes with strict URL, redirect and integrity controls BEFORE any auth exists.
++    import prepare_downloads
++    REPORT['downloads'] = prepare_downloads.main(TASK, HERE)
++    node('install', 'none', TASK/'prepare', ['sh', '-eu', '-c',
++        'test "$(node --version)" = v22.23.2 && test "$(npm --version)" = 10.9.8 && '
++        'for f in /downloads/*.tgz; do npm cache add "$f" --offline --ignore-scripts --no-audit --no-fund; done && '
++        'npm ci --offline --ignore-scripts --no-audit --no-fund '
++        '&& node node_modules/prisma/build/index.js generate --schema=prisma/schema.prisma'])
++    node('build', 'none', TASK/'backend', ['npm', 'run', 'build'])
++    node('lint', 'none', TASK/'backend', ['npm', 'run', 'lint'])
++    node('targeted', 'none', TASK/'backend', ['node', 'node_modules/jest/bin/jest.js',
++        '--runInBand', '--runTestsByPath', 'src/prisma/isolated-tenant-transaction.spec.ts',
++        '--json', '--outputFile=/results/targeted.json'])
++    node('jest', 'none', TASK/'backend', ['node', 'node_modules/jest/bin/jest.js',
++        '--runInBand', '--json', '--outputFile=/results/jest.json'])
++    for filename, minimum in [('targeted', 5), ('jest', 1766)]:
++        j = json.loads((TASK/f'results/{filename}.json').read_text())
++        assert j['success'] and j['numFailedTests'] == 0 and j['numPassedTests'] >= minimum
++        assert j['numPendingTests'] == (2 if filename == 'jest' else 0)
++        REPORT[filename] = {k: j[k] for k in ['numPassedTests', 'numFailedTests', 'numPendingTests']}
++    REPORT['checks']['build_lint_jest'] = 'PASS'
++    audit(m)  # Offline historical evidence only; never performs a network audit.
++    net = PREFIX+'-isolated'
++    p = subprocess.run(['docker', 'network', 'inspect', net], capture_output=True)
++    assert p.returncode != 0
++    run(['docker', 'network', 'create', '--internal', '--label', 'fl-db005.ci-session='+SESSION, net])
++    assert json.loads(run(['docker', 'network', 'inspect', net]))[0]['Internal'] is True
++    env = {'PATH': os.environ['PATH'], 'HOME': str(TASK),
++           'DB5_TASK_ROOT': str(TASK), 'DB5_RUN_PREFIX': PREFIX, 'DB5_SESSION_LABEL': SESSION}
++    run([sys.executable, str(HERE/'rebuild.py')], env=env, timeout=900)
++    for i in [3, 4]:
++        auth = TASK/f'private/r{i}'
++        assert auth.stat().st_mode & 0o777 == 0o700
++        c = json.loads((auth/'credentials.json').read_text())
++        assert all(f.stat().st_mode & 0o777 == 0o600 for f in auth.iterdir())
++        SECRET_VALUES.extend([c['initializer'], *c['roles'].values()])
++        d = json.loads(run(['docker', 'inspect', PREFIX+f'-r{i}']))[0]
++        assert not d['HostConfig'].get('PortBindings')
++        assert not any(d['NetworkSettings']['Ports'].values())
++        assert set(d['NetworkSettings']['Networks']) == {net}
++    REPORT['checks']['fresh_32_plus_3_two_rounds'] = 'PASS'
++    rebuild = json.loads((TASK/'results/rebuild-final-r3-r4.json').read_text())
++    assert len(rebuild) == 2
++    REPORT['migration_rounds'] = []
++    for r in rebuild:
++        assert r['round'] in [3, 4] and r['blank_confirmed']
++        assert len(r['original_migrations']) == 32 and len(r['candidate_migrations']) == 3
++        assert all(x['exit'] == 0 for x in r['original_migrations'] + r['candidate_migrations'])
++        REPORT['migration_rounds'].append({'round': r['round'], 'blank': True,
++            'original_passed': 32, 'candidate_passed': 3, 'internal_network': True, 'host_ports': 0})
++    for phase, filename, expected in [('dynamic', 'dynamic-final-r3-r4', 29),
++                                      ('negative', 'negative-final-r3-r4', 17)]:
++        node(phase, net, TASK/'backend', ['node', '/runner/'+filename+'.cjs'], auth=True)
++        result = json.loads((TASK/('results/'+filename+'.json')).read_text())
++        assert not result.get('stopped') and not result.get('error')
++        assert len(result['rounds']) == 2
++        assert all(len(r['cases']) == expected and all(c['status'] == 'PASS' for c in r['cases'])
++                   for r in result['rounds'])
++        REPORT['checks'][phase+'_two_rounds'] = 'PASS'
++    run([sys.executable, str(HERE/'catalog.py')], env=env)
++    catalog = json.loads((TASK/'results/final-chain-catalog.json').read_text())
++    assert catalog['catalog_equal']
++    for round_info in catalog['rounds']:
++        c = round_info['catalog']
++        tables = {x['object']: x for x in c['objects']
++                  if x['schema'] == 'public' and x['relkind'] == 'r'}
++        assert len(tables) == 54 and all(x['relrowsecurity'] and x['relforcerowsecurity'] for x in tables.values())
++        grants = [x for x in c['table_grants'] if x['table_schema'] == 'public'
++                  and x['grantee'] != tables[x['table_name']]['owner']]
++        expected = {('Customer', 'SELECT')} | {('WithdrawalAddress', op)
++                    for op in ['SELECT', 'INSERT', 'UPDATE', 'DELETE']}
++        assert len(grants) == 5 and all(x['grantee'] == 'fl_db005_runtime' and
++                                      x['is_grantable'] == 'NO' for x in grants)
++        assert {(x['table_name'], x['privilege_type']) for x in grants} == expected
++        assert len(c['policies']) == 5
++        assert {(x['tablename'], x['cmd']) for x in c['policies']} == expected
++    REPORT['checks']['approved_52_table_default_deny'] = 'PASS'
++    REPORT['catalog_sha256'] = [r['catalog_sha256'] for r in catalog['rounds']]
++    REPORT['checks']['catalog_equal'] = 'PASS'
++    REPORT['status'] = 'PASS_WITH_LIMITATIONS'
++
++
++def cancelled(signum, frame):
++    raise RuntimeError('cancelled')
++
++
++if __name__ == '__main__':
++    for sig in [signal.SIGTERM, signal.SIGINT]:
++        signal.signal(sig, cancelled)
++    exitcode = 0
++    try:
++        main()
++    except BaseException:
++        REPORT['status'] = 'STOPPED_REVIEW_REQUIRED'
++        # A P0 marker is reduced to a boolean; no raw failure/context is exposed.
++        if TASK and (TASK/'results/dynamic-final-r3-r4.json').is_file():
++            try:
++                failure = json.loads((TASK/'results/dynamic-final-r3-r4.json').read_text())
++                REPORT['p0_stop'] = failure.get('failure') == 'P0_STOP'
++            except (ValueError, OSError):
++                REPORT['p0_stop'] = 'UNVERIFIED'
++        exitcode = 1
++    finally:
++        try:
++            stop()
++        except BaseException:
++            REPORT['stop_completed'] = False
++            exitcode = 1
++        else:
++            REPORT['stop_completed'] = True
++        REPORT['retention'] = 'No explicit deletion; hosted ephemeral runner is not durable evidence storage.'
++        raw = json.dumps(REPORT, sort_keys=True, indent=2)
++        assert not any(s and s in raw for s in SECRET_VALUES)
++        # Constructed summary only: raw logs/results/catalog/authentication never uploaded.
++        dest = Path(os.environ['RUNNER_TEMP'])/'db5-public-summary.json'
++        dest.write_text(raw+'\n'); dest.chmod(0o600)
++        print(json.dumps({'status': REPORT['status'], 'check_count': len(REPORT['checks'])}))
++    sys.exit(exitcode)

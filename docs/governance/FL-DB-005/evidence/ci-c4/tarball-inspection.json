@@ -1,0 +1,2814 @@
+{
+  "status": "BLOCKED",
+  "reason": "None of the regular members in the eight fixed-lock cached Prisma-family npm tarballs matches either required native engine SHA-256",
+  "source": "existing local npm content cache; fixed lock SRI verified",
+  "lock_sha256": "19a8246171068f3ed08eca89c8db79474b3415b3c21b74b59afd326c9ee5ff94",
+  "network_requests": 0,
+  "installations": 0,
+  "containers": 0,
+  "databases": 0,
+  "extracted_to_filesystem": false,
+  "package_scripts_executed": false,
+  "binary_copies": 0,
+  "required_engines": [
+    {
+      "engine": "libquery-engine",
+      "sha256": "a2924eab1c78a0a7bb67edac5738939fa10589ef073af5542f53812a22e4a7d8",
+      "matches_fixed_manifest": true,
+      "copied": false
+    },
+    {
+      "engine": "schema-engine",
+      "sha256": "5d42b181631fd20bb0ecc5abcdba72575e7f467a0d52f4d5ef1ff28f0c74e6e9",
+      "matches_fixed_manifest": true,
+      "copied": false
+    }
+  ],
+  "packages": [
+    {
+      "package": "@prisma/client",
+      "version": "6.19.3",
+      "compressed_bytes": 27252219,
+      "expanded_regular_bytes": 76965004,
+      "sri_matches_fixed_lock": true,
+      "member_count": 106,
+      "regular_file_count": 106,
+      "required_engine_matches": [],
+      "tarball_sha256": "d742c70dd4ca1b0f103ce14fa31114736f6374b4bee737b026b0826c78fd57dc",
+      "members": [
+        {
+          "name": "package/runtime/binary.js",
+          "type": "file",
+          "size": 674128,
+          "sha256": "b64b61f351d370680da2751faaefebac22ed05d5153e89d360ec61c1bea1b710",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.js",
+          "type": "file",
+          "size": 229421,
+          "sha256": "aaac8c184176047bab0b723bb6022dfada645087172dc1e71f45e840926b919c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/colors.js",
+          "type": "file",
+          "size": 5732,
+          "sha256": "08eb6a703f1f8acb8c3cdd69f5c15ba958c3df657a35c7d4e30436a799847a9f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/default-index.js",
+          "type": "file",
+          "size": 2076,
+          "sha256": "8036a2646bbf3d6de5fa2fae2b284f5d8900d1000c35531cad1a8f2b92c40589",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/default.js",
+          "type": "file",
+          "size": 61,
+          "sha256": "0cfff057c91fcb7559bd1a3bb4891404e455829ced5b18a87c9393ee1721ace4",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/edge-esm.js",
+          "type": "file",
+          "size": 170093,
+          "sha256": "9f9c1f61dae706cdaad782d2a44982a9cfd82ccd8736ea38ac4b2b6aee602274",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/edge.js",
+          "type": "file",
+          "size": 107,
+          "sha256": "7bf087246c937e84453cb6ec8235c106c9f1808b3400d74601dd503f14e49643",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/edge.js",
+          "type": "file",
+          "size": 170641,
+          "sha256": "fdc9f97204de4d935936076c4e3bc43ce2853667232ce813b44cb734f0273449",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/extension.js",
+          "type": "file",
+          "size": 111,
+          "sha256": "116e87c8b1e477b2b0f80b08f32c1752976d6909f9e6e38a1c4a92f97b9251f3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/index-browser.js",
+          "type": "file",
+          "size": 80,
+          "sha256": "3d3124ae428b3514dbeb60a4270b904a063451cb82de1d96f0b16d69fd1860c6",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.js",
+          "type": "file",
+          "size": 35332,
+          "sha256": "2ddb55368ce183adb41b122d838a152d141ef8b37153fc43808e60c21b1c925c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/generator-build/index.js",
+          "type": "file",
+          "size": 624802,
+          "sha256": "b504707b44017c90f90bd74b9eddeb0d07bd13491bbb33e29ef2c3d9d898121c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/index.js",
+          "type": "file",
+          "size": 110,
+          "sha256": "98ebb7453444d223cacae7a3d8ad655f29997523d9a1646d383f852b10ba70fa",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.js",
+          "type": "file",
+          "size": 202499,
+          "sha256": "abdeb84cf9f11bbfba2ac6a009c94fea8657aa3c35a7975a1c63e71a41b96b05",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/postinstall.js",
+          "type": "file",
+          "size": 12864,
+          "sha256": "26a1ee611276787062e1518a5dab6f22c580efa721864d8206cd6bad55a21983",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.cockroachdb.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.cockroachdb.wasm-base64.js",
+          "type": "file",
+          "size": 2635171,
+          "sha256": "f4c5d04062dbd6061481e4a7742bd833f948fbc15fda81c7c16cb28550e2521d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.mysql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.mysql.wasm-base64.js",
+          "type": "file",
+          "size": 2554203,
+          "sha256": "3fd4912d976427697ceb2149a57ec8ece014e8a378bf5087ceff19d4d37855d3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.postgresql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.postgresql.wasm-base64.js",
+          "type": "file",
+          "size": 2600403,
+          "sha256": "19c9fb9b4b914753b46db3b9aed43f07da74ecb95871ea0fc0d3a3e92367e3ff",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlite.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlite.wasm-base64.js",
+          "type": "file",
+          "size": 2495995,
+          "sha256": "b551385b228d3b73d67f5c0c5225f0c90be6f9902dc41d7d1eb0c78250d432e8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlserver.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlserver.wasm-base64.js",
+          "type": "file",
+          "size": 2597707,
+          "sha256": "9b6424d892775966b2822414eba5a6f9dc33becd3a5065a956e00734fb4e2b98",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.cockroachdb.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "41d710487c9689e3d0ab7e24b5303e3f1fb99d791bef6c9a37a7de730e233911",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.cockroachdb.wasm-base64.js",
+          "type": "file",
+          "size": 3094219,
+          "sha256": "32d253c6b9abb4e18ae1972bcb8bfc07a355d4fb1145bb72e1966adba26cd28a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.mysql.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "17c0e49b82c280fff9b9de14704468e0628b58c69d2fce8fb14f54b13fd0ac70",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.mysql.wasm-base64.js",
+          "type": "file",
+          "size": 3017947,
+          "sha256": "c04ef68fec4ce70cab6803cc43bc6da6f42808f67729a7173cc58a080e0aaf9d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.postgresql.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "2b50b4328595b0fb99a73cfed34cf11fa8e56511dcc4fb808af4516952448514",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.postgresql.wasm-base64.js",
+          "type": "file",
+          "size": 3063511,
+          "sha256": "467689906831da76fe92da1a87ff53279109750bd530575a1e0d79b0361515ad",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlite.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "7beb67f0d750a1cb5277ba06910f114a96f19545c0bed82a03f01dfd9de10d26",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlite.wasm-base64.js",
+          "type": "file",
+          "size": 2895111,
+          "sha256": "9463e1d5daf28ea2a72db89c42b23a1a7f92c5ac1bd81541446bc5fa63f1d328",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlserver.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "3eff20c6f8bed6d94c696b6c884d697cd4c143b2783d296ef607649b7f186d2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlserver.wasm-base64.js",
+          "type": "file",
+          "size": 2977159,
+          "sha256": "e7a4df0f7bf2dc9acdf81986a50ba6a0661e16fff65b4525dec75451ffffb9a2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/react-native.js",
+          "type": "file",
+          "size": 66,
+          "sha256": "18194ed433c5d4b588d5f7bbfe43fdabcedec2a6a7891e8d06fb5224f546fcc3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/react-native.js",
+          "type": "file",
+          "size": 182533,
+          "sha256": "fe031480568ed8c0472dba486ecec1a57aafd5e30c11b52c02e65e4a9c8d94a2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/sql.js",
+          "type": "file",
+          "size": 70,
+          "sha256": "1eaca014b3d83401e69545a43e2b2bb8ee95c9238703428a084a6479a49b66d1",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-compiler-edge.js",
+          "type": "file",
+          "size": 206856,
+          "sha256": "4f0f6e4c51b9182e695a89467adf6e7677ecddbc2c8a6a052746b16a80f530f7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-engine-edge.js",
+          "type": "file",
+          "size": 147270,
+          "sha256": "fbbe7253951037265fbcbe324df60059e0063c3f7f77d103975e4611708fffde",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/wasm.js",
+          "type": "file",
+          "size": 107,
+          "sha256": "ac22ecbb19be6d4cb11f98f0b7bec4966d45e0c07445d0ad61e4cc9b74379837",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 10040,
+          "sha256": "219e507d9671f4d8bcf6161274201015bd97aaaff76eb464b8de7ab624f1beba",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/binary.js.map",
+          "type": "file",
+          "size": 2595172,
+          "sha256": "ae7707f632364015281f5f824c9340ec60d237c895d4b193b41fab1f4f2e25ab",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/binary.mjs.map",
+          "type": "file",
+          "size": 2591353,
+          "sha256": "bd8d2876e7d1b7886ed8f76b9b6a737f252ff6a1bac293168dec9174d0a0e467",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.js.map",
+          "type": "file",
+          "size": 1097681,
+          "sha256": "09d08727a2cbc01d806107eae4503135794c08407a0ba9f431a3440744f7cda5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.mjs.map",
+          "type": "file",
+          "size": 1094159,
+          "sha256": "51bc161e0a7b910059fe5e6a8af08d575fdb5ee0913f5916ac79c1a2f18aad5f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/edge-esm.js.map",
+          "type": "file",
+          "size": 835341,
+          "sha256": "0937891658573ee8450edb815370dce5370ca634cab45e6d6d1d1c1534c8d3c3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/edge.js.map",
+          "type": "file",
+          "size": 836323,
+          "sha256": "9de4af3924a38317a6e01a0adacde655001ba87ee93df362b21820ab728b2255",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.js.map",
+          "type": "file",
+          "size": 210208,
+          "sha256": "67de5a6e82e74090d09f6522628838272d7c12ca3353d886c1023195706bcb3f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.mjs.map",
+          "type": "file",
+          "size": 209655,
+          "sha256": "19d99b31b71836c967b279f32f4c7ccd7e484afd455b963ea0119756d9e0f9c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.js.map",
+          "type": "file",
+          "size": 1014834,
+          "sha256": "e96d37e38ff6ebb983904d4dcd2b04a3943f9ae7f4ef7764157b6d8966826d6c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.mjs.map",
+          "type": "file",
+          "size": 1011056,
+          "sha256": "3584c643724b5ce207bc3d60415fe100e2c4ea06fe56b24ba67ef3108e794816",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/react-native.js.map",
+          "type": "file",
+          "size": 859887,
+          "sha256": "d6386fcade938c1b7c0903ec4717f0302d770fd2b04114d93adf231b4c547839",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-compiler-edge.js.map",
+          "type": "file",
+          "size": 1007911,
+          "sha256": "8a32e9a3dfdfaa4c1c7fde55c7582d21beda2c238d58fb8273af839f94d774dc",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-compiler-edge.mjs.map",
+          "type": "file",
+          "size": 1006920,
+          "sha256": "9bed9c56421ad062009077114ece0eac4ce2688bdba3bc899b11d4b5c7694c28",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-engine-edge.js.map",
+          "type": "file",
+          "size": 748454,
+          "sha256": "0fe4bd983bf3a71dcb3c2b4d10ba87ffc9b61f5e0bed91d740e4348d9e92f53a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-engine-edge.mjs.map",
+          "type": "file",
+          "size": 747468,
+          "sha256": "174ec8597910c4439414adf3553aad77059f9e76b6ac6128790b055df1024369",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 2553,
+          "sha256": "8962ebaf0fc70382ac40759fecc178cd96ace15221c7debb309a38761b116b90",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/binary.mjs",
+          "type": "file",
+          "size": 672643,
+          "sha256": "824dcc778d390b33aa65be183f001ad6bd9d4f75dbdd671a1ae51cfe6b69aff5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.mjs",
+          "type": "file",
+          "size": 229231,
+          "sha256": "186d8ee7a0f7dc0f5ee549ae32a5c4c89b998bfd50181783d935ebea2274404f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.mjs",
+          "type": "file",
+          "size": 34869,
+          "sha256": "936c5156ed989012aac53f1dfbad2f7536188dce40df7b0153df4c988c9d5828",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.mjs",
+          "type": "file",
+          "size": 201974,
+          "sha256": "d9736bb94336e3bca7d89a7bb6477ec5e86d9ca3287e92c7401cfd1bc1309e50",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.cockroachdb.wasm-base64.mjs",
+          "type": "file",
+          "size": 2635161,
+          "sha256": "6d70b89bcb060a74b19e9e4e9a6325d0f4774461f1422f6a95830ad56eb19fec",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.mysql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.mysql.wasm-base64.mjs",
+          "type": "file",
+          "size": 2554193,
+          "sha256": "0068c1c9fdcfb2d051289d81b61c2c8e360f5f620a577acc1c1554d83ee50ee5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.postgresql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.postgresql.wasm-base64.mjs",
+          "type": "file",
+          "size": 2600393,
+          "sha256": "17f6cc8e59d13929324c459a4adf938c583307f1fea21f9e1c1373aef45f2d09",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlite.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlite.wasm-base64.mjs",
+          "type": "file",
+          "size": 2495985,
+          "sha256": "a2b5f3fd118a6bd241e08985af9b2116bb2ff70d72c501bb6d56786871c58581",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_compiler_bg.sqlserver.wasm-base64.mjs",
+          "type": "file",
+          "size": 2597697,
+          "sha256": "6f0d9c47812079b62d8c49b65af067b6634e64aa2b4d8cec0d10060848a021a4",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "82f92c525a45c62f7cec26e8e92e25e5f8619078838c306c0d8253bb7e834be7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.cockroachdb.wasm-base64.mjs",
+          "type": "file",
+          "size": 3094209,
+          "sha256": "1108b7e6679b47a8f57f8a3446fa731a8bc6bf5951319ef5a297bb673e433dfa",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.mysql.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "62562197c35cdc3c93495b4fe028f483544299da4b1ba08690996fba1532f137",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.mysql.wasm-base64.mjs",
+          "type": "file",
+          "size": 3017937,
+          "sha256": "85ac68c8a805848a102bb4e371e4ef109985050813d56dac7e52c0788de6419c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.postgresql.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "0ac2fc0bc3a8070807064c819b8a413295ab08a10b39a87da8cf9736b51d1c6a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.postgresql.wasm-base64.mjs",
+          "type": "file",
+          "size": 3063501,
+          "sha256": "fc4e9084fc3c202304478fd9d0d61a59bdac15ca73030a092bf94d5511db2346",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlite.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "26a62ccd82b9141af8a1f99265cef7aa5070d11a350f43c4bf64f958ac90b8f8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlite.wasm-base64.mjs",
+          "type": "file",
+          "size": 2895101,
+          "sha256": "fcbbc648a4a263ebc965e0d5836c46a10b847b14d0eb5d87b4e7dca7c62d6d54",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "e21a91cd3fc2a125d1227f7232b41b2aaee345f9ee1528cf5e7916123e4579ef",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/query_engine_bg.sqlserver.wasm-base64.mjs",
+          "type": "file",
+          "size": 2977149,
+          "sha256": "a50dc64163371e695ef2856c1c4455721124ab5699fcafd0dc41e9037c58d830",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/sql.mjs",
+          "type": "file",
+          "size": 51,
+          "sha256": "a9a785844488c0ae9da9890d625df4c61d8033e93914d213b4456aefc87b4487",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-compiler-edge.mjs",
+          "type": "file",
+          "size": 206347,
+          "sha256": "95d1de76d3ee3e2c2f86d6c974ffb3ab19a63bc9b29daa93e9a6792b7b5adf72",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-engine-edge.mjs",
+          "type": "file",
+          "size": 146726,
+          "sha256": "70893ea38aef89bb1fb28f2ad31044e8defc99a47ac7179fc1803dbc605ae644",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.d.mts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.d.mts",
+          "type": "file",
+          "size": 11915,
+          "sha256": "556ca4c51df0dd6bdc52f3423a65108b044841195fed9b36bc4384849291e850",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.d.mts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/binary.d.ts",
+          "type": "file",
+          "size": 26,
+          "sha256": "8edadeb551395cad9fde0272dcc52341e2728b7d835dd61d51fb795b714ce37c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/client.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/default-index.d.ts",
+          "type": "file",
+          "size": 3989,
+          "sha256": "71df692065d79c5b044002f8a68eba33e934859859094bab2f334f64a467f428",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/default.d.ts",
+          "type": "file",
+          "size": 39,
+          "sha256": "51ebca098538b252953b1ef83c165f25b52271bfb6049cd09d197dddd4cd43c5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/edge.d.ts",
+          "type": "file",
+          "size": 36,
+          "sha256": "317483ac49e6e3592ae08c55aeca9e9cc252749ef3a10841229f01422720ed2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/edge.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/extension.d.ts",
+          "type": "file",
+          "size": 40,
+          "sha256": "2479ba0bddab019eaacf32578d5c3af99999cee581bc10d49946469b06ee2426",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/index-browser.d.ts",
+          "type": "file",
+          "size": 11915,
+          "sha256": "556ca4c51df0dd6bdc52f3423a65108b044841195fed9b36bc4384849291e850",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/index.d.ts",
+          "type": "file",
+          "size": 39,
+          "sha256": "51ebca098538b252953b1ef83c165f25b52271bfb6049cd09d197dddd4cd43c5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/library.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/postinstall.d.ts",
+          "type": "file",
+          "size": 304,
+          "sha256": "3bf65a90eb02f4bdf76d64569983b3770d6d54c27428682a38d836c487bc7bfd",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/react-native.d.ts",
+          "type": "file",
+          "size": 44,
+          "sha256": "cb44a22537d7c1b1b2e427e70a2e15a6b6659271b484a98eee18199dff3fdeb7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/react-native.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/sql.d.ts",
+          "type": "file",
+          "size": 35,
+          "sha256": "79609bf6f382209078a578e71ed2ecb81829f1b8bebae3c7948a02090ead8e3e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-compiler-edge.d.ts",
+          "type": "file",
+          "size": 26,
+          "sha256": "8edadeb551395cad9fde0272dcc52341e2728b7d835dd61d51fb795b714ce37c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/runtime/wasm-engine-edge.d.ts",
+          "type": "file",
+          "size": 26,
+          "sha256": "8edadeb551395cad9fde0272dcc52341e2728b7d835dd61d51fb795b714ce37c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/wasm.d.ts",
+          "type": "file",
+          "size": 36,
+          "sha256": "f75e7af8dfb25831cba7b68df867d8b859af1a3ac7c5a31b2e0649d6c95b4363",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/config",
+      "version": "6.19.3",
+      "compressed_bytes": 16812,
+      "expanded_regular_bytes": 64828,
+      "sri_matches_fixed_lock": true,
+      "member_count": 4,
+      "regular_file_count": 4,
+      "required_engine_matches": [],
+      "tarball_sha256": "d083a09df428bc1bc25231f62db18dc36fca7d8980408305ee000d5da22cd1f7",
+      "members": [
+        {
+          "name": "package/dist/index.js",
+          "type": "file",
+          "size": 33843,
+          "sha256": "92e63036b4da306abcb5fa4cfaa3a5b87508268e4f773f2b7638a061bf500a64",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 841,
+          "sha256": "778b251b77f9d7a879dd4b476235fe1dc4619d353dba4978ed94b240807a4f63",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.ts",
+          "type": "file",
+          "size": 18787,
+          "sha256": "f10a80c5949c6d44fc8df97916f73bbd60fb7d4f0e7f88278724e2c60df525b6",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/debug",
+      "version": "6.19.3",
+      "compressed_bytes": 8176,
+      "expanded_regular_bytes": 29126,
+      "sri_matches_fixed_lock": true,
+      "member_count": 8,
+      "regular_file_count": 8,
+      "required_engine_matches": [],
+      "tarball_sha256": "5d37d1e13867e8d88f8aca3f54e3df1b95dcfa4121312a57e2c9a0ee42eb9d8f",
+      "members": [
+        {
+          "name": "package/dist/index.js",
+          "type": "file",
+          "size": 7108,
+          "sha256": "0c69e56375d9cb8c2e88b5f3747ac4804a4741e5abd800890bcc6ccf46712001",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 1147,
+          "sha256": "08357eb5f03858f6bae4e1a9c90ca7be108ccada59da5d38bed3e05f93ef8023",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 946,
+          "sha256": "43c3a12474346d0933e3088cd185676c37aa2864f3a1f61bb6aa0f5fb2922755",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.mjs",
+          "type": "file",
+          "size": 6199,
+          "sha256": "5be094235919c762977cca249a41c5fab0d54264041e12adbbf7dccc72ad4a04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.mts",
+          "type": "file",
+          "size": 1123,
+          "sha256": "8aa255453712ce8df1652947a0406769415ee7113c54551310e36cf6ab9db99c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.ts",
+          "type": "file",
+          "size": 1123,
+          "sha256": "8aa255453712ce8df1652947a0406769415ee7113c54551310e36cf6ab9db99c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/util.d.ts",
+          "type": "file",
+          "size": 123,
+          "sha256": "3079df1602414ce84dc2d22b96ea5e5f16cc928a051d7fed02c71328001ae9bc",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/engines",
+      "version": "6.19.3",
+      "compressed_bytes": 22666,
+      "expanded_regular_bytes": 95324,
+      "sri_matches_fixed_lock": true,
+      "member_count": 10,
+      "regular_file_count": 10,
+      "required_engine_matches": [],
+      "tarball_sha256": "d09aea4ed1e223f3e36d15dca819cfc8eb18b8ed200732200eadae780e425451",
+      "members": [
+        {
+          "name": "package/dist/index.js",
+          "type": "file",
+          "size": 5647,
+          "sha256": "081a5337dc0bdfc04804b7c71971e7f29526d737097c34a83440c95c2523d4e7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/scripts/localinstall.js",
+          "type": "file",
+          "size": 68569,
+          "sha256": "fe5a7de5fea1363a03917eb8c56c7402ec5aa6750bf6e5e179cb4c53b32731f0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/scripts/postinstall.js",
+          "type": "file",
+          "size": 5762,
+          "sha256": "14bb8640afbce8a9cd1e7f05cf8676069a05d2058f704dfd1a272507a78f419e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/postinstall.js",
+          "type": "file",
+          "size": 1092,
+          "sha256": "c4219fdab06232498675a5372968a9eed209696a1a825c88ccc4f247a922f1b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 1075,
+          "sha256": "9a37d6e75fb63c0f5cf93cb238054405668a5ef24a7fb770869129c1854ecc57",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 740,
+          "sha256": "aba404ddff047bce44cecb3349f78155832d70a327e7b33b974c29d671c0099b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.ts",
+          "type": "file",
+          "size": 1060,
+          "sha256": "dc9939fa1ce1c04a94f56e016916372cabc5a6adf0111c00830f43318fed7cc1",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/scripts/localinstall.d.ts",
+          "type": "file",
+          "size": 11,
+          "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/scripts/postinstall.d.ts",
+          "type": "file",
+          "size": 11,
+          "sha256": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/engines-version",
+      "version": "7.1.1-3.c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
+      "compressed_bytes": 4822,
+      "expanded_regular_bytes": 12689,
+      "sri_matches_fixed_lock": true,
+      "member_count": 5,
+      "regular_file_count": 5,
+      "required_engine_matches": [],
+      "tarball_sha256": "2c6fb37fcc1f76e71975946c7f169bea3e38c88f777e61e1ffbf73fc9b26e758",
+      "members": [
+        {
+          "name": "package/index.js",
+          "type": "file",
+          "size": 217,
+          "sha256": "5ae9c94418a94b3c86604ed39b7af19ffe8482e9bda77d1d90393af22bca84c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 635,
+          "sha256": "9f367c6ab7af589f028ee00eefaa14e5ba97c0b6e704e5682413598dbbdf4478",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 435,
+          "sha256": "1eadb4b6edd508ff3aced6ce2a64e412e190cfbba5bcf5f3c4c469ff61ccf4c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/index.d.ts",
+          "type": "file",
+          "size": 45,
+          "sha256": "dbb50e77b49138e895c7fb3da1692eb8155f3fd83845fc1c034800d496af3844",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/fetch-engine",
+      "version": "6.19.3",
+      "compressed_bytes": 187903,
+      "expanded_regular_bytes": 963588,
+      "sri_matches_fixed_lock": true,
+      "member_count": 40,
+      "regular_file_count": 40,
+      "required_engine_matches": [],
+      "tarball_sha256": "3ab3b839698fb40f8d059d72a3274f55482556d2b65c8862d1d55ae42f692f71",
+      "members": [
+        {
+          "name": "package/dist/BinaryType.js",
+          "type": "file",
+          "size": 1087,
+          "sha256": "e7964707f9877e66c8025c565f7e0ee6fa564d595e506824326e9e54f7627ef2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chmodPlusX.js",
+          "type": "file",
+          "size": 1087,
+          "sha256": "8bbbf85ac44a10ec531ac2f8b8d6a0238cbe3f6bf2b0d74c657c61a510b39727",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-3VVCXIQ5.js",
+          "type": "file",
+          "size": 3054,
+          "sha256": "13da559b21a969d4a572a82dfa6b887fa4dc2fffe61d7420ffff2b5d05d72155",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-4C3J5AMP.js",
+          "type": "file",
+          "size": 85380,
+          "sha256": "c8bb38b183c34e8772c08cea2fe2d310b974957def07c2e6a1d68ab07220c03a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-7JLQJWOR.js",
+          "type": "file",
+          "size": 1908,
+          "sha256": "c671dc0212e7fe02fb24a23d010390b3e2c62572a3e365aa5ad1624902337c62",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-CCMBPDR2.js",
+          "type": "file",
+          "size": 85381,
+          "sha256": "a73fd88aa6b012099223bfd60ff2b355172f03dedd25fd25a3296004e3e75821",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-CY52DY2B.js",
+          "type": "file",
+          "size": 397843,
+          "sha256": "0486aa9fbe22f00d66f7ea3130ed34aef4c2fcdbd416f7796632bbbf8f741858",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-FKGWOTGU.js",
+          "type": "file",
+          "size": 2039,
+          "sha256": "4998b41b60e3114a9c651999039d49b176031f70a88c84b3ae9433dce8836c6a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-FSAAZH62.js",
+          "type": "file",
+          "size": 7113,
+          "sha256": "9107b0695b5eb48131ed0217ade26c3b392128ad70a0377ef4ec1122612330c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-LONQL55G.js",
+          "type": "file",
+          "size": 82527,
+          "sha256": "6ffe565efe92e9fb75b96b10b2590c3f6345fd807ff5d38a0d54feef4c53721d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-MWVY55RY.js",
+          "type": "file",
+          "size": 6143,
+          "sha256": "172808a3e329faa31aeff9b78d88133c3d22082a40172f37b7c84445f9db4a4d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-QFA3XBMW.js",
+          "type": "file",
+          "size": 5346,
+          "sha256": "2918a29e9b7d30066d9db6bd98e8d39f8d361f84f3102ad7d8e902e17ee0b62b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-QGM4M3NI.js",
+          "type": "file",
+          "size": 2711,
+          "sha256": "263e3f14912c960a031e97c4fc66c4023f278da3fa14aa73f64f685b9dc1187a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-RXM4EBGR.js",
+          "type": "file",
+          "size": 182682,
+          "sha256": "f2ad5c7fd7a1e71aa4cc61e0af1269ac71a4774b034289942f688baeebc65848",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-VAPNG6TS.js",
+          "type": "file",
+          "size": 57253,
+          "sha256": "cf4ddbc1d672ba0294ae5298628dee0ed06693bd919d414d89bcfbd0b7b36ae3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-X37PZICB.js",
+          "type": "file",
+          "size": 1219,
+          "sha256": "95b48a64b0bca5d301f6472779e9cfa61dc0c1d2120dc97518e1b164cefafb33",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/cleanupCache.js",
+          "type": "file",
+          "size": 1277,
+          "sha256": "b178092404c78d30d459a54ff2135d5ef000012fd930c4acc609e94303f77d29",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/download.js",
+          "type": "file",
+          "size": 2027,
+          "sha256": "f141e02ef50b742b1e0629c6e3a6240347c806b91a08831acca1dd21f6a82bd9",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/downloadZip.js",
+          "type": "file",
+          "size": 1392,
+          "sha256": "4f87a57808e3688f122ba7e3827ec51dfc7b523f1d27bb8a691cd1230cbacc2b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/env.js",
+          "type": "file",
+          "size": 1352,
+          "sha256": "2510dec3503fe47d5125577784a354acf849a2513525162dd024425b2f2470dc",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getHash.js",
+          "type": "file",
+          "size": 1072,
+          "sha256": "b4086ca276fd2ca0aa36ca941ed847d4dda0d6c84b027b6700a81586812b2781",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getProxyAgent.js",
+          "type": "file",
+          "size": 1102,
+          "sha256": "0591e8f1d20fdf1d536b3a33530894c763a853f1c7158ee203356ac97322ed97",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.js",
+          "type": "file",
+          "size": 2528,
+          "sha256": "5620b8d5cbc5c15e72d744c5f2a05e1240013f9301f4701870836a0da2afc81e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/log.js",
+          "type": "file",
+          "size": 1058,
+          "sha256": "48801e7fee0eb69df822fedec6008069864ce2b297f783118b09da2fc20c0e94",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/multipart-parser-ASKQAOL4.js",
+          "type": "file",
+          "size": 11081,
+          "sha256": "04b1e2e7b56d8b81081b895d1d4d594aaf4751d6c7bb618bf8735c5338478bb8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/utils.js",
+          "type": "file",
+          "size": 1320,
+          "sha256": "5f4de07c7df0223ccddb252e019e70ce6442e468ea426b52f1ceab7f28d4db5e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 1414,
+          "sha256": "26b719404f0ecc2303d03a703ea8569969684f5892cf78fe1a1bdb6bfc827401",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 598,
+          "sha256": "9f1d597ef0e01695431be3c2d470387b062e7d0959eb82618ed578970d3dd230",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/BinaryType.d.ts",
+          "type": "file",
+          "size": 160,
+          "sha256": "b1e5f0a0f51b9bd96d78d9cecbe905d648f7c86076d6a0a5f090d62b54d699b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chmodPlusX.d.ts",
+          "type": "file",
+          "size": 56,
+          "sha256": "bfe8569eed5be46885674f7a18c1b9c6c3ff7a20e21216328db11e9f84cfa281",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/cleanupCache.d.ts",
+          "type": "file",
+          "size": 65,
+          "sha256": "39640b91271987efb8400afa8553edd5226f1dd18382a4839c7f5203342f8b3b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/download.d.ts",
+          "type": "file",
+          "size": 1083,
+          "sha256": "5332094ff6eeaea20a9a2e01c7d83b82656f2be9dff9e64ed5bfecf84f2e1a62",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/downloadZip.d.ts",
+          "type": "file",
+          "size": 252,
+          "sha256": "c44c1df225c0858247b52c8e622d545041836ee4d3b4ec93346e31610fb2c754",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/env.d.ts",
+          "type": "file",
+          "size": 499,
+          "sha256": "efb7b40478d4188860069124c30c88db0930e7beadca274d36c4e007ae61db61",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getHash.d.ts",
+          "type": "file",
+          "size": 68,
+          "sha256": "87b8b89472ad7cba9ca63167d4f3937acf29be731d95e1fa65206ad699c32c58",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getProxyAgent.d.ts",
+          "type": "file",
+          "size": 218,
+          "sha256": "a1c5b54e23991e7f54f953e8f2ae21f132e4ddfe6b520580f925041edcf1ae0c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.ts",
+          "type": "file",
+          "size": 184,
+          "sha256": "1e9f020aea86fb9a5083fbf997e4989f081fcd5acd52834828331ff329c6ec18",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/log.d.ts",
+          "type": "file",
+          "size": 86,
+          "sha256": "e41d02f9dd514e0d4faa2150cda2813cb74baab0e143d055209be6b1f6631a09",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/utils.d.ts",
+          "type": "file",
+          "size": 566,
+          "sha256": "d9f22946f8fc5de00dcab445aa1f63a41ebae0501bdfe9c28d9b87688ea637ca",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "@prisma/get-platform",
+      "version": "6.19.3",
+      "compressed_bytes": 257518,
+      "expanded_regular_bytes": 1289960,
+      "sri_matches_fixed_lock": true,
+      "member_count": 39,
+      "regular_file_count": 39,
+      "required_engine_matches": [],
+      "tarball_sha256": "8f96ffd09a23f20524e15dc1ab7d9238884102f15bbc2c00d66b9133b583cd18",
+      "members": [
+        {
+          "name": "package/dist/assertNodeAPISupported.js",
+          "type": "file",
+          "size": 1147,
+          "sha256": "bcb4fabc5939fa24ff0c926168ea0a488ede2d38860899de6413c5522e2c1937",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/binaryTargetRegex.js",
+          "type": "file",
+          "size": 1238,
+          "sha256": "dcc2df1631641c39bdb80ede22bfaa294cd0f9ca0e0842567fcff624dfca07af",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/binaryTargets.js",
+          "type": "file",
+          "size": 1151,
+          "sha256": "26274c958c3e519e22d85cbefadde058bc7031a3d5bd3610def175841e2e1f0b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-2ESYSVXG.js",
+          "type": "file",
+          "size": 3144,
+          "sha256": "50f30d77094aac68ce25c0b2843572b94ef66e8c6ea4165db2bdb8d6d3eed702",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-2U36ISZO.js",
+          "type": "file",
+          "size": 1550,
+          "sha256": "b053a7732e2916c0ae7f653f717287826095e0dd12f7868c184cc16e7411802c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-3UEKS5W6.js",
+          "type": "file",
+          "size": 516911,
+          "sha256": "e3296c06512dd5dcd95a932b152c00e4ca8e6b71c3d4b87a2bee90bf66c66ae7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-5EPDNTW3.js",
+          "type": "file",
+          "size": 6745,
+          "sha256": "73420aa4cb087cb63b3d26d7335e4d26204ec11a3f32359372f729daaaab1dc4",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-6HZWON4S.js",
+          "type": "file",
+          "size": 14,
+          "sha256": "77f5eec38c5ef075e11892244ccf9e249d82937e07401398df98319568775a17",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-7MLUNQIZ.js",
+          "type": "file",
+          "size": 1998,
+          "sha256": "33a09c2b42aa16f7078e0a9d27a0641c7921207431fa2a92eae3761faba29c2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-7PMGXL6S.js",
+          "type": "file",
+          "size": 22363,
+          "sha256": "714ccacc3362a14160a917e6317152a8cfd8f1d5bcd8be302bc7bfb63bcc283b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-FWMN4WME.js",
+          "type": "file",
+          "size": 1396,
+          "sha256": "83e351aa24c553fb2495a527c234b66c75481b85d4e7f6fd63a1648d11f8a539",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-IPLRRT6O.js",
+          "type": "file",
+          "size": 2178,
+          "sha256": "6ded669d92c53c8af05f8983c1311fe932ba7e88dc906e5cbd9b9edfe8bc0951",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-M5T7GI2R.js",
+          "type": "file",
+          "size": 15681,
+          "sha256": "64da1633260b3e28b1b7c42ce7656e221bf381fc3b28c0af72bdffe6a2eec921",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-O5EOXX3N.js",
+          "type": "file",
+          "size": 2224,
+          "sha256": "9886d85cf3ea1fa4f6bac8d5d26fb4aff65ddd7f0da9f06053c7149f3c9ab96c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/chunk-YVXCXD3A.js",
+          "type": "file",
+          "size": 2357,
+          "sha256": "6db70c0a2ae1481eee23df621ac3fc2e31b628fc2c4d2999f82ee528bc069ee1",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getNodeAPIName.js",
+          "type": "file",
+          "size": 1107,
+          "sha256": "634057ab7f7fdd82d976ae1f95f8b4b9b3bfa311a0f06d67bf90c384cc0d43bb",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getPlatform.js",
+          "type": "file",
+          "size": 2030,
+          "sha256": "6f397122e9f2ccca99fd43c23cb49a9e630c6db46f6f9f4c2623d24c4d7bd5be",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.js",
+          "type": "file",
+          "size": 2321,
+          "sha256": "2f7606023e9dc7fb373ef11e4bfcedebc9dfe0d4e6fa6e22ae7439e9bbca8c75",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/index.js",
+          "type": "file",
+          "size": 1421,
+          "sha256": "bea8635323c67402d15b362922feec7bb4f707f9cbebd92a94c51eb52343ee0e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/jestContext.js",
+          "type": "file",
+          "size": 1363,
+          "sha256": "e453fb6f1e6afdf3f631e346389203b8193bd017e5f754a65be8ab0449762dca",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/jestSnapshotSerializer.js",
+          "type": "file",
+          "size": 6179,
+          "sha256": "f75aafa9bed1128e0989e1a264501f71e3f2a24c3caf88e1983e94fc72ea7a31",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/link.js",
+          "type": "file",
+          "size": 1117,
+          "sha256": "5c2d4cc1c718b33861a15b11ed40827022a14b668dd5baf146f15882b398bb93",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/logger.js",
+          "type": "file",
+          "size": 1251,
+          "sha256": "68cea9e300fefb819907d3f1920db762d4d76e58169f3e57bea9ea0e3e997ab9",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/magic-string.es-3WRPFX2A.js",
+          "type": "file",
+          "size": 42562,
+          "sha256": "07ed8ec216b2feed9c03a062ee38449c1c4b615d8694ee3215f962ed6e069f52",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/vitestContext.js",
+          "type": "file",
+          "size": 615927,
+          "sha256": "8dbafeb65bf2f83d3cafeaf45aaac672675c76f67572ccb6c2eca96cc6a98d34",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 1235,
+          "sha256": "fb1301e79e9686faa137f7cc61bad17cc0e38e2449cbb07e4f91ee65aedcca60",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 713,
+          "sha256": "8593bb0035aa246eea33823f3bc352c2c7db0a9129d841dcb306403c8d4236ca",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/assertNodeAPISupported.d.ts",
+          "type": "file",
+          "size": 150,
+          "sha256": "e6c034d7dc159d47af0f60dec5bf640a093241da4670f8840ac08f7b4a64f7d2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/binaryTargetRegex.d.ts",
+          "type": "file",
+          "size": 347,
+          "sha256": "fb007b1187e0b24c3768e77943695a2bb1e2fbd4bce809e314ebaf92fbbc622c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/binaryTargets.d.ts",
+          "type": "file",
+          "size": 722,
+          "sha256": "a8f1a613409cfaaf057903d17ed62485b6c4b14d36d9dc1aaca2cd3c5f81a234",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getNodeAPIName.d.ts",
+          "type": "file",
+          "size": 365,
+          "sha256": "bdf3a0dd8a7a7cdca3a9f5259efc99a40fd4dec33afebccf3672eb1deec48044",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/getPlatform.d.ts",
+          "type": "file",
+          "size": 4940,
+          "sha256": "9f4542e45dab5d11a7633a6597bd18d65145d73754d87294a830794bb3094821",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/index.d.ts",
+          "type": "file",
+          "size": 389,
+          "sha256": "5f9716e7404241966558ba601e197ddca8dbdd8d3f8c84a3b03d90a07b3004cc",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/index.d.ts",
+          "type": "file",
+          "size": 152,
+          "sha256": "8b10e0653bca21dc27bd1fab78f807613c5941b8098e64a73190a0d037d36134",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/jestContext.d.ts",
+          "type": "file",
+          "size": 6832,
+          "sha256": "f070c26cc00ebd4cd9abc6c2c5db27065ee2638353853feb99b984dd19f719f2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/link.d.ts",
+          "type": "file",
+          "size": 48,
+          "sha256": "630317107b14471d93c2fd9673fde638aed453977f5dbda7926cae5f8f6667a3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/logger.d.ts",
+          "type": "file",
+          "size": 236,
+          "sha256": "9fe8f44f22846c08507ef238a098ea2469975604a1ac167112b15b9b5e585c27",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/test-utils/vitestContext.d.ts",
+          "type": "file",
+          "size": 7099,
+          "sha256": "c553fc7465e77ffaee9b1231c733817daf489749064bbf75e8fb9497e3fa14a6",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    },
+    {
+      "package": "prisma",
+      "version": "6.19.3",
+      "compressed_bytes": 17620006,
+      "expanded_regular_bytes": 52033349,
+      "sri_matches_fixed_lock": true,
+      "member_count": 171,
+      "regular_file_count": 171,
+      "required_engine_matches": [],
+      "tarball_sha256": "2f80b9a34fe3a3605469281067ad7990a65f085a1b0551c16757535730b18ab1",
+      "members": [
+        {
+          "name": "package/build/xdg-open",
+          "type": "file",
+          "size": 25763,
+          "sha256": "4ef38acc21ba40c78ef9d3808fddc14fce0efeab3df27c6caa4a82d7bdac7492",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/index.css",
+          "type": "file",
+          "size": 427155,
+          "sha256": "914f5c17d99e88608cae6c71539a199556ab7a47cafca240ed2ae552cb746b7e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/pages/http/databrowser.html",
+          "type": "file",
+          "size": 572,
+          "sha256": "ddc600ecb42508fb819132bc4f85ff5722c17f58b70cca3e15f4bc3c98cc7773",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/pages/http/splash.html",
+          "type": "file",
+          "size": 567,
+          "sha256": "72a5ee0c5ad1eeadf59d1f916ae3897eae792afda48093d6cdaa00dba87f6311",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/binary.js",
+          "type": "file",
+          "size": 674128,
+          "sha256": "b64b61f351d370680da2751faaefebac22ed05d5153e89d360ec61c1bea1b710",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/child.js",
+          "type": "file",
+          "size": 640073,
+          "sha256": "237ba8edc4bc636f9045ca89a7b349faf845c235c03bcefcbb6c67a297da021d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.js",
+          "type": "file",
+          "size": 229421,
+          "sha256": "aaac8c184176047bab0b723bb6022dfada645087172dc1e71f45e840926b919c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/scripts/colors.js",
+          "type": "file",
+          "size": 5732,
+          "sha256": "08eb6a703f1f8acb8c3cdd69f5c15ba958c3df657a35c7d4e30436a799847a9f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/config.js",
+          "type": "file",
+          "size": 1143,
+          "sha256": "c1bf15f0ca63cc6059e4725fc3dd7a207ae3c0269a3b71d7a8049d6a296d2e71",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/http/databrowser.js",
+          "type": "file",
+          "size": 138,
+          "sha256": "95bc49f2006d73e3495ed0637d7107156c49746e95a89e4e38ddaace028c6100",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/scripts/default-index.js",
+          "type": "file",
+          "size": 2076,
+          "sha256": "8036a2646bbf3d6de5fa2fae2b284f5d8900d1000c35531cad1a8f2b92c40589",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/default.js",
+          "type": "file",
+          "size": 61,
+          "sha256": "0cfff057c91fcb7559bd1a3bb4891404e455829ced5b18a87c9393ee1721ace4",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/edge-esm.js",
+          "type": "file",
+          "size": 170093,
+          "sha256": "9f9c1f61dae706cdaad782d2a44982a9cfd82ccd8736ea38ac4b2b6aee602274",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/edge.js",
+          "type": "file",
+          "size": 107,
+          "sha256": "7bf087246c937e84453cb6ec8235c106c9f1808b3400d74601dd503f14e49643",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/edge.js",
+          "type": "file",
+          "size": 170641,
+          "sha256": "fdc9f97204de4d935936076c4e3bc43ce2853667232ce813b44cb734f0273449",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/extension.js",
+          "type": "file",
+          "size": 111,
+          "sha256": "116e87c8b1e477b2b0f80b08f32c1752976d6909f9e6e38a1c4a92f97b9251f3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/index-browser.js",
+          "type": "file",
+          "size": 80,
+          "sha256": "3d3124ae428b3514dbeb60a4270b904a063451cb82de1d96f0b16d69fd1860c6",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.js",
+          "type": "file",
+          "size": 35332,
+          "sha256": "2ddb55368ce183adb41b122d838a152d141ef8b37153fc43808e60c21b1c925c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/index.js",
+          "type": "file",
+          "size": 2809306,
+          "sha256": "c2a77456b70e8ba1e640e122824ed694433828a7c0d76ff3db7fc376b4b0e1a0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/index.js",
+          "type": "file",
+          "size": 297451,
+          "sha256": "51e8c243244652cb8237939db7c056c18ebbeba8ea5f0f4a84d1c499abef047a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/preinstall/index.js",
+          "type": "file",
+          "size": 26331,
+          "sha256": "90395c828b92a1756433f6388ac7f1ab26d3967c2d679d8e22c1a89b5768586c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/generator-build/index.js",
+          "type": "file",
+          "size": 624802,
+          "sha256": "b504707b44017c90f90bd74b9eddeb0d07bd13491bbb33e29ef2c3d9d898121c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/index.js",
+          "type": "file",
+          "size": 110,
+          "sha256": "98ebb7453444d223cacae7a3d8ad655f29997523d9a1646d383f852b10ba70fa",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.js",
+          "type": "file",
+          "size": 202499,
+          "sha256": "abdeb84cf9f11bbfba2ac6a009c94fea8657aa3c35a7975a1c63e71a41b96b05",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/scripts/postinstall.js",
+          "type": "file",
+          "size": 12864,
+          "sha256": "26a1ee611276787062e1518a5dab6f22c580efa721864d8206cd6bad55a21983",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/scripts/preinstall-entry.js",
+          "type": "file",
+          "size": 144,
+          "sha256": "d6385b9abaee148d114260990efb85507429831b8e57ad7610d7afed08831dda",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.cockroachdb.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.cockroachdb.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.mysql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.mysql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.postgresql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.postgresql.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlite.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.sqlite.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlserver.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.sqlserver.js",
+          "type": "file",
+          "size": 11165,
+          "sha256": "511a328d53d67f2b0e2a0e08b546384c2591205e3087d5be718ba1dfbf2f99b0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.cockroachdb.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "41d710487c9689e3d0ab7e24b5303e3f1fb99d791bef6c9a37a7de730e233911",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.cockroachdb.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "41d710487c9689e3d0ab7e24b5303e3f1fb99d791bef6c9a37a7de730e233911",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.mysql.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "17c0e49b82c280fff9b9de14704468e0628b58c69d2fce8fb14f54b13fd0ac70",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.mysql.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "17c0e49b82c280fff9b9de14704468e0628b58c69d2fce8fb14f54b13fd0ac70",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.postgresql.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "2b50b4328595b0fb99a73cfed34cf11fa8e56511dcc4fb808af4516952448514",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.postgresql.js",
+          "type": "file",
+          "size": 16927,
+          "sha256": "2b50b4328595b0fb99a73cfed34cf11fa8e56511dcc4fb808af4516952448514",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlite.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "7beb67f0d750a1cb5277ba06910f114a96f19545c0bed82a03f01dfd9de10d26",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.sqlite.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "7beb67f0d750a1cb5277ba06910f114a96f19545c0bed82a03f01dfd9de10d26",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlserver.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "3eff20c6f8bed6d94c696b6c884d697cd4c143b2783d296ef607649b7f186d2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.sqlserver.js",
+          "type": "file",
+          "size": 16688,
+          "sha256": "3eff20c6f8bed6d94c696b6c884d697cd4c143b2783d296ef607649b7f186d2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/react-native.js",
+          "type": "file",
+          "size": 66,
+          "sha256": "18194ed433c5d4b588d5f7bbfe43fdabcedec2a6a7891e8d06fb5224f546fcc3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/react-native.js",
+          "type": "file",
+          "size": 182533,
+          "sha256": "fe031480568ed8c0472dba486ecec1a57aafd5e30c11b52c02e65e4a9c8d94a2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/http/splash.js",
+          "type": "file",
+          "size": 133,
+          "sha256": "88042d6cd806bdebcef81a0a35d5d3850a89f5fbecf067f71b8ed8ecf9ff0d2d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/sql.js",
+          "type": "file",
+          "size": 70,
+          "sha256": "1eaca014b3d83401e69545a43e2b2bb8ee95c9238703428a084a6479a49b66d1",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/vendor.js",
+          "type": "file",
+          "size": 1532386,
+          "sha256": "d2e1ba92d32d2ff9c331d53420c96abe644bf344ba925a94eccb17230c102f18",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/package.json",
+          "type": "file",
+          "size": 4684,
+          "sha256": "640c40516faa0c333995d0e22cf9e09815c3d7f80ef71ac793283d2c9cac41be",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/package.json",
+          "type": "file",
+          "size": 10210,
+          "sha256": "eb30ef134c19dc11cf9e8b03a27cc7a8c4d04821fd8e294ac06da43ccd49d196",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/binary.js.map",
+          "type": "file",
+          "size": 2595172,
+          "sha256": "ae7707f632364015281f5f824c9340ec60d237c895d4b193b41fab1f4f2e25ab",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/binary.mjs.map",
+          "type": "file",
+          "size": 2591353,
+          "sha256": "bd8d2876e7d1b7886ed8f76b9b6a737f252ff6a1bac293168dec9174d0a0e467",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.js.map",
+          "type": "file",
+          "size": 1097681,
+          "sha256": "09d08727a2cbc01d806107eae4503135794c08407a0ba9f431a3440744f7cda5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.mjs.map",
+          "type": "file",
+          "size": 1094159,
+          "sha256": "51bc161e0a7b910059fe5e6a8af08d575fdb5ee0913f5916ac79c1a2f18aad5f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/edge-esm.js.map",
+          "type": "file",
+          "size": 835341,
+          "sha256": "0937891658573ee8450edb815370dce5370ca634cab45e6d6d1d1c1534c8d3c3",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/edge.js.map",
+          "type": "file",
+          "size": 836323,
+          "sha256": "9de4af3924a38317a6e01a0adacde655001ba87ee93df362b21820ab728b2255",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.js.map",
+          "type": "file",
+          "size": 210208,
+          "sha256": "67de5a6e82e74090d09f6522628838272d7c12ca3353d886c1023195706bcb3f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.mjs.map",
+          "type": "file",
+          "size": 209655,
+          "sha256": "19d99b31b71836c967b279f32f4c7ccd7e484afd455b963ea0119756d9e0f9c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.js.map",
+          "type": "file",
+          "size": 1014834,
+          "sha256": "e96d37e38ff6ebb983904d4dcd2b04a3943f9ae7f4ef7764157b6d8966826d6c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.mjs.map",
+          "type": "file",
+          "size": 1011056,
+          "sha256": "3584c643724b5ce207bc3d60415fe100e2c4ea06fe56b24ba67ef3108e794816",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/react-native.js.map",
+          "type": "file",
+          "size": 859887,
+          "sha256": "d6386fcade938c1b7c0903ec4717f0302d770fd2b04114d93adf231b4c547839",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/README.md",
+          "type": "file",
+          "size": 2553,
+          "sha256": "8962ebaf0fc70382ac40759fecc178cd96ace15221c7debb309a38761b116b90",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/README.md",
+          "type": "file",
+          "size": 5206,
+          "sha256": "77e639aac1107aa0c5c52975c64b66d4a1ba91e33d816e04f351547d0b08d188",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/binary.mjs",
+          "type": "file",
+          "size": 672643,
+          "sha256": "824dcc778d390b33aa65be183f001ad6bd9d4f75dbdd671a1ae51cfe6b69aff5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.mjs",
+          "type": "file",
+          "size": 229231,
+          "sha256": "186d8ee7a0f7dc0f5ee549ae32a5c4c89b998bfd50181783d935ebea2274404f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.mjs",
+          "type": "file",
+          "size": 34869,
+          "sha256": "936c5156ed989012aac53f1dfbad2f7536188dce40df7b0153df4c988c9d5828",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.mjs",
+          "type": "file",
+          "size": 201974,
+          "sha256": "d9736bb94336e3bca7d89a7bb6477ec5e86d9ca3287e92c7401cfd1bc1309e50",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.mysql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.mysql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.postgresql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.postgresql.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlite.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.sqlite.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_compiler_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 8507,
+          "sha256": "2f6f13efc07ad8f1be94c19666a9a183cb55d9b130900110080bbebd953cdb04",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "82f92c525a45c62f7cec26e8e92e25e5f8619078838c306c0d8253bb7e834be7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.cockroachdb.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "82f92c525a45c62f7cec26e8e92e25e5f8619078838c306c0d8253bb7e834be7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.mysql.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "62562197c35cdc3c93495b4fe028f483544299da4b1ba08690996fba1532f137",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.mysql.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "62562197c35cdc3c93495b4fe028f483544299da4b1ba08690996fba1532f137",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.postgresql.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "0ac2fc0bc3a8070807064c819b8a413295ab08a10b39a87da8cf9736b51d1c6a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.postgresql.mjs",
+          "type": "file",
+          "size": 13272,
+          "sha256": "0ac2fc0bc3a8070807064c819b8a413295ab08a10b39a87da8cf9736b51d1c6a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlite.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "26a62ccd82b9141af8a1f99265cef7aa5070d11a350f43c4bf64f958ac90b8f8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.sqlite.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "26a62ccd82b9141af8a1f99265cef7aa5070d11a350f43c4bf64f958ac90b8f8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "e21a91cd3fc2a125d1227f7232b41b2aaee345f9ee1528cf5e7916123e4579ef",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/query_engine_bg.sqlserver.mjs",
+          "type": "file",
+          "size": 13090,
+          "sha256": "e21a91cd3fc2a125d1227f7232b41b2aaee345f9ee1528cf5e7916123e4579ef",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/sql.mjs",
+          "type": "file",
+          "size": 51,
+          "sha256": "a9a785844488c0ae9da9890d625df4c61d8033e93914d213b4456aefc87b4487",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.d.mts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.d.mts",
+          "type": "file",
+          "size": 11915,
+          "sha256": "556ca4c51df0dd6bdc52f3423a65108b044841195fed9b36bc4384849291e850",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.d.mts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/icon-1024.png",
+          "type": "file",
+          "size": 594165,
+          "sha256": "11bbab4a98472b4c6e56cedf6b8b0b96611af4104a19156d4296036db25659c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/alert.60ea9f84.svg",
+          "type": "file",
+          "size": 510,
+          "sha256": "60ea9f846dff4acc207fb1b502e927b9902dba938f1c6638a113350560f0dd52",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/array.1a36c222.svg",
+          "type": "file",
+          "size": 207,
+          "sha256": "1a36c2228a55c61b87d7ca35a0e7e58053c806d6b1dc48e79b105b93dff2eb4c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/boolean.9188b434.svg",
+          "type": "file",
+          "size": 430,
+          "sha256": "9188b4345a12ee28b7587d34192fc22d9b9c0f25dcc2065fbf813242e85d5a93",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/chevron-down.24f76e3c.svg",
+          "type": "file",
+          "size": 136,
+          "sha256": "24f76e3c6cf393bd3badf71faa16d1990efd98296ee2396d7173f235bcf28a6e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/cross.c2610cf5.svg",
+          "type": "file",
+          "size": 823,
+          "sha256": "c2610cf52f598ad8e0a7e038c0b4d71f59edfd6ed78d4d9471c19b956156a40c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/datetime.a3bf710a.svg",
+          "type": "file",
+          "size": 329,
+          "sha256": "a3bf710a4309655b437e72f1b75ab55f8204e73247e604b649392b25e4c57cfe",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/download.8d34b65a.svg",
+          "type": "file",
+          "size": 945,
+          "sha256": "8d34b65a85bb6f62e0a50724c9075a94527e6a0d1af92d7951b7276887ec6a89",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/ellipsis.a8c5a34a.svg",
+          "type": "file",
+          "size": 195,
+          "sha256": "a8c5a34af5be4e2426aecf460b05155d6c78974be12cf714fea51d2c505c11b2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/enum.7ec0b64c.svg",
+          "type": "file",
+          "size": 309,
+          "sha256": "7ec0b64c7be2d733081521aa23ee51cca580ddb6deea5b45a83b2df8c78395a8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/favicon.svg",
+          "type": "file",
+          "size": 627,
+          "sha256": "a08eaa01f28936b4dcfa2384ca6e7e71251d957135a3d9a377f17ec759f48f45",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/folder.d77b8eaf.svg",
+          "type": "file",
+          "size": 606,
+          "sha256": "d77b8eafd83cbee7b51bafe9dd389eec64801e5d8b40a08eb1256a84157f491b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/hamburger.5fdadeac.svg",
+          "type": "file",
+          "size": 286,
+          "sha256": "5fdadeacc36339d74f7487f769a46728a240896add9d99c8a5d027a2b54e60b7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/logotype.a960b169.svg",
+          "type": "file",
+          "size": 13047,
+          "sha256": "a960b169116bbed704932b6808a5efc51ce24c03d0dafed50d2bc0458ad1a8a1",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/maximize.ce1a88fc.svg",
+          "type": "file",
+          "size": 330,
+          "sha256": "ce1a88fccb4d4e9995d9d5690b1fe2a6fd0a39ee344021c50f5a936dc9a22cf8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/minimize.23fe727a.svg",
+          "type": "file",
+          "size": 353,
+          "sha256": "23fe727a802324d2d1ac7ee9a93c3aec6a47864782c8c31463bf90a1b68addde",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/moon.387ab66c.svg",
+          "type": "file",
+          "size": 239,
+          "sha256": "387ab66c2b50f9dad7b6a256463d84f8cf13f0b7dd8c1e0d7808aba0b190b48f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/number.85ddf96b.svg",
+          "type": "file",
+          "size": 1139,
+          "sha256": "85ddf96b9120707e6cb423fa7b74129f6df936545f8dee7feac8a5b5b116eb35",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/object.0ba944a6.svg",
+          "type": "file",
+          "size": 1022,
+          "sha256": "0ba944a6f22f291fb83c3a95bb1f4382ab7bb8da684c9410fbe3a9f20e700164",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/panel-left.a81e4b97.svg",
+          "type": "file",
+          "size": 244,
+          "sha256": "a81e4b97003167bc0210d25a9dcb071c6f511028db9f1ceb62b83244647a20b5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/play.8811691e.svg",
+          "type": "file",
+          "size": 311,
+          "sha256": "8811691edd5bdf7ff927519c7ece8dbcf350fa55553ad5a32dcf95aa6e0ddc6d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/plus.8fbf7ad3.svg",
+          "type": "file",
+          "size": 437,
+          "sha256": "8fbf7ad3218d46777f84ba237497927107bd98b54628e1ce1df8a5ee959b46ea",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/refresh.d5448ccc.svg",
+          "type": "file",
+          "size": 557,
+          "sha256": "d5448ccc360a081541eb180883fcd3781cee6b583d5e2226fa5cefd84d15061f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/search.2ed766ce.svg",
+          "type": "file",
+          "size": 363,
+          "sha256": "2ed766ce032784cfeb1f73389bbffa264a0155b3b40368534a01aa1dcab2152a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/settings.5ad25af2.svg",
+          "type": "file",
+          "size": 21112,
+          "sha256": "5ad25af29ec3d743fe977a3176ca3ee6bc277c18935bdf2eedf09f471d768d6f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/string.ea615a24.svg",
+          "type": "file",
+          "size": 330,
+          "sha256": "ea615a247275383aed0b5d6d63361f85dd6d42851d48e9db0ea0c9b0e7d946e8",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/sun.89774753.svg",
+          "type": "file",
+          "size": 484,
+          "sha256": "89774753c294f1cc7dce97637b0589a5629d0b1fceb9614eee6794158f168b1c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/tick-indeterminate.aec8a44d.svg",
+          "type": "file",
+          "size": 152,
+          "sha256": "aec8a44d733bf35307eaa91b3ce3f8aabc0f4aea1f67e101104700a7cb719ffc",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/tick.8cbb6a93.svg",
+          "type": "file",
+          "size": 481,
+          "sha256": "8cbb6a93e053ac6d4bbe5bb1983ec17e3457119e4ec038ce218515b64e55fa6d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/binary.d.ts",
+          "type": "file",
+          "size": 26,
+          "sha256": "8edadeb551395cad9fde0272dcc52341e2728b7d835dd61d51fb795b714ce37c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/client.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/config.d.ts",
+          "type": "file",
+          "size": 98,
+          "sha256": "2729bdb66a2d3d6dbb88c897cec50bf8e1cd0b63b9c3979d5c7691ce788354c0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/scripts/default-index.d.ts",
+          "type": "file",
+          "size": 3989,
+          "sha256": "71df692065d79c5b044002f8a68eba33e934859859094bab2f334f64a467f428",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/default.d.ts",
+          "type": "file",
+          "size": 39,
+          "sha256": "51ebca098538b252953b1ef83c165f25b52271bfb6049cd09d197dddd4cd43c5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/edge.d.ts",
+          "type": "file",
+          "size": 36,
+          "sha256": "317483ac49e6e3592ae08c55aeca9e9cc252749ef3a10841229f01422720ed2a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/edge.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/extension.d.ts",
+          "type": "file",
+          "size": 40,
+          "sha256": "2479ba0bddab019eaacf32578d5c3af99999cee581bc10d49946469b06ee2426",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/index-browser.d.ts",
+          "type": "file",
+          "size": 11915,
+          "sha256": "556ca4c51df0dd6bdc52f3423a65108b044841195fed9b36bc4384849291e850",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/index.d.ts",
+          "type": "file",
+          "size": 39,
+          "sha256": "51ebca098538b252953b1ef83c165f25b52271bfb6049cd09d197dddd4cd43c5",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/library.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/scripts/postinstall.d.ts",
+          "type": "file",
+          "size": 304,
+          "sha256": "3bf65a90eb02f4bdf76d64569983b3770d6d54c27428682a38d836c487bc7bfd",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/react-native.d.ts",
+          "type": "file",
+          "size": 44,
+          "sha256": "cb44a22537d7c1b1b2e427e70a2e15a6b6659271b484a98eee18199dff3fdeb7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/runtime/react-native.d.ts",
+          "type": "file",
+          "size": 129753,
+          "sha256": "b845876de475c230a1e012150db8d2c2a62bd6835a93e8cd23ebb10f7de16266",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/prisma-client/sql.d.ts",
+          "type": "file",
+          "size": 35,
+          "sha256": "79609bf6f382209078a578e71ed2ecb81829f1b8bebae3c7948a02090ead8e3e",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/dist/cli/src/types.d.ts",
+          "type": "file",
+          "size": 52,
+          "sha256": "d2576417fc0413b3be90176b9fc6c31e93327c0fbdba40508c98e7ac3fe61606",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/prisma_schema_build_bg.wasm",
+          "type": "file",
+          "size": 2966822,
+          "sha256": "bca8b35bd5ebe0164323d5f761a7a5075fa6ad00e1dfc7906e9da5d4c13c0287",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.cockroachdb.wasm",
+          "type": "file",
+          "size": 1976344,
+          "sha256": "0c0be7c7f30f8eb39660af59618c25c4a71c528da2123e949354874dee15700b",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.mysql.wasm",
+          "type": "file",
+          "size": 1915620,
+          "sha256": "81b9f421679c368d5bb4704610694fb572be6fc0f17e4ef21f02e38e3f59b01c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.postgresql.wasm",
+          "type": "file",
+          "size": 1950269,
+          "sha256": "8ad65dab5c22d8ce70db4bcb6c8c0a5069feb9841d9154cfb59f2003c2bd0236",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlite.wasm",
+          "type": "file",
+          "size": 1871962,
+          "sha256": "7c60fa27fea5d94e15c4e1c790fd462c9f0d71200b59599bfd4a585a995d5cc0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_compiler_bg.sqlserver.wasm",
+          "type": "file",
+          "size": 1948247,
+          "sha256": "7fb7970d603ce31a70f36b017f3a7b01c00b05b1f5256282bbf546b231eff4bf",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.cockroachdb.wasm",
+          "type": "file",
+          "size": 2320630,
+          "sha256": "df78ca5bd883dc3fb56a72e84002a862a1196053956547c3c2fc89d9e1d945ed",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.mysql.wasm",
+          "type": "file",
+          "size": 2263426,
+          "sha256": "730698cc82e65a39a8335c0b8752fa86412c2735deecf030045b0cfdc4dc6da0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.postgresql.wasm",
+          "type": "file",
+          "size": 2297601,
+          "sha256": "b199ed8bf8f3610c20a3f7398b3cbb875f99b7d6565f4887fc0af2b47dceb30f",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlite.wasm",
+          "type": "file",
+          "size": 2171299,
+          "sha256": "7ec8cd57e69e5e061c71accb0ae4ea5a258b074e51da112c6d871d398e259eba",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/query_engine_bg.sqlserver.wasm",
+          "type": "file",
+          "size": 2232836,
+          "sha256": "9bb7cbcae46069b0a02483798bf6667993c011a90e48d655a08c63ae3ff8436d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/schema_engine_bg.wasm",
+          "type": "file",
+          "size": 4094567,
+          "sha256": "af2f6040f6ee6d2da252669091526247c15c846b871c25ddafa1102599aabd8a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-all-400-normal.4c1f8a0d.woff",
+          "type": "file",
+          "size": 121716,
+          "sha256": "4c1f8a0d5ef1e04d7e14d194a4ef624345e7c7c1cdb4ff61d4552e32a60ac1d0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-all-600-normal.d0a7c8a9.woff",
+          "type": "file",
+          "size": 131632,
+          "sha256": "d0a7c8a993b9310ebb74a893fa564133bc129f6af41126eb98d207c813b96093",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/jetbrains-mono-all-400-normal.f86807b7.woff",
+          "type": "file",
+          "size": 49960,
+          "sha256": "f86807b7a7aea856964b2010ab53d7b2cbacb0a5c2ce4c7b81103bf8455997e2",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-cyrillic-400-normal.ac97a49e.woff2",
+          "type": "file",
+          "size": 6500,
+          "sha256": "ac97a49eca5ce5218b7dc5da931a69182aca421e1a66a3e03c0d7c84e1197541",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-cyrillic-600-normal.2c917f10.woff2",
+          "type": "file",
+          "size": 6928,
+          "sha256": "2c917f10b6896b55f3793d1956066271ab909e52c8bffce225c4cd9bfad936fe",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-cyrillic-ext-400-normal.f21a6a97.woff2",
+          "type": "file",
+          "size": 9748,
+          "sha256": "f21a6a97f08901ceed020bc58cf50ed44bf1fc62fd2f920177a3112e3f579cb0",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-cyrillic-ext-600-normal.bb31f197.woff2",
+          "type": "file",
+          "size": 10660,
+          "sha256": "bb31f197d44718fce59f2936615168edbad9ca3e386b28ddc68c982b3675a0db",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-greek-400-normal.e9163df8.woff2",
+          "type": "file",
+          "size": 8288,
+          "sha256": "e9163df802bb09d4a7642248fe44c1e234b1b803abab3e870e26673980dfb02a",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-greek-600-normal.e644d70f.woff2",
+          "type": "file",
+          "size": 8888,
+          "sha256": "e644d70f8f22dbed6f177e58a6bb72ad81ab11b4568c70ea3d7d0a9ba90bbe7c",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-greek-ext-400-normal.43addcc8.woff2",
+          "type": "file",
+          "size": 4992,
+          "sha256": "43addcc8f0505fd25ed1bee5f1df8182759c31e871643c2cf4b14d8a269e1655",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-greek-ext-600-normal.7f437016.woff2",
+          "type": "file",
+          "size": 5328,
+          "sha256": "7f4370165124400d053bd09c08a0c0e8523f03433eb9cbdf2883ffa424896ffa",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-latin-400-normal.27ae72da.woff2",
+          "type": "file",
+          "size": 17156,
+          "sha256": "27ae72daf88c7431896929273087c99910d019ae82dc0af7d86505c0f5ef5dbf",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-latin-600-normal.87d718a2.woff2",
+          "type": "file",
+          "size": 18096,
+          "sha256": "87d718a282da60f8ef79c2c85e2999bd0fe7a6ef3fc77ccb3ad8a5ff8474b1ef",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-latin-ext-400-normal.5b02c69a.woff2",
+          "type": "file",
+          "size": 22192,
+          "sha256": "5b02c69a8b7169da95612efd3003a29290b5b5dc573efe993ae066db23733714",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-latin-ext-600-normal.88feb9e4.woff2",
+          "type": "file",
+          "size": 24168,
+          "sha256": "88feb9e4406cd478925f7ecf204cd31bfeb53b10694d4e16fd018187a82dc16d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/inter-vietnamese-600-normal.8185dacd.woff2",
+          "type": "file",
+          "size": 4208,
+          "sha256": "8185dacd90a13f274cb37ffab50c79fa3e6191be2d14e9e804de5f74e6b385f7",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/jetbrains-mono-cyrillic-400-normal.1ae57fe2.woff2",
+          "type": "file",
+          "size": 4676,
+          "sha256": "1ae57fe249bb4916830623f9824e037e375a72e5626eb946aac2a1531a146f75",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/jetbrains-mono-latin-400-normal.80a5dc9e.woff2",
+          "type": "file",
+          "size": 19188,
+          "sha256": "80a5dc9ee5c98aa278db4d618d253a1a9de8cfd5ff9d43a7a9cf41cbc4b6ce78",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/build/public/assets/jetbrains-mono-latin-ext-400-normal.6315c53c.woff2",
+          "type": "file",
+          "size": 5664,
+          "sha256": "6315c53c76183393d75f9ead6d42aeea593d7c9b9bfa953bf4d6d3881f6fb35d",
+          "matches_required_engine": null
+        },
+        {
+          "name": "package/LICENSE",
+          "type": "file",
+          "size": 11357,
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "matches_required_engine": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "scope": [
+    "BASELINE-DELTA-C4-PROPOSED.md",
+    "CI-C4-OFFLINE-AUTHORIZATION.md",
+    "CI-C4-OFFLINE-BLOCKED.md",
+    "evidence/ci-c4/tarball-inspection.json"
+  ],
+  "explicit_secret_rule_count": 6,
+  "hits": 0,
+  "binary_content_included": false,
+  "authentication_material_read": false,
+  "limits": "public tar member metadata and hashes only; not actual-secret comparison or new global secret scan"
+}
