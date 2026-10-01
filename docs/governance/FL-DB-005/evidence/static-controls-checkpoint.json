@@ -1,0 +1,34 @@
+{
+  "scope": "static-only candidate checks; no runtime security proof",
+  "checks": {
+    "explicit_enable_matches_54": true,
+    "explicit_force_matches_54": true,
+    "no_rls_disable": true,
+    "no_broad_dml_grant": true,
+    "only_two_positive_objects": true,
+    "no_customer_writes": true,
+    "fixed_function_path": true,
+    "no_runtime_membership_to_owner": true,
+    "no_trusted_custom_guc": true,
+    "no_public_execute_grant": true,
+    "explicit_update_checks": true,
+    "no_legacy_tracked_changes": true,
+    "rollback_fail_closed": true,
+    "new_content_format_scan_zero": true
+  },
+  "passed": 14,
+  "failed": 0,
+  "scan": {
+    "files": 10,
+    "rules": [
+      "private_key",
+      "cloud_key",
+      "github_token",
+      "jwt",
+      "credential_url",
+      "long_bearer"
+    ],
+    "hits": [],
+    "limitation": "No full-project rescan. Entropy/manual review and final PR scans remain pending. No task credential material has been generated."
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "rounds": [
+    {
+      "round": 1,
+      "cases": [
+        {
+          "name": "runtime_cannot_read_mapping",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_read_ticket_digests",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_set_identity_owner",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_issue",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_insert_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_update_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_delete_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "purpose_conflict_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "random_ticket_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "wrong_login_pid_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "expiry_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "same_transaction_duplicate_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "new_transaction_after_commit_replay_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "new_transaction_after_rollback_replay_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "rollback_pool_context_absent",
+          "status": "PASS"
+        },
+        {
+          "name": "private_sequence_no_runtime_issuer_public_rights",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime_positive_grants_only_two_objects",
+          "status": "PASS"
+        }
+      ],
+      "default_privileges": [
+        {
+          "creator": "db5_initializer",
+          "namespace": "-",
+          "defaclobjtype": "f",
+          "acl": "{db5_initializer=X/db5_initializer}"
+        },
+        {
+          "creator": "fl_db005_identity_owner",
+          "namespace": "-",
+          "defaclobjtype": "f",
+          "acl": "{fl_db005_identity_owner=X/fl_db005_identity_owner}"
+        }
+      ],
+      "table_grants": [
+        {
+          "table_name": "Customer",
+          "privilege_type": "SELECT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "DELETE"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "INSERT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "SELECT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "UPDATE"
+        }
+      ],
+      "sequence_count": 15,
+      "lifecycle": "LIMITED: retained; no automatic cleanup; isolation prototype only"
+    },
+    {
+      "round": 2,
+      "cases": [
+        {
+          "name": "runtime_cannot_read_mapping",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_read_ticket_digests",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_set_identity_owner",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "runtime_cannot_issue",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_insert_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_update_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "customer_delete_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "purpose_conflict_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "random_ticket_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "wrong_login_pid_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "expiry_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "same_transaction_duplicate_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "new_transaction_after_commit_replay_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "new_transaction_after_rollback_replay_denied",
+          "status": "PASS",
+          "sqlstate": "42501"
+        },
+        {
+          "name": "rollback_pool_context_absent",
+          "status": "PASS"
+        },
+        {
+          "name": "private_sequence_no_runtime_issuer_public_rights",
+          "status": "PASS"
+        },
+        {
+          "name": "runtime_positive_grants_only_two_objects",
+          "status": "PASS"
+        }
+      ],
+      "default_privileges": [
+        {
+          "creator": "db5_initializer",
+          "namespace": "-",
+          "defaclobjtype": "f",
+          "acl": "{db5_initializer=X/db5_initializer}"
+        },
+        {
+          "creator": "fl_db005_identity_owner",
+          "namespace": "-",
+          "defaclobjtype": "f",
+          "acl": "{fl_db005_identity_owner=X/fl_db005_identity_owner}"
+        }
+      ],
+      "table_grants": [
+        {
+          "table_name": "Customer",
+          "privilege_type": "SELECT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "DELETE"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "INSERT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "SELECT"
+        },
+        {
+          "table_name": "WithdrawalAddress",
+          "privilege_type": "UPDATE"
+        }
+      ],
+      "sequence_count": 15,
+      "lifecycle": "LIMITED: retained; no automatic cleanup; isolation prototype only"
+    }
+  ],
+  "scope": "isolated identity and least-privilege controls"
+}

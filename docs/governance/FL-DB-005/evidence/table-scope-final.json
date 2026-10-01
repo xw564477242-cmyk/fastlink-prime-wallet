@@ -1,0 +1,961 @@
+{
+  "source": "table-scope-checkpoint.json",
+  "table_count": 54,
+  "approved_samples": 2,
+  "operation_contract_blocked": 52,
+  "schema_only_stale": [
+    "CardApplication",
+    "CardFeeOverride",
+    "CardProductTemplate",
+    "CustomerReferral",
+    "FeeAssessment",
+    "OnchainDepositAddress",
+    "OnchainFxQuote",
+    "OnchainTransfer",
+    "OnchainTransferEvent",
+    "TenantFeePolicy"
+  ],
+  "tables": [
+    {
+      "table": "AdminSession",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "TenantUser via tenantUserId",
+      "subject_columns": "",
+      "model": "AdminSession",
+      "relations": [
+        "tenantUser   TenantUser @relation(fields: [tenantUserId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "ApiClient",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "ApiClient",
+      "relations": [
+        "tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "ApiKey",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "ApiClient via apiClientId",
+      "subject_columns": "",
+      "model": "ApiKey",
+      "relations": [
+        "apiClient   ApiClient @relation(fields: [apiClientId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "AuditLog",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "AuditLog",
+      "relations": [
+        "tenant     Tenant?  @relation(fields: [tenantId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Card",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "customerId",
+      "model": "Card",
+      "relations": [
+        "tenant              Tenant               @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "customer            Customer             @relation(fields: [customerId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+        "productTemplate     CardProductTemplate? @relation(fields: [productTemplateId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardBalance",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "Card via cardId",
+      "subject_columns": "",
+      "model": "CardBalance",
+      "relations": [
+        "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardEvent",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardEvent",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardHolder",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardHolder",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardLifecycleEvent",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardLifecycleEvent",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardLimit",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "Card via cardId",
+      "subject_columns": "",
+      "model": "CardLimit",
+      "relations": [
+        "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardRenewal",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardRenewal",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardReplacement",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardReplacement",
+      "relations": [
+        "tenant  Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "oldCard Card   @relation(\"ReplacedCard\", fields: [oldCardId], references: [id], onDelete: Restrict)",
+        "newCard Card   @relation(\"ReplacementCard\", fields: [newCardId], references: [id], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardRestriction",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardRestriction",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardSecurityProfile",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "Card via cardId",
+      "subject_columns": "",
+      "model": "CardSecurityProfile",
+      "relations": [
+        "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "CardTransaction",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "CardTransaction",
+      "relations": [
+        "tenant        Tenant         @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "card          Card           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+        "walletAccount WalletAccount? @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Customer",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "externalUserId",
+      "model": "Customer",
+      "relations": [
+        "tenant               Tenant                 @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "LIMITED",
+      "scope": "Customer: USER self SELECT, TENANT_ADMIN tenant SELECT; writes denied"
+    },
+    {
+      "table": "EndUserRefreshToken",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "EndUserSession via sessionId",
+      "subject_columns": "",
+      "model": "EndUserRefreshToken",
+      "relations": [
+        "session     EndUserSession       @relation(fields: [sessionId], references: [id], onDelete: Cascade)",
+        "rotatedTo   EndUserRefreshToken? @relation(\"RefreshRotation\", fields: [rotatedToTokenId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "EndUserSession",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "userId",
+      "model": "EndUserSession",
+      "relations": [
+        "tenant        Tenant                @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "user          Customer              @relation(fields: [userId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "EvidenceArtifact",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "EvidenceArtifact",
+      "relations": [
+        "tenant    Tenant     @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "createdBy TenantUser @relation(fields: [createdById], references: [id], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "FxConversion",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "FxConversion",
+      "relations": [
+        "tenant          Tenant          @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "walletOperation WalletOperation @relation(fields: [walletOperationId], references: [id], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "FxOrder",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "FxOrder",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "FxRate",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "FxRate",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Journal",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "Journal",
+      "relations": [
+        "tenant     Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)",
+        "reversalOf Journal?       @relation(\"JournalReversal\", fields: [reversalOfId], references: [id])"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "JournalEntry",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "JournalEntry",
+      "relations": [
+        "journal       Journal       @relation(fields: [journalId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+        "walletAccount WalletAccount @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Merchant",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "Merchant",
+      "relations": [
+        "tenant   Tenant            @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "MerchantPayment",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "MerchantPayment",
+      "relations": [
+        "tenant          Tenant           @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "merchant        Merchant         @relation(fields: [merchantId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+        "walletAccount   WalletAccount    @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+        "settlementBatch SettlementBatch? @relation(fields: [settlementBatchId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "MerchantQrCode",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "MerchantQrCode",
+      "relations": [
+        "tenant      Tenant           @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "merchant    Merchant         @relation(fields: [merchantId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+        "paidPayment MerchantPayment? @relation(fields: [paidPaymentId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Permission",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "Permission",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "ProviderOperation",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "customerId",
+      "model": "ProviderOperation",
+      "relations": [
+        "tenant   Tenant   @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "customer Customer @relation(fields: [customerId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Role",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "Role",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "RolePermission",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "RolePermission",
+      "relations": [
+        "role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)",
+        "permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "SettlementBatch",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "SettlementBatch",
+      "relations": [
+        "tenant   Tenant            @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "SettlementItem",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "SettlementBatch via settlementBatchId",
+      "subject_columns": "",
+      "model": "SettlementItem",
+      "relations": [
+        "batch           SettlementBatch  @relation(fields: [settlementBatchId], references: [id], onDelete: Cascade)",
+        "merchantPayment MerchantPayment? @relation(fields: [merchantPaymentId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "SimulationRecord",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "SimulationRecord",
+      "relations": [
+        "scenario    SimulationScenario @relation(fields: [scenarioId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "SimulationScenario",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "SimulationScenario",
+      "relations": [],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "Tenant",
+      "category": "tenant-root",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "Tenant",
+      "relations": [],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "TenantCardProviderConfig",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "TenantCardProviderConfig",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "TenantUser",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "TenantUser",
+      "relations": [
+        "tenant            Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "TenantUserRole",
+      "category": "indirect-tenant",
+      "tenant_column": "",
+      "indirect_path": "TenantUser via tenantUserId",
+      "subject_columns": "",
+      "model": "TenantUserRole",
+      "relations": [
+        "tenantUser   TenantUser @relation(fields: [tenantUserId], references: [id], onDelete: Cascade)",
+        "role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "TreasuryPosition",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "TreasuryPosition",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "WalletAccount",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "customerId",
+      "model": "WalletAccount",
+      "relations": [
+        "tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "WalletOperation",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "WalletOperation",
+      "relations": [
+        "tenant         Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)",
+        "card           Card?           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "WalletTransaction",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "WalletTransaction",
+      "relations": [
+        "tenant         Tenant          @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "walletAccount  WalletAccount   @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+        "card           Card?           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "WebhookEvent",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "WebhookEvent",
+      "relations": [
+        "tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "WithdrawalAddress",
+      "category": "direct-tenant",
+      "tenant_column": "tenantId",
+      "indirect_path": "",
+      "subject_columns": "customerId",
+      "model": "WithdrawalAddress",
+      "relations": [
+        "tenant   Tenant   @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+        "customer Customer @relation(fields: [customerId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "LIMITED",
+      "scope": "WithdrawalAddress: USER own CRUD; ownership supplied by trigger and immutable"
+    },
+    {
+      "table": "tenant_third_party_config",
+      "category": "direct-tenant",
+      "tenant_column": "tenant_id",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "TenantThirdPartyConfig",
+      "relations": [
+        "tenant         Tenant                    @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "third_party_asset_orders",
+      "category": "direct-tenant",
+      "tenant_column": "tenant_id",
+      "indirect_path": "",
+      "subject_columns": "user_id",
+      "model": "ThirdPartyAssetOrder",
+      "relations": [
+        "tenant    Tenant                    @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+        "user      Customer                  @relation(fields: [userId, tenantId, tenantEnvironment], references: [id, tenantId, environment], onDelete: Restrict)",
+        "config    TenantThirdPartyConfig    @relation(fields: [configId], references: [id], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "third_party_callback_events",
+      "category": "direct-tenant",
+      "tenant_column": "tenant_id",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "ThirdPartyCallbackEvent",
+      "relations": [
+        "config TenantThirdPartyConfig @relation(fields: [configId], references: [id], onDelete: Cascade)",
+        "order  ThirdPartyAssetOrder?  @relation(fields: [orderId], references: [id], onDelete: SetNull)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "treasury_accounts",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved",
+      "additional_state": "STALE: migration-only legacy object; retained in 54 denominator"
+    },
+    {
+      "table": "treasury_fx_orders",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved",
+      "additional_state": "STALE: migration-only legacy object; retained in 54 denominator"
+    },
+    {
+      "table": "treasury_operation_logs",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved",
+      "additional_state": "STALE: migration-only legacy object; retained in 54 denominator"
+    },
+    {
+      "table": "treasury_settlements",
+      "category": "platform-or-unresolved",
+      "tenant_column": "",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "",
+      "relations": [],
+      "ownership_status": "BLOCKED",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved",
+      "additional_state": "STALE: migration-only legacy object; retained in 54 denominator"
+    },
+    {
+      "table": "ucard_card_base",
+      "category": "direct-tenant",
+      "tenant_column": "tenant_id",
+      "indirect_path": "",
+      "subject_columns": "user_id",
+      "model": "UcardCardBase",
+      "relations": [
+        "tenant       Tenant             @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+        "user         Customer           @relation(fields: [userId, tenantId, tenantEnvironment], references: [id, tenantId, environment], onDelete: Restrict)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    },
+    {
+      "table": "ucard_transactions",
+      "category": "direct-tenant",
+      "tenant_column": "tenant_id",
+      "indirect_path": "",
+      "subject_columns": "",
+      "model": "UcardTransaction",
+      "relations": [
+        "tenant Tenant        @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+        "card   UcardCardBase @relation(fields: [ucardCardId], references: [id], onDelete: Cascade)"
+      ],
+      "ownership_status": "PENDING",
+      "runtime_grant": "NONE_PROPOSED_AT_CHECKPOINT",
+      "operation_status": "BLOCKED_PENDING_EXPLICIT_PER_TABLE_CONTRACT",
+      "reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "latest_state": "BLOCKED",
+      "scope": "RLS/FORCE enabled; default deny; legitimate operation contract not approved"
+    }
+  ]
+}

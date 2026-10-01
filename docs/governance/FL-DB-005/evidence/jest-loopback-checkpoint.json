@@ -1,0 +1,19 @@
+{
+  "success": false,
+  "numTotalTests": 1768,
+  "numPassedTests": 1741,
+  "numFailedTests": 25,
+  "numPendingTests": 2,
+  "numPassedTestSuites": 194,
+  "numFailedTestSuites": 5,
+  "exit": 1,
+  "database_contract_enabled": false,
+  "listener_override": "private test-process-only: IPv4 loopback",
+  "failed_files": [
+    "src/test-support/thredd-webhook-replay-http.spec.ts",
+    "src/card-service/admin-card-snapshots.http.spec.ts",
+    "src/card-service/admin-card-timeline.http.spec.ts",
+    "src/wallet/end-user-wallet-assets.http.spec.ts",
+    "src/security.e2e.spec.ts"
+  ]
+}

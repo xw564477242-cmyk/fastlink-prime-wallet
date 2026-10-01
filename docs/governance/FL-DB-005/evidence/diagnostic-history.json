@@ -1,0 +1,14 @@
+{
+  "initial_replay": "dynamic-r1.json: each round 28 PASS / 1 FAIL",
+  "first_sequence_issue": {
+    "sqlstate": "22023",
+    "minvalue_diagnostic": true
+  },
+  "diagnostic_probe_initial_literal_error": "42846; corrected probe only; not a runtime authorization result",
+  "correction": "third append-only migration; MINVALUE 0 / START 1 / MAXVALUE 1 / NO CYCLE",
+  "final": [
+    "dynamic-r3.json",
+    "negative-r1.json"
+  ],
+  "audit_send": "BLOCKED by automatic approval; 174 public dependency metadata entries verified locally; sent=false"
+}
