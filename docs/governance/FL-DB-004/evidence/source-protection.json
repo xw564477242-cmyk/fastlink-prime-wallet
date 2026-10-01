@@ -1,0 +1,22 @@
+{
+  "scope": "new independent task clones only; no new original/formal workspace collection",
+  "checks": {
+    "backend": {
+      "HEAD_unchanged": true,
+      "index_bytes_unchanged": true,
+      "committed_tree_unchanged": true,
+      "tracked_diff_empty": true,
+      "root_mode_unchanged": true
+    },
+    "evidence": {
+      "HEAD_unchanged": true,
+      "index_bytes_unchanged": true,
+      "committed_tree_unchanged": true,
+      "tracked_diff_empty": true,
+      "root_mode_unchanged": true
+    }
+  },
+  "protected_overlay_read": false,
+  "original_workspaces_claim": "not accessed or mutated by task; no new forensic equality claim",
+  "original_historical_gaps_retained": true
+}

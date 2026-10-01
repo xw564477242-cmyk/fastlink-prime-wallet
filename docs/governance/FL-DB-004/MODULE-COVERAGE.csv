@@ -1,0 +1,11 @@
+module,candidate_objects,mapping_boundary,same_tenant,SELECT,INSERT,UPDATE,DELETE
+账户,Tenant;TenantUser;Role;Permission;ApiClient;AdminSession,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+Customer,Customer;EndUserSession;EndUserRefreshToken,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+钱包,WalletAccount;WalletTransaction;WalletOperation,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+卡,Card;CardHolder;CardTransaction;CardBalance,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+交易,CardTransaction;WalletTransaction;third_party_asset_orders,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+入账,Journal;JournalEntry;third_party_callback_events,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+结算,SettlementBatch;SettlementItem;treasury_settlements,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+退款,WalletOperation;ProviderOperation,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+对账,JournalEntry;treasury_operation_logs,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED
+Admin,AdminSession;RolePermission;TenantUserRole,inherited object index; business ownership requires review,BLOCKED,BLOCKED,BLOCKED,BLOCKED,BLOCKED

@@ -1,0 +1,106 @@
+{
+  "phase": "pre-migration checkpoint; not final acceptance",
+  "tests": [
+    {
+      "id": "DB4-T01",
+      "status": "PASS",
+      "name": "基线与复用范围",
+      "basis": "权威链及两仓固定HEAD已记录，未重做既有全量盘点。"
+    },
+    {
+      "id": "DB4-T02",
+      "status": "PASS",
+      "name": "51SQL与最新dev差量",
+      "basis": "51/51 SHA和OID相同，Prisma全目录无差量；调用链8文件变化已归类。"
+    },
+    {
+      "id": "DB4-T03",
+      "status": "PASS",
+      "name": "隔离实例与最小权限",
+      "basis": "实际17.11、network none、无宿主端口、初始public对象0。"
+    },
+    {
+      "id": "DB4-T04",
+      "status": "PASS",
+      "name": "非owner/non-superuser/no-BYPASSRLS",
+      "basis": "三独立SCRAM身份均验证，成员关系0、拥有关系0。"
+    },
+    {
+      "id": "DB4-T05",
+      "status": "LIMITED",
+      "name": "成员关系和直接/继承GRANT",
+      "basis": "三新测试角色关系已查；业务授权仅继承DB1，未在本轮重建。"
+    },
+    {
+      "id": "DB4-T06",
+      "status": "LIMITED",
+      "name": "default privileges",
+      "basis": "继承两目录显式记录0；本轮业务创建者权限未验。"
+    },
+    {
+      "id": "DB4-T07",
+      "status": "LIMITED",
+      "name": "核心表RLS与FORCE",
+      "basis": "继承默认55对象和UAT部分54对象矩阵；不是本轮运行结果。"
+    },
+    {
+      "id": "DB4-T08",
+      "status": "BLOCKED",
+      "name": "SELECT跨租户拒绝且同租户通过",
+      "basis": "迁移第3步授权阻塞，未创建业务数据，执行0。"
+    },
+    {
+      "id": "DB4-T09",
+      "status": "BLOCKED",
+      "name": "INSERT跨租户拒绝",
+      "basis": "迁移授权阻塞，执行0，无本轮目标哈希。"
+    },
+    {
+      "id": "DB4-T10",
+      "status": "BLOCKED",
+      "name": "UPDATE跨租户拒绝",
+      "basis": "迁移授权阻塞，执行0，无本轮目标哈希。"
+    },
+    {
+      "id": "DB4-T11",
+      "status": "BLOCKED",
+      "name": "DELETE跨租户拒绝",
+      "basis": "迁移授权阻塞，执行0，无本轮目标哈希。"
+    },
+    {
+      "id": "DB4-T12",
+      "status": "LIMITED",
+      "name": "函数/过程安全",
+      "basis": "继承应用函数0，无新增源差量；不能证明实际部署。"
+    },
+    {
+      "id": "DB4-T13",
+      "status": "LIMITED",
+      "name": "视图/序列/间接访问",
+      "basis": "继承目录并列复验方案，当前业务库未建立。"
+    },
+    {
+      "id": "DB4-T14",
+      "status": "LIMITED",
+      "name": "UAT第32步重复重建方案",
+      "basis": "前置来源/seed审批/二次独立重建计划已列，尚未实际验证。"
+    },
+    {
+      "id": "DB4-T15",
+      "status": "PASS",
+      "name": "草案回滚STALE拆单",
+      "basis": "全注释SQL、独立处置工单、定向复验及不可逆风险保留。"
+    },
+    {
+      "id": "DB4-T16",
+      "status": "LIMITED",
+      "name": "保护扫描SHA Draft PR HANDOFF",
+      "basis": "检查点可验证；完整阶段A尚未完成，未创建PR或触发CI。"
+    }
+  ],
+  "summary": {
+    "PASS": 5,
+    "LIMITED": 7,
+    "BLOCKED": 4
+  }
+}

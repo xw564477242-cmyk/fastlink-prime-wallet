@@ -1,0 +1,17 @@
+{
+  "files": 20,
+  "format_hits": [],
+  "entropy_candidates": [],
+  "rule_positive_controls": {
+    "private_key": true,
+    "provider_token": true,
+    "jwt": true,
+    "credential_url": true,
+    "literal_secret": true,
+    "key_material_file": true
+  },
+  "task_generated_credential_material_hits": 0,
+  "scope": "only new FL-DB-004 delivery; no whole project scan",
+  "scanner_source": "docs/governance/FL-DB-001/tools/scan_delivery.py",
+  "scanner_sha256": "0f826f32aeed083ecc119ff224370afdd2da0f33b5c3a9e42eb96035a371db56"
+}

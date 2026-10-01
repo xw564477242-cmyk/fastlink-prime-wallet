@@ -1,0 +1,16 @@
+-- FL-DB-004 REVIEW ONLY. Entire file comments; DO NOT EXECUTE.
+-- No role, trusted identity boundary or actual client reachability has been approved.
+-- Branch A: server-only access after actual grants/reachability are confirmed.
+-- REVOKE <unnecessary_privileges> ON <approved_object> FROM <untrusted_role>;
+-- Branch B: direct tenant access only after independently approved trusted identity design.
+-- ALTER TABLE <approved_table> ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE <approved_table> FORCE ROW LEVEL SECURITY;
+-- CREATE POLICY <name> ON <table> FOR SELECT TO <role> USING (<trusted_ownership_predicate>);
+-- INSERT uses WITH CHECK; UPDATE checks both visible source and target ownership.
+-- A user-settable tenant GUC or editable claim is NOT a trusted predicate.
+-- Existing permissive policies combine with OR; adding a policy may widen access.
+-- REVOKE EXECUTE ON FUNCTION <exact_signature> FROM PUBLIC;
+-- ALTER FUNCTION <exact_signature> SET search_path = <trusted_schemas>, pg_temp;
+-- ALTER DEFAULT PRIVILEGES FOR ROLE <actual_creator> REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC;
+-- Review dependent callers, privileges, search path injection and regression first.
+-- Rollback requires approved prior ACL/policy snapshots; never blindly restore broad grants.

@@ -1,0 +1,17 @@
+{
+  "business_relation_properties_equal": true,
+  "compared_fields": [
+    "name",
+    "kind",
+    "rls",
+    "force_rls"
+  ],
+  "prior_table_count": 55,
+  "current_table_count": 54,
+  "difference": "_prisma_migrations omitted by direct psql runner; not a business object",
+  "prior_columns": 624,
+  "current_columns": 616,
+  "prior_constraints": 150,
+  "current_constraints": 149,
+  "claim_boundary": "Not asserting all-object byte or OID equality; new object OIDs naturally differ"
+}

@@ -1,0 +1,30 @@
+{
+  "initial_diff_check": "FAIL generated CSV line endings",
+  "corrections": [
+    {
+      "file": "RLS-MATRIX.csv",
+      "before_sha256": "0b2e39df3838d5144ba82ae6ae1afa9f82a744d2c519caa628b5d442dea3f077",
+      "after_sha256": "3698c72cc84519e03f82019e0e0eaa8e655a12bbba74cd600c6dc7e7867bf5a9",
+      "change": "generated CSV CRLF to LF only; cell text/order unchanged"
+    },
+    {
+      "file": "RLS-MATRIX-R1.csv",
+      "before_sha256": "7ef2ea3f802166542ec3b14eb3445ec1d7899fd859a175973fcc106cb7365cc8",
+      "after_sha256": "6abc37808525d10b62fb881ca37f8188c38d8b85f75f73ad81c02acb13e5b5f1",
+      "change": "generated CSV CRLF to LF only; cell text/order unchanged"
+    },
+    {
+      "file": "MODULE-COVERAGE.csv",
+      "before_sha256": "d1b1f5309c3070e3a2199512bd839c0635c113589b518e55237062f7d9e77f3c",
+      "after_sha256": "85373e6e601e99605fd5eb427b0e2f9e8378d0d4c18c9a8ad48baae2a4fd1590",
+      "change": "generated CSV CRLF to LF only; cell text/order unchanged"
+    },
+    {
+      "file": "ROLE-GRANT-MATRIX-R1.csv",
+      "before_sha256": "23922929416cc46af17a8aba9535008abef4813c7bdfda2690ba1bd0e804b548",
+      "after_sha256": "5f615fa81ec63471d8dc264d69de1905091c5789d9d31081c2f6bbfb90f3631d",
+      "change": "generated CSV CRLF to LF only; cell text/order unchanged"
+    }
+  ],
+  "business_or_source_assets_modified": false
+}

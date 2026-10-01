@@ -1,0 +1,13 @@
+{
+  "migrations": 32,
+  "business_tables": 54,
+  "rls_enabled": 0,
+  "functions": 0,
+  "native_role_cases": 42,
+  "native_acl_denials": 42,
+  "cross_tenant_successes": 0,
+  "data_unchanged": true,
+  "prisma_ledger_difference": "Direct psql execution does not create _prisma_migrations; DB1 Prisma catalog has one additional internal table",
+  "same_tenant_allowed": false,
+  "risk_closed": false
+}

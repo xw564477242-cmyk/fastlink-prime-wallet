@@ -1,0 +1,20 @@
+{
+  "scope": "independent task clones; no original workspace metadata reread",
+  "checks": {
+    "backend": {
+      "HEAD_unchanged": true,
+      "index_before_staging_unchanged": true,
+      "tracked_content_unchanged": true,
+      "root_mode_unchanged": true
+    },
+    "evidence": {
+      "HEAD_unchanged": true,
+      "index_before_staging_unchanged": true,
+      "tracked_content_unchanged": true,
+      "root_mode_unchanged": true
+    }
+  },
+  "formal_overlay_accessed": false,
+  "cancelled_CICD_workspace_accessed": false,
+  "report_staging_and_commit_authorized": true
+}

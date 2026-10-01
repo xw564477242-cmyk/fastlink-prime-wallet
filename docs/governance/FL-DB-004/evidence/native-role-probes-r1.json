@@ -1,0 +1,684 @@
+{
+  "scope": "native ACL boundary; not repeated DB1 hypothetical granted DML test",
+  "cases": [
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Tenant",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_a",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_tenant_b",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "same",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "SELECT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "INSERT",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "UPDATE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    },
+    {
+      "object": "Customer",
+      "role": "fl_db004_anonymous",
+      "relation": "cross",
+      "operation": "DELETE",
+      "exit": 3,
+      "sqlstate": [
+        "42501"
+      ],
+      "rows": null,
+      "before_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "after_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+      "unchanged": true,
+      "grant_source": "native default migration only; no fixture DML grant",
+      "meaning": "ACL denial is NOT RLS success if legitimate same-tenant also denied"
+    }
+  ],
+  "stopped_objects": [],
+  "initial_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+  "current_sha256": "0eb567a15d6de1a9363ffcbc99474cfbb0af7e005e750b2afd311d8c0581f488",
+  "synthetic_tenants": 2,
+  "synthetic_users": 2,
+  "synthetic_customers": 2,
+  "DML_grants_added": 0
+}

@@ -1,0 +1,14 @@
+{
+  "image_id": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+  "image_digest": "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+  "inherited_version": "17.11",
+  "local_id_and_digest_match": true,
+  "image_pulled": false,
+  "instance_started": true,
+  "migration_execution": "BLOCKED",
+  "blocker": "formal step 3 DROP CONSTRAINT / DROP INDEX not authorized for DB4; DB1 exception not inherited",
+  "protected_overlay_accessed": false,
+  "canceled_CICD_workspace_accessed": false,
+  "business_migrations_executed": 0,
+  "task_only_role_initialization": true
+}
