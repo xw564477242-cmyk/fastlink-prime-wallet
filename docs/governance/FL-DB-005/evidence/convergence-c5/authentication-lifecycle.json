@@ -1,0 +1,46 @@
+[
+  {
+    "round": 5,
+    "asset": "initializer-password",
+    "sha256": "776698df7d584a90e0b1d52c6acf2d2393ca862c86634ce3c02846cff27a22a5",
+    "origin": "new task-only synthetic random",
+    "mode": "600",
+    "parent_mode": "700",
+    "retained": true,
+    "raw_exported": false,
+    "destruction": "requires separate approval"
+  },
+  {
+    "round": 5,
+    "asset": "credentials.json",
+    "sha256": "31de3822fc7a262a7d0ea43a0ff112617140aaf3cdcee8f48f0496595764240d",
+    "origin": "new task-only synthetic random",
+    "mode": "600",
+    "parent_mode": "700",
+    "retained": true,
+    "raw_exported": false,
+    "destruction": "requires separate approval"
+  },
+  {
+    "round": 6,
+    "asset": "initializer-password",
+    "sha256": "1e82d464481cfd6c62378d5eb65d87e7db607e007297a432bafa149d2d903569",
+    "origin": "new task-only synthetic random",
+    "mode": "600",
+    "parent_mode": "700",
+    "retained": true,
+    "raw_exported": false,
+    "destruction": "requires separate approval"
+  },
+  {
+    "round": 6,
+    "asset": "credentials.json",
+    "sha256": "c82567e45afe60c968ffe013638450be40260f090c38bd716851dd0f28879b9f",
+    "origin": "new task-only synthetic random",
+    "mode": "600",
+    "parent_mode": "700",
+    "retained": true,
+    "raw_exported": false,
+    "destruction": "requires separate approval"
+  }
+]

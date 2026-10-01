@@ -1,0 +1,540 @@
+[
+  {
+    "round": 5,
+    "image": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+    "version": "17.11",
+    "blank_confirmed": true,
+    "original_migrations": [
+      {
+        "path": "prisma/migrations/20260719000100_baseline/migration.sql",
+        "order": 1,
+        "sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
+        "order": 2,
+        "sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
+        "order": 3,
+        "sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
+        "order": 4,
+        "sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
+        "order": 5,
+        "sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
+        "order": 6,
+        "sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
+        "order": 7,
+        "sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
+        "order": 8,
+        "sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
+        "order": 9,
+        "sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
+        "order": 10,
+        "sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
+        "order": 11,
+        "sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
+        "order": 12,
+        "sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
+        "order": 13,
+        "sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
+        "order": 14,
+        "sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
+        "order": 15,
+        "sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
+        "order": 16,
+        "sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
+        "order": 17,
+        "sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
+        "order": 18,
+        "sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
+        "order": 19,
+        "sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
+        "order": 20,
+        "sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
+        "order": 21,
+        "sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
+        "order": 22,
+        "sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
+        "order": 23,
+        "sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
+        "order": 24,
+        "sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
+        "order": 25,
+        "sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
+        "order": 26,
+        "sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
+        "order": 27,
+        "sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
+        "order": 28,
+        "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
+        "order": 29,
+        "sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
+        "order": 30,
+        "sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
+        "order": 31,
+        "sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
+        "order": 32,
+        "sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
+        "exit": 0,
+        "sqlstate": []
+      }
+    ],
+    "candidate_migrations": [
+      {
+        "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+        "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+        "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+        "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b",
+        "exit": 0,
+        "sqlstate": []
+      }
+    ],
+    "execution_order": "32 original files then three final candidate files; synthetic fixtures afterward",
+    "network": {
+      "internal": true,
+      "host_ports": 0,
+      "network": "fl-db005-p8ryoi9-isolated"
+    },
+    "authentication": {
+      "parent_mode": "700",
+      "file_mode": "600",
+      "origin": "new task-only random",
+      "raw_values_exported": false
+    },
+    "retention": {
+      "container": "fl-db005-p8ryoi9-r5",
+      "volume": "fl-db005-p8ryoi9-r5-data",
+      "automatic_delete": false
+    }
+  },
+  {
+    "round": 6,
+    "image": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+    "version": "17.11",
+    "blank_confirmed": true,
+    "original_migrations": [
+      {
+        "path": "prisma/migrations/20260719000100_baseline/migration.sql",
+        "order": 1,
+        "sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
+        "order": 2,
+        "sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
+        "order": 3,
+        "sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
+        "order": 4,
+        "sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
+        "order": 5,
+        "sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
+        "order": 6,
+        "sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
+        "order": 7,
+        "sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
+        "order": 8,
+        "sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
+        "order": 9,
+        "sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
+        "order": 10,
+        "sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
+        "order": 11,
+        "sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
+        "order": 12,
+        "sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
+        "order": 13,
+        "sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
+        "order": 14,
+        "sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
+        "order": 15,
+        "sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
+        "order": 16,
+        "sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
+        "order": 17,
+        "sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
+        "order": 18,
+        "sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
+        "order": 19,
+        "sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
+        "order": 20,
+        "sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
+        "order": 21,
+        "sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
+        "order": 22,
+        "sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
+        "order": 23,
+        "sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
+        "order": 24,
+        "sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
+        "order": 25,
+        "sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
+        "order": 26,
+        "sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
+        "order": 27,
+        "sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
+        "order": 28,
+        "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
+        "order": 29,
+        "sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
+        "order": 30,
+        "sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
+        "order": 31,
+        "sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
+        "order": 32,
+        "sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866",
+        "exit": 0,
+        "sqlstate": []
+      }
+    ],
+    "candidate_migrations": [
+      {
+        "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+        "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+        "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+        "exit": 0,
+        "sqlstate": []
+      },
+      {
+        "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+        "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b",
+        "exit": 0,
+        "sqlstate": []
+      }
+    ],
+    "execution_order": "32 original files then three final candidate files; synthetic fixtures afterward",
+    "network": {
+      "internal": true,
+      "host_ports": 0,
+      "network": "fl-db005-p8ryoi9-isolated"
+    },
+    "authentication": {
+      "parent_mode": "700",
+      "file_mode": "600",
+      "origin": "new task-only random",
+      "raw_values_exported": false
+    },
+    "retention": {
+      "container": "fl-db005-p8ryoi9-r6",
+      "volume": "fl-db005-p8ryoi9-r6-data",
+      "automatic_delete": false
+    }
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "file": "src/health/end-user-auth-rls.contract.postgres.spec.ts",
+    "test": "end-user auth RLS catalog contract (PostgreSQL 17) fails closed for every privilege, membership, policy, and runtime counterexample",
+    "status": "PENDING"
+  },
+  {
+    "file": "src/health/end-user-auth-readiness.postgres.spec.ts",
+    "test": "end-user auth readiness on the migrated PostgreSQL 17 schema returns READY and FRESH through the restricted runtime connection",
+    "status": "PENDING"
+  }
+]

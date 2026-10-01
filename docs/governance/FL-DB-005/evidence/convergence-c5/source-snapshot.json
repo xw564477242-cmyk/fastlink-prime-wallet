@@ -1,0 +1,3088 @@
+{
+  "head": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+  "git_archive_sha256": "f7ac601a76ef91e89c7ac3d6a1c864408ed960b8893454a73e2c50674bda5544",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "f975160bcd4c754059d0899f4acf3a5d88884195013da3f92a28ca4fc420c349"
+    },
+    {
+      "path": ".env.development.example",
+      "sha256": "95347062092b32b849a725b4e897eb99c3beadf6057e4befb0911c0adb50e7c2"
+    },
+    {
+      "path": ".env.example",
+      "sha256": "0bcce4b6a8d7c1e57c4bc574804ae64ab399e40a2f53f9956a2e6b520c35505d"
+    },
+    {
+      "path": ".env.test.example",
+      "sha256": "a3d94ee4dc95f2858e5eb45d2b3533457d76a20b43ad8f950b4e2cdef9fa7f98"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "a93145b08113d9af601cab8a73bb9afefc307a051542d64bac259c35495fc0b8"
+    },
+    {
+      "path": ".github/workflows/dev-reset-round-trip.yml",
+      "sha256": "1e444c7344405be5402c8e97097c4eccc19eb7fa9d2e6939b980a87c6e7534a9"
+    },
+    {
+      "path": ".github/workflows/promote-dev-candidate.yml",
+      "sha256": "a0e8a26c7f06540497d739ae051a339a6821ae16e598f53fc78277b6b5ee10ab"
+    },
+    {
+      "path": ".github/workflows/pull-request.yml",
+      "sha256": "9e4479032ed1c2d32947a536bf514c836e58badcdfd795184f20e1fbd399e8a0"
+    },
+    {
+      "path": ".github/workflows/test-environment.yml",
+      "sha256": "a819b319c0a9222340c4004b91f85aca9af0e7bda0517f4720e35ea99a0ed43a"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "758c02d2e2942c7501de6fe608dba516386a1d8fe905da9d7a4593e01660fbea"
+    },
+    {
+      "path": "Dockerfile",
+      "sha256": "65075e8f4b7b841822bc772a9deccd953565d0e13a552e6479440257aa010bbd"
+    },
+    {
+      "path": "deploy/railway/uat/mock-uat-evidence.schema.json",
+      "sha256": "f9f322608127015fe70ba83c7f0fd1e9fa3cc8d8f186b65bfd93d0ed6a3c45a2"
+    },
+    {
+      "path": "deploy/railway/uat/mock-uat-scenarios.json",
+      "sha256": "d51027fd09718aa386cdd27a3549cfbddb0d0b1c32583ac82aa36778520ff528"
+    },
+    {
+      "path": "deploy/railway/uat/railway.uat.template.json",
+      "sha256": "42cd0f96fcfb89ead0310fcef2dbad721b625855d460a6370636b0a1cbed005b"
+    },
+    {
+      "path": "deploy/railway/uat/rollout-manifest.example.json",
+      "sha256": "27579ef7a547800cd8eb923f5960a8285f3f09fef0b13f0cffc474565b3ab62e"
+    },
+    {
+      "path": "deploy/railway/uat/thredd-uat.env.example",
+      "sha256": "86fad79123ac876656f7a0ccdbec62158fcd8a349a1ba83584bb2f78e5bd8127"
+    },
+    {
+      "path": "docs/API-MAPPING-SPRINT-07.md",
+      "sha256": "6e34cb9a9dc38d412260bd89830d7c40a6c2a55a450b21ea8a09a9bfdd758209"
+    },
+    {
+      "path": "docs/CARD-BALANCE-PROVIDER-CONTRACT.md",
+      "sha256": "9cba0b8aa50358f935114f3eef35778edc2fa89a92978ec4288a6f5ae5a46a51"
+    },
+    {
+      "path": "docs/CARD-FINANCIAL-INBOUND-PROVIDER-CONTRACT.md",
+      "sha256": "828b398757575a56bfd75725eed2bf225c1ddb9a78ef611087eed55b632ba2a2"
+    },
+    {
+      "path": "docs/CARD-LIFECYCLE-INBOUND-PROVIDER-CONTRACT.md",
+      "sha256": "d84f3fe822ff50ff37d2f34d92537f5a5033881c9e7655ea069a34db7d028c07"
+    },
+    {
+      "path": "docs/CARD-LIMITS-PROVIDER-CONTRACT.md",
+      "sha256": "db06a4be6073b78e55c4d96afd086aa3baf05b2e532b74235a8e7d1c99610535"
+    },
+    {
+      "path": "docs/CARD-PROVIDER-RUNTIME-BOUNDARY.md",
+      "sha256": "55ff2946516e8195d922d5dd68b5bbb784ea17bc4a98907a22208c67276531d1"
+    },
+    {
+      "path": "docs/CARD-RENEWAL-PROVIDER-CONTRACT.md",
+      "sha256": "f0182f5e9858af03c657cd30e03856d05db5c46b20669414ccc723a62731af7f"
+    },
+    {
+      "path": "docs/CARD-REPLACEMENT-PROVIDER-CONTRACT.md",
+      "sha256": "9c32fcf4c85d6b3ef45c9877d8e4318715e9f0bcea8aa9bb6f6eeb947d1566e0"
+    },
+    {
+      "path": "docs/CARD-STATUS-PROVIDER-CONTRACT.md",
+      "sha256": "693a48d1c77a645582ebeac8265134143cca183cb17759cd4e9dd76b5aabe8e5"
+    },
+    {
+      "path": "docs/CARD-TRANSACTION-PROVIDER-CONTRACT.md",
+      "sha256": "713f05e8be05ce5a890f3ce89c19a6660ba885b07895ea6f93d2aca5159ee471"
+    },
+    {
+      "path": "docs/CREGIS-CONTRACT-ONLY-PHASE-AUDIT.md",
+      "sha256": "cda01bae16b5ee0829268d20559ed83e6a3e9bfa3e41d81cdb6c910995f574f3"
+    },
+    {
+      "path": "docs/CREGIS-PAYMENT-ENGINE-CONTRACT-REBASELINE.md",
+      "sha256": "f841587350acb59a7feaaa07a8cda4a3ce3e5bec3ca636e3864260985a0b970f"
+    },
+    {
+      "path": "docs/DATABASE-MAPPING-SPRINT-07.md",
+      "sha256": "5a6478db80732a9cde9996ce0a5eac3b2dce779a6c44dc6943d64624535ef675"
+    },
+    {
+      "path": "docs/DEPLOYMENT-GUIDE-SPRINT-07.md",
+      "sha256": "bbc981887a14c15f74e64af3c97850dd669934e902443fdbf25e9c40b9efb33e"
+    },
+    {
+      "path": "docs/DEV-END-USER-AUTH-RLS-V1.md",
+      "sha256": "72e6d0027e3e61b447c51907de4fff79d13587ac855b64c04ab404e425c60625"
+    },
+    {
+      "path": "docs/FASTLINK_THREDD_INTEGRATION_V1.md",
+      "sha256": "b05c3a79f159b290b09b0e27f6e7c28bce6a7763799a6eab573a1720d3b02dc1"
+    },
+    {
+      "path": "docs/FLP-001-SYSTEM-SCOPE-AND-RELEASE-GOVERNANCE-V1.0.md",
+      "sha256": "369bdc797e7ef65e10e13e3cbbc4ab149b90539130b00e29cebf7c6f0a3c2d42"
+    },
+    {
+      "path": "docs/FLP-003-FINANCIAL-ACCOUNTING-CONTROLS-V1.0.md",
+      "sha256": "3c7d4695e3c1b191da85079b058a545cb787e94f2468e993462f2424c7c3bedd"
+    },
+    {
+      "path": "docs/FLP-007-SECURITY-OBSERVABILITY-AND-SECRETS-V1.0.md",
+      "sha256": "8f73290092ca4e2e9d6b9a471a7e37517141264f941118a0830f520eb30482d7"
+    },
+    {
+      "path": "docs/FLP-020-THREDD-INTEGRATION-V1.0.md",
+      "sha256": "2d1f4652b59b4c98affae4eeadc4ab536f3ae2f4a7919d8ca73be5e2f666d24d"
+    },
+    {
+      "path": "docs/FLP-021-UAT-READINESS-TEST-PLAN-V1.0.md",
+      "sha256": "48141d3a7cab4eaca822f5ff1ed8fe9ea1dfdea0b7dc7dd05f1e6dfebea93c54"
+    },
+    {
+      "path": "docs/FLP-050-OPERATIONAL-READINESS-CHECKLIST-V1.0.md",
+      "sha256": "a90472761dcb1fb1fc88c60730a82023bbed5f31e983d53d7b5c81d3c0786327"
+    },
+    {
+      "path": "docs/FLP-ENV-001-runtime-configuration.md",
+      "sha256": "19417ddab1da9d5583781cf8f38c0373230e4c246dff4c99600c53214359b8cc"
+    },
+    {
+      "path": "docs/FX-QUOTE-PROVIDER-CONTRACT.md",
+      "sha256": "eb61e4dcde543d97a51e736798c5dd7771d51424fa4cbd0889be4fd7b0a25927"
+    },
+    {
+      "path": "docs/GO-LIVE-MANUAL-V1.0.md",
+      "sha256": "3c825e4511875fb9f21beb3590d1736a1219f8b2ba16b49eb23d75ab9cdace9b"
+    },
+    {
+      "path": "docs/PR-69-LOCAL-API-COMPLETION.md",
+      "sha256": "67834b2cfd3d25a45843bc7aeb24f5326ac04562ba7b6998e757965d88b8d709"
+    },
+    {
+      "path": "docs/PRODUCTION-RUNBOOK-V1.0.md",
+      "sha256": "22f9158a93a019a0f54054cdda63efd3ae8f2e161bad7871ed8001a97b835068"
+    },
+    {
+      "path": "docs/SANLX-FIXTURE-001.md",
+      "sha256": "2c3478b7f1862867bb584d6fe81d4f0af5f2d6847ef0e6a99cc95203ec853103"
+    },
+    {
+      "path": "docs/SPRINT-02-ACCEPTANCE.md",
+      "sha256": "0ba7e0b4edbe13a50fcf13900a774201848c0fa29adca1a9fa4554f3e535db06"
+    },
+    {
+      "path": "docs/SPRINT-03-ACCEPTANCE.md",
+      "sha256": "6ff58184133f201bd0a0bafac9af05f1cdab3df4414e9aa72f083d9be78fb9e2"
+    },
+    {
+      "path": "docs/SPRINT-05-ACCEPTANCE.md",
+      "sha256": "86cb27428c0ea437d644cd4f9c5baef0d0eb40df4602e0bdb3e037197c7622ed"
+    },
+    {
+      "path": "docs/SPRINT-05-CARDTYPE-SWAGGER-ACCEPTANCE.md",
+      "sha256": "e49569911c6be5c27dbae9ca668bd54dec34322d9036172926e29ebc19b83cd7"
+    },
+    {
+      "path": "docs/SPRINT-06-ACCEPTANCE.md",
+      "sha256": "7eacf8e86e68d0296edabeda17a30964abe4eb61c2145b63e468d7d60f41b014"
+    },
+    {
+      "path": "docs/SPRINT-10-CARD-UAT-CAPABILITY.md",
+      "sha256": "42ca03fbad3396a0b344b08f3fb7d4ede1a17305ecab64f22e323216af5576d8"
+    },
+    {
+      "path": "docs/SPRINT-12-ACCOUNTING-VERIFICATION-REPORT.md",
+      "sha256": "ed9411b279fe223b99cbc7f62134090d56666d3cdf477980fa4146a0e04b0e71"
+    },
+    {
+      "path": "docs/SPRINT-12-CARD-FINANCIAL-STATE-REPORT.md",
+      "sha256": "e321d62215cf2716f5a8dfbc0a216d2a9f9f4f0c3fcbdf6d73edab6c029ac82a"
+    },
+    {
+      "path": "docs/SPRINT-12-DAILY-DELIVERY-2026-07-21.md",
+      "sha256": "e1f75a483d5c63e7a97233f34fd57a98cd3f0f29df93faad36d3fb6fde17cb56"
+    },
+    {
+      "path": "docs/SPRINT-12-DAY-01-REPORT.md",
+      "sha256": "d5bc2d9a4ac9372485b347fca51ed6dc9a27fd696bf7ab47388a5929184a682a"
+    },
+    {
+      "path": "docs/SPRINT-12-FINANCIAL-FLOW-TEST-REPORT.md",
+      "sha256": "8bf9ee7f8b8487bc14b59eccd47a518869002a186bb035da8a2d63739b252d99"
+    },
+    {
+      "path": "docs/SPRINT-12-MOCK-ELIMINATION-AND-OPERATIONS-REPORT.md",
+      "sha256": "586dbd7923bfc901cce83c0134de2c1865f6fa2a0c24cbbcd69f2b56a518eace"
+    },
+    {
+      "path": "docs/SPRINT-12-PRODUCTION-READINESS-BASELINE.md",
+      "sha256": "e477ce3909e84d22b4ef5adf963aa6504aad7f1c92799d1f12052535cd9a9083"
+    },
+    {
+      "path": "docs/SPRINT-12-TRIAL-BALANCE-REPORT.md",
+      "sha256": "53beff6d8fa824ed8f4e5a0346a4b51d9945345d4fee6fd75b494003646a828f"
+    },
+    {
+      "path": "docs/SPRINT-13-EXTERNAL-INTEGRATION-BASELINE.md",
+      "sha256": "b0b1ccbc4a0156fd8356604a2fdaf169d5fdba5a5f9c9ab218fe4b349aeb8d9c"
+    },
+    {
+      "path": "docs/SPRINT-13-EXTERNAL-READINESS-DAILY-2026-07-22.md",
+      "sha256": "a895429f71a2a7595bbdade8d0822ce79b671999548752cadae2da168e0fd694"
+    },
+    {
+      "path": "docs/SPRINT-13-EXTERNAL-READINESS-OPTIMIZATION-REPORT.md",
+      "sha256": "359d8173b5e3bcc153c29aa0ff2f2f2bdd7652077c09b204ab4a7aa9d93954a0"
+    },
+    {
+      "path": "docs/SPRINT-13-PHASE-2-OPERATIONAL-READINESS-REPORT.md",
+      "sha256": "97143a1f5bf6293f27db80a02b883ba5656c3d7ebd208afb68916eb9190874d6"
+    },
+    {
+      "path": "docs/SPRINT-13-PHASE-3-BLOCKER-ELIMINATION-REPORT.md",
+      "sha256": "c5546e03cc5f3b7de57b0f345e37e965924501555b60f9db2ccb21c25e94f417"
+    },
+    {
+      "path": "docs/SPRINT-13-PHASE-3-PERFORMANCE-REPORT.md",
+      "sha256": "da0c92ab93fddac694def11fbd4867bc74294aa36257e505b3b6910c4271c79b"
+    },
+    {
+      "path": "docs/SPRINT-13-RELEASE-GATE-CONTROL-REPORT.md",
+      "sha256": "4146c649542dda4793a1feee099196d7f1fd4890e60551f753450770a541df63"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-DAILY-DELIVERY-2026-07-22.md",
+      "sha256": "88460688a18856edc3468e81effb57c978efd18ee167a8a37338b80d78031a88"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-FINANCIAL-VERIFICATION-REPORT.md",
+      "sha256": "763951454c26358f08ed405a1a8ee2c36b8c8b9db4df33e6b1896ba8df911390"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-INTEGRATION-EVIDENCE-REPORT.md",
+      "sha256": "e42034627c84876b3946a422b33ebea703c7402a3a60d86a37c7da3b80e5301b"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-PERFORMANCE-REPORT.md",
+      "sha256": "3c384e5e681aa7e6d6912fb395d6b5e8a70948fe17b164521d4864ecf7edb0f8"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-REGRESSION-REPORT.md",
+      "sha256": "2b852ac996358f259d9f5ab0b913c0bd9a17c181ca74ecd1e720c90d64aaf58a"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-2-SECURITY-REVIEW-REPORT.md",
+      "sha256": "bc699471decf7394cf7125b264b68bb8823e800cfface65fa3e945531c26987e"
+    },
+    {
+      "path": "docs/SPRINT-13-ROUND-3-PRODUCTION-AUDIT-REPORT.md",
+      "sha256": "422ae5f04184cc9d1bac84970f4505e615ffb4fd53a82f5631adb3ddbfe5104d"
+    },
+    {
+      "path": "docs/THREDD-PROVIDER-EXECUTION-GATE-REVIEW-2026-09-11.md",
+      "sha256": "7273de260addc3e7a552a674351b8b82dc3ce16e7884a3ec1b0ce31cbc2001c1"
+    },
+    {
+      "path": "docs/THREDD-UAT-CREDENTIAL-RECEIPT-CHECKLIST.md",
+      "sha256": "8e366f7b5f83c07ae3bc15dd3c6312d9aea63daba2a7219db061c65bdf307c50"
+    },
+    {
+      "path": "docs/THREDD-UAT-DEPLOYMENT-AND-TEST-RUNBOOK.md",
+      "sha256": "83cb11d02249ee9a4b100c08a7b645c47973b25c37b95a0e336bb61ee3addedf"
+    },
+    {
+      "path": "docs/THREDD-UAT-ENGINEERING-READINESS-2026-09-11.md",
+      "sha256": "443917304dc09fc354d37d96392457d09e2b2cd948e81a644dae4f0cc1dd501a"
+    },
+    {
+      "path": "docs/THREDD-UAT-MERGE-DIFF-MANIFEST-2026-09-11.md",
+      "sha256": "923438c78b248460ae15189a71fd8d8978beebb01a62b23390611499d11afa90"
+    },
+    {
+      "path": "docs/THREDD-UAT-READINESS-ACCEPTANCE.md",
+      "sha256": "912e56b894e264a4a123816809b6ec11a484933d01845d149f82e35ca5f0fbe6"
+    },
+    {
+      "path": "docs/UAT-GUIDE-SPRINT-07.md",
+      "sha256": "8b718cb2155ca6b42363fb3976ea9994ba4fe70ad3dbd130e8bb1521ad8cb07c"
+    },
+    {
+      "path": "docs/UCARD-CORE-SAAS-PLATFORM.md",
+      "sha256": "32ac23883c28130bb409e50ec648d0195db68d0b99a91789e8671d3e04a9a8ba"
+    },
+    {
+      "path": "docs/VIRTUAL-CARD-CREATION-PROVIDER-CONTRACT.md",
+      "sha256": "e5491c0f22d43d7e4c401f838fd4cb74d8e3432babee9bb93a51e0c171d3606f"
+    },
+    {
+      "path": "docs/acceptance/p3-business-dashboards.md",
+      "sha256": "95fba6fd20ecde06f1ea7ac7effe77ed87897056da4c1e9693af4976012021d4"
+    },
+    {
+      "path": "docs/acceptance/sprint-02-cardprocessor-sandbox.png",
+      "sha256": "f32fd697d9e2eb04a8a9e9be6614e424dacbd52c7affd8d8f628189b09f6eba0"
+    },
+    {
+      "path": "docs/acceptance/sprint-03-card-service-flow.png",
+      "sha256": "ea1fffdbe9c9eb3f374e2bb8abe4ca0f83143e45e6ac60c33076db5ca8b100c1"
+    },
+    {
+      "path": "docs/architecture/thredd-uat-integration.md",
+      "sha256": "47a9582f812dc4ce605e94d5cbbbf597f677b8afc7241f240c6405bd7ad00392"
+    },
+    {
+      "path": "docs/environment/DEV-BASELINE.md",
+      "sha256": "234ab9f4ba71a523b47f3aed43543c4b93abc8ddad52d6f9e88cf8fc623b8c58"
+    },
+    {
+      "path": "docs/evidence/FOMO/README.md",
+      "sha256": "94d160a19ffec2759e1b4564b1007e140ff9b8ea3cfe65538a87de332384eaa5"
+    },
+    {
+      "path": "docs/evidence/FOMO/reference/OFFICIAL-API-READINESS-BASELINE.md",
+      "sha256": "36d5e4f5d5a67bd80bf61b5feb113c8da7f3401f3f0e4a08c6f440f5deb51807"
+    },
+    {
+      "path": "docs/evidence/Financial/README.md",
+      "sha256": "4b4d5d95e199e5b2b0324c2bb6b396b815bdf51f86a3d74e2cb59dac2a8dfd76"
+    },
+    {
+      "path": "docs/evidence/Performance/2026-07-22-production-performance-gate-a38bfdd15488.json",
+      "sha256": "5dabf4dcefa550faed7e4c49c8b50086ced6d45148b367a970bf63a10de41c3d"
+    },
+    {
+      "path": "docs/evidence/Performance/2026-07-22-production-performance-gate.json",
+      "sha256": "2100cf35fd3d0818a9dae80e2316d37f385cb3a9821c558a384faec1bfcf5ade"
+    },
+    {
+      "path": "docs/evidence/Performance/README.md",
+      "sha256": "358fd8e9b3049ddd72af4ac05289cf086e965ff68baa14e3ee4a1889e6737b92"
+    },
+    {
+      "path": "docs/evidence/README.md",
+      "sha256": "d4911c3fc47df71bccd8bef19be550a55706a7c677767d378d06481f59b11ffc"
+    },
+    {
+      "path": "docs/evidence/Regression/README.md",
+      "sha256": "ac48606fd7f928746ed47e5c09141e31da5ac5102e2d7776a25bf1dca6872b78"
+    },
+    {
+      "path": "docs/evidence/Security/README.md",
+      "sha256": "70a9deadfe9e0815eb31e89f98371979092731e323a5a255e90a00f214082ba6"
+    },
+    {
+      "path": "docs/evidence/Security/reference/PROVIDER-CREDENTIAL-READINESS.md",
+      "sha256": "8aaf2417e0a8d347e8ba51c0fde38da5cae908a380e7c57955b11f74add6d2ab"
+    },
+    {
+      "path": "docs/evidence/Thredd/README.md",
+      "sha256": "979d2c2a8e2ba8fe8ee94d40d00f98a19cdc1a083f33ba2e7185e4ded7bf5fcd"
+    },
+    {
+      "path": "docs/evidence/Thredd/reference/OFFICIAL-COLLECTION-PROVENANCE.md",
+      "sha256": "d99823ba313cdbad3aac29f4394f416ceb7d9f3c4b0a6270f381c7f6a8118d51"
+    },
+    {
+      "path": "docs/evidence/Thredd/reference/Thredd_REST_API_External_Postman_Collection.sanitized.postman_collection.json",
+      "sha256": "3e50c8a97fe7591341dc584d489e77a85407db7014ec4a81f6dc6236aa937f35"
+    },
+    {
+      "path": "docs/evidence/Treasury/README.md",
+      "sha256": "b0839548738e2ad3e4dca1dd53bae4c6f20a3e3bd4b28740a1d5803fd1fd2fb1"
+    },
+    {
+      "path": "docs/evidence/Treasury/reference/EXTERNAL-STATEMENT-ACQUISITION.md",
+      "sha256": "1f8ee23e16a477bc6a23eb7f73adb8b01e68228d0d5ae5a466fd025547f3bf1d"
+    },
+    {
+      "path": "docs/evidence/sprint-13-phase-3/deployment-release-774e4605b709.json",
+      "sha256": "05974ac5bb8bb861377bcfb7c3bf9107bf9e729a7a374b22e57c98ab6b8b1b66"
+    },
+    {
+      "path": "docs/evidence/sprint-13-phase-3/performance-release-774e4605b709.json",
+      "sha256": "f1cd9a40c4d8b17d8b16704be1901a1d7a15bf422e553177ee12ba0e3eb32bf1"
+    },
+    {
+      "path": "docs/evidence/sprint-13-phase-3/regression.json",
+      "sha256": "c7f4f4792f6297cc009ddf928f034eaaf652008f0fe3591281245620cdbf2c77"
+    },
+    {
+      "path": "docs/evidence/sprint-13-phase-3/security-release-774e4605b709.json",
+      "sha256": "da669e50ae7b8ecce0f4bc0137e291fc5ccf3d3397d70db5bbfbcb72070bff8f"
+    },
+    {
+      "path": "docs/evidence/thredd-uat/MOCK-UAT-LATEST.json",
+      "sha256": "a6b7c1670eb3e33a346920074fca4aee81a86e3be1a78ffd8274a4534349680b"
+    },
+    {
+      "path": "docs/evidence/thredd-uat/UAT-EVIDENCE-TEMPLATE.md",
+      "sha256": "db65f67a5b8ff01ada3d799fc0d3088925ad30297e4429f14f958860445aae78"
+    },
+    {
+      "path": "docs/payment-provider-configuration.md",
+      "sha256": "dc1f7663cb67d9d5a2620dca6883e125508077641b1c8e4f67472bcbf4cd620a"
+    },
+    {
+      "path": "docs/phase2-backend-openapi-contract.md",
+      "sha256": "5e3f60b2ae4b813a809b232f5dffaf3cad850812ba10a3e2bf74bcb72f0f3012"
+    },
+    {
+      "path": "docs/prime-wallet-backend-p1-contract.md",
+      "sha256": "b14e463f43851ff19b487f355b5767de26f89a2a6c4e30c54a013f8b04cbd72c"
+    },
+    {
+      "path": "docs/security/P2-END-USER-AUTH-CONTRACT.md",
+      "sha256": "cb8fd4462ac102bbe326b8e0c0d82f4bb714eb6e1f31b67dd3946a9c434dc0ea"
+    },
+    {
+      "path": "docs/security/P2-END-USER-AUTH-MIGRATION.md",
+      "sha256": "0f3ec86b78f338e78fca2ed8126daccf871b4ea6f0c018d8e2a4e790fddd6c53"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "7084ca58cf8db5714a6753678de4e3fb851ee71fd91900266b8b347b86fc38f5"
+    },
+    {
+      "path": "evidence/FLP-ENV-002/P3-seed-reset-design.md",
+      "sha256": "a3405c0e7d39f93f1a302fc3a0eb1a8701c595393645bb925cc4d307643b4159"
+    },
+    {
+      "path": "nest-cli.json",
+      "sha256": "bcb15e3049ff5d131762d2bfe3a6f917c3c64c83ac772467a4073975cd423b5b"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "19a8246171068f3ed08eca89c8db79474b3415b3c21b74b59afd326c9ee5ff94"
+    },
+    {
+      "path": "package.json",
+      "sha256": "3847ce2f0d188dd9106a4e0ebd4375fb4f5b624ed4778d03ecfa28d798e9aeef"
+    },
+    {
+      "path": "prisma/bootstrap-admin.ts",
+      "sha256": "bf3dcf289175ee29bd74dee9e230b43b89806fd7481bef9e86eb9a656c04bfa3"
+    },
+    {
+      "path": "prisma/dev-card-fee-migration-guard.ts",
+      "sha256": "e3714473cbba87ed455e4d82fb9ddfc495a4ae54a061b17c84dfe536e48938d8"
+    },
+    {
+      "path": "prisma/dev-database-identity.ts",
+      "sha256": "c80be49b88f10d9a9029755c843c236770fddc4bc73fbe4bc69a8843464896d5"
+    },
+    {
+      "path": "prisma/dev-end-user-auth-rls-migration-guard.ts",
+      "sha256": "8d4b1fa81bcb85e74942c9195a78ef1f6b41e9eb78180a89bec1886c465df993"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/migration.sql",
+      "sha256": "35bbad00b1395fe5ae7c674bcb4ca6ee12dd192a12996d5cfb2ab42979350b67"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_contract/post-constraints.sql",
+      "sha256": "02bdd0e17022a6fab1a092c88ff230ef669cfa64ca39c41f7461701fd67111bb"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_admin_write_rls_policy_fix/migration.sql",
+      "sha256": "f39017e1ba76f4b397ac6737832fd37f6423803743a1da9e5b6ea1ee91e361fd"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/migration.sql",
+      "sha256": "d93242f622c3316638091fa2eb6218eb4ff97ba7fcd6dbc1e39487093d1683cb"
+    },
+    {
+      "path": "prisma/dev-migrations/20260808_p1_card_fee_ledger_contract/post-constraints.sql",
+      "sha256": "fddcf4fc19a41f154fa7df158753f5eae91c63c2de3f308708d61c8920449a93"
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/migration.sql",
+      "sha256": "2b7de04d08fdb662a2a2551b8b9d9ed3109e48789de4f0cdbb890b07b21c2a83"
+    },
+    {
+      "path": "prisma/dev-migrations/20260810_p1_fee_execution/post-constraints.sql",
+      "sha256": "49fbd4b3a02e37d6dc9c42e98acab717a84ecdb132cf61119bda91388735b428"
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_non_card_wallet_flow_constraint/migration.sql",
+      "sha256": "1c1f989eb1ada336ad4f072a8bacfa68e57b6fd9a29d7a38da18ed5dd0c415ef"
+    },
+    {
+      "path": "prisma/dev-migrations/20260812_p1_withdrawal_address_rls_policy_fix/migration.sql",
+      "sha256": "f115ff9ba6e13ed2e393bf96fa0b49e2290793ce21236e774ff65a39399a9d77"
+    },
+    {
+      "path": "prisma/dev-migrations/20260820_phase2_onchain_card_provider/migration.sql",
+      "sha256": "25adb7ed37e066a3788039ed667f29eed01292b8aedb3582b0a87c19a36b4da8"
+    },
+    {
+      "path": "prisma/dev-migrations/20260825_ucard_core_saas_platform/migration.sql",
+      "sha256": "565e51be2f6f216df9b4f204e3bace4149e61edf21883a292966c97944d8ea60"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_cregis_sandbox_safety_window/migration.sql",
+      "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/activate.sql",
+      "sha256": "d791954056ee6b4fdd4c636264f74d2389d3855e195599a00ab06e5b601e45df"
+    },
+    {
+      "path": "prisma/dev-migrations/20260901_p1_end_user_auth_runtime_rls_v1/prepare.sql",
+      "sha256": "58f407946ceb0fbe801f4f2aea4e02edd49f2d7fe9c52c88cdf62af558818806"
+    },
+    {
+      "path": "prisma/dev-seed-guard.ts",
+      "sha256": "33a2a486a0b2cbdf8d178db28dcc22d137409771d9399ec950fca30e5e249f94"
+    },
+    {
+      "path": "prisma/migrations/20260719000100_baseline/migration.sql",
+      "sha256": "ba83bfa8909c5defb0cdc176a08e90f70894d07cbe11e99b5ff5be352cdccf22"
+    },
+    {
+      "path": "prisma/migrations/20260719000200_security_foundation/migration.sql",
+      "sha256": "7f30c8975685a7ed5a4c3369ced8a62270a20ff19142ecf07d593995e1e76904"
+    },
+    {
+      "path": "prisma/migrations/20260719000300_foundation_round_two/migration.sql",
+      "sha256": "677d2ba8acb1ecdd7c2647ed8207dd002feb1d9cd87b41ceac5f6447ef33f56f"
+    },
+    {
+      "path": "prisma/migrations/20260719000400_card_platform_week_one/migration.sql",
+      "sha256": "1491b734a4e871a9a7d8a47310da14e8396429e0112d7333c58a3f09692c3d4a"
+    },
+    {
+      "path": "prisma/migrations/20260719000500_card_lifecycle_phase_two/migration.sql",
+      "sha256": "92dc97f7520e8cfa581db14763cc4781e3ef3a5036332531cb2c4cee1ecbab02"
+    },
+    {
+      "path": "prisma/migrations/20260719000600_card_transition_lock/migration.sql",
+      "sha256": "df2888880ea38a5fd9f077afb1ba6ddab991798b4ca432435808c9383ddbd911"
+    },
+    {
+      "path": "prisma/migrations/20260719000700_card_limits/migration.sql",
+      "sha256": "5eab5ccd3367ceb8be03711814b05f3b047ea13f09483dcb9fdd3d1a64231dca"
+    },
+    {
+      "path": "prisma/migrations/20260719000800_card_replacement/migration.sql",
+      "sha256": "692f2a2deaea6216caddf39c5f22e0ee11f8af7e0199e1e163e1f9823e4e81f5"
+    },
+    {
+      "path": "prisma/migrations/20260719000900_card_renewal/migration.sql",
+      "sha256": "2dd9e8e3b4c6e8b69c0c988b929dc4485fa308288632a7edb9ad6ee58423b841"
+    },
+    {
+      "path": "prisma/migrations/20260719124500_treasury_operations/migration.sql",
+      "sha256": "8174451016bb4bea0edf8418701baf9d49c3ff66297e80fad42e83679a5ff918"
+    },
+    {
+      "path": "prisma/migrations/20260720000100_api_client_scopes_and_rotation/migration.sql",
+      "sha256": "431acdca5622f381f3a4fe7678db82a4cb5a42f6ef44a0cac89a0fe40b2855cf"
+    },
+    {
+      "path": "prisma/migrations/20260720000200_ledger_wallet_journal/migration.sql",
+      "sha256": "f772a7e538c32471cba5bafe6ed94ce7fe18d057e2214c8d8062cf20267d780a"
+    },
+    {
+      "path": "prisma/migrations/20260720000300_wallet_business_flow/migration.sql",
+      "sha256": "4e08b4be04700e77131c3cfa88773a61db9759fcaa7683b6222bd775d5783775"
+    },
+    {
+      "path": "prisma/migrations/20260720000400_card_sandbox_security/migration.sql",
+      "sha256": "0952dfee6acef0928512648f46d8f74051a8672ae170c1642edbb2b7c03f4a4f"
+    },
+    {
+      "path": "prisma/migrations/20260721000100_sprint03_card_models/migration.sql",
+      "sha256": "175ebf035ac178d8c2241bc88f2525610507d99f7d280899da95eaf0ce0bb9fd"
+    },
+    {
+      "path": "prisma/migrations/20260721000300_fx_journal/migration.sql",
+      "sha256": "08eabe834961be186097392613f1c6122bb49fcbe5bbeee6717406d3423e0743"
+    },
+    {
+      "path": "prisma/migrations/20260721000400_sprint08_business_closure/migration.sql",
+      "sha256": "f865171f159ea3b136aee8ab0c1a0261d20285f1af295aed941e3efdaf882b12"
+    },
+    {
+      "path": "prisma/migrations/20260721000500_approve_legacy_cardholders/migration.sql",
+      "sha256": "0b70d890d5d7e8c9bde3f868dd28cb053d6aea852e46955ab45506f2ef3b0f74"
+    },
+    {
+      "path": "prisma/migrations/20260721000500_sprint11_merchant_qr/migration.sql",
+      "sha256": "f0ca5b7f605d24e2f755f5007130c9ecc27b5d18375933eb764149a7fea04c8f"
+    },
+    {
+      "path": "prisma/migrations/20260721110500_sprint12_card_financial_state/migration.sql",
+      "sha256": "dac8d2cc2da8fee6cb7bb3dab0793f65a5eddd0fcb5b26bf84399ed3fd54ebc7"
+    },
+    {
+      "path": "prisma/migrations/20260722000100_admin_sessions/migration.sql",
+      "sha256": "c5514b8c2d72fb6c5bae07e55d39408fdd5e398179d250ad1129250cf58f7663"
+    },
+    {
+      "path": "prisma/migrations/20260722000200_evidence_center/migration.sql",
+      "sha256": "5f4d63482186a58a30cb42eae2a6ca77f1f89fc489a06a1cc4546aa2c55f1e60"
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/migration.sql",
+      "sha256": "7a5ba011f8f67302386635bf0c5767a6d6a682716d480fcec811ef7f43f4c8c0"
+    },
+    {
+      "path": "prisma/migrations/20260725090000_p2_cookie_session_backend/rollback.sql",
+      "sha256": "cfd28ce60f2a78cf4fbd65ac56a681673aaa3473c4c64d3b23d8f0c71d7c2f70"
+    },
+    {
+      "path": "prisma/migrations/20260726130500_p3_dev_simulation_controls/migration.sql",
+      "sha256": "fac3e22b0a22ada1f8844ef4b5ff8593c8c2e54023881130ad6b32b1de060ab9"
+    },
+    {
+      "path": "prisma/migrations/20260728000100_add_test_environment/migration.sql",
+      "sha256": "c38cd83a9167291aeb798f853267e3136a7130284ea0e70936a671394e5a386f"
+    },
+    {
+      "path": "prisma/migrations/20260812000100_prime_wallet_p1_withdrawal_address_book/migration.sql",
+      "sha256": "543f448e63402b4cd263568082c1c98a9712193459af4b7abd347b19ae9038b5"
+    },
+    {
+      "path": "prisma/migrations/20260908000100_third_party_runtime_foundation/migration.sql",
+      "sha256": "6b2f612f9461e985f14f87b1ed2729314cad31c564915437d69f179018989f70"
+    },
+    {
+      "path": "prisma/migrations/20260908000200_cregis_sandbox_safety_window/migration.sql",
+      "sha256": "ad28cc1041aedd12f19ce55092f0782cdc6cb9e0f2193fe120d410765424b898"
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/migration.sql",
+      "sha256": "9598b7b53f272bdc8fd807b781bf1a9859c74744c45881d7cf1f2b394377b14c"
+    },
+    {
+      "path": "prisma/migrations/20260913000100_uat_runtime_rls_v1/rollback.sql",
+      "sha256": "9ae78c92199b16f76157022acecd6dbddab56c556d215383d6131c7ed470526f"
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/migration.sql",
+      "sha256": "30fb023fb18dbd71f6233cf31d06f8f3d1317f22f481025f9dd68397ab87f1aa"
+    },
+    {
+      "path": "prisma/migrations/20260913000200_uat_readiness_metadata_acl_v1/rollback.sql",
+      "sha256": "0e655c4547c2f55197be61bffd6b01beea2ffd480810150d05ee935e9948a2d6"
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/migration.sql",
+      "sha256": "90bf15af37470ca5761e09c19ec2c04c608d6e4ff7f858ea7330f9662e5086dd"
+    },
+    {
+      "path": "prisma/migrations/20260913000300_uat_webhook_retry_acl_v1/rollback.sql",
+      "sha256": "26f1fd754672a4119fbc6c28d80e1985b65833e108be2f310cbb01be58eaf16a"
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/migration.sql",
+      "sha256": "c43cd8fbef66b7f2149f64f06e095c2f2daa45fccb2fb492311b8b1108025866"
+    },
+    {
+      "path": "prisma/migrations/20260913000400_card_provider_control_plane_v1/rollback.sql",
+      "sha256": "906cddda4d288bb79a7f7577702500a719c16f623bf2b5740cc876c0c53ceadc"
+    },
+    {
+      "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3"
+    },
+    {
+      "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a"
+    },
+    {
+      "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b"
+    },
+    {
+      "path": "prisma/migrations/migration_lock.toml",
+      "sha256": "1db17a8d051aa136110736752c5e1f8b7ed92b6ea8e803112fbbe2497047c210"
+    },
+    {
+      "path": "prisma/repair-dev-wallet-transaction-direction.ts",
+      "sha256": "bfd3aa552a644edd12e431483539b3b35dc27bddab681d056bfda08d910e269a"
+    },
+    {
+      "path": "prisma/rollback/fl-db005-fail-closed.sql",
+      "sha256": "54b549e95564ed6cd277ae3aeb604b5e8c7f16f4c6ddd5b4c8d7ead9277040e3"
+    },
+    {
+      "path": "prisma/schema.prisma",
+      "sha256": "7a95658ba9b15652749cf2bb595b1862e8c609c367cffb15da2e3386a3a21501"
+    },
+    {
+      "path": "prisma/seed-tenant-financial-bootstrap.ts",
+      "sha256": "ae2041dcb5cb6a1d4d188f72dcba7d4fc087dc3d56f1c63e31d4b0197c1e8b33"
+    },
+    {
+      "path": "prisma/seed-wallet-transaction-direction.ts",
+      "sha256": "2bc3a105c5e90477bb36b086c795a44a2bc1925ac81b255b0691e4fc6f07c1e7"
+    },
+    {
+      "path": "prisma/seed.ts",
+      "sha256": "81f877ad32dc199f2d801a96c58ae62fcdf511d5e6c47f7a9522860d7c58dc47"
+    },
+    {
+      "path": "railway.dev-candidate.json",
+      "sha256": "4dd163e765ab5eec68ac096a41c0ff318a073ce394debec725bdc56c0b9ec796"
+    },
+    {
+      "path": "railway.json",
+      "sha256": "17f4094c364a0c529a08c194e693a10063d532aa8041472dc86684ad8d29e43c"
+    },
+    {
+      "path": "railway.sanlx-test.json",
+      "sha256": "6d8f87e880c23ceba7b6d30ee577483a562705d509af9e78c397b9a214137535"
+    },
+    {
+      "path": "scripts/bootstrap-dev-wallet-acceptance.ts",
+      "sha256": "e2b60c4bddbf762735083451131f1018370a680ce76a97eb84ca9bf341c9adde"
+    },
+    {
+      "path": "scripts/build-and-probe-dev-candidate-image.mjs",
+      "sha256": "2b1be60b202836ccd94abb1f8e61081a597e8f17101f4260269fd34979522671"
+    },
+    {
+      "path": "scripts/build-and-probe-dev-candidate-image.spec.mjs",
+      "sha256": "ea094c3ed33d3a601aa9bfab43d2bfa3454e252a31b1e9ee8a7b0b3ccde4f490"
+    },
+    {
+      "path": "scripts/container-start.sh",
+      "sha256": "892ecb8d29681d0b1a11eaef940a23c1d66bba46581d486eae1834c96731b402"
+    },
+    {
+      "path": "scripts/dev-database-identity.ts",
+      "sha256": "639f4c9205405e8e99276fc3611f07f986d388dd61eeed983b5d07580fd408b9"
+    },
+    {
+      "path": "scripts/dev-security-acceptance.ts",
+      "sha256": "a4f470183647c99fb0a699d05f4b50f020556672af4ec00e3dd19cb148037634"
+    },
+    {
+      "path": "scripts/dev-smoke.ts",
+      "sha256": "e6ef18677003012b4dba2daa88b8f50f85b02b3feaa6a02a5874d6bdbebddfc6"
+    },
+    {
+      "path": "scripts/promote-dev-candidate-image.mjs",
+      "sha256": "9f1d1769d49ffe8837bc1c80b3dfcd29724dd096faebbb02b30d426f5f0968b7"
+    },
+    {
+      "path": "scripts/promote-dev-candidate-image.spec.mjs",
+      "sha256": "7c5adbf50bbd86e3330710a30b1b31936d4a787f07aecf52fd70502a98fbbb3b"
+    },
+    {
+      "path": "scripts/run-dev-admin-write-migration.ts",
+      "sha256": "0f1d877089526908a01680027497d6dabca3474fb5119f48fbff1f768e75c5c6"
+    },
+    {
+      "path": "scripts/run-dev-admin-write-rls-migration.ts",
+      "sha256": "9d940e358f69f490e67e292f30118329319d9571d764a32320d8aa038742059b"
+    },
+    {
+      "path": "scripts/run-dev-card-fee-migration.ts",
+      "sha256": "58512585c1a7419b6433d02b344e92f12b25fcc413f85fb4591fad49e07a5c10"
+    },
+    {
+      "path": "scripts/run-dev-end-user-auth-rls-migration.ts",
+      "sha256": "43d567ae8568651fce45b2ea1146366e4a1cc31c6d70bef72c32765165e2a603"
+    },
+    {
+      "path": "scripts/run-dev-non-card-wallet-constraint-migration.ts",
+      "sha256": "a4b37368764f914778ca8bf7c3d060996ba2fe0a99784f2e236662e9d25d2f88"
+    },
+    {
+      "path": "scripts/run-dev-p1-fee-execution-migration.ts",
+      "sha256": "5152118afa9e3b3c7e960d3d2a78842b49cfa31674e1769367d0ae6faadc1cf0"
+    },
+    {
+      "path": "scripts/run-dev-phase2-onchain-migration.ts",
+      "sha256": "8fefcea65e073b04d4f84668549f6310488b4987ad6ae34f800c20a2c293c1cb"
+    },
+    {
+      "path": "scripts/run-dev-withdrawal-address-rls-migration.ts",
+      "sha256": "a16286893093a0a837e75d92da63104507290e7403eb3fb36df200e13b46a180"
+    },
+    {
+      "path": "scripts/sanlx-readonly-fixture.ts",
+      "sha256": "aec0aac7dc94faf6462ae94e739e7662841485719a28a3ddededa3de736bb6fb"
+    },
+    {
+      "path": "scripts/sanlx-readonly-precheck.ts",
+      "sha256": "4e422fd0be793c1cdcdb792db30f01dab06bff8bd78e09a92d38f382aa3f845d"
+    },
+    {
+      "path": "scripts/secret-scan.mjs",
+      "sha256": "ecf7087726b742e1c96f69fd152a1f216efde204643938293eeed059d50000cb"
+    },
+    {
+      "path": "scripts/sprint13-performance-gate.mjs",
+      "sha256": "dde1962d4f1ca34694ccee3276d42bcd985fb0fb18d0eaa30c42238ecac74062"
+    },
+    {
+      "path": "scripts/thredd-uat/deploy-uat.sh",
+      "sha256": "4492371a6d2eb1783f30a0b1bcb7455107c6e6ec9aa12a3d8de25ec7d4bf9688"
+    },
+    {
+      "path": "scripts/thredd-uat/inject-credentials.sh",
+      "sha256": "6ccd1b56f0dbf9443e3f19633baf8f12855c3885f58be2d61abb2b0dc3e3f7d3"
+    },
+    {
+      "path": "scripts/thredd-uat/rollback-uat.sh",
+      "sha256": "10750093a8a602a3620d06c6e9c945645c4aceafc45676f3b8dadeb24b22767c"
+    },
+    {
+      "path": "scripts/thredd-uat/run-mock-uat.mjs",
+      "sha256": "cca30938a195a72a18f52cef1268398a901274f7059ec1050b0fe5c9e19c0e7c"
+    },
+    {
+      "path": "scripts/thredd-uat/validate-credentials.sh",
+      "sha256": "f1cfd896e896cc6bb2f7658fa262bad0dbdec6dc95494b1aa5f7006eb5a7befc"
+    },
+    {
+      "path": "scripts/validate-dev-railway-config.mjs",
+      "sha256": "e1e61726c4cbc6a8851afdf38d6e9fb889b1a8eb908923099cba53f274f5f304"
+    },
+    {
+      "path": "scripts/validate-dev-railway-config.spec.mjs",
+      "sha256": "f7ea3900fe5ec77b25dce2e43ca29c1e6ae578244b590304e56d54a2f5ba45f4"
+    },
+    {
+      "path": "scripts/validate-dev-railway-preflight.mjs",
+      "sha256": "bbaa2c4e81f73a28e02e1f5098da7554228e72d2d17c42a18bf2246a509b2fb0"
+    },
+    {
+      "path": "scripts/validate-dev-railway-preflight.spec.mjs",
+      "sha256": "d73f3a05323b3b1205eb93968fd474d32dd02a09e35341f11ae5a710864e484b"
+    },
+    {
+      "path": "scripts/validate-sanlx-railway-config.mjs",
+      "sha256": "52cf4d4330d9967c98ae57a5d90496adbef1297cb2c8cf2f8ac9772dbd0d26d5"
+    },
+    {
+      "path": "scripts/verify-cregis-callback-window.ts",
+      "sha256": "48ffaee5f3b7f12df18c9ca17e6b80048dadfe406d568f7552b26cb8029e7658"
+    },
+    {
+      "path": "src/admin-auth/admin-auth.controller.ts",
+      "sha256": "0ff8cbe912d14f57b727016125959becdfe78bc261bb954d81fef7413fb81214"
+    },
+    {
+      "path": "src/admin-auth/admin-auth.module.ts",
+      "sha256": "135c646fdb2b79f6ca9ab1485dff8767c13c3394f0654a4dc61c5eccf0b30245"
+    },
+    {
+      "path": "src/admin-auth/admin-auth.service.spec.ts",
+      "sha256": "99516681b1a52defeb9b110715d1f2e8e5661fc90113864dd9e0ac326ba756fe"
+    },
+    {
+      "path": "src/admin-auth/admin-auth.service.ts",
+      "sha256": "8eb29403fc76a65c3dcc1243353740dd4ba62ad84ce211e4944c115a997d9353"
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.spec.ts",
+      "sha256": "1b5702e2111d5d736dd65755852970903779514a88bdb2ce048d7a4507bf92ea"
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.ts",
+      "sha256": "492a64d39d4297ffc3201b31642e026f10ee642868de6281bd171676ca32d082"
+    },
+    {
+      "path": "src/admin-auth/bootstrap-admin.security.spec.ts",
+      "sha256": "d826d4b87fa1b9873e4a2a67af0c77424d21f62cb16f01c68d7c4464e40b000b"
+    },
+    {
+      "path": "src/admin-auth/dto/admin-auth.dto.ts",
+      "sha256": "847b81ffa8b08d8fa60ac7fc4befa803dfbea166d0a68622db907e95664c8aba"
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.controller.ts",
+      "sha256": "943c400ba89e9a3a8a455403cd43e0c2f2c77799809b57f757c9efdcc6267c7a"
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.module.ts",
+      "sha256": "2f07c14fee1961cc136e1b625fa5029e0feaace49b13647f78e54928371431e1"
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.service.spec.ts",
+      "sha256": "f7b25c0e85bed05da22beddf9ddf0dde0444d66ddb4d95c84b894ec01236e392"
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.service.ts",
+      "sha256": "a618686268ec8f41431243f078c98c71b485dfc0734a6dd1a3bf2b60225feef7"
+    },
+    {
+      "path": "src/admin-card-config/dev-admin-write-migration-contract.spec.ts",
+      "sha256": "b81d2aa1b151c3c09e5b20f9b80b077b72de6701a954750697b1f2c9dd3bf579"
+    },
+    {
+      "path": "src/admin-card-config/dto/admin-card-write.dto.ts",
+      "sha256": "ef71b442162e158a1befc5bbe3cb71943a8d2d3323a804f522812f1b32c4aefe"
+    },
+    {
+      "path": "src/api-clients/api-clients.controller.ts",
+      "sha256": "ca1f99b5731ecc73398a054e51f7f12bda983701aa9a63ec4d52445cc3ae09e5"
+    },
+    {
+      "path": "src/api-clients/api-clients.module.ts",
+      "sha256": "4344897a4629df903fff4d91e5b7c3a7a7b6349c9af8c77b1db4d3492458795e"
+    },
+    {
+      "path": "src/api-clients/api-clients.service.spec.ts",
+      "sha256": "9f81b646c8ed884a1336caada68098ff1b1f98a5a7e2ed14d205ec2a580d73bc"
+    },
+    {
+      "path": "src/api-clients/api-clients.service.ts",
+      "sha256": "523af66cf2c4966daccefbfa31ff18fe2949ca154843c44f98c29b02371ef88f"
+    },
+    {
+      "path": "src/api-clients/dto/create-api-client.dto.ts",
+      "sha256": "b4b718d17cbe88ef1fd3b31c40f5de4ffa1df52c16e3d32e239de8268d5e7390"
+    },
+    {
+      "path": "src/api-clients/dto/rotate-api-key.dto.ts",
+      "sha256": "f3e7462d90aa156c895464cb9e2fd0f8687e8002cceb362415afa06c7e7eb0b6"
+    },
+    {
+      "path": "src/app.module.ts",
+      "sha256": "472a13f7afcaaa6731ad3763b87cc77f786f667e1edcc017288c8f0cbde81793"
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.controller.ts",
+      "sha256": "ffc7abe9ed1ebebda2ee0df115affe5657a2e0735e0a8a531e0052d0417d3af2"
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.module.ts",
+      "sha256": "ab9becd25aa8e8d0e321b16ec85e2558907aa3e5243982ce8a8e76fd017a7df3"
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.service.spec.ts",
+      "sha256": "c81be6f3fb614592196708f9ca3d010dbcd9f9bad8334254d1a4dc37e6181755"
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.service.ts",
+      "sha256": "6d15f01fcb39052be27ab549bf759af6088a05a1ceaee416525ed3b128f67d91"
+    },
+    {
+      "path": "src/card-processor/card-processor.ts",
+      "sha256": "cc4210236607a6dd510f40e28ffadb9f51c8dbaf1dc70df76e3d4259d6dc6aa8"
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.http.spec.ts",
+      "sha256": "11854e83e02d579f253182e592d6f643e96c8b74cfb5997adf4d0c0a698214a4"
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.service.spec.ts",
+      "sha256": "d25ebda82dd4fd5f3edd0f5c0c5b6a8bbb077e49340fdce8235621e7858031f7"
+    },
+    {
+      "path": "src/card-service/admin-card-snapshots.swagger.spec.ts",
+      "sha256": "0245e88fefb9f50ec2fb13452edd24e59994a00dd46b8cd97f56b87a78428f46"
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.http.spec.ts",
+      "sha256": "67e8f9b5ced9009fa3cdf0bf3d6fae8d4d404ddfcb7210b577e2d240f28ab51b"
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.service.spec.ts",
+      "sha256": "97e97462e61de1c29ab5c7c6766b630751e4b2a21df9cd38f65ef39e30fa99f1"
+    },
+    {
+      "path": "src/card-service/admin-card-timeline.swagger.spec.ts",
+      "sha256": "cecca70bf47284f34818b6b61852c37d6c85bfde8c44afa985600ec00fef3bfa"
+    },
+    {
+      "path": "src/card-service/admin-card-transaction-detail.service.spec.ts",
+      "sha256": "4e198ef94222a7945f631bc22773374849b80073bdaaec51e42ab4352cf50e5c"
+    },
+    {
+      "path": "src/card-service/admin-card-transactions.swagger.spec.ts",
+      "sha256": "2e2035384c2e80c3b87f50fa25a422af5187ef264e31edaf98deca09db6b3f42"
+    },
+    {
+      "path": "src/card-service/card-service.controller.ts",
+      "sha256": "7da07eae2d10ff9aa6e7f75cb8805fada4abb2bec3391b283d818c021dc7aef0"
+    },
+    {
+      "path": "src/card-service/card-service.module.ts",
+      "sha256": "fe8f10d8e6b85f12b0177f371e27fdab59a620d245abd8ed9b6ac5e464215051"
+    },
+    {
+      "path": "src/card-service/card.service.spec.ts",
+      "sha256": "da6a9b4c0a86f9d59fbaef271948d4ed022dbb4d01d0bfce6fe68d24b4273e4f"
+    },
+    {
+      "path": "src/card-service/card.service.ts",
+      "sha256": "1ef23c040e43342aeb78d6a7d92629f07465dde051d0aaec73e1b7a171ff72a0"
+    },
+    {
+      "path": "src/card-service/cards-api.controller.spec.ts",
+      "sha256": "549db622837c7acdfe2309b8ecdfa17d90f456c309c8eea710d0474152a20df4"
+    },
+    {
+      "path": "src/card-service/cards-api.controller.ts",
+      "sha256": "0180b1d5cc1998257658ba55577030874030969287fe48a79bc48d9b78a4397b"
+    },
+    {
+      "path": "src/card-service/cards-api.swagger.spec.ts",
+      "sha256": "2ab889a7bbb731abae9b33fb3c6b9b32f50976dbcc5433dc61d62ba3c414d497"
+    },
+    {
+      "path": "src/card-service/dto/admin-card-snapshot.dto.ts",
+      "sha256": "7bb3493cd67656551f8742e5841d5fdfd2280c548457fcd234c4a33b63c4797c"
+    },
+    {
+      "path": "src/card-service/dto/admin-card-timeline.dto.ts",
+      "sha256": "4fd71e23fa476a48e55c2b9912050df58a2d2856adaf564aaca108c96396dc99"
+    },
+    {
+      "path": "src/card-service/dto/admin-card-transactions.dto.ts",
+      "sha256": "967dde8ae4f3cc6ccdb597486585877814bc508bd1dd36f850112a5e0a3b2250"
+    },
+    {
+      "path": "src/card-service/dto/card-service.dto.spec.ts",
+      "sha256": "2212ded23ded1e0bf657419d0993d4995366e56db31f8ea8258efe58cab9322c"
+    },
+    {
+      "path": "src/card-service/dto/card-service.dto.ts",
+      "sha256": "5d30d5b0df0907d2336556584ef236214c79839d23f8b0ce6034d6eda6e54ea2"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.facade.ts",
+      "sha256": "f118b4c3f5cbc2788e94bc29967a0475784214a928072c849f7051f88c150559"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.module.ts",
+      "sha256": "d54ec03376b7a12f79d8099dde7a8096bacfe46c2fd98c9a66b37dc5533f6fc3"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.registry.spec.ts",
+      "sha256": "c4b1c92823237edde0b03db8c91219a0378545f4e1f08de6f5a131237df85520"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.registry.ts",
+      "sha256": "d5793a07986cfa2b7a0a610f65de3a93d3f1a4d0ab5de160dffed7451d9e815b"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.resolver.ts",
+      "sha256": "830592b3219c287757898ab1db5aa9e2f5bc74227953a873caa9fbe281bf39cd"
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.types.ts",
+      "sha256": "f09ba32ec62655bd3d6829a1ea98e69c452b93dcd4a774a4f537cdcec905ca4a"
+    },
+    {
+      "path": "src/cards/canonical/card-provider-control-plane.migration.spec.ts",
+      "sha256": "0d3e0dcbf9d278fd2442a34d475b2b86b173ce9a006578227a141aee08719811"
+    },
+    {
+      "path": "src/cards/canonical/card-provider-rollout.resolver.spec.ts",
+      "sha256": "0de625493a23b1d2e0c8b525f1adad07856df236421505a3ffcbad92444b6f42"
+    },
+    {
+      "path": "src/cards/canonical/card-provider-rollout.resolver.ts",
+      "sha256": "c398020eabb8a4ed23fb3214f40c4959d4335ab67d7755f13a577e333cb9dfa1"
+    },
+    {
+      "path": "src/cards/canonical/card-runtime-environment.ts",
+      "sha256": "dc2b0b3d5deccd368a3f8ed38b708bba1bb82f3a88a41657ef892a69dc789e27"
+    },
+    {
+      "path": "src/cards/canonical/provider-execution-gate.ts",
+      "sha256": "ce8c9abe1640b0265263b7d49f1896175d622f9d4a59d0360073eb753570b859"
+    },
+    {
+      "path": "src/cards/card-lifecycle.policy.spec.ts",
+      "sha256": "16b55746e80efcf782b86ba4f6468a14e22f249ac0e15141eaba3063162da456"
+    },
+    {
+      "path": "src/cards/card-lifecycle.policy.ts",
+      "sha256": "e2d24a52285c41a06ef7afdec2f61eeebfa3dce1d5540a0114af90a5ac227b03"
+    },
+    {
+      "path": "src/cards/card-timeline-pagination.spec.ts",
+      "sha256": "de317e7d35ee10ada044abac050cc7327c1fcbde2a03a3b47cfd80388e52a3af"
+    },
+    {
+      "path": "src/cards/card-timeline-pagination.ts",
+      "sha256": "fbe2512470fe29e22ad0f7e4eb532ffd24686ef5fe80aabe79fef7c4b2392a7f"
+    },
+    {
+      "path": "src/cards/card-timeline-parity-adversarial.spec.ts",
+      "sha256": "f299edd6555807ada8699766e5a480c7ad7622488d9a8290c862f672ca46eb0b"
+    },
+    {
+      "path": "src/cards/card-topup.service.spec.ts",
+      "sha256": "4f13a2bd62a6f18883457906c03a748a11f9c93111921dfca4ffaab17b5383fd"
+    },
+    {
+      "path": "src/cards/card-topup.service.ts",
+      "sha256": "b54c431126b372ed431b93ab2a7358ee406c3efd7a81f49d3901d73f0d9537c3"
+    },
+    {
+      "path": "src/cards/cards-list.database-diagnostics.spec.ts",
+      "sha256": "dee203e86ac2766b849721acc4f1dc445e294bc8cc6c1e1dc82eaf99ab31b3b5"
+    },
+    {
+      "path": "src/cards/cards-timeline.service.spec.ts",
+      "sha256": "ba2b94ca54238fe0f98bfbb13d6db992720d278958c5dfbb329f2708812bba59"
+    },
+    {
+      "path": "src/cards/cards-transaction-detail.service.spec.ts",
+      "sha256": "c309daa6b293cd8f6460d05fbdc5f34dcfe41ee9f9398a446997f38959f49c8c"
+    },
+    {
+      "path": "src/cards/cards.controller.ts",
+      "sha256": "d25a360fe8da36d137c753547ac349b29ce0701de7cb225db17e825eefcd0643"
+    },
+    {
+      "path": "src/cards/cards.module.ts",
+      "sha256": "b5fb7a521d00341bc138ac2a712984de58f3afd343ffe8f009d20a144779dffa"
+    },
+    {
+      "path": "src/cards/cards.service.spec.ts",
+      "sha256": "f837fbf5cfc9efc1d1cbb06731362958201bf23c6d367bf549f012c35b03c7b3"
+    },
+    {
+      "path": "src/cards/cards.service.ts",
+      "sha256": "0adef86ff535150ddfb560c1c5192e76cf3cbcdc8947d717fed2e6db54b45f34"
+    },
+    {
+      "path": "src/cards/cards.swagger.spec.ts",
+      "sha256": "fafef68d381b97840f25a8d98455f7a6a1b4de849ab012ecd50389c99e602f7b"
+    },
+    {
+      "path": "src/cards/dto/card-fee-response.dto.ts",
+      "sha256": "09f96ed63bd043b28bc954633d26e82576deef1b87daf53fdc0a666dfdc368e0"
+    },
+    {
+      "path": "src/cards/dto/card-id-params.dto.ts",
+      "sha256": "c8b085242204f384ce63915dc0513a9af55dc56246f503353506b2dae9621d90"
+    },
+    {
+      "path": "src/cards/dto/card-opening-quote.dto.ts",
+      "sha256": "2b91eed141de55c6a0102acbaa2731a462e533083099c6753d0e589dd66519e0"
+    },
+    {
+      "path": "src/cards/dto/card-response.dto.ts",
+      "sha256": "5d9673ebd2a6a9ee883443b3ec342fb60fb2592f9ff9a126210d369230d0b9bc"
+    },
+    {
+      "path": "src/cards/dto/card-timeline-params.dto.ts",
+      "sha256": "46f0a93261627a8fa9056f02bcaa8f277e992d416afb3293db51d611d68b2541"
+    },
+    {
+      "path": "src/cards/dto/card-topup.dto.ts",
+      "sha256": "b5e54266152ec6e8db06e087faa8b0602e19749879b5bfea68f4cd7fcbf44cb0"
+    },
+    {
+      "path": "src/cards/dto/card-transaction-params.dto.ts",
+      "sha256": "a38635e07c866e6a009a5abf58c9d45f155866d45d2f57c5e6a525ce7a934936"
+    },
+    {
+      "path": "src/cards/dto/create-virtual-card.dto.ts",
+      "sha256": "c1ff33558efccede6a101847466c451df30f51c29411d3dc8aa67a0736075a4d"
+    },
+    {
+      "path": "src/cards/dto/list-card-timeline.dto.ts",
+      "sha256": "adc6cf4ca51d9a4455820af47c3e643728cb8dbc2e2ad9c1368738ec79ae943d"
+    },
+    {
+      "path": "src/cards/dto/list-cards.dto.ts",
+      "sha256": "c20626fe4caa5293af1f103708be523b9264471c58645d290e1773d654170ee7"
+    },
+    {
+      "path": "src/cards/dto/list-transactions.dto.ts",
+      "sha256": "413562e0e81ba8ac292f81d042f18ead6748b49b8acb242c14ec11bc1503dc83"
+    },
+    {
+      "path": "src/cards/dto/replace-card.dto.ts",
+      "sha256": "133bc318302b9e4158f1bbd2cd0e4c5eb82a5eab76949f3325312996eb09ed99"
+    },
+    {
+      "path": "src/cards/dto/update-card-limits.dto.ts",
+      "sha256": "5ffda73cc04134d7f904fac273d35d55ac8482ccd27d725bfd5818cf18d29787"
+    },
+    {
+      "path": "src/cards/end-user-card-activation.service.spec.ts",
+      "sha256": "35ad8d3599a5591bb4e47c79be1232a019cfc44e79d244ed14954f3cefafd434"
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider-error.spec.ts",
+      "sha256": "c77c505830afc2117420deb4f3883166a3a1b2d700c4563d4973b26664924716"
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider-error.ts",
+      "sha256": "e5f92c5ca5dcdd1c928ee0a54436758e620d757e77daf119b77f510801ccc039"
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider.spec.ts",
+      "sha256": "0ddca2caf7271b5d60a83d621d61ca69f85ca49633744629477085d048196329"
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider.ts",
+      "sha256": "ec97d3f2b9fb90b67198791e3b2620a094e5007fe957fb8c0dfb108e9823f5fc"
+    },
+    {
+      "path": "src/cards/providers/card-creation-provider.spec.ts",
+      "sha256": "4ead9ad92989d33d605853e5af522b839728b95d87d526da9abe2c126a062660"
+    },
+    {
+      "path": "src/cards/providers/card-creation-provider.ts",
+      "sha256": "d64b361c4e716b7e61409d1f384b461f0e76ceebdd2cf6f22a7e2136013a9d18"
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider-error.spec.ts",
+      "sha256": "949e52e18cf4d508d35584933686a5dd14bdde87fc446f5158c92790bb614970"
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider-error.ts",
+      "sha256": "3fb9ad923a7053e62b25661c1b47cf375546f1e25bb97ebf713244b395b6d1dd"
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider.spec.ts",
+      "sha256": "b61e114ae9ad6ea2bc8e428b0b39ae419f0dcd3ea0db576bfe9dbf4db75daa4b"
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider.ts",
+      "sha256": "1cac4fda6d376e91d8e11aeb93fc0229ae9f48430f01bddfd96e99583ef4b4a2"
+    },
+    {
+      "path": "src/cards/providers/card-provider.ts",
+      "sha256": "bd14fb280495af1e1fd1345e863891d741855119c49a4f0c924f81d5a68cabc4"
+    },
+    {
+      "path": "src/cards/providers/card-renewal-provider.spec.ts",
+      "sha256": "dbf25d1fd516b3b969ba32456b1676b142568ce70b7505780188f7ab62d832eb"
+    },
+    {
+      "path": "src/cards/providers/card-renewal-provider.ts",
+      "sha256": "276efabc836b31e8079bd70ba2a4cc940890c0a3db1c1a56882a652c07f7cddd"
+    },
+    {
+      "path": "src/cards/providers/card-replacement-provider.spec.ts",
+      "sha256": "6ae14712d83b72de01a033d07c075615e3734315ffc3b877d1d01b039817a77f"
+    },
+    {
+      "path": "src/cards/providers/card-replacement-provider.ts",
+      "sha256": "c8007dcbab0f8fd0198679f8fd9b86fb8d68e79bf818945681693f20182ccad1"
+    },
+    {
+      "path": "src/cards/providers/card-status-provider-error.spec.ts",
+      "sha256": "5cd9b935f5d6bd77105c9b33778348665228bdb32e3e517787910ec232321e84"
+    },
+    {
+      "path": "src/cards/providers/card-status-provider-error.ts",
+      "sha256": "5f7e5fdf1f22964b7b22bec578fd77f11fc36f3d0e872db9cad887d15e2cd85f"
+    },
+    {
+      "path": "src/cards/providers/card-status-provider.spec.ts",
+      "sha256": "ba0b821514e0ead8ac671175fb9a9f8150cd7f2e84988f3d4f7d22083180ace2"
+    },
+    {
+      "path": "src/cards/providers/card-status-provider.ts",
+      "sha256": "7def432c5c494c3d4a1f76ae492a106a262276269d8698620b00106101345b5d"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-pagination.spec.ts",
+      "sha256": "2a39f2ccd976fe959a55963033ad04a0e3acc34ea3157a8cc676b67bd07ebb59"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-pagination.ts",
+      "sha256": "4166d3958c0aeca98aa1bf7a4c7c8a76fb15a64df1b25ff07399429954488202"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider-error.spec.ts",
+      "sha256": "f58e7760af8385dd44a6be84faa80beee592f546eb21f40f13b012b0f41f4f2a"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider-error.ts",
+      "sha256": "92c6276337bbe23b9690236268f791d9ce590d9d9671366f08c026f06c275590"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.module.spec.ts",
+      "sha256": "4989cf50b67ba2461d20c11bc8828905ab9bbef799479b8b640630bd94af435d"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.module.ts",
+      "sha256": "88c0b66df6f162b026d2bbe9b04f8ac1a22bd330d2c688a4aaab6da1941bca6a"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.spec.ts",
+      "sha256": "533b9be5af3a9ed63eb6d85cb223efe6da737e2d4027a83ce2b3d6a476764efa"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.ts",
+      "sha256": "4290f99be614c0adfabc4d79779ef272dbd1114ea1aca9a0250b37e902f7ca56"
+    },
+    {
+      "path": "src/cards/providers/card-transaction-status.ts",
+      "sha256": "917c46ba976f34a374e469b01a47d5bd6046c59d43a191df14d8544d4c795400"
+    },
+    {
+      "path": "src/cards/providers/mock-card-transaction.provider.ts",
+      "sha256": "79d60054e3a0b1ba8a934c5f67bbc958fb73d289e20818b959559c228c5b9cdc"
+    },
+    {
+      "path": "src/cards/providers/mock-card.provider.spec.ts",
+      "sha256": "bcb819cc0e9b5cf3ef62645206130e346ad8c2800f55797b93a08902d850a0df"
+    },
+    {
+      "path": "src/cards/providers/mock-card.provider.ts",
+      "sha256": "233862d1e06b0c0da7231b0b391171fe07f3d81d81b39fb63493fee6b2b9c4f7"
+    },
+    {
+      "path": "src/cards/providers/persisted-card-transaction.provider.spec.ts",
+      "sha256": "91fdd8b68b0d864bcfc3522a75b87330b8058f74867ce6817a4dbe644fff8293"
+    },
+    {
+      "path": "src/cards/providers/persisted-card-transaction.provider.ts",
+      "sha256": "260d37b66ae8ac96dc103c40a8ec46cbf417688f60ae6082cebccebfd674878b"
+    },
+    {
+      "path": "src/cards/providers/runtime-bound-card.provider.spec.ts",
+      "sha256": "b6ff7c238fdbd4d57c958d6e46d894c272f55d55121486f317107946e8069165"
+    },
+    {
+      "path": "src/cards/providers/runtime-bound-card.provider.ts",
+      "sha256": "08963d168a45cf281bfe6522d3a12fc864e384590ca488f5b958b4880fb02c92"
+    },
+    {
+      "path": "src/cards/providers/unavailable-card.provider.ts",
+      "sha256": "677d994b23575dde3d618c53c1d0e1cd300cb4caf578bc541ff3ef1f79fd5aef"
+    },
+    {
+      "path": "src/common/auth/api-scopes.ts",
+      "sha256": "d43bdefd8d7d2548759a72a5337f7ff4a59118d219d1f0ebb6780082e7b98239"
+    },
+    {
+      "path": "src/common/auth/request-auth.ts",
+      "sha256": "065faadc63473f6fa0b66047b8b4a8b2d9ef13af98b92e97b5195a8ac4b51df8"
+    },
+    {
+      "path": "src/common/config/env.validation.spec.ts",
+      "sha256": "630f3693b395c078c3824a87cf7253fc7ce062f796bf5793abb62efa460ab4d0"
+    },
+    {
+      "path": "src/common/config/env.validation.ts",
+      "sha256": "65ccb18ecd404c4846c2aaadb6d1e0831b3420cfc320c753019d7cacb118c395"
+    },
+    {
+      "path": "src/common/config/fastlink-wallet-asset-catalog.ts",
+      "sha256": "f9e74774674c262bf633bdee9fdcfb3f6ea3f47c4bb6244d685bec5183ec6a6a"
+    },
+    {
+      "path": "src/common/config/uat-deployment-contract.spec.ts",
+      "sha256": "ddbf23db4efe83d8be345cc12fa8b36e92423a18da553047b1b7dac9e4a6bba9"
+    },
+    {
+      "path": "src/common/filters/audit-exception.filter.spec.ts",
+      "sha256": "16c9714082abc5279d83ed2174d829af72218c1f063c90edd8c3c6454fc1dd23"
+    },
+    {
+      "path": "src/common/filters/audit-exception.filter.ts",
+      "sha256": "eefaa38f1257688433516bcf8580da83467e233c6fd2aa26329e8363dfcf46a1"
+    },
+    {
+      "path": "src/common/guards/api-key.guard.spec.ts",
+      "sha256": "1f26810643c7ef6f7693b4c4efd33e9f0435f106458c670879b5796b576cffc5"
+    },
+    {
+      "path": "src/common/guards/api-key.guard.ts",
+      "sha256": "743c6dfb3ccc26a37c2190a2529dc7bd65b79290592a52e3fa5f7b3938f7ffbd"
+    },
+    {
+      "path": "src/common/guards/api-scope.guard.spec.ts",
+      "sha256": "89bacff17316a88504d7ecbdc8c159287818ab9be0bf80a1ef3f2fae9fee73f2"
+    },
+    {
+      "path": "src/common/guards/api-scope.guard.ts",
+      "sha256": "2aa6f00773c900ac36865e1a45d5791610f362ff8302cb48ec29a9b102195a46"
+    },
+    {
+      "path": "src/common/guards/end-user-auth.guard.ts",
+      "sha256": "64a244b50af46161f5df90aac4565175d92b880849d242f348b2f20c59926d75"
+    },
+    {
+      "path": "src/common/interceptors/audit.interceptor.spec.ts",
+      "sha256": "d38b43cef73e1faf0654d14214b74ae32e964513f22b4ba74a2e12446ae01574"
+    },
+    {
+      "path": "src/common/interceptors/audit.interceptor.ts",
+      "sha256": "bef10f79cdb2c1c40ed3294a5ba2bf335ff7d4628dc6883965231a1e4ff79f6a"
+    },
+    {
+      "path": "src/common/logging/cregis-exception-trace.spec.ts",
+      "sha256": "5a7e4ca71f58a0f039db535960df856a2ff05119ba8fd1e09c0bd3950a67f6f9"
+    },
+    {
+      "path": "src/common/logging/cregis-exception-trace.ts",
+      "sha256": "6003e17c79548695789ac44ccc6ac63e0a468a81420834a5b6fafbc20cf980a3"
+    },
+    {
+      "path": "src/config/cors-origin.spec.ts",
+      "sha256": "f5d4fc5f677ea2f05bb751d1bf28ee4c2d89e658639bd404388c1e06d3c376e4"
+    },
+    {
+      "path": "src/config/cors-origin.ts",
+      "sha256": "e00bbdbbb7b43e4ebc11d3197d33b912f969b78ee558bfc53ccd5d43985f6c1f"
+    },
+    {
+      "path": "src/dev-simulation/dev-card-fee-migration-contract.spec.ts",
+      "sha256": "b85c8bfe7bd1d1543037584c9639f75777ad469f9eec088087b503b3e3bcc2d4"
+    },
+    {
+      "path": "src/dev-simulation/dev-card-fee-migration-guard.spec.ts",
+      "sha256": "781c76c505727663adaf9b823d35e37b69f49b34bf847dab8071ec34f8d3f039"
+    },
+    {
+      "path": "src/dev-simulation/dev-database-identity.spec.ts",
+      "sha256": "50ff2ed5f1469870a63960b93905abc40dbac54b92c0ae7a24607b7d7300dac0"
+    },
+    {
+      "path": "src/dev-simulation/dev-end-user-auth-rls-migration-guard.spec.ts",
+      "sha256": "66c75949f4110a74b910fbfc940218303c7fc9b4305cf68a8cb257993f8c7b64"
+    },
+    {
+      "path": "src/dev-simulation/dev-non-card-wallet-constraint-migration-contract.spec.ts",
+      "sha256": "cb21e0ec5f4535b1f96438c038548d591a364fd11b88519f60e08a83a55aceea"
+    },
+    {
+      "path": "src/dev-simulation/dev-p1-fee-execution-migration-contract.spec.ts",
+      "sha256": "5316b402d66001d0ae7fcb794f5d304f74cd5c01cadd2c6548951135fa034862"
+    },
+    {
+      "path": "src/dev-simulation/dev-seed-guard.spec.ts",
+      "sha256": "8bedf41ea44bbb1889fd76e8a918555091e921ea01325bfdd47a67c00df5e519"
+    },
+    {
+      "path": "src/dev-simulation/dev-wallet-transaction-direction-repair-contract.spec.ts",
+      "sha256": "a79091391e99b8d331ef8d2663c1a6e4b34f9e4904ac144f6d881ba043cbe60c"
+    },
+    {
+      "path": "src/dev-simulation/dev-withdrawal-address-rls-migration-contract.spec.ts",
+      "sha256": "9e6fbed86232a9c4d38c93dad9999e9a189eaf5b83476a2468d8d6c5d4b7750a"
+    },
+    {
+      "path": "src/dev-simulation/seed-tenant-financial-bootstrap.spec.ts",
+      "sha256": "38ec313174029e1604c5602576210dca9baa5f1b3874822482d2744a4883878a"
+    },
+    {
+      "path": "src/dev-simulation/seed-wallet-transaction-direction.spec.ts",
+      "sha256": "4567720d12a861b841afe093454d9db2b8c5a0f3a0af8c9a0752c316f6bdf6c1"
+    },
+    {
+      "path": "src/dev-simulation/simulation-invariants.spec.ts",
+      "sha256": "ddc4761e5da69e6cd39a6fa269c6fa476d2596cbfcfb8dc82036b1e03e66d1ee"
+    },
+    {
+      "path": "src/dev-simulation/simulation-invariants.ts",
+      "sha256": "65afa0b12895b3171996f77df591b6bf4608fe6f57774a056ed4acaac8d969c5"
+    },
+    {
+      "path": "src/end-user-session/auth-contract.exception.ts",
+      "sha256": "be78c823a8cf0fea48ec7511e8449de100df63e08f549d363f9cc9b4975ddf11"
+    },
+    {
+      "path": "src/end-user-session/dto/end-user-auth.dto.ts",
+      "sha256": "e44e1577f64df1a76874498e500db6bec16a276821a11ebc412c037fbd5dbbeb"
+    },
+    {
+      "path": "src/end-user-session/end-user-cookie.spec.ts",
+      "sha256": "c709dce17d221f727c38729f7904c7be9de650c1e79542e8fe9952e85e4c7727"
+    },
+    {
+      "path": "src/end-user-session/end-user-cookie.ts",
+      "sha256": "14d24efe3ad6c332963073f731a9df518caaa51efde5fdae84586e0dad2e5933"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.controller.ts",
+      "sha256": "3fc846778f43d396b7de4b0d9062038f854c838d881bfff058be826e63e098af"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.database-diagnostics.spec.ts",
+      "sha256": "58856216edaf22732c2c7cbac0664d68b255de78a1674bcd76bdf4dd9140e36e"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.module.ts",
+      "sha256": "330a7399c8274b3c72af279a7c80152f8d7b67206299441807a1629588e0b4a6"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.security.spec.ts",
+      "sha256": "b0ee2facac5fe79a90b8fbc21254376a5150fbf6c485854069d43d95db3ac437"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.service.spec.ts",
+      "sha256": "7570058e9e9df536608a2dd6d3cae431e2dd715ec7bcc17d45d55326eb2f4a89"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.service.ts",
+      "sha256": "52d017af2a4c82a4fb0349748ae0bac102f7c96d756402dc385a18c631163bf6"
+    },
+    {
+      "path": "src/end-user-session/end-user-session.types.ts",
+      "sha256": "0bdf55207ec3d631641f61b816d8faa6fbeff0d846fdd9dd2580ec4d8566fa43"
+    },
+    {
+      "path": "src/end-user-session/guards/csrf.guard.ts",
+      "sha256": "1953b482e0d41c81ad44fcc1dde70a4f1c5c03b31750b0a2dc1a18a7cbb977b7"
+    },
+    {
+      "path": "src/end-user-session/guards/end-user-session.guard.ts",
+      "sha256": "d7dcf6f38ef9430bd8ff4aa0ebbd24fabdfb05d77092ee37d600cb702d4ae72d"
+    },
+    {
+      "path": "src/end-user-session/guards/origin.guard.spec.ts",
+      "sha256": "522aff34860a3240047eda34df205f2ec65251b3fcf8c0dbe88dde7a0bcb2bb3"
+    },
+    {
+      "path": "src/end-user-session/guards/origin.guard.ts",
+      "sha256": "8cd3a5a8d39fbb7566c2a83612470d53f75adad47ef40600c09f1d8c5118a196"
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.controller.ts",
+      "sha256": "9c1b99790beda94b854a3d1667c7125b33f8a5745796bc1c6a512cb1def6cfbf"
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.module.ts",
+      "sha256": "cb96de4eaa2de1e3c8cbb2db45af3524814fa430dd33525dd7bed661e8662e4d"
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.service.spec.ts",
+      "sha256": "8708004388c28bbab6665c408bd8100e170d5f31ee8c4010fc5be503918ccd25"
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.service.ts",
+      "sha256": "0d1970ca517cb2c2bb73fcc00fcbe62034adfcb87e3ffdb2ef1bfca4795359a6"
+    },
+    {
+      "path": "src/evidence-center/dto/evidence.dto.ts",
+      "sha256": "1cecd8a8ff094ad6d8a03b29781429d6cd2da02d7ae1ef8502b79feda9193ba6"
+    },
+    {
+      "path": "src/evidence-center/evidence-center.controller.ts",
+      "sha256": "03b4a907eb15b3d30fb554b1c4a4e302bd9677e7c2bc999c5f2aa0dad675046b"
+    },
+    {
+      "path": "src/evidence-center/evidence-center.module.ts",
+      "sha256": "b92abd32465eb2cb0555640b066bd40ef41a108ff15c0b655133c074dd462c8f"
+    },
+    {
+      "path": "src/evidence-center/evidence-center.service.spec.ts",
+      "sha256": "ee94d09c330489e8c501280d267b46fc747a44cb59e33cd9102c5f6c00b1dcb7"
+    },
+    {
+      "path": "src/evidence-center/evidence-center.service.ts",
+      "sha256": "ce8655eb2b563a4039d7d09cf43ef11dd74bf2f6d755d4db259fa29ab6b8e907"
+    },
+    {
+      "path": "src/fees/fee-policy.module.ts",
+      "sha256": "8fd5a67082c35185075159cfaed141b45ba6b86c824a4ea21957c1d588dc63f9"
+    },
+    {
+      "path": "src/fees/fee-policy.service.spec.ts",
+      "sha256": "f0c0b2e183df38c9b9bc48d19930b678498c55a229fd4958c97c1c17728a899c"
+    },
+    {
+      "path": "src/fees/fee-policy.service.ts",
+      "sha256": "30604afbd874ae54b1a96086bd54a02b7e0a7438efe0f9d6f285befcc2149acf"
+    },
+    {
+      "path": "src/fees/fee-policy.types.ts",
+      "sha256": "e1376dcd0d267c05f93a7e6b9a9ec11a4431f64d02ac3a1c621e1e45d1bfe62a"
+    },
+    {
+      "path": "src/fx/adapter/sandbox-fx.adapter.spec.ts",
+      "sha256": "55fae73f91a40be6945f6901530becaf371de5ef91f7b915b532540b0965e0b6"
+    },
+    {
+      "path": "src/fx/adapter/sandbox-fx.adapter.ts",
+      "sha256": "6a0810954438e02415ad752f4fd5efd734e914415a89deec64d43ef36db045fd"
+    },
+    {
+      "path": "src/fx/dto/fx.dto.ts",
+      "sha256": "0f46a90e1d9d4eea537450624aebf68046c8029e52928ecea4db39ba0b2aca04"
+    },
+    {
+      "path": "src/fx/end-user-fx-quote.spec.ts",
+      "sha256": "d091bce120b46889efae6059ac043fe6fb13f0c0742c5e45d16d2e936f71f4b4"
+    },
+    {
+      "path": "src/fx/fx.module.spec.ts",
+      "sha256": "20cd166c706a7341ac788f21c3eea787ee6ee141666d54a1efc671d3e2d25a97"
+    },
+    {
+      "path": "src/fx/fx.module.ts",
+      "sha256": "50947e4753cb6ada6aa5d9ee39420532684829ddcfface37b319f6fee893d05a"
+    },
+    {
+      "path": "src/fx/fx.openapi.ts",
+      "sha256": "0a17eab259251b3a0885dfc263816187a9e9e4eeaecdb44b8fa452c1628d2575"
+    },
+    {
+      "path": "src/fx/fx.production.spec.ts",
+      "sha256": "52ae024ecac2b5a8be660c64c3fb092e181c8d9a589b86959571727f84a3afa7"
+    },
+    {
+      "path": "src/fx/fx.service.spec.ts",
+      "sha256": "44f2eb8ceb98732887b3f7045b2896b0ed795bebc3fe7e45e320da11ba7d92e6"
+    },
+    {
+      "path": "src/fx/fx.service.ts",
+      "sha256": "d8bde879f0da9ffe36ff30099c7bdca3186d1c134f2920f954127eb6417859ca"
+    },
+    {
+      "path": "src/fx/fx.swagger.spec.ts",
+      "sha256": "f99fdd70727e27f6f7b3273e8c7dd1a0479da79a397482ab828a2332e475de07"
+    },
+    {
+      "path": "src/fx/interfaces/fx-decimal.ts",
+      "sha256": "734dadc19a37ac2b1aa373aa5a594fb71324300f54d2740b64e880dbbe9f9e4a"
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-error.spec.ts",
+      "sha256": "c647f8155d9ac01217d32c74665dfcd4d2887c30ded4b109a4902c68c26dc7ed"
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-error.ts",
+      "sha256": "1a021a058bb6c40e95f12b3b53227a8813c5858e4cf9e8abe547ff937bc8d4d1"
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-quote.spec.ts",
+      "sha256": "b14bbb736c3f48dc6f795c06304313729bb8cecd0f3bb0c353d8be98ebf23c46"
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-quote.ts",
+      "sha256": "77f9ff08a9b06eae7a0785ab1736015029c0f0555235c26f76a5cfbc03aafbd6"
+    },
+    {
+      "path": "src/fx/interfaces/fx-rate-provider.ts",
+      "sha256": "30b89408d73fa21e307cc4d08b8b674228b30733085c87f8c8ccfff5f50e84a1"
+    },
+    {
+      "path": "src/health/dto/health-readiness-response.dto.ts",
+      "sha256": "5fb3b29b801cac055f5330182af7af5248c7aa318d117895424d2b490a835df9"
+    },
+    {
+      "path": "src/health/end-user-auth-readiness.postgres.spec.ts",
+      "sha256": "f3cdec176d6996dac5227b31d70a8fbbda5fd03f67ec410c5d7667ae16ab7bea"
+    },
+    {
+      "path": "src/health/end-user-auth-rls-migration.contract.spec.ts",
+      "sha256": "da7ce9a6fc7074d4b089f358aea9549723490af33127f1991a0d3226124fa40a"
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.postgres.spec.ts",
+      "sha256": "d90c924d1a0f49118af81ccf3bd7a1d6c3eb45ed10996a141057f270f092d3ca"
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.ts",
+      "sha256": "ce275e981c6c9408da154182613d4203a895cd340072866034869dd395fde723"
+    },
+    {
+      "path": "src/health/health.controller.spec.ts",
+      "sha256": "ecde4dc3d3ca5abef9e4e1a085fd87a7b3a7af6288689484e1876cb3c141037f"
+    },
+    {
+      "path": "src/health/health.controller.ts",
+      "sha256": "2c1c7a17ca5738e3de494a59b719c802b23542374db926234bb4c19378237739"
+    },
+    {
+      "path": "src/health/health.module.ts",
+      "sha256": "49234509e1296bd5a10c24b980cb55bf3b5eedc08a2392a2afc7218d62de0c4e"
+    },
+    {
+      "path": "src/health/health.swagger.spec.ts",
+      "sha256": "a87280071b080f1ac21abf310b869d9ae9f73d1b25389c19287093e04bb5c3bc"
+    },
+    {
+      "path": "src/health/third-party-readiness-migration.spec.ts",
+      "sha256": "f75fd112a92248a333d2167566783e8858549b171e9823aacd505dbc063e0314"
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.controller.ts",
+      "sha256": "bda69f49dab2aae1cab83680a4c562a5e0f9a250217c78e2de801600e5279dc8"
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.module.ts",
+      "sha256": "c4c6757d67ac09fb775900fc7f91ce0865f203066cc8fa1da379903ad8b5d10e"
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.service.spec.ts",
+      "sha256": "351cbe7476893239cf478ec726175efd7f1abe45e5570074924dcd3275ac03a3"
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.service.ts",
+      "sha256": "cfe529e8740999f8d359bc8b4300b3a4b76441d8d762b96a14678b448db527bf"
+    },
+    {
+      "path": "src/kyc-status/dto/end-user-kyc-status-response.dto.ts",
+      "sha256": "52fd5403117d2bbd899f06cf617094753884d39353a1c07ba28913a374303191"
+    },
+    {
+      "path": "src/kyc-status/dto/end-user-kyc-submit.dto.ts",
+      "sha256": "f59bbf025b6103321ecdbc13366451d58a546994dc2017bded44f23b0479a224"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.controller.ts",
+      "sha256": "cb64ddd68c92ea3a10c1495bf7d75a84cfab4e15a071452cf3034b9b1b69c988"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.module.spec.ts",
+      "sha256": "cb9c13625b4b64be9ef9ac50dea44e348f7a8d75e3d9dd6029b6c98a57d3df2e"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.module.ts",
+      "sha256": "9c5656249e56396fd813132dfbe7f528152df0a809888bad82b48ee209f13a96"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.service.spec.ts",
+      "sha256": "ba6a459d6fd8924f9a4a6598e6e99def98bac272f2cacb5490ee1c4f194a95e7"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.service.ts",
+      "sha256": "7c8202e66a03cfa5ed972ca5bd508f2a29cac21f06c1621ff16a07ae816bd98e"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.swagger.spec.ts",
+      "sha256": "aac40d27a4eff0d048b6735172f78841339710f976c8eaf8e1be231c4b679346"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.types.ts",
+      "sha256": "5e8347345f93891a20f912e695d83e57d09fd3594df2bf62feb9d00653412188"
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-submit.spec.ts",
+      "sha256": "41e7f034a98a4600b778d3bc0370fb9e4d52598207fdff39e9f7c7e0bcee8ccf"
+    },
+    {
+      "path": "src/ledger/dto/create-wallet-account.dto.ts",
+      "sha256": "28bbffe5115c5494cb1aaa7850a5573c862c3c0b812d8ddb37d5f29af5b2b012"
+    },
+    {
+      "path": "src/ledger/dto/post-journal.dto.ts",
+      "sha256": "76ee0bf16e1ba16ed1c934022fa4447fe72ed96b149e3ae2e4637d65d8b1e6b2"
+    },
+    {
+      "path": "src/ledger/ledger.controller.ts",
+      "sha256": "be66e6f82a07c8d77d2e7aa34c74faf7f96b365eb553b377dc84fbf4f158c5cd"
+    },
+    {
+      "path": "src/ledger/ledger.module.ts",
+      "sha256": "b596594f36ee9b97b328548d59da8b91b091bf72862aba8af5b62d6db4fc64eb"
+    },
+    {
+      "path": "src/ledger/ledger.service.spec.ts",
+      "sha256": "305b44afd0d3204e6b62faf2c08d054e75464d6cb407e84945425e8243aafdb5"
+    },
+    {
+      "path": "src/ledger/ledger.service.ts",
+      "sha256": "c7c56ceac704225e9d96d98a0642097c10dfd790f73ee274e33b31bec2be91e0"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "92a59189d6d684ca3e415c5b8ffef4aceb058eedb9606824188a64bcd961ac76"
+    },
+    {
+      "path": "src/merchant-payment/dto/merchant-payment.dto.ts",
+      "sha256": "c9a7dba9d3ef0854449c6c624b9139bdbc4e26959d95bcf152e38d882a54db9d"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment-fee-execution.spec.ts",
+      "sha256": "0dde3a20760f43ab933c6afedaaaacc46a0765db303655d422cec0e0737ce87a"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.controller.ts",
+      "sha256": "889e8b02aa3f0aa1522334f8fcedab06780d7c95e328d138b26ea5f510ef5453"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.module.ts",
+      "sha256": "4ed979875fbb3e710e044337b36365b1de4b744a206b41d82ce9daf9f3f9627c"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.production.spec.ts",
+      "sha256": "9eef8c0848069804fb7e3cc627d8cc21a394c576c0697edfa04e047ef0d597f1"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.service.spec.ts",
+      "sha256": "9da58019039a73b70442c3073fb35e8d1f7e7f5edc2705528030791d1523e522"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.service.ts",
+      "sha256": "abf746acbedb95a770a1d89c52422e0b409949a52c8d5a201ce73876981e13eb"
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.swagger.spec.ts",
+      "sha256": "166802c02a82d85c01389975ea940757d5d73f36a276e20ca225af330eb03f1b"
+    },
+    {
+      "path": "src/modules/thredd/adapter/mock-thredd.adapter.spec.ts",
+      "sha256": "c125b6fb6cc257278cfcd9cea3e2c3fb3ca2d5b5c31f2aa0dcd45c79df40cbe3"
+    },
+    {
+      "path": "src/modules/thredd/adapter/mock-thredd.adapter.ts",
+      "sha256": "b929132f062cbb5f57f64b6ba5a280affa98e2321cc1b2526c7d46a9bb78de14"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-adapter.module.ts",
+      "sha256": "23554ea2816b189aa00bfa5d7e96ca1fa82ede0f21cbc2a2dbced37e9ee9f464"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.adapter.spec.ts",
+      "sha256": "a5e4b17ac0afcb7a18b09b5a9a63904ceca909dfaab98fbf101777c0f5ae13c6"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.adapter.ts",
+      "sha256": "dd2fd719c5497986aaf9e2860eef0801f536a5c953fb11d829c09a7f82d45b94"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.factory.ts",
+      "sha256": "9f0f768f51ffb6c047dc4180ce8ea3e11a7e529e9e89a4c211d17ae2697d839c"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.module.ts",
+      "sha256": "2e3f81d98f4a4f2f248d6195655bb6af9fdc1eb4703e9ef5ddea361f1fb0a9e0"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-card-processor.factory.ts",
+      "sha256": "91c54a94f37762e801d6fb6b33c425318988ca1c4ec6160c3879f6b644c1a3c6"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-provider-execution.policy.spec.ts",
+      "sha256": "4bb368f0672f0382abbfbe4bf1158f4f9f37f7c4710ae7c6aa68d814ea284f7a"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-provider-execution.policy.ts",
+      "sha256": "d76f2b7e94971a6965ce66cc015057ae9e59dda5cb41b6aacf9416e72e3d66b0"
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd.adapter.ts",
+      "sha256": "c6c126f8b4b64274c2bf5ed220af13843207ad5d3f75d25f82985c1d0798b39d"
+    },
+    {
+      "path": "src/modules/thredd/auth/certificate-loader.service.spec.ts",
+      "sha256": "38e3f16740b9d493c2ad1867e82eddf0aed74c74751801bab2cc9995a3ab3d91"
+    },
+    {
+      "path": "src/modules/thredd/auth/certificate-loader.service.ts",
+      "sha256": "3f45c106ae84ee00a40a553224b9c6af274ef3d583cd52a9191249da3acf7f81"
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.module.ts",
+      "sha256": "96bec4b35da6fb585471e9bbb8761cb08a99ef731bd24b18c904538af4d9747b"
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.service.spec.ts",
+      "sha256": "9b941e517cca7bcb4cfc1d07a0841a510f0b203f4b4eee6f45b164dd63d7a0b3"
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.service.ts",
+      "sha256": "0f5cae71025ed07d384ac64b6208d6fc8bf32c1bb0073795e0af455b6b89b2db"
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-http.client.spec.ts",
+      "sha256": "fc688b8e40795a32cdb8a0aabbc6a6e1103ce9b844e3e6f9c08c31ee5a04481e"
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-http.client.ts",
+      "sha256": "100739be0055c03065eded5b9c270b4e57228e36d18e1457a06a08fdeb092f21"
+    },
+    {
+      "path": "src/modules/thredd/auth/token-cache.service.ts",
+      "sha256": "cc8de11ae6a507f4d450b1ddcbf8d9f108deb32c18a583edfa7d46553dd6a878"
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.client.spec.ts",
+      "sha256": "7ffc9b1d7c9319223df40cfd07833cf15880fc74ec8846c3412228f42a877529"
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.client.ts",
+      "sha256": "e3ef97b6c78e4594675591473df846ee649eb78c09136f73d86110e1047fd23e"
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.module.ts",
+      "sha256": "e67d556d9c22b0be0a74595a460ae3d3c5e86c4a797d0efa68a004fa97fb575a"
+    },
+    {
+      "path": "src/modules/thredd/dto/thredd-card.dto.ts",
+      "sha256": "a96dee7bdd766298de492fe8608f57526235e4a9f93723e6990bbbf5ffac31c1"
+    },
+    {
+      "path": "src/modules/thredd/dto/thredd-transaction.dto.ts",
+      "sha256": "634bbe1011ea185fc67af44ff125438103d0bffcb963f3ea55dcb6c378207de9"
+    },
+    {
+      "path": "src/modules/thredd/interfaces/thredd-api.interface.ts",
+      "sha256": "80816b8a383818a00345a5b3942a539e377d616d4a8b88afc2c0477a205e8246"
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-integration-logger.service.spec.ts",
+      "sha256": "5214ff1667c37c5ce911e701bcbd58cbff5df9bd3b153834ba69cc507837d713"
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-integration-logger.service.ts",
+      "sha256": "4511f0fa3b601f62ae9976fd0e44e918af18a07ed365608b3f0f12397393a8f1"
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-logging.module.ts",
+      "sha256": "f17b5c496c70b59e3445248848307cbc953e8b0820726a7ff3ea4f875552363c"
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.module.ts",
+      "sha256": "c49e26ca6c7504cd677ba5b3ca1a547edb6a4476c64a76659a9005a8cb5b1399"
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.service.spec.ts",
+      "sha256": "491032a75df6fda476a6a0ee4d3d10a2175fa87f938fb6954382e04dbede025a"
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.service.ts",
+      "sha256": "803f343e0b9803f72af655a3ca06b5b20a044bbfc6fa950ef5347448c6ff19db"
+    },
+    {
+      "path": "src/modules/thredd/thredd-architecture.spec.ts",
+      "sha256": "88e87fb0a200690d3bb9943b8d48b623b4087451550890ed4a5c57b378163b3d"
+    },
+    {
+      "path": "src/modules/thredd/thredd-module.integration.spec.ts",
+      "sha256": "eed72e526d8a6fafce2ff6644a29cbbdfaf9f7c3bb299189b1434bd62d645690"
+    },
+    {
+      "path": "src/modules/thredd/thredd-uat-card-business-flow.spec.ts",
+      "sha256": "1c9abe431e43495af6118d865bac8c1c3046509f37a5e57af6930b0d5eb2cce3"
+    },
+    {
+      "path": "src/modules/thredd/thredd.module.ts",
+      "sha256": "550d518ccd030b69716205882f898a9c0a93529a55f0c9bead2286d28e5d3215"
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.client.spec.ts",
+      "sha256": "3acd3a8880c479f0b79a332f86d2d0c0787f423a4c63125bfd6bf7c1591c00c2"
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.client.ts",
+      "sha256": "0ebc29315128cf2b191becab0c19ff6b57ff4db27243d3bb50b3117d1c21acc1"
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.module.ts",
+      "sha256": "abeddefc653b871cffe0de751d04809ad1ee14850d9a3270a1aea84f14f118d0"
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-financial-event.contract.spec.ts",
+      "sha256": "9e0cab6fb49a0b14fef1912cc4bc72b8c54fcbb16292813375299b9e10a95f4a"
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-financial-event.contract.ts",
+      "sha256": "2c4d4695ffb26800212e6abd67b036ec1287df75f8e8d076fcb8c42ef15322f6"
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-lifecycle-event.contract.spec.ts",
+      "sha256": "5bb01b6007ce7384a80ff4cc6669de953c9cc377eff24aca551f80ab3f861265"
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-lifecycle-event.contract.ts",
+      "sha256": "a2b74a089091291a4b1ce095cee08f13e4bf59f1eab7f3e06602ea6f0c971c70"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-auth.plugin.ts",
+      "sha256": "b701f854a85dfbe2dd18e5694435dc667dfe821c7db3f1f752709377c3567756"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-correlation.spec.ts",
+      "sha256": "207571db55a32b0c1b7b253299e097b850ca3bd3114c40b87477ed3db4d6e54d"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-correlation.ts",
+      "sha256": "0edcff1f12f64f703aeb86bb771bb232dfa8a473a84b756a227964e8e7967ea2"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.module.ts",
+      "sha256": "e5d1b82fb2d4a471941a8e78379fbc5621f82d7667bd499b2c6cfea5d336c014"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.normalizer.spec.ts",
+      "sha256": "894cba478fb5d74f5a5b502d731718cf6c7d2ebfb5b8332aadbadfedeee44f10"
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.normalizer.ts",
+      "sha256": "bace495373c7bd09741d1437c12e2108ac5e1aa444606ecec16d1c35f5d4fdc6"
+    },
+    {
+      "path": "src/onboarding/admin-kyc-read.service.spec.ts",
+      "sha256": "b73cb35d33c8ca89684a3d46968280343d4bfd56b55a197fca6f2e38fe118ec1"
+    },
+    {
+      "path": "src/onboarding/admin-kyc-read.swagger.spec.ts",
+      "sha256": "c027bebb6984395f623f3d789cd9d978c5c8bf3c9b0bb6db82ec71dc6cd6c1ca"
+    },
+    {
+      "path": "src/onboarding/dto/admin-kyc-read.dto.ts",
+      "sha256": "f1f118cb0abc0381a6176feff385d189671434b72db906e61c4a57bbc450db54"
+    },
+    {
+      "path": "src/onboarding/dto/user-onboarding.dto.ts",
+      "sha256": "ccddcfc73e8d7b8ff8c4ac07143ecf14dac46d029522b93d79aff0185bb44f98"
+    },
+    {
+      "path": "src/onboarding/user-onboarding.controller.ts",
+      "sha256": "8dabc05d7cdf55064faa70494fe7df6a775c9d69bdb52a99e2bf5309349af572"
+    },
+    {
+      "path": "src/onboarding/user-onboarding.module.ts",
+      "sha256": "d60038167f05469cc95a637be707429988b4f13b43ab4111784a1a6c7b3fcea3"
+    },
+    {
+      "path": "src/onboarding/user-onboarding.service.spec.ts",
+      "sha256": "f0dba3a93669c0a2c42e8863b41439ba767dcebd466af8546099ce35840725cc"
+    },
+    {
+      "path": "src/onboarding/user-onboarding.service.ts",
+      "sha256": "ea3f58f0a851051b56214c8c222b9da5e298a8813739961232e8b3bdf4d450f8"
+    },
+    {
+      "path": "src/operations-trace/dto/operations-trace.dto.ts",
+      "sha256": "267e8f21dbcdaa8f5cd628f22a0c987e5d55332814af820390303177ca62ee96"
+    },
+    {
+      "path": "src/operations-trace/operations-trace.controller.ts",
+      "sha256": "d8d565508ed9ecffec379a599e54f5932c241db06034e72a5a8dd38447388b69"
+    },
+    {
+      "path": "src/operations-trace/operations-trace.module.ts",
+      "sha256": "ac61f1dba693a771bcd547233f16d47a87b6b3becf5bd7d0a1aea45be995a526"
+    },
+    {
+      "path": "src/operations-trace/operations-trace.service.spec.ts",
+      "sha256": "fda169525eebcd3dd2976062555fdd6933f1f268f40311f70e3d9b3cdc6455d4"
+    },
+    {
+      "path": "src/operations-trace/operations-trace.service.ts",
+      "sha256": "7a4ed51ce1000ee003f02ea7db58e550e0fb314ea939e0f51a6931d557022538"
+    },
+    {
+      "path": "src/operations-trace/operations-trace.swagger.spec.ts",
+      "sha256": "91edeff6e3306e7e39239babb82777038308ff48383ebff1039666d1a3cb97c3"
+    },
+    {
+      "path": "src/p1-openapi-extra-models.ts",
+      "sha256": "a406041fc71cc467546d61242180809787e8f6c0fbf981d845d16f3d136e3cc9"
+    },
+    {
+      "path": "src/p1-openapi-request-dto.swagger.spec.ts",
+      "sha256": "683b144d7a4d238e5b680d9a43c43e1722f9f0c5b7c8a3170de87e41abbce9bd"
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.registry.ts",
+      "sha256": "2fbb4edbb2081d59a892a859045d5475a19d64a7215cf9cfb5970eda89c4651c"
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.spec.ts",
+      "sha256": "5182dada1931ac99a31870b0fa99d082707b1ce363c8df777853f5f2d4ab1657"
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.ts",
+      "sha256": "261f19c1f7edc38f0d4dc8fd52c0f31f68855864385a00412fb2bbee0e629c01"
+    },
+    {
+      "path": "src/phase2/card-provider/dto/phase2-card-provider.dto.ts",
+      "sha256": "657d64fac89763af9da7fd86e8f76e8fd9cb6cf8e07bfb81f5268ec929f98ecc"
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.controller.ts",
+      "sha256": "83b2771c202bafdb2f831233e501e1487c8a113b1e2448f59e0540450681d6fd"
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.service.spec.ts",
+      "sha256": "c8dedf2b77ae693e162cda0c4c730c2692be73690c5f86d131874481ec901d7b"
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.service.ts",
+      "sha256": "1463ee986a325dd50c542757f5a98dc97d6d1b64dff00ce438d7426e13d917f2"
+    },
+    {
+      "path": "src/phase2/card-provider/thredd-adapter.skeleton.ts",
+      "sha256": "2f39af90018c8930d866d2405a7c35a64bca1e5d691f30bb1ac38e53c8c2bd9c"
+    },
+    {
+      "path": "src/phase2/card-provider/unavailable-card-provider.adapter.ts",
+      "sha256": "87f161a6a4b6f1ae7c3410d4ffa4e3fd744d2244b923e21c4e46ae98acd05224"
+    },
+    {
+      "path": "src/phase2/onchain/chain-fee-accounting.spec.ts",
+      "sha256": "40038d7ac8c02e03444f320ba96386919abca3f434d55fe096e5bab98578ca47"
+    },
+    {
+      "path": "src/phase2/onchain/chain-fee-accounting.ts",
+      "sha256": "d62a8cbfc76dbfc05bde42ef12f20ddbb1ce0733f1319d4fcf7cdb1a8f37332f"
+    },
+    {
+      "path": "src/phase2/onchain/chain-provider-gateway.spec.ts",
+      "sha256": "710742036239bfc9528d7b7969e33be825cfdd57de62e1edd483cb9e629e38a7"
+    },
+    {
+      "path": "src/phase2/onchain/chain-provider-gateway.ts",
+      "sha256": "a4296632655ee1a15b9dc2c3501603360ac3c6c007f00315f482aa6916cc1045"
+    },
+    {
+      "path": "src/phase2/onchain/chain-transfer-state.spec.ts",
+      "sha256": "5218184e5ac28230dfa8bb95dc60e13aa8d40ee3701b87f02651860146574700"
+    },
+    {
+      "path": "src/phase2/onchain/chain-transfer-state.ts",
+      "sha256": "bca0dba856f514bde2f338c45d791b41746cc9a29a01a1be4db666eaf6cb90ee"
+    },
+    {
+      "path": "src/phase2/onchain/deterministic-chain-event-source.ts",
+      "sha256": "02a3ec4581e063f8b793afc59e7fc2a2cfd876e9bc7d5ef279a76e350a83d7fd"
+    },
+    {
+      "path": "src/phase2/onchain/deterministic-dev-chain-provider.adapter.ts",
+      "sha256": "86c5d43aac170daf955d73f1453ed3a6cb2e01388319f4c609d0d59ec72aa701"
+    },
+    {
+      "path": "src/phase2/onchain/dto/phase2-onchain.dto.ts",
+      "sha256": "9521e2e4221d66b7411e8aaecee045d52e0b39d459f1c52e7dd01a7746a56a6a"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-chain-webhook.guard.ts",
+      "sha256": "d21aa88a9c9c245d8e06606030749ae7b4ed681c46126346f15e50f80452ef8f"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-dev-migration.contract.spec.ts",
+      "sha256": "d00a2ca890bf35f2d7f9277f3998ecc03899eaecf007519320c8f3b286b00f2b"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-internal-poller.guard.ts",
+      "sha256": "6243ed91f2c656fb5ef7c5fe27cb079bea502bbfe22a3620ef8a76f4b9c63bc6"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.constants.ts",
+      "sha256": "51cf4787b46b98a5175a622a4374092c895741cb53c4d33d52d8f9b4795382ce"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "sha256": "a22c2fb41be084d0ce536965329e45ba7abb94bbb9d0b1ad763b6c8aaaa294f5"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.module.ts",
+      "sha256": "564f85a4e3f856745af2dde308c06195430b44cdc010ba5aa6915ae521746c91"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.service.spec.ts",
+      "sha256": "513f38e1e5a783b35f202f2ed64e6cbaf9950a9d0b7e4af469ebfc91752b5386"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.service.ts",
+      "sha256": "69dbaaa3e25dc4cfd0723870feb8d5bcf152edf7f151faa4be091c02b6cb74fa"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.swagger.spec.ts",
+      "sha256": "eaf876db9aa6f2f92d94a56d885251642f0e0899ba187ef2c001ba477d858dbf"
+    },
+    {
+      "path": "src/phase2/onchain/phase2-security-guards.spec.ts",
+      "sha256": "28d05802e2be91d9a278461a65f7a8ccbf1713a7c171a85fee57a6e0699b426b"
+    },
+    {
+      "path": "src/phase2/onchain/unavailable-chain-provider.adapter.ts",
+      "sha256": "3d7e302618c5acd13ca095b76f1207a745e1382ae06c952c7b220fc3a1a43962"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.spec.ts",
+      "sha256": "2a4ec2a23f7357781df211bfae22e26e059cff2e16c48d1c380068251711e2b8"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.ts",
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778"
+    },
+    {
+      "path": "src/prisma/prisma.module.ts",
+      "sha256": "9223a0889abb0669020e94a9b8c1e68274cdc05533c1f79d84fe516450e94ebd"
+    },
+    {
+      "path": "src/prisma/prisma.service.spec.ts",
+      "sha256": "84a0e348b4306f21d2162f3d21a00ffea86c156e282d6c59c9c97a3d4f123c1d"
+    },
+    {
+      "path": "src/prisma/prisma.service.ts",
+      "sha256": "cc4a675fc63ce4c7be743c8d1a7a90b65272146fab01bffe4fc718d0deab20b7"
+    },
+    {
+      "path": "src/sandbox/sandbox.controller.ts",
+      "sha256": "826d9a21046eb9ba3bf4d35878520c93841de002bfcf5db5195eb862b74b077b"
+    },
+    {
+      "path": "src/sandbox/sandbox.module.ts",
+      "sha256": "397aadde4b7789f9be40cafd0d9b48e2193ed2fb1ac20622660350a39ff668d7"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.constants.ts",
+      "sha256": "05d13e87911b3e5b9be9800ca02e8ae55375ddc84a4693fa1a18611c332f7f9f"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.manager.spec.ts",
+      "sha256": "700a94f2b8bf432c9f7d3debee5566bde606d030c89dd519aea6535709959e62"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.manager.ts",
+      "sha256": "06218bf2ff745c928eab82d83564756f85e17eb8386d51e01d21b528807b0378"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.module.ts",
+      "sha256": "ad4f868c8c4cfb21f6db7efcccc3a5f8b5a75f82ad242809b85249604362e9a7"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.security.spec.ts",
+      "sha256": "5a72c1210b62795ce4d7519fb44de9b0200e269bc440cae04ebabea8ee5fe50c"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.security.ts",
+      "sha256": "ade8514d2a0717b787caf4f17b9b97795a6385e97d41bb4d0b5f75503f4e56ca"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.manager.spec.ts",
+      "sha256": "bba9646cf0530f898f649af6ba7c3da2f16eb45a5405ee5d51109759317a5713"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.manager.ts",
+      "sha256": "281671705943c2b3a37a1ab7523a4fad472c86402363bdcd15b917bfe91063c6"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.nonce.spec.ts",
+      "sha256": "2549967545dce069a2ae0364fecbd483e71ddbaa947cbef80f7494096a390017"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.nonce.ts",
+      "sha256": "c5802c44918a24547501f5d62725233dfd5de13becd14f198bffc9f17d9bfd5a"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.output.spec.ts",
+      "sha256": "60e364260120eb04394b23ba387b0a1dcb2db7fa101a83d9b9b2b2f3b6006640"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.output.ts",
+      "sha256": "a9f9e7a57be03b951df72e45b23796c7c9204ee10cf9a2d9b74392238d180076"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.security.spec.ts",
+      "sha256": "600acc3a1e57495c12b0cd200e0fe7c983a418d1fc2e5db903b791bde79af8c4"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.security.ts",
+      "sha256": "55ab6f4a454aa3dd956d387e176cd58fe8b08e4d5e2c5268ea27ceff1fde8ca3"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly-policy.service.spec.ts",
+      "sha256": "670f4453c8a5f0567f223e00aa8047f92d80ea63f7d82eed5c4235db47ebe7c6"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly-policy.service.ts",
+      "sha256": "4f037b67ec469c8e741bb765e1de8904d585e86c0c178be49f007cce5ee28f81"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly.interceptor.spec.ts",
+      "sha256": "52b02ca573f596025e821cc53a1f76c8d8708a169dd8f3dada0e8050324da5bc"
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly.interceptor.ts",
+      "sha256": "bb2497c7c5b30e8fb698f7385c4343bffbd4027b8a7a9f489b5b257a50701ed2"
+    },
+    {
+      "path": "src/scripts/verify-cregis-callback-window.spec.ts",
+      "sha256": "e626daea9404ce0cc6c1dca77ed44706572f0c5046752091cb0f3428abc89b46"
+    },
+    {
+      "path": "src/scripts/verify-cregis-callback-window.ts",
+      "sha256": "127e0acf85da3c3e3b370cf95451ef64cf0eb721a00ffcdd2f20424251c90941"
+    },
+    {
+      "path": "src/security.e2e.spec.ts",
+      "sha256": "31e1ce0e5765f443a06691821600974380e7e67d0458658afc4bd5ca0bb1b622"
+    },
+    {
+      "path": "src/settlement/dto/settlement.dto.ts",
+      "sha256": "7a864f7787d900ccba1b92a83605d82779f9fdad4b61e5e7bc181fabc8bfad5a"
+    },
+    {
+      "path": "src/settlement/dto/treasury-liquidity.dto.ts",
+      "sha256": "d0c45be95b52595d0235e3202f682fbf14c6571758786b46322250548754bace"
+    },
+    {
+      "path": "src/settlement/settlement.controller.ts",
+      "sha256": "12f5bbc61107bcaa405da29211e9a7822577cc662d4796f82ebec02d2d22a191"
+    },
+    {
+      "path": "src/settlement/settlement.module.ts",
+      "sha256": "2abcb109364debf035aa002545c77486c976b36b273aba2aaac1cd5db61a4425"
+    },
+    {
+      "path": "src/settlement/settlement.service.spec.ts",
+      "sha256": "382d14e84f7206c8aa967f47b1e45386586ea6f2ad4bb90b28084f8716829814"
+    },
+    {
+      "path": "src/settlement/settlement.service.ts",
+      "sha256": "9af01074af41893ef52919f101a761d01dd01f59f751bd9cb76ae7ea2d368cd3"
+    },
+    {
+      "path": "src/settlement/treasury-liquidity.service.spec.ts",
+      "sha256": "ceac83c8a496e6930b635d003e118f37985ba53ddf3f059e69570feb600afcc5"
+    },
+    {
+      "path": "src/settlement/treasury-liquidity.swagger.spec.ts",
+      "sha256": "947a3a3c6c688f38a08460fd3c42b32252daf5cc029bfac0b167168a072e79b3"
+    },
+    {
+      "path": "src/tenants/dto/create-tenant.dto.ts",
+      "sha256": "e403cad7556a6615c0179ec03235ee5661c2777e425e9797dfa5d58cf968a273"
+    },
+    {
+      "path": "src/tenants/dto/tenant-response.dto.ts",
+      "sha256": "25b7251d4fc20a8283841e8c3c78c394f88161596dfeb27821663478ae485266"
+    },
+    {
+      "path": "src/tenants/tenants.controller.spec.ts",
+      "sha256": "de1c38dd4877a66315e72ea19f4e5aca8e5906eba6938feb99cfd7a51aa49124"
+    },
+    {
+      "path": "src/tenants/tenants.controller.ts",
+      "sha256": "864ecb34d9c4bd51f5d8f7de2c9a128eeb7fd56d39d442c560cdeca87f679e26"
+    },
+    {
+      "path": "src/tenants/tenants.module.ts",
+      "sha256": "df9341e9b74e64e0102dd844cf5471e99dd4bdf35dff17029112a40922ce9514"
+    },
+    {
+      "path": "src/tenants/tenants.service.spec.ts",
+      "sha256": "dc1488d5579434b572535f1ec3f745c2bf7372a925364b4af75956104b714668"
+    },
+    {
+      "path": "src/tenants/tenants.service.ts",
+      "sha256": "94b2f664a1c8924e5efc9e44e48f19cd3f5c5238a604bc48859d8dd835d6c53e"
+    },
+    {
+      "path": "src/tenants/tenants.swagger.spec.ts",
+      "sha256": "67b1daf945460f200c97a371df33afec8794979ea38ed8551238a480b1958627"
+    },
+    {
+      "path": "src/test-support/card-provider-conformance.spec.ts",
+      "sha256": "8aba3b33646712d9e93b6e05426edb12f6732377b9b6f0695621cfe491c97e8e"
+    },
+    {
+      "path": "src/test-support/card-provider-conformance.ts",
+      "sha256": "d27824f0bb1e1a828fb893cd9edb7459fbeb1172b90ccad5f6e7663baa5c1cf6"
+    },
+    {
+      "path": "src/test-support/fixtures/thredd-card.sandbox.golden.json",
+      "sha256": "5c957370b00aa263aadb2bc19436fe40865ef618fb9761ffeb28d85707b4a4ef"
+    },
+    {
+      "path": "src/test-support/fixtures/thredd-inbound-lifecycle.sandbox.golden.json",
+      "sha256": "6b8dc3553f3e94939b597cb40f2e93a2586456cedf04fedcf39e82270cfaca4c"
+    },
+    {
+      "path": "src/test-support/fixtures/thredd-outbound-card.sandbox.golden.json",
+      "sha256": "fc99c14d796abb30ae7d230f5ea58488529a488e0ba3adfe4fde2b5452a221b9"
+    },
+    {
+      "path": "src/test-support/fixtures/thredd-webhook-replay.sandbox.golden.json",
+      "sha256": "8cf917966bfaf313873a8de65359ba30a1ea7bade6bb412d452dedaf5775ce7d"
+    },
+    {
+      "path": "src/test-support/provider-stub-scenarios.spec.ts",
+      "sha256": "d88fccefb9866dfa8761e70216dc5cb738971ae5245f4cabf31525987eef62a4"
+    },
+    {
+      "path": "src/test-support/provider-stub-scenarios.ts",
+      "sha256": "b6dcae994092cae981604cf958137ab1d924cd172127e4e89b8261cea3011447"
+    },
+    {
+      "path": "src/test-support/thredd-adapter-golden.spec.ts",
+      "sha256": "e8217eb2b42384ead9e89a5f0df38d245e24c64d13833048eaf8fb0c761f12ef"
+    },
+    {
+      "path": "src/test-support/thredd-inbound-lifecycle-golden.spec.ts",
+      "sha256": "3b1fd96eb4c8b4715f8f38a4b078663cff7253429a969cdedf121ac9693e9c31"
+    },
+    {
+      "path": "src/test-support/thredd-outbound-card-golden.spec.ts",
+      "sha256": "1a75ea9eae90d5e6fd25050d8aa56528ad034263cf0fb93c87f809699ae4d75f"
+    },
+    {
+      "path": "src/test-support/thredd-webhook-replay-http.spec.ts",
+      "sha256": "9f8b5e40140182e34420119eee7c526e7a9f5880a426d441a293ba8b60250ba0"
+    },
+    {
+      "path": "src/third-party/cregis-external-execution.gate.spec.ts",
+      "sha256": "0824ab7f81465c4db70f661a84da6ee96126d6aeac58ba5dc647ae283d1a1ab0"
+    },
+    {
+      "path": "src/third-party/cregis-external-execution.gate.ts",
+      "sha256": "2862217432b036ab9f3591314998b6119b74b4172861138b2a614e34a536bca9"
+    },
+    {
+      "path": "src/third-party/cregis-sandbox-safety-migration.spec.ts",
+      "sha256": "28c3e5647ab471081e8ca58574241fc362dba5056e475e1f1aadc874c2c84edc"
+    },
+    {
+      "path": "src/third-party/dto/third-party.dto.spec.ts",
+      "sha256": "bf7a23cc7d69521c2d7a3e79bc4f8a310796766d7a234a637dbd8e4b6bbcf170"
+    },
+    {
+      "path": "src/third-party/dto/third-party.dto.ts",
+      "sha256": "89b212e8d5d05bffc87eb4d3d640dcb2312c24ef37e4c07dd5073841afb136d4"
+    },
+    {
+      "path": "src/third-party/pr69-funding-coordination.service.spec.ts",
+      "sha256": "1c0a97e044bcb6ddb548ee4ecad61712ae59739f9ffc1f47cafbda801d83c1cb"
+    },
+    {
+      "path": "src/third-party/pr69-funding-coordination.service.ts",
+      "sha256": "68f20dabc86d2865b2f35f568afd675c7a1f40cfe811b9c1712ffc691753e9cb"
+    },
+    {
+      "path": "src/third-party/providers/cregis-callback-signature-capture.spec.ts",
+      "sha256": "29818443fb2bff0aa0bd3f102101ac20ce71ab4cb629a1b5198e3333fb61d2b2"
+    },
+    {
+      "path": "src/third-party/providers/cregis-callback-signature-capture.ts",
+      "sha256": "a67e51e8280097346ed019394937fbfd08816371ba10b857d6c694b19c652d5d"
+    },
+    {
+      "path": "src/third-party/providers/cregis-endpoint-catalog.ts",
+      "sha256": "93c133cdc07a1aa5f9acff78c88e279560156b559a083e03b3b4185af59851c1"
+    },
+    {
+      "path": "src/third-party/providers/cregis-outbound-policy.spec.ts",
+      "sha256": "291bd3f017f8169a0db26bd5579e6ea490109b71266717fab59ca71e0d35eb07"
+    },
+    {
+      "path": "src/third-party/providers/cregis-outbound-policy.ts",
+      "sha256": "d2205ceb495123f471fa8d12e1a8915f070f85f51e64ca48a6463e6e54f64965"
+    },
+    {
+      "path": "src/third-party/providers/cregis-payment-engine-contract.v2026-09-01.spec.ts",
+      "sha256": "420d6da18407dec22fd7f9fe5404a5951d47426361375624933b157e189d6f51"
+    },
+    {
+      "path": "src/third-party/providers/cregis-payment-engine-contract.v2026-09-01.ts",
+      "sha256": "e5ee16c87948cefb18801b0bf17d5b7ce4bb160c6996917117c5961673b3fe84"
+    },
+    {
+      "path": "src/third-party/providers/cregis.provider.spec.ts",
+      "sha256": "822c1acfcf96dbb7540c56706779e859dddbf9e382cca83e9a38b370c5317de5"
+    },
+    {
+      "path": "src/third-party/providers/cregis.provider.ts",
+      "sha256": "4389f0fa1d40a62a75606355b44b0b17ef0ed42287d40932d63c9e253bdb6285"
+    },
+    {
+      "path": "src/third-party/providers/payment-provider.config.spec.ts",
+      "sha256": "f47fb752e94e5c37ca4357c4a0b67203d31eee3ba3725eb652593e7a30530994"
+    },
+    {
+      "path": "src/third-party/providers/payment-provider.config.ts",
+      "sha256": "2c02f526abba18cd693c41f45f4ffcede216a15e181acd9f593578889d2b645b"
+    },
+    {
+      "path": "src/third-party/providers/secret-reference-resolver.spec.ts",
+      "sha256": "7d53122c73be8bfee8b42a08311ce9f9794394205819bf71399e20d2cfacbde6"
+    },
+    {
+      "path": "src/third-party/providers/secret-reference-resolver.ts",
+      "sha256": "2f92951068a1de298982e2fef24b736ef34674b2c2ec242f6af65abe5eec55d0"
+    },
+    {
+      "path": "src/third-party/providers/third-party-asset-provider.ts",
+      "sha256": "164244f5d7581144327f28032a2a92e34b90043b715352286fcd474303bef89c"
+    },
+    {
+      "path": "src/third-party/providers/third-party-provider.registry.spec.ts",
+      "sha256": "9be55fdfea20eac9540dd620d5d986967bec5ddfb2187a5e1841acb5b9649872"
+    },
+    {
+      "path": "src/third-party/providers/third-party-provider.registry.ts",
+      "sha256": "8bba13a779151312124a3d0d20c768a24b442d8862ad96ae28be830f8436c4c3"
+    },
+    {
+      "path": "src/third-party/providers/ucard-provider.ts",
+      "sha256": "b91239b386235dd4aec3c80e57c01f3d9d2819b562111c198547819ce1b7d79b"
+    },
+    {
+      "path": "src/third-party/third-party-amount.spec.ts",
+      "sha256": "8eb468c97393cf05b35b2f1fdaa57198f936a71831852465caeb3c6087c79e48"
+    },
+    {
+      "path": "src/third-party/third-party-amount.ts",
+      "sha256": "1e98280f7a1c164af577b131ebee7798cf1d40ee29493438a3a35b68440253ab"
+    },
+    {
+      "path": "src/third-party/third-party-asset.controller.ts",
+      "sha256": "0042f68c70f80243c7bdca09c5b9a2deda8f409df9f6436a2ed13b9ead1f1a30"
+    },
+    {
+      "path": "src/third-party/third-party-asset.service.spec.ts",
+      "sha256": "b07ba76bd5bea743e83ab036fb6e1c415037d80dca30c6b1e0b3501c16f7c48e"
+    },
+    {
+      "path": "src/third-party/third-party-asset.service.ts",
+      "sha256": "4913753965dcf057610dc16aa90e1376328451593f788041db57bfe306a113c7"
+    },
+    {
+      "path": "src/third-party/third-party-no-store.middleware.spec.ts",
+      "sha256": "24409c5702cdf1dc47c0927a0adb276cb56866202f34eb489d30f8b6bfbe365c"
+    },
+    {
+      "path": "src/third-party/third-party-no-store.middleware.ts",
+      "sha256": "b4fd7a5b3048896f0239fe3cff65cd335014b97e2a23034647e75e8a1c6f6b00"
+    },
+    {
+      "path": "src/third-party/third-party.module.ts",
+      "sha256": "6054d45b9bdb2c015b3523d2771f2474c9f3fff910c3c0172cca18e82e3769df"
+    },
+    {
+      "path": "src/third-party/ucard.contract.spec.ts",
+      "sha256": "1f95bb810395f586d7424672a9850090f02e2ca2e70212e451bbe9ec2cc6f8ee"
+    },
+    {
+      "path": "src/third-party/ucard.controller.ts",
+      "sha256": "5865d9dafd4fbab5340cd07b4c1af34d9ca82451ccce9093b6e6b58d4f25fc5e"
+    },
+    {
+      "path": "src/third-party/ucard.service.ts",
+      "sha256": "56ce8f9268f32967872df5718008af4c1e7c18da14015807aa8b3762712a1d7b"
+    },
+    {
+      "path": "src/thredd/certificate-loader.service.ts",
+      "sha256": "cf65816c84a7542b969f96b01838d524decf187268e587330050858c27dd7ce9"
+    },
+    {
+      "path": "src/thredd/mock-card-processor.spec.ts",
+      "sha256": "5a1d103d67e5997a7692c04c407d1db266de5b1f44d8249cab229b53c324a1d7"
+    },
+    {
+      "path": "src/thredd/mock-card-processor.ts",
+      "sha256": "06cfdb291379bdd06540e11f819d2354ea84e9c3390435439f28e26019f62c72"
+    },
+    {
+      "path": "src/thredd/thredd-auth.service.spec.ts",
+      "sha256": "94bbb184b653cff14fbeb4f94f7e67e1b4ac7bd6bb9ea1645b97f2f77be026b1"
+    },
+    {
+      "path": "src/thredd/thredd-auth.service.ts",
+      "sha256": "49c2c2cd9c76ef3527488412c0d88f6fa36f2bdaefe3c16dc6666065001f89a2"
+    },
+    {
+      "path": "src/thredd/thredd-http.client.ts",
+      "sha256": "a25f74bd84e3fac8318720fbd0873219ef63207ff29e52a5b642bd1274283f06"
+    },
+    {
+      "path": "src/thredd/thredd.adapter.spec.ts",
+      "sha256": "3c5290364baddf5acf61bd898d037f66920a9bf96db759423d92569dc671c8b5"
+    },
+    {
+      "path": "src/thredd/thredd.adapter.ts",
+      "sha256": "060967803630e43826d29bf3fc7d85f5bcf196a7b760bc1ca1b73966b5375e68"
+    },
+    {
+      "path": "src/thredd/thredd.module.ts",
+      "sha256": "f5c7c58449072c5727bc2fe04432ca036610bbfc953b96a47582b9cf7a0907b2"
+    },
+    {
+      "path": "src/thredd/token-cache.service.spec.ts",
+      "sha256": "e974660ebdc8ad344a3f605ca0b77bc02c15a75b5d4a6e23a9a1904b1ae59e54"
+    },
+    {
+      "path": "src/thredd/token-cache.service.ts",
+      "sha256": "5faca5e6f610784809b26c6b7e7cf363454c7cf6e4e0b4b21b12dfe0f0ded164"
+    },
+    {
+      "path": "src/treasury/dto/treasury-funds-instruction.dto.ts",
+      "sha256": "5a5a514f81efffca10fe81b7d061dcd915ec4bc2c7ac890c6659cd8ae57c31fc"
+    },
+    {
+      "path": "src/treasury/treasury.controller.ts",
+      "sha256": "b05bfc09929be17eb46f0e7ac4e8abac7d0be746244744ee2d9fa397f3d3696e"
+    },
+    {
+      "path": "src/treasury/treasury.module.ts",
+      "sha256": "52325e2729c821193fd89581f0c15155864a7cfc51e3eea1e174e0ce94a1bc9d"
+    },
+    {
+      "path": "src/treasury/treasury.service.spec.ts",
+      "sha256": "a2e7bf39d2014612c694f884f1188e4c30dc8e1838c12083cb3f316cff0f4d4b"
+    },
+    {
+      "path": "src/treasury/treasury.service.ts",
+      "sha256": "c93bd4f6ce784c9c83947bf0b2cc5f0baec067ec0e5471ba3e69afbbe33d42e8"
+    },
+    {
+      "path": "src/wallet/admin-wallet-account-history.swagger.spec.ts",
+      "sha256": "cb9bb143de5cd12f745174c3083f0a1abbf7ff8158b1453ca3511b0d710c8274"
+    },
+    {
+      "path": "src/wallet/admin-wallet-operation-history.swagger.spec.ts",
+      "sha256": "0ef3e6d56bb9646a9dabcfd2e0e239a8d205fd227c9b89478e2d3fad306d2180"
+    },
+    {
+      "path": "src/wallet/admin-wallet-transaction-history.swagger.spec.ts",
+      "sha256": "3de4f799ba6b054445e5d1b2ffc903250c03e15a7439874c15a8d22428185d60"
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-account-history.dto.ts",
+      "sha256": "497dcb31126f0a292e9f4f9562599b0c2d6f23cf06a2de75cb3c59c1c53bfd10"
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-operation-history.dto.ts",
+      "sha256": "d1cc48550cd6e61bc9d4ec93c7c53684efaea7cdc9a5f383aa5fd153aa26d702"
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-transaction-history.dto.ts",
+      "sha256": "bbeec02c74fd975b51a9e1db5e397fc390cbe19353be1315842abc039721cdab"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-account-balance.dto.ts",
+      "sha256": "6229797ca6f84fd9ec19a15002939ff36201ec2c226ce3c78e74cd0ed7408f3b"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-account.dto.ts",
+      "sha256": "fcda5953e12e932816014e7432240473f465278a072aa4e514f221641a9695b4"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-assets.dto.ts",
+      "sha256": "acc36c73a04a5c9cfad20593aeeac81e1caef67a547c4fb322db41e12173a5b7"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-balance-summary.dto.ts",
+      "sha256": "0f7d2b979f3d1eb4f0be636de44fce6a1436c20b38b41cbcc73e75089e25298b"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-operation-history.dto.ts",
+      "sha256": "3a0ff07ed2d060924f9db63edc9b68b63a207e25d24ed4a4ee7ae3ed968fa25a"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-operation.dto.ts",
+      "sha256": "8d0cd3dafc6d30bfac790aa2f888f0237bf4b2509958e6b2a5335d12eecadbc0"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-total-assets.dto.ts",
+      "sha256": "e46a70fc65c98c230bd1a5b080c7d293d43361a16b3a0baadb76588e94a857f7"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-transaction-history.dto.ts",
+      "sha256": "8e6b8feecf98145ffc7937bf6b455e084108eb0e5eeba99a385c70a324f66dfd"
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-transaction.dto.ts",
+      "sha256": "04c64a70a4a53c0bcb98ba09020f99c708b1aa912ade2a13b25c133e93af237d"
+    },
+    {
+      "path": "src/wallet/dto/prime-wallet-address-book.dto.ts",
+      "sha256": "c2de0d7b1e6448b0e42f7a024c353a1dd74bdd712f730e5fe61da605af2a1024"
+    },
+    {
+      "path": "src/wallet/dto/prime-wallet-funding.dto.ts",
+      "sha256": "d70971769aec856e30c8e5ae9ee4fba5cea70f8175ea969e3a3950e091a00a6f"
+    },
+    {
+      "path": "src/wallet/dto/wallet-flow.dto.ts",
+      "sha256": "d36bccf73834cc0aff7ce2806a15f6062d41019fe3c931faf520c15c56af85a7"
+    },
+    {
+      "path": "src/wallet/dto/wallet-operation-detail.dto.ts",
+      "sha256": "0b9af18164ec4b41cac8e72fdb8417de2d552ae350cc7bda693b156b81607171"
+    },
+    {
+      "path": "src/wallet/dto/wallet-query.dto.ts",
+      "sha256": "081a4974650fc024b4807d8d13c3e7ddfa3b6c5cbc39fa104f384d10de2a6f4a"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-account-balance.swagger.spec.ts",
+      "sha256": "82c1377e84cb169465f68bd452f91f5ba32e3467cb51126128c3619204683390"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.http.spec.ts",
+      "sha256": "bd6da56142b491d6a003231a4b2265dbf7352e286cc341b628c061248c9c4e26"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.spec.ts",
+      "sha256": "6f66c29bf3874694800a10841b24e7b6fbba2f2ce9f65075a6bc1ca468c6897b"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.swagger.spec.ts",
+      "sha256": "004b44c640d9c188ca4a68708089311e31c46acb2aeeda56a5d9a4669887ace4"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.ts",
+      "sha256": "ddf02c67cd3610fa2615900a1cb2e5b898263d4eace9be77518c2ac301f377f5"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-operation-history.spec.ts",
+      "sha256": "24d41bc44490521fb37852b9660467c8c93c6d72240edf4582c7b02fa440b67b"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-transaction-history.spec.ts",
+      "sha256": "8c1eaab7048adf2655be134bd92c4b5a1162c345ca1de55425d3a86e472e7de1"
+    },
+    {
+      "path": "src/wallet/end-user-wallet-transaction.spec.ts",
+      "sha256": "64aeaa36bf005bc8dc8f08622579c7da1b8d282c393f9e8841c00511880349d8"
+    },
+    {
+      "path": "src/wallet/end-user-wallet.controller.ts",
+      "sha256": "a8912fa9a1f5bc6e2c8dc4b945ee78de7e17a41e0927c17c796846166c6da646"
+    },
+    {
+      "path": "src/wallet/end-user-wallet.swagger.spec.ts",
+      "sha256": "1be62d0f86cee16cf2affea0dfc5872ae741f1cbba750ba48fd13c8609f8da0f"
+    },
+    {
+      "path": "src/wallet/end-user-wallet.types.ts",
+      "sha256": "83eaee21fdb2f7a36600f567d69399e257f1fdcf5ead0b93d12223f9961eee36"
+    },
+    {
+      "path": "src/wallet/prime-wallet-address-book.service.spec.ts",
+      "sha256": "b1c2ccc4bee769d94ce558db89b186d6529d92c0c907e68e773e51c8246026a1"
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.service.spec.ts",
+      "sha256": "108e32551ef24dd62d074a74a2fb75e84220c0b0d4a0ae5cb4d50d520c57885b"
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.service.ts",
+      "sha256": "b70376cc93f0ccbda9a899c3cf7164261fee172f66f4d45ece52758e73114828"
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.swagger.spec.ts",
+      "sha256": "e4da77404cb4a9bd0f4a6a5754dd4a99d85053fc2536ac09de524412389940d9"
+    },
+    {
+      "path": "src/wallet/prime-wallet-network-catalog.ts",
+      "sha256": "652207791267a8f93bd576150b145c3cf35ea4e112fbc9dc8440f3d91d0fe693"
+    },
+    {
+      "path": "src/wallet/wallet-accounting.service.spec.ts",
+      "sha256": "b6c6572812f06cfcf8be1fb15e310aafd04e1b95ff5483b453d456285c9f49e4"
+    },
+    {
+      "path": "src/wallet/wallet-accounting.service.ts",
+      "sha256": "c56adaf48fe014b59e80b68fae04f8b0eb6de21d97639c51193b70369cc14645"
+    },
+    {
+      "path": "src/wallet/wallet-architecture.spec.ts",
+      "sha256": "166ede116f049db5dc0aa4658cde242ac533f3c0f0edb271fe505f68ba0c398b"
+    },
+    {
+      "path": "src/wallet/wallet-fee-execution.spec.ts",
+      "sha256": "b4ca41ce55ca3b76240fd19712d4afadfe15f478f83f7785553a6edf6b51106d"
+    },
+    {
+      "path": "src/wallet/wallet-queries.spec.ts",
+      "sha256": "481a27df60c36a0c6932183b4b2bef728890183ddb75094988349f9ef631717e"
+    },
+    {
+      "path": "src/wallet/wallet-settlement.swagger.spec.ts",
+      "sha256": "d0268ea1b33dad1a62726ce87db57177aba6da28b74938364aa2a9ad655a67d0"
+    },
+    {
+      "path": "src/wallet/wallet.controller.ts",
+      "sha256": "52b5e113895d63f47b9db3620ed5d8376116b4ab17a96ed31ce93fb9a263b51e"
+    },
+    {
+      "path": "src/wallet/wallet.module.ts",
+      "sha256": "4126fab00ef8807b37289c7e28843814a49d256c3712907a0a5f414b57195f53"
+    },
+    {
+      "path": "src/wallet/wallet.service.spec.ts",
+      "sha256": "60564f4012072526d5c12597824eda3a63bb52a2e20d6acc2ec26d3a1f3c342b"
+    },
+    {
+      "path": "src/wallet/wallet.service.ts",
+      "sha256": "49e843f21e8eae3ec6b7d9693be9644295c3bd58b6b66c66c330427114895313"
+    },
+    {
+      "path": "src/webhooks/card-financial-accounting.service.spec.ts",
+      "sha256": "20adb10c222b7fc8f16fde616d308a70c2793a07c4ec1b50477e9bb6c35364d8"
+    },
+    {
+      "path": "src/webhooks/card-financial-accounting.service.ts",
+      "sha256": "03b09f60627d042808aa33b9a7236c392517fb45b68b8f8b44c7c818bd851de2"
+    },
+    {
+      "path": "src/webhooks/provider-webhook-plugin.registry.ts",
+      "sha256": "946bce52833d50cb8ac6dbb4208e46bba20dc10858fa8f98ad5b0f1cb6f3b734"
+    },
+    {
+      "path": "src/webhooks/provider-webhook.plugin.ts",
+      "sha256": "d6c7f2739d516d4a25079ba74d2f0a669afb06ab00267836d76f58a0319c7348"
+    },
+    {
+      "path": "src/webhooks/thredd-event.handler.spec.ts",
+      "sha256": "509afbf6720a491d148f389be92f09e9fd2f787b39d212b473b5c67f646113b5"
+    },
+    {
+      "path": "src/webhooks/thredd-event.handler.ts",
+      "sha256": "70e0edcdf473fc4412a4fb55abe931fbbcd629e6f821a78bb0f21d7ebb69b642"
+    },
+    {
+      "path": "src/webhooks/webhook-event-handler.registry.ts",
+      "sha256": "bd8301b0e691af06d309f9d740f2afce832f876baab9f60a32f9aec74a7f5104"
+    },
+    {
+      "path": "src/webhooks/webhooks.controller.spec.ts",
+      "sha256": "1fbbbfd0bdd06469272f9569651b8b222fce5c68936316942391fd87c531a750"
+    },
+    {
+      "path": "src/webhooks/webhooks.controller.ts",
+      "sha256": "a21e4bb4f6319be378a37227373591c8e7ca298b0adec2970314343b69c086d2"
+    },
+    {
+      "path": "src/webhooks/webhooks.module.ts",
+      "sha256": "4ed5ac18e2aeca83e54a95c2b50a21209c65dfcf68d4e0872b056b46dd38e5fb"
+    },
+    {
+      "path": "src/webhooks/webhooks.production.spec.ts",
+      "sha256": "893859dc4032401ffb5a000fa165c3940f1896bcf88387bacc293e0235efff53"
+    },
+    {
+      "path": "src/webhooks/webhooks.service.spec.ts",
+      "sha256": "705fbc98451565884fba92d4766cd00cc0379fb0045838455d8d6ecf182b55ff"
+    },
+    {
+      "path": "src/webhooks/webhooks.service.ts",
+      "sha256": "9c7f7b093ea275e2ef5624dbbf7c023310c57f7470cf4c0c7c436d877daa42be"
+    },
+    {
+      "path": "test/admin-card-timeline.integration.e2e-spec.ts",
+      "sha256": "c68b53891c15f8254ff12a7a13e70dfe112bde7363d10d3cb338f1b72f57a704"
+    },
+    {
+      "path": "test/admin-card-transaction-detail.integration.e2e-spec.ts",
+      "sha256": "b883ac4ebccd28bd3d66a23e1c07ccc05945bfb2e92afafa2c816ba7bcf9c865"
+    },
+    {
+      "path": "test/admin-card-transactions.integration.e2e-spec.ts",
+      "sha256": "f5ead2148839f278a30e75b9c9096db8ab9b76e7e5892e3ee1b250634c67916e"
+    },
+    {
+      "path": "test/admin-kyc-read.integration.e2e-spec.ts",
+      "sha256": "e781e61b40a00ff5b7ad79445082e87bb809be406e01c9cc5181f2d2c5147b50"
+    },
+    {
+      "path": "test/admin-tenant-scope.integration.e2e-spec.ts",
+      "sha256": "205d8b947d6824b8b8274b8a02c3bc2214892ca87fbaa437b535e46a4760cf65"
+    },
+    {
+      "path": "test/admin-treasury-liquidity.integration.e2e-spec.ts",
+      "sha256": "efc4032c949823835570d1f5813357bc49f59c29f19b68518e17c697ca9567e4"
+    },
+    {
+      "path": "test/admin-wallet-account-history.integration.e2e-spec.ts",
+      "sha256": "2d2b30ea59a4b3acc60fbeaf11bfa2a0fd51c44684956e3117b00951aa67ce66"
+    },
+    {
+      "path": "test/admin-wallet-operation-history.integration.e2e-spec.ts",
+      "sha256": "2d7a7d2e796fb2dae424bae022b8faaacd042a30c619c248c956086c7ea0b8fc"
+    },
+    {
+      "path": "test/admin-wallet-transaction-history.integration.e2e-spec.ts",
+      "sha256": "2d5510accbfbd406a728d6594f3b25bb8312d12b07a63f8d3e8770f5bff0f1df"
+    },
+    {
+      "path": "test/card-list-database-failure.integration.e2e-spec.ts",
+      "sha256": "800763ba6adc66092cbf58c3b037a85e17601a18a532d8de6c81307720ec5787"
+    },
+    {
+      "path": "test/card-products-read-contract.integration.e2e-spec.ts",
+      "sha256": "191ada9599949cecb9ad968b7c088966271d9d4f031145aba53b737e9dcb7ff7"
+    },
+    {
+      "path": "test/card-transaction-inbound-read.integration.e2e-spec.ts",
+      "sha256": "1987a83655fd60f81571214e2c5f6caf0fe94fd254e6e097114b7978fb0b2faf"
+    },
+    {
+      "path": "test/card-transaction-provider-registry.integration.e2e-spec.ts",
+      "sha256": "f1ad355114c499e4d3652f54c5d3ef2b882c56e32203f2e53d8aa06aedca8286"
+    },
+    {
+      "path": "test/end-user-auth.integration.e2e-spec.ts",
+      "sha256": "22d6b651e19aae6711a15debd1124473f1de19ba1184a264c8f559088dad1fec"
+    },
+    {
+      "path": "test/end-user-card-activation-journey.integration.e2e-spec.ts",
+      "sha256": "650ca01e30d67b67b716244b97d637a8445da864c10604e03d6bd4799de05e04"
+    },
+    {
+      "path": "test/end-user-card-activation.integration.e2e-spec.ts",
+      "sha256": "f2c69040770eefa0a1bd1fdedd467603b672c0c67e72ac49b9abdadeef288987"
+    },
+    {
+      "path": "test/end-user-card-balance.integration.e2e-spec.ts",
+      "sha256": "1f04bd7ec9f0edaa80c445899ee08d5747aa9515a13fed2891aa2e53e2d70267"
+    },
+    {
+      "path": "test/end-user-card-create.integration.e2e-spec.ts",
+      "sha256": "bed99d6fc9b292bd2a7e358649355135a82046791df5064298a53f713e927a16"
+    },
+    {
+      "path": "test/end-user-card-freeze-journey.integration.e2e-spec.ts",
+      "sha256": "9245a098ab1d2b5b8219a2969b24b1212428f45fa86f5ec348dfc0c5f87e37c4"
+    },
+    {
+      "path": "test/end-user-card-limits.integration.e2e-spec.ts",
+      "sha256": "498acc282c5363d49053b537b76e42af058007e378943d3451c8e29ea03db32f"
+    },
+    {
+      "path": "test/end-user-card-list.integration.e2e-spec.ts",
+      "sha256": "ea3b3a63ff91e770848611d02d957f0809c55dbc5350ce78dabb0d3bab90533c"
+    },
+    {
+      "path": "test/end-user-card-renew.integration.e2e-spec.ts",
+      "sha256": "561eb6f7b896c88ee463fc6dc0eb293ba53cc8b6fc118d488f9bbb9919cba100"
+    },
+    {
+      "path": "test/end-user-card-renewal-journey.integration.e2e-spec.ts",
+      "sha256": "ee4e5d8eaac0c1d285effeaffb2d0e07cbfe3348ff69c2ab0f4b98a079d638ff"
+    },
+    {
+      "path": "test/end-user-card-replace.integration.e2e-spec.ts",
+      "sha256": "9e09e97922258f3c8c7be06e2d0d70c988201c1584d85a937298b4ac935c6cb2"
+    },
+    {
+      "path": "test/end-user-card-replacement-journey.integration.e2e-spec.ts",
+      "sha256": "55624f48215a420a698ade76551444e844ffbdafe9c721926e523e40da896254"
+    },
+    {
+      "path": "test/end-user-card-status.integration.e2e-spec.ts",
+      "sha256": "43c1ceca91d1f94bde09505953249e07393367bfbe5c21d8121d7dd7b030203d"
+    },
+    {
+      "path": "test/end-user-card-timeline.integration.e2e-spec.ts",
+      "sha256": "eb8c3dfd1761e35cf12428a1b990bfb4ceb4f707818aa039796d90d2854bfcdd"
+    },
+    {
+      "path": "test/end-user-card-transaction-detail.integration.e2e-spec.ts",
+      "sha256": "27b7d9de1835591d7a800749ba362b887f16d676a318c792720b8ab6e5e96b1f"
+    },
+    {
+      "path": "test/end-user-card-transaction-pagination.integration.e2e-spec.ts",
+      "sha256": "f788978509968052a762e9a68f07544f56e3569ecc0f72f1f23935891a640cb4"
+    },
+    {
+      "path": "test/end-user-card-transactions.integration.e2e-spec.ts",
+      "sha256": "69444554a9b17b3b622a71c826b14b759f1009ced6057a881b22bb9321117d4c"
+    },
+    {
+      "path": "test/end-user-fx-quote.integration.e2e-spec.ts",
+      "sha256": "f79b563db0ac54ee7f151379c48270af1f4a84c0aa3fe1783bf67ec3122bfc61"
+    },
+    {
+      "path": "test/end-user-kyc-status.integration.e2e-spec.ts",
+      "sha256": "359b627740a293af70d598e4b1db5f3125c6c1ef15efe1c68903afad4dbb3097"
+    },
+    {
+      "path": "test/end-user-virtual-card-create-journey.integration.e2e-spec.ts",
+      "sha256": "a380c25e2fb2c49d73b4da5937daec794c252baf324e496d5fab39593c538342"
+    },
+    {
+      "path": "test/end-user-wallet-account-balance.integration.e2e-spec.ts",
+      "sha256": "e97fba81cc43a86286cb22c6aeb88768752e1989278c7a78f2837744ae81dcc6"
+    },
+    {
+      "path": "test/end-user-wallet-balance-summary.integration.e2e-spec.ts",
+      "sha256": "ba8b89e4e40328643edf701468c5072107f637b76aca4ee00954c9bf8a7a0c61"
+    },
+    {
+      "path": "test/end-user-wallet-operation-history.integration.e2e-spec.ts",
+      "sha256": "6f8286b622fcb72658f6fbec0814d5476bd6e8f6380c6ff0ff1ade66e8864dd8"
+    },
+    {
+      "path": "test/end-user-wallet-operation.integration.e2e-spec.ts",
+      "sha256": "1425759ff1dd91d7179cb3f67bfe1c9eebe0837bec606b28cd11c17092b2f50b"
+    },
+    {
+      "path": "test/end-user-wallet-transaction-history.integration.e2e-spec.ts",
+      "sha256": "f98908895e129f5f67a2d829cafd9b2bddc8c4e629a57fe56d5ddf431b20c6e2"
+    },
+    {
+      "path": "test/end-user-wallet-transaction.integration.e2e-spec.ts",
+      "sha256": "26291b2f13b34d332943ba63399d040096ab8b2ba7bd903455371653e75abe45"
+    },
+    {
+      "path": "test/end-user-wallet-transfer-journey.integration.e2e-spec.ts",
+      "sha256": "4885992f7e023431616af9ac39556aa774d431086ce68a06fa3b09d21b6f4034"
+    },
+    {
+      "path": "test/end-user-wallet-transfer.integration.e2e-spec.ts",
+      "sha256": "57e99e52fd8decc13da4666044e972611ca05fa6b532c732bcc8051c745d8994"
+    },
+    {
+      "path": "test/foundation.e2e-spec.ts",
+      "sha256": "2fe0e7431e2fa8b554a8d21bb4a503ea69bdb138ce7826b9f0100ef82d5f1c1b"
+    },
+    {
+      "path": "test/fx-quote-provider.integration.e2e-spec.ts",
+      "sha256": "b8acec4dceab83f292c1a102d744229a7977e9ef4ea70743706d30312049e0ca"
+    },
+    {
+      "path": "test/fx-sandbox-persisted-conversion.integration.e2e-spec.ts",
+      "sha256": "383156305c1b44205a34ab0124a8bb7129359eda6ca0f882aeb5a7d750b1b9cf"
+    },
+    {
+      "path": "test/jest-core-financial.json",
+      "sha256": "e4b8cde58f402d94af8b3408751650168a6e2208fd3a6cea780c59910be904ac"
+    },
+    {
+      "path": "test/jest-e2e.json",
+      "sha256": "a02288285f0447d3046d1fd0518b10efe98a1ccd07807627987a4f24d0fd3eb8"
+    },
+    {
+      "path": "test/phase2-onchain-specialized.e2e-spec.ts",
+      "sha256": "b5ec6a2d1c84af72dcacb4a68ca44b7a06e8bec0aec61c8954eaacf3adf9e7a4"
+    },
+    {
+      "path": "test/prime-wallet-funding.integration.e2e-spec.ts",
+      "sha256": "24afd8d4b5b03dafc8735ac7a024303bc73959e88d0bcc13da062475a9f8a9f6"
+    },
+    {
+      "path": "test/setup-env.ts",
+      "sha256": "9caf96fc8e6c4ddbcef36249199ef2c7b82dbf1f93667754656cdf1b2fbf685d"
+    },
+    {
+      "path": "test/third-party-asset.integration.e2e-spec.ts",
+      "sha256": "9538b73589abb5b7e0b1d92c50411fbad7480205ea486fe9277865e3ee1cb22d"
+    },
+    {
+      "path": "test/thredd-signed-persisted-wallet-lifecycle.integration.e2e-spec.ts",
+      "sha256": "cf53c0dba14f28e78b794a10ec32d9e691a35e24dab2b5f3d3c48b378b7d1f6b"
+    },
+    {
+      "path": "test/treasury-funds-instruction.integration.e2e-spec.ts",
+      "sha256": "5a3a7b55278dabfe134961d893a20a1c9abbe55b58cfb864c028a3a951efdd28"
+    },
+    {
+      "path": "test/website-backend-readiness.integration.e2e-spec.ts",
+      "sha256": "8ed129c3058f152c89279353c60c7e4b8401c08e8cf466f3dc42b323d31bb6d7"
+    },
+    {
+      "path": "tsconfig.eslint.json",
+      "sha256": "200f7e8de446e16a4fa1510404c780dd123c89c3121a9c0da87d7d152942ec2e"
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "3d432801d64764f7c0b2cdaabf7ea2c34b95760fd5db8726a83d1edf8986ed5d"
+    }
+  ],
+  "credential_env_files": 0,
+  "symlinks": 0
+}

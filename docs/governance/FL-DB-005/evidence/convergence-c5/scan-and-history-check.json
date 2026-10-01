@@ -1,0 +1,142 @@
+{
+  "scope": "new convergence governance documents/evidence/tools and unchanged six business files by exact hash/tree equivalence",
+  "explicit_rules": [
+    "private_key",
+    "github_token",
+    "aws_access_key",
+    "slack_token",
+    "jwt",
+    "credential_url"
+  ],
+  "explicit_hits": 0,
+  "high_entropy_candidates": [
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 9,
+      "length": 61,
+      "entropy": 4.728
+    },
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 18,
+      "length": 61,
+      "entropy": 4.748
+    },
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 27,
+      "length": 61,
+      "entropy": 4.769
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 12,
+      "length": 78,
+      "entropy": 4.761
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 22,
+      "length": 78,
+      "entropy": 4.779
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 32,
+      "length": 78,
+      "entropy": 4.745
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 42,
+      "length": 78,
+      "entropy": 4.746
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 52,
+      "length": 78,
+      "entropy": 4.793
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 62,
+      "length": 78,
+      "entropy": 4.755
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 72,
+      "length": 78,
+      "entropy": 4.761
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 82,
+      "length": 78,
+      "entropy": 4.793
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 89,
+      "length": 45,
+      "entropy": 4.58
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 362,
+      "length": 77,
+      "entropy": 4.524
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 406,
+      "length": 63,
+      "entropy": 4.509
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 450,
+      "length": 40,
+      "entropy": 4.622
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 522,
+      "length": 77,
+      "entropy": 4.508
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 686,
+      "length": 66,
+      "entropy": 4.537
+    },
+    {
+      "file": "tools/convergence-c5/rebuild-final-r5-r6.py",
+      "line": 28,
+      "length": 40,
+      "entropy": 4.603
+    },
+    {
+      "file": "tools/convergence-c5/rebuild-final-r5-r6.py",
+      "line": 28,
+      "length": 46,
+      "entropy": 4.553
+    },
+    {
+      "file": "tools/convergence-c5/run_dynamic.py",
+      "line": 7,
+      "length": 52,
+      "entropy": 4.611
+    }
+  ],
+  "entropy_review": "Only source-derived identifiers, public input hashes/digests and generated catalog/source metadata; no secret-value raw context exported. Not a claim of zero entropy candidates or whole-project secret absence.",
+  "private_auth_files_in_pr": 0,
+  "raw_private_logs_in_pr": 0,
+  "binaries_in_pr": 0,
+  "actual_existing_secrets_read": false,
+  "new_synthetic_authentication": "Used only inside isolation; lifecycle fingerprints only",
+  "preexisting_governance_files_unchanged": 117,
+  "historical_failures_preserved": true
+}

@@ -1,0 +1,90 @@
+{
+  "autoMergeRequest": null,
+  "baseRefName": "dev",
+  "headRefOid": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+  "isDraft": true,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:14:05Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081727/job/110261307986",
+      "name": "Draft PR lint and syntax check",
+      "startedAt": "2026-10-01T07:13:20Z",
+      "status": "COMPLETED",
+      "workflowName": "Backend Pull Request Gate"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:14:11Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081795/job/110261308115",
+      "name": "Draft PR lint and syntax check",
+      "startedAt": "2026-10-01T07:13:22Z",
+      "status": "COMPLETED",
+      "workflowName": "Dev Reset Round Trip"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:14:11Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081720/job/110261307786",
+      "name": "Draft PR lint and syntax check",
+      "startedAt": "2026-10-01T07:13:20Z",
+      "status": "COMPLETED",
+      "workflowName": "FastLink Backend Non-Production CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:13:18Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081727/job/110261309477",
+      "name": "Backend PR Gate",
+      "startedAt": "2026-10-01T07:13:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Backend Pull Request Gate"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:13:18Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081795/job/110261309564",
+      "name": "Dev Reset Round Trip",
+      "startedAt": "2026-10-01T07:13:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Dev Reset Round Trip"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:13:18Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081720/job/110261309747",
+      "name": "verify",
+      "startedAt": "2026-10-01T07:13:19Z",
+      "status": "COMPLETED",
+      "workflowName": "FastLink Backend Non-Production CI"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:13:18Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081727/job/110261309497",
+      "name": "Backend PR Gate",
+      "startedAt": "2026-10-01T07:13:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Backend Pull Request Gate"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-01T07:13:18Z",
+      "conclusion": "SKIPPED",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36829081795/job/110261309349",
+      "name": "Dev Reset Round Trip",
+      "startedAt": "2026-10-01T07:13:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Dev Reset Round Trip"
+    }
+  ],
+  "url": "https://github.com/xw564477242-cmyk/fastlik-backend/pull/336"
+}
