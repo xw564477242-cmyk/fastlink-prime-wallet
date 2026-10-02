@@ -1,0 +1,36 @@
+{
+  "checked_at": "2026-10-02T13:07:31.722209+00:00",
+  "scope": "isolated governance workspace around read-only checker only",
+  "before": {
+    "head": "eb59a0d54621693da20e9913461c076891967f7d",
+    "index_sha256": "bb6d467077d68f4e0b9a5b5977cda6541acaa279f3cc41c03862da280423d52d",
+    "index_mode": "0o644",
+    "refs_sha256": "3f4b75d64784e82342f77fe3a23eebd1818f632425c119bf1a6cde64763f1c14",
+    "tracked_modes_sha256": "495ed4657f2be149497a2d3f35ca1232aab403d777e12e0c18f67654ef43d0ec",
+    "tracked_count": 1026,
+    "tracked_diff_raw": "",
+    "index_stages_sha256": "a2e6c93431a45e8a43a419ee1ada45336382706855b5fafe3d2d1e363c35736e"
+  },
+  "after": {
+    "head": "eb59a0d54621693da20e9913461c076891967f7d",
+    "index_sha256": "bb6d467077d68f4e0b9a5b5977cda6541acaa279f3cc41c03862da280423d52d",
+    "index_mode": "0o644",
+    "refs_sha256": "3f4b75d64784e82342f77fe3a23eebd1818f632425c119bf1a6cde64763f1c14",
+    "tracked_modes_sha256": "495ed4657f2be149497a2d3f35ca1232aab403d777e12e0c18f67654ef43d0ec",
+    "tracked_count": 1026,
+    "tracked_diff_raw": "",
+    "index_stages_sha256": "a2e6c93431a45e8a43a419ee1ada45336382706855b5fafe3d2d1e363c35736e"
+  },
+  "equal": true,
+  "checker_exit": 0,
+  "backend_worktree_diff_raw": "",
+  "backend_head": "cb92513b266ead8a0cabeff297e4f4c5ffc381d6",
+  "formal_workspaces_accessed": false,
+  "protected_overlays_accessed": false,
+  "limits": "No pre-task full-machine snapshot; no claim of atime/birthtime/other-process invariance. Protected overlays not sampled. Historic missing index bytes remain missing.",
+  "selected_backend_source_recheck": {
+    "files": 290,
+    "changed_paths": [],
+    "prisma_schema_sha_equal": true
+  }
+}

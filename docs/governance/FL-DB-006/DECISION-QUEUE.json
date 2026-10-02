@@ -1,0 +1,1096 @@
+{
+  "count": 54,
+  "confirmed_natural_people": 0,
+  "rows": [
+    {
+      "id": "DB6-DEC-001",
+      "table": "AdminSession",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-002",
+      "table": "ApiClient",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-003",
+      "table": "ApiKey",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-004",
+      "table": "AuditLog",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-005",
+      "table": "Card",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-006",
+      "table": "CardBalance",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-007",
+      "table": "CardEvent",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-008",
+      "table": "CardHolder",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-009",
+      "table": "CardLifecycleEvent",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-010",
+      "table": "CardLimit",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-011",
+      "table": "CardRenewal",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-012",
+      "table": "CardReplacement",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-013",
+      "table": "CardRestriction",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-014",
+      "table": "CardSecurityProfile",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-015",
+      "table": "CardTransaction",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-016",
+      "table": "Customer",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则",
+        "区分登录前注册/认证服务的最小引导能力与登录后本人读取；DB5样例不覆盖注册、登录失败计数和密码变更"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-017",
+      "table": "EndUserRefreshToken",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-018",
+      "table": "EndUserSession",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-019",
+      "table": "EvidenceArtifact",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-020",
+      "table": "FxConversion",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-021",
+      "table": "FxOrder",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-022",
+      "table": "FxRate",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-023",
+      "table": "Journal",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-024",
+      "table": "JournalEntry",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-025",
+      "table": "Merchant",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-026",
+      "table": "MerchantPayment",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-027",
+      "table": "MerchantQrCode",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-028",
+      "table": "Permission",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-029",
+      "table": "ProviderOperation",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-030",
+      "table": "Role",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-031",
+      "table": "RolePermission",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-032",
+      "table": "SettlementBatch",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-033",
+      "table": "SettlementItem",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-034",
+      "table": "SimulationRecord",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-035",
+      "table": "SimulationScenario",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-036",
+      "table": "Tenant",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-037",
+      "table": "TenantCardProviderConfig",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-038",
+      "table": "TenantUser",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-039",
+      "table": "TenantUserRole",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "身份与认证资产负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-040",
+      "table": "TreasuryPosition",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-041",
+      "table": "WalletAccount",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-042",
+      "table": "WalletOperation",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-043",
+      "table": "WalletTransaction",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-044",
+      "table": "WebhookEvent",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则",
+        "确认processDue队列选择与按租户工作项执行的分权设计，不因跨租户扫描实现反推已批准权限"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-045",
+      "table": "WithdrawalAddress",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则",
+        "确认本人CRUD的字段白名单、默认地址唯一性及删除/审计规则；禁止归属迁移"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-046",
+      "table": "tenant_third_party_config",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-047",
+      "table": "third_party_asset_orders",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-048",
+      "table": "third_party_callback_events",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-049",
+      "table": "treasury_accounts",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "Git资产管理员及后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-050",
+      "table": "treasury_fx_orders",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "Git资产管理员及后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-051",
+      "table": "treasury_operation_logs",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "Git资产管理员及后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-052",
+      "table": "treasury_settlements",
+      "status": "UNKNOWN",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "说明缺少可核验主体链的对象归属；旧目录不得自动视为全局公共表",
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "Git资产管理员及后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-053",
+      "table": "ucard_card_base",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    },
+    {
+      "id": "DB6-DEC-054",
+      "table": "ucard_transactions",
+      "status": "BLOCKED",
+      "blocking_reason": "缺少正式正向业务授权；DB5默认拒绝/隔离样例不满足正式运行契约",
+      "required_non_secret_evidence": [
+        "明确本人/租户/共享/平台归属及可信来源",
+        "逐角色逐CRUD批准允许列、不可改归属列、状态转换边",
+        "指定Admin/任务用途、审核人及审计保留规则"
+      ],
+      "responsible_roles": [
+        "后端与资金集成负责人",
+        "全局安全负责人",
+        "项目所有者"
+      ],
+      "next_step": "资产所有者按发现ID/角色/操作/字段/状态提供明确意见，安全负责人复核；未确认不进入实施",
+      "deadline_suggestion": "在后续实施门禁1前逐项确认；自然人和日期尚未指定，不冒充SLA已承诺",
+      "approved_person": null,
+      "approval_time": null
+    }
+  ]
+}

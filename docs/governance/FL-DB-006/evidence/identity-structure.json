@@ -1,0 +1,1440 @@
+{
+  "files": [
+    {
+      "file": "src/admin-auth/admin-auth.service.ts",
+      "sha256": "8eb29403fc76a65c3dcc1243353740dd4ba62ad84ce211e4944c115a997d9353",
+      "methods": [
+        {
+          "symbol": "AdminAuthService.login",
+          "line": 14
+        },
+        {
+          "symbol": "AdminAuthService.logout",
+          "line": 62
+        },
+        {
+          "symbol": "AdminAuthService.hash",
+          "line": 67
+        },
+        {
+          "symbol": "AdminAuthService.sessionLifetimeSeconds",
+          "line": 71
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "Tenant",
+          "operation": "findFirst",
+          "target": "this.prisma.tenant.findFirst",
+          "line": 17,
+          "method": "AdminAuthService.login",
+          "fields": {
+            "where": [
+              "OR",
+              "status"
+            ],
+            "data": [],
+            "select": [
+              "id"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "TenantUser",
+          "operation": "findFirst",
+          "target": "this.prisma.tenantUser.findFirst",
+          "line": 21,
+          "method": "AdminAuthService.login",
+          "fields": {
+            "where": [
+              "tenantId",
+              "email",
+              "isActive",
+              "tenant"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "tenant",
+              "roles"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "AdminSession",
+          "operation": "updateMany",
+          "target": "this.prisma.adminSession.updateMany",
+          "line": 40,
+          "method": "AdminAuthService.login",
+          "fields": {
+            "where": [
+              "tenantUserId",
+              "revokedAt",
+              "expiresAt"
+            ],
+            "data": [
+              "revokedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "AdminSession",
+          "operation": "create",
+          "target": "this.prisma.adminSession.create",
+          "line": 44,
+          "method": "AdminAuthService.login",
+          "fields": {
+            "where": [],
+            "data": [
+              "tenantUserId",
+              "tokenHash",
+              "expiresAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "AdminSession",
+          "operation": "updateMany",
+          "target": "this.prisma.adminSession.updateMany",
+          "line": 63,
+          "method": "AdminAuthService.logout",
+          "fields": {
+            "where": [
+              "id",
+              "revokedAt"
+            ],
+            "data": [
+              "revokedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [
+        {
+          "name": "ADMIN_SESSION_TTL_SECONDS",
+          "line": 72
+        }
+      ],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/admin-auth/admin-bearer.guard.ts",
+      "sha256": "492a64d39d4297ffc3201b31642e026f10ee642868de6281bd171676ca32d082",
+      "methods": [
+        {
+          "symbol": "AdminBearerGuard.canActivate",
+          "line": 11
+        },
+        {
+          "symbol": "AdminBearerGuard.allowed",
+          "line": 103
+        },
+        {
+          "symbol": "AdminBearerGuard.tenantClaim",
+          "line": 108
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "AdminSession",
+          "operation": "findUnique",
+          "target": "this.prisma.adminSession.findUnique",
+          "line": 20,
+          "method": "AdminBearerGuard.canActivate",
+          "fields": {
+            "where": [
+              "tokenHash"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "tenantUser"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "AdminSession",
+          "operation": "update",
+          "target": "this.prisma.adminSession.update",
+          "line": 99,
+          "method": "AdminBearerGuard.canActivate",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "lastUsedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/common/guards/api-key.guard.ts",
+      "sha256": "743c6dfb3ccc26a37c2190a2529dc7bd65b79290592a52e3fa5f7b3938f7ffbd",
+      "methods": [
+        {
+          "symbol": "ApiKeyGuard.canActivate",
+          "line": 10
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "ApiKey",
+          "operation": "findMany",
+          "target": "this.prisma.apiKey.findMany",
+          "line": 18,
+          "method": "ApiKeyGuard.canActivate",
+          "fields": {
+            "where": [
+              "keyPrefix",
+              "revokedAt",
+              "OR",
+              "apiClient"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "apiClient"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "ApiKey",
+          "operation": "update",
+          "target": "this.prisma.apiKey.update",
+          "line": 44,
+          "method": "ApiKeyGuard.canActivate",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "lastUsedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/common/guards/end-user-auth.guard.ts",
+      "sha256": "64a244b50af46161f5df90aac4565175d92b880849d242f348b2f20c59926d75",
+      "methods": [
+        {
+          "symbol": "EndUserAuthGuard.canActivate",
+          "line": 12
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [
+        {
+          "target": "this.sessionGuard.canActivate",
+          "line": 13,
+          "method": "EndUserAuthGuard.canActivate"
+        }
+      ],
+      "schedules": []
+    },
+    {
+      "file": "src/end-user-session/end-user-session.service.ts",
+      "sha256": "52d017af2a4c82a4fb0349748ae0bac102f7c96d756402dc385a18c631163bf6",
+      "methods": [
+        {
+          "symbol": "EndUserSessionService.register",
+          "line": 47
+        },
+        {
+          "symbol": "EndUserSessionService.login",
+          "line": 84
+        },
+        {
+          "symbol": "EndUserSessionService.authenticate",
+          "line": 134
+        },
+        {
+          "symbol": "EndUserSessionService.assertCsrf",
+          "line": 175
+        },
+        {
+          "symbol": "EndUserSessionService.refresh",
+          "line": 203
+        },
+        {
+          "symbol": "EndUserSessionService.logout",
+          "line": 272
+        },
+        {
+          "symbol": "EndUserSessionService.revokeSession",
+          "line": 298
+        },
+        {
+          "symbol": "EndUserSessionService.revokeAllForUser",
+          "line": 312
+        },
+        {
+          "symbol": "EndUserSessionService.passwordChanged",
+          "line": 320
+        },
+        {
+          "symbol": "EndUserSessionService.accountDeactivated",
+          "line": 335
+        },
+        {
+          "symbol": "EndUserSessionService.createSession",
+          "line": 343
+        },
+        {
+          "symbol": "EndUserSessionService.validateSession",
+          "line": 385
+        },
+        {
+          "symbol": "EndUserSessionService.resolveTenant",
+          "line": 414
+        },
+        {
+          "symbol": "EndUserSessionService.recordFailedLogin",
+          "line": 439
+        },
+        {
+          "symbol": "EndUserSessionService.consumeArgon2Time",
+          "line": 454
+        },
+        {
+          "symbol": "EndUserSessionService.view",
+          "line": 459
+        },
+        {
+          "symbol": "EndUserSessionService.recordAuthEvent",
+          "line": 470
+        },
+        {
+          "symbol": "EndUserSessionService.databaseStage",
+          "line": 492
+        },
+        {
+          "symbol": "EndUserSessionService.prismaDiagnosticCode",
+          "line": 514
+        },
+        {
+          "symbol": "EndUserSessionService.safeRequestId",
+          "line": 528
+        },
+        {
+          "symbol": "EndUserSessionService.assertEnabled",
+          "line": 533
+        },
+        {
+          "symbol": "EndUserSessionService.runtimeEnvironment",
+          "line": 539
+        },
+        {
+          "symbol": "EndUserSessionService.cookies",
+          "line": 547
+        },
+        {
+          "symbol": "EndUserSessionService.header",
+          "line": 551
+        },
+        {
+          "symbol": "EndUserSessionService.normalizeEmail",
+          "line": 556
+        },
+        {
+          "symbol": "EndUserSessionService.randomToken",
+          "line": 560
+        },
+        {
+          "symbol": "EndUserSessionService.hashOpaque",
+          "line": 564
+        },
+        {
+          "symbol": "EndUserSessionService.safeEqual",
+          "line": 569
+        },
+        {
+          "symbol": "EndUserSessionService.absoluteLifetimeMs",
+          "line": 575
+        },
+        {
+          "symbol": "EndUserSessionService.idleLifetimeMs",
+          "line": 579
+        },
+        {
+          "symbol": "EndUserSessionService.numberConfig",
+          "line": 583
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "Customer",
+          "operation": "findFirst",
+          "target": "this.prisma.customer.findFirst",
+          "line": 53,
+          "method": "EndUserSessionService.register",
+          "fields": {
+            "where": [
+              "tenantId",
+              "environment",
+              "email"
+            ],
+            "data": [],
+            "select": [
+              "id"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "create",
+          "target": "transaction.customer.create",
+          "line": 67,
+          "method": "EndUserSessionService.register",
+          "fields": {
+            "where": [],
+            "data": [
+              "tenantId",
+              "environment",
+              "externalUserId",
+              "providerCustomerRef",
+              "email",
+              "passwordHash",
+              "passwordChangedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "findFirst",
+          "target": "this.prisma.customer.findFirst",
+          "line": 90,
+          "method": "EndUserSessionService.login",
+          "fields": {
+            "where": [
+              "tenantId",
+              "environment",
+              "email"
+            ],
+            "data": [],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "update",
+          "target": "this.prisma.customer.update",
+          "line": 122,
+          "method": "EndUserSessionService.login",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "failedLoginAttempts",
+              "lastFailedLoginAt",
+              "lockedUntil"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "findUnique",
+          "target": "this.prisma.endUserSession.findUnique",
+          "line": 139,
+          "method": "EndUserSessionService.authenticate",
+          "fields": {
+            "where": [
+              "sessionTokenHash"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "user",
+              "tenant"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "update",
+          "target": "this.prisma.endUserSession.update",
+          "line": 158,
+          "method": "EndUserSessionService.authenticate",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "lastSeenAt",
+              "idleExpiresAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "findUnique",
+          "target": "this.prisma.endUserSession.findUnique",
+          "line": 189,
+          "method": "EndUserSessionService.assertCsrf",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [],
+            "select": [
+              "csrfTokenHash",
+              "revokedAt"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserRefreshToken",
+          "operation": "findUnique",
+          "target": "this.prisma.endUserRefreshToken.findUnique",
+          "line": 210,
+          "method": "EndUserSessionService.refresh",
+          "fields": {
+            "where": [
+              "tokenHash"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "session"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserRefreshToken",
+          "operation": "updateMany",
+          "target": "transaction.endUserRefreshToken.updateMany",
+          "line": 233,
+          "method": "EndUserSessionService.refresh",
+          "fields": {
+            "where": [
+              "id",
+              "consumedAt",
+              "revokedAt"
+            ],
+            "data": [
+              "consumedAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserRefreshToken",
+          "operation": "create",
+          "target": "transaction.endUserRefreshToken.create",
+          "line": 238,
+          "method": "EndUserSessionService.refresh",
+          "fields": {
+            "where": [],
+            "data": [
+              "sessionId",
+              "tokenHash",
+              "generation",
+              "expiresAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserRefreshToken",
+          "operation": "update",
+          "target": "transaction.endUserRefreshToken.update",
+          "line": 246,
+          "method": "EndUserSessionService.refresh",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "rotatedToTokenId"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "findUnique",
+          "target": "this.prisma.endUserSession.findUnique",
+          "line": 276,
+          "method": "EndUserSessionService.logout",
+          "fields": {
+            "where": [
+              "sessionTokenHash"
+            ],
+            "data": [],
+            "select": [],
+            "include": [
+              "user",
+              "tenant"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "updateMany",
+          "target": "this.prisma.endUserSession.updateMany",
+          "line": 301,
+          "method": "EndUserSessionService.revokeSession",
+          "fields": {
+            "where": [
+              "id",
+              "revokedAt"
+            ],
+            "data": [
+              "revokedAt",
+              "revokeReason"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserRefreshToken",
+          "operation": "updateMany",
+          "target": "this.prisma.endUserRefreshToken.updateMany",
+          "line": 305,
+          "method": "EndUserSessionService.revokeSession",
+          "fields": {
+            "where": [
+              "sessionId",
+              "revokedAt"
+            ],
+            "data": [
+              "revokedAt",
+              "revokeReason"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "findMany",
+          "target": "this.prisma.endUserSession.findMany",
+          "line": 313,
+          "method": "EndUserSessionService.revokeAllForUser",
+          "fields": {
+            "where": [
+              "userId",
+              "revokedAt"
+            ],
+            "data": [],
+            "select": [
+              "id"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "update",
+          "target": "this.prisma.customer.update",
+          "line": 322,
+          "method": "EndUserSessionService.passwordChanged",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "passwordHash",
+              "passwordChangedAt",
+              "authVersion",
+              "failedLoginAttempts",
+              "lockedUntil"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "update",
+          "target": "this.prisma.customer.update",
+          "line": 336,
+          "method": "EndUserSessionService.accountDeactivated",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "isActive",
+              "authVersion"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "EndUserSession",
+          "operation": "create",
+          "target": "database.endUserSession.create",
+          "line": 355,
+          "method": "EndUserSessionService.createSession",
+          "fields": {
+            "where": [],
+            "data": [
+              "tenantId",
+              "userId",
+              "environment",
+              "authVersion",
+              "sessionTokenHash",
+              "csrfTokenHash",
+              "absoluteExpiresAt",
+              "idleExpiresAt",
+              "createdIpHash",
+              "userAgentHash",
+              "refreshTokens"
+            ],
+            "select": [],
+            "include": [
+              "user",
+              "tenant"
+            ]
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Tenant",
+          "operation": "findFirst",
+          "target": "this.prisma.tenant.findFirst",
+          "line": 418,
+          "method": "EndUserSessionService.resolveTenant",
+          "fields": {
+            "where": [
+              "OR",
+              "status",
+              "environment"
+            ],
+            "data": [],
+            "select": [
+              "id",
+              "environment"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "Customer",
+          "operation": "update",
+          "target": "this.prisma.customer.update",
+          "line": 442,
+          "method": "EndUserSessionService.recordFailedLogin",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "failedLoginAttempts",
+              "lastFailedLoginAt",
+              "lockedUntil"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "AuditLog",
+          "operation": "create",
+          "target": "this.prisma.auditLog.create",
+          "line": 476,
+          "method": "EndUserSessionService.recordAuthEvent",
+          "fields": {
+            "where": [],
+            "data": [
+              "tenantId",
+              "actorType",
+              "actorId",
+              "action",
+              "resource",
+              "resourceId",
+              "requestId",
+              "metadata",
+              "ipAddress",
+              "userAgent"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [
+        {
+          "target": "this.prisma.$transaction",
+          "line": 66,
+          "method": "EndUserSessionService.register",
+          "mode": "interactive"
+        },
+        {
+          "target": "this.prisma.$transaction",
+          "line": 232,
+          "method": "EndUserSessionService.refresh",
+          "mode": "interactive"
+        },
+        {
+          "target": "this.prisma.$transaction",
+          "line": 300,
+          "method": "EndUserSessionService.revokeSession",
+          "mode": "batch"
+        }
+      ],
+      "raw_calls": [],
+      "config_names": [
+        {
+          "name": "ENABLE_END_USER_API",
+          "line": 534
+        },
+        {
+          "name": "FASTLINK_ENVIRONMENT",
+          "line": 540
+        },
+        {
+          "name": "END_USER_SESSION_SECRET",
+          "line": 565
+        }
+      ],
+      "auth_symbols": [
+        {
+          "target": "argon2.verify",
+          "line": 94,
+          "method": "EndUserSessionService.login"
+        },
+        {
+          "target": "this.validateSession",
+          "line": 144,
+          "method": "EndUserSessionService.authenticate"
+        },
+        {
+          "target": "this.authenticate",
+          "line": 204,
+          "method": "EndUserSessionService.refresh"
+        },
+        {
+          "target": "this.validateSession",
+          "line": 229,
+          "method": "EndUserSessionService.refresh"
+        }
+      ],
+      "schedules": []
+    },
+    {
+      "file": "src/end-user-session/guards/end-user-session.guard.ts",
+      "sha256": "d7dcf6f38ef9430bd8ff4aa0ebbd24fabdfb05d77092ee37d600cb702d4ae72d",
+      "methods": [
+        {
+          "symbol": "EndUserSessionGuard.canActivate",
+          "line": 15
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [
+        {
+          "target": "this.origin.canActivate",
+          "line": 16,
+          "method": "EndUserSessionGuard.canActivate"
+        },
+        {
+          "target": "this.sessions.authenticate",
+          "line": 18,
+          "method": "EndUserSessionGuard.canActivate"
+        },
+        {
+          "target": "this.csrf.canActivate",
+          "line": 19,
+          "method": "EndUserSessionGuard.canActivate"
+        }
+      ],
+      "schedules": []
+    },
+    {
+      "file": "src/modules/thredd/webhook/thredd-webhook-auth.plugin.ts",
+      "sha256": "b701f854a85dfbe2dd18e5694435dc667dfe821c7db3f1f752709377c3567756",
+      "methods": [
+        {
+          "symbol": "ThreddWebhookAuthPlugin.authenticateAndNormalize",
+          "line": 25
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.event",
+          "line": 46
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.verifySignature",
+          "line": 66
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.verifyTimestamp",
+          "line": 84
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.verifyEventAge",
+          "line": 93
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.resolveTenantId",
+          "line": 103
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.envelopes",
+          "line": 116
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.notificationId",
+          "line": 125
+        },
+        {
+          "symbol": "ThreddWebhookAuthPlugin.lifecycleGeneratedAt",
+          "line": 138
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [
+        {
+          "name": "THREDD_WEBHOOK_SECRET",
+          "line": 26
+        },
+        {
+          "name": "WEBHOOK_TIMESTAMP_TOLERANCE_SECONDS",
+          "line": 86
+        },
+        {
+          "name": "THREDD_WEBHOOK_EVENT_MAX_AGE_SECONDS",
+          "line": 94
+        },
+        {
+          "name": "THREDD_WEBHOOK_TENANT_MAP",
+          "line": 104
+        }
+      ],
+      "auth_symbols": [
+        {
+          "target": "this.verifyTimestamp",
+          "line": 35,
+          "method": "ThreddWebhookAuthPlugin.authenticateAndNormalize"
+        },
+        {
+          "target": "this.verifySignature",
+          "line": 36,
+          "method": "ThreddWebhookAuthPlugin.authenticateAndNormalize"
+        },
+        {
+          "target": "this.verifyEventAge",
+          "line": 56,
+          "method": "ThreddWebhookAuthPlugin.event"
+        }
+      ],
+      "schedules": []
+    },
+    {
+      "file": "src/phase2/onchain/phase2-chain-webhook.guard.ts",
+      "sha256": "d21aa88a9c9c245d8e06606030749ae7b4ed681c46126346f15e50f80452ef8f",
+      "methods": [
+        {
+          "symbol": "Phase2ChainWebhookGuard.canActivate",
+          "line": 12
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [
+        {
+          "name": "FASTLINK_ENVIRONMENT",
+          "line": 13
+        },
+        {
+          "name": "PHASE2_CHAIN_WEBHOOK_SECRET",
+          "line": 16
+        }
+      ],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/phase2/onchain/phase2-internal-poller.guard.ts",
+      "sha256": "6243ed91f2c656fb5ef7c5fe27cb079bea502bbfe22a3620ef8a76f4b9c63bc6",
+      "methods": [
+        {
+          "symbol": "Phase2InternalPollerGuard.canActivate",
+          "line": 10
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [
+        {
+          "name": "FASTLINK_ENVIRONMENT",
+          "line": 11
+        },
+        {
+          "name": "PHASE2_INTERNAL_POLLER_TOKEN",
+          "line": 14
+        }
+      ],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/prisma/isolated-tenant-transaction.ts",
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778",
+      "methods": [
+        {
+          "symbol": "withIsolatedTenantTransaction",
+          "line": 19
+        }
+      ],
+      "model_calls": [],
+      "transactions": [
+        {
+          "target": "client.$transaction",
+          "line": 26,
+          "method": ".withIsolatedTenantTransaction",
+          "mode": "interactive"
+        }
+      ],
+      "raw_calls": [
+        {
+          "target": "transaction.$queryRaw",
+          "line": 27,
+          "method": ".withIsolatedTenantTransaction",
+          "sql_text_not_collected": true
+        },
+        {
+          "target": "transaction.$queryRaw",
+          "line": 34,
+          "method": ".withIsolatedTenantTransaction",
+          "sql_text_not_collected": true
+        }
+      ],
+      "config_names": [],
+      "auth_symbols": [
+        {
+          "target": "issuer.issue",
+          "line": 32,
+          "method": ".withIsolatedTenantTransaction"
+        }
+      ],
+      "schedules": []
+    },
+    {
+      "file": "src/prisma/prisma.service.ts",
+      "sha256": "cc4a675fc63ce4c7be743c8d1a7a90b65272146fab01bffe4fc718d0deab20b7",
+      "methods": [
+        {
+          "symbol": "normalizeRuntimeDatabaseUrl",
+          "line": 4
+        },
+        {
+          "symbol": "PrismaService.onModuleInit",
+          "line": 30
+        },
+        {
+          "symbol": "PrismaService.onModuleDestroy",
+          "line": 34
+        }
+      ],
+      "model_calls": [],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/sanlx-fixture/sanlx-precheck.manager.ts",
+      "sha256": "281671705943c2b3a37a1ab7523a4fad472c86402363bdcd15b917bfe91063c6",
+      "methods": [
+        {
+          "symbol": "SanlxPrecheckManager.execute",
+          "line": 33
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "Tenant",
+          "operation": "findMany",
+          "target": "tx.tenant.findMany",
+          "line": 40,
+          "method": "SanlxPrecheckManager.execute",
+          "fields": {
+            "where": [
+              "environment",
+              "status"
+            ],
+            "data": [],
+            "select": [
+              "id",
+              "slug",
+              "users"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [
+        {
+          "target": "this.prisma.$transaction",
+          "line": 34,
+          "method": "SanlxPrecheckManager.execute",
+          "mode": "interactive"
+        }
+      ],
+      "raw_calls": [
+        {
+          "target": "tx.$executeRawUnsafe",
+          "line": 35,
+          "method": "SanlxPrecheckManager.execute"
+        },
+        {
+          "target": "tx.$queryRawUnsafe",
+          "line": 36,
+          "method": "SanlxPrecheckManager.execute"
+        }
+      ],
+      "config_names": [],
+      "auth_symbols": [],
+      "schedules": []
+    },
+    {
+      "file": "src/webhooks/webhooks.service.ts",
+      "sha256": "9c7f7b093ea275e2ef5624dbbf7c023310c57f7470cf4c0c7c436d877daa42be",
+      "methods": [
+        {
+          "symbol": "WebhooksService.onModuleInit",
+          "line": 21
+        },
+        {
+          "symbol": "WebhooksService.onModuleDestroy",
+          "line": 26
+        },
+        {
+          "symbol": "WebhooksService.receive",
+          "line": 30
+        },
+        {
+          "symbol": "WebhooksService.processDue",
+          "line": 74
+        },
+        {
+          "symbol": "WebhooksService.processDueSafely",
+          "line": 99
+        },
+        {
+          "symbol": "WebhooksService.processOneSafely",
+          "line": 115
+        },
+        {
+          "symbol": "WebhooksService.processOne",
+          "line": 129
+        },
+        {
+          "symbol": "WebhooksService.dispatch",
+          "line": 173
+        },
+        {
+          "symbol": "WebhooksService.errorCode",
+          "line": 185
+        },
+        {
+          "symbol": "WebhooksService.canonicalJson",
+          "line": 193
+        }
+      ],
+      "model_calls": [
+        {
+          "model": "Tenant",
+          "operation": "findFirst",
+          "target": "this.prisma.tenant.findFirst",
+          "line": 37,
+          "method": "WebhooksService.receive",
+          "fields": {
+            "where": [
+              "id",
+              "status",
+              "environment"
+            ],
+            "data": [],
+            "select": [
+              "environment"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "create",
+          "target": "this.prisma.webhookEvent.create",
+          "line": 47,
+          "method": "WebhooksService.receive",
+          "fields": {
+            "where": [],
+            "data": [
+              "environment"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "findUnique",
+          "target": "this.prisma.webhookEvent.findUnique",
+          "line": 56,
+          "method": "WebhooksService.receive",
+          "fields": {
+            "where": [
+              "provider_tenantId_externalId"
+            ],
+            "data": [],
+            "select": [
+              "id",
+              "eventType",
+              "payload"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "updateMany",
+          "target": "this.prisma.webhookEvent.updateMany",
+          "line": 76,
+          "method": "WebhooksService.processDue",
+          "fields": {
+            "where": [
+              "status",
+              "processingStartedAt"
+            ],
+            "data": [
+              "status",
+              "processingStartedAt",
+              "nextAttemptAt",
+              "lastError"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "findMany",
+          "target": "this.prisma.webhookEvent.findMany",
+          "line": 86,
+          "method": "WebhooksService.processDue",
+          "fields": {
+            "where": [
+              "status",
+              "nextAttemptAt",
+              "attempts"
+            ],
+            "data": [],
+            "select": [
+              "id"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "updateMany",
+          "target": "this.prisma.webhookEvent.updateMany",
+          "line": 130,
+          "method": "WebhooksService.processOne",
+          "fields": {
+            "where": [
+              "id",
+              "status"
+            ],
+            "data": [
+              "status",
+              "processingStartedAt",
+              "attempts"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "findUniqueOrThrow",
+          "target": "this.prisma.webhookEvent.findUniqueOrThrow",
+          "line": 141,
+          "method": "WebhooksService.processOne",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "update",
+          "target": "this.prisma.webhookEvent.update",
+          "line": 143,
+          "method": "WebhooksService.processOne",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [
+              "status",
+              "processedAt",
+              "processingStartedAt",
+              "lastError"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "findUnique",
+          "target": "this.prisma.webhookEvent.findUnique",
+          "line": 153,
+          "method": "WebhooksService.processOne",
+          "fields": {
+            "where": [
+              "id"
+            ],
+            "data": [],
+            "select": [
+              "attempts"
+            ],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        },
+        {
+          "model": "WebhookEvent",
+          "operation": "updateMany",
+          "target": "this.prisma.webhookEvent.updateMany",
+          "line": 161,
+          "method": "WebhooksService.processOne",
+          "fields": {
+            "where": [
+              "id",
+              "status"
+            ],
+            "data": [
+              "status",
+              "processingStartedAt",
+              "lastError",
+              "nextAttemptAt"
+            ],
+            "select": [],
+            "include": []
+          },
+          "heuristic": "Prisma delegate-shaped member call; receiver alias/type not fully resolved"
+        }
+      ],
+      "transactions": [],
+      "raw_calls": [],
+      "config_names": [],
+      "auth_symbols": [],
+      "schedules": []
+    }
+  ],
+  "source_files_analyzed": 290,
+  "delegate_shaped_calls": 699,
+  "transaction_calls": 65,
+  "transaction_modes": {
+    "interactive": 59,
+    "batch": 3,
+    "unresolved": 3
+  },
+  "raw_calls": 6,
+  "limits": [
+    "Only tracked first-party src TypeScript, no tests/fixtures/env/config values",
+    "No literals, query bodies, credentials or claim values emitted",
+    "Delegate member-name matching is static candidate evidence; alias resolution and deployed behavior unknown",
+    "No modules imported or application executed"
+  ]
+}

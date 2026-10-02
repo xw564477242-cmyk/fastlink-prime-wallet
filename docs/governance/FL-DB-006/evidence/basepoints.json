@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-02T12:38:15.386948+00:00",
+  "backend_dev": "2b120bc18a1e2ef3bb5ae42197c625764441db0c",
+  "backend_tree": "8e292089b0eb275eea98d188b6bd17cd93cc586c",
+  "backend_read_view": "cb92513b266ead8a0cabeff297e4f4c5ffc381d6",
+  "backend_view_tree_equal": true,
+  "governance_dev": "eb59a0d54621693da20e9913461c076891967f7d",
+  "governance_tree": "f21e21e76e2556cd2afaa0480b8d807465f46569",
+  "branch": "feature/FL-DB-006-permission-contract-design",
+  "governance_workspace": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle",
+  "reuse_clean_isolated_clone": true,
+  "formal_workspaces_unchanged_by_task": true,
+  "protected_overlay_not_accessed": true,
+  "known_checkpoints_equal_current_remote": true
+}

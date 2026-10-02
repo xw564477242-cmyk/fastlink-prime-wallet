@@ -1,0 +1,257 @@
+{
+  "version": "DB6-DESIGN-1",
+  "execution_status": "NOT_RUN_DESIGN_ONLY",
+  "requires_separate_work_order_and_gate1": true,
+  "cases": [
+    {
+      "id": "AUTH-01",
+      "topic": "登录前最小认证",
+      "scenario": "未绑定业务身份进行认证",
+      "expected": "仅批准broker最小输入/输出；任意表读取拒绝",
+      "risk": "DB6-R04",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "AUTH-02",
+      "topic": "注册/刷新/计数用途",
+      "scenario": "合成注册、刷新、撤销、失败计数",
+      "expected": "按批准列/状态完成，不获得通用Customer/Session CRUD",
+      "risk": "DB6-R04",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-01",
+      "topic": "可信来源",
+      "scenario": "替换path/query/body/未验JWT或GUC租户",
+      "expected": "全部冲突拒绝；不选择参数优先级",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-02",
+      "topic": "并发串租",
+      "scenario": "双租户高并发复用同一池/物理连接",
+      "expected": "每个请求只能看到其本人/租户，无残留",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-03",
+      "topic": "回滚重放",
+      "scenario": "消费票据后业务回滚，再次使用同票据",
+      "expected": "拒绝，旧票据不能因回滚复活",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-04",
+      "topic": "事务/连接绑定",
+      "scenario": "票据在另一login/PID/transaction或并发消费",
+      "expected": "拒绝，最多一次合法消费",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-05",
+      "topic": "超时取消与重试",
+      "scenario": "超时、取消、异常、池归还、应用重试",
+      "expected": "旧上下文不可复用；新尝试重新验证签发",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-06",
+      "topic": "事务逃逸",
+      "scenario": "全局client、nested/batch/延迟异步访问",
+      "expected": "未绑定通路拒绝，所有业务操作共享正确tx",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CTX-07",
+      "topic": "会话撤销/过期",
+      "scenario": "过期、版本变化、吊销/actor状态变化",
+      "expected": "按获批生命周期拒绝；无旧声明回退",
+      "risk": "DB6-R02",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "ROLE-01",
+      "topic": "最小角色",
+      "scenario": "检查owner、superuser、BYPASSRLS、继承与SET ROLE",
+      "expected": "验证身份非特权；不能切换issuer/owner/他租户",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-01",
+      "topic": "合法本人及租户四操作",
+      "scenario": "每个获批角色/表正向SELECT INSERT UPDATE DELETE",
+      "expected": "仅批准操作/列/状态通过；拒绝操作不能算正向成功",
+      "risk": "DB6-R01",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-02",
+      "topic": "跨租户读取",
+      "scenario": "双租户直接和关联资源读取",
+      "expected": "拒绝或空结果且不泄露目标存在性",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-03",
+      "topic": "跨租户新建",
+      "scenario": "伪造tenant/subject/environment或关联ID",
+      "expected": "整次拒绝，目标与旁路关联数据hash不变",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-04",
+      "topic": "更新旧行及新行",
+      "scenario": "更换owner/tenant、非法状态或列；跨租户原行",
+      "expected": "USING/WITH CHECK与SELECT联合拒绝，数据不变",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-05",
+      "topic": "删除及级联",
+      "scenario": "他租户主/子/批量cascade删除",
+      "expected": "拒绝、目标及关联行不变，合法业务规则另测",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-06",
+      "topic": "错误侧信道",
+      "scenario": "不存在对象与他租户对象；唯一/FK约束失败",
+      "expected": "外部错误一致，不泄露归属/存在性",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "CRUD-07",
+      "topic": "多策略组合和NULL",
+      "scenario": "宽松/限制策略组合、NULL归属、分区继承",
+      "expected": "没有OR宽化或NULL通配旁路",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "ADMIN-01",
+      "topic": "平台默认拒绝",
+      "scenario": "平台身份发起未逐项批准跨租户操作",
+      "expected": "拒绝；同租户已批准权限不误伤",
+      "risk": "DB6-R05",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "TASK-01",
+      "topic": "调度与worker隔离",
+      "scenario": "用途/租户分片替换、全局队列访问",
+      "expected": "只有批准最小投影，worker仅本批租户对象",
+      "risk": "DB6-R05",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "INDIRECT-01",
+      "topic": "函数与trigger",
+      "scenario": "definer/调用者/trigger绕路、对象名遮蔽",
+      "expected": "固定安全search_path，执行者精确，PUBLIC无法越权",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "INDIRECT-02",
+      "topic": "view/materialized/sequence",
+      "scenario": "不同角色读缓存/刷新/序列及底表",
+      "expected": "ACL与行隔离分别成立，不由底表结论代替",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "PRIV-01",
+      "topic": "默认权限",
+      "scenario": "各实际creator新建对象的未来授权",
+      "expected": "无PUBLIC意外EXECUTE/表/序列权限扩张",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "BUILD-01",
+      "topic": "两轮重建",
+      "scenario": "未来获准的两轮新空白库原样旧链＋新增迁移",
+      "expected": "对象/权限/策略一致，旧迁移不改写",
+      "risk": "DB6-R03",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "ROLLBACK-01",
+      "topic": "失败关闭回滚",
+      "scenario": "兼容/性能失败后的受控回滚演练",
+      "expected": "停止入口，不关闭RLS/恢复宽ACL/复活票据",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    },
+    {
+      "id": "FUNDS-01",
+      "topic": "资金与Mock隔离",
+      "scenario": "批准状态转换、幂等、账本一致性、供应商Mock",
+      "expected": "合法一致性成立且真实网络/资金零触达",
+      "risk": "DB6-R06",
+      "execution": "NOT_RUN",
+      "environment": "future specifically authorized isolated synthetic-only environment",
+      "stop": "Any cross-tenant success: stop expansion for that object, preserve redacted P0 evidence; no unapproved fix"
+    }
+  ]
+}

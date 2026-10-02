@@ -1,0 +1,2335 @@
+{
+  "backend_head": "2b120bc18a1e2ef3bb5ae42197c625764441db0c",
+  "read_view_head": "cb92513b266ead8a0cabeff297e4f4c5ffc381d6",
+  "tree": "8e292089b0eb275eea98d188b6bd17cd93cc586c",
+  "tree_equal": true,
+  "parser": "TypeScript 5.9.3",
+  "files": [
+    {
+      "path": "src/admin-auth/admin-auth.controller.ts",
+      "sha256": "0ff8cbe912d14f57b727016125959becdfe78bc261bb954d81fef7413fb81214",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-auth/admin-auth.module.ts",
+      "sha256": "135c646fdb2b79f6ca9ab1485dff8767c13c3394f0654a4dc61c5eccf0b30245",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-auth/admin-auth.service.ts",
+      "sha256": "8eb29403fc76a65c3dcc1243353740dd4ba62ad84ce211e4944c115a997d9353",
+      "method_count": 4,
+      "delegate_shaped_calls": 5,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-auth/admin-bearer.guard.ts",
+      "sha256": "492a64d39d4297ffc3201b31642e026f10ee642868de6281bd171676ca32d082",
+      "method_count": 3,
+      "delegate_shaped_calls": 2,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-auth/dto/admin-auth.dto.ts",
+      "sha256": "847b81ffa8b08d8fa60ac7fc4befa803dfbea166d0a68622db907e95664c8aba",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.controller.ts",
+      "sha256": "943c400ba89e9a3a8a455403cd43e0c2f2c77799809b57f757c9efdcc6267c7a",
+      "method_count": 11,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.module.ts",
+      "sha256": "2f07c14fee1961cc136e1b625fa5029e0feaace49b13647f78e54928371431e1",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-card-config/admin-card-config.service.ts",
+      "sha256": "a618686268ec8f41431243f078c98c71b485dfc0734a6dd1a3bf2b60225feef7",
+      "method_count": 22,
+      "delegate_shaped_calls": 61,
+      "transaction_calls": 7,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/admin-card-config/dto/admin-card-write.dto.ts",
+      "sha256": "ef71b442162e158a1befc5bbe3cb71943a8d2d3323a804f522812f1b32c4aefe",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/api-clients/api-clients.controller.ts",
+      "sha256": "ca1f99b5731ecc73398a054e51f7f12bda983701aa9a63ec4d52445cc3ae09e5",
+      "method_count": 4,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/api-clients/api-clients.module.ts",
+      "sha256": "4344897a4629df903fff4d91e5b7c3a7a7b6349c9af8c77b1db4d3492458795e",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/api-clients/api-clients.service.ts",
+      "sha256": "523af66cf2c4966daccefbfa31ff18fe2949ca154843c44f98c29b02371ef88f",
+      "method_count": 6,
+      "delegate_shaped_calls": 10,
+      "transaction_calls": 3,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/api-clients/dto/create-api-client.dto.ts",
+      "sha256": "b4b718d17cbe88ef1fd3b31c40f5de4ffa1df52c16e3d32e239de8268d5e7390",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/api-clients/dto/rotate-api-key.dto.ts",
+      "sha256": "f3e7462d90aa156c895464cb9e2fd0f8687e8002cceb362415afa06c7e7eb0b6",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/app.module.ts",
+      "sha256": "472a13f7afcaaa6731ad3763b87cc77f786f667e1edcc017288c8f0cbde81793",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.controller.ts",
+      "sha256": "ffc7abe9ed1ebebda2ee0df115affe5657a2e0735e0a8a531e0052d0417d3af2",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.module.ts",
+      "sha256": "ab9becd25aa8e8d0e321b16ec85e2558907aa3e5243982ce8a8e76fd017a7df3",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/business-dashboards/business-dashboards.service.ts",
+      "sha256": "6d15f01fcb39052be27ab549bf759af6088a05a1ceaee416525ed3b128f67d91",
+      "method_count": 4,
+      "delegate_shaped_calls": 6,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-processor/card-processor.ts",
+      "sha256": "cc4210236607a6dd510f40e28ffadb9f51c8dbaf1dc70df76e3d4259d6dc6aa8",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/card-service.controller.ts",
+      "sha256": "7da07eae2d10ff9aa6e7f75cb8805fada4abb2bec3391b283d818c021dc7aef0",
+      "method_count": 19,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/card-service.module.ts",
+      "sha256": "fe8f10d8e6b85f12b0177f371e27fdab59a620d245abd8ed9b6ac5e464215051",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/card.service.ts",
+      "sha256": "1ef23c040e43342aeb78d6a7d92629f07465dde051d0aaec73e1b7a171ff72a0",
+      "method_count": 43,
+      "delegate_shaped_calls": 61,
+      "transaction_calls": 7,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/cards-api.controller.ts",
+      "sha256": "0180b1d5cc1998257658ba55577030874030969287fe48a79bc48d9b78a4397b",
+      "method_count": 21,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/dto/admin-card-snapshot.dto.ts",
+      "sha256": "7bb3493cd67656551f8742e5841d5fdfd2280c548457fcd234c4a33b63c4797c",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/dto/admin-card-timeline.dto.ts",
+      "sha256": "4fd71e23fa476a48e55c2b9912050df58a2d2856adaf564aaca108c96396dc99",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/dto/admin-card-transactions.dto.ts",
+      "sha256": "967dde8ae4f3cc6ccdb597486585877814bc508bd1dd36f850112a5e0a3b2250",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/card-service/dto/card-service.dto.ts",
+      "sha256": "5d30d5b0df0907d2336556584ef236214c79839d23f8b0ce6034d6eda6e54ea2",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.facade.ts",
+      "sha256": "f118b4c3f5cbc2788e94bc29967a0475784214a928072c849f7051f88c150559",
+      "method_count": 24,
+      "delegate_shaped_calls": 3,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.module.ts",
+      "sha256": "d54ec03376b7a12f79d8099dde7a8096bacfe46c2fd98c9a66b37dc5533f6fc3",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.registry.ts",
+      "sha256": "d5793a07986cfa2b7a0a610f65de3a93d3f1a4d0ab5de160dffed7451d9e815b",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.resolver.ts",
+      "sha256": "830592b3219c287757898ab1db5aa9e2f5bc74227953a873caa9fbe281bf39cd",
+      "method_count": 2,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/canonical-card-provider.types.ts",
+      "sha256": "f09ba32ec62655bd3d6829a1ea98e69c452b93dcd4a774a4f537cdcec905ca4a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/card-provider-rollout.resolver.ts",
+      "sha256": "c398020eabb8a4ed23fb3214f40c4959d4335ab67d7755f13a577e333cb9dfa1",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/card-runtime-environment.ts",
+      "sha256": "dc2b0b3d5deccd368a3f8ed38b708bba1bb82f3a88a41657ef892a69dc789e27",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/canonical/provider-execution-gate.ts",
+      "sha256": "ce8c9abe1640b0265263b7d49f1896175d622f9d4a59d0360073eb753570b859",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/card-lifecycle.policy.ts",
+      "sha256": "e2d24a52285c41a06ef7afdec2f61eeebfa3dce1d5540a0114af90a5ac227b03",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/card-timeline-pagination.ts",
+      "sha256": "fbe2512470fe29e22ad0f7e4eb532ffd24686ef5fe80aabe79fef7c4b2392a7f",
+      "method_count": 9,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/card-topup.service.ts",
+      "sha256": "b54c431126b372ed431b93ab2a7358ee406c3efd7a81f49d3901d73f0d9537c3",
+      "method_count": 14,
+      "delegate_shaped_calls": 13,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/cards.controller.ts",
+      "sha256": "d25a360fe8da36d137c753547ac349b29ce0701de7cb225db17e825eefcd0643",
+      "method_count": 23,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/cards.module.ts",
+      "sha256": "b5fb7a521d00341bc138ac2a712984de58f3afd343ffe8f009d20a144779dffa",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/cards.service.ts",
+      "sha256": "0adef86ff535150ddfb560c1c5192e76cf3cbcdc8947d717fed2e6db54b45f34",
+      "method_count": 71,
+      "delegate_shaped_calls": 95,
+      "transaction_calls": 8,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-fee-response.dto.ts",
+      "sha256": "09f96ed63bd043b28bc954633d26e82576deef1b87daf53fdc0a666dfdc368e0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-id-params.dto.ts",
+      "sha256": "c8b085242204f384ce63915dc0513a9af55dc56246f503353506b2dae9621d90",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-opening-quote.dto.ts",
+      "sha256": "2b91eed141de55c6a0102acbaa2731a462e533083099c6753d0e589dd66519e0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-response.dto.ts",
+      "sha256": "5d9673ebd2a6a9ee883443b3ec342fb60fb2592f9ff9a126210d369230d0b9bc",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-timeline-params.dto.ts",
+      "sha256": "46f0a93261627a8fa9056f02bcaa8f277e992d416afb3293db51d611d68b2541",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-topup.dto.ts",
+      "sha256": "b5e54266152ec6e8db06e087faa8b0602e19749879b5bfea68f4cd7fcbf44cb0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/card-transaction-params.dto.ts",
+      "sha256": "a38635e07c866e6a009a5abf58c9d45f155866d45d2f57c5e6a525ce7a934936",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/create-virtual-card.dto.ts",
+      "sha256": "c1ff33558efccede6a101847466c451df30f51c29411d3dc8aa67a0736075a4d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/list-card-timeline.dto.ts",
+      "sha256": "adc6cf4ca51d9a4455820af47c3e643728cb8dbc2e2ad9c1368738ec79ae943d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/list-cards.dto.ts",
+      "sha256": "c20626fe4caa5293af1f103708be523b9264471c58645d290e1773d654170ee7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/list-transactions.dto.ts",
+      "sha256": "413562e0e81ba8ac292f81d042f18ead6748b49b8acb242c14ec11bc1503dc83",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/replace-card.dto.ts",
+      "sha256": "133bc318302b9e4158f1bbd2cd0e4c5eb82a5eab76949f3325312996eb09ed99",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/dto/update-card-limits.dto.ts",
+      "sha256": "5ffda73cc04134d7f904fac273d35d55ac8482ccd27d725bfd5818cf18d29787",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider-error.ts",
+      "sha256": "e5f92c5ca5dcdd1c928ee0a54436758e620d757e77daf119b77f510801ccc039",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-balance-provider.ts",
+      "sha256": "ec97d3f2b9fb90b67198791e3b2620a094e5007fe957fb8c0dfb108e9823f5fc",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-creation-provider.ts",
+      "sha256": "d64b361c4e716b7e61409d1f384b461f0e76ceebdd2cf6f22a7e2136013a9d18",
+      "method_count": 6,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider-error.ts",
+      "sha256": "3fb9ad923a7053e62b25661c1b47cf375546f1e25bb97ebf713244b395b6d1dd",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-limits-provider.ts",
+      "sha256": "1cac4fda6d376e91d8e11aeb93fc0229ae9f48430f01bddfd96e99583ef4b4a2",
+      "method_count": 11,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-provider.ts",
+      "sha256": "bd14fb280495af1e1fd1345e863891d741855119c49a4f0c924f81d5a68cabc4",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-renewal-provider.ts",
+      "sha256": "276efabc836b31e8079bd70ba2a4cc940890c0a3db1c1a56882a652c07f7cddd",
+      "method_count": 6,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-replacement-provider.ts",
+      "sha256": "c8007dcbab0f8fd0198679f8fd9b86fb8d68e79bf818945681693f20182ccad1",
+      "method_count": 6,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-status-provider-error.ts",
+      "sha256": "5f7e5fdf1f22964b7b22bec578fd77f11fc36f3d0e872db9cad887d15e2cd85f",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-status-provider.ts",
+      "sha256": "7def432c5c494c3d4a1f76ae492a106a262276269d8698620b00106101345b5d",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-pagination.ts",
+      "sha256": "4166d3958c0aeca98aa1bf7a4c7c8a76fb15a64df1b25ff07399429954488202",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider-error.ts",
+      "sha256": "92c6276337bbe23b9690236268f791d9ce590d9d9671366f08c026f06c275590",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.module.ts",
+      "sha256": "88c0b66df6f162b026d2bbe9b04f8ac1a22bd330d2c688a4aaab6da1941bca6a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-provider.ts",
+      "sha256": "4290f99be614c0adfabc4d79779ef272dbd1114ea1aca9a0250b37e902f7ca56",
+      "method_count": 16,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/card-transaction-status.ts",
+      "sha256": "917c46ba976f34a374e469b01a47d5bd6046c59d43a191df14d8544d4c795400",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/mock-card-transaction.provider.ts",
+      "sha256": "79d60054e3a0b1ba8a934c5f67bbc958fb73d289e20818b959559c228c5b9cdc",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/mock-card.provider.ts",
+      "sha256": "233862d1e06b0c0da7231b0b391171fe07f3d81d81b39fb63493fee6b2b9c4f7",
+      "method_count": 13,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/persisted-card-transaction.provider.ts",
+      "sha256": "260d37b66ae8ac96dc103c40a8ec46cbf417688f60ae6082cebccebfd674878b",
+      "method_count": 4,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/runtime-bound-card.provider.ts",
+      "sha256": "08963d168a45cf281bfe6522d3a12fc864e384590ca488f5b958b4880fb02c92",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/cards/providers/unavailable-card.provider.ts",
+      "sha256": "677d994b23575dde3d618c53c1d0e1cd300cb4caf578bc541ff3ef1f79fd5aef",
+      "method_count": 11,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/auth/api-scopes.ts",
+      "sha256": "d43bdefd8d7d2548759a72a5337f7ff4a59118d219d1f0ebb6780082e7b98239",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/auth/request-auth.ts",
+      "sha256": "065faadc63473f6fa0b66047b8b4a8b2d9ef13af98b92e97b5195a8ac4b51df8",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/config/env.validation.ts",
+      "sha256": "65ccb18ecd404c4846c2aaadb6d1e0831b3420cfc320c753019d7cacb118c395",
+      "method_count": 8,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/config/fastlink-wallet-asset-catalog.ts",
+      "sha256": "f9e74774674c262bf633bdee9fdcfb3f6ea3f47c4bb6244d685bec5183ec6a6a",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/filters/audit-exception.filter.ts",
+      "sha256": "eefaa38f1257688433516bcf8580da83467e233c6fd2aa26329e8363dfcf46a1",
+      "method_count": 2,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/guards/api-key.guard.ts",
+      "sha256": "743c6dfb3ccc26a37c2190a2529dc7bd65b79290592a52e3fa5f7b3938f7ffbd",
+      "method_count": 1,
+      "delegate_shaped_calls": 2,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/guards/api-scope.guard.ts",
+      "sha256": "2aa6f00773c900ac36865e1a45d5791610f362ff8302cb48ec29a9b102195a46",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/guards/end-user-auth.guard.ts",
+      "sha256": "64a244b50af46161f5df90aac4565175d92b880849d242f348b2f20c59926d75",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/interceptors/audit.interceptor.ts",
+      "sha256": "bef10f79cdb2c1c40ed3294a5ba2bf335ff7d4628dc6883965231a1e4ff79f6a",
+      "method_count": 4,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/common/logging/cregis-exception-trace.ts",
+      "sha256": "6003e17c79548695789ac44ccc6ac63e0a468a81420834a5b6fafbc20cf980a3",
+      "method_count": 15,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/config/cors-origin.ts",
+      "sha256": "e00bbdbbb7b43e4ebc11d3197d33b912f969b78ee558bfc53ccd5d43985f6c1f",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/dev-simulation/simulation-invariants.ts",
+      "sha256": "65afa0b12895b3171996f77df591b6bf4608fe6f57774a056ed4acaac8d969c5",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/auth-contract.exception.ts",
+      "sha256": "be78c823a8cf0fea48ec7511e8449de100df63e08f549d363f9cc9b4975ddf11",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/dto/end-user-auth.dto.ts",
+      "sha256": "e44e1577f64df1a76874498e500db6bec16a276821a11ebc412c037fbd5dbbeb",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-cookie.ts",
+      "sha256": "14d24efe3ad6c332963073f731a9df518caaa51efde5fdae84586e0dad2e5933",
+      "method_count": 4,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.controller.ts",
+      "sha256": "3fc846778f43d396b7de4b0d9062038f854c838d881bfff058be826e63e098af",
+      "method_count": 8,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.module.ts",
+      "sha256": "330a7399c8274b3c72af279a7c80152f8d7b67206299441807a1629588e0b4a6",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.service.ts",
+      "sha256": "52d017af2a4c82a4fb0349748ae0bac102f7c96d756402dc385a18c631163bf6",
+      "method_count": 31,
+      "delegate_shaped_calls": 21,
+      "transaction_calls": 3,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/end-user-session.types.ts",
+      "sha256": "0bdf55207ec3d631641f61b816d8faa6fbeff0d846fdd9dd2580ec4d8566fa43",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/guards/csrf.guard.ts",
+      "sha256": "1953b482e0d41c81ad44fcc1dde70a4f1c5c03b31750b0a2dc1a18a7cbb977b7",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/guards/end-user-session.guard.ts",
+      "sha256": "d7dcf6f38ef9430bd8ff4aa0ebbd24fabdfb05d77092ee37d600cb702d4ae72d",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/end-user-session/guards/origin.guard.ts",
+      "sha256": "8cd3a5a8d39fbb7566c2a83612470d53f75adad47ef40600c09f1d8c5118a196",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.controller.ts",
+      "sha256": "9c1b99790beda94b854a3d1667c7125b33f8a5745796bc1c6a512cb1def6cfbf",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.module.ts",
+      "sha256": "cb96de4eaa2de1e3c8cbb2db45af3524814fa430dd33525dd7bed661e8662e4d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/event-bus/domain-event-bus.service.ts",
+      "sha256": "0d1970ca517cb2c2bb73fcc00fcbe62034adfcb87e3ffdb2ef1bfca4795359a6",
+      "method_count": 3,
+      "delegate_shaped_calls": 3,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/evidence-center/dto/evidence.dto.ts",
+      "sha256": "1cecd8a8ff094ad6d8a03b29781429d6cd2da02d7ae1ef8502b79feda9193ba6",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/evidence-center/evidence-center.controller.ts",
+      "sha256": "03b4a907eb15b3d30fb554b1c4a4e302bd9677e7c2bc999c5f2aa0dad675046b",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/evidence-center/evidence-center.module.ts",
+      "sha256": "b92abd32465eb2cb0555640b066bd40ef41a108ff15c0b655133c074dd462c8f",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/evidence-center/evidence-center.service.ts",
+      "sha256": "ce8655eb2b563a4039d7d09cf43ef11dd74bf2f6d755d4db259fa29ab6b8e907",
+      "method_count": 6,
+      "delegate_shaped_calls": 4,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fees/fee-policy.module.ts",
+      "sha256": "8fd5a67082c35185075159cfaed141b45ba6b86c824a4ea21957c1d588dc63f9",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fees/fee-policy.service.ts",
+      "sha256": "30604afbd874ae54b1a96086bd54a02b7e0a7438efe0f9d6f285befcc2149acf",
+      "method_count": 18,
+      "delegate_shaped_calls": 6,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fees/fee-policy.types.ts",
+      "sha256": "e1376dcd0d267c05f93a7e6b9a9ec11a4431f64d02ac3a1c621e1e45d1bfe62a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/adapter/sandbox-fx.adapter.ts",
+      "sha256": "6a0810954438e02415ad752f4fd5efd734e914415a89deec64d43ef36db045fd",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/dto/fx.dto.ts",
+      "sha256": "0f46a90e1d9d4eea537450624aebf68046c8029e52928ecea4db39ba0b2aca04",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/fx.module.ts",
+      "sha256": "50947e4753cb6ada6aa5d9ee39420532684829ddcfface37b319f6fee893d05a",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/fx.openapi.ts",
+      "sha256": "0a17eab259251b3a0885dfc263816187a9e9e4eeaecdb44b8fa452c1628d2575",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/fx.service.ts",
+      "sha256": "d8bde879f0da9ffe36ff30099c7bdca3186d1c134f2920f954127eb6417859ca",
+      "method_count": 16,
+      "delegate_shaped_calls": 13,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-decimal.ts",
+      "sha256": "734dadc19a37ac2b1aa373aa5a594fb71324300f54d2740b64e880dbbe9f9e4a",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-error.ts",
+      "sha256": "1a021a058bb6c40e95f12b3b53227a8813c5858e4cf9e8abe547ff937bc8d4d1",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-provider-quote.ts",
+      "sha256": "77f9ff08a9b06eae7a0785ab1736015029c0f0555235c26f76a5cfbc03aafbd6",
+      "method_count": 10,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/fx/interfaces/fx-rate-provider.ts",
+      "sha256": "30b89408d73fa21e307cc4d08b8b674228b30733085c87f8c8ccfff5f50e84a1",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/health/dto/health-readiness-response.dto.ts",
+      "sha256": "5fb3b29b801cac055f5330182af7af5248c7aa318d117895424d2b490a835df9",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/health/end-user-auth-rls.contract.ts",
+      "sha256": "ce275e981c6c9408da154182613d4203a895cd340072866034869dd395fde723",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/health/health.controller.ts",
+      "sha256": "2c1c7a17ca5738e3de494a59b719c802b23542374db926234bb4c19378237739",
+      "method_count": 12,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 2
+    },
+    {
+      "path": "src/health/health.module.ts",
+      "sha256": "49234509e1296bd5a10c24b980cb55bf3b5eedc08a2392a2afc7218d62de0c4e",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.controller.ts",
+      "sha256": "bda69f49dab2aae1cab83680a4c562a5e0f9a250217c78e2de801600e5279dc8",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.module.ts",
+      "sha256": "c4c6757d67ac09fb775900fc7f91ce0865f203066cc8fa1da379903ad8b5d10e",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/integration-readiness/integration-readiness.service.ts",
+      "sha256": "cfe529e8740999f8d359bc8b4300b3a4b76441d8d762b96a14678b448db527bf",
+      "method_count": 12,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/dto/end-user-kyc-status-response.dto.ts",
+      "sha256": "52fd5403117d2bbd899f06cf617094753884d39353a1c07ba28913a374303191",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/dto/end-user-kyc-submit.dto.ts",
+      "sha256": "f59bbf025b6103321ecdbc13366451d58a546994dc2017bded44f23b0479a224",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.controller.ts",
+      "sha256": "cb64ddd68c92ea3a10c1495bf7d75a84cfab4e15a071452cf3034b9b1b69c988",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.module.ts",
+      "sha256": "9c5656249e56396fd813132dfbe7f528152df0a809888bad82b48ee209f13a96",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.service.ts",
+      "sha256": "7c8202e66a03cfa5ed972ca5bd508f2a29cac21f06c1621ff16a07ae816bd98e",
+      "method_count": 3,
+      "delegate_shaped_calls": 5,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/kyc-status/end-user-kyc-status.types.ts",
+      "sha256": "5e8347345f93891a20f912e695d83e57d09fd3594df2bf62feb9d00653412188",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/ledger/dto/create-wallet-account.dto.ts",
+      "sha256": "28bbffe5115c5494cb1aaa7850a5573c862c3c0b812d8ddb37d5f29af5b2b012",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/ledger/dto/post-journal.dto.ts",
+      "sha256": "76ee0bf16e1ba16ed1c934022fa4447fe72ed96b149e3ae2e4637d65d8b1e6b2",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/ledger/ledger.controller.ts",
+      "sha256": "be66e6f82a07c8d77d2e7aa34c74faf7f96b365eb553b377dc84fbf4f158c5cd",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/ledger/ledger.module.ts",
+      "sha256": "b596594f36ee9b97b328548d59da8b91b091bf72862aba8af5b62d6db4fc64eb",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/ledger/ledger.service.ts",
+      "sha256": "c7c56ceac704225e9d96d98a0642097c10dfd790f73ee274e33b31bec2be91e0",
+      "method_count": 10,
+      "delegate_shaped_calls": 9,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "92a59189d6d684ca3e415c5b8ffef4aceb058eedb9606824188a64bcd961ac76",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/merchant-payment/dto/merchant-payment.dto.ts",
+      "sha256": "c9a7dba9d3ef0854449c6c624b9139bdbc4e26959d95bcf152e38d882a54db9d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.controller.ts",
+      "sha256": "889e8b02aa3f0aa1522334f8fcedab06780d7c95e328d138b26ea5f510ef5453",
+      "method_count": 14,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.module.ts",
+      "sha256": "4ed979875fbb3e710e044337b36365b1de4b744a206b41d82ce9daf9f3f9627c",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/merchant-payment/merchant-payment.service.ts",
+      "sha256": "abf746acbedb95a770a1d89c52422e0b409949a52c8d5a201ce73876981e13eb",
+      "method_count": 27,
+      "delegate_shaped_calls": 54,
+      "transaction_calls": 8,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/mock-thredd.adapter.ts",
+      "sha256": "b929132f062cbb5f57f64b6ba5a280affa98e2321cc1b2526c7d46a9bb78de14",
+      "method_count": 16,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-adapter.module.ts",
+      "sha256": "23554ea2816b189aa00bfa5d7e96ca1fa82ede0f21cbc2a2dbced37e9ee9f464",
+      "method_count": 15,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.adapter.ts",
+      "sha256": "dd2fd719c5497986aaf9e2860eef0801f536a5c953fb11d829c09a7f82d45b94",
+      "method_count": 27,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.factory.ts",
+      "sha256": "9f0f768f51ffb6c047dc4180ce8ea3e11a7e529e9e89a4c211d17ae2697d839c",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-canonical-card-provider.module.ts",
+      "sha256": "2e3f81d98f4a4f2f248d6195655bb6af9fdc1eb4703e9ef5ddea361f1fb0a9e0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-card-processor.factory.ts",
+      "sha256": "91c54a94f37762e801d6fb6b33c425318988ca1c4ec6160c3879f6b644c1a3c6",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd-provider-execution.policy.ts",
+      "sha256": "d76f2b7e94971a6965ce66cc015057ae9e59dda5cb41b6aacf9416e72e3d66b0",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/adapter/thredd.adapter.ts",
+      "sha256": "c6c126f8b4b64274c2bf5ed220af13843207ad5d3f75d25f82985c1d0798b39d",
+      "method_count": 19,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/certificate-loader.service.ts",
+      "sha256": "3f45c106ae84ee00a40a553224b9c6af274ef3d583cd52a9191249da3acf7f81",
+      "method_count": 4,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.module.ts",
+      "sha256": "96bec4b35da6fb585471e9bbb8761cb08a99ef731bd24b18c904538af4d9747b",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-auth.service.ts",
+      "sha256": "0f5cae71025ed07d384ac64b6208d6fc8bf32c1bb0073795e0af455b6b89b2db",
+      "method_count": 10,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/thredd-http.client.ts",
+      "sha256": "100739be0055c03065eded5b9c270b4e57228e36d18e1457a06a08fdeb092f21",
+      "method_count": 19,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/auth/token-cache.service.ts",
+      "sha256": "cc8de11ae6a507f4d450b1ddcbf8d9f108deb32c18a583edfa7d46553dd6a878",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.client.ts",
+      "sha256": "e3ef97b6c78e4594675591473df846ee649eb78c09136f73d86110e1047fd23e",
+      "method_count": 12,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/card/thredd-card.module.ts",
+      "sha256": "e67d556d9c22b0be0a74595a460ae3d3c5e86c4a797d0efa68a004fa97fb575a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/dto/thredd-card.dto.ts",
+      "sha256": "a96dee7bdd766298de492fe8608f57526235e4a9f93723e6990bbbf5ffac31c1",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/dto/thredd-transaction.dto.ts",
+      "sha256": "634bbe1011ea185fc67af44ff125438103d0bffcb963f3ea55dcb6c378207de9",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/interfaces/thredd-api.interface.ts",
+      "sha256": "80816b8a383818a00345a5b3942a539e377d616d4a8b88afc2c0477a205e8246",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-integration-logger.service.ts",
+      "sha256": "4511f0fa3b601f62ae9976fd0e44e918af18a07ed365608b3f0f12397393a8f1",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/logging/thredd-logging.module.ts",
+      "sha256": "f17b5c496c70b59e3445248848307cbc953e8b0820726a7ff3ea4f875552363c",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.module.ts",
+      "sha256": "c49e26ca6c7504cd677ba5b3ca1a547edb6a4476c64a76659a9005a8cb5b1399",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/readiness/thredd-readiness.service.ts",
+      "sha256": "803f343e0b9803f72af655a3ca06b5b20a044bbfc6fa950ef5347448c6ff19db",
+      "method_count": 10,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/thredd.module.ts",
+      "sha256": "550d518ccd030b69716205882f898a9c0a93529a55f0c9bead2286d28e5d3215",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.client.ts",
+      "sha256": "0ebc29315128cf2b191becab0c19ff6b57ff4db27243d3bb50b3117d1c21acc1",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/transaction/thredd-transaction.module.ts",
+      "sha256": "abeddefc653b871cffe0de751d04809ad1ee14850d9a3270a1aea84f14f118d0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-financial-event.contract.ts",
+      "sha256": "2c4d4695ffb26800212e6abd67b036ec1287df75f8e8d076fcb8c42ef15322f6",
+      "method_count": 20,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/card-lifecycle-event.contract.ts",
+      "sha256": "a2b74a089091291a4b1ce095cee08f13e4bf59f1eab7f3e06602ea6f0c971c70",
+      "method_count": 13,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-auth.plugin.ts",
+      "sha256": "b701f854a85dfbe2dd18e5694435dc667dfe821c7db3f1f752709377c3567756",
+      "method_count": 9,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook-correlation.ts",
+      "sha256": "0edcff1f12f64f703aeb86bb771bb232dfa8a473a84b756a227964e8e7967ea2",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.module.ts",
+      "sha256": "e5d1b82fb2d4a471941a8e78379fbc5621f82d7667bd499b2c6cfea5d336c014",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/modules/thredd/webhook/thredd-webhook.normalizer.ts",
+      "sha256": "bace495373c7bd09741d1437c12e2108ac5e1aa444606ecec16d1c35f5d4fdc6",
+      "method_count": 5,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/onboarding/dto/admin-kyc-read.dto.ts",
+      "sha256": "f1f118cb0abc0381a6176feff385d189671434b72db906e61c4a57bbc450db54",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/onboarding/dto/user-onboarding.dto.ts",
+      "sha256": "ccddcfc73e8d7b8ff8c4ac07143ecf14dac46d029522b93d79aff0185bb44f98",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/onboarding/user-onboarding.controller.ts",
+      "sha256": "8dabc05d7cdf55064faa70494fe7df6a775c9d69bdb52a99e2bf5309349af572",
+      "method_count": 4,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/onboarding/user-onboarding.module.ts",
+      "sha256": "d60038167f05469cc95a637be707429988b4f13b43ab4111784a1a6c7b3fcea3",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/onboarding/user-onboarding.service.ts",
+      "sha256": "ea3f58f0a851051b56214c8c222b9da5e298a8813739961232e8b3bdf4d450f8",
+      "method_count": 4,
+      "delegate_shaped_calls": 12,
+      "transaction_calls": 2,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/operations-trace/dto/operations-trace.dto.ts",
+      "sha256": "267e8f21dbcdaa8f5cd628f22a0c987e5d55332814af820390303177ca62ee96",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/operations-trace/operations-trace.controller.ts",
+      "sha256": "d8d565508ed9ecffec379a599e54f5932c241db06034e72a5a8dd38447388b69",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/operations-trace/operations-trace.module.ts",
+      "sha256": "ac61f1dba693a771bcd547233f16d47a87b6b3becf5bd7d0a1aea45be995a526",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/operations-trace/operations-trace.service.ts",
+      "sha256": "7a4ed51ce1000ee003f02ea7db58e550e0fb314ea939e0f51a6931d557022538",
+      "method_count": 4,
+      "delegate_shaped_calls": 19,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/p1-openapi-extra-models.ts",
+      "sha256": "a406041fc71cc467546d61242180809787e8f6c0fbf981d845d16f3d136e3cc9",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.registry.ts",
+      "sha256": "2fbb4edbb2081d59a892a859045d5475a19d64a7215cf9cfb5970eda89c4651c",
+      "method_count": 1,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/card-provider-gateway.ts",
+      "sha256": "261f19c1f7edc38f0d4dc8fd52c0f31f68855864385a00412fb2bbee0e629c01",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/dto/phase2-card-provider.dto.ts",
+      "sha256": "657d64fac89763af9da7fd86e8f76e8fd9cb6cf8e07bfb81f5268ec929f98ecc",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.controller.ts",
+      "sha256": "83b2771c202bafdb2f831233e501e1487c8a113b1e2448f59e0540450681d6fd",
+      "method_count": 4,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/phase2-card-provider.service.ts",
+      "sha256": "1463ee986a325dd50c542757f5a98dc97d6d1b64dff00ce438d7426e13d917f2",
+      "method_count": 6,
+      "delegate_shaped_calls": 5,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/thredd-adapter.skeleton.ts",
+      "sha256": "2f39af90018c8930d866d2405a7c35a64bca1e5d691f30bb1ac38e53c8c2bd9c",
+      "method_count": 11,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/card-provider/unavailable-card-provider.adapter.ts",
+      "sha256": "87f161a6a4b6f1ae7c3410d4ffa4e3fd744d2244b923e21c4e46ae98acd05224",
+      "method_count": 13,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-fee-accounting.ts",
+      "sha256": "d62a8cbfc76dbfc05bde42ef12f20ddbb1ce0733f1319d4fcf7cdb1a8f37332f",
+      "method_count": 8,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-provider-gateway.ts",
+      "sha256": "a4296632655ee1a15b9dc2c3501603360ac3c6c007f00315f482aa6916cc1045",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/chain-transfer-state.ts",
+      "sha256": "bca0dba856f514bde2f338c45d791b41746cc9a29a01a1be4db666eaf6cb90ee",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/deterministic-chain-event-source.ts",
+      "sha256": "02a3ec4581e063f8b793afc59e7fc2a2cfd876e9bc7d5ef279a76e350a83d7fd",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/deterministic-dev-chain-provider.adapter.ts",
+      "sha256": "86c5d43aac170daf955d73f1453ed3a6cb2e01388319f4c609d0d59ec72aa701",
+      "method_count": 8,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/dto/phase2-onchain.dto.ts",
+      "sha256": "9521e2e4221d66b7411e8aaecee045d52e0b39d459f1c52e7dd01a7746a56a6a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-chain-webhook.guard.ts",
+      "sha256": "d21aa88a9c9c245d8e06606030749ae7b4ed681c46126346f15e50f80452ef8f",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-internal-poller.guard.ts",
+      "sha256": "6243ed91f2c656fb5ef7c5fe27cb079bea502bbfe22a3620ef8a76f4b9c63bc6",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.constants.ts",
+      "sha256": "51cf4787b46b98a5175a622a4374092c895741cb53c4d33d52d8f9b4795382ce",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "sha256": "a22c2fb41be084d0ce536965329e45ba7abb94bbb9d0b1ad763b6c8aaaa294f5",
+      "method_count": 16,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.module.ts",
+      "sha256": "564f85a4e3f856745af2dde308c06195430b44cdc010ba5aa6915ae521746c91",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/phase2-onchain.service.ts",
+      "sha256": "69dbaaa3e25dc4cfd0723870feb8d5bcf152edf7f151faa4be091c02b6cb74fa",
+      "method_count": 63,
+      "delegate_shaped_calls": 34,
+      "transaction_calls": 5,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/phase2/onchain/unavailable-chain-provider.adapter.ts",
+      "sha256": "3d7e302618c5acd13ca095b76f1207a745e1382ae06c952c7b220fc3a1a43962",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.ts",
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 1,
+      "raw_calls": 2
+    },
+    {
+      "path": "src/prisma/prisma.module.ts",
+      "sha256": "9223a0889abb0669020e94a9b8c1e68274cdc05533c1f79d84fe516450e94ebd",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/prisma/prisma.service.ts",
+      "sha256": "cc4a675fc63ce4c7be743c8d1a7a90b65272146fab01bffe4fc718d0deab20b7",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sandbox/sandbox.controller.ts",
+      "sha256": "826d9a21046eb9ba3bf4d35878520c93841de002bfcf5db5195eb862b74b077b",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sandbox/sandbox.module.ts",
+      "sha256": "397aadde4b7789f9be40cafd0d9b48e2193ed2fb1ac20622660350a39ff668d7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.constants.ts",
+      "sha256": "05d13e87911b3e5b9be9800ca02e8ae55375ddc84a4693fa1a18611c332f7f9f",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.manager.ts",
+      "sha256": "06218bf2ff745c928eab82d83564756f85e17eb8386d51e01d21b528807b0378",
+      "method_count": 10,
+      "delegate_shaped_calls": 21,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.module.ts",
+      "sha256": "ad4f868c8c4cfb21f6db7efcccc3a5f8b5a75f82ad242809b85249604362e9a7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-fixture.security.ts",
+      "sha256": "ade8514d2a0717b787caf4f17b9b97795a6385e97d41bb4d0b5f75503f4e56ca",
+      "method_count": 8,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.manager.ts",
+      "sha256": "281671705943c2b3a37a1ab7523a4fad472c86402363bdcd15b917bfe91063c6",
+      "method_count": 1,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 1,
+      "raw_calls": 2
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.nonce.ts",
+      "sha256": "c5802c44918a24547501f5d62725233dfd5de13becd14f198bffc9f17d9bfd5a",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.output.ts",
+      "sha256": "a9f9e7a57be03b951df72e45b23796c7c9204ee10cf9a2d9b74392238d180076",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-precheck.security.ts",
+      "sha256": "55ab6f4a454aa3dd956d387e176cd58fe8b08e4d5e2c5268ea27ceff1fde8ca3",
+      "method_count": 9,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly-policy.service.ts",
+      "sha256": "4f037b67ec469c8e741bb765e1de8904d585e86c0c178be49f007cce5ee28f81",
+      "method_count": 3,
+      "delegate_shaped_calls": 1,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/sanlx-fixture/sanlx-readonly.interceptor.ts",
+      "sha256": "bb2497c7c5b30e8fb698f7385c4343bffbd4027b8a7a9f489b5b257a50701ed2",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/scripts/verify-cregis-callback-window.ts",
+      "sha256": "127e0acf85da3c3e3b370cf95451ef64cf0eb721a00ffcdd2f20424251c90941",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/settlement/dto/settlement.dto.ts",
+      "sha256": "7a864f7787d900ccba1b92a83605d82779f9fdad4b61e5e7bc181fabc8bfad5a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/settlement/dto/treasury-liquidity.dto.ts",
+      "sha256": "d0c45be95b52595d0235e3202f682fbf14c6571758786b46322250548754bace",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/settlement/settlement.controller.ts",
+      "sha256": "12f5bbc61107bcaa405da29211e9a7822577cc662d4796f82ebec02d2d22a191",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/settlement/settlement.module.ts",
+      "sha256": "2abcb109364debf035aa002545c77486c976b36b273aba2aaac1cd5db61a4425",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/settlement/settlement.service.ts",
+      "sha256": "9af01074af41893ef52919f101a761d01dd01f59f751bd9cb76ae7ea2d368cd3",
+      "method_count": 9,
+      "delegate_shaped_calls": 17,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/tenants/dto/create-tenant.dto.ts",
+      "sha256": "e403cad7556a6615c0179ec03235ee5661c2777e425e9797dfa5d58cf968a273",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/tenants/dto/tenant-response.dto.ts",
+      "sha256": "25b7251d4fc20a8283841e8c3c78c394f88161596dfeb27821663478ae485266",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/tenants/tenants.controller.ts",
+      "sha256": "864ecb34d9c4bd51f5d8f7de2c9a128eeb7fd56d39d442c560cdeca87f679e26",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/tenants/tenants.module.ts",
+      "sha256": "df9341e9b74e64e0102dd844cf5471e99dd4bdf35dff17029112a40922ce9514",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/tenants/tenants.service.ts",
+      "sha256": "94b2f664a1c8924e5efc9e44e48f19cd3f5c5238a604bc48859d8dd835d6c53e",
+      "method_count": 3,
+      "delegate_shaped_calls": 11,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/cregis-external-execution.gate.ts",
+      "sha256": "2862217432b036ab9f3591314998b6119b74b4172861138b2a614e34a536bca9",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/dto/third-party.dto.ts",
+      "sha256": "89b212e8d5d05bffc87eb4d3d640dcb2312c24ef37e4c07dd5073841afb136d4",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/pr69-funding-coordination.service.ts",
+      "sha256": "68f20dabc86d2865b2f35f568afd675c7a1f40cfe811b9c1712ffc691753e9cb",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-callback-signature-capture.ts",
+      "sha256": "a67e51e8280097346ed019394937fbfd08816371ba10b857d6c694b19c652d5d",
+      "method_count": 7,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-endpoint-catalog.ts",
+      "sha256": "93c133cdc07a1aa5f9acff78c88e279560156b559a083e03b3b4185af59851c1",
+      "method_count": 6,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-outbound-policy.ts",
+      "sha256": "d2205ceb495123f471fa8d12e1a8915f070f85f51e64ca48a6463e6e54f64965",
+      "method_count": 11,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis-payment-engine-contract.v2026-09-01.ts",
+      "sha256": "e5ee16c87948cefb18801b0bf17d5b7ce4bb160c6996917117c5961673b3fe84",
+      "method_count": 14,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/cregis.provider.ts",
+      "sha256": "4389f0fa1d40a62a75606355b44b0b17ef0ed42287d40932d63c9e253bdb6285",
+      "method_count": 49,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/payment-provider.config.ts",
+      "sha256": "2c02f526abba18cd693c41f45f4ffcede216a15e181acd9f593578889d2b645b",
+      "method_count": 13,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/secret-reference-resolver.ts",
+      "sha256": "2f92951068a1de298982e2fef24b736ef34674b2c2ec242f6af65abe5eec55d0",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/third-party-asset-provider.ts",
+      "sha256": "164244f5d7581144327f28032a2a92e34b90043b715352286fcd474303bef89c",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/third-party-provider.registry.ts",
+      "sha256": "8bba13a779151312124a3d0d20c768a24b442d8862ad96ae28be830f8436c4c3",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/providers/ucard-provider.ts",
+      "sha256": "b91239b386235dd4aec3c80e57c01f3d9d2819b562111c198547819ce1b7d79b",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/third-party-amount.ts",
+      "sha256": "1e98280f7a1c164af577b131ebee7798cf1d40ee29493438a3a35b68440253ab",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/third-party-asset.controller.ts",
+      "sha256": "0042f68c70f80243c7bdca09c5b9a2deda8f409df9f6436a2ed13b9ead1f1a30",
+      "method_count": 14,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/third-party-asset.service.ts",
+      "sha256": "4913753965dcf057610dc16aa90e1376328451593f788041db57bfe306a113c7",
+      "method_count": 41,
+      "delegate_shaped_calls": 38,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/third-party-no-store.middleware.ts",
+      "sha256": "b4fd7a5b3048896f0239fe3cff65cd335014b97e2a23034647e75e8a1c6f6b00",
+      "method_count": 3,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/third-party.module.ts",
+      "sha256": "6054d45b9bdb2c015b3523d2771f2474c9f3fff910c3c0172cca18e82e3769df",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/ucard.controller.ts",
+      "sha256": "5865d9dafd4fbab5340cd07b4c1af34d9ca82451ccce9093b6e6b58d4f25fc5e",
+      "method_count": 12,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/third-party/ucard.service.ts",
+      "sha256": "56ce8f9268f32967872df5718008af4c1e7c18da14015807aa8b3762712a1d7b",
+      "method_count": 8,
+      "delegate_shaped_calls": 9,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/certificate-loader.service.ts",
+      "sha256": "cf65816c84a7542b969f96b01838d524decf187268e587330050858c27dd7ce9",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/mock-card-processor.ts",
+      "sha256": "06cfdb291379bdd06540e11f819d2354ea84e9c3390435439f28e26019f62c72",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/thredd-auth.service.ts",
+      "sha256": "49c2c2cd9c76ef3527488412c0d88f6fa36f2bdaefe3c16dc6666065001f89a2",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/thredd-http.client.ts",
+      "sha256": "a25f74bd84e3fac8318720fbd0873219ef63207ff29e52a5b642bd1274283f06",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/thredd.adapter.ts",
+      "sha256": "060967803630e43826d29bf3fc7d85f5bcf196a7b760bc1ca1b73966b5375e68",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/thredd.module.ts",
+      "sha256": "f5c7c58449072c5727bc2fe04432ca036610bbfc953b96a47582b9cf7a0907b2",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/thredd/token-cache.service.ts",
+      "sha256": "5faca5e6f610784809b26c6b7e7cf363454c7cf6e4e0b4b21b12dfe0f0ded164",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/treasury/dto/treasury-funds-instruction.dto.ts",
+      "sha256": "5a5a514f81efffca10fe81b7d061dcd915ec4bc2c7ac890c6659cd8ae57c31fc",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/treasury/treasury.controller.ts",
+      "sha256": "b05bfc09929be17eb46f0e7ac4e8abac7d0be746244744ee2d9fa397f3d3696e",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/treasury/treasury.module.ts",
+      "sha256": "52325e2729c821193fd89581f0c15155864a7cfc51e3eea1e174e0ce94a1bc9d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/treasury/treasury.service.ts",
+      "sha256": "c93bd4f6ce784c9c83947bf0b2cc5f0baec067ec0e5471ba3e69afbbe33d42e8",
+      "method_count": 15,
+      "delegate_shaped_calls": 18,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-account-history.dto.ts",
+      "sha256": "497dcb31126f0a292e9f4f9562599b0c2d6f23cf06a2de75cb3c59c1c53bfd10",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-operation-history.dto.ts",
+      "sha256": "d1cc48550cd6e61bc9d4ec93c7c53684efaea7cdc9a5f383aa5fd153aa26d702",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/admin-wallet-transaction-history.dto.ts",
+      "sha256": "bbeec02c74fd975b51a9e1db5e397fc390cbe19353be1315842abc039721cdab",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-account-balance.dto.ts",
+      "sha256": "6229797ca6f84fd9ec19a15002939ff36201ec2c226ce3c78e74cd0ed7408f3b",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-account.dto.ts",
+      "sha256": "fcda5953e12e932816014e7432240473f465278a072aa4e514f221641a9695b4",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-assets.dto.ts",
+      "sha256": "acc36c73a04a5c9cfad20593aeeac81e1caef67a547c4fb322db41e12173a5b7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-balance-summary.dto.ts",
+      "sha256": "0f7d2b979f3d1eb4f0be636de44fce6a1436c20b38b41cbcc73e75089e25298b",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-operation-history.dto.ts",
+      "sha256": "3a0ff07ed2d060924f9db63edc9b68b63a207e25d24ed4a4ee7ae3ed968fa25a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-operation.dto.ts",
+      "sha256": "8d0cd3dafc6d30bfac790aa2f888f0237bf4b2509958e6b2a5335d12eecadbc0",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-total-assets.dto.ts",
+      "sha256": "e46a70fc65c98c230bd1a5b080c7d293d43361a16b3a0baadb76588e94a857f7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-transaction-history.dto.ts",
+      "sha256": "8e6b8feecf98145ffc7937bf6b455e084108eb0e5eeba99a385c70a324f66dfd",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/end-user-wallet-transaction.dto.ts",
+      "sha256": "04c64a70a4a53c0bcb98ba09020f99c708b1aa912ade2a13b25c133e93af237d",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/prime-wallet-address-book.dto.ts",
+      "sha256": "c2de0d7b1e6448b0e42f7a024c353a1dd74bdd712f730e5fe61da605af2a1024",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/prime-wallet-funding.dto.ts",
+      "sha256": "d70971769aec856e30c8e5ae9ee4fba5cea70f8175ea969e3a3950e091a00a6f",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/wallet-flow.dto.ts",
+      "sha256": "d36bccf73834cc0aff7ce2806a15f6062d41019fe3c931faf520c15c56af85a7",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/wallet-operation-detail.dto.ts",
+      "sha256": "0b9af18164ec4b41cac8e72fdb8417de2d552ae350cc7bda693b156b81607171",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/dto/wallet-query.dto.ts",
+      "sha256": "081a4974650fc024b4807d8d13c3e7ddfa3b6c5cbc39fa104f384d10de2a6f4a",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet-assets.ts",
+      "sha256": "ddf02c67cd3610fa2615900a1cb2e5b898263d4eace9be77518c2ac301f377f5",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet.controller.ts",
+      "sha256": "a8912fa9a1f5bc6e2c8dc4b945ee78de7e17a41e0927c17c796846166c6da646",
+      "method_count": 26,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/end-user-wallet.types.ts",
+      "sha256": "83eaee21fdb2f7a36600f567d69399e257f1fdcf5ead0b93d12223f9961eee36",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/prime-wallet-funding.service.ts",
+      "sha256": "b70376cc93f0ccbda9a899c3cf7164261fee172f66f4d45ece52758e73114828",
+      "method_count": 41,
+      "delegate_shaped_calls": 28,
+      "transaction_calls": 2,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/prime-wallet-network-catalog.ts",
+      "sha256": "652207791267a8f93bd576150b145c3cf35ea4e112fbc9dc8440f3d91d0fe693",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/wallet-accounting.service.ts",
+      "sha256": "c56adaf48fe014b59e80b68fae04f8b0eb6de21d97639c51193b70369cc14645",
+      "method_count": 46,
+      "delegate_shaped_calls": 57,
+      "transaction_calls": 6,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/wallet.controller.ts",
+      "sha256": "52b5e113895d63f47b9db3620ed5d8376116b4ab17a96ed31ce93fb9a263b51e",
+      "method_count": 19,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/wallet.module.ts",
+      "sha256": "4126fab00ef8807b37289c7e28843814a49d256c3712907a0a5f414b57195f53",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/wallet/wallet.service.ts",
+      "sha256": "49e843f21e8eae3ec6b7d9693be9644295c3bd58b6b66c66c330427114895313",
+      "method_count": 41,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/card-financial-accounting.service.ts",
+      "sha256": "03b09f60627d042808aa33b9a7236c392517fb45b68b8f8b44c7c818bd851de2",
+      "method_count": 27,
+      "delegate_shaped_calls": 33,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/provider-webhook-plugin.registry.ts",
+      "sha256": "946bce52833d50cb8ac6dbb4208e46bba20dc10858fa8f98ad5b0f1cb6f3b734",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/provider-webhook.plugin.ts",
+      "sha256": "d6c7f2739d516d4a25079ba74d2f0a669afb06ab00267836d76f58a0319c7348",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/thredd-event.handler.ts",
+      "sha256": "70e0edcdf473fc4412a4fb55abe931fbbcd629e6f821a78bb0f21d7ebb69b642",
+      "method_count": 9,
+      "delegate_shaped_calls": 7,
+      "transaction_calls": 1,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/webhook-event-handler.registry.ts",
+      "sha256": "bd8301b0e691af06d309f9d740f2afce832f876baab9f60a32f9aec74a7f5104",
+      "method_count": 1,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.controller.ts",
+      "sha256": "a21e4bb4f6319be378a37227373591c8e7ca298b0adec2970314343b69c086d2",
+      "method_count": 2,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.module.ts",
+      "sha256": "4ed5ac18e2aeca83e54a95c2b50a21209c65dfcf68d4e0872b056b46dd38e5fb",
+      "method_count": 0,
+      "delegate_shaped_calls": 0,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    },
+    {
+      "path": "src/webhooks/webhooks.service.ts",
+      "sha256": "9c7f7b093ea275e2ef5624dbbf7c023310c57f7470cf4c0c7c436d877daa42be",
+      "method_count": 10,
+      "delegate_shaped_calls": 10,
+      "transaction_calls": 0,
+      "raw_calls": 0
+    }
+  ],
+  "not_read": [
+    ".env",
+    "credential files",
+    "protected baseline overlays"
+  ],
+  "literal_values_collected": false
+}
