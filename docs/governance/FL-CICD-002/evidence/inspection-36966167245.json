@@ -1,0 +1,21 @@
+{
+  "run_id": 36966167245,
+  "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+  "log_raw_saved": false,
+  "artifact_content_never_executed_or_extracted": true,
+  "log_sha256": "af9367825abe14c36cfd005a55804e3dfaf7e31ca41d41fb402454d57b71faa9",
+  "log_bytes": 874985,
+  "log_schema_hits": 0,
+  "artifacts": [],
+  "result": "STOP",
+  "category": "ARTIFACT_DOWNLOAD_FAILED",
+  "scan_stats": {
+    "scanned_bytes": 0,
+    "streams": 0,
+    "archives": 0,
+    "regular_members": 0,
+    "links_not_followed": 0,
+    "hits": 0,
+    "unsupported_nested_archives": 0
+  }
+}

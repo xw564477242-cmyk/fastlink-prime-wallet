@@ -1,0 +1,6 @@
+{
+  "trigger": "delivery inspection",
+  "category": "ARTIFACT_DOWNLOAD_FAILED",
+  "undo_exit": 0,
+  "utc": "2026-10-02T05:50:02.949909+00:00"
+}

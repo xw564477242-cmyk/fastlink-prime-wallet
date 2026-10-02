@@ -1,0 +1,156 @@
+{
+  "baseline_commit": "d006d6f7547660c50a9bcd1f1f410d1c1ad7eae8",
+  "records": [
+    {
+      "path": "AUTHORIZATION-AND-SOURCE.md",
+      "original_sha256": "1c6cd6f2768ae6d6422fc69a75728a7f4855544687e32bc910c83432ec292876",
+      "original_bytes": 1575,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "FINAL-REVIEW-BOUNDARY.md",
+      "original_sha256": "a577d2fff44216d5e3f7cb9da15913e16d83f41c77a640bbf34836b136abb6b2",
+      "original_bytes": 545,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "WORKFLOW-COVERAGE.md",
+      "original_sha256": "0e78e54adf66f6cba49845b7392b784355a454b28f48cf4d709fa091bbcc5dff",
+      "original_bytes": 1046,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "LIMITATIONS.md",
+      "original_sha256": "9ababb796c0d32174ee4172c6b86654bfbcbb662aa8cb6586a9d7f419dd4f17f",
+      "original_bytes": 1672,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "README.md",
+      "original_sha256": "5ce9d045c57b100e2907ad9e0b282faffe649812b51a3cca52d38dfe08443401",
+      "original_bytes": 1429,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "REFRESH-AND-STALE.md",
+      "original_sha256": "50d8c2c2497465777b3b458abdbd9d8b2498cbfb2fc58942ae6dd4a248c7321c",
+      "original_bytes": 1715,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "ROLLBACK.md",
+      "original_sha256": "56fc7ad7ea9f2a70c7b25ff21114f8d25ec3f4f05228ba6d377bbd5df769c8f8",
+      "original_bytes": 785,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "DESIGN.md",
+      "original_sha256": "bd00d6a862af27b5c57d607e734e4ae41134200953d57bf92443d9477381d44a",
+      "original_bytes": 2092,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "SHA256SUMS",
+      "original_sha256": "1fe14427b30cb6d66c14b999dcb88d10a8b5c5f3ec9965a1982bf09fda0c61d8",
+      "original_bytes": 2167,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "TEST-REPORT.md",
+      "original_sha256": "5ec051ed538621d45f8c03bc7201e9cadae49679091fe045f8b56d55c1df1898",
+      "original_bytes": 3481,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "HANDOFF.md",
+      "original_sha256": "7c64f5025e8c2183c97538e6400503f5103cd84d2630ad6c47e1347698c72da7",
+      "original_bytes": 1915,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "BASELINE-DELTA.md",
+      "original_sha256": "0186397a595e781739c62dd6e81ee4f0b3703b3670b4851485fe5e1b3bea0f16",
+      "original_bytes": 866,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/candidate-controls.json",
+      "original_sha256": "7bc13ae2d4542b2d4d303825878ccc5b6f3651cccb1e0236c32d5ef616cf3a3f",
+      "original_bytes": 3494,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/controls-summary.json",
+      "original_sha256": "05473d5763a281d8278be3a9791762fe59b3fc84ab5b3976163df147f852a117",
+      "original_bytes": 314,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/deployment-and-refs.json",
+      "original_sha256": "b6b77ecebdff7cae6f082fb28a754cfa18a36b0b39355aa54e7f4b83228f5625",
+      "original_bytes": 767,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/sensitive-scan.json",
+      "original_sha256": "4093248a9166e328000a7df98d5b069511570147bd2373ea47c46150bb291609",
+      "original_bytes": 623,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/test-status.json",
+      "original_sha256": "87f0e6d588a99007e0940b6df5e3e3f712255803247afdd8cb8a0d76bddc8481",
+      "original_bytes": 3549,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/secret-creation.json",
+      "original_sha256": "c112518df30b8bd7a045f134d9b1972da60068a9788a358ab078577fc32be933",
+      "original_bytes": 554,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/semantic-comparison.json",
+      "original_sha256": "2e78483ea3516427b8c8578815995e293e5a48eb0922612be72267e6d31bf930",
+      "original_bytes": 3566,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/source-acquisition.json",
+      "original_sha256": "5e080d2b3ad0344f30901a11977d1aebe9c8ea974af2589b99efc704904dfcb9",
+      "original_bytes": 248,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/bases.json",
+      "original_sha256": "6253b26733896c248e2609bf30aa418c19ceb87d4501e742913c3f94b065c0a1",
+      "original_bytes": 386,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/business-ci.json",
+      "original_sha256": "12a7d86f1721f27dfad9d96f3b96f74cde9077b5b912dc69617a6a87b713c10b",
+      "original_bytes": 6886,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/fixed-source-manifest.json",
+      "original_sha256": "ce5b666de3f3bd19520067a6bae59ac49004b593d67a1be0d6d2d5f73bb667e6",
+      "original_bytes": 1068,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/test-status-final.json",
+      "original_sha256": "ce5f22b4ee644e5a5b3e77129350d6374043fb464fff09c24cf2cabdf2077b64",
+      "original_bytes": 3625,
+      "original_prefix_preserved": true
+    },
+    {
+      "path": "evidence/actual-three-modes.json",
+      "original_sha256": "b86ede0149d6d1cf7522a0cae6a8a3064757b987f0afc367a9826c22b39b1301",
+      "original_bytes": 908,
+      "original_prefix_preserved": true
+    }
+  ],
+  "derived_files_exception": "SHA256SUMS and sensitive-scan.json will be regenerated after this check; their historical versions remain in previous commits. All original reports/status and failure evidence are retained."
+}

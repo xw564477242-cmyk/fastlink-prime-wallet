@@ -1,0 +1,946 @@
+{
+  "observed_at_utc": "2026-10-02T07:19:32.990546+00:00",
+  "prs": [
+    {
+      "additions": 191,
+      "autoMergeRequest": null,
+      "baseRefName": "dev",
+      "changedFiles": 5,
+      "deletions": 24,
+      "files": [
+        {
+          "path": ".github/workflows/ci.yml",
+          "additions": 17,
+          "deletions": 1,
+          "changeType": "MODIFIED"
+        },
+        {
+          "path": ".github/workflows/dev-reset-round-trip.yml",
+          "additions": 19,
+          "deletions": 2,
+          "changeType": "MODIFIED"
+        },
+        {
+          "path": ".github/workflows/pull-request.yml",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "MODIFIED"
+        },
+        {
+          "path": "scripts/validate-dev-railway-config.mjs",
+          "additions": 79,
+          "deletions": 20,
+          "changeType": "MODIFIED"
+        },
+        {
+          "path": "scripts/validate-dev-railway-config.spec.mjs",
+          "additions": 65,
+          "deletions": 1,
+          "changeType": "MODIFIED"
+        }
+      ],
+      "headRefName": "feature/FL-CICD-002-schema-offline",
+      "headRefOid": "a838758951e42375c414572a09e48075075d1a09",
+      "isDraft": true,
+      "number": 337,
+      "state": "OPEN",
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/pull/337",
+      "repository": "fastlik-backend"
+    },
+    {
+      "additions": 1081,
+      "autoMergeRequest": null,
+      "baseRefName": "dev",
+      "changedFiles": 25,
+      "deletions": 0,
+      "files": [
+        {
+          "path": "docs/governance/FL-CICD-002/AUTHORIZATION-AND-SOURCE.md",
+          "additions": 14,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/BASELINE-DELTA.md",
+          "additions": 9,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/DESIGN.md",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/FINAL-REVIEW-BOUNDARY.md",
+          "additions": 5,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/HANDOFF.md",
+          "additions": 18,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/LIMITATIONS.md",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/README.md",
+          "additions": 24,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/REFRESH-AND-STALE.md",
+          "additions": 18,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/ROLLBACK.md",
+          "additions": 6,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/SHA256SUMS",
+          "additions": 24,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/TEST-REPORT.md",
+          "additions": 26,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/WORKFLOW-COVERAGE.md",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/actual-three-modes.json",
+          "additions": 35,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/bases.json",
+          "additions": 14,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/business-ci.json",
+          "additions": 233,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/candidate-controls.json",
+          "additions": 177,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/controls-summary.json",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/deployment-and-refs.json",
+          "additions": 23,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/fixed-source-manifest.json",
+          "additions": 33,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/secret-creation.json",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/semantic-comparison.json",
+          "additions": 153,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/sensitive-scan.json",
+          "additions": 18,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/source-acquisition.json",
+          "additions": 8,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/test-status-final.json",
+          "additions": 86,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-CICD-002/evidence/test-status.json",
+          "additions": 86,
+          "deletions": 0,
+          "changeType": "ADDED"
+        }
+      ],
+      "headRefName": "feature/FL-CICD-002-schema-offline",
+      "headRefOid": "d006d6f7547660c50a9bcd1f1f410d1c1ad7eae8",
+      "isDraft": true,
+      "number": 89,
+      "state": "OPEN",
+      "url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/89",
+      "repository": "fastlink-prime-wallet"
+    },
+    {
+      "additions": 563,
+      "autoMergeRequest": null,
+      "baseRefName": "dev",
+      "changedFiles": 6,
+      "deletions": 0,
+      "files": [
+        {
+          "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+          "additions": 332,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+          "additions": 68,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+          "additions": 39,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "prisma/rollback/fl-db005-fail-closed.sql",
+          "additions": 20,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "src/prisma/isolated-tenant-transaction.spec.ts",
+          "additions": 62,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "src/prisma/isolated-tenant-transaction.ts",
+          "additions": 42,
+          "deletions": 0,
+          "changeType": "ADDED"
+        }
+      ],
+      "headRefName": "feature/FL-DB-005-tenant-identity-rls",
+      "headRefOid": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+      "isDraft": true,
+      "number": 336,
+      "state": "OPEN",
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/pull/336",
+      "repository": "fastlik-backend"
+    },
+    {
+      "additions": 70038,
+      "autoMergeRequest": null,
+      "baseRefName": "dev",
+      "changedFiles": 151,
+      "deletions": 0,
+      "files": [
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-C2-PROPOSED.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-C3-PROPOSED.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-C4-PROPOSED.md",
+          "additions": 5,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-CONVERGENCE-PROPOSED.md",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-PROPOSED.md",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-R1-PROPOSED.md",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-R2-PROPOSED.md",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/BASELINE-DELTA-R3-PROPOSED.md",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CHANGE-AND-ROLLBACK-CONVERGENCE.md",
+          "additions": 9,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CHANGE-AND-ROLLBACK.md",
+          "additions": 16,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C2-APPROVAL.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C2-DIAGNOSIS-AUTHORIZATION.md",
+          "additions": 5,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C2-EXECUTION-RESULT.md",
+          "additions": 15,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C2-READONLY-DIAGNOSIS.md",
+          "additions": 37,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C2-REVIEW-AT-APPROVAL.md",
+          "additions": 70,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C3-APPROVAL.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C3-EXECUTION-RESULT.md",
+          "additions": 19,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C4-OFFLINE-AUTHORIZATION.md",
+          "additions": 5,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-C4-OFFLINE-BLOCKED.md",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-CONVERGENCE-APPROVAL.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/CI-CONVERGENCE-RESULT.md",
+          "additions": 47,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/FULL-CI-PLAN-R2.md",
+          "additions": 43,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-C2.md",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-C3.md",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-CHECKPOINT.md",
+          "additions": 33,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-CONVERGENCE.md",
+          "additions": 35,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-R1.md",
+          "additions": 44,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-R2.md",
+          "additions": 36,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/HANDOFF-R3.md",
+          "additions": 32,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/IMPLEMENTATION-CHECKPOINT.md",
+          "additions": 107,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/NPM-AUDIT-AUTHORIZATION-R2.md",
+          "additions": 11,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/NPM-AUDIT-RESULT-R2.md",
+          "additions": 17,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/OWNER-CONTRACT-APPROVAL-R3.md",
+          "additions": 7,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/REBUILD-AND-REMEDIATION-R2.md",
+          "additions": 19,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/REPORT-R1.md",
+          "additions": 79,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/RISKS-AND-FOLLOWUPS.md",
+          "additions": 12,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-C2.md",
+          "additions": 26,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-C3.md",
+          "additions": 26,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-CHECKPOINT.md",
+          "additions": 47,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-CONVERGENCE.md",
+          "additions": 26,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-R1.md",
+          "additions": 32,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-R2.md",
+          "additions": 31,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SELF-TEST-R3.md",
+          "additions": 30,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SHA256SUMS",
+          "additions": 150,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/SHA256SUMS-CHECKPOINT",
+          "additions": 10,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/TABLE-CONTRACT-APPROVAL-R2.md",
+          "additions": 783,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/TABLE-CONTRACT-APPROVED-R3.md",
+          "additions": 64,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/TABLE-CONTRACT-GROUP-SUMMARY-R2.md",
+          "additions": 236,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/TABLE-SCOPE-CHECKPOINT.csv",
+          "additions": 55,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/52-table-approved-contract-r3.json",
+          "additions": 1564,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/52-table-contract-approval-matrix.json",
+          "additions": 1902,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/business-files.json",
+          "additions": 38,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+          "additions": 440,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/FILE-MANIFEST.json",
+          "additions": 62,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/OFFLINE-INITIAL-FAILURE.json",
+          "additions": 16,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/application-check.json",
+          "additions": 76,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/business-ci-final.json",
+          "additions": 83,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/business-pr-after-push.json",
+          "additions": 101,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/business-pr-final.json",
+          "additions": 101,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/ci-runs-initial.json",
+          "additions": 38,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/db5-public-summary.json",
+          "additions": 22,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/offline-review.json",
+          "additions": 325,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c2/proposed.patch",
+          "additions": 2165,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/FILE-MANIFEST.json",
+          "additions": 16,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/application-check.json",
+          "additions": 24,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/business-ci-final.json",
+          "additions": 83,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/business-pr-after-push.json",
+          "additions": 101,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/change-scan.json",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/ci-runs-initial.json",
+          "additions": 38,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/db5-public-summary.json",
+          "additions": 32,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/existing-log-diagnosis.json",
+          "additions": 22,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/offline-validation.json",
+          "additions": 98,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+          "additions": 206,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c4/change-scan.json",
+          "additions": 13,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c4/patch-context-check.json",
+          "additions": 74,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-c4/tarball-inspection.json",
+          "additions": 2814,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-correction-scan.json",
+          "additions": 122,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-format-correction.json",
+          "additions": 38,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/ci-plan-inputs-r2.json",
+          "additions": 27,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/contract-groups-r2.json",
+          "additions": 214,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/contract-implementation-check-r3.json",
+          "additions": 1069,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/authentication-lifecycle.json",
+          "additions": 46,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/business-ci-after-removal.json",
+          "additions": 29,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/business-pr-after-removal.json",
+          "additions": 90,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/business-scope.json",
+          "additions": 88,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/contract-implementation-check-c5.json",
+          "additions": 1069,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/control-equivalence.json",
+          "additions": 18,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/dynamic-final-r5-r6.json",
+          "additions": 1412,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/entropy-and-business-scan.json",
+          "additions": 208,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/final-chain-catalog.json",
+          "additions": 18194,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/jest-skips.json",
+          "additions": 12,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/local-linux.json",
+          "additions": 63,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/negative-final-r5-r6.json",
+          "additions": 255,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/preflight.json",
+          "additions": 8,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/protection.json",
+          "additions": 23,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/rebuild-final-r5-r6.json",
+          "additions": 540,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/removed-ci-manifest.json",
+          "additions": 42,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/report-repo-pre-db-control.json",
+          "additions": 14,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/retention-and-isolation.json",
+          "additions": 127,
+          "deletions": 0,
+          "changeType": "ADDED"
+        },
+        {
+          "path": "docs/governance/FL-DB-005/evidence/convergence-c5/scan-and-history-check.json",
+          "additions": 142,
+          "deletions": 0,
+          "changeType": "ADDED"
+        }
+      ],
+      "headRefName": "feature/FL-DB-005-tenant-identity-rls",
+      "headRefOid": "06bffab2d1bb6ed81a1f8866155166c97da761f7",
+      "isDraft": true,
+      "number": 88,
+      "state": "OPEN",
+      "url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/88",
+      "repository": "fastlink-prime-wallet"
+    }
+  ],
+  "business_full_ci": [
+    {
+      "id": 36966167244,
+      "name": "Backend Pull Request Gate",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "created_at": "2026-10-02T04:48:38Z",
+      "updated_at": "2026-10-02T04:56:09Z",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36966167244"
+    },
+    {
+      "id": 36966167245,
+      "name": "FastLink Backend Non-Production CI",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "created_at": "2026-10-02T04:48:38Z",
+      "updated_at": "2026-10-02T04:55:02Z",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36966167245"
+    },
+    {
+      "id": 36966167280,
+      "name": "Dev Reset Round Trip",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "run_attempt": 1,
+      "event": "pull_request",
+      "created_at": "2026-10-02T04:48:38Z",
+      "updated_at": "2026-10-02T04:49:59Z",
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36966167280"
+    }
+  ],
+  "refs": {
+    "fastlik-backend": {
+      "dev": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+      "test": "1efc76ea79d61dd0affda87b014ea4a36101cf26",
+      "uat": "ABSENT",
+      "main": "74e5be019c8c91acee6ca241956fc24dfe8ae826"
+    },
+    "fastlink-prime-wallet": {
+      "dev": "2621b7ba4abcf9142423712a3be8f1222cd7ae83",
+      "test": "7433607f6b10135e0f116853687cae614db13d6d",
+      "uat": "ABSENT",
+      "main": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18"
+    }
+  },
+  "deployment_records_for_current_heads": {
+    "fastlik-backend": 0,
+    "fastlink-prime-wallet": 0
+  },
+  "limitations": "GitHub metadata only; no external cloud host inspection, credentials, logs or artifact download. Zero records does not prove all possible external deployment activity.",
+  "test_uat_main_equal_prior_snapshot": {
+    "fastlik-backend": true,
+    "fastlink-prime-wallet": true
+  }
+}

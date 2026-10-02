@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-10-02T07:24:19.125889+00:00",
+  "path": "/private/tmp/FL-CICD-002-full-ci-20261002/artifact-11209658127.zip",
+  "observed_bytes": 92979200,
+  "failure_observation_bytes": 25231360,
+  "expected_complete_bytes": 523697848,
+  "mode": "0o644",
+  "mtime_utc": "2026-10-02T06:49:16.129714+00:00",
+  "lsof_result": "no rows; not proof of complete process attribution",
+  "cause": "UNKNOWN",
+  "download_or_scan_started_this_revision": false,
+  "action": "commit paused pending controller review; no content read, no cleanup, no retry"
+}
