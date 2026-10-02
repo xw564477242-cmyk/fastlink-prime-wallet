@@ -1,0 +1,57 @@
+{
+  "files_scanned": 15,
+  "format_hits": 0,
+  "entropy_occurrences": 9,
+  "resolved_by": "SENSITIVE-SCAN-REVIEW.json",
+  "unresolved_entropy": 0,
+  "key_material_format_hits": 0,
+  "actual_secret_or_hmac_key_not_read": true,
+  "scope": "New archive and placement test only; actual-key-byte comparison not performed",
+  "entropy_metadata": [
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN-REVIEW.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN-REVIEW.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN-REVIEW.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SENSITIVE-SCAN.json",
+      "sha256": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+      "length": 85
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "sha256": "ac7d741118a160bef3a7472c9c36d6e51d8dd3ca8e9a78490901cfcfea4a3966",
+      "length": 104
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "sha256": "74066cd0481c121ef662ec70afffed652bc22072668a9cbf9f04e902cfe09bcc",
+      "length": 111
+    },
+    {
+      "file": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "sha256": "b26a634582773570b503ddbd21e9b8cad8db08d5488e0ab1067d7bfae7986ffe",
+      "length": 119
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "original_scan_preserved": true,
+  "format_hits": 0,
+  "initial_entropy_occurrences": 3,
+  "reviewed_structured_non_secret": [
+    {
+      "fingerprint": "ac7d741118a160bef3a7472c9c36d6e51d8dd3ca8e9a78490901cfcfea4a3966",
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "json_field": "files[0].destination",
+      "classification": "structured_non_secret_repository_path",
+      "basis": "Token is exact archive destination excluding .sql suffix, derived from approved tracked migration path; archived bytes match fixed source blob and SHA. No candidate or credential value.",
+      "length": 104
+    },
+    {
+      "fingerprint": "74066cd0481c121ef662ec70afffed652bc22072668a9cbf9f04e902cfe09bcc",
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "json_field": "files[1].destination",
+      "classification": "structured_non_secret_repository_path",
+      "basis": "Token is exact archive destination excluding .sql suffix, derived from approved tracked migration path; archived bytes match fixed source blob and SHA. No candidate or credential value.",
+      "length": 111
+    },
+    {
+      "fingerprint": "b26a634582773570b503ddbd21e9b8cad8db08d5488e0ab1067d7bfae7986ffe",
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "json_field": "files[2].destination",
+      "classification": "structured_non_secret_repository_path",
+      "basis": "Token is exact archive destination excluding .sql suffix, derived from approved tracked migration path; archived bytes match fixed source blob and SHA. No candidate or credential value.",
+      "length": 119
+    }
+  ],
+  "unresolved": 0,
+  "not_full_project_scan": true,
+  "scan_metadata_path_review": {
+    "fingerprint": "84642ba1df6809598a0a33470af3a5e3b904caa98aa4d3b03748110c295c277a",
+    "length": 85,
+    "classification": "structured_non_secret_scan_source_path",
+    "basis": "Exact existing SOURCE-MANIFEST.json repository evidence path excluding .json suffix; occurs in initial and review scan metadata path fields only."
+  }
+}
