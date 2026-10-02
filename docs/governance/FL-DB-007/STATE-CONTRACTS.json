@@ -1,0 +1,1162 @@
+{
+  "version": "DB7-POLICY-1",
+  "missing_edges": "DENY",
+  "execution": "NOT_RUN",
+  "tables": {
+    "AdminSession": [
+      {
+        "logical_field": "revokedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "revokedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      }
+    ],
+    "ApiClient": [],
+    "ApiKey": [
+      {
+        "logical_field": "revokedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "revokedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      }
+    ],
+    "AuditLog": [],
+    "Card": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "ACTIVE"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "PENDING",
+            "CLOSED"
+          ],
+          [
+            "ACTIVE",
+            "FROZEN"
+          ],
+          [
+            "ACTIVE",
+            "CLOSED"
+          ],
+          [
+            "FROZEN",
+            "ACTIVE"
+          ],
+          [
+            "FROZEN",
+            "CLOSED"
+          ]
+        ],
+        "terminal_states": [
+          "FAILED",
+          "CLOSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PENDING",
+          "ACTIVE",
+          "FROZEN",
+          "CLOSED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "CardBalance": [],
+    "CardEvent": [],
+    "CardHolder": [],
+    "CardLifecycleEvent": [],
+    "CardLimit": [],
+    "CardRenewal": [],
+    "CardReplacement": [],
+    "CardRestriction": [
+      {
+        "logical_field": "releasedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "releasedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      }
+    ],
+    "CardSecurityProfile": [],
+    "CardTransaction": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "AUTHORIZED",
+            "CLEARED"
+          ],
+          [
+            "AUTHORIZED",
+            "DECLINED"
+          ],
+          [
+            "AUTHORIZED",
+            "REVERSED"
+          ],
+          [
+            "CLEARED",
+            "SETTLED"
+          ],
+          [
+            "CLEARED",
+            "REVERSED"
+          ],
+          [
+            "SETTLED",
+            "REFUNDED"
+          ],
+          [
+            "SETTLED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "DECLINED",
+          "REVERSED",
+          "REFUNDED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "Event and idempotency evidence required for every transition"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "AUTHORIZED",
+          "CLEARED",
+          "SETTLED",
+          "DECLINED",
+          "REVERSED",
+          "REFUNDED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "Customer": [
+      {
+        "logical_field": "kycStatus",
+        "edges": [
+          [
+            "PENDING",
+            "APPROVED"
+          ],
+          [
+            "PENDING",
+            "REJECTED"
+          ],
+          [
+            "REJECTED",
+            "PENDING"
+          ],
+          [
+            "APPROVED",
+            "PENDING"
+          ]
+        ],
+        "terminal_states": [],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "REJECTED→PENDING requires new material",
+          "APPROVED→PENDING requires two-person compliance review",
+          "No direct APPROVED↔REJECTED"
+        ],
+        "physical_field": "kycStatus",
+        "schema_values": [
+          "PENDING",
+          "APPROVED",
+          "REJECTED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "EndUserRefreshToken": [
+      {
+        "logical_field": "revokedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "revokedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      },
+      {
+        "logical_field": "consumedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "consumedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      }
+    ],
+    "EndUserSession": [
+      {
+        "logical_field": "revokedAt",
+        "edges": [
+          [
+            "NULL",
+            "TIMESTAMP"
+          ]
+        ],
+        "terminal_states": [
+          "TIMESTAMP"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "revokedAt",
+        "schema_values": [],
+        "schema_mapping_status": "TIMESTAMP_OR_NONENUM_CONTRACT_NOT_RUNTIME_VERIFIED"
+      }
+    ],
+    "EvidenceArtifact": [],
+    "FxConversion": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PROCESSING",
+            "PENDING_SETTLEMENT"
+          ],
+          [
+            "PROCESSING",
+            "COMPLETED"
+          ],
+          [
+            "PROCESSING",
+            "FAILED"
+          ],
+          [
+            "PENDING_SETTLEMENT",
+            "COMPLETED"
+          ],
+          [
+            "PENDING_SETTLEMENT",
+            "FAILED"
+          ]
+        ],
+        "terminal_states": [
+          "COMPLETED",
+          "FAILED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PROCESSING",
+          "PENDING_SETTLEMENT",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "FxOrder": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "QUOTED",
+            "COMPLETED"
+          ],
+          [
+            "QUOTED",
+            "FAILED"
+          ],
+          [
+            "QUOTED",
+            "EXPIRED"
+          ]
+        ],
+        "terminal_states": [
+          "COMPLETED",
+          "FAILED",
+          "EXPIRED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "QUOTED",
+          "COMPLETED",
+          "FAILED",
+          "EXPIRED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "FxRate": [],
+    "Journal": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "POSTED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "REVERSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "Reversal creates a new journal and entries; no monetary overwrite"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "POSTED",
+          "REVERSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "JournalEntry": [],
+    "Merchant": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "ACTIVE",
+            "SUSPENDED"
+          ],
+          [
+            "SUSPENDED",
+            "ACTIVE"
+          ],
+          [
+            "ACTIVE",
+            "CLOSED"
+          ],
+          [
+            "SUSPENDED",
+            "CLOSED"
+          ]
+        ],
+        "terminal_states": [
+          "CLOSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "ACTIVE",
+          "SUSPENDED",
+          "CLOSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "MerchantPayment": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "AUTHORIZED",
+            "CLEARED"
+          ],
+          [
+            "AUTHORIZED",
+            "DECLINED"
+          ],
+          [
+            "AUTHORIZED",
+            "REVERSED"
+          ],
+          [
+            "CLEARED",
+            "SETTLED"
+          ],
+          [
+            "CLEARED",
+            "REVERSED"
+          ],
+          [
+            "SETTLED",
+            "REFUNDED"
+          ],
+          [
+            "SETTLED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "DECLINED",
+          "REVERSED",
+          "REFUNDED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "Event and idempotency evidence required for every transition"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "AUTHORIZED",
+          "CLEARED",
+          "SETTLED",
+          "REVERSED",
+          "REFUNDED",
+          "DECLINED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "MerchantQrCode": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "ACTIVE",
+            "PAID"
+          ],
+          [
+            "ACTIVE",
+            "EXPIRED"
+          ],
+          [
+            "ACTIVE",
+            "CANCELLED"
+          ]
+        ],
+        "terminal_states": [
+          "PAID",
+          "EXPIRED",
+          "CANCELLED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "ACTIVE",
+          "PAID",
+          "EXPIRED",
+          "CANCELLED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "Permission": [],
+    "ProviderOperation": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "UNKNOWN"
+          ],
+          [
+            "PENDING",
+            "SUCCEEDED"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "UNKNOWN",
+            "SUCCEEDED"
+          ],
+          [
+            "UNKNOWN",
+            "FAILED"
+          ]
+        ],
+        "terminal_states": [
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "UNKNOWN resolution requires reconciliation evidence",
+          "Retry creates a new attempt/record, not UNKNOWN→PENDING"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "PENDING",
+          "UNKNOWN",
+          "SUCCEEDED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "Role": [],
+    "RolePermission": [],
+    "SettlementBatch": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "OPEN",
+            "PROCESSING"
+          ],
+          [
+            "PROCESSING",
+            "COMPLETED"
+          ],
+          [
+            "PROCESSING",
+            "FAILED"
+          ]
+        ],
+        "terminal_states": [
+          "COMPLETED",
+          "FAILED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "OPEN",
+          "PROCESSING",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "SettlementItem": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "COMPLETED"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ]
+        ],
+        "terminal_states": [
+          "COMPLETED",
+          "FAILED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PENDING",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "SimulationRecord": [],
+    "SimulationScenario": [],
+    "Tenant": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "ACTIVE",
+            "SUSPENDED"
+          ],
+          [
+            "SUSPENDED",
+            "ACTIVE"
+          ],
+          [
+            "ACTIVE",
+            "CLOSED"
+          ],
+          [
+            "SUSPENDED",
+            "CLOSED"
+          ]
+        ],
+        "terminal_states": [
+          "CLOSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "ACTIVE",
+          "SUSPENDED",
+          "CLOSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "TenantCardProviderConfig": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "CONTRACT_ONLY",
+            "DISABLED"
+          ],
+          [
+            "CONTRACT_ONLY",
+            "ENABLED"
+          ],
+          [
+            "ENABLED",
+            "DISABLED"
+          ],
+          [
+            "DISABLED",
+            "ENABLED"
+          ]
+        ],
+        "terminal_states": [],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "PRODUCTION ENABLED requires two-person approval",
+          "Rollout only one step at a time; audited risk step-back; no environment promotion"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "CONTRACT_ONLY",
+          "DISABLED",
+          "ENABLED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      },
+      {
+        "logical_field": "rolloutStage",
+        "edges": [
+          [
+            "SHADOW",
+            "CANARY"
+          ],
+          [
+            "CANARY",
+            "LIMITED"
+          ],
+          [
+            "LIMITED",
+            "FULL"
+          ],
+          [
+            "FULL",
+            "LIMITED"
+          ],
+          [
+            "LIMITED",
+            "CANARY"
+          ],
+          [
+            "CANARY",
+            "SHADOW"
+          ]
+        ],
+        "terminal_states": [],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "PRODUCTION ENABLED requires two-person approval",
+          "Rollout only one step at a time; audited risk step-back; no environment promotion"
+        ],
+        "physical_field": "rolloutStage",
+        "schema_values": [
+          "SHADOW",
+          "CANARY",
+          "LIMITED",
+          "FULL"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "TenantUser": [],
+    "TenantUserRole": [],
+    "TreasuryPosition": [],
+    "WalletAccount": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "ACTIVE",
+            "FROZEN"
+          ],
+          [
+            "FROZEN",
+            "ACTIVE"
+          ],
+          [
+            "ACTIVE",
+            "CLOSED"
+          ],
+          [
+            "FROZEN",
+            "CLOSED"
+          ]
+        ],
+        "terminal_states": [
+          "CLOSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "ACTIVE",
+          "FROZEN",
+          "CLOSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "WalletOperation": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PROCESSING",
+            "PENDING_SETTLEMENT"
+          ],
+          [
+            "PROCESSING",
+            "COMPLETED"
+          ],
+          [
+            "PROCESSING",
+            "FAILED"
+          ],
+          [
+            "PENDING_SETTLEMENT",
+            "COMPLETED"
+          ],
+          [
+            "PENDING_SETTLEMENT",
+            "FAILED"
+          ]
+        ],
+        "terminal_states": [
+          "COMPLETED",
+          "FAILED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PROCESSING",
+          "PENDING_SETTLEMENT",
+          "COMPLETED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "WalletTransaction": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "COMPLETED"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "COMPLETED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "FAILED",
+          "REVERSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PENDING",
+          "COMPLETED",
+          "FAILED",
+          "REVERSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "WebhookEvent": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "RECEIVED",
+            "PROCESSING"
+          ],
+          [
+            "PROCESSING",
+            "PROCESSED"
+          ],
+          [
+            "PROCESSING",
+            "RETRYING"
+          ],
+          [
+            "PROCESSING",
+            "DEAD_LETTER"
+          ],
+          [
+            "RETRYING",
+            "PROCESSING"
+          ],
+          [
+            "RETRYING",
+            "DEAD_LETTER"
+          ]
+        ],
+        "terminal_states": [
+          "PROCESSED",
+          "DEAD_LETTER"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "Manual replay creates a new attempt",
+          "Append-only versus in-place status semantics remains DB7-C01"
+        ],
+        "physical_field": "status",
+        "schema_values": [
+          "RECEIVED",
+          "PROCESSING",
+          "PROCESSED",
+          "RETRYING",
+          "DEAD_LETTER"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "WithdrawalAddress": [],
+    "tenant_third_party_config": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "CONTRACT_ONLY",
+            "DISABLED"
+          ],
+          [
+            "CONTRACT_ONLY",
+            "ENABLED"
+          ],
+          [
+            "ENABLED",
+            "DISABLED"
+          ],
+          [
+            "DISABLED",
+            "ENABLED"
+          ]
+        ],
+        "terminal_states": [],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "PRODUCTION ENABLED requires two-person approval",
+          "Rollout only one step at a time; audited risk step-back; no environment promotion"
+        ],
+        "physical_field": null,
+        "schema_values": [],
+        "schema_mapping_status": "MISSING_FIELD_IMPLEMENTATION_BLOCKED"
+      },
+      {
+        "logical_field": "rolloutStage",
+        "edges": [
+          [
+            "SHADOW",
+            "CANARY"
+          ],
+          [
+            "CANARY",
+            "LIMITED"
+          ],
+          [
+            "LIMITED",
+            "FULL"
+          ],
+          [
+            "FULL",
+            "LIMITED"
+          ],
+          [
+            "LIMITED",
+            "CANARY"
+          ],
+          [
+            "CANARY",
+            "SHADOW"
+          ]
+        ],
+        "terminal_states": [],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [
+          "PRODUCTION ENABLED requires two-person approval",
+          "Rollout only one step at a time; audited risk step-back; no environment promotion"
+        ],
+        "physical_field": null,
+        "schema_values": [],
+        "schema_mapping_status": "MISSING_FIELD_IMPLEMENTATION_BLOCKED"
+      }
+    ],
+    "third_party_asset_orders": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "CREATED",
+            "PENDING"
+          ],
+          [
+            "CREATED",
+            "MANUAL_REVIEW"
+          ],
+          [
+            "CREATED",
+            "FAILED"
+          ],
+          [
+            "PENDING",
+            "CONFIRMED"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "PENDING",
+            "MANUAL_REVIEW"
+          ],
+          [
+            "MANUAL_REVIEW",
+            "PENDING"
+          ],
+          [
+            "MANUAL_REVIEW",
+            "CONFIRMED"
+          ],
+          [
+            "MANUAL_REVIEW",
+            "FAILED"
+          ],
+          [
+            "CONFIRMED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "FAILED",
+          "REVERSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "CREATED",
+          "PENDING",
+          "CONFIRMED",
+          "FAILED",
+          "REVERSED",
+          "MANUAL_REVIEW"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "third_party_callback_events": [],
+    "treasury_accounts": [],
+    "treasury_fx_orders": [],
+    "treasury_operation_logs": [],
+    "treasury_settlements": [],
+    "ucard_card_base": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "ACTIVE"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "PENDING",
+            "CLOSED"
+          ],
+          [
+            "ACTIVE",
+            "FROZEN"
+          ],
+          [
+            "ACTIVE",
+            "CLOSED"
+          ],
+          [
+            "FROZEN",
+            "ACTIVE"
+          ],
+          [
+            "FROZEN",
+            "CLOSED"
+          ]
+        ],
+        "terminal_states": [
+          "FAILED",
+          "CLOSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "card_status",
+        "schema_values": [
+          "PENDING",
+          "ACTIVE",
+          "FROZEN",
+          "CLOSED",
+          "FAILED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ],
+    "ucard_transactions": [
+      {
+        "logical_field": "status",
+        "edges": [
+          [
+            "PENDING",
+            "COMPLETED"
+          ],
+          [
+            "PENDING",
+            "FAILED"
+          ],
+          [
+            "COMPLETED",
+            "REVERSED"
+          ]
+        ],
+        "terminal_states": [
+          "FAILED",
+          "REVERSED"
+        ],
+        "unlisted_edges": "DENY",
+        "source": "00-OWNER-DECISION.md / 五、状态转换正式决策",
+        "execution": "NOT_IMPLEMENTED",
+        "conditions": [],
+        "physical_field": "status",
+        "schema_values": [
+          "PENDING",
+          "COMPLETED",
+          "FAILED",
+          "REVERSED"
+        ],
+        "schema_mapping_status": "ENUM_VALUE_MATCH"
+      }
+    ]
+  }
+}

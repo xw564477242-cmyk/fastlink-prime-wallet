@@ -1,0 +1,402 @@
+{
+  "append_only": true,
+  "no_old_records_modified": true,
+  "previous_formal_verified": 0,
+  "previous_counts": {
+    "BLOCKED": 47,
+    "UNKNOWN": 7
+  },
+  "new_policy_approved": 54,
+  "new_rls_verified": 0,
+  "table_successions": [
+    {
+      "table": "AdminSession",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "ApiClient",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "ApiKey",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "AuditLog",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Card",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardBalance",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardEvent",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardHolder",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardLifecycleEvent",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardLimit",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardRenewal",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardReplacement",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardRestriction",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardSecurityProfile",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "CardTransaction",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Customer",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "EndUserRefreshToken",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "EndUserSession",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "EvidenceArtifact",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "FxConversion",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "FxOrder",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "FxRate",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Journal",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "JournalEntry",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Merchant",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "MerchantPayment",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "MerchantQrCode",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Permission",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "ProviderOperation",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Role",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "RolePermission",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "SettlementBatch",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "SettlementItem",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "SimulationRecord",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "SimulationScenario",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "Tenant",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "TenantCardProviderConfig",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "TenantUser",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "TenantUserRole",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "TreasuryPosition",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "WalletAccount",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "WalletOperation",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "WalletTransaction",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "WebhookEvent",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "WithdrawalAddress",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "tenant_third_party_config",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "third_party_asset_orders",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "third_party_callback_events",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "treasury_accounts",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_QUARANTINED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "treasury_fx_orders",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_QUARANTINED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "treasury_operation_logs",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_QUARANTINED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "treasury_settlements",
+      "previous": "UNKNOWN",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_QUARANTINED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "ucard_card_base",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    },
+    {
+      "table": "ucard_transactions",
+      "previous": "BLOCKED",
+      "decision_state": "OWNER_APPROVED_POLICY",
+      "implementation": "BLOCKED_NOT_IMPLEMENTED",
+      "validation": "NOT_RUN"
+    }
+  ],
+  "permanent": [
+    "DEV1-T03",
+    "DEV1-T12",
+    "GOV2-T09",
+    "HISTORY-GAP",
+    "DB5-T17 LIMITED",
+    "38 Admin LIMITED",
+    "DB-R02 potential P0",
+    "88 High / 2917 candidates unresolved",
+    "DB1/DB4 historic FAIL/BLOCKED"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "work_order": "FL-DB-007",
+  "test_scope": "governance-only static acceptance; no runtime tests",
+  "tests": [
+    {
+      "id": "DB7-T01",
+      "name": "权威原文与来源SHA",
+      "status": "PASS",
+      "basis": "sources/*; evidence/SOURCE-INDEX.json",
+      "limit": "总控经所有者授权作出并转达决策，不伪称执行端批准"
+    },
+    {
+      "id": "DB7-T02",
+      "name": "产品纠正及标准API边界",
+      "status": "PASS",
+      "basis": "PRODUCT-BOUNDARY.md; POLICY-CONTRACTS.json",
+      "limit": "只固化决策，未实现API/适配器"
+    },
+    {
+      "id": "DB7-T03",
+      "name": "54表与P1～P12完整唯一",
+      "status": "PASS",
+      "basis": "PROFILE-MAP.json; TABLE-POLICY-MATRIX.md",
+      "limit": "不扩展10模型独有/4目录独有差异"
+    },
+    {
+      "id": "DB7-T04",
+      "name": "旧新状态分离及54项承接",
+      "status": "PASS",
+      "basis": "STATE-SUCCESSION.json",
+      "limit": "54 OWNER_APPROVED_POLICY不等于RLS VERIFIED"
+    },
+    {
+      "id": "DB7-T05",
+      "name": "6角色CRUD与直连禁止",
+      "status": "PASS",
+      "basis": "ROLE-CRUD-MATRIX.csv; ROLE-AND-COMMAND-BOUNDARIES.md",
+      "limit": "有效业务行为，不是数据库授权"
+    },
+    {
+      "id": "DB7-T06",
+      "name": "外部投影/秘密/不可变字段",
+      "status": "PASS",
+      "basis": "POLICY-CONTRACTS.json",
+      "limit": "上界须再经归属与脱敏；运行序列化未验证"
+    },
+    {
+      "id": "DB7-T07",
+      "name": "状态边/终态/单向撤销",
+      "status": "PASS",
+      "basis": "STATE-CONTRACTS.json",
+      "limit": "仅治理定义，无状态机动态测试"
+    },
+    {
+      "id": "DB7-T08",
+      "name": "schema映射与实施缺口",
+      "status": "LIMITED",
+      "basis": "IMPLEMENTATION-GAPS.json; FIELD-AND-STATE-BOUNDARIES.md",
+      "limit": "9类缺口保留，缺字段不补造，所有实施仍BLOCKED"
+    },
+    {
+      "id": "DB7-T09",
+      "name": "JIT审批和时限",
+      "status": "PASS",
+      "basis": "POLICY-CONTRACTS.json; ROLE-AND-COMMAND-BOUNDARIES.md",
+      "limit": "60/30分钟及24小时为正式决策，未实现运行机制"
+    },
+    {
+      "id": "DB7-T10",
+      "name": "任务分权/retention/scheduler",
+      "status": "PASS",
+      "basis": "POLICY-CONTRACTS.json",
+      "limit": "模拟writer身份缺口保留，未授scheduler写入"
+    },
+    {
+      "id": "DB7-T11",
+      "name": "P12 QUARANTINED_DENY",
+      "status": "PASS",
+      "basis": "POLICY-CONTRACTS.json",
+      "limit": "四表不恢复到正式业务/RLS范围"
+    },
+    {
+      "id": "DB7-T12",
+      "name": "交叉约束与冲突不扩权",
+      "status": "LIMITED",
+      "basis": "CONFLICT-QUEUE.json",
+      "limit": "6条记录，3项实施语义未决，不合并更宽权限"
+    },
+    {
+      "id": "DB7-T13",
+      "name": "旧文件及授权治理范围",
+      "status": "PASS",
+      "basis": "evidence/scope-check.json",
+      "limit": "局部证据，不冒称原现场全机字节级证明"
+    },
+    {
+      "id": "DB7-T14",
+      "name": "治理结构/合成/敏感/SHA",
+      "status": "PENDING_EXECUTION",
+      "basis": "evidence/validation.json; evidence/sensitive-scan.json; SHA256SUMS",
+      "limit": "只扫描新增目录，不读实际密钥"
+    },
+    {
+      "id": "DB7-T15",
+      "name": "无SQL/业务变更及回滚完整",
+      "status": "PASS",
+      "basis": "CHANGE-ROLLBACK-AND-SCOPE.md",
+      "limit": "不执行回滚，不删除历史"
+    },
+    {
+      "id": "DB7-T16",
+      "name": "Draft PR精确HEAD及CI",
+      "status": "BLOCKED",
+      "basis": "HANDOFF.md",
+      "limit": "生成时未建立PR；后续追加承接，不提前PASS"
+    }
+  ]
+}

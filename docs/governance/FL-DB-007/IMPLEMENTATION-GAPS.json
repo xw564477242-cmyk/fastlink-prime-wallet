@@ -1,0 +1,297 @@
+{
+  "implementation_status": "BLOCKED",
+  "gaps": [
+    {
+      "id": "DB7-G01",
+      "tables": [
+        "WithdrawalAddress"
+      ],
+      "reason": "No deactivation column; physical DELETE remains BLOCKED until field/contract decision",
+      "required_decision_or_work": "停用模型/未完成订单关联核验",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G02",
+      "tables": [
+        "CardHolder"
+      ],
+      "reason": "profile is not an approved typed field schema; arbitrary JSON write prohibited",
+      "required_decision_or_work": "字段schema与验证白名单",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G03",
+      "tables": [
+        "Role",
+        "Permission",
+        "RolePermission",
+        "TenantUserRole"
+      ],
+      "reason": "assignable role marker/approved assignable-set representation not present in inherited columns",
+      "required_decision_or_work": "平台预定义角色可分配集合及防自提权",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G04",
+      "tables": [
+        "tenant_third_party_config"
+      ],
+      "reason": "is_enabled has no equivalent status/rolloutStage state schema; booleans cannot encode the full approved state graph",
+      "required_decision_or_work": "两套provider配置字段语义映射",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G05",
+      "tables": [
+        "treasury_accounts",
+        "treasury_fx_orders",
+        "treasury_operation_logs",
+        "treasury_settlements"
+      ],
+      "reason": "Catalog-only historic tables with unconfirmed mapping; QUARANTINED_DENY excludes formal runtime/RLS implementation",
+      "required_decision_or_work": "专项目录/资产保留处置审批",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G06",
+      "tables": [
+        "AdminSession",
+        "ApiKey",
+        "CardSecurityProfile",
+        "EndUserRefreshToken",
+        "EndUserSession",
+        "ApiClient",
+        "Permission",
+        "Role",
+        "RolePermission",
+        "TenantUser",
+        "TenantUserRole",
+        "AuditLog",
+        "EvidenceArtifact",
+        "CardEvent",
+        "CardLifecycleEvent",
+        "WebhookEvent",
+        "third_party_callback_events",
+        "Customer",
+        "Card",
+        "CardBalance",
+        "CardHolder",
+        "CardLimit",
+        "CardRenewal",
+        "CardReplacement",
+        "CardRestriction",
+        "CardTransaction",
+        "ucard_card_base",
+        "ucard_transactions",
+        "FxConversion",
+        "FxOrder",
+        "FxRate",
+        "Journal",
+        "JournalEntry",
+        "TreasuryPosition",
+        "WalletAccount",
+        "WalletOperation",
+        "WalletTransaction",
+        "third_party_asset_orders",
+        "Merchant",
+        "MerchantPayment",
+        "MerchantQrCode",
+        "SettlementBatch",
+        "SettlementItem",
+        "SimulationRecord",
+        "SimulationScenario",
+        "Tenant",
+        "ProviderOperation",
+        "TenantCardProviderConfig",
+        "tenant_third_party_config",
+        "WithdrawalAddress",
+        "treasury_accounts",
+        "treasury_fx_orders",
+        "treasury_operation_logs",
+        "treasury_settlements"
+      ],
+      "reason": "Formal issuer/JIT/pool/purpose roles/RLS not implemented or validated",
+      "required_decision_or_work": "独立实施工单及运行验证",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G07",
+      "tables": [
+        "ApiClient",
+        "TenantUserRole",
+        "TenantUser",
+        "AuditLog",
+        "ApiKey",
+        "AdminSession",
+        "CardSecurityProfile",
+        "EndUserRefreshToken",
+        "CardBalance",
+        "CardLimit",
+        "SettlementItem",
+        "third_party_callback_events"
+      ],
+      "reason": "Tenant/environment or subject may require protected parent mapping; no invented physical fields",
+      "required_decision_or_work": "可信归属全链与API客户端Scope映射",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G08",
+      "tables": [
+        "AdminSession",
+        "EndUserSession"
+      ],
+      "reason": "Device redacted label is a logical policy concept, not a verified current column",
+      "required_decision_or_work": "设备元数据的最小来源及脱敏字段定义",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    },
+    {
+      "id": "DB7-G09",
+      "tables": [
+        "SimulationRecord",
+        "SimulationScenario"
+      ],
+      "reason": "Simulation task writes are approved in principle but no specific non-scheduler worker identity is assigned; scheduler remains read-only",
+      "required_decision_or_work": "专用模拟任务身份映射；不得赋予scheduler写权限",
+      "state": "BLOCKED",
+      "owner_roles": [
+        "项目所有者",
+        "全局安全负责人",
+        "后端技术负责人"
+      ],
+      "next_step": "Separate authorized implementation/decision; do not modify schema in this work order"
+    }
+  ],
+  "inherited_catalog_differences": {
+    "catalog_tables": 54,
+    "prisma_models": 60,
+    "intersection": 50,
+    "schema_only": [
+      "CardApplication",
+      "CardFeeOverride",
+      "CardProductTemplate",
+      "CustomerReferral",
+      "FeeAssessment",
+      "OnchainDepositAddress",
+      "OnchainFxQuote",
+      "OnchainTransfer",
+      "OnchainTransferEvent",
+      "TenantFeePolicy"
+    ],
+    "catalog_only": [
+      "treasury_accounts",
+      "treasury_fx_orders",
+      "treasury_operation_logs",
+      "treasury_settlements"
+    ],
+    "new_checkpoint_drift": false,
+    "inherited_difference_not_resolved": true,
+    "live_catalog_queried": false,
+    "baseline_grant_combinations": 162,
+    "coverage_denominator": "historical default-rebuild 54 business tables; not all deployed schema objects",
+    "historical_table_names": [
+      "AdminSession",
+      "ApiClient",
+      "ApiKey",
+      "AuditLog",
+      "Card",
+      "CardBalance",
+      "CardEvent",
+      "CardHolder",
+      "CardLifecycleEvent",
+      "CardLimit",
+      "CardRenewal",
+      "CardReplacement",
+      "CardRestriction",
+      "CardSecurityProfile",
+      "CardTransaction",
+      "Customer",
+      "EndUserRefreshToken",
+      "EndUserSession",
+      "EvidenceArtifact",
+      "FxConversion",
+      "FxOrder",
+      "FxRate",
+      "Journal",
+      "JournalEntry",
+      "Merchant",
+      "MerchantPayment",
+      "MerchantQrCode",
+      "Permission",
+      "ProviderOperation",
+      "Role",
+      "RolePermission",
+      "SettlementBatch",
+      "SettlementItem",
+      "SimulationRecord",
+      "SimulationScenario",
+      "Tenant",
+      "TenantCardProviderConfig",
+      "TenantUser",
+      "TenantUserRole",
+      "TreasuryPosition",
+      "WalletAccount",
+      "WalletOperation",
+      "WalletTransaction",
+      "WebhookEvent",
+      "WithdrawalAddress",
+      "tenant_third_party_config",
+      "third_party_asset_orders",
+      "third_party_callback_events",
+      "treasury_accounts",
+      "treasury_fx_orders",
+      "treasury_operation_logs",
+      "treasury_settlements",
+      "ucard_card_base",
+      "ucard_transactions"
+    ]
+  },
+  "no_scope_expansion": true
+}
