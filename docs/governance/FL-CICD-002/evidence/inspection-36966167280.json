@@ -1,0 +1,11 @@
+{
+  "run_id": 36966167280,
+  "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+  "log_raw_saved": false,
+  "artifact_content_never_executed_or_extracted": true,
+  "log_sha256": "da5c80ab3e77eb5ed6bb4c3994291ae513d176df12a4385e22a39196101db7d9",
+  "log_bytes": 209110,
+  "log_schema_hits": 0,
+  "artifacts": [],
+  "result": "PASS"
+}

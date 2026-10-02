@@ -1,0 +1,177 @@
+{
+  "scope": "candidate-only local offline tests; NOT fixed-base CI equivalence",
+  "candidate_sha256": "0302fd53109298d9c277dbaedae772630506d8da43636e69875268a8782dd68f",
+  "bytes": 13044,
+  "ajv": "8.18.0",
+  "network_attempts": 0,
+  "rows": [
+    {
+      "name": "received_hash_matches_approved_candidate",
+      "result": "PASS"
+    },
+    {
+      "name": "private_copy_0600_and_root_0700",
+      "result": "PASS"
+    },
+    {
+      "name": "ajv_version_8_18_0",
+      "result": "PASS"
+    },
+    {
+      "name": "candidate_load_and_compile",
+      "result": "PASS"
+    },
+    {
+      "name": "missing_file_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "tampered_bytes_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "wrong_digest_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "invalid_json_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "invalid_utf8_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "invalid_schema_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "wrong_dialect_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "remote_ref_requires_no_fetch_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "oversize_rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_empty_object",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_empty_build",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_empty_deploy",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_empty_environments",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_scalar_root",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_array_root",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_null_root",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_build_type",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_deploy_type",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_environments_type",
+      "result": "PASS"
+    },
+    {
+      "name": "synthetic_schema_field_type",
+      "result": "PASS"
+    },
+    {
+      "name": "independent_compile_determinism",
+      "result": "PASS"
+    },
+    {
+      "name": "zero_network_attempts",
+      "result": "PASS"
+    },
+    {
+      "name": "private_candidate_unchanged",
+      "result": "PASS"
+    }
+  ],
+  "synthetic_results": [
+    {
+      "id": "empty_object",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "id": "empty_build",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "id": "empty_deploy",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "id": "empty_environments",
+      "accepted": true,
+      "expected": true
+    },
+    {
+      "id": "scalar_root",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "array_root",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "null_root",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "build_type",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "deploy_type",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "environments_type",
+      "accepted": false,
+      "expected": false
+    },
+    {
+      "id": "schema_field_type",
+      "accepted": false,
+      "expected": false
+    }
+  ],
+  "semantic_sha256": "1f0f3d966d80eaa7bb65f8825c9db603fbe23b65b076c818e0ade45e87c1cc1c",
+  "passed": 27,
+  "failed": 0
+}

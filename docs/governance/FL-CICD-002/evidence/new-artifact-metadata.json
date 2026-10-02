@@ -1,0 +1,16 @@
+{
+  "id": 11215441212,
+  "name": "fastlink-backend-a838758951e42375c414572a09e48075075d1a09",
+  "size_in_bytes": 523699403,
+  "expired": false,
+  "digest": "sha256:48050839207c23b256a433270ae697048eaf02578fc2bc02a2bcc81d579f8b01",
+  "created_at": "2026-10-02T07:47:33Z",
+  "updated_at": "2026-10-02T07:47:33Z",
+  "workflow_run": {
+    "id": 36979829096,
+    "repository_id": 1288100982,
+    "head_repository_id": 1288100982,
+    "head_branch": "feature/FL-CICD-002-schema-offline",
+    "head_sha": "a838758951e42375c414572a09e48075075d1a09"
+  }
+}

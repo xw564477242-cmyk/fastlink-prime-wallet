@@ -1,0 +1,49 @@
+{
+  "authorized_by": "owner stop local download and resume gate3; controller confirmation",
+  "utc": "2026-10-02T08:19:06.459676+00:00",
+  "before": {
+    "size": 46333952,
+    "mode": "0o600",
+    "mtime_ns": 1790928757537741044,
+    "inode": 18715971
+  },
+  "processes_before": {
+    "15028": {
+      "stat": "Ts",
+      "comm": "/opt/homebrew/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python"
+    },
+    "15032": {
+      "stat": "T",
+      "comm": "gh"
+    }
+  },
+  "signals": [
+    {
+      "pid": 15028,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 15032,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 15028,
+      "signal": "SIGCONT"
+    },
+    {
+      "pid": 15032,
+      "signal": "SIGCONT"
+    }
+  ],
+  "processes_after": {},
+  "after": {
+    "size": 46333952,
+    "mode": "0o600",
+    "mtime_ns": 1790928757537741044,
+    "inode": 18715971
+  },
+  "partial_file_unchanged": true,
+  "no_delete_or_chmod": true,
+  "no_sigkill": true,
+  "scan_completed_locally": false
+}

@@ -1,0 +1,35 @@
+{
+  "head": "a838758951e42375c414572a09e48075075d1a09",
+  "results": [
+    {
+      "mode": [
+        "direct"
+      ],
+      "exit": 0,
+      "output_sha256": "2d31d731eace7e827fa0d91f3cd4b2169a786559d15be0205b819e70bd775610",
+      "schema_or_base64_leak": false,
+      "network_policy": "deny network*",
+      "error_category": "NONE"
+    },
+    {
+      "mode": [
+        "--summary"
+      ],
+      "exit": 0,
+      "output_sha256": "cf0db8b0a6979fa55ed97da9ab965f33ee4c48ca483376af13aadeb0d8db9d02",
+      "schema_or_base64_leak": false,
+      "network_policy": "deny network*",
+      "error_category": "NONE"
+    },
+    {
+      "mode": [
+        "--verify-summary"
+      ],
+      "exit": 0,
+      "output_sha256": "7264a9fe798958722fa48a5ad0eee5a64b9482555e63568fe3e9f48d5e5177fc",
+      "schema_or_base64_leak": false,
+      "network_policy": "deny network*",
+      "error_category": "NONE"
+    }
+  ]
+}

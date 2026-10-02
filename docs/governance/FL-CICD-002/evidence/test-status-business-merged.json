@@ -1,0 +1,91 @@
+{
+  "basis": "owner acceptance of new artifact plus approved business merge; final governance merge and CI supplied by external HANDOFF",
+  "pass": 11,
+  "limited": 3,
+  "tests": [
+    {
+      "id": "CICD2-T01",
+      "definition": "权威基线链、工单范围及禁止重复事项可追溯",
+      "status": "PASS",
+      "basis": "README、授权；只实施CI输入增量"
+    },
+    {
+      "id": "CICD2-T02",
+      "definition": "Railway官方Schema来源、版本及许可证/内部使用权边界可追溯",
+      "status": "LIMITED",
+      "basis": "项目所有者内部/私有CI授权；缺官方原始摘要、明确公开再分发许可"
+    },
+    {
+      "id": "CICD2-T03",
+      "definition": "固定Schema候选字节、SHA-256、完整性与保存边界验证",
+      "status": "PASS",
+      "basis": "13044字节固定SHA、受限副本、无正文入Git、编码往返及私有输入链"
+    },
+    {
+      "id": "CICD2-T04",
+      "definition": "Schema版本适用性、弃用/过期及STALE判定机制",
+      "status": "LIMITED",
+      "basis": "REFRESH-AND-STALE明确触发；无官方版本/期限/弃用清单，不能认定当前或未来平台适用"
+    },
+    {
+      "id": "CICD2-T05",
+      "definition": "普通CI离线校验，Schema验证阶段外部网络请求为0且无在线回退",
+      "status": "PASS",
+      "basis": "本地deny-network三模式；远端Draft执行同一同步加载器，无fetch/loadSchema。仅Schema阶段，不含npm安装/checkout网络；追加三条完整CI成功，仅证明本固定HEAD及固定私有输入。"
+    },
+    {
+      "id": "CICD2-T06",
+      "definition": "Schema输入缺失时明确失败，不跳过、不降级",
+      "status": "PASS",
+      "basis": "新增控制缺失/空输入拒绝；fork无输入即失败"
+    },
+    {
+      "id": "CICD2-T07",
+      "definition": "Schema字节或固定SHA被篡改时明确失败",
+      "status": "PASS",
+      "basis": "固定pin、错误摘要和保留合法JSON的字节篡改拒绝"
+    },
+    {
+      "id": "CICD2-T08",
+      "definition": "无效Schema及无效Railway配置均被拒绝，合法固定配置可接受",
+      "status": "PASS",
+      "basis": "无效编码/JSON/Schema/远程ref负例；原固定配置三模式成功"
+    },
+    {
+      "id": "CICD2-T09",
+      "definition": "既有117项配置控制兼容性与覆盖保持",
+      "status": "PASS",
+      "basis": "既有117＋新增16，共133；本地及三Draft全部通过，不改写117历史口径"
+    },
+    {
+      "id": "CICD2-T10",
+      "definition": "原在线校验与新离线校验在获批输入集合上的语义等价性及两轮确定性",
+      "status": "PASS",
+      "basis": "13组比较，两独立进程相同；原函数以同一字节的内存网络替身执行，未向Railway请求"
+    },
+    {
+      "id": "CICD2-T11",
+      "definition": "手动刷新流程具备独立审批、来源/SHA/差异/回滚记录，且不自动覆盖正式快照",
+      "status": "PASS",
+      "basis": "REFRESH-AND-STALE为流程设计，刷新未执行；实际Secret更新/删除须另批"
+    },
+    {
+      "id": "CICD2-T12",
+      "definition": "三条固定工作流调用链覆盖，绑定获批基点并无部署语义变化",
+      "status": "LIMITED",
+      "basis": "LIMITED按总控保留：新三完整CI成功；新制品核验依赖项目所有者外部接受及缺失机器证据。业务已普通合并；merge SHA CI不适用（无push触发、所有者接受）。其他调用方/版本未扩展。"
+    },
+    {
+      "id": "CICD2-T13",
+      "definition": "新增材料敏感扫描、SHA清单、Secret/Schema零泄露、部署和环境晋升为0",
+      "status": "PASS",
+      "basis": "PASS依据所有者对两个制品分别验收；本机仅三新日志扫描通过，新制品部分46333952字节后经授权TERM/CONT停止，未本机复现。旧失败及漂移、外部SHA/扫描报告等缺失继续披露；新治理内容敏感扫描/SHA另行校验。"
+    },
+    {
+      "id": "CICD2-T14",
+      "definition": "双Draft PR范围、失败历史、回滚、永久限制及HANDOFF完整",
+      "status": "PASS",
+      "basis": "PASS为获批治理交付范围/失败历史/回滚/HANDOFF完整。原定义双Draft为提交时要求，当前业务已按门禁3普通merge；治理待新CI、范围核验后按批准merge。最终双merge/治理merge CI由外置HANDOFF提供，不提前宣称闭环。"
+    }
+  ]
+}
