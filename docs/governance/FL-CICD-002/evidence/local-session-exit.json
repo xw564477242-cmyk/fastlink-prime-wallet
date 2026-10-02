@@ -1,0 +1,8 @@
+{
+  "session_id": 43457,
+  "exit_code": 143,
+  "termination": "owner-authorized TERM/CONT; no KILL",
+  "local_full_scan_completed": false,
+  "partial_bytes_retained": 46333952,
+  "source": "exec session completion response; not a successful scan"
+}

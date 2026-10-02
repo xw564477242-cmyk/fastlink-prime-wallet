@@ -1,6 +1,6 @@
 {
   "scope": "new governance text and added business lines only; not a whole-project secret scan",
-  "files": 34,
+  "files": 47,
   "format_rules": {
     "private_key": 0,
     "github_token": 0,

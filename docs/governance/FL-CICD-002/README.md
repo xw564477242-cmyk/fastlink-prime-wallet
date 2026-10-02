@@ -27,3 +27,14 @@
 ## 最新追加入口
 
 完整CI及项目所有者制品验收后的状态见OWNER-ACCEPTANCE-20261002.md、FULL-CI-AND-ARTIFACT-REVIEW.md、evidence/test-status-owner-accepted.json。旧记录保持原文；最新11 PASS、3 LIMITED，双PR Draft、待门禁2/3复评。
+
+
+## 追加：恢复门禁3及业务merge
+
+最新状态按NEW-ARTIFACT-OWNER-ACCEPTANCE.md与BUSINESS-MERGE-AND-GOVERNANCE-HANDOFF.md承接；早期“待授权/双Draft/未合并”均为历史时点，不覆盖原文。
+
+业务#337普通merge 1d059a8f0e78af595c116e22715c621857271abe，获批HEAD未变，父节点/tree/5文件核验通过，新三完整CI成功；业务merge SHA CI不适用/未触发，不手动触发，不写success。部署记录0，test/uat/main未变。
+
+新制品11215441212由所有者在外部确认完整下载和扫描通过；本机部分46,333,952字节经授权TERM/CONT终止，0600及元数据不变，未删除/读取部分内容。不能把所有者确认改写为本机复现；外部压缩包实算SHA、机器报告SHA、命令及Schema专项机器报告仍缺失。旧制品失败、扫描0、大小权限漂移永久保留。
+
+最新仍11 PASS、T02/T04/T12三LIMITED；T13的PASS依据所有者接受，限制不消失。治理#89仅追加证据，最新HEAD及CI由外置HANDOFF提供；治理merge前仍须核验，无提前闭环或正式基线更新。FL-DB-005冻结保持。未部署、Release、晋升、访问真实环境、修改Secret或清理证据。

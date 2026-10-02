@@ -1,0 +1,11 @@
+{
+  "run_id": 36979829083,
+  "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+  "log_raw_saved": false,
+  "result": "PASS",
+  "retrieval_exit": 0,
+  "bytes": 209126,
+  "sha256": "db9d5bf28992e3702fe858cc68603bc74d71daa6c26959462c8bcc5ccb2004f8",
+  "schema_body_base64_fragment_hits": 0,
+  "common_credential_pattern_hits": 0
+}
