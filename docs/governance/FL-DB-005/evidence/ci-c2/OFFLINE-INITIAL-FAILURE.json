@@ -1,0 +1,16 @@
+{
+  "test": "historical audit association synthetic replay",
+  "original_status": "FAIL",
+  "stage": "external unapplied C2 draft",
+  "cause": "C1 assumption 174 source records equals 174 distinct name/version pairs",
+  "observed": {
+    "source_records": 174,
+    "unique_pairs": 172,
+    "package_names": 165
+  },
+  "corrective_action": "C2 uses separate counts and validates original wire SHA; no payload or prior evidence modified",
+  "later_result": "PASS",
+  "database_actions": 0,
+  "audit_network_requests": 0,
+  "prior_c1_preserved": true
+}

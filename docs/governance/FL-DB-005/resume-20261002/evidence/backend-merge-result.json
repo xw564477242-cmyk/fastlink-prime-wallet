@@ -1,0 +1,12 @@
+{
+  "exit": 0,
+  "stdout": "Merge made by the 'ort' strategy.\n .github/workflows/ci.yml                     | 18 ++++-\n .github/workflows/dev-reset-round-trip.yml   | 21 +++++-\n .github/workflows/pull-request.yml           | 11 ++++\n scripts/validate-dev-railway-config.mjs      | 99 ++++++++++++++++++++++------\n scripts/validate-dev-railway-config.spec.mjs | 66 ++++++++++++++++++-\n 5 files changed, 191 insertions(+), 24 deletions(-)\n",
+  "stderr": "",
+  "head": "d33a85520aff868cdfa867c45b10911592230f77",
+  "parents": [
+    "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+    "1d059a8f0e78af595c116e22715c621857271abe"
+  ],
+  "tree": "ab88727194bc84f9b892492df6c712e072534a23",
+  "status": ""
+}

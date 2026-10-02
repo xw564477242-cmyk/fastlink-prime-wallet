@@ -1,0 +1,38 @@
+{
+  "failed_run": 36819354068,
+  "failed_head": "20d3921b97c0f31275d7e10ee201934516c7ea54",
+  "failed_step": "Lint",
+  "formatter_version": "3.8.3",
+  "scope": "four governance tool copies only; executed private originals unchanged; database tests not rerun",
+  "files": [
+    {
+      "file": "tools/dynamic.cjs",
+      "before_sha256": "5f0869cb6b08f441e5201070c7e0413b9d34c4038e650ebd0d0f49bd65b7064f",
+      "after_sha256": "3cf30b0c95aa9b63bffcb67b64e1faa0ea20ce15cdf43ad52b70651f878c7be9",
+      "normalized_ast_equal": true,
+      "prettier_check": true
+    },
+    {
+      "file": "tools/dynamic-r2.cjs",
+      "before_sha256": "b5aaaee8cde1886a06a2c94f9de2dc7acb561db2c9305f9a8c00f3893b66c889",
+      "after_sha256": "35e8e78155f0c21dd458421a91530377425dc8ebb1c24f72963ceea14baaf8bb",
+      "normalized_ast_equal": true,
+      "prettier_check": true
+    },
+    {
+      "file": "tools/dynamic-r3.cjs",
+      "before_sha256": "2f7925dd8a2f96cf6e04756a7b87b4810b7804292769e535c72c6dc77bcdc22d",
+      "after_sha256": "ae645ece6168e942bc77ec4fc16c66f4a092c14c5002418c0684a44f50d2b25b",
+      "normalized_ast_equal": true,
+      "prettier_check": true
+    },
+    {
+      "file": "tools/negative.cjs",
+      "before_sha256": "31e0e5f45920b3ff4e96e4c5a50972959211df4afdde438438cb2eaeb44d0c2a",
+      "after_sha256": "c61deccee576e68a03db1b11c7f120e65681c78ccb98bbed72eb5f972ce56986",
+      "normalized_ast_equal": true,
+      "prettier_check": true
+    }
+  ],
+  "local_eslint_exit_code": 0
+}

@@ -1,0 +1,127 @@
+{
+  "scope": "new r5/r6 validation assets only; no deletion",
+  "databases": [
+    {
+      "round": 5,
+      "container": "fl-db005-p8ryoi9-r5",
+      "id": "7ac940e4a43aac05bf05ddff232b3fe812c0b272bef10ce8b47e59c754ed34f2",
+      "created": "2026-10-01T07:17:48.114623013Z",
+      "image": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+      "host_ports": 0,
+      "network": "internal",
+      "running_before_stop": true,
+      "running_after_stop": false,
+      "volume_retained": "fl-db005-p8ryoi9-r5-data"
+    },
+    {
+      "round": 6,
+      "container": "fl-db005-p8ryoi9-r6",
+      "id": "930e217cf739155e02f75b9ef4e0e184d34370cea3886e089832d1f3017d814f",
+      "created": "2026-10-01T07:17:54.155759835Z",
+      "image": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+      "host_ports": 0,
+      "network": "internal",
+      "running_before_stop": true,
+      "running_after_stop": false,
+      "volume_retained": "fl-db005-p8ryoi9-r6-data"
+    }
+  ],
+  "auth_permissions": [
+    {
+      "path": "private/r5",
+      "mode": "0o700",
+      "retained": true,
+      "contents_not_exported": true
+    },
+    {
+      "path": "private/r5/initializer-password",
+      "mode": "0o600",
+      "retained": true,
+      "contents_not_exported": true
+    },
+    {
+      "path": "private/r5/credentials.json",
+      "mode": "0o600",
+      "retained": true,
+      "contents_not_exported": true
+    },
+    {
+      "path": "private/r6",
+      "mode": "0o700",
+      "retained": true,
+      "contents_not_exported": true
+    },
+    {
+      "path": "private/r6/initializer-password",
+      "mode": "0o600",
+      "retained": true,
+      "contents_not_exported": true
+    },
+    {
+      "path": "private/r6/credentials.json",
+      "mode": "0o600",
+      "retained": true,
+      "contents_not_exported": true
+    }
+  ],
+  "runner_containers": [
+    {
+      "name": "versions",
+      "running": false,
+      "exit": 0,
+      "network": "none",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "build",
+      "running": false,
+      "exit": 0,
+      "network": "none",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "lint",
+      "running": false,
+      "exit": 0,
+      "network": "none",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "jest",
+      "running": false,
+      "exit": 0,
+      "network": "none",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "targeted",
+      "running": false,
+      "exit": 0,
+      "network": "none",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "dynamic-final-r5-r6",
+      "running": false,
+      "exit": 0,
+      "network": "fl-db005-p8ryoi9-isolated",
+      "host_ports": 0,
+      "retained": true
+    },
+    {
+      "name": "negative-final-r5-r6",
+      "running": false,
+      "exit": 0,
+      "network": "fl-db005-p8ryoi9-isolated",
+      "host_ports": 0,
+      "retained": true
+    }
+  ],
+  "network_internal": true,
+  "remaining_connected_containers": 0
+}

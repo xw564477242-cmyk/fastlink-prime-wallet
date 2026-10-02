@@ -1,0 +1,14 @@
+[
+  {
+    "repository": "backend",
+    "head": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+    "index_sha256": "df14ec8496d297807c3b4f4ce4ce924eaed7f77aff039954eae143114ccb6d6b",
+    "time_scope": "after CI-removal commit and local build; before database controls"
+  },
+  {
+    "repository": "evidence",
+    "head": "18b377b742afa4d384055f48b2887e236f0ddd10",
+    "index_sha256": "074f0ee33ff1ad61ed2715b27e9642e16977635e290c3316e5aa17d0f19fc831",
+    "time_scope": "after CI-removal commit and local build; before database controls"
+  }
+]

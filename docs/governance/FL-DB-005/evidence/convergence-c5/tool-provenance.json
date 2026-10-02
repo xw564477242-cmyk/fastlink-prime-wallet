@@ -1,0 +1,30 @@
+[
+  {
+    "source": "rebuild-final-r3-r4.py",
+    "source_sha256": "021e326c1e9c4a494d5812fe607a40b51cb065e58591daf7156e9274bf132032",
+    "new": "rebuild-final-r5-r6.py",
+    "new_sha256": "761e18139107d27360b4d6dcdfd1b95b89cd6e097fa47e2b7841bbc930012c32",
+    "changes": "Only new round/output/source-path/HEAD binding; test predicates and SQL unchanged"
+  },
+  {
+    "source": "dynamic-final-r3-r4.cjs",
+    "source_sha256": "a9a4b236a001fc9476e654c59347bc0cc5ebd81b9b2b0b2704506478eeaabc31",
+    "new": "dynamic-final-r5-r6.cjs",
+    "new_sha256": "f26ece16583642886f3d3f477f343f3fc3c4b03416ca0744e520e43f7fb70faf",
+    "changes": "Only new round/output/source-path/HEAD binding; test predicates and SQL unchanged"
+  },
+  {
+    "source": "negative-final-r3-r4.cjs",
+    "source_sha256": "254644ca602c1a9d33ec53e77322145ae5869bb3239ff4bc7e3e6c1f046f4f9b",
+    "new": "negative-final-r5-r6.cjs",
+    "new_sha256": "f8258dc6ef58e9197658f6a5f5ca93d74fb379ebb6c60a804214c86986cb3924",
+    "changes": "Only new round/output/source-path/HEAD binding; test predicates and SQL unchanged"
+  },
+  {
+    "source": "final_catalog.py",
+    "source_sha256": "bc2685ee966c5609041c6e11492ebeed1080110b536b47bd3ed25bc23e052f01",
+    "new": "final_catalog.py",
+    "new_sha256": "056cdca8b59e779766b4a1dd3627f8503f788650380e9460ef3eac6be5fbff55",
+    "changes": "Only new round/output/source-path/HEAD binding; test predicates and SQL unchanged"
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "time_utc": "2026-10-01T05:43:50.613759+00:00",
+  "approved_source_sha256": "afc58daba124d5073884690020487b5c5042fb1cc66e8aa4148c20ff6b8e53f4",
+  "wire_sha256": "b90bf1b07a0949b2345cd72686ea500ec8021aff84ebe02a9eb771386acc883e",
+  "source_pairs": 174,
+  "unique_package_names": 165,
+  "endpoint": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
+  "protocol": "official Bulk Advisory, package-name to installed-version list; approved-source wrapper omitted",
+  "network_destinations": 1,
+  "fallback": false,
+  "credentials_sent": false,
+  "private_context_sent": false,
+  "advisories": [
+    {
+      "package": "js-yaml",
+      "installed_versions": [
+        "5.2.2"
+      ],
+      "id": 1239991,
+      "severity": "moderate",
+      "vulnerable_versions": ">=5.0.0 <=5.4.0",
+      "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
+      "title": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
+      "affected_installed_versions": [
+        "5.2.2"
+      ],
+      "installed_affected": true
+    },
+    {
+      "package": "multer",
+      "installed_versions": [
+        "2.3.0"
+      ],
+      "id": 1239935,
+      "severity": "moderate",
+      "vulnerable_versions": ">=2.2.0 <2.4.0",
+      "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
+      "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
+      "affected_installed_versions": [
+        "2.3.0"
+      ],
+      "installed_affected": true
+    },
+    {
+      "package": "qs",
+      "installed_versions": [
+        "6.15.3"
+      ],
+      "id": 1158506,
+      "severity": "moderate",
+      "vulnerable_versions": ">=6.14.2 <=6.15.3",
+      "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+      "title": "qs array-limit bypass via bracket-key comma parsing",
+      "affected_installed_versions": [
+        "6.15.3"
+      ],
+      "installed_affected": true
+    },
+    {
+      "package": "qs",
+      "installed_versions": [
+        "6.15.3"
+      ],
+      "id": 1158507,
+      "severity": "moderate",
+      "vulnerable_versions": ">=2.2.5 <6.16.0",
+      "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+      "title": "qs: Denial of Service via Attacker Controlled isBuffer",
+      "affected_installed_versions": [
+        "6.15.3"
+      ],
+      "installed_affected": true
+    }
+  ],
+  "http_status": 200,
+  "status": "KNOWN_VULNERABILITIES_FOUND",
+  "version_matcher": {
+    "library": "semver",
+    "version": "7.8.5",
+    "network": false
+  },
+  "matched_advisories": 4,
+  "limitations": [
+    "bulk installed-version advisories only; npm metavulnerability calculation not performed",
+    "does not establish application exploitability or justify dependency changes",
+    "original approved file unchanged; wire uses only approved name/version content"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "raw_git_diff_check_exit": 2,
+  "context_lines": [
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 271,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 282,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 301,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 302,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 391,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 392,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 413,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c2/C1-TO-C2.diff",
+      "line": 414,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+      "line": 6,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+      "line": 7,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+      "line": 64,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+      "line": 65,
+      "reason": "unified-diff empty context line contains required single space"
+    },
+    {
+      "path": "docs/governance/FL-DB-005/evidence/ci-c3/proposed-diagnostic.patch",
+      "line": 112,
+      "reason": "unified-diff empty context line contains required single space"
+    }
+  ],
+  "non_patch_files_check": "PASS",
+  "patch_bytes_changed": false,
+  "exception_basis": "preserve exact review patch bytes and SHA; single-space context prefix is unified diff syntax",
+  "not_runtime_test_result": true
+}

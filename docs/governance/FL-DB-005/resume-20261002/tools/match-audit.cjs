@@ -1,0 +1,16 @@
+const fs = require("fs");
+const semver = require("/work/node_modules/semver");
+const p = "/results/npm-audit-resume.json";
+const j = JSON.parse(fs.readFileSync(p));
+for (const a of j.advisories) {
+  a.matched_versions = a.installed_versions.filter((v) =>
+    semver.satisfies(v, a.vulnerable_versions),
+  );
+}
+j.matched_counts = {};
+for (const a of j.advisories.filter((x) => x.matched_versions.length)) {
+  j.matched_counts[a.severity] = (j.matched_counts[a.severity] || 0) + 1;
+}
+j.status = "PASS_WITH_RETAINED_DEPENDENCY_RISKS";
+fs.writeFileSync("/results/npm-audit-matched.json", JSON.stringify(j, null, 2) + "\n");
+console.log(JSON.stringify(j.matched_counts));

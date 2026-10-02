@@ -1,0 +1,325 @@
+{
+  "results": [
+    {
+      "test": "Python syntax catalog.py",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Python syntax run.py",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Python syntax prepare_downloads.py",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Python syntax rebuild.py",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "CJS syntax negative-final-r3-r4.cjs",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "CJS syntax dynamic-final-r3-r4.cjs",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Actual input 32+3 and package/schema/payload hashes",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered package-lock.json",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered package.json",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered schema.prisma",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered migration.sql",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered approved-audit-payload.json",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Reject altered completed-audit-evidence.json",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "YAML valid / PR-dev-only",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "No Ready/dispatch/release trigger",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Read-only permissions",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Draft/head checkout/token nonpersistent",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Single narrow artifact",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Rebuild SQL literals unchanged",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Core assertions preserved",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Six explicit secret formats zero hits",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "No preexisting workflow edits",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "backend HEAD unchanged and clean",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "evidence HEAD unchanged and clean",
+      "status": "PASS",
+      "scope": "offline only"
+    },
+    {
+      "test": "Allow fixed official tarball / engine URLs",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject http",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject private registry",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject auth URL",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject query",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject Bulk",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject QuickAudit",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject unapproved official file",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Reject nonofficial redirect",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Allow exact approved redirect",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Valid integrity passes",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Altered content integrity rejected",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Audit has no URL/network/subprocess calls",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "No urllib import in orchestrator",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Install has no bridge and explicit offline mode",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "No audit command or fallback",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Prisma download replaced with pinned binaries",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Historical payload-wire-evidence-severity linkage",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Offline audit test only network=none",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Pinned cached engine bytes libquery-engine",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Pinned cached engine bytes schema-engine",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "No auth handler/cookie/netrc/config input",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Proxy env rejected / automatic proxies disabled",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Bounded downloads / disk / expansion",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Workflow explicitly named equivalent isolation",
+      "status": "PASS",
+      "scope": "offline / synthetic only"
+    },
+    {
+      "test": "Synthetic download valid",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download auth401",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download proxy407",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download status403",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download redirect",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download integrity",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download engine_hash",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download ambient_proxy",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic download prior_auth",
+      "status": "PASS",
+      "real_network_requests": 0
+    },
+    {
+      "test": "Synthetic container owned_stop_verified",
+      "status": "PASS",
+      "scope": "mock only; no docker actions"
+    },
+    {
+      "test": "Synthetic container stop_failed",
+      "status": "PASS",
+      "scope": "mock only; no docker actions"
+    },
+    {
+      "test": "Synthetic container daemon_unavailable",
+      "status": "PASS",
+      "scope": "mock only; no docker actions"
+    },
+    {
+      "test": "Synthetic container unowned_preserved",
+      "status": "PASS",
+      "scope": "mock only; no docker actions"
+    }
+  ],
+  "pass": 62,
+  "runtime": "NOT_RUN",
+  "workflow": "NOT_SUBMITTED",
+  "database_operations": 0,
+  "network_requests": 0,
+  "limits": [
+    "no installation/runtime/CI validation",
+    "no newly fetched advisory information",
+    "synthetic offline audit transport; actual CI install set remains to be verified",
+    "raw historical HTTP response hash unavailable; sanitized retained evidence hash only"
+  ]
+}

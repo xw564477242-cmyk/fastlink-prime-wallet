@@ -1,0 +1,291 @@
+{
+  "scope": "66 governance files at pre-manifest review; backend six files unchanged and previously scanned",
+  "format_rule_count": 6,
+  "format_hits": 0,
+  "task_auth_material_hits": 0,
+  "task_auth_rounds": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "entropy_occurrences": 45,
+  "unresolved": 0,
+  "review": [
+    {
+      "path": "NPM-AUDIT-RESULT-R2.md",
+      "fingerprint": "b90184b8522151cb54980c53c667a49160134105a8666f997df9f7d22777eccd",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "NPM-AUDIT-RESULT-R2.md",
+      "fingerprint": "e128c5ca1601ef91ac5b32aa204e031121a92850c6fd686a957b72c8cd0b492f",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "NPM-AUDIT-RESULT-R2.md",
+      "fingerprint": "0b306d242f8dbe83e0574078189798018e384f2ebd56ec352925db09f8ce143b",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "NPM-AUDIT-RESULT-R2.md",
+      "fingerprint": "b37f85961822530c64a500f071c18df53e2ffadc10ffc802255a6e02de3679d0",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "tools/run_node.py",
+      "fingerprint": "e9e3dbfae0aba0c3283969d7606a48e61c12592e6c4af9969908c7aff1a85f57",
+      "length": 96,
+      "classification": "fixed Prisma engine cache path and version"
+    },
+    {
+      "path": "tools/run_node.py",
+      "fingerprint": "592e34a77968cfd635a4830f48c80971be46032a81776850256d1fb338799fd5",
+      "length": 52,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "tools/rebuild-final-r3-r4.py",
+      "fingerprint": "fe18c8e16315781064d7d51b470760301d5d9c25c1183a1bf6d454d211b237b6",
+      "length": 40,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "tools/rebuild-final-r3-r4.py",
+      "fingerprint": "f51a0571c22cfac73f86d333606916a8f551d6a5f8c4ced283dacd9dd265d44b",
+      "length": 46,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "tools/rebuild-final-r3-r4.py",
+      "fingerprint": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "length": 75,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "tools/rebuild-final-r3-r4.py",
+      "fingerprint": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "length": 83,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "tools/run_node_final.py",
+      "fingerprint": "e9e3dbfae0aba0c3283969d7606a48e61c12592e6c4af9969908c7aff1a85f57",
+      "length": 96,
+      "classification": "fixed Prisma engine cache path and version"
+    },
+    {
+      "path": "tools/run_node_final.py",
+      "fingerprint": "592e34a77968cfd635a4830f48c80971be46032a81776850256d1fb338799fd5",
+      "length": 52,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "tools/rebuild.py",
+      "fingerprint": "fe18c8e16315781064d7d51b470760301d5d9c25c1183a1bf6d454d211b237b6",
+      "length": 40,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "tools/rebuild.py",
+      "fingerprint": "f51a0571c22cfac73f86d333606916a8f551d6a5f8c4ced283dacd9dd265d44b",
+      "length": 46,
+      "classification": "nonsecret runtime option"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "length": 69,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "length": 75,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "length": 83,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "length": 69,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "length": 75,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-final-r3-r4.json",
+      "fingerprint": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "length": 83,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/business-files.json",
+      "fingerprint": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "length": 75,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/business-files.json",
+      "fingerprint": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "length": 83,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/npm-audit-r2.json",
+      "fingerprint": "b90184b8522151cb54980c53c667a49160134105a8666f997df9f7d22777eccd",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "evidence/npm-audit-r2.json",
+      "fingerprint": "e128c5ca1601ef91ac5b32aa204e031121a92850c6fd686a957b72c8cd0b492f",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "evidence/npm-audit-r2.json",
+      "fingerprint": "0b306d242f8dbe83e0574078189798018e384f2ebd56ec352925db09f8ce143b",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "evidence/npm-audit-r2.json",
+      "fingerprint": "b37f85961822530c64a500f071c18df53e2ffadc10ffc802255a6e02de3679d0",
+      "length": 43,
+      "classification": "public GitHub advisory path from official npm response"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "length": 69,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "7ffffe5975a4d46d4bce273a1ed1157aa612684e58745b51f23a8db33be5b6f3",
+      "length": 69,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "0e0592899a69f04d7780ac671c44643d4c0448aeb4db84fb8b313c11f322e662",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/rebuild-r1.json",
+      "fingerprint": "956dcba2d0d6c6f45d54e240cc380fa93e29c94ad3258a9a014d28b63bd600f9",
+      "length": 71,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "c115dd062e0bc31525d7098ed82a90698b3502ed2603875f4e6f25b623a30dd7",
+      "length": 75,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "1efddf9ea2b61bb9785e329381d3ff0ce5468611d7c7e0e974dcbcdc207336ea",
+      "length": 83,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "b31509f9495daba5ed8d05eadd72116e48f9b63d38760a4f244158a2236960d7",
+      "length": 52,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "55ee5484a00b10315713ca82e6523313ac1ef79556ef75dd41bc80b7145015da",
+      "length": 47,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "67b6de5d35c0dea8c5f53409ad066d48026912a289e96ba23905f86d82f7973c",
+      "length": 54,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "b519fc3def5f55e3524ba4e1c39c6a7eb03ab4632b9ea49dd76c7364e3d56bec",
+      "length": 49,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "5117ce81e531fd4ee121d8747164d8115e5a6228987845ca96324c5203c77787",
+      "length": 47,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "b6c72b2192a439c3c7dade4d7f78765ec973405b62fa0f27b79ce6db92bc1e5a",
+      "length": 52,
+      "classification": "source/evidence file path"
+    },
+    {
+      "path": "evidence/source-protection.json",
+      "fingerprint": "c380cfe47934b88265eefbe4f22f0171f6a667557c316afee937feafd43cdf75",
+      "length": 42,
+      "classification": "source/evidence file path"
+    }
+  ],
+  "limitations": [
+    "checksum hex tokens exempted only after exact task credential check",
+    "no whole-project or old credential scan",
+    "scan record and final manifest generated afterward; final staging scan required"
+  ]
+}

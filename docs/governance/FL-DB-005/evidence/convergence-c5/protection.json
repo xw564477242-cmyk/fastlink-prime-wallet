@@ -1,0 +1,23 @@
+{
+  "source_tracked_files_checked": 770,
+  "source_content_changes": 0,
+  "build_outputs": "only isolated source snapshot generated files",
+  "report_repositories": [
+    {
+      "repository": "backend",
+      "index_same": true,
+      "head_same": true,
+      "period": "captured checkpoint to after DB controls"
+    },
+    {
+      "repository": "evidence",
+      "index_same": true,
+      "head_same": true,
+      "period": "captured checkpoint to after DB controls"
+    }
+  ],
+  "original_workspaces": "not accessed or modified in this convergence run",
+  "protected_overlays": "not accessed",
+  "prior_authentication": "not accessed",
+  "old_databases": "not started or queried"
+}

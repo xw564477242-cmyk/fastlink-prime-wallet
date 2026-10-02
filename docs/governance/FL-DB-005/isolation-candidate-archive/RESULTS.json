@@ -1,0 +1,34 @@
+{
+  "database_tests": 0,
+  "full_jest": false,
+  "network": "none",
+  "results": [
+    {
+      "name": "targeted",
+      "exit": 0,
+      "seconds": 11.26,
+      "container": "fl-db005-placement1002-targeted",
+      "summary": {
+        "success": true,
+        "numTotalTests": 9,
+        "numPassedTests": 9,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numPassedTestSuites": 2,
+        "numFailedTestSuites": 0
+      }
+    },
+    {
+      "name": "build",
+      "exit": 0,
+      "seconds": 37.95,
+      "container": "fl-db005-placement1002-build"
+    },
+    {
+      "name": "lint",
+      "exit": 0,
+      "seconds": 39.39,
+      "container": "fl-db005-placement1002-lint"
+    }
+  ]
+}

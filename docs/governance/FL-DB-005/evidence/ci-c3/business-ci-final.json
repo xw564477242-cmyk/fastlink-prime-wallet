@@ -1,0 +1,83 @@
+{
+  "conclusion": "failure",
+  "headSha": "592afbeac34d3d9990cf53a627ce11b83f3178cb",
+  "jobs": [
+    {
+      "completedAt": "2026-10-01T06:51:51Z",
+      "conclusion": "failure",
+      "databaseId": 110254715433,
+      "name": "db5-isolated-review",
+      "startedAt": "2026-10-01T06:50:49Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-01T06:50:51Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-01T06:50:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:50:52Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-10-01T06:50:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:50:53Z",
+          "conclusion": "success",
+          "name": "Confirm Draft, exact event HEAD, dev and auto-merge disabled",
+          "number": 3,
+          "startedAt": "2026-10-01T06:50:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:51:48Z",
+          "conclusion": "failure",
+          "name": "DB5\u7b49\u4ef7\u9694\u79bb\u68c0\u67e5\uff1aJest build lint and offline prior-audit verification",
+          "number": 4,
+          "startedAt": "2026-10-01T06:50:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:51:48Z",
+          "conclusion": "success",
+          "name": "Recheck unchanged PR boundary",
+          "number": 5,
+          "startedAt": "2026-10-01T06:51:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:51:49Z",
+          "conclusion": "success",
+          "name": "Upload only constructed nonsecret summary",
+          "number": 6,
+          "startedAt": "2026-10-01T06:51:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:51:49Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 12,
+          "startedAt": "2026-10-01T06:51:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-01T06:51:49Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-01T06:51:49Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36826973213/job/110254715433"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36826973213"
+}

@@ -1,0 +1,13 @@
+{
+  "head": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+  "dev": "1d059a8f0e78af595c116e22715c621857271abe",
+  "tree": "01910bcf5b2001fe590d01347736f19e48bcfb75",
+  "branch": "feature/FL-DB-005-tenant-identity-rls",
+  "origin": "https://github.com/xw564477242-cmyk/fastlik-backend.git",
+  "index_sha256": "5c5d2feff849170a107e3b31f643bbe7163b08a9d89701aaf56420a19bbf7606",
+  "status": "clean",
+  "index_matches_HEAD": true,
+  "alternates": false,
+  "fsck_exit": 0,
+  "fsck_output": ""
+}

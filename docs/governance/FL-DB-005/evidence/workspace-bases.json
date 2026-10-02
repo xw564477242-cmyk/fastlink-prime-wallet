@@ -1,0 +1,22 @@
+{
+  "created_at": "2026-10-01T04:38:18.871950+00:00",
+  "repositories": [
+    {
+      "repository": "backend",
+      "base_sha": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+      "branch": "feature/FL-DB-005-tenant-identity-rls",
+      "root_mode": "0o700",
+      "independent_clone": true,
+      "shallow": false
+    },
+    {
+      "repository": "evidence",
+      "base_sha": "2621b7ba4abcf9142423712a3be8f1222cd7ae83",
+      "branch": "feature/FL-DB-005-tenant-identity-rls",
+      "root_mode": "0o700",
+      "independent_clone": true,
+      "shallow": false
+    }
+  ],
+  "protected_formal_overlays_accessed": false
+}

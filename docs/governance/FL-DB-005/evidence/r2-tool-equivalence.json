@@ -1,0 +1,14 @@
+[
+  {
+    "file": "tools/dynamic-final-r3-r4.cjs",
+    "executed_source_sha256": "662252cf3f93f6e479d068bc43bd9205d65656c06b20437553b7878afb29bdaf",
+    "formatted_sha256": "a9a4b236a001fc9476e654c59347bc0cc5ebd81b9b2b0b2704506478eeaabc31",
+    "normalized_ast_equal": true
+  },
+  {
+    "file": "tools/negative-final-r3-r4.cjs",
+    "executed_source_sha256": "fb3e90c4c318d4d84c01e15dc77b0509548fffdf404ee1fba180cf311e0b6505",
+    "formatted_sha256": "254644ca602c1a9d33ec53e77322145ae5869bb3239ff4bc7e3e6c1f046f4f9b",
+    "normalized_ast_equal": true
+  }
+]

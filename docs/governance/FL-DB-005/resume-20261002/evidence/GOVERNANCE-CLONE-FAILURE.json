@@ -1,0 +1,8 @@
+{
+  "operation": "independent governance clone",
+  "exit": 128,
+  "error": "Error in the HTTP2 framing layer",
+  "directory": "evidence",
+  "preserved": true,
+  "merge_started": false
+}

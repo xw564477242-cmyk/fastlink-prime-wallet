@@ -1,0 +1,32 @@
+{
+  "checks": {
+    "input_hashes": "PASS"
+  },
+  "diagnostic_failure": {
+    "category": "HTTP_ERROR",
+    "http_status": 403,
+    "time_utc": "2026-10-01T06:51:47.758162+00:00"
+  },
+  "diagnostic_stage": {
+    "stage": "DOWNLOAD_HTTP_GET",
+    "target_domain_class": "OFFICIAL_PRISMA_ENGINE",
+    "time_utc": "2026-10-01T06:51:47.677025+00:00"
+  },
+  "head": "592afbeac34d3d9990cf53a627ce11b83f3178cb",
+  "images": {
+    "node": "node@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d",
+    "postgres": "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24"
+  },
+  "input_manifest_sha256": "68632cebf573d1116a5ff3a90335edc4cf6c579ee66eb931fd3017a00ffe87d1",
+  "limits": [
+    "historical dependency audit reused offline; no fresh audit",
+    "isolation prototype only",
+    "not actual Prisma/JWT/task integration",
+    "legacy full CI remains skipped while Draft",
+    "two existing conditional DB Jest tests remain skipped",
+    "no funds prerequisite release"
+  ],
+  "retention": "No explicit deletion; hosted ephemeral runner is not durable evidence storage.",
+  "status": "STOPPED_REVIEW_REQUIRED",
+  "stop_completed": true
+}

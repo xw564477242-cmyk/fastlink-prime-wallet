@@ -1,0 +1,6 @@
+Observed command outputs retained from this recovery attempt.
+Sandbox read-only inspection initially denied Docker socket access.
+After authorized sandbox escalation, both docker image inspect and docker volume inspect exited 1 with:
+Cannot connect to the Docker daemon at unix:///Users/ck/.docker/run/docker.sock. Is the docker daemon running?
+
+No runtime startup, settings change, container creation or database connection performed.

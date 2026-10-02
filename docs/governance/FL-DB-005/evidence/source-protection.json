@@ -1,0 +1,53 @@
+[
+  {
+    "repository": "backend",
+    "base_sha": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+    "tracked_paths_changed": [],
+    "untracked_paths": [
+      "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "prisma/rollback/fl-db005-fail-closed.sql",
+      "src/prisma/isolated-tenant-transaction.spec.ts",
+      "src/prisma/isolated-tenant-transaction.ts"
+    ],
+    "formal_workspaces_read_or_modified": false,
+    "protected_overlay_accessed": false
+  },
+  {
+    "repository": "evidence",
+    "base_sha": "2621b7ba4abcf9142423712a3be8f1222cd7ae83",
+    "tracked_paths_changed": [],
+    "untracked_paths": [
+      "docs/governance/FL-DB-005/BASELINE-DELTA-PROPOSED.md",
+      "docs/governance/FL-DB-005/HANDOFF-CHECKPOINT.md",
+      "docs/governance/FL-DB-005/IMPLEMENTATION-CHECKPOINT.md",
+      "docs/governance/FL-DB-005/SELF-TEST-CHECKPOINT.md",
+      "docs/governance/FL-DB-005/SHA256SUMS-CHECKPOINT",
+      "docs/governance/FL-DB-005/TABLE-SCOPE-CHECKPOINT.csv",
+      "docs/governance/FL-DB-005/evidence/business-files.json",
+      "docs/governance/FL-DB-005/evidence/dynamic-r1.json",
+      "docs/governance/FL-DB-005/evidence/dynamic-r2.json",
+      "docs/governance/FL-DB-005/evidence/dynamic-r3.json",
+      "docs/governance/FL-DB-005/evidence/jest-checkpoint.json",
+      "docs/governance/FL-DB-005/evidence/jest-linux-r1.json",
+      "docs/governance/FL-DB-005/evidence/jest-loopback-checkpoint.json",
+      "docs/governance/FL-DB-005/evidence/negative-r1.json",
+      "docs/governance/FL-DB-005/evidence/rebuild-r1.json",
+      "docs/governance/FL-DB-005/evidence/replay-correction-application.json",
+      "docs/governance/FL-DB-005/evidence/sequence-bounds-application.json",
+      "docs/governance/FL-DB-005/evidence/static-controls-checkpoint.json",
+      "docs/governance/FL-DB-005/evidence/table-scope-checkpoint.json",
+      "docs/governance/FL-DB-005/evidence/table-scope-final.json",
+      "docs/governance/FL-DB-005/evidence/workspace-bases.json",
+      "docs/governance/FL-DB-005/tools/dynamic-r2.cjs",
+      "docs/governance/FL-DB-005/tools/dynamic-r3.cjs",
+      "docs/governance/FL-DB-005/tools/dynamic.cjs",
+      "docs/governance/FL-DB-005/tools/negative.cjs",
+      "docs/governance/FL-DB-005/tools/rebuild.py",
+      "docs/governance/FL-DB-005/tools/run_node.py"
+    ],
+    "formal_workspaces_read_or_modified": false,
+    "protected_overlay_accessed": false
+  }
+]

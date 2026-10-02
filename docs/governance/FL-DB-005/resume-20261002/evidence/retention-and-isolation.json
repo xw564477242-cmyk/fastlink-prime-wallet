@@ -1,0 +1,86 @@
+{
+  "old_container_count": 38,
+  "old_state_unchanged": true,
+  "new_containers": [
+    {
+      "name": "/fl-db005-resume1002-audit-match",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-negative-final-r5-r6",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-dynamic-final-r5-r6",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-targeted",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-jest",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-lint",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-build",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-check-versions",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-r6",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    },
+    {
+      "name": "/fl-db005-resume1002-r5",
+      "state": "exited",
+      "restart": "no",
+      "ports": {}
+    }
+  ],
+  "new_containers_retained": true,
+  "volumes_retained": true,
+  "credentials": [
+    {
+      "round": 5,
+      "file_mode": "600",
+      "directory_mode": "700",
+      "file_sha256": "6c4ccbdf4a55021f0368812c29c8a808e3038902fdc76da88f6571dcf52a9005",
+      "retained": true,
+      "raw_exported": false
+    },
+    {
+      "round": 6,
+      "file_mode": "600",
+      "directory_mode": "700",
+      "file_sha256": "24719fc7f81a83455a651eee6c6dcfaa6dc998b3513cb323b1ed09aef284f10d",
+      "retained": true,
+      "raw_exported": false
+    }
+  ]
+}

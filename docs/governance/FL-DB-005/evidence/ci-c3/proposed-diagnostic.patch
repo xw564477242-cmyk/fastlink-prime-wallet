@@ -1,0 +1,206 @@
+diff --git a/scripts/fl-db005-ci/prepare_downloads.py b/scripts/fl-db005-ci/prepare_downloads.py
+--- a/scripts/fl-db005-ci/prepare_downloads.py
++++ b/scripts/fl-db005-ci/prepare_downloads.py
+@@ -53,7 +53,9 @@
+         raise ValueError('integrity_mismatch')
+ 
+ 
+-def main(task_root, source):
++def main(task_root, source, report=None):
++    report = report or (lambda stage, domain='NONE': None)
++    report('DOWNLOAD_PREFLIGHT')
+     task_root, source = Path(task_root), Path(source)
+     # No ambient proxy or registry authentication is accepted.
+     if any(v for k, v in os.environ.items() if k.lower() in {
+@@ -84,9 +86,12 @@
+     def fetch(url):
+         nonlocal total
+         check_url(url, allowed)
++        domain = 'OFFICIAL_NPM_TARBALL' if urllib.parse.urlsplit(url).hostname == 'registry.npmjs.org' else 'OFFICIAL_PRISMA_ENGINE'
++        report('DOWNLOAD_DISK_CHECK', domain)
+         if shutil.disk_usage(task_root).free < 6 * 1024**3:
+             raise ValueError('insufficient_disk')
+         req = urllib.request.Request(url, method='GET', headers={'Accept': 'application/octet-stream'})
++        report('DOWNLOAD_HTTP_GET', domain)
+         with opener.open(req, timeout=45) as response:
+             check_url(response.url, allowed)
+             if response.status != 200:
+@@ -104,14 +109,20 @@
+     cache = task_root/'npm-cache'; cache.mkdir(mode=0o700)
+     engines = task_root/'engines'; engines.mkdir(mode=0o700)
+     for index, (url, integrity) in enumerate(sorted(packages.items())):
+-        raw = fetch(url); verify_sri(raw, integrity)
++        report('DOWNLOAD_PACKAGES', 'OFFICIAL_NPM_TARBALL')
++        raw = fetch(url)
++        report('PACKAGE_INTEGRITY', 'OFFICIAL_NPM_TARBALL')
++        verify_sri(raw, integrity)
+         (downloads/f'{index:04d}.tgz').write_bytes(raw)
+     for engine in manifest['engines']:
++        report('DOWNLOAD_ENGINE', 'OFFICIAL_PRISMA_ENGINE')
+         raw = fetch(engine['url'])
++        report('ENGINE_GZIP_INTEGRITY', 'OFFICIAL_PRISMA_ENGINE')
+         if hashlib.sha256(raw).hexdigest() != engine['gzip_sha256']:
+             raise ValueError('engine_gzip_hash_mismatch')
+         with gzip.GzipFile(fileobj=io.BytesIO(raw)) as stream:
+             content = stream.read(MAX_ENGINE + 1)
++        report('ENGINE_CONTENT_INTEGRITY', 'OFFICIAL_PRISMA_ENGINE')
+         if len(content) > MAX_ENGINE or hashlib.sha256(content).hexdigest() != engine['sha256']:
+             raise ValueError('engine_hash_mismatch')
+         if engine['file'] not in {'libquery-engine', 'schema-engine'}:
+diff --git a/scripts/fl-db005-ci/run.py b/scripts/fl-db005-ci/run.py
+--- a/scripts/fl-db005-ci/run.py
++++ b/scripts/fl-db005-ci/run.py
+@@ -1,5 +1,8 @@
+ """Proposed DB5 CI only. Never import/run locally as part of reviewing this patch."""
+ import hashlib
++import datetime
++import urllib.error
++import ssl
+ import json
+ import os
+ from pathlib import Path
+@@ -23,6 +26,50 @@
+ SECRET_VALUES = []
+ 
+ 
++# Diagnostic fields are finite enums only; never record exception text, paths or command arguments.
++STAGES = {'INPUT_VALIDATION', 'SOURCE_PREPARATION', 'IMAGE_PULL_POSTGRES', 'IMAGE_PULL_NODE',
++    'DOWNLOAD_PREFLIGHT', 'DOWNLOAD_PACKAGES', 'DOWNLOAD_ENGINE', 'DOWNLOAD_DISK_CHECK',
++    'DOWNLOAD_HTTP_GET', 'PACKAGE_INTEGRITY', 'ENGINE_GZIP_INTEGRITY', 'ENGINE_CONTENT_INTEGRITY',
++    'OFFLINE_INSTALL_GENERATE', 'BUILD', 'LINT', 'TARGETED_JEST', 'FULL_JEST', 'OFFLINE_AUDIT',
++    'ISOLATED_NETWORK', 'ISOLATED_REBUILD', 'DYNAMIC_CONTROLS', 'NEGATIVE_CONTROLS', 'CATALOG'}
++DOMAINS = {'NONE', 'OFFICIAL_DOCKER_REGISTRY', 'OFFICIAL_NPM_TARBALL', 'OFFICIAL_PRISMA_ENGINE'}
++SAFE_REJECTIONS = {'unapproved_download_target', 'not_package_tarball', 'not_pinned_engine',
++    'non_get_denied', 'unsupported_integrity', 'integrity_mismatch', 'ambient_proxy_or_auth_denied',
++    'authentication_already_exists', 'lock_hash_changed', 'inconsistent_lock_integrity',
++    'insufficient_disk', 'http_not_200', 'download_size_limit', 'total_size_limit',
++    'engine_gzip_hash_mismatch', 'engine_hash_mismatch', 'engine_filename_denied'}
++
++
++def mark_stage(stage, domain='NONE'):
++    assert stage in STAGES and domain in DOMAINS
++    REPORT['diagnostic_stage'] = {'stage': stage, 'target_domain_class': domain,
++        'time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}
++
++
++def record_failure(exc):
++    info = {'category': 'UNKNOWN', 'time_utc': datetime.datetime.now(datetime.timezone.utc).isoformat()}
++    if isinstance(exc, urllib.error.HTTPError):
++        info['category'] = 'HTTP_ERROR'
++        if isinstance(exc.code, int) and 100 <= exc.code <= 599:
++            info['http_status'] = exc.code
++    elif isinstance(exc, ssl.SSLError):
++        info['category'] = 'TLS_ERROR'
++    elif isinstance(exc, urllib.error.URLError):
++        info['category'] = 'TRANSPORT_ERROR'
++    elif isinstance(exc, subprocess.TimeoutExpired):
++        info['category'] = 'COMMAND_TIMEOUT'
++    elif isinstance(exc, AssertionError):
++        info['category'] = 'ASSERTION_REJECTED'
++    elif type(exc) is ValueError and len(exc.args) == 1 and isinstance(exc.args[0], str) and exc.args[0] in SAFE_REJECTIONS:
++        info['category'] = 'SAFETY_REJECTION'
++        info['reason_code'] = exc.args[0]
++    elif isinstance(exc, OSError):
++        info['category'] = 'FILESYSTEM_OR_PROCESS_ERROR'
++    elif isinstance(exc, RuntimeError):
++        info['category'] = 'CONTROLLED_STOP'
++    REPORT['diagnostic_failure'] = info
++
++
+ def digest(path):
+     return hashlib.sha256(path.read_bytes()).hexdigest()
+ 
+@@ -31,6 +78,7 @@
+     p = subprocess.run(argv, input=data, capture_output=True, text=True,
+                        timeout=timeout, env=env)
+     if p.returncode:
++        REPORT.setdefault('command_exit_code', int(p.returncode))
+         # No captured stdout, stderr, command arguments, exception strings or SQL in logs.
+         raise RuntimeError('subprocess_failed')
+     return p.stdout
+@@ -199,10 +247,12 @@
+     assert not TASK.exists(); TASK.mkdir(mode=0o700)
+     for n in ['backend', 'private', 'results', 'modules', 'prepare']:
+         (TASK/n).mkdir(mode=0o700)
++    mark_stage('INPUT_VALIDATION')
+     m = validate_inputs(repo)
+     REPORT['input_manifest_sha256'] = digest(HERE/'inputs.json')
+     REPORT['images'] = {'postgres': PG, 'node': NODE}
+     # Copy tracked source only; never copy any .env, .npmrc, Git metadata or runner credentials.
++    mark_stage('SOURCE_PREPARATION')
+     paths = run(['git', '-C', str(repo), 'ls-files', '-z']).split('\0')
+     for name in filter(None, paths):
+         rel = Path(name)
+@@ -218,21 +268,27 @@
+         shutil.copyfile(repo/n, target)
+     # Network preparation precedes generation of any DB credentials or fixtures.
+     for image in [PG, NODE]:
++        mark_stage('IMAGE_PULL_POSTGRES' if image == PG else 'IMAGE_PULL_NODE', 'OFFICIAL_DOCKER_REGISTRY')
+         run(['docker', 'pull', '--platform', 'linux/amd64', image])
+         assert image in json.loads(run(['docker', 'image', 'inspect', image]))[0]['RepoDigests']
+     # Fetch fixed bytes with strict URL, redirect and integrity controls BEFORE any auth exists.
+     import prepare_downloads
+-    REPORT['downloads'] = prepare_downloads.main(TASK, HERE)
++    REPORT['downloads'] = prepare_downloads.main(TASK, HERE, mark_stage)
++    mark_stage('OFFLINE_INSTALL_GENERATE')
+     node('install', 'none', TASK/'prepare', ['sh', '-eu', '-c',
+         'test "$(node --version)" = v22.23.2 && test "$(npm --version)" = 10.9.8 && '
+         'for f in /downloads/*.tgz; do npm cache add "$f" --offline --ignore-scripts --no-audit --no-fund; done && '
+         'npm ci --offline --ignore-scripts --no-audit --no-fund '
+         '&& node node_modules/prisma/build/index.js generate --schema=prisma/schema.prisma'])
++    mark_stage('BUILD')
+     node('build', 'none', TASK/'backend', ['npm', 'run', 'build'])
++    mark_stage('LINT')
+     node('lint', 'none', TASK/'backend', ['npm', 'run', 'lint'])
++    mark_stage('TARGETED_JEST')
+     node('targeted', 'none', TASK/'backend', ['node', 'node_modules/jest/bin/jest.js',
+         '--runInBand', '--runTestsByPath', 'src/prisma/isolated-tenant-transaction.spec.ts',
+         '--json', '--outputFile=/results/targeted.json'])
++    mark_stage('FULL_JEST')
+     node('jest', 'none', TASK/'backend', ['node', 'node_modules/jest/bin/jest.js',
+         '--runInBand', '--json', '--outputFile=/results/jest.json'])
+     for filename, minimum in [('targeted', 5), ('jest', 1766)]:
+@@ -241,7 +297,9 @@
+         assert j['numPendingTests'] == (2 if filename == 'jest' else 0)
+         REPORT[filename] = {k: j[k] for k in ['numPassedTests', 'numFailedTests', 'numPendingTests']}
+     REPORT['checks']['build_lint_jest'] = 'PASS'
++    mark_stage('OFFLINE_AUDIT')
+     audit(m)  # Offline historical evidence only; never performs a network audit.
++    mark_stage('ISOLATED_NETWORK')
+     net = PREFIX+'-isolated'
+     p = subprocess.run(['docker', 'network', 'inspect', net], capture_output=True)
+     assert p.returncode != 0
+@@ -249,6 +307,7 @@
+     assert json.loads(run(['docker', 'network', 'inspect', net]))[0]['Internal'] is True
+     env = {'PATH': os.environ['PATH'], 'HOME': str(TASK),
+            'DB5_TASK_ROOT': str(TASK), 'DB5_RUN_PREFIX': PREFIX, 'DB5_SESSION_LABEL': SESSION}
++    mark_stage('ISOLATED_REBUILD')
+     run([sys.executable, str(HERE/'rebuild.py')], env=env, timeout=900)
+     for i in [3, 4]:
+         auth = TASK/f'private/r{i}'
+@@ -272,6 +331,7 @@
+             'original_passed': 32, 'candidate_passed': 3, 'internal_network': True, 'host_ports': 0})
+     for phase, filename, expected in [('dynamic', 'dynamic-final-r3-r4', 29),
+                                       ('negative', 'negative-final-r3-r4', 17)]:
++        mark_stage('DYNAMIC_CONTROLS' if phase == 'dynamic' else 'NEGATIVE_CONTROLS')
+         node(phase, net, TASK/'backend', ['node', '/runner/'+filename+'.cjs'], auth=True)
+         result = json.loads((TASK/('results/'+filename+'.json')).read_text())
+         assert not result.get('stopped') and not result.get('error')
+@@ -279,6 +339,7 @@
+         assert all(len(r['cases']) == expected and all(c['status'] == 'PASS' for c in r['cases'])
+                    for r in result['rounds'])
+         REPORT['checks'][phase+'_two_rounds'] = 'PASS'
++    mark_stage('CATALOG')
+     run([sys.executable, str(HERE/'catalog.py')], env=env)
+     catalog = json.loads((TASK/'results/final-chain-catalog.json').read_text())
+     assert catalog['catalog_equal']
+@@ -312,7 +373,8 @@
+     exitcode = 0
+     try:
+         main()
+-    except BaseException:
++    except BaseException as exc:
++        record_failure(exc)
+         REPORT['status'] = 'STOPPED_REVIEW_REQUIRED'
+         # A P0 marker is reduced to a boolean; no raw failure/context is exposed.
+         if TASK and (TASK/'results/dynamic-final-r3-r4.json').is_file():

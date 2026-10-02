@@ -1,0 +1,20 @@
+{
+  "prior_head": "9a4436fdbd20787d1693c67294fb62165011ac16",
+  "failed_ci": 36993339627,
+  "corrupt_proposal_sha256": "ebc5bd30eace594931b8a02b48a35ce9bad8a9d5e4c0da5d36dd802005ef04de",
+  "corrupt_proposal_applied": false,
+  "corrupt_reason": "Controller git apply --check identified deleted line joined to added first line; original file lacked newline",
+  "formatter": "existing local Prettier 3.8.3, matches bun.lock",
+  "config_sha256": "1ed88d3b99eced8dc3b6f58f26645466dd1ceaca6c5a9b818531c941ac28e55b",
+  "original_config_untouched": true,
+  "before_sha256": "da064f3b0ba932557f323968e6f4615b55fd39f4ae8012bbfadd2e55cdf3b8b7",
+  "after_sha256": "8d1fde8a142a07639f327514ddd5230c2f55f5d557419f8f5925128baa667463",
+  "checks": {
+    "node_check": "PASS",
+    "prettier_check": "PASS",
+    "targeted_eslint": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "database_or_full_jest_rerun": false,
+  "backend_push": false
+}

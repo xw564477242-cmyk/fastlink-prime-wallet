@@ -1,0 +1,8 @@
+{
+  "recorded_at": "2026-10-02T09:30:48.336037+00:00",
+  "source": "总控019fa6b7-4f28-7b62-b676-757be88c22f8转交项目所有者专项授权",
+  "owner_authorization": "授权启动Docker Desktop，并接受带restart策略的旧容器可能自动启动这一风险。",
+  "prior_daemon_state": "unavailable; see DOCKER-DAEMON-FAILURE.txt",
+  "allowed": "start Docker Desktop only; read-only inventory first; unique task-isolated containers thereafter if safe",
+  "forbidden": "settings/restart-policy changes; old container changes; existing environments; image pull; deployment; Ready/merge"
+}

@@ -1,0 +1,43 @@
+{
+  "namespace": "resume1002",
+  "round_numbers_reused_as_labels_only": "5 and 6 refer exclusively to new containers/volumes in resume1002 namespace",
+  "changes": "new root/source/namespace/HEAD, explicit pull=never/restart=no and task labels; test assertions unchanged",
+  "read_only_dependency_volume": "fl-db005-p8ryoi9-node-modules",
+  "tools": [
+    {
+      "path": "check_contract_c5.py",
+      "original_sha256": "a1e9cf2f361ef135a85b7a93c838bae44dce5d65b0e633028f585ff9aef83197",
+      "adapted_sha256": "b88a35096059f0c5ef7a3d24b89b4d86dae370bb61e64b043a185c0c61efc3f2"
+    },
+    {
+      "path": "rebuild-final-r5-r6.py",
+      "original_sha256": "761e18139107d27360b4d6dcdfd1b95b89cd6e097fa47e2b7841bbc930012c32",
+      "adapted_sha256": "7f5261a500cc3c43ee02ebb862184adbb4124170f330847c4bf789a1adaca826"
+    },
+    {
+      "path": "negative-final-r5-r6.cjs",
+      "original_sha256": "f8258dc6ef58e9197658f6a5f5ca93d74fb379ebb6c60a804214c86986cb3924",
+      "adapted_sha256": "f8258dc6ef58e9197658f6a5f5ca93d74fb379ebb6c60a804214c86986cb3924"
+    },
+    {
+      "path": "run_dynamic.py",
+      "original_sha256": "af023c8ba2fb5c84af3c49561b24d8ea15438e0e9d7d78bea80a648ab85863fb",
+      "adapted_sha256": "f2942eab13d97a6e1b679d100f91d6b34da9f1af9134a1563cdddebf5c6e8498"
+    },
+    {
+      "path": "dynamic-final-r5-r6.cjs",
+      "original_sha256": "f26ece16583642886f3d3f477f343f3fc3c4b03416ca0744e520e43f7fb70faf",
+      "adapted_sha256": "8cb888bf809894aa37dc0f6a8f008e2dc473fdcd72401d159aba826112c3e0c4"
+    },
+    {
+      "path": "local_linux.py",
+      "original_sha256": "ec364a8274434c7af8490a69444c63a55b3228756daf06058a0e2cd33138eea1",
+      "adapted_sha256": "e86e563c7a51d1f1da683f2356b0d78f862950d28f74d86d484e54d0eda8b47d"
+    },
+    {
+      "path": "final_catalog.py",
+      "original_sha256": "056cdca8b59e779766b4a1dd3627f8503f788650380e9460ef3eac6be5fbff55",
+      "adapted_sha256": "ce28458bab789089d676c9d51d3d21176ad851da850196f8faa1325ade5b5e47"
+    }
+  ]
+}

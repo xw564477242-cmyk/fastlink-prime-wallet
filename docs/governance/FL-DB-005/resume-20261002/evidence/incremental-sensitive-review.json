@@ -1,0 +1,192 @@
+{
+  "raw_entropy_occurrences": 26,
+  "reviewed_occurrences": 26,
+  "unresolved": 0,
+  "format_hits": 0,
+  "known_task_material_hits": 0,
+  "original_scan_retained": true,
+  "reviews": [
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/tools/rebuild-final-r5-r6.py",
+      "length": 40,
+      "fingerprint": "fe18c8e16315781064d7d51b470760301d5d9c25c1183a1bf6d454d211b237b6",
+      "classification": "structured_non_secret",
+      "basis": "Literal Docker setting: private-file path or authentication mode; no credential value"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/tools/rebuild-final-r5-r6.py",
+      "length": 46,
+      "fingerprint": "f51a0571c22cfac73f86d333606916a8f551d6a5f8c4ced283dacd9dd265d44b",
+      "classification": "structured_non_secret",
+      "basis": "Literal Docker setting: private-file path or authentication mode; no credential value"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/npm-audit-resume.json",
+      "length": 34,
+      "fingerprint": "2a3bc75ba61477855e0c1d384bb1625d7af8caa2b3baca0a611715019b671b14",
+      "classification": "structured_non_secret",
+      "basis": "Official response public advisory URL field"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 42,
+      "fingerprint": "ae20b453973c121e2be22b3469832ec62382fadae71378e6052825f4722cb68a",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 45,
+      "fingerprint": "af1b7e6fcd6d98df9cfdfd0955a74a698c28175c294c7ee68a78a7460eaef66a",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 38,
+      "fingerprint": "82b1b20a164105eaa3e836c55e38e3e02ba3db992f9fc746066017adf125aa02",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 39,
+      "fingerprint": "8b641b07074c9c2ad64b3f4c3cb3e23f399a2ff2131dcb9ddbb7fa51a470ed90",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 45,
+      "fingerprint": "6587b9daa8d41869f62b960684c3d416c6c1885c606cbc2ed72988e6cb0b7816",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 52,
+      "fingerprint": "4be7253462b2948f0921985a5bf8ddfcb8d842b576aaa4004bb4a2179d1cb743",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 42,
+      "fingerprint": "ae20b453973c121e2be22b3469832ec62382fadae71378e6052825f4722cb68a",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 65,
+      "fingerprint": "c82b80ce1ca66535bb43ddcf8871b3592f3f8607d5dfa41e2b8e175c2d009a18",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 49,
+      "fingerprint": "b293efb177b4e6fcb4651ae31ce632b1b2a853dd6d8794aaaa65d1cfd83e350d",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 55,
+      "fingerprint": "a5ee1b4eb2ed1d199d8756c824eb5f24c915e305f6b59fb577044e99ca520c0a",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 57,
+      "fingerprint": "750e99ccdc92ad50710c306bd08fb5714b6d8368382ab41c928fceff909defc6",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 53,
+      "fingerprint": "4079b391fcca590f73d227ab1d231864fab5d9cf6a9bf013b7d279fd91ef0f11",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 45,
+      "fingerprint": "af1b7e6fcd6d98df9cfdfd0955a74a698c28175c294c7ee68a78a7460eaef66a",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 38,
+      "fingerprint": "82b1b20a164105eaa3e836c55e38e3e02ba3db992f9fc746066017adf125aa02",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 39,
+      "fingerprint": "8b641b07074c9c2ad64b3f4c3cb3e23f399a2ff2131dcb9ddbb7fa51a470ed90",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 45,
+      "fingerprint": "6587b9daa8d41869f62b960684c3d416c6c1885c606cbc2ed72988e6cb0b7816",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 59,
+      "fingerprint": "960c944ebb6768cc4be69f14e389e3564b4a1a4d0920a69020468fbf90066c39",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 59,
+      "fingerprint": "0ebe966b6ff2591fd8f70dc1c444dbffbd36e67f8c892ab2727981977e7bb071",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 59,
+      "fingerprint": "2189c505214556e3fe62dbf7971887817cea0053c4795f4904ddfbcf73fa432d",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 63,
+      "fingerprint": "1f26fe65f4a6729a556ff3bf15f059800618907d4820991ee85a16c28d23da25",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 63,
+      "fingerprint": "2d29b3a2974f5ce8a6d2773f392e7a442af6bb84b79a6e1978d0a75518e3e7a0",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/evidence-bundle-merge-result.json",
+      "length": 63,
+      "fingerprint": "6071f629393b3e1469f8aff19bf6bea2ef8e5b10accf19e1eaf9349015199cbf",
+      "classification": "structured_non_secret",
+      "basis": "Git merge output path fragment matches tracked governance path; JSON newline escaping may prefix n"
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/resume-20261002/evidence/npm-audit-matched.json",
+      "length": 34,
+      "fingerprint": "2a3bc75ba61477855e0c1d384bb1625d7af8caa2b3baca0a611715019b671b14",
+      "classification": "structured_non_secret",
+      "basis": "Official response public advisory URL field"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "exit": 128,
+  "error": "Empty reply from server",
+  "transport": "HTTP/1.1",
+  "destination": "evidence-h1",
+  "additional_attempts_started": false,
+  "merge_started": false
+}

@@ -1,0 +1,1902 @@
+{
+  "version": "DB5-CONTRACT-v1-PENDING",
+  "count": 52,
+  "positive_permissions_added": 0,
+  "scope": "approval proposals only; no rows or credential values; no database changes",
+  "rows": [
+    {
+      "finding_id": "DB5-CONTRACT-001",
+      "table": "AdminSession",
+      "module": "身份/权限",
+      "ownership_chain": "TenantUser via tenantUserId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "tokenHash"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenantUser   TenantUser @relation(fields: [tenantUserId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-002",
+      "table": "ApiClient",
+      "module": "身份/权限",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "scopes"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-003",
+      "table": "ApiKey",
+      "module": "身份/权限",
+      "ownership_chain": "ApiClient via apiClientId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "keyHash"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "apiClient   ApiClient @relation(fields: [apiClientId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-004",
+      "table": "AuditLog",
+      "module": "审计/事件/供应商调用",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定事件写入服务（待审批）",
+        "本租户审计审核角色（待审批）"
+      ],
+      "proposed_select": "候选：本租户审计角色仅脱敏必要列；请求/响应/载荷不可直接暴露，普通用户拒绝",
+      "proposed_insert": "候选：用途限定服务仅追加本租户记录；可信归属与外部载荷分别验证",
+      "proposed_update": "候选：仅专用处理角色更新投递/处理状态，原始证据不可改；字段白名单待批",
+      "proposed_delete": "建议拒绝，审计/证据仅追加保留",
+      "sensitive_column_names": [
+        "metadata",
+        "ipAddress",
+        "userAgent",
+        "requestId"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant     Tenant?  @relation(fields: [tenantId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-005",
+      "table": "Card",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "customerId",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "provider",
+        "providerPublicToken",
+        "maskedPan",
+        "last4",
+        "expiryMonth",
+        "expiryYear"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant              Tenant               @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "customer            Customer             @relation(fields: [customerId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+          "productTemplate     CardProductTemplate? @relation(fields: [productTemplateId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-006",
+      "table": "CardBalance",
+      "module": "卡",
+      "ownership_chain": "Card via cardId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "availableBalanceMinor",
+        "currentBalanceMinor",
+        "pendingAmountMinor",
+        "providerUpdatedAt"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-007",
+      "table": "CardEvent",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "payload"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-008",
+      "table": "CardHolder",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "profile"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-009",
+      "table": "CardLifecycleEvent",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-010",
+      "table": "CardLimit",
+      "module": "卡",
+      "ownership_chain": "Card via cardId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-011",
+      "table": "CardRenewal",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "oldExpiryMonth",
+        "oldExpiryYear",
+        "newExpiryMonth",
+        "newExpiryYear"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-012",
+      "table": "CardReplacement",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "reason"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant  Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "oldCard Card   @relation(\"ReplacedCard\", fields: [oldCardId], references: [id], onDelete: Restrict)",
+          "newCard Card   @relation(\"ReplacementCard\", fields: [newCardId], references: [id], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-013",
+      "table": "CardRestriction",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "reason"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card   Card   @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-014",
+      "table": "CardSecurityProfile",
+      "module": "卡",
+      "ownership_chain": "Card via cardId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定卡安全服务（待审批）"
+      ],
+      "proposed_select": "禁止用户/Admin直读PIN摘要和安全计数；专用安全函数是否可访问须审批",
+      "proposed_insert": "专用卡安全初始化入口待批，其他拒绝",
+      "proposed_update": "专用失败计数/锁定/安全更新入口待批；不得开放通用UPDATE",
+      "proposed_delete": "继续拒绝，生命周期待批",
+      "sensitive_column_names": [
+        "pinHash",
+        "failedPinAttempts",
+        "pinUpdatedAt"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "card Card @relation(fields: [cardId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-015",
+      "table": "CardTransaction",
+      "module": "卡",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "providerTransactionId",
+        "amountMinor",
+        "providerPayload",
+        "authorizedAmountMinor",
+        "clearedAmountMinor",
+        "settledAmountMinor",
+        "reversedAmountMinor",
+        "refundedAmountMinor"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant        Tenant         @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "card          Card           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+          "walletAccount WalletAccount? @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-016",
+      "table": "EndUserRefreshToken",
+      "module": "身份/权限",
+      "ownership_chain": "EndUserSession via sessionId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "tokenHash",
+        "revokeReason",
+        "rotatedToTokenId"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "session     EndUserSession       @relation(fields: [sessionId], references: [id], onDelete: Cascade)",
+          "rotatedTo   EndUserRefreshToken? @relation(\"RefreshRotation\", fields: [rotatedToTokenId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-017",
+      "table": "EndUserSession",
+      "module": "身份/权限",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "userId",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "sessionTokenHash",
+        "csrfTokenHash",
+        "revokeReason",
+        "createdIpHash",
+        "userAgentHash"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant        Tenant                @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "user          Customer              @relation(fields: [userId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-018",
+      "table": "EvidenceArtifact",
+      "module": "审计/事件/供应商调用",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定事件写入服务（待审批）",
+        "本租户审计审核角色（待审批）"
+      ],
+      "proposed_select": "候选：本租户审计角色仅脱敏必要列；请求/响应/载荷不可直接暴露，普通用户拒绝",
+      "proposed_insert": "候选：用途限定服务仅追加本租户记录；可信归属与外部载荷分别验证",
+      "proposed_update": "候选：仅专用处理角色更新投递/处理状态，原始证据不可改；字段白名单待批",
+      "proposed_delete": "建议拒绝，审计/证据仅追加保留",
+      "sensitive_column_names": [
+        "request",
+        "response",
+        "contentHash"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant    Tenant     @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "createdBy TenantUser @relation(fields: [createdById], references: [id], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-019",
+      "table": "FxConversion",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "sourceAmount",
+        "targetAmount",
+        "provider"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant          Tenant          @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "walletOperation WalletOperation @relation(fields: [walletOperationId], references: [id], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-020",
+      "table": "FxOrder",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "sourceAmount",
+        "targetAmount",
+        "provider"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-021",
+      "table": "FxRate",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "provider"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-022",
+      "table": "Journal",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "description"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant     Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)",
+          "reversalOf Journal?       @relation(\"JournalReversal\", fields: [reversalOfId], references: [id])"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-023",
+      "table": "JournalEntry",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "journal       Journal       @relation(fields: [journalId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+          "walletAccount WalletAccount @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-024",
+      "table": "Merchant",
+      "module": "商户/结算",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant   Tenant            @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-025",
+      "table": "MerchantPayment",
+      "module": "商户/结算",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant          Tenant           @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "merchant        Merchant         @relation(fields: [merchantId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+          "walletAccount   WalletAccount    @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+          "settlementBatch SettlementBatch? @relation(fields: [settlementBatchId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-026",
+      "table": "MerchantQrCode",
+      "module": "商户/结算",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant      Tenant           @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "merchant    Merchant         @relation(fields: [merchantId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)",
+          "paidPayment MerchantPayment? @relation(fields: [paidPaymentId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-027",
+      "table": "Permission",
+      "module": "身份/权限",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "归属和平台权限模型未确认，所有运行身份继续拒绝；不得自行认定公共目录",
+      "proposed_insert": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_update": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_delete": "继续拒绝；需独立批准权限模型及操作范围",
+      "sensitive_column_names": [
+        "scope",
+        "description"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-028",
+      "table": "ProviderOperation",
+      "module": "审计/事件/供应商调用",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "customerId",
+      "proposed_subject_roles": [
+        "用途限定事件写入服务（待审批）",
+        "本租户审计审核角色（待审批）"
+      ],
+      "proposed_select": "候选：本租户审计角色仅脱敏必要列；请求/响应/载荷不可直接暴露，普通用户拒绝",
+      "proposed_insert": "候选：用途限定服务仅追加本租户记录；可信归属与外部载荷分别验证",
+      "proposed_update": "候选：仅专用处理角色更新投递/处理状态，原始证据不可改；字段白名单待批",
+      "proposed_delete": "建议拒绝，审计/证据仅追加保留",
+      "sensitive_column_names": [
+        "requestHash",
+        "response",
+        "request"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant   Tenant   @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "customer Customer @relation(fields: [customerId, tenantId, environment], references: [id, tenantId, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-029",
+      "table": "Role",
+      "module": "身份/权限",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "归属和平台权限模型未确认，所有运行身份继续拒绝；不得自行认定公共目录",
+      "proposed_insert": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_update": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_delete": "继续拒绝；需独立批准权限模型及操作范围",
+      "sensitive_column_names": [
+        "description"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-030",
+      "table": "RolePermission",
+      "module": "身份/权限",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "归属和平台权限模型未确认，所有运行身份继续拒绝；不得自行认定公共目录",
+      "proposed_insert": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_update": "继续拒绝；需独立批准权限模型及操作范围",
+      "proposed_delete": "继续拒绝；需独立批准权限模型及操作范围",
+      "sensitive_column_names": [
+        "roleId",
+        "permissionId"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)",
+          "permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-031",
+      "table": "SettlementBatch",
+      "module": "商户/结算",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "totalAmount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant   Tenant            @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-032",
+      "table": "SettlementItem",
+      "module": "商户/结算",
+      "ownership_chain": "SettlementBatch via settlementBatchId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "batch           SettlementBatch  @relation(fields: [settlementBatchId], references: [id], onDelete: Cascade)",
+          "merchantPayment MerchantPayment? @relation(fields: [merchantPaymentId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-033",
+      "table": "SimulationRecord",
+      "module": "模拟场景",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定SANDBOX测试任务（待审批）"
+      ],
+      "proposed_select": "仅任务自己的SANDBOX场景候选可读，其他身份拒绝",
+      "proposed_insert": "仅合成场景用途任务待审批，禁止生产数据",
+      "proposed_update": "只限已批准测试生命周期字段，归属不可改",
+      "proposed_delete": "当前拒绝；清理/重置属于保留审批事项，不纳入自动授权",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "scenario    SimulationScenario @relation(fields: [scenarioId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-034",
+      "table": "SimulationScenario",
+      "module": "模拟场景",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定SANDBOX测试任务（待审批）"
+      ],
+      "proposed_select": "仅任务自己的SANDBOX场景候选可读，其他身份拒绝",
+      "proposed_insert": "仅合成场景用途任务待审批，禁止生产数据",
+      "proposed_update": "只限已批准测试生命周期字段，归属不可改",
+      "proposed_delete": "当前拒绝；清理/重置属于保留审批事项，不纳入自动授权",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-035",
+      "table": "Tenant",
+      "module": "租户根",
+      "ownership_chain": "本表.id为租户根；需外部可信身份映射，不能接受客户端自选id",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "TENANT_ADMIN（本租户必要信息）",
+        "USER（必要公开展示字段，待批）"
+      ],
+      "proposed_select": "候选：本租户最小展示列；租户列表及跨租户枚举拒绝",
+      "proposed_insert": "继续拒绝；开户/租户创建另批",
+      "proposed_update": "本租户展示字段是否可改待逐字段审批；环境/归属/权限不可改",
+      "proposed_delete": "继续拒绝",
+      "sensitive_column_names": [],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-036",
+      "table": "TenantCardProviderConfig",
+      "module": "供应商配置",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定供应商配置读取服务（待审批）"
+      ],
+      "proposed_select": "候选：服务端按租户+环境读取必要配置引用；客户端不可读取原配置或密钥引用；不读取秘密值",
+      "proposed_insert": "继续拒绝；供应商配置变更须专项授权与审计",
+      "proposed_update": "继续拒绝；供应商配置变更须专项授权与审计",
+      "proposed_delete": "继续拒绝；禁止影响可追溯配置历史",
+      "sensitive_column_names": [
+        "provider",
+        "credentialSecretRef",
+        "webhookSecretRef",
+        "providerSettings"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-037",
+      "table": "TenantUser",
+      "module": "身份/权限",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "email",
+        "passwordHash"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant            Tenant             @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-038",
+      "table": "TenantUserRole",
+      "module": "身份/权限",
+      "ownership_chain": "TenantUser via tenantUserId → 关联对象租户；须核验完整链及同租户约束",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定认证服务（待审批）"
+      ],
+      "proposed_select": "候选：认证服务读取最少必要列；普通/租户Admin不得直接读取口令、token摘要或权限映射",
+      "proposed_insert": "候选：认证/权限服务按登录、发放或明确授权流程创建，不开放通用直写",
+      "proposed_update": "候选：认证服务仅过期、撤销、轮换状态；角色成员变更另行显式审批",
+      "proposed_delete": "默认拒绝；保留撤销记录，生命周期另批",
+      "sensitive_column_names": [
+        "roleId",
+        "grantReason"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenantUser   TenantUser @relation(fields: [tenantUserId], references: [id], onDelete: Cascade)",
+          "role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、身份认证资产负责人（自然人待指定）",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-039",
+      "table": "TreasuryPosition",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "availableBalance"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-040",
+      "table": "WalletAccount",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "customerId",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "postedBalance",
+        "pendingBalance"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant             Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-041",
+      "table": "WalletOperation",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "amount",
+        "failureReason"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant         Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)",
+          "card           Card?           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-042",
+      "table": "WalletTransaction",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant         Tenant          @relation(fields: [tenantId, environment], references: [id, environment], onDelete: Cascade)",
+          "walletAccount  WalletAccount   @relation(fields: [walletAccountId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)",
+          "card           Card?           @relation(fields: [cardId, tenantId, environment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-043",
+      "table": "WebhookEvent",
+      "module": "审计/事件/供应商调用",
+      "ownership_chain": "本表.tenantId → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定事件写入服务（待审批）",
+        "本租户审计审核角色（待审批）"
+      ],
+      "proposed_select": "候选：本租户审计角色仅脱敏必要列；请求/响应/载荷不可直接暴露，普通用户拒绝",
+      "proposed_insert": "候选：用途限定服务仅追加本租户记录；可信归属与外部载荷分别验证",
+      "proposed_update": "候选：仅专用处理角色更新投递/处理状态，原始证据不可改；字段白名单待批",
+      "proposed_delete": "建议拒绝，审计/证据仅追加保留",
+      "sensitive_column_names": [
+        "provider",
+        "payload"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-044",
+      "table": "tenant_third_party_config",
+      "module": "供应商配置",
+      "ownership_chain": "本表.tenant_id → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定供应商配置读取服务（待审批）"
+      ],
+      "proposed_select": "候选：服务端按租户+环境读取必要配置引用；客户端不可读取原配置或密钥引用；不读取秘密值",
+      "proposed_insert": "继续拒绝；供应商配置变更须专项授权与审计",
+      "proposed_update": "继续拒绝；供应商配置变更须专项授权与审计",
+      "proposed_delete": "继续拒绝；禁止影响可追溯配置历史",
+      "sensitive_column_names": [
+        "provider_type",
+        "provider_config_json"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant         Tenant                    @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Authentication/configuration/permission object: default deny until precise operation boundary approved.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-045",
+      "table": "third_party_asset_orders",
+      "module": "账本/钱包/资金",
+      "ownership_chain": "本表.tenant_id → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "user_id",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "external_provider_order_id",
+        "provider_type",
+        "amount",
+        "request_fingerprint",
+        "provider_call_state",
+        "provider_call_started_at",
+        "provider_call_completed_at",
+        "provider_evidence",
+        "review_reason"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant    Tenant                    @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+          "user      Customer                  @relation(fields: [userId, tenantId, tenantEnvironment], references: [id, tenantId, environment], onDelete: Restrict)",
+          "config    TenantThirdPartyConfig    @relation(fields: [configId], references: [id], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-046",
+      "table": "third_party_callback_events",
+      "module": "审计/事件/供应商调用",
+      "ownership_chain": "本表.tenant_id → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "用途限定事件写入服务（待审批）",
+        "本租户审计审核角色（待审批）"
+      ],
+      "proposed_select": "候选：本租户审计角色仅脱敏必要列；请求/响应/载荷不可直接暴露，普通用户拒绝",
+      "proposed_insert": "候选：用途限定服务仅追加本租户记录；可信归属与外部载荷分别验证",
+      "proposed_update": "候选：仅专用处理角色更新投递/处理状态，原始证据不可改；字段白名单待批",
+      "proposed_delete": "建议拒绝，审计/证据仅追加保留",
+      "sensitive_column_names": [
+        "provider_type",
+        "payload"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "config TenantThirdPartyConfig @relation(fields: [configId], references: [id], onDelete: Cascade)",
+          "order  ThirdPartyAssetOrder?  @relation(fields: [orderId], references: [id], onDelete: SetNull)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-047",
+      "table": "treasury_accounts",
+      "module": "旧资金目录",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "未确定；所有运行身份默认拒绝"
+      ],
+      "proposed_select": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_insert": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_update": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_delete": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "sensitive_column_names": [
+        "balance",
+        "required_balance"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人、Git资产管理员",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-048",
+      "table": "treasury_fx_orders",
+      "module": "旧资金目录",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "未确定；所有运行身份默认拒绝"
+      ],
+      "proposed_select": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_insert": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_update": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_delete": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "sensitive_column_names": [
+        "amount",
+        "result_amount",
+        "provider"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人、Git资产管理员",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-049",
+      "table": "treasury_operation_logs",
+      "module": "旧资金目录",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "未确定；所有运行身份默认拒绝"
+      ],
+      "proposed_select": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_insert": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_update": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_delete": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "sensitive_column_names": [
+        "detail"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人、Git资产管理员",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-050",
+      "table": "treasury_settlements",
+      "module": "旧资金目录",
+      "ownership_chain": "未确认；缺少可验证租户/主体归属链，不允许推断为全局可读",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "未确定；所有运行身份默认拒绝"
+      ],
+      "proposed_select": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_insert": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_update": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "proposed_delete": "BLOCKED：保持拒绝；先确认表来源、租户/主体及业务责任人，不推定平台跨租户权",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Legacy migration-only object: ownership and allowed operations BLOCKED pending explicit contract.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人、Git资产管理员",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-051",
+      "table": "ucard_card_base",
+      "module": "卡",
+      "ownership_chain": "本表.tenant_id → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "user_id",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "默认拒绝直连；候选：专用用途后端在可信身份、幂等及状态机约束下创建，逐入口审批",
+      "proposed_update": "默认拒绝直连；候选：用途后端受状态机约束更新，原/目标租户主体均校验，归属字段不可改",
+      "proposed_delete": "建议拒绝；历史/资金对象仅追加补偿，非资金对象删除须单独生命周期批准",
+      "sensitive_column_names": [
+        "balance"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant       Tenant             @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+          "user         Customer           @relation(fields: [userId, tenantId, tenantEnvironment], references: [id, tenantId, environment], onDelete: Restrict)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    },
+    {
+      "finding_id": "DB5-CONTRACT-052",
+      "table": "ucard_transactions",
+      "module": "卡",
+      "ownership_chain": "本表.tenant_id → Tenant.id；须同时核对环境及对象主体归属，列存在不等于授权可信",
+      "subject_columns_observed": "未声明；不能以tenantId替代本人归属",
+      "proposed_subject_roles": [
+        "USER（本人链确认后）",
+        "TENANT_ADMIN（本租户范围）",
+        "用途限定服务/任务（待审批）"
+      ],
+      "proposed_select": "候选：普通用户仅经可证明的本人归属链读取必要非敏感列；租户管理员仅本租户且按用途裁剪；主体链不明则拒绝",
+      "proposed_insert": "候选：用途限定账本/事件写入身份追加；须批准幂等、关联对象同租户及一致性规则，终端直写拒绝",
+      "proposed_update": "建议拒绝业务字段更新；更正采用独立补偿/追加流程",
+      "proposed_delete": "建议拒绝，保留审计链",
+      "sensitive_column_names": [
+        "amount"
+      ],
+      "sensitivity_limit": "仅根据目录字段语义保守标记；未读取行值；完整字段分类需所有者审核",
+      "indirect_access": {
+        "relations_from_schema": [
+          "tenant Tenant        @relation(fields: [tenantId, tenantEnvironment], references: [id, environment], onDelete: Cascade)",
+          "card   UcardCardBase @relation(fields: [ucardCardId], references: [id], onDelete: Cascade)"
+        ],
+        "review_required": "服务入口、视图、函数、trigger及父子关联必须使用同一授权对象；不能只核验本表tenant字段"
+      },
+      "default_deny_reason": "Scope identified; per-role CRUD and sensitive-column authorization not inferred.",
+      "approval_roles": "项目所有者、全局安全负责人、后端与资金集成负责人",
+      "approval_status": "BLOCKED—尚无项目所有者逐项批准；本矩阵不授权任何正向权限",
+      "source": {
+        "scope_index": "evidence/table-scope-final.json",
+        "catalog": "evidence/final-chain-catalog.json",
+        "business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d"
+      },
+      "platform_admin": "默认禁止跨租户；不得因平台名称自动扩大权限",
+      "requested_confirmation": "确认归属链、主体、逐操作和逐字段范围、服务/任务用途、间接路径及审计要求；批准须列发现ID与时间"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "new_head": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+  "parent": "592afbeac34d3d9990cf53a627ce11b83f3178cb",
+  "base": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+  "tree_identical_to_original_business_head": "91595282b47204aabd1c0871dcb8c286e8ff841d",
+  "removed_files": [
+    {
+      "path": ".github/workflows/fl-db005-isolated-review.yml",
+      "sha256": "f351776727ceeb8b10d051952a3b44f38b07eb1e4cba6a28464666be530aad93"
+    },
+    {
+      "path": "scripts/fl-db005-ci/run.py",
+      "sha256": "5579de9de32b705af129881256d834bf8fd1c3a6afc47a611e0d42d32ec3b908"
+    },
+    {
+      "path": "scripts/fl-db005-ci/prepare_downloads.py",
+      "sha256": "8d17bf4e426bf68743c1e821a80f84f918a79f827bd6ee0e45bb67427edd56ae"
+    },
+    {
+      "path": "scripts/fl-db005-ci/rebuild.py",
+      "sha256": "098c473e4273bdbec52f38d5b2a307e2c0b9167435140e13aa5ab1df33ef8352"
+    },
+    {
+      "path": "scripts/fl-db005-ci/catalog.py",
+      "sha256": "47de1641168df26df358f78d71af4f1851f70f545d427e91fe54539af35d137a"
+    },
+    {
+      "path": "scripts/fl-db005-ci/dynamic-final-r3-r4.cjs",
+      "sha256": "c50900a6280716ff242c26178ec1290bbdbc2a16abd5129ad824e7c96f228f19"
+    },
+    {
+      "path": "scripts/fl-db005-ci/negative-final-r3-r4.cjs",
+      "sha256": "3890e90d40ff58f0c5f423c98e2c0947d69265506ae7a949bbc46dbd905a3929"
+    },
+    {
+      "path": "scripts/fl-db005-ci/inputs.json",
+      "sha256": "68632cebf573d1116a5ff3a90335edc4cf6c579ee66eb931fd3017a00ffe87d1"
+    },
+    {
+      "path": "scripts/fl-db005-ci/approved-audit-payload.json",
+      "sha256": "afc58daba124d5073884690020487b5c5042fb1cc66e8aa4148c20ff6b8e53f4"
+    },
+    {
+      "path": "scripts/fl-db005-ci/completed-audit-evidence.json",
+      "sha256": "d0667a02758c67dc753d52196eedad192b897a19b00318b584deda3137ab0fc9"
+    }
+  ],
+  "final_files": [
+    {
+      "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "added": 332,
+      "deleted": 0,
+      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3"
+    },
+    {
+      "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "added": 68,
+      "deleted": 0,
+      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a"
+    },
+    {
+      "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "added": 39,
+      "deleted": 0,
+      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b"
+    },
+    {
+      "path": "prisma/rollback/fl-db005-fail-closed.sql",
+      "added": 20,
+      "deleted": 0,
+      "sha256": "54b549e95564ed6cd277ae3aeb604b5e8c7f16f4c6ddd5b4c8d7ead9277040e3"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.spec.ts",
+      "added": 62,
+      "deleted": 0,
+      "sha256": "2a4ec2a23f7357781df211bfae22e26e059cff2e16c48d1c380068251711e2b8"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.ts",
+      "added": 42,
+      "deleted": 0,
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778"
+    }
+  ],
+  "special_workflow_absent": true,
+  "clean": true
+}

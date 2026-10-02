@@ -1,0 +1,40 @@
+[
+  {
+    "round": 1,
+    "container": "fl-db005-p8ryoi9-r1",
+    "stopped": true,
+    "host_port_bindings": {},
+    "parent_mode": "0o700",
+    "files": [
+      {
+        "name": "initializer-password",
+        "mode": "0o600"
+      },
+      {
+        "name": "credentials.json",
+        "mode": "0o600"
+      }
+    ],
+    "retained": true,
+    "deleted": false
+  },
+  {
+    "round": 2,
+    "container": "fl-db005-p8ryoi9-r2",
+    "stopped": true,
+    "host_port_bindings": {},
+    "parent_mode": "0o700",
+    "files": [
+      {
+        "name": "initializer-password",
+        "mode": "0o600"
+      },
+      {
+        "name": "credentials.json",
+        "mode": "0o600"
+      }
+    ],
+    "retained": true,
+    "deleted": false
+  }
+]

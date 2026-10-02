@@ -1,0 +1,63 @@
+{
+  "head": "d33a85520aff868cdfa867c45b10911592230f77",
+  "network": "none",
+  "host_ports": 0,
+  "existing_dependencies": "read-only retained Linux volume",
+  "results": [
+    {
+      "name": "versions",
+      "exit": 0,
+      "seconds": 0.56,
+      "container": "fl-db005-resume1002-check-versions",
+      "runtime": {
+        "node": "v22.23.2",
+        "platform": "linux",
+        "arch": "x64",
+        "prisma": "6.19.3",
+        "client": "6.19.3"
+      }
+    },
+    {
+      "name": "build",
+      "exit": 0,
+      "seconds": 40.78,
+      "container": "fl-db005-resume1002-check-build"
+    },
+    {
+      "name": "lint",
+      "exit": 0,
+      "seconds": 40.64,
+      "container": "fl-db005-resume1002-check-lint"
+    },
+    {
+      "name": "jest",
+      "exit": 0,
+      "seconds": 58.12,
+      "container": "fl-db005-resume1002-check-jest",
+      "summary": {
+        "success": true,
+        "numTotalTests": 1768,
+        "numPassedTests": 1766,
+        "numFailedTests": 0,
+        "numPendingTests": 2,
+        "numPassedTestSuites": 199,
+        "numFailedTestSuites": 0
+      }
+    },
+    {
+      "name": "targeted",
+      "exit": 0,
+      "seconds": 10.37,
+      "container": "fl-db005-resume1002-check-targeted",
+      "summary": {
+        "success": true,
+        "numTotalTests": 5,
+        "numPassedTests": 5,
+        "numFailedTests": 0,
+        "numPendingTests": 0,
+        "numPassedTestSuites": 1,
+        "numFailedTestSuites": 0
+      }
+    }
+  ]
+}

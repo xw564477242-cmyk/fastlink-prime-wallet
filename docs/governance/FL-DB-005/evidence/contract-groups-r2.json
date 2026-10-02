@@ -1,0 +1,214 @@
+[
+  {
+    "group": "认证会话与客户身份",
+    "tables": [
+      "AdminSession",
+      "ApiClient",
+      "ApiKey",
+      "EndUserRefreshToken",
+      "EndUserSession",
+      "TenantUser"
+    ],
+    "ids": [
+      "DB5-CONTRACT-001",
+      "DB5-CONTRACT-002",
+      "DB5-CONTRACT-003",
+      "DB5-CONTRACT-016",
+      "DB5-CONTRACT-017",
+      "DB5-CONTRACT-037"
+    ],
+    "recommended_conclusion": "维持BLOCKED；仅评估用途限定服务或安全函数，禁止普通用户/Admin直读认证与配置材料。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "审计/事件/供应商调用",
+    "tables": [
+      "AuditLog",
+      "EvidenceArtifact",
+      "ProviderOperation",
+      "WebhookEvent",
+      "third_party_callback_events"
+    ],
+    "ids": [
+      "DB5-CONTRACT-004",
+      "DB5-CONTRACT-018",
+      "DB5-CONTRACT-028",
+      "DB5-CONTRACT-043",
+      "DB5-CONTRACT-046"
+    ],
+    "recommended_conclusion": "维持BLOCKED；先确认可信归属和最小只读字段，再逐入口批准写操作。平台跨租户不在本次建议内。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "卡",
+    "tables": [
+      "Card",
+      "CardBalance",
+      "CardEvent",
+      "CardHolder",
+      "CardLifecycleEvent",
+      "CardLimit",
+      "CardRenewal",
+      "CardReplacement",
+      "CardRestriction",
+      "CardTransaction",
+      "ucard_card_base",
+      "ucard_transactions"
+    ],
+    "ids": [
+      "DB5-CONTRACT-005",
+      "DB5-CONTRACT-006",
+      "DB5-CONTRACT-007",
+      "DB5-CONTRACT-008",
+      "DB5-CONTRACT-009",
+      "DB5-CONTRACT-010",
+      "DB5-CONTRACT-011",
+      "DB5-CONTRACT-012",
+      "DB5-CONTRACT-013",
+      "DB5-CONTRACT-015",
+      "DB5-CONTRACT-051",
+      "DB5-CONTRACT-052"
+    ],
+    "recommended_conclusion": "维持BLOCKED；先确认可信归属和最小只读字段，再逐入口批准写操作。平台跨租户不在本次建议内。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "卡安全敏感对象",
+    "tables": [
+      "CardSecurityProfile"
+    ],
+    "ids": [
+      "DB5-CONTRACT-014"
+    ],
+    "recommended_conclusion": "维持BLOCKED；仅评估用途限定服务或安全函数，禁止普通用户/Admin直读认证与配置材料。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "账本/钱包/资金",
+    "tables": [
+      "FxConversion",
+      "FxOrder",
+      "FxRate",
+      "TreasuryPosition",
+      "WalletAccount",
+      "WalletOperation",
+      "WalletTransaction",
+      "third_party_asset_orders"
+    ],
+    "ids": [
+      "DB5-CONTRACT-019",
+      "DB5-CONTRACT-020",
+      "DB5-CONTRACT-021",
+      "DB5-CONTRACT-039",
+      "DB5-CONTRACT-040",
+      "DB5-CONTRACT-041",
+      "DB5-CONTRACT-042",
+      "DB5-CONTRACT-045"
+    ],
+    "recommended_conclusion": "维持BLOCKED；先确认可信归属和最小只读字段，再逐入口批准写操作。平台跨租户不在本次建议内。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "不可变账本",
+    "tables": [
+      "Journal",
+      "JournalEntry"
+    ],
+    "ids": [
+      "DB5-CONTRACT-022",
+      "DB5-CONTRACT-023"
+    ],
+    "recommended_conclusion": "维持BLOCKED；只考虑经归属核验的最小读和一致性校验后的专用追加，拒绝通用更新删除。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "商户/结算",
+    "tables": [
+      "Merchant",
+      "MerchantPayment",
+      "MerchantQrCode",
+      "SettlementBatch",
+      "SettlementItem"
+    ],
+    "ids": [
+      "DB5-CONTRACT-024",
+      "DB5-CONTRACT-025",
+      "DB5-CONTRACT-026",
+      "DB5-CONTRACT-031",
+      "DB5-CONTRACT-032"
+    ],
+    "recommended_conclusion": "维持BLOCKED；先确认可信归属和最小只读字段，再逐入口批准写操作。平台跨租户不在本次建议内。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "权限目录与成员关系",
+    "tables": [
+      "Permission",
+      "Role",
+      "RolePermission",
+      "TenantUserRole"
+    ],
+    "ids": [
+      "DB5-CONTRACT-027",
+      "DB5-CONTRACT-029",
+      "DB5-CONTRACT-030",
+      "DB5-CONTRACT-038"
+    ],
+    "recommended_conclusion": "维持BLOCKED，暂不推荐任何运行身份正向CRUD；先由所有者确定租户/平台身份模型及对象来源。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "模拟场景",
+    "tables": [
+      "SimulationRecord",
+      "SimulationScenario"
+    ],
+    "ids": [
+      "DB5-CONTRACT-033",
+      "DB5-CONTRACT-034"
+    ],
+    "recommended_conclusion": "维持BLOCKED；仅讨论合成SANDBOX任务，不授予生产能力或自动reset/清理权。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "租户根",
+    "tables": [
+      "Tenant"
+    ],
+    "ids": [
+      "DB5-CONTRACT-035"
+    ],
+    "recommended_conclusion": "维持BLOCKED；先确认可信归属和最小只读字段，再逐入口批准写操作。平台跨租户不在本次建议内。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "供应商配置",
+    "tables": [
+      "TenantCardProviderConfig",
+      "tenant_third_party_config"
+    ],
+    "ids": [
+      "DB5-CONTRACT-036",
+      "DB5-CONTRACT-044"
+    ],
+    "recommended_conclusion": "维持BLOCKED；仅评估用途限定服务或安全函数，禁止普通用户/Admin直读认证与配置材料。",
+    "status": "BLOCKED"
+  },
+  {
+    "group": "旧资金目录",
+    "tables": [
+      "treasury_accounts",
+      "treasury_fx_orders",
+      "treasury_operation_logs",
+      "treasury_settlements"
+    ],
+    "ids": [
+      "DB5-CONTRACT-047",
+      "DB5-CONTRACT-048",
+      "DB5-CONTRACT-049",
+      "DB5-CONTRACT-050"
+    ],
+    "recommended_conclusion": "维持BLOCKED，暂不推荐任何运行身份正向CRUD；先由所有者确定租户/平台身份模型及对象来源。",
+    "status": "BLOCKED"
+  }
+]

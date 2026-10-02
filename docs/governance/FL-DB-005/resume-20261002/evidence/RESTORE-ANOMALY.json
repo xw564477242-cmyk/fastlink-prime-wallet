@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-02T08:52:25.998544+00:00",
+  "failed_operation": "git switch --create feature/FL-DB-005-tenant-identity-rls --track origin/feature/FL-DB-005-tenant-identity-rls",
+  "error": "cannot set up tracking information; starting point is not a branch",
+  "observed_after_failure": {
+    "HEAD": "a838758951e42375c414572a09e48075075d1a09",
+    "index_matches_DB5_commit": "49a3773e75d226ecc012134fd7db53f06f8f2eff",
+    "cached_diff_against_DB5": "empty",
+    "working_diff_against_index": "empty"
+  },
+  "before_controller_stop_arrived": "--no-track switches completed in backend and evidence; no merge/commit/push",
+  "controller_stop_applied": "prior clones left as-is and excluded from further test evidence",
+  "formal_workspaces_modified": false,
+  "cause": "not independently established"
+}

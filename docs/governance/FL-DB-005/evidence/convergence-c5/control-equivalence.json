@@ -1,0 +1,18 @@
+[
+  {
+    "script": "dynamic",
+    "test_logic_identical": true,
+    "changed_fields": [
+      "rounds",
+      "output_filename"
+    ]
+  },
+  {
+    "script": "negative",
+    "test_logic_identical": true,
+    "changed_fields": [
+      "rounds",
+      "output_filename"
+    ]
+  }
+]

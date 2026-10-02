@@ -1,0 +1,24 @@
+{
+  "file_count": 13,
+  "format_hits": [],
+  "entropy_candidates": [
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "fingerprint": "ac7d741118a160bef3a7472c9c36d6e51d8dd3ca8e9a78490901cfcfea4a3966",
+      "length": 104
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "fingerprint": "74066cd0481c121ef662ec70afffed652bc22072668a9cbf9f04e902cfe09bcc",
+      "length": 111
+    },
+    {
+      "path": "evidence-bundle/docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "fingerprint": "b26a634582773570b503ddbd21e9b8cad8db08d5488e0ab1067d7bfae7986ffe",
+      "length": 119
+    }
+  ],
+  "secret_values_read_or_reported": false,
+  "scope": "new archive and placement contract; archived SQLs also exact-match prior reviewed bytes",
+  "not_full_project_scan": true
+}

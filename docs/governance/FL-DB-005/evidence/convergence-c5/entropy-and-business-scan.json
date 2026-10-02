@@ -1,0 +1,208 @@
+{
+  "entropy_candidates_reviewed": 20,
+  "secret_findings": 0,
+  "review": [
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 9,
+      "length": 61,
+      "entropy": 4.728,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 18,
+      "length": 61,
+      "entropy": 4.748,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-ci-after-removal.json",
+      "line": 27,
+      "length": 61,
+      "entropy": 4.769,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 12,
+      "length": 78,
+      "entropy": 4.761,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 22,
+      "length": 78,
+      "entropy": 4.779,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 32,
+      "length": 78,
+      "entropy": 4.745,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 42,
+      "length": 78,
+      "entropy": 4.746,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 52,
+      "length": 78,
+      "entropy": 4.793,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 62,
+      "length": 78,
+      "entropy": 4.755,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 72,
+      "length": 78,
+      "entropy": 4.761,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 82,
+      "length": 78,
+      "entropy": 4.793,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/business-pr-after-removal.json",
+      "line": 89,
+      "length": 45,
+      "entropy": 4.58,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "GitHub workflow/PR URL without query or credential"
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 362,
+      "length": 77,
+      "entropy": 4.524,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "tracked repository path from new HEAD"
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 406,
+      "length": 63,
+      "entropy": 4.509,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "tracked repository path from new HEAD"
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 450,
+      "length": 40,
+      "entropy": 4.622,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "tracked repository path from new HEAD"
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 522,
+      "length": 77,
+      "entropy": 4.508,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "tracked repository path from new HEAD"
+    },
+    {
+      "file": "evidence/convergence-c5/source-snapshot.json",
+      "line": 686,
+      "length": 66,
+      "entropy": 4.537,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "tracked repository path from new HEAD"
+    },
+    {
+      "file": "tools/convergence-c5/rebuild-final-r5-r6.py",
+      "line": 28,
+      "length": 40,
+      "entropy": 4.603,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "reviewed runner environment-file path or Docker option; not secret value"
+    },
+    {
+      "file": "tools/convergence-c5/rebuild-final-r5-r6.py",
+      "line": 28,
+      "length": 46,
+      "entropy": 4.553,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "reviewed runner environment-file path or Docker option; not secret value"
+    },
+    {
+      "file": "tools/convergence-c5/run_dynamic.py",
+      "line": 7,
+      "length": 52,
+      "entropy": 4.611,
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "reviewed runner environment-file path or Docker option; not secret value"
+    }
+  ],
+  "business_files": [
+    {
+      "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "added": 332,
+      "deleted": 0,
+      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3"
+    },
+    {
+      "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "added": 68,
+      "deleted": 0,
+      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a"
+    },
+    {
+      "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "added": 39,
+      "deleted": 0,
+      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b"
+    },
+    {
+      "path": "prisma/rollback/fl-db005-fail-closed.sql",
+      "added": 20,
+      "deleted": 0,
+      "sha256": "54b549e95564ed6cd277ae3aeb604b5e8c7f16f4c6ddd5b4c8d7ead9277040e3"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.spec.ts",
+      "added": 62,
+      "deleted": 0,
+      "sha256": "2a4ec2a23f7357781df211bfae22e26e059cff2e16c48d1c380068251711e2b8"
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.ts",
+      "added": 42,
+      "deleted": 0,
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778"
+    }
+  ],
+  "business_explicit_rules": 6,
+  "business_explicit_hits": 0,
+  "new_runner_syntax": "PASS",
+  "raw_values_included": false
+}

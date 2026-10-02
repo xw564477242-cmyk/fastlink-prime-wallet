@@ -1,0 +1,440 @@
+--- C1/.github/workflows/fl-db005-isolated-review.yml
++++ C2/.github/workflows/fl-db005-isolated-review.yml
+@@ -1,4 +1,4 @@
+-name: DB5 isolated review (Draft only)
++name: DB5等价隔离检查 (Draft only)
+ on:
+   pull_request:
+     branches: [dev]
+@@ -39,7 +39,7 @@
+           assert p['draft'] and p['state']=='open' and p['auto_merge'] is None
+           assert p['head']==os.environ['EXPECTED_HEAD'] and p['base']=='dev'
+           PY
+-      - name: Isolated DB5 controls, complete Jest, build, lint and approved audit
++      - name: DB5等价隔离检查：Jest build lint and offline prior-audit verification
+         run: python3 scripts/fl-db005-ci/run.py
+       - name: Recheck unchanged PR boundary
+         if: ${{ always() && !cancelled() }}
+--- C1/scripts/fl-db005-ci/completed-audit-evidence.json
++++ C2/scripts/fl-db005-ci/completed-audit-evidence.json
+@@ -0,0 +1,88 @@
++{
++  "time_utc": "2026-10-01T05:43:50.613759+00:00",
++  "approved_source_sha256": "afc58daba124d5073884690020487b5c5042fb1cc66e8aa4148c20ff6b8e53f4",
++  "wire_sha256": "b90bf1b07a0949b2345cd72686ea500ec8021aff84ebe02a9eb771386acc883e",
++  "source_pairs": 174,
++  "unique_package_names": 165,
++  "endpoint": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
++  "protocol": "official Bulk Advisory, package-name to installed-version list; approved-source wrapper omitted",
++  "network_destinations": 1,
++  "fallback": false,
++  "credentials_sent": false,
++  "private_context_sent": false,
++  "advisories": [
++    {
++      "package": "js-yaml",
++      "installed_versions": [
++        "5.2.2"
++      ],
++      "id": 1239991,
++      "severity": "moderate",
++      "vulnerable_versions": ">=5.0.0 <=5.4.0",
++      "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
++      "title": "js-yaml: maxTotalMergeKeys does not limit CPU use for empty merge sources",
++      "affected_installed_versions": [
++        "5.2.2"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "multer",
++      "installed_versions": [
++        "2.3.0"
++      ],
++      "id": 1239935,
++      "severity": "moderate",
++      "vulnerable_versions": ">=2.2.0 <2.4.0",
++      "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
++      "title": "multer vulnerable to Denial of Service via orphaned disk writes on aborted uploads",
++      "affected_installed_versions": [
++        "2.3.0"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "qs",
++      "installed_versions": [
++        "6.15.3"
++      ],
++      "id": 1158506,
++      "severity": "moderate",
++      "vulnerable_versions": ">=6.14.2 <=6.15.3",
++      "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
++      "title": "qs array-limit bypass via bracket-key comma parsing",
++      "affected_installed_versions": [
++        "6.15.3"
++      ],
++      "installed_affected": true
++    },
++    {
++      "package": "qs",
++      "installed_versions": [
++        "6.15.3"
++      ],
++      "id": 1158507,
++      "severity": "moderate",
++      "vulnerable_versions": ">=2.2.5 <6.16.0",
++      "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
++      "title": "qs: Denial of Service via Attacker Controlled isBuffer",
++      "affected_installed_versions": [
++        "6.15.3"
++      ],
++      "installed_affected": true
++    }
++  ],
++  "http_status": 200,
++  "status": "KNOWN_VULNERABILITIES_FOUND",
++  "version_matcher": {
++    "library": "semver",
++    "version": "7.8.5",
++    "network": false
++  },
++  "matched_advisories": 4,
++  "limitations": [
++    "bulk installed-version advisories only; npm metavulnerability calculation not performed",
++    "does not establish application exploitability or justify dependency changes",
++    "original approved file unchanged; wire uses only approved name/version content"
++  ]
++}
+--- C1/scripts/fl-db005-ci/inputs.json
++++ C2/scripts/fl-db005-ci/inputs.json
+@@ -185,5 +185,23 @@
+     "negative-final-r3-r4.cjs": "254644ca602c1a9d33ec53e77322145ae5869bb3239ff4bc7e3e6c1f046f4f9b",
+     "final_catalog.py": "bc2685ee966c5609041c6e11492ebeed1080110b536b47bd3ed25bc23e052f01"
+   },
+-  "schema_sha256": "7a95658ba9b15652749cf2bb595b1862e8c609c367cffb15da2e3386a3a21501"
++  "schema_sha256": "7a95658ba9b15652749cf2bb595b1862e8c609c367cffb15da2e3386a3a21501",
++  "completed_audit_evidence_sha256": "d0667a02758c67dc753d52196eedad192b897a19b00318b584deda3137ab0fc9",
++  "completed_audit_evidence_source": "FL-DB-005 governance R2 evidence/npm-audit-r2.json",
++  "engine_commit": "c2990dca591cba766e3b7ef5d9e8a84796e47ab7",
++  "engine_platform": "debian-openssl-3.0.x",
++  "engines": [
++    {
++      "file": "libquery-engine",
++      "url": "https://binaries.prisma.sh/all_commits/c2990dca591cba766e3b7ef5d9e8a84796e47ab7/debian-openssl-3.0.x/libquery_engine.so.node.gz",
++      "gzip_sha256": "d380872cc8a17310c6ebb249dc000f4fcbfbbd51ddc36beb57b1ed0c54c6d610",
++      "sha256": "a2924eab1c78a0a7bb67edac5738939fa10589ef073af5542f53812a22e4a7d8"
++    },
++    {
++      "file": "schema-engine",
++      "url": "https://binaries.prisma.sh/all_commits/c2990dca591cba766e3b7ef5d9e8a84796e47ab7/debian-openssl-3.0.x/schema-engine.gz",
++      "gzip_sha256": "6c1dfdfe34538487b088fd21b3152147e1bd3c9d0c00b4fc6ecae40ceba83d8a",
++      "sha256": "5d42b181631fd20bb0ecc5abcdba72575e7f467a0d52f4d5ef1ff28f0c74e6e9"
++    }
++  ]
+ }
+--- C1/scripts/fl-db005-ci/prepare_downloads.py
++++ C2/scripts/fl-db005-ci/prepare_downloads.py
+@@ -0,0 +1,121 @@
++"""HTTPS GET of fixed package/engine bytes only; never sends audit data or credentials."""
++import base64
++import gzip
++import hashlib
++import io
++import json
++import os
++from pathlib import Path
++import re
++import shutil
++import ssl
++import urllib.parse
++import urllib.request
++
++MAX_FILE = 128 * 1024 * 1024
++MAX_TOTAL = 2 * 1024 * 1024 * 1024
++MAX_ENGINE = 256 * 1024 * 1024
++
++
++def check_url(url, allowed_urls):
++    u = urllib.parse.urlsplit(url)
++    if (url not in allowed_urls or u.scheme != 'https' or u.username is not None
++            or u.password is not None or u.port not in (None, 443) or u.query or u.fragment
++            or u.hostname not in {'registry.npmjs.org', 'binaries.prisma.sh'}):
++        raise ValueError('unapproved_download_target')
++    # Narrower than domain allowlist: only exact reviewed package or engine file URLs.
++    if u.hostname == 'registry.npmjs.org' and ('/-/' not in u.path or not u.path.endswith('.tgz')):
++        raise ValueError('not_package_tarball')
++    if u.hostname == 'binaries.prisma.sh' and not u.path.startswith('/all_commits/'):
++        raise ValueError('not_pinned_engine')
++
++
++class CheckedRedirect(urllib.request.HTTPRedirectHandler):
++    def __init__(self, allowed_urls):
++        self.allowed_urls = allowed_urls
++
++    def redirect_request(self, req, fp, code, msg, headers, newurl):
++        check_url(newurl, self.allowed_urls)
++        if req.get_method() != 'GET':
++            raise ValueError('non_get_denied')
++        return super().redirect_request(req, fp, code, msg, headers, newurl)
++
++
++def verify_sri(raw, integrity):
++    tokens = integrity.split()
++    parsed = []
++    for token in tokens:
++        algorithm, encoded = token.split('-', 1)
++        if algorithm not in {'sha256', 'sha384', 'sha512'}:
++            raise ValueError('unsupported_integrity')
++        parsed.append((algorithm, base64.b64decode(encoded, validate=True)))
++    if not parsed or not all(hashlib.new(a, raw).digest() == expected for a, expected in parsed):
++        raise ValueError('integrity_mismatch')
++
++
++def main(task_root, source):
++    task_root, source = Path(task_root), Path(source)
++    # No ambient proxy or registry authentication is accepted.
++    if any(v for k, v in os.environ.items() if k.lower() in {
++        'http_proxy', 'https_proxy', 'all_proxy', 'npm_token', 'node_auth_token',
++        'npm_config_proxy', 'npm_config_https_proxy'}):
++        raise ValueError('ambient_proxy_or_auth_denied')
++    if (task_root/'private').exists() and any((task_root/'private').iterdir()):
++        raise ValueError('authentication_already_exists')
++    manifest = json.loads((source/'inputs.json').read_text())
++    lock_path = task_root/'prepare/package-lock.json'
++    if hashlib.sha256(lock_path.read_bytes()).hexdigest() != manifest['lock_sha256']:
++        raise ValueError('lock_hash_changed')
++    packages = {}
++    for path, row in json.loads(lock_path.read_text())['packages'].items():
++        if not path:
++            continue
++        url, integrity = row['resolved'], row['integrity']
++        if url in packages and packages[url] != integrity:
++            raise ValueError('inconsistent_lock_integrity')
++        packages[url] = integrity
++    allowed = set(packages) | {x['url'] for x in manifest['engines']}
++    for url in allowed:
++        check_url(url, allowed)
++    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}),
++        CheckedRedirect(allowed), urllib.request.HTTPSHandler(context=ssl.create_default_context()))
++    total = 0
++
++    def fetch(url):
++        nonlocal total
++        check_url(url, allowed)
++        if shutil.disk_usage(task_root).free < 6 * 1024**3:
++            raise ValueError('insufficient_disk')
++        req = urllib.request.Request(url, method='GET', headers={'Accept': 'application/octet-stream'})
++        with opener.open(req, timeout=45) as response:
++            check_url(response.url, allowed)
++            if response.status != 200:
++                raise ValueError('http_not_200')
++            # 401/407 also fail in urllib; no auth handler, netrc, cookies or retry credentials.
++            raw = response.read(MAX_FILE + 1)
++        if len(raw) > MAX_FILE:
++            raise ValueError('download_size_limit')
++        total += len(raw)
++        if total > MAX_TOTAL:
++            raise ValueError('total_size_limit')
++        return raw
++
++    downloads = task_root/'downloads'; downloads.mkdir(mode=0o700)
++    cache = task_root/'npm-cache'; cache.mkdir(mode=0o700)
++    engines = task_root/'engines'; engines.mkdir(mode=0o700)
++    for index, (url, integrity) in enumerate(sorted(packages.items())):
++        raw = fetch(url); verify_sri(raw, integrity)
++        (downloads/f'{index:04d}.tgz').write_bytes(raw)
++    for engine in manifest['engines']:
++        raw = fetch(engine['url'])
++        if hashlib.sha256(raw).hexdigest() != engine['gzip_sha256']:
++            raise ValueError('engine_gzip_hash_mismatch')
++        with gzip.GzipFile(fileobj=io.BytesIO(raw)) as stream:
++            content = stream.read(MAX_ENGINE + 1)
++        if len(content) > MAX_ENGINE or hashlib.sha256(content).hexdigest() != engine['sha256']:
++            raise ValueError('engine_hash_mismatch')
++        if engine['file'] not in {'libquery-engine', 'schema-engine'}:
++            raise ValueError('engine_filename_denied')
++        dest = engines/engine['file']; dest.write_bytes(content); dest.chmod(0o700)
++    return {'packages': len(packages), 'engines': 2, 'audit_requests': 0,
++            'verified_bytes': total, 'redirects': 'exact reviewed URLs only'}
+--- C1/scripts/fl-db005-ci/run.py
++++ C2/scripts/fl-db005-ci/run.py
+@@ -7,16 +7,14 @@
+ import shutil
+ import signal
+ import secrets
+-import ssl
+ import subprocess
+ import sys
+ import time
+-import urllib.request
+ 
+ PG = 'postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24'
+ NODE = 'node@sha256:8a34c4ab3ea2c5cd194f07e317b2a8f09461d3c8b05c4e34c8ccd56d56024c4d'
+ HERE = Path(__file__).resolve().parent
+-REPORT = {'status': 'BLOCKED', 'checks': {}, 'limits': ['isolation prototype only',
++REPORT = {'status': 'BLOCKED', 'checks': {}, 'limits': ['historical dependency audit reused offline; no fresh audit','isolation prototype only',
+     'not actual Prisma/JWT/task integration', 'legacy full CI remains skipped while Draft',
+     'two existing conditional DB Jest tests remain skipped', 'no funds prerequisite release']}
+ TASK = None
+@@ -52,6 +50,13 @@
+             '-e', 'NPM_CONFIG_FUND=false', '-e', 'PRISMA_HIDE_UPDATE_MESSAGE=true', '-e', 'CHECKPOINT_DISABLE=1',
+ 
+             '-e', 'NODE_ENV=test', '-e', 'CI=true', '-e', 'DB5_RUN_PREFIX='+PREFIX]
++    argv += ['--mount', f'type=bind,src={TASK}/downloads,dst=/downloads,readonly',
++             '--mount', f'type=bind,src={TASK}/npm-cache,dst=/npm-cache',
++             '--mount', f'type=bind,src={TASK}/engines,dst=/engines,readonly',
++             '-e', 'PRISMA_QUERY_ENGINE_LIBRARY=/engines/libquery-engine',
++             '-e', 'PRISMA_SCHEMA_ENGINE_BINARY=/engines/schema-engine',
++             '-e', 'PRISMA_GENERATE_SKIP_AUTOINSTALL=1', '-e', 'NPM_CONFIG_OFFLINE=true',
++             '-e', 'NPM_CONFIG_IGNORE_SCRIPTS=true', '-e', 'NPM_CONFIG_CACHE=/npm-cache']
+     if auth:
+         for i in [3, 4]:
+             argv += ['--mount', f'type=bind,src={TASK}/private/r{i},dst=/auth/r{i},readonly']
+@@ -80,16 +85,26 @@
+         assert item.get('integrity', '').startswith(('sha512-', 'sha256-'))
+     payload = HERE/'approved-audit-payload.json'
+     assert digest(payload) == m['approved_audit_payload_sha256']
++    assert digest(HERE/'completed-audit-evidence.json') == m['completed_audit_evidence_sha256']
+     REPORT['checks']['input_hashes'] = 'PASS'
+     return m
+ 
+ 
+ def audit(m):
+-    """One exact approved Bulk request; response kept in memory and reduced to counts."""
++    """Offline association only. No Bulk, QuickAudit, npm audit or network calls."""
+     src = HERE/'approved-audit-payload.json'
++    evidence = HERE/'completed-audit-evidence.json'
+     assert digest(src) == m['approved_audit_payload_sha256']
++    assert digest(evidence) == m['completed_audit_evidence_sha256']
+     approved = json.loads(src.read_text())
++    prior = json.loads(evidence.read_text())
+     assert len(approved['packages']) == 174 and not approved['unknown']
++    assert prior['approved_source_sha256'] == digest(src)
++    assert prior['http_status'] == 200 and prior['source_pairs'] == 174
++    assert prior['time_utc'] == '2026-10-01T05:43:50.613759+00:00'
++    assert prior['endpoint'] == 'https://registry.npmjs.org/-/npm/v1/security/advisories/bulk'
++    assert prior['fallback'] is False and prior['credentials_sent'] is False
++    assert prior['private_context_sent'] is False and prior['matched_advisories'] == 4
+     inventory = json.loads(node('inventory', 'none', TASK/'backend', ['node', '-e',
+         "const fs=require('fs'),path=require('path'),out=[];"
+         "function scan(d){for(const x of fs.readdirSync(d,{withFileTypes:true})){"
+@@ -101,37 +116,23 @@
+         "scan('/work/node_modules');console.log(JSON.stringify(out));"]))
+     installed = {(p['name'], p['version']) for p in inventory}
+     pairs = {(p['name'], p['version']) for p in approved['packages']}
+-    assert len(pairs) == 174 and pairs <= installed
+-    # The fixed lock hash covers dependency graph changes; audit is only the approved prod subset.
++    assert len(pairs) == 172 and len({name for name, _ in pairs}) == 165 and pairs <= installed
+     packages = {}
+     for name, version in sorted(pairs):
+         assert re.fullmatch(r'(?:@[a-z0-9._-]+/)?[a-z0-9._-]+', name)
+         assert re.fullmatch(r'[0-9A-Za-z.+_-]+', version)
+         packages.setdefault(name, []).append(version)
+     wire = json.dumps(packages, separators=(',', ':')).encode()
+-    class NoRedirect(urllib.request.HTTPRedirectHandler):
+-        def redirect_request(self, *args, **kwargs):
+-            raise RuntimeError('redirect_denied')
+-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect(),
+-        urllib.request.HTTPSHandler(context=ssl.create_default_context()))
+-    req = urllib.request.Request('https://registry.npmjs.org/-/npm/v1/security/advisories/bulk',
+-        data=wire, method='POST', headers={'Content-Type': 'application/json'})
+-    with opener.open(req, timeout=30) as response:
+-        assert response.status == 200
+-        raw = response.read(4_000_001)
+-    assert len(raw) <= 4_000_000
+-    reply = json.loads(raw)
+-    assert isinstance(reply, dict) and set(reply) <= set(packages)
+-    counts = dict.fromkeys(['info', 'low', 'moderate', 'high', 'critical'], 0)
+-    # Version matching is offline in a container without authentication or network access.
++    assert hashlib.sha256(wire).hexdigest() == prior['wire_sha256']
+     candidates = []
+-    for name, entries in reply.items():
+-        assert isinstance(entries, list)
+-        for item in entries:
+-            severity = item['severity']; bounds = item['vulnerable_versions']
+-            assert severity in counts and isinstance(bounds, str) and len(bounds) < 4096
+-            for version in packages[name]:
+-                candidates.append({'version': version, 'range': bounds, 'severity': severity})
++    for item in prior['advisories']:
++        assert item['package'] in packages and item['severity'] == 'moderate'
++        assert item['installed_affected'] is True
++        for version in item['affected_installed_versions']:
++            assert (item['package'], version) in pairs
++            candidates.append({'version': version, 'range': item['vulnerable_versions'],
++                               'severity': item['severity']})
++    assert len(prior['advisories']) == 4 and len(candidates) == 4
+     (TASK/'results/audit-candidates.json').write_text(json.dumps(candidates))
+     matching = json.loads(node('audit-match', 'none', TASK/'backend', ['node', '-e',
+         "const fs=require('fs'),semver=require('/work/node_modules/semver');"
+@@ -139,13 +140,16 @@
+         "if(c.some(x=>!semver.validRange(x.range)))process.exit(2);"
+         "console.log(JSON.stringify(c.filter(x=>semver.satisfies(x.version,x.range))"
+         ".map(x=>x.severity))); "]))
+-    for severity in matching:
+-        counts[severity] += 1
+-    REPORT['audit'] = {'approved_source_sha256': digest(src),
+-        'wire_sha256': hashlib.sha256(wire).hexdigest(), 'pairs': 174,
+-        'matching_severity_counts': counts, 'fallback': False}
+-    assert counts['critical'] == 0 and counts['high'] == 0
+-    REPORT['checks']['restricted_audit'] = 'PASS_WITH_ADVISORY_LIMITS' if matching else 'PASS'
++    assert matching == ['moderate'] * 4
++    REPORT['audit'] = {'mode': 'REUSED_OFFLINE_NOT_FRESH_AUDIT', 'network_requests': 0,
++        'approved_source_sha256': digest(src), 'evidence_sha256': digest(evidence),
++        'prior_audit_time': prior['time_utc'], 'prior_http_status': 200,
++        'endpoint_class': 'official npm Bulk (historical only)',
++        'wire_sha256': prior['wire_sha256'], 'source_records': 174, 'unique_pairs': 172, 'package_names': 165,
++        'matching_severity_counts': {'moderate': 4, 'high': 0, 'critical': 0},
++        'response_summary': 'four retained matching advisories; not raw-response hash',
++        'limit': 'No new advisories fetched; unchanged approved dependency snapshot only.'}
++    REPORT['checks']['prior_audit_offline_linkage'] = 'PASS_WITH_FOUR_MODERATE'
+ 
+ 
+ def stop():
+@@ -157,12 +161,19 @@
+     for name in names:
+         inspected = subprocess.run(['docker', 'inspect', name], capture_output=True, text=True, timeout=10)
+         if inspected.returncode:
+-            continue
++            if 'No such object' in inspected.stderr or 'No such container' in inspected.stderr:
++                continue
++            raise RuntimeError('container_state_unverified')
+         labels = json.loads(inspected.stdout)[0]['Config'].get('Labels') or {}
+         if labels.get('fl-db005.ci-session') != SESSION:
+             continue
+-        subprocess.run(['docker', 'stop', '--time', '5', name],
++        stopped = subprocess.run(['docker', 'stop', '--time', '5', name],
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
++        if stopped.returncode:
++            raise RuntimeError('container_stop_unverified')
++        state = json.loads(run(['docker', 'inspect', name], timeout=10))[0]['State']
++        if state['Running']:
++            raise RuntimeError('container_still_running')
+ 
+ 
+ def main():
+@@ -209,9 +220,13 @@
+     for image in [PG, NODE]:
+         run(['docker', 'pull', '--platform', 'linux/amd64', image])
+         assert image in json.loads(run(['docker', 'image', 'inspect', image]))[0]['RepoDigests']
+-    node('install', 'bridge', TASK/'prepare', ['sh', '-eu', '-c',
++    # Fetch fixed bytes with strict URL, redirect and integrity controls BEFORE any auth exists.
++    import prepare_downloads
++    REPORT['downloads'] = prepare_downloads.main(TASK, HERE)
++    node('install', 'none', TASK/'prepare', ['sh', '-eu', '-c',
+         'test "$(node --version)" = v22.23.2 && test "$(npm --version)" = 10.9.8 && '
+-        'npm ci --ignore-scripts --no-audit --no-fund --registry=https://registry.npmjs.org '
++        'for f in /downloads/*.tgz; do npm cache add "$f" --offline --ignore-scripts --no-audit --no-fund; done && '
++        'npm ci --offline --ignore-scripts --no-audit --no-fund '
+         '&& node node_modules/prisma/build/index.js generate --schema=prisma/schema.prisma'])
+     node('build', 'none', TASK/'backend', ['npm', 'run', 'build'])
+     node('lint', 'none', TASK/'backend', ['npm', 'run', 'lint'])
+@@ -226,7 +241,7 @@
+         assert j['numPendingTests'] == (2 if filename == 'jest' else 0)
+         REPORT[filename] = {k: j[k] for k in ['numPassedTests', 'numFailedTests', 'numPendingTests']}
+     REPORT['checks']['build_lint_jest'] = 'PASS'
+-    audit(m)  # Last network-dependent operation; no task DB/auth exists yet.
++    audit(m)  # Offline historical evidence only; never performs a network audit.
+     net = PREFIX+'-isolated'
+     p = subprocess.run(['docker', 'network', 'inspect', net], capture_output=True)
+     assert p.returncode != 0

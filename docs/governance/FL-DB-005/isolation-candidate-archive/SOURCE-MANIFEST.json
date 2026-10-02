@@ -1,0 +1,37 @@
+{
+  "classification": "ISOLATION_ONLY_NOT_A_FORMAL_MIGRATION",
+  "source_repository": "fastlik-backend",
+  "source_head": "d33a85520aff868cdfa867c45b10911592230f77",
+  "original_governance_head": "3aa61e141c40b3e2d26a6804bc295c2c32ebdef6",
+  "archive_verified_before_business_removal": true,
+  "files": [
+    {
+      "source": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "destination": "docs/governance/FL-DB-005/isolation-candidate-archive/sql/20261001050000_fl_db005_identity_rls/migration.sql",
+      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3",
+      "bytes": 19249,
+      "source_blob_oid": "a038e0a0015b77b3c26bcce5d3bf45adc3ef31b1",
+      "source_head": "d33a85520aff868cdfa867c45b10911592230f77",
+      "archive_byte_equal": true
+    },
+    {
+      "source": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "destination": "docs/governance/FL-DB-005/isolation-candidate-archive/sql/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+      "bytes": 3909,
+      "source_blob_oid": "f5581a76d34a25105c57fc0148a8d0997c582650",
+      "source_head": "d33a85520aff868cdfa867c45b10911592230f77",
+      "archive_byte_equal": true
+    },
+    {
+      "source": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "destination": "docs/governance/FL-DB-005/isolation-candidate-archive/sql/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b",
+      "bytes": 2144,
+      "source_blob_oid": "818d3bcbf5551ceaa32d480478f74c3dd848330b",
+      "source_head": "d33a85520aff868cdfa867c45b10911592230f77",
+      "archive_byte_equal": true
+    }
+  ],
+  "candidate_SQL_executed_this_round": false
+}

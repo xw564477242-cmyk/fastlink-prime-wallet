@@ -1,0 +1,1069 @@
+{
+  "status": "PASS",
+  "test": "DB5-T06",
+  "scope": "approved default-deny contract/evidence match",
+  "matched_tables": 52,
+  "catalog_rounds": [
+    5,
+    6
+  ],
+  "matches": [
+    {
+      "round": 5,
+      "table": "AdminSession",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "ApiClient",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "ApiKey",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "AuditLog",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Card",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardBalance",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardHolder",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardLifecycleEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardLimit",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardRenewal",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardReplacement",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardRestriction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardSecurityProfile",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "CardTransaction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "EndUserRefreshToken",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "EndUserSession",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "EvidenceArtifact",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "FxConversion",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "FxOrder",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "FxRate",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Journal",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "JournalEntry",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Merchant",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "MerchantPayment",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "MerchantQrCode",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Permission",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "ProviderOperation",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Role",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "RolePermission",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "SettlementBatch",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "SettlementItem",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "SimulationRecord",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "SimulationScenario",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "Tenant",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "TenantCardProviderConfig",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "TenantUser",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "TenantUserRole",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "TreasuryPosition",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "WalletAccount",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "WalletOperation",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "WalletTransaction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "WebhookEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "tenant_third_party_config",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "third_party_asset_orders",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "third_party_callback_events",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "treasury_accounts",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "treasury_fx_orders",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "treasury_operation_logs",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "treasury_settlements",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "ucard_card_base",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 5,
+      "table": "ucard_transactions",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "AdminSession",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "ApiClient",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "ApiKey",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "AuditLog",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Card",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardBalance",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardHolder",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardLifecycleEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardLimit",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardRenewal",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardReplacement",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardRestriction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardSecurityProfile",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "CardTransaction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "EndUserRefreshToken",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "EndUserSession",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "EvidenceArtifact",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "FxConversion",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "FxOrder",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "FxRate",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Journal",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "JournalEntry",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Merchant",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "MerchantPayment",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "MerchantQrCode",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Permission",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "ProviderOperation",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Role",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "RolePermission",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "SettlementBatch",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "SettlementItem",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "SimulationRecord",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "SimulationScenario",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "Tenant",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "TenantCardProviderConfig",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "TenantUser",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "TenantUserRole",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "TreasuryPosition",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "WalletAccount",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "WalletOperation",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "WalletTransaction",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "WebhookEvent",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "tenant_third_party_config",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "third_party_asset_orders",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "third_party_callback_events",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "treasury_accounts",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "treasury_fx_orders",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "treasury_operation_logs",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "treasury_settlements",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "ucard_card_base",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    },
+    {
+      "round": 6,
+      "table": "ucard_transactions",
+      "rls": true,
+      "force_rls": true,
+      "non_owner_grants": 0,
+      "policies": 0,
+      "approved_crud": "DENY_ALL",
+      "match": true
+    }
+  ],
+  "positive_exception_table_count": 2,
+  "positive_permissions_added": 0,
+  "source_sha256": {
+    "OWNER-CONTRACT-APPROVAL-R3.md": "da345b13f1177594ed0266dee42c38b8339da316b99db694e6b4fab4ad7d957a",
+    "evidence/52-table-approved-contract-r3.json": "fdcdae3c23484788f9bc8f85cbc427eaba6a4bb44b01e706f5011a91e79fb529",
+    "evidence/52-table-contract-approval-matrix.json": "cb54bc8200f8c2e4c7131e5da792ab81435901606c973fd6433bbcd131cdc5f1",
+    "evidence/final-chain-catalog.json": "e79a31fdc463a2fe72af0b881b9d56c1dadb2a8edb426cf76f82344a4d5f6f58",
+    "evidence/table-scope-final.json": "a5f23db674ba8d3ae62d4d79210c4165fd68fd3fa2f88d37802eda31cf576d5f",
+    "evidence/dynamic-final-r5-r6.json": "3c44b91323b8c9ebb1bcefb73b72e527d6ed4a63db1b66dbf119731a0d09cc3d",
+    "evidence/negative-final-r5-r6.json": "6714596f366f605b5273d818180c71bd1474e993ef4d8439e240984b6a1e6e9d"
+  },
+  "database_executions": 0,
+  "limitations": [
+    "Offline retained-catalog and source-structure checks, not new dynamic tests",
+    "Does not prove business usability, actual Prisma/JWT/task integration or owner isolation",
+    "T08-T15 remain LIMITED; full CI and funds prerequisite remain unresolved"
+  ]
+}

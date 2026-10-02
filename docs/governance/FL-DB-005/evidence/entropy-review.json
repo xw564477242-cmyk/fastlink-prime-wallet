@@ -1,0 +1,72 @@
+{
+  "raw_candidates": 9,
+  "classified_non_secret": 9,
+  "unresolved": 0,
+  "format_hits": 0,
+  "task_auth_material_hits": 0,
+  "items": [
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/run_node.py",
+      "length": 52,
+      "fingerprint": "592e34a77968cfd635a4830f48c80971be46032a81776850256d1fb338799fd5",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Known non-secret tool option: engine/password file path or SCRAM mode; not an authentication value."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/rebuild.py",
+      "length": 40,
+      "fingerprint": "fe18c8e16315781064d7d51b470760301d5d9c25c1183a1bf6d454d211b237b6",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Known non-secret tool option: engine/password file path or SCRAM mode; not an authentication value."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/tools/rebuild.py",
+      "length": 46,
+      "fingerprint": "f51a0571c22cfac73f86d333606916a8f551d6a5f8c4ced283dacd9dd265d44b",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Known non-secret tool option: engine/password file path or SCRAM mode; not an authentication value."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 49,
+      "fingerprint": "cf2a7de01700304044cede37f5afe00ea4b5a57dbbdc60de0d8a5419dfbc5a85",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 44,
+      "fingerprint": "37da5032341095bb42339bad16d5210427090b117498faed5060dc795eb21441",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 51,
+      "fingerprint": "f5c3677b7e558e54f318ee52fb719893511f8ae24fab50c7c12358a63f87d2d7",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 46,
+      "fingerprint": "7d8aad98d99a9bc43c948839559d53e93cdbfe224e15a596a444f31438de6ff3",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 47,
+      "fingerprint": "5117ce81e531fd4ee121d8747164d8115e5a6228987845ca96324c5203c77787",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    },
+    {
+      "path": "evidence/docs/governance/FL-DB-005/evidence/source-protection.json",
+      "length": 48,
+      "fingerprint": "8e9a738f92deca6f1c30cc4796953d09bcc3dbb7a7bfb5baeba385cc5133c0e4",
+      "classification": "STRUCTURED_NON_SECRET",
+      "basis": "Exact fragment of a recorded new governance file path; path checked against source-protection inventory."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "round": 1,
+    "candidate_sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+    "exit": 0,
+    "sqlstate": [],
+    "existing_migration_edited": false
+  },
+  {
+    "round": 2,
+    "candidate_sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+    "exit": 0,
+    "sqlstate": [],
+    "existing_migration_edited": false
+  }
+]
