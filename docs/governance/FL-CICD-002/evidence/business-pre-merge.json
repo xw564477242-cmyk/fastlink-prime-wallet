@@ -1,0 +1,86 @@
+{
+  "observed_at": "2026-10-02T08:20:25.638251+00:00",
+  "pr": {
+    "additions": 191,
+    "autoMergeRequest": null,
+    "baseRefName": "dev",
+    "deletions": 24,
+    "files": [
+      {
+        "path": ".github/workflows/ci.yml",
+        "additions": 17,
+        "deletions": 1,
+        "changeType": "MODIFIED"
+      },
+      {
+        "path": ".github/workflows/dev-reset-round-trip.yml",
+        "additions": 19,
+        "deletions": 2,
+        "changeType": "MODIFIED"
+      },
+      {
+        "path": ".github/workflows/pull-request.yml",
+        "additions": 11,
+        "deletions": 0,
+        "changeType": "MODIFIED"
+      },
+      {
+        "path": "scripts/validate-dev-railway-config.mjs",
+        "additions": 79,
+        "deletions": 20,
+        "changeType": "MODIFIED"
+      },
+      {
+        "path": "scripts/validate-dev-railway-config.spec.mjs",
+        "additions": 65,
+        "deletions": 1,
+        "changeType": "MODIFIED"
+      }
+    ],
+    "headRefOid": "a838758951e42375c414572a09e48075075d1a09",
+    "isDraft": false,
+    "state": "OPEN",
+    "url": "https://github.com/xw564477242-cmyk/fastlik-backend/pull/337"
+  },
+  "refs": {
+    "dev": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+    "test": "1efc76ea79d61dd0affda87b014ea4a36101cf26",
+    "uat": "ABSENT",
+    "main": "74e5be019c8c91acee6ca241956fc24dfe8ae826"
+  },
+  "runs": [
+    {
+      "id": 36979829114,
+      "name": "Backend Pull Request Gate",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36979829114"
+    },
+    {
+      "id": 36979829096,
+      "name": "FastLink Backend Non-Production CI",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36979829096"
+    },
+    {
+      "id": 36979829083,
+      "name": "Dev Reset Round Trip",
+      "head_sha": "a838758951e42375c414572a09e48075075d1a09",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "run_attempt": 1,
+      "html_url": "https://github.com/xw564477242-cmyk/fastlik-backend/actions/runs/36979829083"
+    }
+  ],
+  "deployment_records": 0,
+  "approved_tree": "9d07fe7499f07edb535277095d74caae662382dd",
+  "artifact_basis": "owner accepted external new-artifact scan; local download owner-terminated with 46333952 bytes retained; not local reproduction"
+}

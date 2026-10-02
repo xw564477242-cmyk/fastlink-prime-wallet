@@ -1,0 +1,23 @@
+{
+  "deployments": {
+    "fastlik-backend": {
+      "head": "a838758951e42375c414572a09e48075075d1a09",
+      "deployment_records": 0
+    }
+  },
+  "post_action_refs": {
+    "fastlik-backend": {
+      "dev": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+      "test": "1efc76ea79d61dd0affda87b014ea4a36101cf26",
+      "uat": "ABSENT",
+      "main": "74e5be019c8c91acee6ca241956fc24dfe8ae826"
+    },
+    "fastlink-prime-wallet": {
+      "dev": "2621b7ba4abcf9142423712a3be8f1222cd7ae83",
+      "test": "7433607f6b10135e0f116853687cae614db13d6d",
+      "uat": "ABSENT",
+      "main": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18"
+    }
+  },
+  "scope": "Post-action snapshot; no new measurement of pre-action test/uat/main, not presented as byte-for-byte historical proof."
+}

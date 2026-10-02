@@ -1,0 +1,33 @@
+{
+  "commit": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+  "files": [
+    {
+      "path": "scripts/validate-dev-railway-config.mjs",
+      "sha256": "e1e61726c4cbc6a8851afdf38d6e9fb889b1a8eb908923099cba53f274f5f304"
+    },
+    {
+      "path": "railway.dev-candidate.json",
+      "sha256": "4dd163e765ab5eec68ac096a41c0ff318a073ce394debec725bdc56c0b9ec796"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "19a8246171068f3ed08eca89c8db79474b3415b3c21b74b59afd326c9ee5ff94"
+    },
+    {
+      "path": "package.json",
+      "sha256": "3847ce2f0d188dd9106a4e0ebd4375fb4f5b624ed4778d03ecfa28d798e9aeef"
+    },
+    {
+      "path": ".github/workflows/pull-request.yml",
+      "sha256": "9e4479032ed1c2d32947a536bf514c836e58badcdfd795184f20e1fbd399e8a0"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "a93145b08113d9af601cab8a73bb9afefc307a051542d64bac259c35495fc0b8"
+    },
+    {
+      "path": ".github/workflows/dev-reset-round-trip.yml",
+      "sha256": "1e444c7344405be5402c8e97097c4eccc19eb7fa9d2e6939b980a87c6e7534a9"
+    }
+  ]
+}
