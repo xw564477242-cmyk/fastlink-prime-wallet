@@ -1,0 +1,422 @@
+{
+  "checkpoint": "first commit PR verification; final revision CI supplied separately",
+  "pr": {
+    "autoMergeRequest": null,
+    "baseRefName": "dev",
+    "files": [
+      {
+        "path": "docs/governance/FL-DB-007/CHANGE-ROLLBACK-AND-SCOPE.md",
+        "additions": 17,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/CONFLICT-QUEUE.json",
+        "additions": 117,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/FIELD-AND-STATE-BOUNDARIES.md",
+        "additions": 24,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/HANDOFF.md",
+        "additions": 30,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/IMPLEMENTATION-GAPS.json",
+        "additions": 297,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/POLICY-CONTRACTS.json",
+        "additions": 17443,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/PRODUCT-BOUNDARY.md",
+        "additions": 25,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/PROFILE-MAP.json",
+        "additions": 84,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/README.md",
+        "additions": 26,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/ROLE-AND-COMMAND-BOUNDARIES.md",
+        "additions": 31,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/ROLE-CRUD-MATRIX.csv",
+        "additions": 325,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/SELF-TEST.md",
+        "additions": 34,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/SHA256SUMS",
+        "additions": 31,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/STATE-CONTRACTS.json",
+        "additions": 1162,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/STATE-SUCCESSION-AND-BASELINE-DELTA.md",
+        "additions": 13,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/STATE-SUCCESSION.json",
+        "additions": 402,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/TABLE-POLICY-MATRIX.md",
+        "additions": 60,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/TEST-DEFINITIONS.json",
+        "additions": 118,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/COVERAGE.json",
+        "additions": 32,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/SOURCE-INDEX.json",
+        "additions": 63,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/basepoints.json",
+        "additions": 11,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/scope-check.json",
+        "additions": 57,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/sensitive-scan.json",
+        "additions": 45,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/test-status-pre-submission.json",
+        "additions": 118,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/validation-initial.json",
+        "additions": 137,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/evidence/validation.json",
+        "additions": 134,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/sources/00-OWNER-DECISION.md",
+        "additions": 82,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/sources/01-PAUSE.md",
+        "additions": 9,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/sources/02-CORRECTION-AND-RESUME.md",
+        "additions": 19,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/sources/03-GATE1-APPROVAL.md",
+        "additions": 58,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/tools/check_policy.py",
+        "additions": 105,
+        "deletions": 0,
+        "changeType": "ADDED"
+      },
+      {
+        "path": "docs/governance/FL-DB-007/tools/scan_governance.py",
+        "additions": 53,
+        "deletions": 0,
+        "changeType": "ADDED"
+      }
+    ],
+    "headRefOid": "2644974690f99de41530b941f81df76884b179d5",
+    "isDraft": true,
+    "number": 91,
+    "state": "OPEN",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-02T15:11:41Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/actions/runs/37025134439/job/110897720788",
+        "name": "verify",
+        "startedAt": "2026-10-02T15:10:54Z",
+        "status": "COMPLETED",
+        "workflowName": "Prime Wallet Pull Request Gate"
+      }
+    ],
+    "url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/91"
+  },
+  "ci": {
+    "databaseId": 37025134439,
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "2644974690f99de41530b941f81df76884b179d5",
+    "event": "pull_request",
+    "name": "Prime Wallet Pull Request Gate",
+    "url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/actions/runs/37025134439"
+  },
+  "deployments_for_head": 0,
+  "tree_comparison": {
+    "base": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+    "head": "2644974690f99de41530b941f81df76884b179d5",
+    "old_tracked_count": 1061,
+    "old_path_mode_blob_changes": [],
+    "added_count": 32,
+    "all_new_under_authorized_directory": true,
+    "business_workflow_database_changes": 0,
+    "note": "Git tree comparison; does not read protected original workspace overlays or cloud archive"
+  },
+  "static_validation": {
+    "scope": "DB7 governance only",
+    "read_only": true,
+    "dynamic_tests": 0,
+    "total": 32,
+    "failed": 0,
+    "validation_error_categories": [],
+    "checks": [
+      {
+        "name": "54 records/profiles/roles/fields/state/JIT/no direct access",
+        "status": "PASS"
+      },
+      {
+        "name": "authority source has exactly 12 groups/54 tables",
+        "status": "PASS"
+      },
+      {
+        "name": "four authority originals unchanged against source index",
+        "status": "PASS"
+      },
+      {
+        "name": "324 role rows/1296 cells exact JSON CSV agreement",
+        "status": "PASS"
+      },
+      {
+        "name": "47/7 old decisions retained separately from 54 approved policy",
+        "status": "PASS"
+      },
+      {
+        "name": "P12 all four quarantined",
+        "status": "PASS"
+      },
+      {
+        "name": "6 explicit conflicts, 3 unresolved without broadening",
+        "status": "PASS"
+      },
+      {
+        "name": "9 gap groups map to real table names",
+        "status": "PASS"
+      },
+      {
+        "name": "withdrawal deletion and missing provider state remain blocked",
+        "status": "PASS"
+      },
+      {
+        "name": "simulator not mapped to scheduler write identity",
+        "status": "PASS"
+      },
+      {
+        "name": "only approved task families named",
+        "status": "PASS"
+      },
+      {
+        "name": "runtime merely carries principal, never blanket grant",
+        "status": "PASS"
+      },
+      {
+        "name": "logical state index agrees with per-table contracts",
+        "status": "PASS"
+      },
+      {
+        "name": "permanent deviations/history gaps preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "no executable SQL files or SQL fences",
+        "status": "PASS"
+      },
+      {
+        "name": "16 distinct governance tests",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: missing table",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: extra duplicate",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: wrong profile",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: false VERIFIED",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: false dynamic PASS",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: secret projection",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: immutable write",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: upstream bypass",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: JIT extended",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: JIT no approver",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: missing role",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: owner DML",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: unlisted edge allowed",
+        "status": "PASS"
+      },
+      {
+        "name": "synthetic rejection: terminal reopens",
+        "status": "PASS"
+      },
+      {
+        "name": "all governance JSON valid",
+        "status": "PASS"
+      },
+      {
+        "name": "SHA completeness and exact bytes",
+        "status": "PASS"
+      }
+    ]
+  },
+  "sensitive_scan": {
+    "scope": "only new docs/governance/FL-DB-007 files",
+    "read_only": true,
+    "files_count": 32,
+    "files": [
+      "CHANGE-ROLLBACK-AND-SCOPE.md",
+      "CONFLICT-QUEUE.json",
+      "FIELD-AND-STATE-BOUNDARIES.md",
+      "HANDOFF.md",
+      "IMPLEMENTATION-GAPS.json",
+      "POLICY-CONTRACTS.json",
+      "PRODUCT-BOUNDARY.md",
+      "PROFILE-MAP.json",
+      "README.md",
+      "ROLE-AND-COMMAND-BOUNDARIES.md",
+      "ROLE-CRUD-MATRIX.csv",
+      "SELF-TEST.md",
+      "SHA256SUMS",
+      "STATE-CONTRACTS.json",
+      "STATE-SUCCESSION-AND-BASELINE-DELTA.md",
+      "STATE-SUCCESSION.json",
+      "TABLE-POLICY-MATRIX.md",
+      "TEST-DEFINITIONS.json",
+      "evidence/COVERAGE.json",
+      "evidence/SOURCE-INDEX.json",
+      "evidence/basepoints.json",
+      "evidence/scope-check.json",
+      "evidence/sensitive-scan.json",
+      "evidence/test-status-pre-submission.json",
+      "evidence/validation-initial.json",
+      "evidence/validation.json",
+      "sources/00-OWNER-DECISION.md",
+      "sources/01-PAUSE.md",
+      "sources/02-CORRECTION-AND-RESUME.md",
+      "sources/03-GATE1-APPROVAL.md",
+      "tools/check_policy.py",
+      "tools/scan_governance.py"
+    ],
+    "explicit_format_hits": 0,
+    "high_entropy_hits": 0,
+    "contextual_hex_digest_exclusions": 92,
+    "findings": [],
+    "actual_secret_material_read": false,
+    "actual_secret_equality_check": "NOT_PERFORMED; no permission to read real keys",
+    "limits": "Heuristic format/literal scan; no whole-project scan or proof that all secrets are absent."
+  }
+}
