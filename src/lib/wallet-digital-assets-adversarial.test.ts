@@ -90,6 +90,39 @@ describe("Wallet digital asset catalog contract", () => {
 });
 
 describe("Owned Wallet account history contract", () => {
+  it("accepts a complete card binding, keeps legacy rows compatible, and rejects partial identity", () => {
+    const cardBound = normalizeWalletOwnedAccountTransactionResponse(
+      JSON.stringify({
+        items: [
+          transaction("tx-card", "2026-08-03T12:00:00.000Z", {
+            cardId: "card_01",
+            cardType: "VIRTUAL",
+          }),
+        ],
+        nextCursor: null,
+      }),
+      "account-usdt",
+      { ...query, limit: 1 },
+    );
+    expect(cardBound.items[0]).toEqual(
+      expect.objectContaining({ cardId: "card_01", cardType: "virtual" }),
+    );
+    expect(() =>
+      normalizeWalletOwnedAccountTransactionResponse(
+        JSON.stringify({
+          items: [
+            transaction("tx-partial", "2026-08-03T12:00:00.000Z", {
+              cardId: "card_01",
+            }),
+          ],
+          nextCursor: null,
+        }),
+        "account-usdt",
+        { ...query, limit: 1 },
+      ),
+    ).toThrow();
+  });
+
   it("accepts exact account-bound, filtered, newest-first items and a canonical cursor", () => {
     expect(
       normalizeWalletOwnedAccountTransactionResponse(

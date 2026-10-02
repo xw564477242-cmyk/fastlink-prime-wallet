@@ -527,6 +527,28 @@ export function CardsPage() {
               <div className="mt-3">
                 <Metric label="Status" value={current.status.toUpperCase()} />
               </div>
+              {current.effectiveFees && (
+                <div className="mt-3 rounded-2xl border border-border/60 bg-surface/60 p-4">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                    Effective Card fees · {current.effectiveFees.templateId}
+                  </p>
+                  <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
+                    <Metric
+                      label="USDT deposit"
+                      value={`${current.effectiveFees.usdtDepositRate}%`}
+                    />
+                    <Metric label="Card spend" value={`${current.effectiveFees.cardSpendRate}%`} />
+                    <Metric
+                      label="Asset withdrawal"
+                      value={`${current.effectiveFees.assetWithdrawRate}%`}
+                    />
+                    <Metric
+                      label="ATM withdrawal"
+                      value={`${current.effectiveFees.cashWithdrawRate}%`}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="mt-4 grid grid-cols-2 gap-2">
@@ -621,8 +643,8 @@ export function CardsPage() {
                 <Detail label={t("cards.cvv")} value="Unavailable" />
               </div>
               <p className="mt-4 text-[10px] leading-relaxed text-muted-foreground">
-                PIN, CVV, physical-card application, and card funding are disabled because the
-                Railway Backend end-user API does not expose those contracts.
+                PIN and CVV remain unavailable. Card fees and application pricing are read-only
+                values returned by the Railway Backend Phase-1 contract.
               </p>
             </div>
 

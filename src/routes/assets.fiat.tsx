@@ -268,6 +268,11 @@ export function WalletAccountsPage() {
                     <p className="truncate text-xs text-muted-foreground">
                       {new Date(item.createdAt).toLocaleString()} · {item.status}
                     </p>
+                    <p translate="no" className="truncate text-[10px] text-muted-foreground">
+                      {item.cardId && item.cardType
+                        ? `${item.cardType} · ${item.cardId}`
+                        : "No card binding"}
+                    </p>
                   </div>
                   <p translate="no" className="shrink-0 text-sm font-semibold tabular-nums">
                     {outgoing ? "−" : "+"}
@@ -467,6 +472,12 @@ function TransactionDetail({
         </dd>
         <dt className="text-muted-foreground">Direction</dt>
         <dd className="text-right">{detail.direction}</dd>
+        <dt className="text-muted-foreground">Card</dt>
+        <dd translate="no" className="truncate text-right font-mono">
+          {detail.cardId && detail.cardType
+            ? `${detail.cardType} · ${detail.cardId}`
+            : "No card binding"}
+        </dd>
         <dt className="text-muted-foreground">Created</dt>
         <dd className="text-right">{new Date(detail.createdAt).toLocaleString()}</dd>
         <dt className="text-muted-foreground">Updated</dt>
