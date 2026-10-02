@@ -14,3 +14,5 @@
 📌下一任务仅需读取文件：
 - 本目录README、TEST-REPORT、LIMITATIONS、REFRESH-AND-STALE、ROLLBACK、BASELINE-DELTA及evidence/元数据。
 - SHA256SUMS校验本目录其他文件，清单自身摘要由最终外置HANDOFF给出。治理PR/最终HEAD/CI由最终交接追加，不在文件中伪造自引用HEAD。
+
+追加：治理Draft PR [#89](https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/89)已创建，目标dev，无自动合并；业务Draft [#337](https://github.com/xw564477242-cmyk/fastlik-backend/pull/337)。T14范围和交付项通过，最终11 PASS、T02/T04/T12三项LIMITED。此前生成时状态保留。最终治理完整HEAD和对应CI由本轮外置交接返回，不把早期提交的CI写成最终HEAD通过。

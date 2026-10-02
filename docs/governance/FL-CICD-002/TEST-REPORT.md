@@ -20,3 +20,7 @@
 | CICD2-T14 | 双Draft PR范围、失败历史、回滚、永久限制及HANDOFF完整 | LIMITED | 业务Draft已创建；治理Draft提交及CI完成后由最终HANDOFF追加状态，保留本生成时点 |
 
 本地lint exit0；node语法检查通过；两轮候选27项子控制及13组语义比较不冒充远端完整CI。控制TAP结果仅保留测试统计与摘要，未提交候选样本。
+
+## 追加：双Draft PR建立后的最终自测口径
+
+业务#337和治理#89已创建且均指向dev、Draft、无自动合并。CICD2-T14转PASS；原生成时LIMITED记录保留。最终11 PASS、3 LIMITED：T02、T04、T12继续LIMITED。逐项定义不变，机器结果见evidence/test-status-final.json。最终治理CI以对应最终HEAD的外置HANDOFF为准，不沿用先前提交CI。

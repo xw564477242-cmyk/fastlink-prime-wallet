@@ -20,3 +20,5 @@
 - [HANDOFF](HANDOFF.md)
 
 固定候选SHA `0302fd53109298d9c277dbaedae772630506d8da43636e69875268a8782dd68f` 是收到字节的指纹，不是官方原始摘要或许可证证明。禁止将Schema正文、Base64或编译派生正文写入Git、报告、日志或制品。
+
+治理：[PR #89](https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/89)。测试最终口径见TEST-REPORT追加记录。
