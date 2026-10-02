@@ -1,0 +1,120 @@
+{
+  "work_order": "FL-DB-006",
+  "version": 1,
+  "gate1_provided_number_range_only": true,
+  "definition_note": "本轮在执行治理校验前固定16项映射；设计验证与正式实现分别列示，不用文档存在冒充运行安全。",
+  "tests": [
+    {
+      "id": "DB6-T01",
+      "name": "权威基线/固定SHA与复用边界",
+      "status": "PASS",
+      "basis": "evidence/basepoints.json; evidence/source-manifest.json",
+      "limit": "门禁5本机记录与Git归档分开；不声称已部署一致"
+    },
+    {
+      "id": "DB6-T02",
+      "name": "历史目录与当前模型集合对账",
+      "status": "PASS",
+      "basis": "evidence/catalog-reconciliation.json",
+      "limit": "54历史表/60模型，14项已知差异未解决，不是现场目录查询"
+    },
+    {
+      "id": "DB6-T03",
+      "name": "54表结构化契约覆盖",
+      "status": "PASS",
+      "basis": "TABLE-CONTRACTS.json; TABLE-CONTRACT-MATRIX.md",
+      "limit": "仅记录完整率，非权限审批或运行覆盖率"
+    },
+    {
+      "id": "DB6-T04",
+      "name": "6角色×4操作矩阵及决策映射完整",
+      "status": "PASS",
+      "basis": "OPERATION-MATRIX.csv; DECISION-QUEUE.json",
+      "limit": "324角色行/1296格，正式正向审批0"
+    },
+    {
+      "id": "DB6-T05",
+      "name": "正式正向业务权限获批",
+      "status": "BLOCKED",
+      "basis": "TABLE-CONTRACTS.json; DECISION-QUEUE.json",
+      "limit": "47 BLOCKED/7 UNKNOWN，缺所有者逐项业务规则与审批"
+    },
+    {
+      "id": "DB6-T06",
+      "name": "身份来源和调用路径可核验",
+      "status": "LIMITED",
+      "basis": "IDENTITY-ARCHITECTURE.md; evidence/identity-structure.json; evidence/route-reuse.json",
+      "limit": "静态符号及调用启发式；部署身份/JWT/实际GRANT未验证"
+    },
+    {
+      "id": "DB6-T07",
+      "name": "可信事务绑定正式落地可验证",
+      "status": "LIMITED",
+      "basis": "IDENTITY-ARCHITECTURE.md",
+      "limit": "方案比较已完成；issuer、连接池及正式运行集成未实施/动态未运行"
+    },
+    {
+      "id": "DB6-T08",
+      "name": "池复用/重放/失败关闭未来用例覆盖",
+      "status": "PASS",
+      "basis": "FUTURE-ACCEPTANCE.json",
+      "limit": "仅检查设计用例完整；NOT_RUN不能解释为动态PASS"
+    },
+    {
+      "id": "DB6-T09",
+      "name": "字段白名单与状态转换业务批准",
+      "status": "BLOCKED",
+      "basis": "FIELD-AND-STATE-DECISIONS.md; TABLE-CONTRACTS.json",
+      "limit": "源码字段/enum不能代替允许列/状态边审批"
+    },
+    {
+      "id": "DB6-T10",
+      "name": "平台及任务例外批准",
+      "status": "BLOCKED",
+      "basis": "IDENTITY-ARCHITECTURE.md; DECISION-QUEUE.json",
+      "limit": "暂无正式跨租户例外，自然人和期限待指定"
+    },
+    {
+      "id": "DB6-T11",
+      "name": "正式新增迁移分批设计完整",
+      "status": "PASS",
+      "basis": "MIGRATION-ROLLOUT-ROLLBACK.md",
+      "limit": "无SQL、未建迁移、未执行两轮重建"
+    },
+    {
+      "id": "DB6-T12",
+      "name": "灰度与fail-closed回滚边界",
+      "status": "PASS",
+      "basis": "MIGRATION-ROLLOUT-ROLLBACK.md",
+      "limit": "设计通过不授权环境应用或回滚操作"
+    },
+    {
+      "id": "DB6-T13",
+      "name": "依赖扩散/P0拆单/差量完整",
+      "status": "PASS",
+      "basis": "RISKS-AND-FOLLOWUPS.md; STALE-MATRIX.md; BASELINE-PROPOSED-DELTA.md",
+      "limit": "建议工单未创建，正式基线未改"
+    },
+    {
+      "id": "DB6-T14",
+      "name": "只读分析与受保护现场边界",
+      "status": "LIMITED",
+      "basis": "evidence/scope-check.json; SCOPE-AND-METHOD.md",
+      "limit": "验证仅覆盖本次固定源码/治理与检查器执行区间；不读取受保护覆盖层，不声称全机逐字不变"
+    },
+    {
+      "id": "DB6-T15",
+      "name": "新增材料结构/敏感格式/SHA检查",
+      "status": "PASS",
+      "basis": "evidence/validation.json; evidence/sensitive-scan.json; SHA256SUMS",
+      "limit": "仅本目录，不扫描全项目或读取真实密钥"
+    },
+    {
+      "id": "DB6-T16",
+      "name": "Draft PR范围/CI/回滚及HANDOFF",
+      "status": "BLOCKED",
+      "basis": "HANDOFF.md; CHANGE-AND-ROLLBACK.md",
+      "limit": "生成时尚未创建Draft PR或取得该HEAD CI；提交后追加承接，禁止提前PASS"
+    }
+  ]
+}

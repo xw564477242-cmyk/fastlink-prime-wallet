@@ -1,0 +1,3450 @@
+{
+  "source": "FL-DB-003/evidence/backend-route-matrix-after.json",
+  "inherited_source_head": "4fead5f3e007d6226d63e263991c2de680744424",
+  "current_head": "2b120bc18a1e2ef3bb5ae42197c625764441db0c",
+  "routes": [
+    {
+      "id": "API-001",
+      "file": "src/admin-auth/admin-auth.controller.ts",
+      "symbol": "AdminAuthController.login",
+      "verb": "POST",
+      "path": "/api/admin/auth/login",
+      "inherited_line": 14,
+      "current_line": 14,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "adminSession.create",
+        "adminSession.updateMany",
+        "tenant.findFirst",
+        "tenantUser.findFirst"
+      ]
+    },
+    {
+      "id": "API-002",
+      "file": "src/admin-auth/admin-auth.controller.ts",
+      "symbol": "AdminAuthController.logout",
+      "verb": "POST",
+      "path": "/api/admin/auth/logout",
+      "inherited_line": 29,
+      "current_line": 29,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "adminSession.updateMany"
+      ]
+    },
+    {
+      "id": "API-003",
+      "file": "src/admin-auth/admin-auth.controller.ts",
+      "symbol": "AdminAuthController.me",
+      "verb": "GET",
+      "path": "/api/admin/auth/me",
+      "inherited_line": 36,
+      "current_line": 36,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-004",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.listProducts",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/card-products",
+      "inherited_line": 16,
+      "current_line": 16,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardProductTemplate.findMany"
+      ]
+    },
+    {
+      "id": "API-005",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.feePolicy",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/fee-policy",
+      "inherited_line": 23,
+      "current_line": 23,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-006",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.createProduct",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/card-products",
+      "inherited_line": 30,
+      "current_line": 30,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-007",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.updateProduct",
+      "verb": "PUT",
+      "path": "/api/admin/tenants/:tenantId/card-products/:productId",
+      "inherited_line": 37,
+      "current_line": 37,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-008",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.setReferralCap",
+      "verb": "PUT",
+      "path": "/api/admin/tenants/:tenantId/fee-policy/referral-cap",
+      "inherited_line": 49,
+      "current_line": 49,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-009",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.setFeeCaps",
+      "verb": "PUT",
+      "path": "/api/admin/tenants/:tenantId/fee-policy/caps",
+      "inherited_line": 60,
+      "current_line": 60,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-010",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.getCustomerReferral",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/customers/:customerId/referral",
+      "inherited_line": 71,
+      "current_line": 71,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customerReferral.findUnique"
+      ]
+    },
+    {
+      "id": "API-011",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.bindCustomerReferral",
+      "verb": "PUT",
+      "path": "/api/admin/tenants/:tenantId/customers/:customerId/referral",
+      "inherited_line": 82,
+      "current_line": 82,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-012",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.createApplication",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/card-applications",
+      "inherited_line": 94,
+      "current_line": 94,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-013",
+      "file": "src/admin-card-config/admin-card-config.controller.ts",
+      "symbol": "AdminCardConfigController.setCardFees",
+      "verb": "PUT",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/fees",
+      "inherited_line": 101,
+      "current_line": 101,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findUniqueOrThrow",
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-014",
+      "file": "src/api-clients/api-clients.controller.ts",
+      "symbol": "ApiClientsController.create",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/api-clients",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findUnique"
+      ]
+    },
+    {
+      "id": "API-015",
+      "file": "src/api-clients/api-clients.controller.ts",
+      "symbol": "ApiClientsController.list",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/api-clients",
+      "inherited_line": 14,
+      "current_line": 14,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "apiClient.findMany"
+      ]
+    },
+    {
+      "id": "API-016",
+      "file": "src/api-clients/api-clients.controller.ts",
+      "symbol": "ApiClientsController.rotate",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/api-clients/:clientId/rotate",
+      "inherited_line": 15,
+      "current_line": 15,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "apiClient.findFirst",
+        "apiKey.create",
+        "apiKey.updateMany"
+      ]
+    },
+    {
+      "id": "API-017",
+      "file": "src/api-clients/api-clients.controller.ts",
+      "symbol": "ApiClientsController.revoke",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/api-clients/:clientId/revoke",
+      "inherited_line": 16,
+      "current_line": 16,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "apiClient.findFirst",
+        "apiClient.update",
+        "apiKey.updateMany"
+      ]
+    },
+    {
+      "id": "API-018",
+      "file": "src/business-dashboards/business-dashboards.controller.ts",
+      "symbol": "BusinessDashboardsController.treasury",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/dashboards/treasury",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "treasuryPosition.findMany"
+      ]
+    },
+    {
+      "id": "API-019",
+      "file": "src/business-dashboards/business-dashboards.controller.ts",
+      "symbol": "BusinessDashboardsController.settlement",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/dashboards/settlement",
+      "inherited_line": 16,
+      "current_line": 16,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findMany",
+        "treasuryPosition.findMany",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-020",
+      "file": "src/business-dashboards/business-dashboards.controller.ts",
+      "symbol": "BusinessDashboardsController.risk",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/dashboards/risk",
+      "inherited_line": 19,
+      "current_line": 19,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.count",
+        "cardTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-021",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.createVirtual",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/virtual",
+      "inherited_line": 45,
+      "current_line": 45,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-022",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.createPhysical",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/physical",
+      "inherited_line": 48,
+      "current_line": 48,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-023",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.retrieve",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-024",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.detailSnapshot",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot",
+      "inherited_line": 54,
+      "current_line": 54,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-025",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.balanceSnapshot",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot/balance",
+      "inherited_line": 77,
+      "current_line": 77,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-026",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.limitsSnapshot",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/snapshot/limits",
+      "inherited_line": 100,
+      "current_line": 100,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-027",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.freeze",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/freeze",
+      "inherited_line": 123,
+      "current_line": 123,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-028",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.unfreeze",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/unfreeze",
+      "inherited_line": 126,
+      "current_line": 126,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-029",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.replace",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/replace",
+      "inherited_line": 129,
+      "current_line": 129,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardReplacement.findUnique"
+      ]
+    },
+    {
+      "id": "API-030",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.renew",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/renew",
+      "inherited_line": 132,
+      "current_line": 132,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardRenewal.findUnique"
+      ]
+    },
+    {
+      "id": "API-031",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.timeline",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/timeline",
+      "inherited_line": 135,
+      "current_line": 135,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.findMany",
+        "cardLifecycleEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-032",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.balance",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/balance",
+      "inherited_line": 170,
+      "current_line": 170,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-033",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.setPin",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/pin",
+      "inherited_line": 173,
+      "current_line": 173,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-034",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.retrievePin",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/pin",
+      "inherited_line": 176,
+      "current_line": 176,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-035",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.retrieveCvv",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/cvv",
+      "inherited_line": 182,
+      "current_line": 182,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-036",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.listTransactions",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/transactions",
+      "inherited_line": 188,
+      "current_line": 188,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst",
+        "cardTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-037",
+      "file": "src/card-service/card-service.controller.ts",
+      "symbol": "CardServiceController.getTransaction",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/cards/:cardId/transactions/:transactionId",
+      "inherited_line": 205,
+      "current_line": 205,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst"
+      ]
+    },
+    {
+      "id": "API-038",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.createCard",
+      "verb": "POST",
+      "path": "/api/cards",
+      "inherited_line": 18,
+      "current_line": 18,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-039",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.create",
+      "verb": "POST",
+      "path": "/api/cards/create",
+      "inherited_line": 23,
+      "current_line": 23,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardLifecycleEvent.findUnique",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-040",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.activate",
+      "verb": "POST",
+      "path": "/api/cards/activate",
+      "inherited_line": 36,
+      "current_line": 36,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-041",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.freeze",
+      "verb": "POST",
+      "path": "/api/cards/freeze",
+      "inherited_line": 41,
+      "current_line": 41,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-042",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.unfreeze",
+      "verb": "POST",
+      "path": "/api/cards/unfreeze",
+      "inherited_line": 46,
+      "current_line": 46,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-043",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.activateById",
+      "verb": "PATCH",
+      "path": "/api/cards/:id/activate",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-044",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.freezeById",
+      "verb": "PATCH",
+      "path": "/api/cards/:id/freeze",
+      "inherited_line": 56,
+      "current_line": 56,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-045",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.unfreezeById",
+      "verb": "PATCH",
+      "path": "/api/cards/:id/unfreeze",
+      "inherited_line": 61,
+      "current_line": 61,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-046",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.replace",
+      "verb": "POST",
+      "path": "/api/cards/:id/replace",
+      "inherited_line": 66,
+      "current_line": 66,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardReplacement.findUnique"
+      ]
+    },
+    {
+      "id": "API-047",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.renew",
+      "verb": "POST",
+      "path": "/api/cards/:id/renew",
+      "inherited_line": 73,
+      "current_line": 73,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardRenewal.findUnique"
+      ]
+    },
+    {
+      "id": "API-048",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.timeline",
+      "verb": "GET",
+      "path": "/api/cards/:id/timeline",
+      "inherited_line": 80,
+      "current_line": 80,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.findMany",
+        "cardLifecycleEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-049",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.balance",
+      "verb": "GET",
+      "path": "/api/cards/balance",
+      "inherited_line": 86,
+      "current_line": 86,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-050",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.balanceById",
+      "verb": "GET",
+      "path": "/api/cards/:id/balance",
+      "inherited_line": 91,
+      "current_line": 91,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-051",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.setPin",
+      "verb": "POST",
+      "path": "/api/cards/:id/pin",
+      "inherited_line": 96,
+      "current_line": 96,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLifecycleEvent.findUnique"
+      ]
+    },
+    {
+      "id": "API-052",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.retrievePin",
+      "verb": "GET",
+      "path": "/api/cards/:id/pin",
+      "inherited_line": 102,
+      "current_line": 102,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-053",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.retrieveCvv",
+      "verb": "GET",
+      "path": "/api/cards/:id/cvv",
+      "inherited_line": 110,
+      "current_line": 110,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-054",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.listTransactions",
+      "verb": "GET",
+      "path": "/api/cards/:id/transactions",
+      "inherited_line": 118,
+      "current_line": 118,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst",
+        "cardTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-055",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.getTransaction",
+      "verb": "GET",
+      "path": "/api/cards/:id/transactions/:transactionId",
+      "inherited_line": 124,
+      "current_line": 124,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create",
+        "cardTransaction.findFirst"
+      ]
+    },
+    {
+      "id": "API-056",
+      "file": "src/card-service/cards-api.controller.ts",
+      "symbol": "CardsApiController.retrieve",
+      "verb": "GET",
+      "path": "/api/cards/:id",
+      "inherited_line": 130,
+      "current_line": 130,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.create"
+      ]
+    },
+    {
+      "id": "API-057",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.createVirtual",
+      "verb": "POST",
+      "path": "/api/v1/cards/virtual",
+      "inherited_line": 62,
+      "current_line": 62,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.create",
+        "card.findFirst",
+        "card.findUnique",
+        "cardProductTemplate.findFirst",
+        "customer.findFirstOrThrow",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.findUniqueOrThrow",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-058",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.createPhysical",
+      "verb": "POST",
+      "path": "/api/v1/cards/physical",
+      "inherited_line": 75,
+      "current_line": 75,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.create",
+        "card.findFirst",
+        "card.findUnique",
+        "cardProductTemplate.findFirst",
+        "customer.findFirstOrThrow",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.findUniqueOrThrow",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-059",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.openingQuote",
+      "verb": "POST",
+      "path": "/api/v1/cards/opening-quotes",
+      "inherited_line": 86,
+      "current_line": 86,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-060",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.topup",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/topups",
+      "inherited_line": 96,
+      "current_line": 96,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-061",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.topupQuote",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/topup-quotes",
+      "inherited_line": 109,
+      "current_line": 109,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "walletAccount.findFirst"
+      ]
+    },
+    {
+      "id": "API-062",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.list",
+      "verb": "GET",
+      "path": "/api/v1/cards",
+      "inherited_line": 126,
+      "current_line": 126,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany"
+      ]
+    },
+    {
+      "id": "API-063",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.products",
+      "verb": "GET",
+      "path": "/api/v1/cards/products",
+      "inherited_line": 138,
+      "current_line": 138,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-064",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.fees",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id/fees",
+      "inherited_line": 146,
+      "current_line": 146,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-065",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.get",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id",
+      "inherited_line": 156,
+      "current_line": 156,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-066",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.balance",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id/balance",
+      "inherited_line": 162,
+      "current_line": 162,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardBalance.findUnique",
+        "cardBalance.upsert"
+      ]
+    },
+    {
+      "id": "API-067",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.timeline",
+      "verb": "GET",
+      "path": "/api/v1/cards/:cardId/timeline",
+      "inherited_line": 173,
+      "current_line": 173,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardEvent.findMany",
+        "cardLifecycleEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-068",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.transactions",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id/transactions",
+      "inherited_line": 189,
+      "current_line": 189,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst"
+      ]
+    },
+    {
+      "id": "API-069",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.transaction",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id/transactions/:transactionId",
+      "inherited_line": 204,
+      "current_line": 204,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardTransaction.findFirst"
+      ]
+    },
+    {
+      "id": "API-070",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.freeze",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/freeze",
+      "inherited_line": 218,
+      "current_line": 218,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "cardRestriction.findMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.findUniqueOrThrow",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-071",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.activate",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/activate",
+      "inherited_line": 251,
+      "current_line": 251,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.findUniqueOrThrow",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-072",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.unfreeze",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/unfreeze",
+      "inherited_line": 290,
+      "current_line": 290,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "cardRestriction.findMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.findUniqueOrThrow",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-073",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.updateLimits",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/limits",
+      "inherited_line": 323,
+      "current_line": 323,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "cardLimit.findUnique",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-074",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.getLimits",
+      "verb": "GET",
+      "path": "/api/v1/cards/:id/limits",
+      "inherited_line": 357,
+      "current_line": 357,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardLimit.findUnique"
+      ]
+    },
+    {
+      "id": "API-075",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.replace",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/replace",
+      "inherited_line": 369,
+      "current_line": 369,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-076",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.reportLost",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/report-lost",
+      "inherited_line": 385,
+      "current_line": 385,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-077",
+      "file": "src/cards/cards.controller.ts",
+      "symbol": "CardsController.renew",
+      "verb": "POST",
+      "path": "/api/v1/cards/:id/renew",
+      "inherited_line": 401,
+      "current_line": 401,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "card.updateMany",
+        "providerOperation.create",
+        "providerOperation.findUnique",
+        "providerOperation.update",
+        "providerOperation.updateMany"
+      ]
+    },
+    {
+      "id": "API-078",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.register",
+      "verb": "POST",
+      "path": "/api/end-user/auth/register",
+      "inherited_line": 35,
+      "current_line": 35,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-079",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.register",
+      "verb": "POST",
+      "path": "/api/v1/auth/register",
+      "inherited_line": 35,
+      "current_line": 35,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "customer.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-080",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.login",
+      "verb": "POST",
+      "path": "/api/end-user/auth/login",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "customer.findFirst",
+        "customer.update",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findMany",
+        "endUserSession.updateMany",
+        "simulationScenario.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-081",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.login",
+      "verb": "POST",
+      "path": "/api/v1/auth/login",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "customer.findFirst",
+        "customer.update",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findMany",
+        "endUserSession.updateMany",
+        "simulationScenario.findFirst",
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-082",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.refresh",
+      "verb": "POST",
+      "path": "/api/end-user/auth/refresh",
+      "inherited_line": 67,
+      "current_line": 67,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "endUserRefreshToken.findUnique",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findUnique",
+        "endUserSession.update",
+        "endUserSession.updateMany",
+        "simulationScenario.findFirst"
+      ]
+    },
+    {
+      "id": "API-083",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.refresh",
+      "verb": "POST",
+      "path": "/api/v1/auth/refresh",
+      "inherited_line": 67,
+      "current_line": 67,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "endUserRefreshToken.findUnique",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findUnique",
+        "endUserSession.update",
+        "endUserSession.updateMany",
+        "simulationScenario.findFirst"
+      ]
+    },
+    {
+      "id": "API-084",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.logout",
+      "verb": "POST",
+      "path": "/api/end-user/auth/logout",
+      "inherited_line": 82,
+      "current_line": 82,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findUnique",
+        "endUserSession.updateMany"
+      ]
+    },
+    {
+      "id": "API-085",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.logout",
+      "verb": "POST",
+      "path": "/api/v1/auth/logout",
+      "inherited_line": 82,
+      "current_line": 82,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "endUserRefreshToken.updateMany",
+        "endUserSession.findUnique",
+        "endUserSession.updateMany"
+      ]
+    },
+    {
+      "id": "API-086",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.getSession",
+      "verb": "GET",
+      "path": "/api/end-user/auth/session",
+      "inherited_line": 99,
+      "current_line": 99,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-087",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionController.getSession",
+      "verb": "GET",
+      "path": "/api/v1/auth/session",
+      "inherited_line": 99,
+      "current_line": 99,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-088",
+      "file": "src/end-user-session/end-user-session.controller.ts",
+      "symbol": "EndUserSessionCompatibilityController.getSession",
+      "verb": "GET",
+      "path": "/api/v1/session",
+      "inherited_line": 135,
+      "current_line": 135,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-089",
+      "file": "src/event-bus/domain-event-bus.controller.ts",
+      "symbol": "DomainEventBusController.list",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/events",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "webhookEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-090",
+      "file": "src/evidence-center/evidence-center.controller.ts",
+      "symbol": "EvidenceCenterController.create",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/evidence",
+      "inherited_line": 15,
+      "current_line": 15,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "evidenceArtifact.create"
+      ]
+    },
+    {
+      "id": "API-091",
+      "file": "src/evidence-center/evidence-center.controller.ts",
+      "symbol": "EvidenceCenterController.list",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/evidence",
+      "inherited_line": 20,
+      "current_line": 20,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "evidenceArtifact.count",
+        "evidenceArtifact.findMany"
+      ]
+    },
+    {
+      "id": "API-092",
+      "file": "src/evidence-center/evidence-center.controller.ts",
+      "symbol": "EvidenceCenterController.summary",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/evidence/summary",
+      "inherited_line": 23,
+      "current_line": 23,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "evidenceArtifact.findMany"
+      ]
+    },
+    {
+      "id": "API-093",
+      "file": "src/health/health.controller.ts",
+      "symbol": "HealthController.getHealth",
+      "verb": "GET",
+      "path": "/api/health",
+      "inherited_line": 46,
+      "current_line": 46,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-094",
+      "file": "src/health/health.controller.ts",
+      "symbol": "HealthController.getReadiness",
+      "verb": "GET",
+      "path": "/api/health/readiness",
+      "inherited_line": 72,
+      "current_line": 72,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-095",
+      "file": "src/integration-readiness/integration-readiness.controller.ts",
+      "symbol": "IntegrationReadinessController.report",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/integrations/readiness",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-096",
+      "file": "src/kyc-status/end-user-kyc-status.controller.ts",
+      "symbol": "EndUserKycStatusController.status",
+      "verb": "GET",
+      "path": "/api/v1/kyc/status",
+      "inherited_line": 26,
+      "current_line": 26,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customer.findFirst"
+      ]
+    },
+    {
+      "id": "API-097",
+      "file": "src/kyc-status/end-user-kyc-status.controller.ts",
+      "symbol": "EndUserKycStatusController.submit",
+      "verb": "POST",
+      "path": "/api/v1/kyc/submissions",
+      "inherited_line": 39,
+      "current_line": 39,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-098",
+      "file": "src/ledger/ledger.controller.ts",
+      "symbol": "LedgerController.createAccount",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/ledger/accounts",
+      "inherited_line": 15,
+      "current_line": 15,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst",
+        "walletAccount.create"
+      ]
+    },
+    {
+      "id": "API-099",
+      "file": "src/ledger/ledger.controller.ts",
+      "symbol": "LedgerController.accounts",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/ledger/accounts",
+      "inherited_line": 18,
+      "current_line": 18,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-100",
+      "file": "src/ledger/ledger.controller.ts",
+      "symbol": "LedgerController.postJournal",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/ledger/journals",
+      "inherited_line": 21,
+      "current_line": 21,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findUnique"
+      ]
+    },
+    {
+      "id": "API-101",
+      "file": "src/ledger/ledger.controller.ts",
+      "symbol": "LedgerController.journals",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/ledger/journals",
+      "inherited_line": 24,
+      "current_line": 24,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findMany"
+      ]
+    },
+    {
+      "id": "API-102",
+      "file": "src/ledger/ledger.controller.ts",
+      "symbol": "LedgerController.trialBalance",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/ledger/trial-balance",
+      "inherited_line": 27,
+      "current_line": 27,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-103",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.createMerchant",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchants",
+      "inherited_line": 25,
+      "current_line": 25,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-104",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.listMerchants",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/merchants",
+      "inherited_line": 26,
+      "current_line": 26,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "merchant.count",
+        "merchant.findMany"
+      ]
+    },
+    {
+      "id": "API-105",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.merchantDetail",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/merchants/:merchantId",
+      "inherited_line": 27,
+      "current_line": 27,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "merchant.findFirst"
+      ]
+    },
+    {
+      "id": "API-106",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.createQrCode",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchants/:merchantId/qr-codes",
+      "inherited_line": 28,
+      "current_line": 28,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "merchant.findFirst"
+      ]
+    },
+    {
+      "id": "API-107",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.authorize",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/pay",
+      "inherited_line": 29,
+      "current_line": 29,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "feeAssessment.findFirst",
+        "merchantPayment.findUnique",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-108",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.payQrCode",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/qr/pay",
+      "inherited_line": 30,
+      "current_line": 30,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "merchantPayment.findUnique",
+        "merchantQrCode.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-109",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.paymentHistory",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments",
+      "inherited_line": 31,
+      "current_line": 31,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "merchantPayment.count",
+        "merchantPayment.findMany"
+      ]
+    },
+    {
+      "id": "API-110",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.clear",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/clear",
+      "inherited_line": 32,
+      "current_line": 32,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ]
+    },
+    {
+      "id": "API-111",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.settle",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/settle",
+      "inherited_line": 33,
+      "current_line": 33,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ]
+    },
+    {
+      "id": "API-112",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.reverse",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/reverse",
+      "inherited_line": 34,
+      "current_line": 34,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ]
+    },
+    {
+      "id": "API-113",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.refund",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId/refund",
+      "inherited_line": 35,
+      "current_line": 35,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findFirst",
+        "merchantPayment.findFirst"
+      ]
+    },
+    {
+      "id": "API-114",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentController.retrieve",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/merchant/payments/:paymentId",
+      "inherited_line": 36,
+      "current_line": 36,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "merchantPayment.findFirst"
+      ]
+    },
+    {
+      "id": "API-115",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentCompatibilityController.authorize",
+      "verb": "POST",
+      "path": "/api/merchant/pay",
+      "inherited_line": 46,
+      "current_line": 46,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "feeAssessment.findFirst",
+        "merchantPayment.findUnique",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-116",
+      "file": "src/merchant-payment/merchant-payment.controller.ts",
+      "symbol": "MerchantPaymentCompatibilityController.payQrCode",
+      "verb": "POST",
+      "path": "/api/merchant/qr/pay",
+      "inherited_line": 53,
+      "current_line": 53,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "merchantPayment.findUnique",
+        "merchantQrCode.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-117",
+      "file": "src/onboarding/user-onboarding.controller.ts",
+      "symbol": "UserOnboardingController.register",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/users/register",
+      "inherited_line": 32,
+      "current_line": 32,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customer.findFirst",
+        "tenant.findFirst",
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-118",
+      "file": "src/onboarding/user-onboarding.controller.ts",
+      "symbol": "UserOnboardingController.updateKyc",
+      "verb": "PATCH",
+      "path": "/api/admin/tenants/:tenantId/users/:userId/kyc",
+      "inherited_line": 36,
+      "current_line": 36,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customer.findFirst"
+      ]
+    },
+    {
+      "id": "API-119",
+      "file": "src/onboarding/user-onboarding.controller.ts",
+      "symbol": "UserOnboardingController.readKyc",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/users/:userId/kyc",
+      "inherited_line": 41,
+      "current_line": 41,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customer.findFirst"
+      ]
+    },
+    {
+      "id": "API-120",
+      "file": "src/onboarding/user-onboarding.controller.ts",
+      "symbol": "UserOnboardingController.retrieve",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/users/:userId",
+      "inherited_line": 79,
+      "current_line": 79,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "customer.findFirst",
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-121",
+      "file": "src/operations-trace/operations-trace.controller.ts",
+      "symbol": "OperationsTraceController.trace",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/operations/traces/:traceId",
+      "inherited_line": 14,
+      "current_line": 14,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.findMany",
+        "card.findMany",
+        "cardTransaction.findMany",
+        "customer.findMany",
+        "journal.findMany",
+        "merchant.findMany",
+        "merchantPayment.findMany",
+        "settlementBatch.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.findMany",
+        "webhookEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-122",
+      "file": "src/operations-trace/operations-trace.controller.ts",
+      "symbol": "OperationsTraceController.mockContamination",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/operations/mock-contamination",
+      "inherited_line": 24,
+      "current_line": 24,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.count",
+        "cardTransaction.count",
+        "customer.count",
+        "merchant.count",
+        "merchantPayment.count",
+        "walletAccount.count",
+        "webhookEvent.count"
+      ]
+    },
+    {
+      "id": "API-123",
+      "file": "src/phase2/card-provider/phase2-card-provider.controller.ts",
+      "symbol": "Phase2CardProviderController.config",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/card-provider",
+      "inherited_line": 20,
+      "current_line": 20,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantCardProviderConfig.findUnique"
+      ]
+    },
+    {
+      "id": "API-124",
+      "file": "src/phase2/card-provider/phase2-card-provider.controller.ts",
+      "symbol": "Phase2CardProviderController.readiness",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/card-provider/readiness",
+      "inherited_line": 27,
+      "current_line": 27,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantCardProviderConfig.findUnique"
+      ]
+    },
+    {
+      "id": "API-125",
+      "file": "src/phase2/card-provider/phase2-card-provider.controller.ts",
+      "symbol": "Phase2CardProviderController.save",
+      "verb": "PUT",
+      "path": "/api/v2/admin/tenants/:tenantId/card-provider",
+      "inherited_line": 34,
+      "current_line": 34,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-126",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.networks",
+      "verb": "GET",
+      "path": "/api/v2/wallet/onchain/networks",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-127",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.addresses",
+      "verb": "GET",
+      "path": "/api/v2/wallet/onchain/deposit-addresses",
+      "inherited_line": 59,
+      "current_line": 59,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainDepositAddress.findMany"
+      ]
+    },
+    {
+      "id": "API-128",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.allocateAddress",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/deposit-addresses",
+      "inherited_line": 67,
+      "current_line": 67,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainDepositAddress.findFirst"
+      ]
+    },
+    {
+      "id": "API-129",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.rotateAddress",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/deposit-addresses/:addressId/rotate",
+      "inherited_line": 74,
+      "current_line": 74,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-130",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.createQuote",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/fx/quotes",
+      "inherited_line": 82,
+      "current_line": 82,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "fxRate.findFirst",
+        "onchainFxQuote.create"
+      ]
+    },
+    {
+      "id": "API-131",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.createDeposit",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/deposits",
+      "inherited_line": 89,
+      "current_line": 89,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "onchainDepositAddress.findFirst",
+        "onchainFxQuote.findFirst",
+        "onchainTransfer.create",
+        "onchainTransfer.findUnique"
+      ]
+    },
+    {
+      "id": "API-132",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.previewDeposit",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/deposits/preview",
+      "inherited_line": 101,
+      "current_line": 101,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainDepositAddress.findFirst",
+        "onchainFxQuote.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-133",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.deposit",
+      "verb": "GET",
+      "path": "/api/v2/wallet/onchain/deposits/:transferId",
+      "inherited_line": 112,
+      "current_line": 112,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainTransfer.findFirst"
+      ]
+    },
+    {
+      "id": "API-134",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.transactions",
+      "verb": "GET",
+      "path": "/api/v2/wallet/onchain/transactions",
+      "inherited_line": 119,
+      "current_line": 119,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainTransfer.findMany"
+      ]
+    },
+    {
+      "id": "API-135",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.previewWithdrawal",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/withdrawals/preview",
+      "inherited_line": 131,
+      "current_line": 131,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainFxQuote.findFirst",
+        "tenantFeePolicy.findFirst",
+        "withdrawalAddress.findFirst"
+      ]
+    },
+    {
+      "id": "API-136",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.createWithdrawal",
+      "verb": "POST",
+      "path": "/api/v2/wallet/onchain/withdrawals",
+      "inherited_line": 139,
+      "current_line": 139,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "onchainFxQuote.findFirst",
+        "onchainTransfer.findUnique",
+        "tenantFeePolicy.findFirst",
+        "withdrawalAddress.findFirst"
+      ]
+    },
+    {
+      "id": "API-137",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainController.withdrawal",
+      "verb": "GET",
+      "path": "/api/v2/wallet/onchain/withdrawals/:transferId",
+      "inherited_line": 152,
+      "current_line": 152,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "onchainTransfer.findFirst"
+      ]
+    },
+    {
+      "id": "API-138",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainEventController.ingest",
+      "verb": "POST",
+      "path": "/api/internal/v2/onchain/tenants/:tenantId/events",
+      "inherited_line": 186,
+      "current_line": 186,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-139",
+      "file": "src/phase2/onchain/phase2-onchain.controller.ts",
+      "symbol": "Phase2OnchainPollerController.ingest",
+      "verb": "POST",
+      "path": "/api/internal/v2/onchain/tenants/:tenantId/poller-events",
+      "inherited_line": 210,
+      "current_line": 210,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-140",
+      "file": "src/sandbox/sandbox.controller.ts",
+      "symbol": "SandboxController.ping",
+      "verb": "GET",
+      "path": "/api/sandbox/ping",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-141",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.dashboard",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/settlement/dashboard",
+      "inherited_line": 30,
+      "current_line": 30,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.count"
+      ]
+    },
+    {
+      "id": "API-142",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.liquidity",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/settlement/liquidity",
+      "inherited_line": 33,
+      "current_line": 33,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "treasuryPosition.findMany"
+      ]
+    },
+    {
+      "id": "API-143",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.reconciliation",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/settlement/reconciliation",
+      "inherited_line": 51,
+      "current_line": 51,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardTransaction.findMany",
+        "journalEntry.groupBy",
+        "merchantPayment.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-144",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.trialBalance",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/settlement/trial-balance",
+      "inherited_line": 54,
+      "current_line": 54,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-145",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.dailyClosing",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/settlement/daily-closing",
+      "inherited_line": 57,
+      "current_line": 57,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.findMany",
+        "cardTransaction.count",
+        "cardTransaction.findMany",
+        "evidenceArtifact.findMany",
+        "journal.count",
+        "journalEntry.groupBy",
+        "merchantPayment.count",
+        "merchantPayment.findMany",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-146",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.run",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/settlement/runs",
+      "inherited_line": 60,
+      "current_line": 60,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-147",
+      "file": "src/settlement/settlement.controller.ts",
+      "symbol": "SettlementController.sponsorReserve",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/settlement/sponsor-reserve",
+      "inherited_line": 63,
+      "current_line": 63,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-148",
+      "file": "src/tenants/tenants.controller.ts",
+      "symbol": "TenantsController.create",
+      "verb": "POST",
+      "path": "/api/admin/tenants",
+      "inherited_line": 16,
+      "current_line": 16,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-149",
+      "file": "src/tenants/tenants.controller.ts",
+      "symbol": "TenantsController.findAll",
+      "verb": "GET",
+      "path": "/api/admin/tenants",
+      "inherited_line": 23,
+      "current_line": 23,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findMany"
+      ]
+    },
+    {
+      "id": "API-150",
+      "file": "src/tenants/tenants.controller.ts",
+      "symbol": "TenantsController.findOne",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:id",
+      "inherited_line": 31,
+      "current_line": 31,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-151",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "ThirdPartyAssetController.deposit",
+      "verb": "POST",
+      "path": "/api/v2/wallet/third-party/deposits",
+      "inherited_line": 16,
+      "current_line": 16,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantThirdPartyConfig.findFirst",
+        "thirdPartyAssetOrder.create",
+        "thirdPartyAssetOrder.findFirst",
+        "thirdPartyAssetOrder.findUnique",
+        "thirdPartyAssetOrder.update"
+      ]
+    },
+    {
+      "id": "API-152",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "ThirdPartyAssetController.withdrawal",
+      "verb": "POST",
+      "path": "/api/v2/wallet/third-party/withdrawals",
+      "inherited_line": 18,
+      "current_line": 18,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-153",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "ThirdPartyAssetController.orders",
+      "verb": "GET",
+      "path": "/api/v2/wallet/third-party/orders",
+      "inherited_line": 20,
+      "current_line": 20,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "thirdPartyAssetOrder.findMany"
+      ]
+    },
+    {
+      "id": "API-154",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "ThirdPartyAssetController.order",
+      "verb": "GET",
+      "path": "/api/v2/wallet/third-party/orders/:localOrderId",
+      "inherited_line": 21,
+      "current_line": 21,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "thirdPartyAssetOrder.findFirst"
+      ]
+    },
+    {
+      "id": "API-155",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.configs",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/config",
+      "inherited_line": 31,
+      "current_line": 31,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantThirdPartyConfig.findMany"
+      ]
+    },
+    {
+      "id": "API-156",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.config",
+      "verb": "POST",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/config",
+      "inherited_line": 32,
+      "current_line": 32,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "tenantThirdPartyConfig.upsert"
+      ]
+    },
+    {
+      "id": "API-157",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.orders",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/orders",
+      "inherited_line": 33,
+      "current_line": 33,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "thirdPartyAssetOrder.findMany"
+      ]
+    },
+    {
+      "id": "API-158",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.order",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/orders/:localOrderId",
+      "inherited_line": 34,
+      "current_line": 34,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "thirdPartyAssetOrder.findFirst"
+      ]
+    },
+    {
+      "id": "API-159",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.reconcile",
+      "verb": "POST",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/orders/:localOrderId/reconcile",
+      "inherited_line": 35,
+      "current_line": 35,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "auditLog.create",
+        "thirdPartyAssetOrder.findFirst",
+        "thirdPartyAssetOrder.update"
+      ]
+    },
+    {
+      "id": "API-160",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "AdminThirdPartyAssetController.callbacks",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/third-party/callback-logs",
+      "inherited_line": 36,
+      "current_line": 36,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "thirdPartyCallbackEvent.findMany"
+      ]
+    },
+    {
+      "id": "API-161",
+      "file": "src/third-party/third-party-asset.controller.ts",
+      "symbol": "CregisCallbackController.callback",
+      "verb": "POST",
+      "path": "/api/v2/wallet/third-party/callbacks/cregis/:configId",
+      "inherited_line": 46,
+      "current_line": 46,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenantThirdPartyConfig.findFirst",
+        "thirdPartyAssetOrder.findFirst",
+        "thirdPartyCallbackEvent.create",
+        "thirdPartyCallbackEvent.findUnique",
+        "thirdPartyCallbackEvent.update"
+      ]
+    },
+    {
+      "id": "API-162",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "UcardController.list",
+      "verb": "GET",
+      "path": "/api/v2/ucard",
+      "inherited_line": 12,
+      "current_line": 12,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findMany"
+      ]
+    },
+    {
+      "id": "API-163",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "UcardController.card",
+      "verb": "GET",
+      "path": "/api/v2/ucard/:cardId",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findFirst"
+      ]
+    },
+    {
+      "id": "API-164",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "UcardController.transactions",
+      "verb": "GET",
+      "path": "/api/v2/ucard/:cardId/transactions",
+      "inherited_line": 14,
+      "current_line": 14,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findFirst",
+        "ucardTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-165",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "UcardController.topup",
+      "verb": "POST",
+      "path": "/api/v2/ucard/:cardId/topups",
+      "inherited_line": 15,
+      "current_line": 15,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-166",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.list",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards",
+      "inherited_line": 24,
+      "current_line": 24,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findMany"
+      ]
+    },
+    {
+      "id": "API-167",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.card",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId",
+      "inherited_line": 25,
+      "current_line": 25,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findFirst"
+      ]
+    },
+    {
+      "id": "API-168",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.transactions",
+      "verb": "GET",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/transactions",
+      "inherited_line": 26,
+      "current_line": 26,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "ucardCardBase.findFirst",
+        "ucardTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-169",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.freeze",
+      "verb": "POST",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/freeze",
+      "inherited_line": 27,
+      "current_line": 27,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-170",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.unfreeze",
+      "verb": "POST",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/unfreeze",
+      "inherited_line": 28,
+      "current_line": 28,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-171",
+      "file": "src/third-party/ucard.controller.ts",
+      "symbol": "AdminUcardController.updateLimit",
+      "verb": "POST",
+      "path": "/api/v2/admin/tenants/:tenantId/ucard/cards/:cardId/limit",
+      "inherited_line": 29,
+      "current_line": 29,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-172",
+      "file": "src/treasury/treasury.controller.ts",
+      "symbol": "TreasuryController.execute",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/treasury/funds-instructions",
+      "inherited_line": 31,
+      "current_line": 31,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-173",
+      "file": "src/treasury/treasury.controller.ts",
+      "symbol": "TreasuryController.retrieve",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/treasury/funds-instructions/:operationId",
+      "inherited_line": 53,
+      "current_line": 53,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "journal.findFirst",
+        "walletOperation.findFirst"
+      ]
+    },
+    {
+      "id": "API-174",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.assets",
+      "verb": "GET",
+      "path": "/api/v1/wallet/assets",
+      "inherited_line": 88,
+      "current_line": 88,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-175",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.networks",
+      "verb": "GET",
+      "path": "/api/v1/wallet/networks",
+      "inherited_line": 101,
+      "current_line": 101,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-176",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.depositAddresses",
+      "verb": "GET",
+      "path": "/api/v1/wallet/deposit-addresses",
+      "inherited_line": 112,
+      "current_line": 112,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-177",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.previewDeposit",
+      "verb": "POST",
+      "path": "/api/v1/wallet/deposits/preview",
+      "inherited_line": 126,
+      "current_line": 126,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-178",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.submitDeposit",
+      "verb": "POST",
+      "path": "/api/v1/wallet/deposits",
+      "inherited_line": 136,
+      "current_line": 136,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-179",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.depositStatus",
+      "verb": "GET",
+      "path": "/api/v1/wallet/deposits/:operationId",
+      "inherited_line": 150,
+      "current_line": 150,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-180",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.previewWithdrawal",
+      "verb": "POST",
+      "path": "/api/v1/wallet/withdrawals/preview",
+      "inherited_line": 160,
+      "current_line": 160,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-181",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.submitWithdrawal",
+      "verb": "POST",
+      "path": "/api/v1/wallet/withdrawals",
+      "inherited_line": 170,
+      "current_line": 170,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-182",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.withdrawalStatus",
+      "verb": "GET",
+      "path": "/api/v1/wallet/withdrawals/:operationId",
+      "inherited_line": 184,
+      "current_line": 184,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-183",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.withdrawalAddresses",
+      "verb": "GET",
+      "path": "/api/v1/wallet/withdrawal-addresses",
+      "inherited_line": 194,
+      "current_line": 194,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-184",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.addWithdrawalAddress",
+      "verb": "POST",
+      "path": "/api/v1/wallet/withdrawal-addresses",
+      "inherited_line": 201,
+      "current_line": 201,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-185",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.removeWithdrawalAddress",
+      "verb": "DELETE",
+      "path": "/api/v1/wallet/withdrawal-addresses/:addressId",
+      "inherited_line": 216,
+      "current_line": 216,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-186",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.balances",
+      "verb": "GET",
+      "path": "/api/v1/wallet/balances",
+      "inherited_line": 225,
+      "current_line": 225,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-187",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.totalAssets",
+      "verb": "GET",
+      "path": "/api/v1/wallet/total-assets",
+      "inherited_line": 236,
+      "current_line": 236,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-188",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.accounts",
+      "verb": "GET",
+      "path": "/api/v1/wallet/accounts",
+      "inherited_line": 252,
+      "current_line": 252,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-189",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.balance",
+      "verb": "GET",
+      "path": "/api/v1/wallet/accounts/:accountId/balance",
+      "inherited_line": 263,
+      "current_line": 263,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findFirst"
+      ]
+    },
+    {
+      "id": "API-190",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.transactions",
+      "verb": "GET",
+      "path": "/api/v1/wallet/accounts/:accountId/transactions",
+      "inherited_line": 290,
+      "current_line": 290,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany",
+        "walletAccount.findFirst",
+        "walletOperation.findMany",
+        "walletTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-191",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.transactionHistory",
+      "verb": "GET",
+      "path": "/api/v1/wallet/transactions",
+      "inherited_line": 307,
+      "current_line": 307,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany",
+        "walletOperation.findMany",
+        "walletTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-192",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.transaction",
+      "verb": "GET",
+      "path": "/api/v1/wallet/transactions/:transactionId",
+      "inherited_line": 322,
+      "current_line": 322,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany",
+        "walletOperation.findMany",
+        "walletTransaction.findFirst"
+      ]
+    },
+    {
+      "id": "API-193",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.transfer",
+      "verb": "POST",
+      "path": "/api/v1/wallet/transfers",
+      "inherited_line": 338,
+      "current_line": 338,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findFirst",
+        "walletAccount.findMany",
+        "walletOperation.findFirst"
+      ]
+    },
+    {
+      "id": "API-194",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.createFxQuote",
+      "verb": "POST",
+      "path": "/api/v1/wallet/fx/quotes",
+      "inherited_line": 355,
+      "current_line": 355,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-195",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.operations",
+      "verb": "GET",
+      "path": "/api/v1/wallet/operations",
+      "inherited_line": 364,
+      "current_line": 364,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-196",
+      "file": "src/wallet/end-user-wallet.controller.ts",
+      "symbol": "EndUserWalletController.operation",
+      "verb": "GET",
+      "path": "/api/v1/wallet/operations/:operationId",
+      "inherited_line": 379,
+      "current_line": 379,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findMany",
+        "walletOperation.findFirst"
+      ]
+    },
+    {
+      "id": "API-197",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.createAccount",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/accounts",
+      "inherited_line": 62,
+      "current_line": 62,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst",
+        "walletAccount.upsert"
+      ]
+    },
+    {
+      "id": "API-198",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.deposit",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/deposits",
+      "inherited_line": 65,
+      "current_line": 65,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-199",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.transfer",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/transfers",
+      "inherited_line": 68,
+      "current_line": 68,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-200",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.withdraw",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/withdrawals",
+      "inherited_line": 71,
+      "current_line": 71,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-201",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.settle",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/withdrawals/:operationId/settle",
+      "inherited_line": 74,
+      "current_line": 74,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-202",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.chargeCardMonthlyFee",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/cards/:cardId/monthly-fees",
+      "inherited_line": 77,
+      "current_line": 77,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-203",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.operations",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/operations",
+      "inherited_line": 82,
+      "current_line": 82,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findFirst",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-204",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.operation",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/operations/:operationId",
+      "inherited_line": 102,
+      "current_line": 102,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletOperation.findFirst"
+      ]
+    },
+    {
+      "id": "API-205",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.balance",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/balance",
+      "inherited_line": 118,
+      "current_line": 118,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findFirst"
+      ]
+    },
+    {
+      "id": "API-206",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.accountHistory",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/history",
+      "inherited_line": 123,
+      "current_line": 123,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.findFirst",
+        "walletOperation.count",
+        "walletOperation.findMany"
+      ]
+    },
+    {
+      "id": "API-207",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.transactions",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/transactions",
+      "inherited_line": 144,
+      "current_line": 144,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany",
+        "walletAccount.findFirst",
+        "walletOperation.findMany",
+        "walletTransaction.count",
+        "walletTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-208",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.accountTransactions",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/accounts/:accountId/transactions",
+      "inherited_line": 164,
+      "current_line": 164,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findMany",
+        "walletAccount.findFirst",
+        "walletOperation.findMany",
+        "walletTransaction.count",
+        "walletTransaction.findMany"
+      ]
+    },
+    {
+      "id": "API-209",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.assetSummary",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/asset-summary",
+      "inherited_line": 167,
+      "current_line": 167,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "walletAccount.groupBy"
+      ]
+    },
+    {
+      "id": "API-210",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.treasury",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/treasury",
+      "inherited_line": 172,
+      "current_line": 172,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-211",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.reserve",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/treasury/reserve",
+      "inherited_line": 175,
+      "current_line": 175,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": []
+    },
+    {
+      "id": "API-212",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.createFxQuote",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/fx/quotes",
+      "inherited_line": 178,
+      "current_line": 178,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst"
+      ]
+    },
+    {
+      "id": "API-213",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.convertFx",
+      "verb": "POST",
+      "path": "/api/admin/tenants/:tenantId/wallet/fx/conversions",
+      "inherited_line": 182,
+      "current_line": 182,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "cardFeeOverride.findUnique",
+        "cardProductTemplate.findFirst",
+        "fxConversion.findUnique",
+        "tenantFeePolicy.findFirst"
+      ]
+    },
+    {
+      "id": "API-214",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.fxConversion",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/fx/conversions/:conversionId",
+      "inherited_line": 186,
+      "current_line": 186,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "fxConversion.findFirst"
+      ]
+    },
+    {
+      "id": "API-215",
+      "file": "src/wallet/wallet.controller.ts",
+      "symbol": "WalletController.cardFundingSnapshot",
+      "verb": "GET",
+      "path": "/api/admin/tenants/:tenantId/wallet/cards/:cardId/funding-snapshot",
+      "inherited_line": 192,
+      "current_line": 192,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "card.findFirst",
+        "treasuryPosition.findMany",
+        "walletAccount.findMany"
+      ]
+    },
+    {
+      "id": "API-216",
+      "file": "src/webhooks/webhooks.controller.ts",
+      "symbol": "WebhooksController.receive",
+      "verb": "POST",
+      "path": "/api/webhooks/:provider",
+      "inherited_line": 13,
+      "current_line": 13,
+      "symbol_exists": true,
+      "coverage": "STATIC_SYMBOL_ONLY",
+      "full_runtime_authorization": "NOT_VALIDATED",
+      "database_calls_inherited": [
+        "tenant.findFirst",
+        "webhookEvent.create",
+        "webhookEvent.findUnique",
+        "webhookEvent.findUniqueOrThrow",
+        "webhookEvent.update",
+        "webhookEvent.updateMany"
+      ]
+    }
+  ],
+  "admin_routes": 131,
+  "admin_inherited_counts": {
+    "PASS_STATIC": 92,
+    "LIMITED": 38,
+    "PASS_LOCAL": 1
+  },
+  "new_dynamic_tests": 0,
+  "limit": "Handler existence is verified; decorator equivalence, dispatch reachability and deployed permission are not revalidated"
+}

@@ -1,0 +1,93 @@
+{
+  "sources": [
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-001/evidence/migration-inventory.json",
+      "bytes": 66947,
+      "sha256": "90f3291a8b20eddcb646793bdf5fab0b746151263f4b60d5cfe75917ce5dc840"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-004/evidence/catalog-r1.json",
+      "bytes": 336198,
+      "sha256": "ef2d8645f687974ca183386a0e7e1aaa81196b04f560238247f1c857e32a30be"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-004/ROLE-GRANT-MATRIX-R1.csv",
+      "bytes": 10147,
+      "sha256": "5f615fa81ec63471d8dc264d69de1905091c5789d9d31081c2f6bbfb90f3631d"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-003/evidence/backend-route-matrix-after.json",
+      "bytes": 997931,
+      "sha256": "579e93abcd31fdf23cc0b44bc162c7f4cc529b67e4a01bebe92f61c67fc6ccde"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-003/evidence/admin-route-audit.json",
+      "bytes": 172365,
+      "sha256": "c0493b23cce091bd170f51cdf94cc47112cdc5b9aba997c284bf38fe8cfb134e"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-005/evidence/table-scope-final.json",
+      "bytes": 45139,
+      "sha256": "a5f23db674ba8d3ae62d4d79210c4165fd68fd3fa2f88d37802eda31cf576d5f"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-005/evidence/52-table-approved-contract-r3.json",
+      "bytes": 78710,
+      "sha256": "fdcdae3c23484788f9bc8f85cbc427eaba6a4bb44b01e706f5011a91e79fb529"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-005/OWNER-CONTRACT-APPROVAL-R3.md",
+      "bytes": 1882,
+      "sha256": "da345b13f1177594ed0266dee42c38b8339da316b99db694e6b4fab4ad7d957a"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-005/isolation-candidate-archive/SOURCE-MANIFEST.json",
+      "bytes": 1919,
+      "sha256": "0a3c49255d93fab091a306e582780e37442b8534331daa35e74e06e4832731b1"
+    },
+    {
+      "repository": "fastlink-prime-wallet",
+      "head": "eb59a0d54621693da20e9913461c076891967f7d",
+      "path": "docs/governance/FL-DB-005/isolation-candidate-archive/SELF-TEST-ADDENDUM.md",
+      "bytes": 1032,
+      "sha256": "bf10dc526f23fc27a5acc8f6423322e4659ded4e34d4b13b6e6a6c47c6d86ed4"
+    },
+    {
+      "repository": null,
+      "source": "local final gate5 record; not in repository",
+      "path": "/private/tmp/FL-DB-005-resume-20261002/gate3/GATE5-ACCEPTANCE.md",
+      "sha256": "715cd4c9c72801be5d5bbaa0f63809dc039bb376718baa4d6a6929f1379bd847"
+    },
+    {
+      "repository": null,
+      "source": "local final gate5 record; not in repository",
+      "path": "/private/tmp/FL-DB-005-resume-20261002/gate3/BASELINE-DELTA-INDEX.md",
+      "sha256": "d09ee54895b19ea7e6225a8a3e81f25c22f356016fb6773564e04f3b4f52f933"
+    },
+    {
+      "repository": null,
+      "source": "local final gate5 record; not in repository",
+      "path": "/private/tmp/FL-DB-005-resume-20261002/gate3/CLOSURE-APPEND-LOG.md",
+      "sha256": "ddb245557b19526aff6e44ed2129fe2277827e0d41b45cb0d50206d0bbafff76"
+    }
+  ],
+  "no_old_sha_manifest_rewritten": true
+}

@@ -1,0 +1,100 @@
+{
+  "read_only": true,
+  "database_tests_run": 0,
+  "checks": [
+    {
+      "check": "54 unique records, evidence, six roles and no invented formal authorization",
+      "status": "PASS"
+    },
+    {
+      "check": "formal status counts 0/7/47",
+      "status": "PASS"
+    },
+    {
+      "check": "52 inherited default-deny and two isolation samples only",
+      "status": "PASS"
+    },
+    {
+      "check": "all 54 decision records have evidence, next action, owner and deadline proposal",
+      "status": "PASS"
+    },
+    {
+      "check": "324 CSV rows / 1296 CRUD cells agree with JSON",
+      "status": "PASS"
+    },
+    {
+      "check": "catalog/model discrepancy explicitly retained",
+      "status": "PASS"
+    },
+    {
+      "check": "216 inherited symbols; 131 Admin including 38 LIMITED, no dynamic claim",
+      "status": "PASS"
+    },
+    {
+      "check": "25 future cases are explicitly NOT_RUN",
+      "status": "PASS"
+    },
+    {
+      "check": "pool, replay, CRUD, admin, task, indirect and rollback design coverage",
+      "status": "PASS"
+    },
+    {
+      "check": "16 fixed DB6 definitions with basis and limits",
+      "status": "PASS"
+    },
+    {
+      "check": "permanent deviations and gaps inherited",
+      "status": "PASS"
+    },
+    {
+      "check": "no SQL file or executable SQL fence",
+      "status": "PASS"
+    },
+    {
+      "check": "future rollout is approval-gated and fail-closed",
+      "status": "PASS"
+    },
+    {
+      "check": "baseline delta PENDING; no formal update",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: missing table",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: duplicate table",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: unknown replacement table",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: invented grant",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: missing role",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: missing evidence",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: false approval",
+      "status": "PASS"
+    },
+    {
+      "check": "synthetic rejection: invented platform exception",
+      "status": "PASS"
+    },
+    {
+      "check": "all JSON parses",
+      "status": "PASS"
+    }
+  ],
+  "total": 23,
+  "failed": 0
+}

@@ -1,0 +1,46 @@
+{
+  "table_count": 54,
+  "contract_status_counts": {
+    "BLOCKED": 47,
+    "UNKNOWN": 7,
+    "VERIFIED": 0
+  },
+  "ownership_structure_counts": {
+    "indirect-tenant": 8,
+    "direct-tenant": 38,
+    "platform-or-unresolved": 7,
+    "tenant-root": 1
+  },
+  "role_rows": 324,
+  "operation_cells": 1296,
+  "positive_formal_approved": 0,
+  "inherited_default_deny_tables": 52,
+  "inherited_positive_isolation_samples": 2,
+  "source_files": 290,
+  "source_delegate_shaped_calls": 699,
+  "source_transaction_calls": 65,
+  "inherited_routes": 216,
+  "current_route_symbols_found": 216,
+  "inherited_admin_routes": 131,
+  "inherited_admin_limited": 38,
+  "schema_only": [
+    "CardApplication",
+    "CardFeeOverride",
+    "CardProductTemplate",
+    "CustomerReferral",
+    "FeeAssessment",
+    "OnchainDepositAddress",
+    "OnchainFxQuote",
+    "OnchainTransfer",
+    "OnchainTransferEvent",
+    "TenantFeePolicy"
+  ],
+  "catalog_only": [
+    "treasury_accounts",
+    "treasury_fx_orders",
+    "treasury_operation_logs",
+    "treasury_settlements"
+  ],
+  "dynamic_tests_run": 0,
+  "sql_created_or_executed": 0
+}

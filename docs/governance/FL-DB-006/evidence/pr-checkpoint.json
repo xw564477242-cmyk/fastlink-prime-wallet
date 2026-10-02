@@ -1,0 +1,209 @@
+{
+  "autoMergeRequest": null,
+  "baseRefName": "dev",
+  "files": [
+    {
+      "path": "docs/governance/FL-DB-006/BASELINE-PROPOSED-DELTA.md",
+      "additions": 15,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/CHANGE-AND-ROLLBACK.md",
+      "additions": 7,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/DECISION-QUEUE.json",
+      "additions": 1096,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/FIELD-AND-STATE-DECISIONS.md",
+      "additions": 24,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/FUTURE-ACCEPTANCE.json",
+      "additions": 257,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/HANDOFF.md",
+      "additions": 26,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/IDENTITY-ARCHITECTURE.md",
+      "additions": 60,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/MIGRATION-ROLLOUT-ROLLBACK.md",
+      "additions": 42,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/OPERATION-MATRIX.csv",
+      "additions": 325,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/README.md",
+      "additions": 34,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/RISKS-AND-FOLLOWUPS.md",
+      "additions": 19,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/SCOPE-AND-METHOD.md",
+      "additions": 19,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/SELF-TEST.md",
+      "additions": 30,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/SHA256SUMS",
+      "additions": 30,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/STALE-MATRIX.md",
+      "additions": 16,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/TABLE-CONTRACT-MATRIX.md",
+      "additions": 64,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/TABLE-CONTRACTS.json",
+      "additions": 19845,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/TEST-DEFINITIONS.json",
+      "additions": 120,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/basepoints.json",
+      "additions": 15,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/catalog-reconciliation.json",
+      "additions": 84,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/coverage-summary.json",
+      "additions": 46,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/identity-structure.json",
+      "additions": 1440,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/prisma-models.json",
+      "additions": 9585,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/route-reuse.json",
+      "additions": 3450,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/scope-check.json",
+      "additions": 36,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/sensitive-scan.json",
+      "additions": 43,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/source-files.json",
+      "additions": 2335,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/source-manifest.json",
+      "additions": 93,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/evidence/validation.json",
+      "additions": 100,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/tools/check_contracts.py",
+      "additions": 103,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "docs/governance/FL-DB-006/tools/scan_governance.py",
+      "additions": 53,
+      "deletions": 0,
+      "changeType": "ADDED"
+    }
+  ],
+  "headRefOid": "38a3ae385187e43f9e2ecf7638d9786ba722e2da",
+  "isDraft": true,
+  "number": 90,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-02T13:13:52Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/actions/runs/37011510188/job/110852106937",
+      "name": "verify",
+      "startedAt": "2026-10-02T13:12:58Z",
+      "status": "COMPLETED",
+      "workflowName": "Prime Wallet Pull Request Gate"
+    }
+  ],
+  "url": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet/pull/90"
+}
