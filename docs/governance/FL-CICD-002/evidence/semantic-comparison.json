@@ -1,0 +1,153 @@
+{
+  "fixed_base": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+  "candidate_sha256": "0302fd53109298d9c277dbaedae772630506d8da43636e69875268a8782dd68f",
+  "ajv_version": "8.18.0",
+  "source_function_sha256": "88881d67343e048624c0cee85031b60790d7d53540ce12ef45aee7fecf212fb9",
+  "comparison": "exact original function with in-memory transport stub versus local compiler; no live Schema retrieval",
+  "results": [
+    {
+      "id": "approved_base_config",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    },
+    {
+      "id": "empty",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    },
+    {
+      "id": "build_empty",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    },
+    {
+      "id": "deploy_empty",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    },
+    {
+      "id": "environments_empty",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    },
+    {
+      "id": "scalar",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "null",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "array",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "build_number",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "deploy_number",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "environments_number",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "schema_number",
+      "legacy_stub_accepts": false,
+      "offline_accepts": false,
+      "equivalent": true
+    },
+    {
+      "id": "unknown_property",
+      "legacy_stub_accepts": true,
+      "offline_accepts": true,
+      "equivalent": true
+    }
+  ],
+  "chains": [
+    {
+      "workflow": "pull-request.yml",
+      "matches": [
+        {
+          "line": 130,
+          "mode": "summary"
+        },
+        {
+          "line": 131,
+          "mode": "verify-summary"
+        }
+      ],
+      "scope": "static exact-base call-chain; actual Actions execution NOT performed"
+    },
+    {
+      "workflow": "ci.yml",
+      "matches": [
+        {
+          "line": 81,
+          "mode": "summary"
+        },
+        {
+          "line": 82,
+          "mode": "verify-summary"
+        },
+        {
+          "line": 193,
+          "mode": "direct"
+        },
+        {
+          "line": 200,
+          "mode": "direct"
+        },
+        {
+          "line": 211,
+          "mode": "verify-summary"
+        },
+        {
+          "line": 213,
+          "mode": "direct"
+        },
+        {
+          "line": 248,
+          "mode": "direct"
+        }
+      ],
+      "scope": "static exact-base call-chain; actual Actions execution NOT performed"
+    },
+    {
+      "workflow": "dev-reset-round-trip.yml",
+      "matches": [
+        {
+          "line": 104,
+          "mode": "direct"
+        }
+      ],
+      "scope": "static exact-base call-chain; actual Actions execution NOT performed"
+    }
+  ],
+  "source_call_count": 2,
+  "network_attempts": 0,
+  "all_equivalent": true,
+  "base_config_accepted": true,
+  "remote_ci_execution": "NOT_RUN",
+  "implementation_applied": false
+}

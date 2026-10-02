@@ -1,0 +1,18 @@
+{
+  "scope": "new governance text and added business lines only; not a whole-project secret scan",
+  "files": 21,
+  "format_rules": {
+    "private_key": 0,
+    "github_token": 0,
+    "cloud_key": 0,
+    "jwt": 0,
+    "live_token": 0,
+    "credential_url": 0
+  },
+  "candidate_full_body_or_base64_hits": 0,
+  "candidate_128_byte_fragment_hits": 0,
+  "long_encoded_candidates": 0,
+  "digest_identifiers_not_secret_material": true,
+  "actual_credentials_or_HMAC_keys_not_loaded": true,
+  "limitations": "Regex and exact fragment checks do not prove absence of all possible secrets; no candidate body stored in this report."
+}

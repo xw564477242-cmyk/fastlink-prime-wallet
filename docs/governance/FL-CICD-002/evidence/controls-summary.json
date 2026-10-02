@@ -1,0 +1,11 @@
+{
+  "existing_controls": 117,
+  "new_controls": 16,
+  "total": 133,
+  "passed": 133,
+  "failed": 0,
+  "skipped": 0,
+  "local_tap_sha256": "f38ed46a897e5852196184176f2f4401497affe47fc017765422c24460d1d6f4",
+  "lint_exit": 0,
+  "lint_log_sha256": "2ae9b50d3d651a03cddb6ec229ea95a455a65e7906539afdd129f126e0667955"
+}

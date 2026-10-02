@@ -1,0 +1,14 @@
+[
+  {
+    "repo": "fastlik-backend",
+    "path": "/private/tmp/FL-CICD-002-implementation-20261002/backend",
+    "base": "b5f3cda4e31cef177c952b8c0c3a1b220246e998",
+    "mode": "0o700"
+  },
+  {
+    "repo": "fastlink-prime-wallet",
+    "path": "/private/tmp/FL-CICD-002-implementation-20261002/evidence",
+    "base": "2621b7ba4abcf9142423712a3be8f1222cd7ae83",
+    "mode": "0o700"
+  }
+]
