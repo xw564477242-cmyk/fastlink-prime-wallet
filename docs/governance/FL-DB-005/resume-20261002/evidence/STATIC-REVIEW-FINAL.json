@@ -1,0 +1,59 @@
+{
+  "recorded_at": "2026-10-02T09:24:02.977608+00:00",
+  "backend_head": "d33a85520aff868cdfa867c45b10911592230f77",
+  "governance_head": "db89fd00440bff5c54f7b8fd45e3bb7b3adf4d02",
+  "static_checks": {
+    "six_file_scope": "PASS",
+    "six_file_bytes_unchanged": "PASS",
+    "all_prisma_src_package_lock_unchanged": "PASS",
+    "three_CICD_workflows_equal_dev": "PASS",
+    "three_workflows_reference_existing_secret": "PASS",
+    "DB5_governance_history_unchanged": "PASS",
+    "test_definitions_unchanged": "PASS"
+  },
+  "business_files": [
+    {
+      "path": "prisma/migrations/20261001050000_fl_db005_identity_rls/migration.sql",
+      "sha256": "97e95e2da986a1fa494c0b74214bb1f16f222caaa1bc81399d866660d3f13fd3",
+      "bytes": 19249
+    },
+    {
+      "path": "prisma/migrations/20261001053000_fl_db005_ticket_replay_guard/migration.sql",
+      "sha256": "1282d32671689d4a72bd0be5908edb5a21c6903309c153de0dea58160fb7017a",
+      "bytes": 3909
+    },
+    {
+      "path": "prisma/migrations/20261001054500_fl_db005_consumption_sequence_bounds/migration.sql",
+      "sha256": "92cef9c1c0bd98e2d716170d54de378f82fe3719703a1f5bbad9c5940633329b",
+      "bytes": 2144
+    },
+    {
+      "path": "prisma/rollback/fl-db005-fail-closed.sql",
+      "sha256": "54b549e95564ed6cd277ae3aeb604b5e8c7f16f4c6ddd5b4c8d7ead9277040e3",
+      "bytes": 933
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.spec.ts",
+      "sha256": "2a4ec2a23f7357781df211bfae22e26e059cff2e16c48d1c380068251711e2b8",
+      "bytes": 3278
+    },
+    {
+      "path": "src/prisma/isolated-tenant-transaction.ts",
+      "sha256": "32013fb3db4a6fe1e9b614bd810446d0ea6f99fafd6ecd9330a66a42592c0778",
+      "bytes": 1787
+    }
+  ],
+  "five_targeted_test_names": [
+    "binds on the same transaction before exposing it to the callback",
+    "does not execute user work if binding is denied",
+    "rolls back callback errors without exposing driver diagnostics",
+    "rejects malformed admission before calling the bind function",
+    "requests a fresh transaction binding on every invocation"
+  ],
+  "dynamic_tests": "BLOCKED: Docker daemon unavailable; startup not authorized",
+  "build_lint_full_jest": "BLOCKED: approved isolated runtime unavailable",
+  "remote_secret_presence": "NOT_CHECKED; workflow reference is not proof of availability",
+  "production_audit": "NOT_EXECUTED",
+  "risk_status": "No DB5 historical status upgrades; T17 remains permanent LIMITED",
+  "network_used_for_these_checks": false
+}

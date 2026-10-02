@@ -1,0 +1,70 @@
+{
+  "time": "2026-10-02T09:36:07.916451+00:00",
+  "pairs": 174,
+  "names": 165,
+  "wire_sha256": "b90bf1b07a0949b2345cd72686ea500ec8021aff84ebe02a9eb771386acc883e",
+  "endpoint": "https://registry.npmjs.org/-/npm/v1/security/advisories/bulk",
+  "authority": "current resumed audit authorization; request bytes equal prior approved wire digest",
+  "old_wrapper_reconstructed": false,
+  "credentials_sent": false,
+  "full_lock_or_source_sent": false,
+  "advisories": [
+    {
+      "package": "js-yaml",
+      "installed_versions": [
+        "5.2.2"
+      ],
+      "id": 1239991,
+      "severity": "moderate",
+      "vulnerable_versions": ">=5.0.0 <=5.4.0",
+      "url": "https://github.com/advisories/GHSA-r3ph-w7gj-g6xm",
+      "matched_versions": [
+        "5.2.2"
+      ]
+    },
+    {
+      "package": "multer",
+      "installed_versions": [
+        "2.3.0"
+      ],
+      "id": 1239935,
+      "severity": "moderate",
+      "vulnerable_versions": ">=2.2.0 <2.4.0",
+      "url": "https://github.com/advisories/GHSA-3pph-fpjx-jg34",
+      "matched_versions": [
+        "2.3.0"
+      ]
+    },
+    {
+      "package": "qs",
+      "installed_versions": [
+        "6.15.3"
+      ],
+      "id": 1158506,
+      "severity": "moderate",
+      "vulnerable_versions": ">=6.14.2 <=6.15.3",
+      "url": "https://github.com/advisories/GHSA-x5fp-wj9c-mxmx",
+      "matched_versions": [
+        "6.15.3"
+      ]
+    },
+    {
+      "package": "qs",
+      "installed_versions": [
+        "6.15.3"
+      ],
+      "id": 1158507,
+      "severity": "moderate",
+      "vulnerable_versions": ">=2.2.5 <6.16.0",
+      "url": "https://github.com/advisories/GHSA-4mjr-xmp4-gh2g",
+      "matched_versions": [
+        "6.15.3"
+      ]
+    }
+  ],
+  "http_status": 200,
+  "status": "PASS_WITH_RETAINED_DEPENDENCY_RISKS",
+  "matched_counts": {
+    "moderate": 4
+  }
+}

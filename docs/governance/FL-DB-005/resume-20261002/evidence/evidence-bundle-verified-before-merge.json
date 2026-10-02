@@ -1,0 +1,13 @@
+{
+  "head": "06bffab2d1bb6ed81a1f8866155166c97da761f7",
+  "dev": "8ba560c58c39c30875b9ac9f59847c272d532c28",
+  "tree": "422f806b6dd93f86be75e65315e4921821bb06d4",
+  "branch": "feature/FL-DB-005-tenant-identity-rls",
+  "origin": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet.git",
+  "index_sha256": "bd5b746ea259b812e74aab02cefb02547b241e511f627b785af24f23b9d1245e",
+  "status": "clean",
+  "index_matches_HEAD": true,
+  "alternates": false,
+  "fsck_exit": 0,
+  "fsck_output": ""
+}

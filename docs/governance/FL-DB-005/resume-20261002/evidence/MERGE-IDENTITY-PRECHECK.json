@@ -1,0 +1,7 @@
+{
+  "attempt": "backend merge origin/dev",
+  "exit": 128,
+  "reason": "new independent clone has no committer identity",
+  "global_config_modified": false,
+  "resolution": "reuse existing approved DB5 commit identity only through per-command git -c options"
+}
