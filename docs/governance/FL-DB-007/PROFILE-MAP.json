@@ -1,0 +1,84 @@
+{
+  "profiles": {
+    "P1": [
+      "AdminSession",
+      "ApiKey",
+      "CardSecurityProfile",
+      "EndUserRefreshToken",
+      "EndUserSession"
+    ],
+    "P2": [
+      "ApiClient",
+      "Permission",
+      "Role",
+      "RolePermission",
+      "TenantUser",
+      "TenantUserRole"
+    ],
+    "P3": [
+      "AuditLog",
+      "EvidenceArtifact",
+      "CardEvent",
+      "CardLifecycleEvent",
+      "WebhookEvent",
+      "third_party_callback_events"
+    ],
+    "P4": [
+      "Customer"
+    ],
+    "P5": [
+      "Card",
+      "CardBalance",
+      "CardHolder",
+      "CardLimit",
+      "CardRenewal",
+      "CardReplacement",
+      "CardRestriction",
+      "CardTransaction",
+      "ucard_card_base",
+      "ucard_transactions"
+    ],
+    "P6": [
+      "FxConversion",
+      "FxOrder",
+      "FxRate",
+      "Journal",
+      "JournalEntry",
+      "TreasuryPosition",
+      "WalletAccount",
+      "WalletOperation",
+      "WalletTransaction",
+      "third_party_asset_orders"
+    ],
+    "P7": [
+      "Merchant",
+      "MerchantPayment",
+      "MerchantQrCode",
+      "SettlementBatch",
+      "SettlementItem"
+    ],
+    "P8": [
+      "SimulationRecord",
+      "SimulationScenario"
+    ],
+    "P9": [
+      "Tenant"
+    ],
+    "P10": [
+      "ProviderOperation",
+      "TenantCardProviderConfig",
+      "tenant_third_party_config"
+    ],
+    "P11": [
+      "WithdrawalAddress"
+    ],
+    "P12": [
+      "treasury_accounts",
+      "treasury_fx_orders",
+      "treasury_operation_logs",
+      "treasury_settlements"
+    ]
+  },
+  "expected_count": 54,
+  "unique_count": 54
+}

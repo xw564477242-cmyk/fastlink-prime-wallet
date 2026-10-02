@@ -1,0 +1,32 @@
+{
+  "tables": 54,
+  "profiles": {
+    "P1": 5,
+    "P2": 6,
+    "P3": 6,
+    "P4": 1,
+    "P5": 10,
+    "P6": 10,
+    "P7": 5,
+    "P8": 2,
+    "P9": 1,
+    "P10": 3,
+    "P11": 1,
+    "P12": 4
+  },
+  "role_rows": 324,
+  "operation_cells": 1296,
+  "policy_approved": 54,
+  "formal_rls_verified": 0,
+  "implementation_blocked": 54,
+  "prior_counts": {
+    "BLOCKED": 47,
+    "UNKNOWN": 7
+  },
+  "conflicts": 6,
+  "unresolved_implementation_conflicts": 3,
+  "gap_groups": 9,
+  "dynamic_tests": 0,
+  "sql_created_or_executed": 0,
+  "new_baseline_snapshot": false
+}

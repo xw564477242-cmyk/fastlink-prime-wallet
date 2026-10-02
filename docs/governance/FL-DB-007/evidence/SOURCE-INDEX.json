@@ -1,0 +1,63 @@
+{
+  "sources": [
+    {
+      "path": "sources/00-OWNER-DECISION.md",
+      "sha256": "3313a73ed718d7ac58f896d7a8c13b3aa0c1dfe2c3287ca39b1841e2a19895d7",
+      "original_body_sha256": "3e0720715bd3c4d95152c7bbe9879c87cb3996824644a98bfc9284144ffa6a50",
+      "original_characters": 7574,
+      "authority_thread": "019fa6b7-4f28-7b62-b676-757be88c22f8"
+    },
+    {
+      "path": "sources/01-PAUSE.md",
+      "sha256": "3f8773ab18e22fe23ed67f9262c375734848772e8b9b46ce18965f6ae3555045",
+      "original_body_sha256": "e904f5a549b7456389b97e223586bb173905f8668599e7b74d8eea2c42c7262a",
+      "original_characters": 166,
+      "authority_thread": "019fa6b7-4f28-7b62-b676-757be88c22f8"
+    },
+    {
+      "path": "sources/02-CORRECTION-AND-RESUME.md",
+      "sha256": "3d09d7c28277069bb414951f8fa0516ec1c1dd437441b3d3beb1cd23db49c6a7",
+      "original_body_sha256": "273ee6a55c4596f6a4995c06f1e64bae12398e89533e4075c12e29de636a4ea2",
+      "original_characters": 510,
+      "authority_thread": "019fa6b7-4f28-7b62-b676-757be88c22f8"
+    },
+    {
+      "path": "sources/03-GATE1-APPROVAL.md",
+      "sha256": "0cb8022cc1f73313155993f53980a6118de39368f09e3b85ffd76625317e512c",
+      "original_body_sha256": "1cbc6d03e7c724a03066c7da05beeb3e82870757c4236d7a5d32747ef5384c15",
+      "original_characters": 2335,
+      "authority_thread": "019fa6b7-4f28-7b62-b676-757be88c22f8"
+    },
+    {
+      "path": "../FL-DB-006/TABLE-CONTRACTS.json",
+      "sha256": "19b8690afa44a2c0e9257c36f422aa647ecbba8fe1c376293148d5a8a0a8b7e9",
+      "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+      "usage": "read-only reuse; no rewrite"
+    },
+    {
+      "path": "../FL-DB-006/evidence/catalog-reconciliation.json",
+      "sha256": "88b9331ab20aaeba38f1e21d9eafb678cf0cd4526dd0d9052ee4dbe5c7c7cd46",
+      "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+      "usage": "read-only reuse; no rewrite"
+    },
+    {
+      "path": "../FL-DB-006/FUTURE-ACCEPTANCE.json",
+      "sha256": "00a7c9fa5abbc877d6bfbfbded7652b0c0340e20d44a29ba0baf2eace2ebe8e8",
+      "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+      "usage": "read-only reuse; no rewrite"
+    },
+    {
+      "path": "../FL-DB-006/TEST-RESULTS-FINAL.json",
+      "sha256": "d6152da1d4520e13104812483c26c67687d29c9963d8aa3d716f8093bcbe3c78",
+      "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+      "usage": "read-only reuse; no rewrite"
+    },
+    {
+      "path": "../FL-DB-006/SHA256SUMS",
+      "sha256": "200d6483303404d6fa803749f804cd6fe0bfab419b97758e188edb1a520ff168",
+      "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+      "usage": "read-only reuse; no rewrite"
+    }
+  ],
+  "no_secret_values_collected": true
+}

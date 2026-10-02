@@ -1,0 +1,134 @@
+{
+  "scope": "DB7 governance only",
+  "read_only": true,
+  "dynamic_tests": 0,
+  "total": 31,
+  "failed": 0,
+  "validation_error_categories": [],
+  "checks": [
+    {
+      "name": "54 records/profiles/roles/fields/state/JIT/no direct access",
+      "status": "PASS"
+    },
+    {
+      "name": "authority source has exactly 12 groups/54 tables",
+      "status": "PASS"
+    },
+    {
+      "name": "four authority originals unchanged against source index",
+      "status": "PASS"
+    },
+    {
+      "name": "324 role rows/1296 cells exact JSON CSV agreement",
+      "status": "PASS"
+    },
+    {
+      "name": "47/7 old decisions retained separately from 54 approved policy",
+      "status": "PASS"
+    },
+    {
+      "name": "P12 all four quarantined",
+      "status": "PASS"
+    },
+    {
+      "name": "6 explicit conflicts, 3 unresolved without broadening",
+      "status": "PASS"
+    },
+    {
+      "name": "9 gap groups map to real table names",
+      "status": "PASS"
+    },
+    {
+      "name": "withdrawal deletion and missing provider state remain blocked",
+      "status": "PASS"
+    },
+    {
+      "name": "simulator not mapped to scheduler write identity",
+      "status": "PASS"
+    },
+    {
+      "name": "only approved task families named",
+      "status": "PASS"
+    },
+    {
+      "name": "runtime merely carries principal, never blanket grant",
+      "status": "PASS"
+    },
+    {
+      "name": "logical state index agrees with per-table contracts",
+      "status": "PASS"
+    },
+    {
+      "name": "permanent deviations/history gaps preserved",
+      "status": "PASS"
+    },
+    {
+      "name": "no executable SQL files or SQL fences",
+      "status": "PASS"
+    },
+    {
+      "name": "16 distinct governance tests",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: missing table",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: extra duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: wrong profile",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: false VERIFIED",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: false dynamic PASS",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: secret projection",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: immutable write",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: upstream bypass",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: JIT extended",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: JIT no approver",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: missing role",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: owner DML",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: unlisted edge allowed",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic rejection: terminal reopens",
+      "status": "PASS"
+    },
+    {
+      "name": "all governance JSON valid",
+      "status": "PASS"
+    }
+  ]
+}

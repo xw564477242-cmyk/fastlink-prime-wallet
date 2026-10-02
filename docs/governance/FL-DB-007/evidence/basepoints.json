@@ -1,0 +1,11 @@
+{
+  "governance_dev": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+  "branch_start": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+  "branch": "feature/FL-DB-007-owner-policy-record",
+  "clean_independent_clone_reused": true,
+  "formal_workspace_not_used": true,
+  "protected_overlays_not_accessed": true,
+  "source_backend_baseline_only": "2b120bc18a1e2ef3bb5ae42197c625764441db0c",
+  "backend_not_queried_this_work_order": true,
+  "scope": "docs/governance/FL-DB-007/"
+}

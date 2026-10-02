@@ -1,0 +1,117 @@
+{
+  "auto_broaden_permissions": false,
+  "count": 6,
+  "items": [
+    {
+      "id": "DB7-C01",
+      "tables": [
+        "WebhookEvent",
+        "third_party_callback_events"
+      ],
+      "kind": "APPEND_ONLY_VS_IN_PLACE_LIFECYCLE",
+      "status": "UNRESOLVED_IMPLEMENTATION",
+      "basis": [
+        "P3 prohibits UPDATE/DELETE",
+        "Webhook lifecycle and processing markers have future state requirements"
+      ],
+      "resolution": "Preserve both decisions; no in-place event update permission inferred. Future lifecycle/attempt representation needs approval.",
+      "effective_rule": "BLOCK_CONFLICTING_UPDATE"
+    },
+    {
+      "id": "DB7-C02",
+      "tables": [
+        "CardTransaction",
+        "MerchantPayment",
+        "WalletOperation",
+        "WalletTransaction",
+        "Journal",
+        "JournalEntry",
+        "SettlementItem",
+        "SettlementBatch",
+        "TreasuryPosition",
+        "WalletAccount",
+        "CardBalance",
+        "ucard_card_base",
+        "third_party_asset_orders"
+      ],
+      "kind": "IMMUTABLE_FACTS_VS_SYSTEM_PROJECTIONS",
+      "status": "UNRESOLVED_IMPLEMENTATION",
+      "basis": [
+        "Immutable money/currency/journal identifiers",
+        "Ledger atomic accounting and authorized status commands; some physical rows have counters/balances"
+      ],
+      "resolution": "Separate immutable economic facts from derived counters/balances and lifecycle state. No generic UPDATE; require field-level storage/atomicity contract before implementing.",
+      "effective_rule": "NO_UNRESTRICTED_FINANCIAL_DML"
+    },
+    {
+      "id": "DB7-C03",
+      "tables": [
+        "ApiKey"
+      ],
+      "kind": "ONE_TIME_FASTLINK_KEY_VS_SECRET_PROJECTION",
+      "status": "BOUNDED_BY_EXPLICIT_CHANNEL",
+      "basis": [
+        "P2 one-time creation response",
+        "No secret in normal external projection; no third-party secrets"
+      ],
+      "resolution": "Only prospective FastLink-owned API key creation broker, never list/read projection; no key generation or disclosure in this work order.",
+      "effective_rule": "NO_SECRET_VALUE_IN_THIS_DELIVERY"
+    },
+    {
+      "id": "DB7-C04",
+      "tables": [
+        "treasury_accounts",
+        "treasury_fx_orders",
+        "treasury_operation_logs",
+        "treasury_settlements"
+      ],
+      "kind": "OWNER_DDL_VS_QUARANTINE_INSPECTION",
+      "status": "BOUNDED_BY_SCOPE",
+      "basis": [
+        "MIGRATION_OWNER DDL-only/NOLOGIN",
+        "P12 separate catalog disposition approval"
+      ],
+      "resolution": "Catalog metadata in separately authorized window is not business table SELECT; all running roles and application DML denied.",
+      "effective_rule": "QUARANTINED_DENY"
+    },
+    {
+      "id": "DB7-C05",
+      "tables": [
+        "TenantCardProviderConfig",
+        "tenant_third_party_config",
+        "ProviderOperation"
+      ],
+      "kind": "OLD_B2B_THIRD_PARTY_EXPOSURE",
+      "status": "SUPERSEDED_BY_FORMAL_CORRECTION",
+      "basis": [
+        "Owner decision original product wording",
+        "02-CORRECTION-AND-RESUME.md",
+        "03-GATE1-APPROVAL.md"
+      ],
+      "resolution": "B2B uses FastLink-owned standard API only; upstream IPA stays internal. Preserve historical original, invalidate opposing interpretation.",
+      "effective_rule": "NO_UPSTREAM_INTERFACE_IDENTITY_CONFIG_PASSTHROUGH"
+    },
+    {
+      "id": "DB7-C06",
+      "tables": [
+        "Card",
+        "CardSecurityProfile",
+        "TenantCardProviderConfig"
+      ],
+      "kind": "PIN_CVV_CAPABILITY_VS_EXTERNAL_SECRET_PROHIBITION",
+      "status": "UNRESOLVED_IMPLEMENTATION",
+      "basis": [
+        "P5 PIN command and existing provider capability identifiers",
+        "Owner/gate1 prohibits PAN/CVV/PIN in external projection"
+      ],
+      "resolution": "Do not interpret capability presence or PIN command as permission to return PIN/CVV/PAN. Any future specialized reveal flow requires separate owner decision.",
+      "effective_rule": "DENY_EXTERNAL_SECRET_REVEAL"
+    }
+  ],
+  "responsible_roles": [
+    "项目所有者",
+    "全局安全负责人",
+    "后端与资金负责人"
+  ],
+  "deadline": "Resolve storage/permission ambiguities before future implementation gate1; no committed calendar date supplied"
+}

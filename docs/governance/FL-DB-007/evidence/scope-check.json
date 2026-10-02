@@ -1,0 +1,57 @@
+{
+  "captured_at_utc": "2026-10-02T15:06:58.100987+00:00",
+  "scope": "isolated report clone only; no formal workspace or cloud archive read",
+  "before": {
+    "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+    "index_sha256": "461737d75e2b2e90eeb70405c96dce60ee75d04d4e2e0bbb808295bd78347935",
+    "index_mode": 420,
+    "refs_sha256": "4dd61437c2b44e1e6b305db9f15ef9ca0db8fd85d484f9f57d72c4cca2db0db1",
+    "tracked_stage_sha256": "81e5b3006f9bf2e57e705eff3d97f0c9b1985dc7d81f73dc13c5bc4b9d60fd27",
+    "tracked_modes_sha256": "090e44987a511843217011bd21e5282d6bdae2d952ed9a9113a68a51dc6d8fbf",
+    "tracked_count": 1061,
+    "tracked_diff_raw": "",
+    "status": "? docs/governance/FL-DB-007/\n"
+  },
+  "after": {
+    "head": "0c04e7a0d6913ff200f8b552c028ceadeef0f4cb",
+    "index_sha256": "461737d75e2b2e90eeb70405c96dce60ee75d04d4e2e0bbb808295bd78347935",
+    "index_mode": 420,
+    "refs_sha256": "4dd61437c2b44e1e6b305db9f15ef9ca0db8fd85d484f9f57d72c4cca2db0db1",
+    "tracked_stage_sha256": "81e5b3006f9bf2e57e705eff3d97f0c9b1985dc7d81f73dc13c5bc4b9d60fd27",
+    "tracked_modes_sha256": "090e44987a511843217011bd21e5282d6bdae2d952ed9a9113a68a51dc6d8fbf",
+    "tracked_count": 1061,
+    "tracked_diff_raw": "",
+    "status": "? docs/governance/FL-DB-007/\n"
+  },
+  "checks_zero_change": true,
+  "reused_sources": [
+    {
+      "path": "../FL-DB-006/TABLE-CONTRACTS.json",
+      "sha256": "19b8690afa44a2c0e9257c36f422aa647ecbba8fe1c376293148d5a8a0a8b7e9",
+      "matches_prior_record": true
+    },
+    {
+      "path": "../FL-DB-006/evidence/catalog-reconciliation.json",
+      "sha256": "88b9331ab20aaeba38f1e21d9eafb678cf0cd4526dd0d9052ee4dbe5c7c7cd46",
+      "matches_prior_record": true
+    },
+    {
+      "path": "../FL-DB-006/FUTURE-ACCEPTANCE.json",
+      "sha256": "00a7c9fa5abbc877d6bfbfbded7652b0c0340e20d44a29ba0baf2eace2ebe8e8",
+      "matches_prior_record": true
+    },
+    {
+      "path": "../FL-DB-006/TEST-RESULTS-FINAL.json",
+      "sha256": "d6152da1d4520e13104812483c26c67687d29c9963d8aa3d716f8093bcbe3c78",
+      "matches_prior_record": true
+    },
+    {
+      "path": "../FL-DB-006/SHA256SUMS",
+      "sha256": "200d6483303404d6fa803749f804cd6fe0bfab419b97758e188edb1a520ff168",
+      "matches_prior_record": true
+    }
+  ],
+  "formal_protected_files_accessed": false,
+  "cloud_archive_accessed": false,
+  "limits": "Current isolated-clone check window only. Does not reconstruct missing original index bytes or attribute earlier writes. Commit staging later intentionally changes report-clone index."
+}
