@@ -28,3 +28,11 @@
 工具修订历史：静态提取首次空参数节点TypeError、更正后成功；检查器首次admin_routes整数长度误用TypeError、更正后成功。未删除旧失败或掩盖真实数据库限制。
 
 禁止重复执行结果：未重新解析51份迁移、未搭建六仓、未重建数据库、未重跑Jest/业务测试/全项目秘密扫描。PR现有自动CI单列，不属于数据库安全动态复验。
+
+## PR/CI追加承接记录
+
+首次提交 `38a3ae385187e43f9e2ecf7638d9786ba722e2da` 已建立Draft PR #90，目标dev、自动合并关闭，31新增治理文件、0删除。CI `37011510188` 对该HEAD的verify成功。原生成时T16 BLOCKED保留，按该证据承接为PASS；本追加提交的新HEAD须另核其自动CI，外置最终HANDOFF提供，不将首提交CI冒充最终提交结果。
+
+最终设计测试汇总：10 PASS、3 LIMITED、3 BLOCKED。见TEST-RESULTS-FINAL.json；T05/T09/T10继续BLOCKED，T06/T07/T14继续LIMITED。本地检查器23项＋完整SHA核验1项通过。运行/数据库动态用例仍为0，25项未来场景NOT_RUN。
+
+仓库现有自动CI包含其既有前端检查，本工单没有手动运行后端完整Jest或动态数据库测试，没有触发部署workflow。CI成功只证明治理PR对应仓库门禁。
