@@ -1,0 +1,46 @@
+{
+  "admissionPassed": false,
+  "businessSqlAttempted": true,
+  "cleanupDetails": [
+    {
+      "channelState": "ALIVE",
+      "code": "OK",
+      "session": "runtime",
+      "sqlstate": "00000",
+      "stage": "RUNTIME_ROLLBACK",
+      "status": "PASS"
+    },
+    {
+      "channelState": "ALIVE",
+      "code": "OK",
+      "session": "issuer",
+      "sqlstate": "00000",
+      "stage": "ISSUER_ROLLBACK",
+      "status": "PASS"
+    }
+  ],
+  "dataUnchanged": true,
+  "failure": null,
+  "firstCause": {
+    "code": "BUSINESS_SQL_REJECTED",
+    "sqlstate": "42501",
+    "stage": "CASE_EXECUTION"
+  },
+  "hashAfter": "00754904608261542b0b6dcecba30ae2f0a6d97a8b8c10ace959ca626f354a76",
+  "hashBefore": "00754904608261542b0b6dcecba30ae2f0a6d97a8b8c10ace959ca626f354a76",
+  "kind": "unbound",
+  "retryCount": 0,
+  "rollback": [
+    {
+      "session": "runtime",
+      "status": "PASS"
+    },
+    {
+      "session": "issuer",
+      "status": "PASS"
+    }
+  ],
+  "rowCount": 0,
+  "sqlstate": "42501",
+  "status": "OBSERVED"
+}

@@ -1,0 +1,39 @@
+{
+  "bootstrap": {
+    "login": false,
+    "passwordPresent": false
+  },
+  "catalog": {
+    "activeLogins": 0,
+    "actorSessions": 0,
+    "memberships": 0,
+    "passwords": 0,
+    "pendingHBA": false
+  },
+  "containersStopped": true,
+  "failures": [],
+  "finishedAt": "2026-10-04T16:28:48.775385+00:00",
+  "materialsAndPrivileges": {
+    "connectPrivileges": 0,
+    "enabledCarriers": 0,
+    "enabledConfig": 0,
+    "enabledGrants": 0,
+    "enabledObserverCases": 0,
+    "tempPrivileges": 0,
+    "unexpiredRequests": 0,
+    "unrevokedKeys": 0
+  },
+  "resourcesPreserved": true,
+  "round": 1,
+  "sessionsAfterStop": 0,
+  "startedAt": "2026-10-04T16:28:22.127846+00:00",
+  "status": "PASS",
+  "step": "COMPLETE",
+  "temporaryEntryLifecycle": {
+    "allTaskTmpfsUnmounted": true,
+    "hostPorts": 0,
+    "oldMaterialsDeleted": false,
+    "persistedDatabaseConfigChanged": false,
+    "taskHbaTlsStorage": "tmpfs /db9"
+  }
+}

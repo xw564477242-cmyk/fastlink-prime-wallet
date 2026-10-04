@@ -1,0 +1,42 @@
+{
+  "task": "FL-DB-011",
+  "status": "STOP",
+  "boundary": "STATIC_ONLY",
+  "changedFiles": [
+    {
+      "path": "verification/private/run_batch.py",
+      "beforeSHA256": "d2363ec0bf7af225fb7d2871d123620eed8d7ced9c6dc918ec004e7fe38d9209",
+      "afterSHA256": "a702c25208923a0c628c816613c4ccf94d3c35b859bddca8ad78f00e39e14867"
+    },
+    {
+      "path": "backend/tools/fl-db-011/isolated_adapter.py",
+      "beforeSHA256": "955d1aa57834ee280d506b82b277c684bf17ada4755ac6f15658f4cf9b7e190c",
+      "afterSHA256": "8f746dbd89c0cdfa0ff715331786ca106192b520e9a4f89363630db37a5a3e00"
+    },
+    {
+      "path": "backend/tools/fl-db-011/tests/test_batch_contract.py",
+      "beforeSHA256": "8e5d5c4b917aa74389d4244491c8ad562b2bd0dcd8d6b50e53e90407770c657b",
+      "afterSHA256": "2847f6578e940727ea70e08492ce7424a479502222a731e07f0bcf821fa8182d"
+    }
+  ],
+  "unchangedCopiedFiles": 50,
+  "testAssertions": {
+    "planned": 66,
+    "run": 66,
+    "pass": 66,
+    "failures": 0,
+    "errors": 0,
+    "inherited": 50,
+    "added": 16
+  },
+  "unclassifiedStderrBytes": 110,
+  "stderrBodyRetained": false,
+  "stderrSource": "UNKNOWN",
+  "historicalRootCause": "NOT_UNIQUELY_PROVEN",
+  "conditionalProtocolReproduction": "DELAYED_ERROR_OVERRIDES_NEXT_FRAME_STATUS_IN_OLD_PARSER",
+  "fixedBehavior": "SINGLE_SOURCE_STREAM_AND_STOP_ON_STATE_MISMATCH",
+  "dynamicOperations": 0,
+  "testRuns": 1,
+  "retryCount": 0,
+  "createdAt": "2026-10-04T16:05:09.310726+00:00"
+}

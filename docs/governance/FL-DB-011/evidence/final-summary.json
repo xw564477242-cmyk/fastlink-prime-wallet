@@ -1,0 +1,123 @@
+{
+  "task": "FL-DB-011",
+  "status": "COMPLETED_REVIEW_REQUIRED",
+  "inputOutputSHA256Unchanged": true,
+  "codeAndContractSHA256": {
+    "verification/private/run_batch.py": "885b5a5b195f3cb1130439ca9f79bc18ec3561d914c255e78dd9d40170815c6a",
+    "backend/tools/fl-db-011/isolated_adapter.py": "21e59112e1845752cbe729a17baaef8d856194de01023e9db48af095a9f4865e",
+    "backend/tools/fl-db-011/tests/test_batch_contract.py": "2847f6578e940727ea70e08492ce7424a479502222a731e07f0bcf821fa8182d",
+    "backend/tools/fl-db-011/tests/core_runner.py": "910169970d8d8ea7c494bd3c8503cbc7a5820370ca9a2006c41e32e6e1c9ea62",
+    "backend/tools/fl-db-011/tests/core-cases.json": "1f5e9bb30164b31912d57320eaca956611f9a405217385b35dd05fe025b3b961",
+    "backend/tools/fl-db-011/candidate/consume-admission.sql": "21e5d78315fb9859a5a52245845241fa347114ad61844c9260a14c31af62a24f",
+    "private/migration-inputs.json": "cf861c0f2928d9cf1b3eeb08cf9fa9c6255cfa0e9be9fbb31b11a2113057e080"
+  },
+  "migrationSteps": 34,
+  "migrationPassed": 34,
+  "casesCompleted": 10,
+  "caseResults": {
+    "PASS": 6,
+    "LIMITED": 4
+  },
+  "caseStatuses": [
+    {
+      "kind": "same_select",
+      "status": "PASS",
+      "sqlstate": "00000",
+      "rowCount": 1,
+      "blockingLayer": "NONE",
+      "businessSqlIssued": true,
+      "rlsStatus": "PASS"
+    },
+    {
+      "kind": "cross_select",
+      "status": "PASS",
+      "sqlstate": "00000",
+      "rowCount": 0,
+      "blockingLayer": "RLS",
+      "businessSqlIssued": true,
+      "rlsStatus": "PASS"
+    },
+    {
+      "kind": "cross_insert",
+      "status": "LIMITED",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "ACL",
+      "businessSqlIssued": true,
+      "rlsStatus": "LIMITED"
+    },
+    {
+      "kind": "cross_update",
+      "status": "LIMITED",
+      "sqlstate": "00000",
+      "rowCount": 0,
+      "blockingLayer": "RLS",
+      "businessSqlIssued": true,
+      "rlsStatus": "LIMITED"
+    },
+    {
+      "kind": "cross_delete",
+      "status": "LIMITED",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "ACL",
+      "businessSqlIssued": true,
+      "rlsStatus": "LIMITED"
+    },
+    {
+      "kind": "ownership_tamper",
+      "status": "PASS",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "CONTRACT",
+      "businessSqlIssued": false,
+      "rlsStatus": "NOT_REACHED"
+    },
+    {
+      "kind": "unbound",
+      "status": "LIMITED",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "IDENTITY",
+      "businessSqlIssued": true,
+      "rlsStatus": "NOT_PROVEN"
+    },
+    {
+      "kind": "expired_grant",
+      "status": "PASS",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "GRANT",
+      "businessSqlIssued": false,
+      "rlsStatus": "NOT_REACHED"
+    },
+    {
+      "kind": "expired_request",
+      "status": "PASS",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "REQUEST",
+      "businessSqlIssued": false,
+      "rlsStatus": "NOT_REACHED"
+    },
+    {
+      "kind": "revoked_key",
+      "status": "PASS",
+      "sqlstate": "42501",
+      "rowCount": 0,
+      "blockingLayer": "KEY",
+      "businessSqlIssued": false,
+      "rlsStatus": "NOT_REACHED"
+    }
+  ],
+  "targetDataUnchangedAllCases": true,
+  "targetDataScope": "SYNTHETIC_TENANT_TABLE_ONLY",
+  "targetDataSHA256": "00754904608261542b0b6dcecba30ae2f0a6d97a8b8c10ace959ca626f354a76",
+  "finallyRollbackCount": 20,
+  "finallyRollbackAllPassed": true,
+  "retirementStatus": "PASS",
+  "singleR1": true,
+  "retries": 0,
+  "fundsPrerequisiteLifted": false,
+  "finishedAt": "2026-10-04T16:28:48.775973+00:00"
+}

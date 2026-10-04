@@ -1,0 +1,27 @@
+{
+  "task": "FL-DB-011",
+  "status": "PASS",
+  "classification": "FIXED_PYTHON_LAUNCHER_DARWIN_TEMP_PATH_FALLBACK_WARNING",
+  "wholeMessageFixedMatch": true,
+  "stderrBytes": 110,
+  "stderrSHA256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61",
+  "sensitivePatternHits": 0,
+  "syntheticMarkerHits": 0,
+  "rawMode": "0o600",
+  "priorStderrBytes": 110,
+  "priorStderrSHA256": null,
+  "priorByteIdentity": "NOT_PROVABLE_ORIGINAL_BYTES_NOT_RETAINED",
+  "nonEmptyAtBothRuns": true,
+  "codeSHA256": {
+    "backend/tools/fl-db-011/isolated_adapter.py": "8f746dbd89c0cdfa0ff715331786ca106192b520e9a4f89363630db37a5a3e00",
+    "verification/private/run_batch.py": "a702c25208923a0c628c816613c4ccf94d3c35b859bddca8ad78f00e39e14867",
+    "backend/tools/fl-db-011/tests/test_batch_contract.py": "2847f6578e940727ea70e08492ce7424a479502222a731e07f0bcf821fa8182d"
+  },
+  "testAssertions": {
+    "planned": 66,
+    "run": 66,
+    "failures": 0,
+    "errors": 0
+  },
+  "checkedAt": "2026-10-04T16:12:52.132313+00:00"
+}

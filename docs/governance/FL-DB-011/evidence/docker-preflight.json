@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "dockerServer": "25.0.3",
+  "image": "postgres@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+  "imageId": "sha256:25a89970a83255ae96484d709005bb35aa71f7455f941bc1634514f31c5d5c62",
+  "pulls": 0,
+  "desktopStarted": false,
+  "hostPorts": 0
+}
