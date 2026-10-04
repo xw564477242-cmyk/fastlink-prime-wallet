@@ -1,0 +1,192 @@
+{
+  "task": "FL-DB-008",
+  "sourceIds": [
+    "S87",
+    "S88",
+    "S89",
+    "S90"
+  ],
+  "evidenceKind": "APPENDED_SANITIZED_RECOVERY_AND_CLOSEOUT",
+  "originalHistoricalEvidenceOverwritten": false,
+  "preRecoveryStop": {
+    "task": "FL-DB-008",
+    "batch": "ORIGINAL_BATCH_C_MINIMAL_INCREMENT",
+    "observedAt": "2026-10-04T06:31:34.604778+00:00",
+    "status": "STOP_NO_VERIFIED_AUTHENTICATED_ADMIN_ENTRY",
+    "ownerOuterUpperBound": "2026-10-05T03:07:57.284Z",
+    "newRuntimeApprovalMinted": false,
+    "newCredentialMaterialGenerated": false,
+    "sqlOrAuthenticationAttempts": 0,
+    "rows": [
+      {
+        "round": 1,
+        "id": "98c86ee21186d0f6d70f294b41323261021ecd4ffc3f878947d7815fc316978d",
+        "name": "/fl-db8-align-r1-db",
+        "running": true,
+        "fixedImageMatches": true,
+        "taskLabelsMatch": true,
+        "noHostPort": true,
+        "taskNetworkNameMatches": true,
+        "taskVolumeMatches": true
+      },
+      {
+        "round": 2,
+        "id": "6a23b33b8a50b6f94cc37e8dc2187200eb489d13a66ada12b2fcd4ce12fef07e",
+        "name": "/fl-db8-align-r2-db",
+        "running": true,
+        "fixedImageMatches": true,
+        "taskLabelsMatch": true,
+        "noHostPort": true,
+        "taskNetworkNameMatches": true,
+        "taskVolumeMatches": true
+      }
+    ],
+    "basis": {
+      "finalStateEvidence": "Original local path is retained in source S87; this public projection does not duplicate that path.",
+      "bootstrapAndInitializers": "NOLOGIN; prior controlled client disconnected",
+      "runtimeApproval": "expired 2026-10-04T05:46:59.540Z",
+      "managementEntry": "Known helper authenticates as db8_bootstrap; no confirmed alternative login-capable privileged identity or retained controlled session",
+      "prohibitedRecoveryNotAttempted": [
+        "restart",
+        "stop/start",
+        "single-user mode",
+        "trust override",
+        "catalog file modification",
+        "unknown credential use"
+      ],
+      "boundary": "Do not test known-disabled login or generate credentials before a permitted management entry exists."
+    }
+  },
+  "singleUserRecovery": {
+    "task": "FL-DB-008",
+    "operation": "BOUNDED_BOOTSTRAP_SINGLE_USER_RESTORE_ONLY",
+    "startedAt": "2026-10-04T06:56:06.264991+00:00",
+    "bootstrapValidUntil": "2026-10-04T07:26:06.264991+00:00",
+    "status": "PASS_TWO_BOUNDED_BOOTSTRAP_RECOVERIES",
+    "newContainers": 0,
+    "newVolumes": 0,
+    "hbaWrites": 0,
+    "newCredentialMaterial": 0,
+    "dynamicCases": 0,
+    "rounds": [
+      {
+        "round": 1,
+        "containerId": "98c86ee21186d0f6d70f294b41323261021ecd4ffc3f878947d7815fc316978d",
+        "stopCount": 1,
+        "startCount": 1,
+        "status": "PASS_BOOTSTRAP_RECOVERED_ONLY",
+        "observed": {
+          "expiry": "2026-10-04T07:26:06.264991+00:00",
+          "canLogin": true,
+          "database": "fl_db8_r1",
+          "sessionUser": "db8_bootstrap",
+          "memberOfCount": 0
+        },
+        "entrypointRestored": true,
+        "hbaUnchanged": true
+      },
+      {
+        "round": 2,
+        "containerId": "6a23b33b8a50b6f94cc37e8dc2187200eb489d13a66ada12b2fcd4ce12fef07e",
+        "stopCount": 1,
+        "startCount": 1,
+        "status": "PASS_BOOTSTRAP_RECOVERED_ONLY",
+        "observed": {
+          "expiry": "2026-10-04T07:26:06.264991+00:00",
+          "canLogin": true,
+          "database": "fl_db8_r2",
+          "sessionUser": "db8_bootstrap",
+          "memberOfCount": 0
+        },
+        "entrypointRestored": true,
+        "hbaUnchanged": true
+      }
+    ],
+    "finishedAt": "2026-10-04T06:56:07.738353+00:00"
+  },
+  "safeCloseout": {
+    "task": "FL-DB-008",
+    "operation": "BOOTSTRAP_NOLOGIN_CLOSEOUT",
+    "startedAt": "2026-10-04T07:00:37.824473+00:00",
+    "status": "PASS_SAFE_CLOSEOUT_ONLY",
+    "rounds": [
+      {
+        "round": 1,
+        "containerId": "98c86ee21186d0f6d70f294b41323261021ecd4ffc3f878947d7815fc316978d",
+        "status": "PASS_NOLOGIN_AND_CONTROL_SESSION_GONE",
+        "beforeDisconnect": {
+          "canLogin": false,
+          "database": "fl_db8_r1",
+          "sessionUser": "db8_bootstrap",
+          "memberOfCount": 0,
+          "otherClientCount": 0,
+          "controlBackendPid": 95,
+          "bootstrapClientCount": 1
+        },
+        "controlledClientExitCode": 0,
+        "controlBackendProcessAfterDisconnect": "GONE",
+        "controlledClientSessionsZero": true
+      },
+      {
+        "round": 2,
+        "containerId": "6a23b33b8a50b6f94cc37e8dc2187200eb489d13a66ada12b2fcd4ce12fef07e",
+        "status": "PASS_NOLOGIN_AND_CONTROL_SESSION_GONE",
+        "beforeDisconnect": {
+          "canLogin": false,
+          "database": "fl_db8_r2",
+          "sessionUser": "db8_bootstrap",
+          "memberOfCount": 0,
+          "otherClientCount": 0,
+          "controlBackendPid": 96,
+          "bootstrapClientCount": 1
+        },
+        "controlledClientExitCode": 0,
+        "controlBackendProcessAfterDisconnect": "GONE",
+        "controlledClientSessionsZero": true
+      }
+    ],
+    "newAuthenticationMaterials": 0,
+    "hbaWrites": 0,
+    "containerStopStart": 0,
+    "newContainersOrVolumes": 0,
+    "businessDataAccess": 0,
+    "dynamicCases": 0,
+    "automaticRetry": false,
+    "finishedAt": "2026-10-04T07:00:38.210909+00:00",
+    "evidenceBoundary": "Same-session catalog observation followed by clean client exit and exact OS backend PID disappearance. No new database authentication after NOLOGIN; no dynamic RLS security-pass claim."
+  },
+  "hbaSha256BeforeRecovery": {
+    "1": "975e069e054d6ff8cab93cc1f8619c74507d77f196aca7250e59d52d0f6b11b9",
+    "2": "099268d4c322bdcc3bf0e61468279093454ca218ed5931633cef020d406aab80"
+  },
+  "originalEntrypointSha256": {
+    "1": "9c440299ae04a0a79d55b8bf03307036d890a40979d2fb698073c9050d4b20a5",
+    "2": "9c440299ae04a0a79d55b8bf03307036d890a40979d2fb698073c9050d4b20a5"
+  },
+  "staticContinuationStop": {
+    "reason": "EXISTING_DYNAMIC_PATH_REQUIRES_NEW_RUNTIME_ISSUER_CONTAINERS_AND_DEDICATED_HBA_RULES",
+    "authorizationBoundary": "NO_NEW_CONTAINERS_OR_VOLUMES_NO_HBA_EDITS",
+    "dynamicCalls": 0,
+    "expandedScope": false
+  },
+  "currentDisposition": {
+    "scene": "FROZEN",
+    "implementationGate2": "FAIL",
+    "safetyAcceptance": "NOT_PASSED",
+    "rlsFundingPrerequisite": "BLOCKED",
+    "dynamicCases": 0,
+    "r1PendingHbaSetting": "NOT_CLEARED",
+    "r2CandidateInitialization": "NOT_COMPLETED",
+    "coreRlsTenantPrivilegeDynamicAcceptance": "NOT_COMPLETED",
+    "bootstrapLoginBothRounds": false,
+    "controlledSessionsZeroBothRounds": true,
+    "newPostDisconnectSqlObservation": false,
+    "otherRolesRevalidatedInThisRecovery": false
+  },
+  "limits": [
+    "Initial historical LIMITED session evidence remains unchanged.",
+    "Later closeout establishes its own controlled backend disappearance; it does not reconstruct prior missing evidence or prove dynamic RLS.",
+    "R2 runtime/issuer last observed as expired and never enabled, not asserted NOLOGIN.",
+    "Only bootstrap LOGIN/VALID UNTIL then NOLOGIN changed; no password or material generation."
+  ]
+}

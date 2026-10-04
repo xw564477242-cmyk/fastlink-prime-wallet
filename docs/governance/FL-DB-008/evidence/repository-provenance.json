@@ -1,0 +1,47 @@
+{
+  "task": "FL-DB-008",
+  "recordedAt": "2026-10-04T06:20:16.513209+00:00",
+  "remote": "https://github.com/xw564477242-cmyk/fastlink-prime-wallet.git",
+  "base": "603210f2933a19518773fbaf0e4835efa7fd3ea7",
+  "branch": "feature/FL-DB-008-candidate-audit-archive",
+  "baseTree": "8707390883f089ae793dcdd30e4cba03efa5cdae",
+  "source": "Independent git clone --no-local --no-checkout of already available identical committed object; no working files copied",
+  "sourceRepository": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle",
+  "sourceRef": "refs/heads/feature/FL-DB-008-trusted-identity-mapping",
+  "originDevReference": "Imported GitHub API-confirmed dev SHA into new report clone only; not claimed a successful network fetch",
+  "githubApiDevConfirmedTwice": "603210f2933a19518773fbaf0e4835efa7fd3ea7",
+  "alternatesPresent": false,
+  "connectivityFsck": "PASS",
+  "oldWorkspacesTouched": false,
+  "baseTrackedFiles": 1096,
+  "networkCloneFailures": [
+    {
+      "protocol": "HTTP2",
+      "error": "Error in the HTTP2 framing layer",
+      "exit": 128
+    },
+    {
+      "protocol": "HTTP1.1",
+      "error": "Empty reply from server",
+      "exit": 128
+    }
+  ],
+  "protectedRemoteBranchesBefore": {
+    "main": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+    "test": "7433607f6b10135e0f116853687cae614db13d6d",
+    "uat": null
+  },
+  "ciBoundary": {
+    "existingPRGateAllowed": true,
+    "newWorkflowAdded": false,
+    "devDeployment": "workflow_dispatch only; not dispatched",
+    "testDeployment": "test push or workflow_dispatch only; neither performed",
+    "manualBusinessTests": 0,
+    "databaseDockerCalls": 0
+  },
+  "workflowSha256": {
+    "deploy-cloudflare-test.yml": "b47cf908624a4ab2466c9c330caf3b44b0c715fedf8d3241f8544a2921f00a6b",
+    "prime-wallet-pr.yml": "73fb45b877d932c92f708738be1dd2b7386b16a4e7b52bfa21f563c9756393b2",
+    "deploy-cloudflare-dev.yml": "f385b1735690011abe0dcfed3abec2b1841cb908440c5878d35873ac5d3b6d83"
+  }
+}
