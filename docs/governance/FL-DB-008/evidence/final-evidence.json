@@ -1,0 +1,279 @@
+{
+  "task": "FL-DB-008",
+  "recordedAt": "2026-10-04T05:53:33.078441+00:00",
+  "evidenceKind": "WHITELISTED_PROJECTION_OF_FROZEN_REPORT",
+  "sourceSha256": "f16c9cf3b67c6d4a9a3649332d6415e57cc11360c7ce4b3eb4ea7ea467c5c02f",
+  "archiveDisposition": "候选与审计交付完成，安全验收未通过",
+  "implementationGate2": "FAIL",
+  "safetyPrerequisite": "BLOCKED",
+  "dynamicCasesExecuted": 0,
+  "coverage": {
+    "physicalTables": 64,
+    "manifestCases": 1280,
+    "approvedDynamicCandidates": 2,
+    "executedDynamicCases": 0,
+    "staticDenialsNotDynamic": 474,
+    "blockedCandidates": 804,
+    "databaseSafetyPass": false
+  },
+  "static": {
+    "task": "FL-DB-008",
+    "scope": "STATIC_RUNTIME_SHARDS_ONLY",
+    "status": "PASS",
+    "checks": 13,
+    "negativeCases": 11,
+    "databaseCalls": 0,
+    "dockerCalls": 0,
+    "credentialsRead": 0,
+    "fullSourceBytes": 4762225,
+    "partBytes": [
+      1358,
+      1882145,
+      1524394,
+      324538,
+      1029884
+    ],
+    "tables": 64,
+    "cases": 1280,
+    "approvedCases": 2,
+    "sourceSha256": "febef80dd7dab00915adf6f3985fe6f7a176be5b32dcb405a6f9c987d8958cf8",
+    "reassembledSha256": "febef80dd7dab00915adf6f3985fe6f7a176be5b32dcb405a6f9c987d8958cf8"
+  },
+  "tests": [
+    {
+      "check": "015 minimal type-safe ownership predicate",
+      "status": "PASS",
+      "basis": "Both once-applied and owner assertion passed; no broadened schema predicate"
+    },
+    {
+      "check": "Two-round exact HBA initial wiring",
+      "status": "PASS",
+      "basis": "Nine exact task/role/IP SCRAM rules; zero parser errors"
+    },
+    {
+      "check": "Synthetic source preparation",
+      "status": "PASS",
+      "basis": "Four source-derived Tenant/TenantUser rows per round; not RLS proof"
+    },
+    {
+      "check": "R1 two candidate identity and observer bindings",
+      "status": "PASS",
+      "basis": "Actual initializer login, ten binding checks true; two grants/requests/keys/cases; no admissions"
+    },
+    {
+      "check": "R2 candidate provisioning",
+      "status": "BLOCKED",
+      "basis": "Global stop; not repeated or attempted"
+    },
+    {
+      "check": "Fixed protected-source fragments",
+      "status": "PASS",
+      "basis": "13 static checks, 11 negatives; equivalent complete 64-table/1280-case source; each part below unchanged 4MiB"
+    },
+    {
+      "check": "R1 shard assembly",
+      "status": "PASS",
+      "basis": "One successful seal, fixed UID/mode/SHA and direct owner anchor; no payload/credential regeneration"
+    },
+    {
+      "check": "Two-round dynamic isolation",
+      "status": "BLOCKED",
+      "basis": "Zero dynamic cases; neither runtime nor issuer service started"
+    },
+    {
+      "check": "HBA and temporary identity closeout",
+      "status": "LIMITED",
+      "basis": "Both original five-rule HBA restored; initializers and bootstrap NOLOGIN; R1 enabled runtime/issuer NOLOGIN; R2 carriers kept original expired never-enabled state"
+    },
+    {
+      "check": "Independent post-disconnect zero sessions",
+      "status": "LIMITED",
+      "basis": "Only same-control observation plus clean client exit; no expired credential attempt or new material"
+    },
+    {
+      "check": "Old task material integrity",
+      "status": "PASS",
+      "basis": "54 original material files match preserved SHA; original HBA bytes restored"
+    },
+    {
+      "check": "RLS hard prerequisite / work-item closure",
+      "status": "BLOCKED",
+      "basis": "Dynamic proof absent; no risk closure or baseline activation"
+    }
+  ],
+  "r1InactiveSetting": "Earlier ALTER SYSTEM hba_file entry remains pending/overridden by startup path. No reset, restart, erasure or claim of repaired configuration; active original file restored.",
+  "controlStopInterpretation": {
+    "observedLater": "One logical replication launcher and one controlled client attributed to bootstrap in both rounds",
+    "limitation": "Original failing control snapshot was not persisted; later classification does not reconstruct its exact bytes or time"
+  },
+  "retention": {
+    "allOriginalMaterialFilesShaMatch": 54,
+    "oldCertificatesKeysCaIssuerMaterialsRetained": true,
+    "allStopReportsRetained": true,
+    "databaseContainersVolumesRetained": true,
+    "noCleanup": true
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "hba": {
+        "originalSha256": "975e069e054d6ff8cab93cc1f8619c74507d77f196aca7250e59d52d0f6b11b9",
+        "activeSha256": "975e069e054d6ff8cab93cc1f8619c74507d77f196aca7250e59d52d0f6b11b9",
+        "sourcePreserved": true,
+        "metadataUnchanged": true,
+        "rules": 5,
+        "errors": 0,
+        "reloadAccepted": true
+      },
+      "rolesAtFinalControlObservation": {
+        "db8_bootstrap": {
+          "temp": true,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": null,
+          "membershipCount": 0
+        },
+        "db8_v3_init_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": false,
+          "membershipCount": 0
+        },
+        "db8_v3_issuer_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": true,
+          "membershipCount": 1
+        },
+        "db8_v3_runtime_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": true,
+          "membershipCount": 1
+        },
+        "db8_v3_observer_init_login": {
+          "temp": false,
+          "connect": false,
+          "canLogin": false,
+          "loginExpired": false,
+          "membershipCount": 0
+        }
+      },
+      "clientAndBackgroundClassification": [
+        {
+          "count": 1,
+          "usename": "db8_bootstrap",
+          "backend_type": "client backend",
+          "database_is_null": false
+        },
+        {
+          "count": 1,
+          "usename": "db8_bootstrap",
+          "backend_type": "logical replication launcher",
+          "database_is_null": true
+        }
+      ],
+      "oneControlClientObservedBeforeDisconnect": true,
+      "unknownClientBackendsWithinTaskRoleScope": 0,
+      "cleanDisconnect": true,
+      "postDisconnectIndependentSessionZero": "LIMITED_NOT_OBSERVED",
+      "backgroundScope": "All processes attributed to the five task login roles; not a census of unrelated/null-usename PostgreSQL auxiliary processes",
+      "dynamicCasesExecuted": 0,
+      "observerCandidatesProvisioned": 2,
+      "runtimeIssuerServicesStarted": false
+    },
+    {
+      "round": 2,
+      "hba": {
+        "originalSha256": "099268d4c322bdcc3bf0e61468279093454ca218ed5931633cef020d406aab80",
+        "activeSha256": "099268d4c322bdcc3bf0e61468279093454ca218ed5931633cef020d406aab80",
+        "sourcePreserved": true,
+        "metadataUnchanged": true,
+        "rules": 5,
+        "errors": 0,
+        "reloadAccepted": true
+      },
+      "rolesAtFinalControlObservation": {
+        "db8_bootstrap": {
+          "temp": true,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": null,
+          "membershipCount": 0
+        },
+        "db8_v3_init_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": false,
+          "loginExpired": false,
+          "membershipCount": 0
+        },
+        "db8_v3_issuer_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": true,
+          "loginExpired": true,
+          "membershipCount": 1
+        },
+        "db8_v3_runtime_login": {
+          "temp": false,
+          "connect": true,
+          "canLogin": true,
+          "loginExpired": true,
+          "membershipCount": 1
+        },
+        "db8_v3_observer_init_login": {
+          "temp": false,
+          "connect": false,
+          "canLogin": false,
+          "loginExpired": false,
+          "membershipCount": 0
+        }
+      },
+      "clientAndBackgroundClassification": [
+        {
+          "count": 1,
+          "usename": "db8_bootstrap",
+          "backend_type": "client backend",
+          "database_is_null": false
+        },
+        {
+          "count": 1,
+          "usename": "db8_bootstrap",
+          "backend_type": "logical replication launcher",
+          "database_is_null": true
+        }
+      ],
+      "oneControlClientObservedBeforeDisconnect": true,
+      "unknownClientBackendsWithinTaskRoleScope": 0,
+      "cleanDisconnect": true,
+      "postDisconnectIndependentSessionZero": "LIMITED_NOT_OBSERVED",
+      "backgroundScope": "All processes attributed to the five task login roles; not a census of unrelated/null-usename PostgreSQL auxiliary processes",
+      "dynamicCasesExecuted": 0,
+      "observerCandidatesProvisioned": 0,
+      "runtimeIssuerServicesStarted": false
+    }
+  ],
+  "historicalSnapshotBoundary": "The fields above preserve the original frozen report before the separately approved recovery; latest state is carried by subsequentRecoveryCloseout.",
+  "subsequentRecoveryCloseout": {
+    "file": "recovery-closeout.json",
+    "sourceIds": [
+      "S87",
+      "S88",
+      "S89",
+      "S90"
+    ],
+    "scene": "FROZEN",
+    "bootstrapNoLoginBothRounds": true,
+    "controlledClientSessionsZeroBothRounds": true,
+    "originalMissingPostDisconnectEvidenceNotReconstructed": true,
+    "dynamicCases": 0,
+    "r1PendingCleared": false,
+    "r2Initialized": false,
+    "gate2": "FAIL",
+    "safetyHardPrerequisite": "BLOCKED"
+  }
+}

@@ -1,0 +1,857 @@
+{
+  "task": "FL-DB-008",
+  "scope": "ONLY_SELECTED_SANITIZED_REPORTS",
+  "candidateCopies": 0,
+  "sourceCount": 105,
+  "sources": [
+    {
+      "id": "S01",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-RESULT.json",
+      "sha256": "d59c9d1e6fb572d49722752cecc1741d010bc007286a11ef2ca5cb35d829fba2",
+      "bytes": 1512,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S02",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-DEPENDENCY-STOP.json",
+      "sha256": "74ffcfc44f01e0479f1ca7ba4922a511afac62aa67fe8d0d8088deb16772511a",
+      "bytes": 2769,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S03",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-OPENSSL-STOP.json",
+      "sha256": "6ff848ede971ba4a062eee59d98dd42c7dbd9bdce543252e376bb26e24071b7c",
+      "bytes": 4282,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S04",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-FINAL.json",
+      "sha256": "3dea68ab1f4d9a2847a3187ce0a173c061ae2ea4f6c572e9dda8c4edab58b230",
+      "bytes": 1149,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S05",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-CONTINUED.json",
+      "sha256": "2c2aca7a7a6742ce58794227b3c3bd34ab89fae8679a2fcf5931e2443dfa98e8",
+      "bytes": 1457,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S06",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/evidence/pgpass-localhost-correction.json",
+      "sha256": "e9036d3a231c3a10dc30e2c9e546bc4809a086d74fc7dc3a698b2700fc6b2e73",
+      "bytes": 741,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S07",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/BATCH-A-COMPLETION.json",
+      "sha256": "cf3ca2b0983998fa0846e389a2d99158274499cb9989f27c22e1f169ea5d5606",
+      "bytes": 51540,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S08",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/candidate-execution.json",
+      "sha256": "62bc119b763f413de72bce7fbc1b5ac6afd73de24c57032fdeb7dabcf3d668fc",
+      "bytes": 4903,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S09",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/BATCH-B-STOP.json",
+      "sha256": "e1aee53233521840fa0d8bfa4eefdc88325bb597014524afca079b37d6c99ccd",
+      "bytes": 2801,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S10",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/candidate-execution-completed.json",
+      "sha256": "d5e7e9fda0570a0c41db828f16a8ce0244a3aba0142e0505217500c07fa14d95",
+      "bytes": 8423,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S11",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/syntax-error-location.json",
+      "sha256": "8e35747d82b39f760b38fdcfcf82a5e6f1d35b4e5498bd2fdd6bef7f3cc3bba1",
+      "bytes": 305,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S12",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/candidate-execution-resumed.json",
+      "sha256": "42fe2b008a3676f299dfa3ae901cf9b2aa9505d820c2dfa36e85ef5aedafc6c3",
+      "bytes": 8295,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S13",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/candidate-execution-resumed-corrected.json",
+      "sha256": "694b77382236298a03025c5ee05d3594a0ccc8df65957c575f74252daa49821c",
+      "bytes": 8777,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S14",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/candidate-identity-execution.json",
+      "sha256": "eb84e8b255e3258789713be4f81feee002947f4eeabeec9f035aa7efb95f0fd1",
+      "bytes": 8896,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S15",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/BATCH-B-OBSERVER-STOP.json",
+      "sha256": "60b4e42040b5f52b9265f9233bd111acaa18ed540d95aa52dbdbb4fd0e531e29",
+      "bytes": 3843,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S16",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/table-acl-application.json",
+      "sha256": "716853c9e50f2c9e32cfba38449d06f5c8086c2e2a12d3608c4f89869bcaebea",
+      "bytes": 270,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S17",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/table-acl-application-corrected.json",
+      "sha256": "3d4fe03c5738445cb97556af0927169cff1fec1608574d71257017647e02285f",
+      "bytes": 310,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S18",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/table-acl-result.json",
+      "sha256": "5e47afaada701e2416dca9f211bc144e4a5b961a6f49fae7f45c96655e1661c5",
+      "bytes": 336,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S19",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/acl-source-error.json",
+      "sha256": "847b5af21de4a42073861a2aef40f4050b7865d0b5a5a8a1c6b0235c824df557",
+      "bytes": 156,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S20",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/table-acl-final-application.json",
+      "sha256": "9e61aae270a025aaa55154829e4117e3c225423134961865a7bd38ccda433c8c",
+      "bytes": 349,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S21",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/identity-mapping-result.json",
+      "sha256": "f960fa1350f841dd885eccf16fb6ebbb91d767bd6ccec094c92958f2e880bf33",
+      "bytes": 319,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S22",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/identity-mapping-result-corrected.json",
+      "sha256": "a08d5dcc2d8015d43b94024c37ce1ae42f2abbc41c15a930e7d5ef47ac789e25",
+      "bytes": 3475,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S23",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-b/BATCH-B-RESULT.json",
+      "sha256": "0c4ebfb0b69616f6779a7a8a05f7ae811b0ab91fcbf9151b61da1dbfe1afc22f",
+      "bytes": 29470,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S24",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-c/BATCH-C-RESULT.json",
+      "sha256": "940f20d81d6e8bf8b8c1de93b4835d46e9c0b48c34aa8bc08963fd0a994da495",
+      "bytes": 3750,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S25",
+      "path": "/private/tmp/FL-DB-008-private-batchA-20261004/batch-c/CARD-MIGRATION-DEPENDENCY-STOP.json",
+      "sha256": "1fac151719ab58e7526ce6772e020993c71806efa41085e1036b2a6e34d952aa",
+      "bytes": 2746,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S26",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/fresh-resources.json",
+      "sha256": "1b048b043a54e54b0e3f58ae3b5e744beec7641d3a55718fc238989c3f7064f7",
+      "bytes": 320,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S27",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/fresh-resources-corrected.json",
+      "sha256": "841494030295abb680c8e56ad485afcfe6206c7cda1e384fb9f423b66201da5d",
+      "bytes": 1280,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S28",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/fresh-resources-final.json",
+      "sha256": "0ddc35a6ef47b378a6cdc71695468109b8ae6a48a01a385df89196f71a877cff",
+      "bytes": 3745,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S29",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/migration-chain-result.json",
+      "sha256": "1f90c369e92d12cac92939fa53a1ed25c2e717c6248180e3128fb9f0c46264ac",
+      "bytes": 246,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S30",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/migration-chain-result-final.json",
+      "sha256": "dcba2edfdf2b2308972ddc1590d5cd4363e271d8196e3004ac11dd8eeb7526bf",
+      "bytes": 112275,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S31",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/acl-catalog-result.json",
+      "sha256": "83fa12ae989e401c95032ff4847a9f5ccfe24d927eac0590fdd4b982c2507597",
+      "bytes": 9449,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S32",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/owner-continuation-authorization.json",
+      "sha256": "28cdc4309694000d34ab79eff0aecb9d209507e83bf2670af2e75e10e632522c",
+      "bytes": 851,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S33",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/wallet-continuation-result.json",
+      "sha256": "df03100a4dbcfce392225b2fb6aecb27f4610d60688bfcccbdf9db071bd654ce",
+      "bytes": 83223,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S34",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-existing-cert-san-check.json",
+      "sha256": "9bed45e5d7f4cfb95557c1a943b037223fec20e6be01815f5f930cdf4b3c859f",
+      "bytes": 953,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S35",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/owner-runtime-uri-authorization.json",
+      "sha256": "be4a91a3cd57a0197cf0c168aaa6bcb32bcd6652f829c20ceaaafe4435b912a3",
+      "bytes": 819,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S36",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-initializer-connect-check.json",
+      "sha256": "aa225af7c35c335333a53683bbe764fcac3396c544a7a3f309873555ef89a890",
+      "bytes": 1690,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S37",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/owner-observer-continuation-authorization.json",
+      "sha256": "aa7fd436d42127aee2f10f210ef087e874336e953aa932150a7cdeec7acddbda",
+      "bytes": 1372,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S38",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/observer-access-result.json",
+      "sha256": "69fcdfb17538fcd2970ad61327fa736bde71982cfa5069202128dbe1170174d0",
+      "bytes": 582,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S39",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/controller-case-guard-continuation.json",
+      "sha256": "b0285d1d369bdc1f4d208905ddb12ec6b3ab92043d98893c4da4636fe532e6f7",
+      "bytes": 1128,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S40",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/observer-015-static.json",
+      "sha256": "daeeba78ca3e577c9f240c2c18ac26d3cda92384860cf113e5f4240eb6c68207",
+      "bytes": 1129,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S41",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/observer-015-continuation-result.json",
+      "sha256": "82749dabca681b760fce7d51a88578b33f2caf327d85e78884650fd0bb2325d9",
+      "bytes": 3717,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S42",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/active-hba-continuation-result.json",
+      "sha256": "e3c2261e6ab5189abaecf0c93668ddd5732d93a980af7a95b4b38872a0e9212b",
+      "bytes": 590,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S43",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-two-cases-final-result.json",
+      "sha256": "bc808dca41d7fed3eda4eae0a7abde4d7f1c6b8373ba19bc21aa9caadb1617eb",
+      "bytes": 742,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S44",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/runtime-shards-static.json",
+      "sha256": "e5823fe1af0c746e9a7d0d0deda45e8fdbc970e591e258f657c8642ba7d31b55",
+      "bytes": 536,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S45",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-sharded-continuation-result.json",
+      "sha256": "e0cd76d000a10ac790eb25ef318bb892f7732a6265d2d99102c150da302e4839",
+      "bytes": 1229,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S46",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-safe-closeout-result.json",
+      "sha256": "ac82fd65ef20383d9d8a3ed93f0eeb9958a5e7135448a35779883376d03e1e90",
+      "bytes": 719,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S47",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/safe-json-closeout-static.json",
+      "sha256": "1478016e6bd64ffb37badc253638692d8ad47590341416316264dddfe85892ca",
+      "bytes": 182,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S48",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/safe-json-closeout-final.json",
+      "sha256": "17879f3b7b12e4138573645f6e44a99952a364d68bd26b5b0e1bc09eabb25ea0",
+      "bytes": 13541,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S49",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-two-preparations-result.json",
+      "sha256": "6faea210b5c09adfcd9e356f62b2d2987365dee4fb764050dec33b851227169d",
+      "bytes": 552,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S50",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-batch-c-binding-facts.json",
+      "sha256": "6baf7b0b3e9b91078cd9a7e0724e455ae6bf2b784714a186adbedee7c9bd788d",
+      "bytes": 797,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S51",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-batch-c-initializers-independent.json",
+      "sha256": "e6621c672d123b15a0d84edff77dce79c7f48a6d45d1ebc5c10a72d7e90e6666",
+      "bytes": 437,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S52",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-safe-json-closeout.json",
+      "sha256": "c2c87424519f1e5e2239aa6ff7350d5afba3a3ced28c3e3fc66eaf418b0189e0",
+      "bytes": 5672,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "id": "S53",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r2-safe-json-closeout.json",
+      "sha256": "f4d4c34f00839e06a558983d1e7142baebd4af5e8710a7f79aad6296a6a7b973",
+      "bytes": 5810,
+      "use": "只读已脱敏结果/授权记录；未复制私有认证材料",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/HANDOFF-CHECKPOINT.md",
+      "sha256": "526aa6f977a5efd3afec3a537e0c715e0424985c6c41604e6a9ed84841592681",
+      "bytes": 4169,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T01",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/architecture-revision-v3-s1/HANDOFF.md",
+      "sha256": "f91c20281abad833ad6f6634bb8156ad7e8c83b6cdcce6202c38b533528595bb",
+      "bytes": 4203,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T02",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/architecture-revision-v3-s1/evidence/static-results.json",
+      "sha256": "4df638b6428ca0389663af8f6f75b6b55e761ba9dfd31546a09dcd614336c5ff",
+      "bytes": 852,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T03",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/architecture-revision-v3/HANDOFF.md",
+      "sha256": "35da6d6b9635b6e862b75fca38292d9b58e57014be305446cc9391c0858c0a0b",
+      "bytes": 4319,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T04",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/architecture-revision-v3/evidence/static-results.json",
+      "sha256": "3636c0ac43f020cde48e79eabc5ec17b818eb8249b2535ec329b7a951855c06d",
+      "bytes": 1739,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T05",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/checkpoint2/HANDOFF.md",
+      "sha256": "94b6a11c1ef44de305112dbdcf262001c628faa67be139326ea34bbfcdddbc2b",
+      "bytes": 3003,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T06",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/checkpoint3/HANDOFF.md",
+      "sha256": "05158869aa0e8f49860e67823fe43859fe70f7c141023b4c10a5e781e5c1dfd9",
+      "bytes": 3459,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T07",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/closure-readiness/HANDOFF.md",
+      "sha256": "9cbeb6defab4a3cdff9fa8163c18dea9db097148408ec4c2dd301578d52a47ab",
+      "bytes": 6631,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T08",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/closure-readiness/evidence/table-matrix.json",
+      "sha256": "bbd87b68fd16fb2650ee4819857a21a66492c5dcb9c8097ff3c3b5537bac2e62",
+      "bytes": 3377438,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T09",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/dynamic-permission/HANDOFF.md",
+      "sha256": "af4e55cc626babad98b39591e4dee0d1e54bc86cf72e407d6b232a9534c790c0",
+      "bytes": 3897,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T10",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-005-resume-20261002/evidence-bundle/docs/governance/FL-DB-008/policy-revision-v2/HANDOFF.md",
+      "sha256": "56c6e8fd43597d9d4205881cc5bfd6fb444204861a21c2db2ddb6188ff9ec093",
+      "bytes": 4205,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T11",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/batch-c-readiness.json",
+      "sha256": "34a030356b075cd1d71952f3faa3d4c4b2c07af7c3b59e1562ca7494bf9056e4",
+      "bytes": 866,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T13",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-acl-catalog.json",
+      "sha256": "aacc83433461f57be066c3fe5121d570bac03dda911b5127b78429fe24efb615",
+      "bytes": 647903,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T18",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-catalog.json",
+      "sha256": "42bbd8e23064ea08200423410a3f46110301d0bb47152fd2ba99d149a978bd6d",
+      "bytes": 7762,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T19",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continuation-omitted_function_path.json",
+      "sha256": "2d0c1a9d3f501da62cac7a7e089162ef71a3a8459a77072b5e4178a84ec4b347",
+      "bytes": 235,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T20",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continuation-wallet_append_only.json",
+      "sha256": "8f19efc6ad111218d32581a7800cc299d80848429a8a0fc90aa9017f4f580b88",
+      "bytes": 232,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T21",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continued-acl-catalog.json",
+      "sha256": "6d11735a154c58415f9bd8e77d84289e452bdda0956f264cff7c62f53223e2d0",
+      "bytes": 649591,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T22",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continued-readonly-004.txt",
+      "sha256": "a68333195e0be8051a1d58f0ddb5c32e5436142d78c00367f94a82988fe10d0c",
+      "bytes": 3868,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T23",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continued-readonly-008.txt",
+      "sha256": "867250bee30e6338a9b96fee5f1b677a82da5db583c817565ef5611176e2ea2d",
+      "bytes": 6432,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T24",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-continued-readonly-012.txt",
+      "sha256": "aa38e3b673bb0f4073a2dbacf80f9af62e705836a1a418dec9f41614aecb71f5",
+      "bytes": 15041,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T25",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-migration-01.json",
+      "sha256": "58e865bd7717256721e872c697dfec5d6900f58c89faada6d45fc6bb419a9451",
+      "bytes": 1893,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T26",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r1-migration-33.json",
+      "sha256": "0e9b8959062b3997c83d5c12c612036747cb24a9096b67346dbc82c1fef208f9",
+      "bytes": 314,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T27",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r2-continuation-omitted_function_path.json",
+      "sha256": "2d0c1a9d3f501da62cac7a7e089162ef71a3a8459a77072b5e4178a84ec4b347",
+      "bytes": 235,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T28",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r2-continuation-previously_unexecuted_64_acl.json",
+      "sha256": "d5afb37124b2302c9e635eeb77ba6b1e5641a519f4f76116bf7cde20e9c18fe4",
+      "bytes": 242,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T29",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r2-continuation-wallet_append_only.json",
+      "sha256": "8f19efc6ad111218d32581a7800cc299d80848429a8a0fc90aa9017f4f580b88",
+      "bytes": 232,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T30",
+      "copied": false
+    },
+    {
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/evidence/r2-continued-acl-catalog.json",
+      "sha256": "573b9dd10b32ad1b7e7a82c905828dfc8fce7b47876d448a105d322ac881c435",
+      "bytes": 649591,
+      "use": "READ_ONLY_EXISTING_SANITIZED_REPORT; selective derivation, not byte-for-byte archival copy",
+      "id": "T31",
+      "copied": false
+    },
+    {
+      "id": "E01",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/BATCH-C-FINAL-HANDOFF.json",
+      "sha256": "f16c9cf3b67c6d4a9a3649332d6415e57cc11360c7ce4b3eb4ea7ea467c5c02f",
+      "bytes": 10525,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E02",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/FINAL-HANDOFF.md",
+      "sha256": "cc28db6b15f7c09313e50f47d3dcf078c07c1d078ee23370b140c721ee24aecd",
+      "bytes": 512,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E03",
+      "path": "/private/tmp/FL-DB-008-private-align-20261004/sensitive-scan-batch-c.json",
+      "sha256": "64aafaf52bd6f7acd0135865d36e489c0817c45faa7856f8f0a2ce2f098adab2",
+      "bytes": 200,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E04",
+      "path": "/private/tmp/FL-DB-008-archive-20261004/repository/docs/governance/FL-DB-005/HANDOFF-CONVERGENCE.md",
+      "sha256": "739e905d7f216471505f45999d635039060c666fc76c26e435cf8eeac4f1be29",
+      "bytes": 2712,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E05",
+      "path": "/private/tmp/FL-DB-008-archive-20261004/repository/docs/governance/FL-DB-005/isolation-candidate-archive/HANDOFF.md",
+      "sha256": "7d8cca2f5535f325f8b0198449dca6a88cc95ba2332d0120b3ed328d7c2de866",
+      "bytes": 1525,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E06",
+      "path": "/private/tmp/FL-DB-008-archive-20261004/repository/docs/governance/FL-DB-006/HANDOFF.md",
+      "sha256": "986e0d981644bb9c224c20b22707f1ff7fc8130313c2ba29e741b31735706001",
+      "bytes": 3110,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "E07",
+      "path": "/private/tmp/FL-DB-008-archive-20261004/repository/docs/governance/FL-DB-007/HANDOFF.md",
+      "sha256": "cde105061aecd1c671ff6c228116f02bab2e2b7c85f29739634cd29fc465ac8e",
+      "bytes": 2408,
+      "copied": false,
+      "use": "READ_ONLY_REPORT_SUMMARY_NOT_ORIGINAL_COPY"
+    },
+    {
+      "id": "S87",
+      "path": "/private/tmp/FL-DB-008-archive-20261004/intake/batch-c-minimal-preflight-stop.json",
+      "sha256": "2c36798b1349cce9247f6501cf796802c12cb1061c593cda4eeb9cc623c2c12f",
+      "bytes": 1785,
+      "use": "追加专项恢复/安全收尾的脱敏结果；不包含HBA或认证原值",
+      "copied": false
+    },
+    {
+      "id": "S88",
+      "path": "/private/tmp/FL-DB-008-single-user-recovery-20261004/preflight.json",
+      "sha256": "84ddb8f7918cc9112303d56d4e3f99435e4023c488fd3c31d9e4475b6e600a4d",
+      "bytes": 962,
+      "use": "追加专项恢复/安全收尾的脱敏结果；不包含HBA或认证原值",
+      "copied": false
+    },
+    {
+      "id": "S89",
+      "path": "/private/tmp/FL-DB-008-single-user-recovery-20261004/RESULT.json",
+      "sha256": "d8b28e5420c752b8d6aeeb53bf85fe214682db69cc8ff99af94279f2fd3a8a54",
+      "bytes": 1400,
+      "use": "追加专项恢复/安全收尾的脱敏结果；不包含HBA或认证原值",
+      "copied": false
+    },
+    {
+      "id": "S90",
+      "path": "/private/tmp/FL-DB-008-single-user-recovery-20261004/closeout-result.json",
+      "sha256": "67f0dd014f620816fe6f943d9ea48966abfcaf0f9fb5df9eec08b8deac343f6a",
+      "bytes": 1775,
+      "use": "追加专项恢复/安全收尾的脱敏结果；不包含HBA或认证原值",
+      "copied": false
+    },
+    {
+      "id": "S91",
+      "path": "/private/tmp/FL-DB-008-unified-c-20261004/RESULT.json",
+      "sha256": "d51fbd6fcedaaf37c48ef01ddf2694faf76553304a697cafcb06e76594983c95",
+      "bytes": 2602,
+      "use": "R1管理连接STOP；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S92",
+      "path": "/private/tmp/FL-DB-008-unified-c-20261004/STOP-CORRECTION.json",
+      "sha256": "16e943738dcebfa6aca2fd904884356a506aa49b663e5374e95902a1d9b7e14c",
+      "bytes": 1554,
+      "use": "错误收尾PASS更正；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S93",
+      "path": "/private/tmp/FL-DB-008-unified-c-20261004/r1-emergency-retirement/RESULT.json",
+      "sha256": "327749a6806fe7c7772e14d29baeea3630b024ea39422173aad7ccc19293cee8",
+      "bytes": 1347,
+      "use": "R1专项退役；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S94",
+      "path": "/private/tmp/FL-DB-008-unified-c-r2-20261004/RESULT.json",
+      "sha256": "9e371d2c8bf20685a8f17f72a5abb6b287583b13e84b703c3f1d05a397d21608",
+      "bytes": 5108,
+      "use": "R2 Docker写入STOP；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S95",
+      "path": "/private/tmp/FL-DB-008-r2-init-diagnostic-20261004/RESULT.json",
+      "sha256": "f960dd0db472d584e83b47b8a3aa2de15740d7dda6d659f518d577ff4c60fa6b",
+      "bytes": 668,
+      "use": "采集器诊断STOP；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S96",
+      "path": "/private/tmp/FL-DB-008-r2-init-diagnostic-20261004/BOUNDARY-CORRECTION.json",
+      "sha256": "810d2a8c91e13c03724a42d7f3048c01acbb832b116ecbc15b6de8fa38fc30bd",
+      "bytes": 1722,
+      "use": "诊断边界更正；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S97",
+      "path": "/private/tmp/FL-DB-008-r2-init-diagnostic-fixed-20261004/RESULT.json",
+      "sha256": "9b5107140a14b060b63db2d29640fdcd3311a01ce4a39a5e5e7e31ed15911476",
+      "bytes": 960,
+      "use": "Docker只读rootfs写入诊断；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S98",
+      "path": "/private/tmp/FL-DB-008-r2-continuous-20261004/RESULT.json",
+      "sha256": "2c65449c19a3b9f71e83d3e40bc517709bf640b4181417415bb7fe22d63776a5",
+      "bytes": 7476,
+      "use": "TLS字面断言STOP；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S99",
+      "path": "/private/tmp/FL-DB-008-r2-dn-closed-loop-20261004/RESULT.json",
+      "sha256": "df84b2457a7d623b3f2099dd796c154ed5fbbb0c9768c30c7bdeeb0c867754aa",
+      "bytes": 10042,
+      "use": "R2初始化成功、工具TypeError及退役；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S100",
+      "path": "/private/tmp/FL-DB-008-r2-dn-closed-loop-20261004/dn-alignment.json",
+      "sha256": "6b30281ed61d51f9f726d294e8dc5c6d8a15b6be71b69583500b8752a59aa83c",
+      "bytes": 476,
+      "use": "严格DN等价修订；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S101",
+      "path": "/private/tmp/FL-DB-008-r2-reuse-20261004/RESULT.json",
+      "sha256": "6da5adcb22db4c12be1043cc0c16109a622a97537c477fbc0a1c074d8afef83e",
+      "bytes": 16620,
+      "use": "准入注册42501及退役；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S102",
+      "path": "/private/tmp/FL-DB-008-r2-reuse-20261004/event-callback-check.json",
+      "sha256": "5ac1d0852269a9a3bf39b6693849e13b16e189e71ac71b2e8ceb335f33e87c57",
+      "bytes": 341,
+      "use": "回调修订检查；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S103",
+      "path": "/private/tmp/FL-DB-008-r2-challenge-20261004/RESULT.json",
+      "sha256": "94c6bf3668a200f1ffb24f6bbfc991160016b57793642d0d08df8e30181b79ad",
+      "bytes": 17138,
+      "use": "consume_admission 42501及退役；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S104",
+      "path": "/private/tmp/FL-DB-008-r2-challenge-20261004/challenge-fix-check.json",
+      "sha256": "47da72a3d593d1e24a7cc992afe84c6ccb73b093073b82477e67f22b7b287398",
+      "bytes": 1036,
+      "use": "challenge TEXT修订检查；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    },
+    {
+      "id": "S105",
+      "path": "/private/tmp/FL-DB-008-r2-challenge-20261004/locked-core-subset.sha256.json",
+      "sha256": "5591b59e9da666306bf1ace5cdd3373b8cce2ca900020b3f0a3726f617433399",
+      "bytes": 119,
+      "use": "10项核心子集锁定；仅既有非秘密结果，不含认证正文",
+      "copied": false
+    }
+  ],
+  "privateManifest": {
+    "path": "/private/tmp/FL-DB-008-private-align-20261004/SHA256SUMS-BATCH-C",
+    "sha256": "e2eade33128e082cf40b7186ca70e0b037949228a7fcd9c5efe8574bdb85d665",
+    "entries": 239,
+    "copied": false,
+    "status": "INHERITED_CONTROLLER_VERIFICATION_NOT_REPEATED"
+  },
+  "outputsAreProjections": true,
+  "sourceAuthenticityBoundary": "Hashes bind selected reports read now, not missing historic command bytes; no actual auth materials opened."
+}

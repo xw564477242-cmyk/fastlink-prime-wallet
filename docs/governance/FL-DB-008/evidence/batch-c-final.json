@@ -1,0 +1,224 @@
+{
+  "task": "FL-DB-008",
+  "authority": {
+    "controllerThread": "019fa6b7-4f28-7b62-b676-757be88c22f8",
+    "ownerTurn": "01a10658-b45f-7891-b9d0-07d697b3cc8f",
+    "authorization": "FINAL_OFFLINE_ARCHIVE_ONLY"
+  },
+  "disposition": {
+    "candidateAuditDelivery": "COMPLETE",
+    "implementationGate2": "FAIL",
+    "databaseSecurity": "NOT_ACCEPTED",
+    "rlsSafetyPrerequisite": "BLOCKED",
+    "fundsSafetyPrerequisite": "BLOCKED",
+    "staticConfiguration": "PASS_WITH_SOURCE_SCOPE",
+    "runtimeAdmission": "PARTIALLY_VERIFIED",
+    "businessRuntime": "NOT_VERIFIED",
+    "batchClosure": "ON_SINGLE_DRAFT_PR_CREATION_OWNER_EXCEPTION",
+    "scene": "PERMANENT_FREEZE",
+    "formalBaselineUpdated": false
+  },
+  "sourceIds": [
+    "S91",
+    "S92",
+    "S93",
+    "S94",
+    "S95",
+    "S96",
+    "S97",
+    "S98",
+    "S99",
+    "S100",
+    "S101",
+    "S102",
+    "S103",
+    "S104",
+    "S105"
+  ],
+  "chronologicalStages": [
+    {
+      "sourceId": "S91",
+      "status": "STOP",
+      "completedAt": "2026-10-04T07:39:12.682222+00:00",
+      "errors": [
+        "SESSION_ENDED_BEFORE_RESULT"
+      ],
+      "closeoutStatuses": [
+        "PASS"
+      ]
+    },
+    {
+      "sourceId": "S93",
+      "status": "PASS_R1_EMERGENCY_RETIREMENT_ONLY",
+      "completedAt": "2026-10-04T07:55:36.504743+00:00",
+      "errors": [],
+      "closeoutStatuses": []
+    },
+    {
+      "sourceId": "S94",
+      "status": "STOP",
+      "completedAt": "2026-10-04T08:07:00.125866+00:00",
+      "errors": [
+        "DOCKER_FAILED_1_STDERR_SHA_b558b5ea6bdea606d7f36b58786b4f8792e3a8ed9b633e402ab0ef5ef9b332cf"
+      ],
+      "closeoutStatuses": [
+        "PASS"
+      ]
+    },
+    {
+      "sourceId": "S95",
+      "status": "STOP_CLOSEOUT_INCOMPLETE",
+      "completedAt": "2026-10-04T08:20:13.590926+00:00",
+      "errors": [],
+      "closeoutStatuses": []
+    },
+    {
+      "sourceId": "S97",
+      "status": "LIMITED_DOCKER_COPY_REPRODUCED",
+      "completedAt": "2026-10-04T08:32:47.273649+00:00",
+      "errors": [],
+      "closeoutStatuses": []
+    },
+    {
+      "sourceId": "S98",
+      "status": "STOP",
+      "completedAt": "2026-10-04T08:51:04.269027+00:00",
+      "errors": [
+        "CERTIFICATE_IDENTITY_MISMATCH"
+      ],
+      "closeoutStatuses": [
+        "PASS"
+      ]
+    },
+    {
+      "sourceId": "S99",
+      "status": "STOP",
+      "completedAt": "2026-10-04T09:13:09.565689+00:00",
+      "errors": [
+        "TypeError"
+      ],
+      "closeoutStatuses": [
+        "PASS"
+      ]
+    },
+    {
+      "sourceId": "S101",
+      "status": "STOP",
+      "completedAt": "2026-10-04T09:32:56.929774+00:00",
+      "errors": [
+        "UNEXPECTED_DATABASE_SQLSTATE_42501"
+      ],
+      "closeoutStatuses": [
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "sourceId": "S103",
+      "status": "STOP",
+      "completedAt": "2026-10-04T09:42:26.618139+00:00",
+      "errors": [
+        "UNEXPECTED_DATABASE_SQLSTATE_42501"
+      ],
+      "closeoutStatuses": [
+        "PASS",
+        "PASS"
+      ]
+    }
+  ],
+  "currentR1": {
+    "sourceId": "S93",
+    "status": "EMERGENCY_RETIREMENT_COMPLETED_THEN_FROZEN",
+    "bootstrapLogin": false,
+    "pendingHbaCleared": true,
+    "accessAfterEmergency": false,
+    "notRequeriedForArchive": true
+  },
+  "currentR2": {
+    "initializationCompleted": true,
+    "observerInitializationCompleted": true,
+    "initializationReplays": 0,
+    "newGrantRequestObserverRecordsInReuse": 0,
+    "lockedCoreSha256": "c6eaa9bf837297aeef884bec25355fb1b22639e45f85d9144f32af5ce0dcc90a",
+    "selectedBusinessCases": 10,
+    "completedBusinessCases": 0,
+    "controlChecks": {
+      "PASS": 28,
+      "LIMITED": 1,
+      "STOP": 1
+    },
+    "challengeTransfer": {
+      "textType": "str",
+      "byteLength": 399,
+      "sha256": "f7c77daf20c05785a9a7feaa1d0e34ea1aaa3b171303596984b0baf0fa81ec5b",
+      "issuerByteLength": 399,
+      "issuerSha256": "f7c77daf20c05785a9a7feaa1d0e34ea1aaa3b171303596984b0baf0fa81ec5b",
+      "bytesEqual": true,
+      "rawRetained": false
+    },
+    "registerAdmission": "SUCCEEDED_AND_COMMITTED_BEFORE_CONSUME",
+    "consumeAdmission": "FAILED_SQLSTATE_42501",
+    "sequenceConsumption": "UNKNOWN_NOT_QUERIED_NO_REPLAY_OR_RESET",
+    "lastRetirement": {
+      "newKeyStates": {
+        "BIND": "REVOKED",
+        "CHALLENGE": "REVOKED"
+      },
+      "recordState": {
+        "enabledGrants": 0,
+        "liveRequests": 0,
+        "enabledObserverCases": 0
+      },
+      "runtimeIssuerRoles": [
+        {
+          "role": "db8_v3_runtime_login",
+          "login": false,
+          "connect": false,
+          "temp": false,
+          "memberships": 0,
+          "sessions": 0
+        },
+        {
+          "role": "db8_v3_issuer_login",
+          "login": false,
+          "connect": false,
+          "temp": false,
+          "memberships": 0,
+          "sessions": 0
+        }
+      ],
+      "bootstrapLogin": false,
+      "otherSessionsBeforeManagementDisconnect": 0,
+      "controlBackendProcessAfterDisconnect": "GONE",
+      "configuration": {
+        "hbaSha256": "099268d4c322bdcc3bf0e61468279093454ca218ed5931633cef020d406aab80",
+        "pendingRestart": false,
+        "tlsRestored": true
+      },
+      "newClientContainersRemoved": 3,
+      "newMaterialFilesRemoved": 5,
+      "oldFilesRemoved": 0
+    },
+    "callerCurrentIdentityAndBusinessDml": "NOT_REACHED",
+    "internalCurrentIdentity": "UNKNOWN"
+  },
+  "archiveActions": {
+    "docker": 0,
+    "database": 0,
+    "sql": 0,
+    "dynamicTests": 0,
+    "credentialGenerationOrRead": 0,
+    "remoteShaReconfirmation": 0,
+    "formalMigrationOrBusinessChanges": 0
+  },
+  "prohibitedNextActions": [
+    "receipt replay",
+    "sequence reset",
+    "database restart or initialization",
+    "old key reactivation",
+    "candidate SQL promotion",
+    "deployment",
+    "automatic safety closure"
+  ],
+  "nextWork": "New separately authorized isolated work order; preserve current failures and frozen scene"
+}
