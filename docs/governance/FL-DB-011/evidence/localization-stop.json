@@ -1,0 +1,33 @@
+{
+  "task": "FL-DB-011",
+  "status": "STOP",
+  "stage": "LOCALIZATION_CONSISTENCY_CHECK",
+  "code": "LOCALIZATION_NOT_REVERSIBLE",
+  "cause": "INVERSE_SUBSTITUTION_ORDER_CHANGES_NEW_ROOT_PREFIX_BEFORE_ROOT_RESTORATION",
+  "oldPathBinding": "pathlib.Path('/private/tmp/FL-DB-010/replacement-r1-20261004')",
+  "inversePathBinding": "pathlib.Path('/private/tmp/FL-DB-010/dynamic-r1-20261005')",
+  "copiedNonSecretFiles": 53,
+  "changed": [
+    {
+      "path": "verification/private/run_batch.py",
+      "sourceSHA256": "a702c25208923a0c628c816613c4ccf94d3c35b859bddca8ad78f00e39e14867",
+      "derivedSHA256": "885b5a5b195f3cb1130439ca9f79bc18ec3561d914c255e78dd9d40170815c6a",
+      "changed": true
+    },
+    {
+      "path": "backend/tools/fl-db-011/isolated_adapter.py",
+      "sourceSHA256": "8f746dbd89c0cdfa0ff715331786ca106192b520e9a4f89363630db37a5a3e00",
+      "derivedSHA256": "21e59112e1845752cbe729a17baaef8d856194de01023e9db48af095a9f4865e",
+      "changed": true
+    }
+  ],
+  "dockerCalls": 0,
+  "credentialsGenerated": 0,
+  "sqlExecutions": 0,
+  "migrationExecutions": 0,
+  "coreCasesExecuted": 0,
+  "retirement": "NOT_APPLICABLE_NO_RESOURCES_CREATED",
+  "furtherChanges": 0,
+  "resourcesPreserved": true,
+  "createdAt": "2026-10-04T16:24:05.222769+00:00"
+}

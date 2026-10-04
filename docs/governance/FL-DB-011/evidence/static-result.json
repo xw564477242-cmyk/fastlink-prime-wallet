@@ -1,0 +1,281 @@
+{
+  "suite": "FL-DB-011-static",
+  "planned": 66,
+  "run": 66,
+  "failures": 0,
+  "errors": 0,
+  "status": "STOP",
+  "controls": [
+    {
+      "test": "BatchCaseTests.test_acl_denial_retains_hashes_and_rolls_back_once",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_after_snapshot_failure_is_unknown_not_unchanged",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_arbitrary_exception_body_never_enters_evidence",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_changed_data_stops_with_both_hashes",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_consume_error_rolls_back_without_business_sql",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_every_business_error_rolls_back_and_preserves_fixed_code",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_first_error_is_not_overwritten_by_cleanup_error",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_insert_all_required_fields_and_unique_fixture_keys",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_insert_collision_stops_before_admission",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_insert_delete_have_returning_and_fixed_json",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_malformed_count_stops_after_rollback",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_rollback_failure_stops_but_still_attempts_other_cleanup",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_successful_cross_write_is_not_a_denial_after_rollback",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchCaseTests.test_suite_never_retries_failed_actual_case_or_runs_later_cases",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_no_new_semantic_fix_and_r2_diagnostic_facilities_absent",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_r1_core_stop_retires_once_and_never_creates_r2",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_r1_incomplete_result_cannot_create_r2",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_r1_prepare_failure_retires_once_without_suite_or_r2",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_r1_retirement_failure_is_not_retried_or_promoted",
+      "status": "PASS"
+    },
+    {
+      "test": "BatchOrderTests.test_r1_ten_cases_and_retirement_pass_without_r2",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_core_contract_and_candidate_unchanged",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_exclusive_once_claim_has_no_retry",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_fixed_input_chain_and_original_order",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_retirement_attempt_once_and_partial_init_never_passes",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_round_two_rejected_and_main_is_single_round",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_task_paths_and_exact_resource_names",
+      "status": "PASS"
+    },
+    {
+      "test": "DB10LocalizationTests.test_tls_task_names_changed_without_old_material_reads",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11CleanupTests.test_business_first_failure_not_replaced_by_cleanup_failure",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11CleanupTests.test_cleanup_sqlstate_retains_first_denial_and_both_cleanup_outcomes",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11CleanupTests.test_cleanup_unknown_text_and_three_markers_do_not_enter_any_evidence",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11CleanupTests.test_either_session_cleanup_failure_still_attempts_both_exactly_once",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11CleanupTests.test_real_protocol_denial_remains_expected_and_allows_next_case_command",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_broken_pipe_is_fixed_channel_code_without_retry",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_commit_and_rollback_failures_keep_sqlstate_then_allow_real_cleanup",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_denial_rollback_next_command_on_one_channel",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_error_state_conflict_never_becomes_success_or_expected_denial",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_fragmented_frame_and_multiple_buffered_lines",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_preexisting_process_exit_sends_no_command",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_prior_error_can_be_misattributed_by_old_parser_but_new_parser_stops",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_psql_streams_are_merged_inside_container_before_transport",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ContinuousProtocolTests.test_real_eof_is_channel_failure_not_sql_denial",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ScopeTests.test_only_authorized_source_definitions_changed",
+      "status": "PASS"
+    },
+    {
+      "test": "DB11ScopeTests.test_original_fifty_test_methods_are_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "ProtocolTests.test_arbitrary_error_body_is_rejected",
+      "status": "PASS"
+    },
+    {
+      "test": "ProtocolTests.test_fixed_json_is_accepted",
+      "status": "PASS"
+    },
+    {
+      "test": "ProtocolTests.test_fixed_sqlstate_denial_is_accepted_without_body",
+      "status": "PASS"
+    },
+    {
+      "test": "ProtocolTests.test_non_json_command_tag_is_rejected",
+      "status": "PASS"
+    },
+    {
+      "test": "ProtocolTests.test_non_json_notice_is_rejected",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_approved_fixed_enum_and_sqlstate_still_survive",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_arbitrary_dynamic_suffix_is_downgraded",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_challenge_sqlstate_is_preserved_with_substage",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_challenge_wrong_shape_is_preserved",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_cleanup_rollback_failure_does_not_overwrite_register_first_cause",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_empty_suffix_is_downgraded",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_expected_register_rejection_is_observed_not_drider_exception",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_finally_rollback_runs_once_on_both_sessions_after_register_failure",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_fixed_25p02_terminate_codes_do_not_regress",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_issuer_commit_failure_after_challenge_and_contract_leaks_nothing",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_issuer_commit_failure_is_distinct_substage",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_issuer_commit_unknown_stop_is_downgraded_with_query_sqlstate",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_issuer_query_failure_after_challenge_and_contract_leaks_nothing",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_issuer_rollback_failure_after_challenge_and_contract_leaks_nothing",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_no_challenge_or_contract_value_leaks_into_evidence",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_term_code_is_whitelist_filtered",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_txn_end_failure_does_not_mask_query_sqlstate",
+      "status": "PASS"
+    },
+    {
+      "test": "RealRegisterPathTests.test_unapproved_prefix_is_downgraded",
+      "status": "PASS"
+    }
+  ],
+  "exitCode": 0,
+  "stderrBytes": 110,
+  "finishedAt": "2026-10-04T16:03:44.658648+00:00",
+  "dockerOperations": 0,
+  "databaseConnections": 0,
+  "sqlExecutions": 0,
+  "networkCalls": 0
+}
