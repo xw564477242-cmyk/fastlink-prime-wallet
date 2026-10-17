@@ -155,21 +155,44 @@ export function useCardListPages(
   }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
 
   const reloadList = useCallback(async () => {
-    if (!session || !scopeReady || state.loading || state.loadingMore || activePageRequest.current !== null) return;
+    if (
+      !session ||
+      !scopeReady ||
+      state.loading ||
+      state.loadingMore ||
+      activePageRequest.current !== null
+    )
+      return;
     const requestId = ++requestSequence.current;
     activePageRequest.current = requestId;
-    dispatch({ type: "reset", requestId, sessionKey, preferredCardId: state.activeId, loading: true });
+    dispatch({
+      type: "reset",
+      requestId,
+      sessionKey,
+      preferredCardId: state.activeId,
+      loading: true,
+    });
     try {
       const page = await backendApi.listCards({ limit: CARD_LIST_PAGE_SIZE });
-      if (requestSequence.current === requestId) dispatch({ type: "page", requestId, page, append: false });
+      if (requestSequence.current === requestId)
+        dispatch({ type: "page", requestId, page, append: false });
     } catch (error) {
       if (requestSequence.current !== requestId) return;
-      if (error instanceof BackendApiError && error.status === 401) invalidateSession?.(session, "EXPLICIT_401");
+      if (error instanceof BackendApiError && error.status === 401)
+        invalidateSession?.(session, "EXPLICIT_401");
       dispatch({ type: "failed", requestId, message: safeCardFailure(error), append: false });
     } finally {
       if (activePageRequest.current === requestId) activePageRequest.current = null;
     }
-  }, [session, scopeReady, sessionKey, state.activeId, state.loading, state.loadingMore, invalidateSession]);
+  }, [
+    session,
+    scopeReady,
+    sessionKey,
+    state.activeId,
+    state.loading,
+    state.loadingMore,
+    invalidateSession,
+  ]);
 
   const confirmCreatedCard = useCallback(
     async (

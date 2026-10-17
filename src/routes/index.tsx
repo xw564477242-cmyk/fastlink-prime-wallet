@@ -162,22 +162,9 @@ function HomePage() {
           </p>
         )}
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat
-            to="/assets/digital"
-            label={t("home.digital")}
-            value="查看明细"
-          />
-          <MiniStat
-            to="/assets/fiat"
-            label={t("home.fiat")}
-            value="查看明细"
-          />
-          <MiniStat
-            to="/cards"
-            label={t("home.card")}
-            value="查看卡状态"
-            tone="accent"
-          />
+          <MiniStat to="/assets/digital" label={t("home.digital")} value="查看明细" />
+          <MiniStat to="/assets/fiat" label={t("home.fiat")} value="查看明细" />
+          <MiniStat to="/cards" label={t("home.card")} value="查看卡状态" tone="accent" />
         </div>
       </div>
 

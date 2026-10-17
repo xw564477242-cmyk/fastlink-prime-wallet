@@ -10,7 +10,7 @@ import {
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
 import { resolveFrontendRuntime } from "./frontend-runtime";
-import { launchRequestAllowed } from "./launch-readonly-policy";
+import { isLaunchReadOnlyPreview, launchRequestAllowed } from "./launch-readonly-policy";
 
 function resolveRuntime() {
   return resolveFrontendRuntime(
@@ -821,9 +821,17 @@ async function request<T>(
 ): Promise<T> {
   if (!launchRequestAllowed(path, (init.method ?? "GET").toUpperCase())) {
     const providerAction = /^\/v1\/cards\/(?:virtual|[^/]+\/activate)$/.test(path);
-    throw new BackendApiError(0, "launch-readonly", providerAction
-      ? "卡创建／激活的 Provider 执行未获批准；未发送请求"
-      : "当前批次未开放此业务操作；未发送请求");
+    const readOnlyPreview = isLaunchReadOnlyPreview();
+    throw new BackendApiError(
+      0,
+      "launch-readonly",
+      providerAction
+        ? "卡创建／激活的 Provider 执行未获批准；未发送请求"
+        : readOnlyPreview
+          ? "只读预览未开放此业务操作；未发送请求"
+          : "当前批次未开放此业务操作；未发送请求",
+      readOnlyPreview ? "PREVIEW_REQUEST_BLOCKED" : undefined,
+    );
   }
   const runtime = requireRuntime();
   const requestTraceId = traceId();
@@ -2333,7 +2341,10 @@ function cardTransactionMinorUnits(value: unknown): string {
 }
 
 function normalizeTransaction(value: unknown, expectedCardId?: string): WalletCardTransaction {
-  const hasCardScope = value !== null && typeof value === "object" && (Object.hasOwn(value, "cardId") || Object.hasOwn(value, "cardType"));
+  const hasCardScope =
+    value !== null &&
+    typeof value === "object" &&
+    (Object.hasOwn(value, "cardId") || Object.hasOwn(value, "cardType"));
   const record = exactTrustedJsonRecord(
     value,
     [
@@ -2354,7 +2365,13 @@ function normalizeTransaction(value: unknown, expectedCardId?: string): WalletCa
     ],
     "Backend returned an invalid transaction",
   );
-  if (hasCardScope && (typeof expectedCardId !== "string" || !/^[A-Za-z0-9._:-]{2,128}$/.test(expectedCardId) || record.cardId !== expectedCardId || (record.cardType !== "VIRTUAL" && record.cardType !== "PHYSICAL"))) {
+  if (
+    hasCardScope &&
+    (typeof expectedCardId !== "string" ||
+      !/^[A-Za-z0-9._:-]{2,128}$/.test(expectedCardId) ||
+      record.cardId !== expectedCardId ||
+      (record.cardType !== "VIRTUAL" && record.cardType !== "PHYSICAL"))
+  ) {
     throw new Error("Backend returned a transaction outside the selected Card");
   }
   const rawStatus = requiredString(record.status, "status", 32);
@@ -2774,7 +2791,10 @@ export function normalizeWalletAssetCatalogResponse(
       errorMessage,
     ) as BackendWalletAssetMetadataRecord;
     const assetCode = walletAssetCode(record.assetCode);
-    if (Object.hasOwn(record, "assetId") && record.assetId !== `flp_asset_${assetCode.toLowerCase()}`) {
+    if (
+      Object.hasOwn(record, "assetId") &&
+      record.assetId !== `flp_asset_${assetCode.toLowerCase()}`
+    ) {
       throw new Error(errorMessage);
     }
     if (record.assetClass !== "FIAT" && record.assetClass !== "DIGITAL") {

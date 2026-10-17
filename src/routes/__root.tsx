@@ -207,6 +207,13 @@ function SessionBoundary() {
     );
   }
 
-  if (!launchRouteAllowed(pathname)) return <main className="mx-auto max-w-md p-6"><h1>当前业务未开放</h1><p>本批开放钱包只读页面；资金操作及真实 Provider 调用仍受限。</p><Link to="/">返回钱包首页</Link></main>;
+  if (!launchRouteAllowed(pathname))
+    return (
+      <main className="mx-auto max-w-md p-6">
+        <h1>当前业务未开放</h1>
+        <p>本批开放钱包只读页面；资金操作及真实 Provider 调用仍受限。</p>
+        <Link to="/">返回钱包首页</Link>
+      </main>
+    );
   return <Outlet />;
 }
