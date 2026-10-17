@@ -103,9 +103,8 @@ function sdkTargetAllowed(target: string, method: string): boolean {
   }
 }
 
-// One SDK transport guard; existing public SDK builders still validate each contract.
-export function clientRequestAllowed(path: string, method = "GET"): boolean {
-  const mode = resolveClientMode({
+function currentClientMode(): ClientMode {
+  return resolveClientMode({
     apiUrl: import.meta.env.VITE_FASTLINK_API_URL,
     environment: import.meta.env.VITE_FASTLINK_ENVIRONMENT,
     productMode: import.meta.env.VITE_FASTLINK_PRODUCT_MODE,
@@ -113,6 +112,11 @@ export function clientRequestAllowed(path: string, method = "GET"): boolean {
     candidateId: import.meta.env.VITE_FASTLINK_CANDIDATE_ID,
     previewBuild: import.meta.env.FASTLINK_PREVIEW_BUILD,
   });
+}
+
+// One SDK transport guard; existing public SDK builders still validate each contract.
+export function clientRequestAllowed(path: string, method = "GET"): boolean {
+  const mode = currentClientMode();
   if (mode === "SDK_CONTRACT") return sdkTargetAllowed(path, method);
   if (mode === "B10_READ_ONLY" || mode === "READ_ONLY_PREVIEW") {
     return launchRequestAllowed(path, method);
@@ -130,6 +134,8 @@ export function launchRequestAllowed(path: string, method = "GET"): boolean {
 }
 
 export function safeCardFailure(error: unknown): string {
+  const mode = currentClientMode();
+  if (mode === "SDK_CONTRACT" || mode === "BLOCKED") return "Card list is unavailable";
   const value = error as { status?: unknown; traceId?: unknown } | null;
   const status = typeof value?.status === "number" ? value.status : 0;
   const trace =

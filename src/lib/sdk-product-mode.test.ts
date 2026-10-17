@@ -1,6 +1,11 @@
 import { afterAll, describe, expect, it } from "bun:test";
 import { backendApi } from "./backend-api";
-import { clientRequestAllowed, resolveClientMode } from "./launch-readonly-policy";
+import {
+  clientRequestAllowed,
+  resolveClientMode,
+  safeCardFailure,
+  supportReference,
+} from "./launch-readonly-policy";
 
 const keys = [
   "VITE_FASTLINK_API_URL",
@@ -115,6 +120,15 @@ describe("Real SDK context and explicit read-only product mode", () => {
           true,
         );
         expect(clientRequestAllowed("/v1/wallet/transfers", "POST")).toBe(true);
+        for (const status of [401, 403, 503]) {
+          expect(
+            safeCardFailure({
+              status,
+              traceId: "trace-selection-secret-must-not-render",
+              message: "internal-selection-secret-must-not-render",
+            }),
+          ).toBe("Card list is unavailable");
+        }
         for (const target of [
           "/v1/cards?limit=20",
           "/v1/cards/card%3Aowned.1",
@@ -186,8 +200,26 @@ describe("Real SDK context and explicit read-only product mode", () => {
           false,
         );
         expect(requests).toEqual(["/api/v1/session"]);
+        expect(
+          safeCardFailure({
+            status: 503,
+            traceId: "trace-preview-123",
+            message: "internal-selection-secret-must-not-render",
+          }),
+        ).toBe("卡查询不可用，请联系客服 · HTTP 503 · Trace trace-preview-123");
       },
     );
+    await withBindings({ VITE_FASTLINK_PRODUCT_MODE: "B10_READ_ONLY" }, () => {
+      expect(safeCardFailure({ status: 408, traceId: "trace-product-123" })).toBe(
+        "查询超时，请稍后手动刷新 · HTTP 408 · Trace trace-product-123",
+      );
+      expect(JSON.parse(supportReference("tenant-1", "TEST", "trace-product-123"))).toEqual({
+        version: 1,
+        tenantId: "tenant-1",
+        environment: "TEST",
+        traceId: "trace-product-123",
+      });
+    });
   });
 
   it("blocks unknown or incomplete runtime through the actual SDK before any fetch", async () => {
@@ -207,6 +239,13 @@ describe("Real SDK context and explicit read-only product mode", () => {
         }) as unknown as typeof fetch;
         await expect(backendApi.session()).rejects.toThrow();
         expect(calls).toBe(0);
+        expect(
+          safeCardFailure({
+            status: 403,
+            traceId: "trace-selection-secret-must-not-render",
+            message: "internal-selection-secret-must-not-render",
+          }),
+        ).toBe("Card list is unavailable");
       });
     }
   });
