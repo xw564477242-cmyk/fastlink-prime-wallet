@@ -26,6 +26,7 @@ import {
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
+import { LaunchReadOnlyCards } from "@/components/LaunchReadOnlyCards";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
 import { useCardTimelinePages } from "@/hooks/use-card-timeline-pages";
@@ -57,7 +58,7 @@ export const Route = createFileRoute("/cards")({
       { name: "description", content: "Cards returned by FastLink Railway Backend." },
     ],
   }),
-  component: CardsPage,
+  component: LaunchReadOnlyCards,
 });
 
 const emptyLimitDraft = (): Record<CardLimitField, string> => ({

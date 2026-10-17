@@ -31,3 +31,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# B13 local-only build inputs/output; never credentials or host dependencies in Git
+.preview-runtime/
+.preview-build/
+dist-preview/
+.cache-b13/
+
+node_modules

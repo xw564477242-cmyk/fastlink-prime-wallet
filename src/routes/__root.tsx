@@ -16,6 +16,7 @@ import { LanguageProvider } from "../lib/i18n";
 import { BackendSessionProvider, useBackendSession } from "../lib/backend-session";
 import { backendRuntime } from "../lib/backend-api";
 import { FrontendScope } from "../components/FrontendScope";
+import { launchRouteAllowed } from "../lib/launch-readonly-policy";
 
 function NotFoundComponent() {
   return (
@@ -206,5 +207,6 @@ function SessionBoundary() {
     );
   }
 
+  if (!launchRouteAllowed(pathname)) return <main className="mx-auto max-w-md p-6"><h1>当前业务未开放</h1><p>本批开放钱包只读页面；资金操作及真实 Provider 调用仍受限。</p><Link to="/">返回钱包首页</Link></main>;
   return <Outlet />;
 }

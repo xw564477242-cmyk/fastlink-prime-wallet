@@ -13,10 +13,13 @@ import {
   Loader2,
   AlertTriangle,
   RefreshCw,
+  History,
+  ShieldCheck,
+  Layers,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
-import { backendApi, type WalletCard, type WalletCardTransaction } from "@/lib/backend-api";
+import { backendApi, type WalletCardTransaction } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useHomeWalletBalances } from "@/hooks/use-home-wallet-balances";
 
@@ -32,7 +35,6 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const [hidden, setHidden] = useState(false);
-  const [cards, setCards] = useState<WalletCard[]>([]);
   const [transactions, setTransactions] = useState<WalletCardTransaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +47,6 @@ function HomePage() {
     void (async () => {
       setLoading(true);
       setError(null);
-      setCards([]);
       setTransactions([]);
       try {
         if (!session) throw new Error("Authenticated session is required");
@@ -54,7 +55,6 @@ function HomePage() {
           rows.map((card) => backendApi.cardTransactions(session, card.cardId, { limit: 4 })),
         );
         if (cancelled) return;
-        setCards(rows);
         setTransactions(
           groups
             .flatMap((page) => page.transactions)
@@ -63,7 +63,6 @@ function HomePage() {
         );
       } catch (reason) {
         if (!cancelled) {
-          setCards([]);
           setTransactions([]);
           setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
         }
@@ -76,20 +75,10 @@ function HomePage() {
     };
   }, [session]);
 
-  const cardTotals = useMemo(() => {
-    const grouped = new Map<string, number>();
-    for (const card of cards) {
-      grouped.set(card.currency, (grouped.get(card.currency) ?? 0) + card.balance);
-    }
-    return [...grouped.entries()];
-  }, [cards]);
-
   const actions = [
-    { icon: ArrowDownToLine, label: t("home.deposit"), href: "/deposit" as const },
-    { icon: ArrowUpFromLine, label: t("home.withdraw"), href: "/withdraw" as const },
-    { icon: ArrowLeftRight, label: t("home.convert"), href: "/convert" as const },
-    { icon: QrCode, label: t("home.pay"), href: "/pay" as const },
-    { icon: Send, label: t("home.transfer"), href: "/transfer" as const },
+    { icon: Layers, label: t("nav.assets"), href: "/assets/digital" as const },
+    { icon: History, label: t("page.history"), href: "/history" as const },
+    { icon: ShieldCheck, label: t("page.kyc"), href: "/kyc" as const },
     { icon: CreditCard, label: t("home.cards"), href: "/cards" as const },
   ];
 
@@ -176,25 +165,17 @@ function HomePage() {
           <MiniStat
             to="/assets/digital"
             label={t("home.digital")}
-            value={hidden ? "••••" : "Unavailable"}
+            value="查看明细"
           />
           <MiniStat
             to="/assets/fiat"
             label={t("home.fiat")}
-            value={hidden ? "••••" : "Unavailable"}
+            value="查看明细"
           />
           <MiniStat
-            to="/assets/cards"
+            to="/cards"
             label={t("home.card")}
-            value={
-              hidden
-                ? "••••"
-                : cardTotals.length
-                  ? cardTotals
-                      .map(([currency, value]) => `${value.toFixed(2)} ${currency}`)
-                      .join(" · ")
-                  : "Unavailable"
-            }
+            value="查看卡状态"
             tone="accent"
           />
         </div>
@@ -271,7 +252,7 @@ function MiniStat({
   value,
   tone,
 }: {
-  to: "/assets/digital" | "/assets/fiat" | "/assets/cards";
+  to: "/assets/digital" | "/assets/fiat" | "/cards";
   label: string;
   value: string;
   tone?: "accent";
