@@ -2,11 +2,19 @@ import { afterAll, afterEach, expect, it, mock } from "bun:test";
 import { createElement, type ReactNode } from "react";
 import { act, create, type ReactTestRenderer } from "react-test-renderer";
 const originalPreviewMode = process.env.VITE_FASTLINK_PREVIEW_MODE;
+const originalProductMode = process.env.VITE_FASTLINK_PRODUCT_MODE;
+const originalCandidateId = process.env.VITE_FASTLINK_CANDIDATE_ID;
 process.env.VITE_FASTLINK_PREVIEW_MODE = "READ_ONLY";
+process.env.VITE_FASTLINK_PRODUCT_MODE = "READ_ONLY_PREVIEW";
+process.env.VITE_FASTLINK_CANDIDATE_ID = "FL-LAUNCH-B13-20261017";
 const { backendApi } = await import("../lib/backend-api");
 afterAll(() => {
   if (originalPreviewMode === undefined) delete process.env.VITE_FASTLINK_PREVIEW_MODE;
   else process.env.VITE_FASTLINK_PREVIEW_MODE = originalPreviewMode;
+  if (originalProductMode === undefined) delete process.env.VITE_FASTLINK_PRODUCT_MODE;
+  else process.env.VITE_FASTLINK_PRODUCT_MODE = originalProductMode;
+  if (originalCandidateId === undefined) delete process.env.VITE_FASTLINK_CANDIDATE_ID;
+  else process.env.VITE_FASTLINK_CANDIDATE_ID = originalCandidateId;
 });
 (globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean }).IS_REACT_ACT_ENVIRONMENT =
   true;

@@ -10,7 +10,7 @@ import {
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
 import { resolveFrontendRuntime } from "./frontend-runtime";
-import { isLaunchReadOnlyPreview, launchRequestAllowed } from "./launch-readonly-policy";
+import { clientRequestAllowed, isLaunchReadOnlyPreview } from "./launch-readonly-policy";
 
 function resolveRuntime() {
   return resolveFrontendRuntime(
@@ -819,7 +819,7 @@ async function request<T>(
   responseMode: "json" | "text" = "json",
   maximumResponseBytes?: number,
 ): Promise<T> {
-  if (!launchRequestAllowed(path, (init.method ?? "GET").toUpperCase())) {
+  if (!clientRequestAllowed(path, (init.method ?? "GET").toUpperCase())) {
     const providerAction = /^\/v1\/cards\/(?:virtual|[^/]+\/activate)$/.test(path);
     const readOnlyPreview = isLaunchReadOnlyPreview();
     throw new BackendApiError(

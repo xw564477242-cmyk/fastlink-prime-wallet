@@ -25,6 +25,7 @@ Object.assign(env, {
   VITE_FASTLINK_SOURCE_SNAPSHOT: input.sourceSnapshot,
   VITE_FASTLINK_CANDIDATE_ID: input.candidateId,
   VITE_FASTLINK_PREVIEW_MODE: "READ_ONLY",
+  VITE_FASTLINK_PRODUCT_MODE: "READ_ONLY_PREVIEW",
   WRANGLER_SEND_METRICS: "false",
   CI: "true",
 });
