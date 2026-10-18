@@ -48,9 +48,12 @@ function confirmsExpectedCard(
     candidate.expiry === expected.expiry &&
     /^[A-Z]{3}$/.test(candidate.currency) &&
     candidate.currency === expected.currency &&
-    (Number.isFinite(candidate.balance) || (isWalletOnlyPreview()
-      && candidate.availableBalanceMinor === undefined && expected.availableBalanceMinor === undefined
-      && Number.isNaN(candidate.balance) && Number.isNaN(expected.balance)));
+    (Number.isFinite(candidate.balance) ||
+      (isWalletOnlyPreview() &&
+        candidate.availableBalanceMinor === undefined &&
+        expected.availableBalanceMinor === undefined &&
+        Number.isNaN(candidate.balance) &&
+        Number.isNaN(expected.balance)));
   return (
     confirmsIdentity &&
     (confirmation !== "EXACT_GENERATION" ||

@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { MobileShell, StatusBar } from "./MobileShell";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useBackendSession } from "@/lib/backend-session";
-import { isWalletOnlyPreview, safeCardFailure, supportReference } from "@/lib/launch-readonly-policy";
+import {
+  isWalletOnlyPreview,
+  safeCardFailure,
+  supportReference,
+} from "@/lib/launch-readonly-policy";
 import { backendApi, type WalletCard } from "@/lib/backend-api";
 
 export function LaunchReadOnlyCards({ requestedCardId }: { requestedCardId?: string } = {}) {
@@ -12,18 +16,33 @@ export function LaunchReadOnlyCards({ requestedCardId }: { requestedCardId?: str
   const selected = view.cards.find((card) => card.cardId === view.activeId);
   const walletOnly = isWalletOnlyPreview();
   const detailId = requestedCardId ?? selected?.cardId;
-  const detailKey = session && detailId
-    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.expiresAt, detailId])
-    : null;
-  const [detail, setDetail] = useState<{ key: string; card?: WalletCard; error?: string } | null>(null);
+  const detailKey =
+    session && detailId
+      ? JSON.stringify([
+          session.actorId,
+          session.tenantId,
+          session.customerId,
+          session.expiresAt,
+          detailId,
+        ])
+      : null;
+  const [detail, setDetail] = useState<{ key: string; card?: WalletCard; error?: string } | null>(
+    null,
+  );
   useEffect(() => {
     if (!walletOnly || !session || !detailId || !detailKey) return;
     let active = true;
     void backendApi.getCard(detailId).then(
-      (card) => { if (active) setDetail({ key: detailKey, card }); },
-      (error) => { if (active) setDetail({ key: detailKey, error: safeCardFailure(error) }); },
+      (card) => {
+        if (active) setDetail({ key: detailKey, card });
+      },
+      (error) => {
+        if (active) setDetail({ key: detailKey, error: safeCardFailure(error) });
+      },
     );
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [walletOnly, session, detailId, detailKey]);
   const shownCard = walletOnly ? (detail?.key === detailKey ? detail.card : undefined) : selected;
   const detailError = walletOnly && detail?.key === detailKey ? detail.error : undefined;
@@ -96,7 +115,9 @@ export function LaunchReadOnlyCards({ requestedCardId }: { requestedCardId?: str
             {view.loadingMore ? "正在读取…" : "下一页"}
           </button>
         )}
-        {walletOnly && detailKey && detail?.key !== detailKey && <p role="status">正在读取卡详情…</p>}
+        {walletOnly && detailKey && detail?.key !== detailKey && (
+          <p role="status">正在读取卡详情…</p>
+        )}
         {detailError && <p role="alert">{detailError}</p>}
         {shownCard && (
           <section aria-label="卡状态详情">
@@ -115,7 +136,11 @@ export function LaunchReadOnlyCards({ requestedCardId }: { requestedCardId?: str
               <dt>币种</dt>
               <dd>{shownCard.currency}</dd>
             </dl>
-            <p>{walletOnly ? "详情来自本次受授权的独立基础详情请求，不含余额或供应商实时查询。" : "详情来自本次列表快照。刷新失败时不作为最新状态。"}</p>
+            <p>
+              {walletOnly
+                ? "详情来自本次受授权的独立基础详情请求，不含余额或供应商实时查询。"
+                : "详情来自本次列表快照。刷新失败时不作为最新状态。"}
+            </p>
           </section>
         )}
       </main>

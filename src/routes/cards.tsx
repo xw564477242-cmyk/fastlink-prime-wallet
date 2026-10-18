@@ -59,7 +59,9 @@ export const Route = createFileRoute("/cards")({
       { name: "description", content: "Cards returned by FastLink Railway Backend." },
     ],
   }),
-  component: () => <LaunchReadOnlyCards requestedCardId={Route.useSearch().cardId} />,
+  component: function CardsRouteComponent() {
+    return <LaunchReadOnlyCards requestedCardId={Route.useSearch().cardId} />;
+  },
 });
 
 const emptyLimitDraft = (): Record<CardLimitField, string> => ({
@@ -191,11 +193,19 @@ export function CardsPage() {
     invalidateUnconfirmedReplacement,
     invalidateSession,
   );
-  const cardBalance = useCardBalance(walletOnly ? null : session, walletOnly ? null : current?.cardId ?? null, cardDataGeneration);
-  const cardLimits = useCardLimits(walletOnly ? null : session, walletOnly ? null : current?.cardId ?? null, cardDataGeneration);
+  const cardBalance = useCardBalance(
+    walletOnly ? null : session,
+    walletOnly ? null : (current?.cardId ?? null),
+    cardDataGeneration,
+  );
+  const cardLimits = useCardLimits(
+    walletOnly ? null : session,
+    walletOnly ? null : (current?.cardId ?? null),
+    cardDataGeneration,
+  );
   const cardTimeline = useCardTimelinePages(
     walletOnly ? null : session,
-    walletOnly ? null : current?.cardId ?? null,
+    walletOnly ? null : (current?.cardId ?? null),
     invalidateSession,
     cardDataGeneration,
   );
@@ -472,7 +482,11 @@ export function CardsPage() {
             </div>
 
             <div className="mt-4">
-              {walletOnly && <p className="text-xs text-muted-foreground">Balance and limits unavailable in this read-only preview.</p>}
+              {walletOnly && (
+                <p className="text-xs text-muted-foreground">
+                  Balance and limits unavailable in this read-only preview.
+                </p>
+              )}
               {cardBalance.loading && (
                 <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 p-4 text-xs text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected Card
@@ -630,12 +644,14 @@ export function CardsPage() {
               </p>
             </div>
 
-            {!walletOnly && <CardTimelinePanel
-              timeline={cardTimeline}
-              disabled={busy}
-              onRefresh={() => cardTimeline.refresh()}
-              onLoadMore={() => void cardTimeline.loadMore()}
-            />}
+            {!walletOnly && (
+              <CardTimelinePanel
+                timeline={cardTimeline}
+                disabled={busy}
+                onRefresh={() => cardTimeline.refresh()}
+                onLoadMore={() => void cardTimeline.loadMore()}
+              />
+            )}
           </>
         )}
       </div>

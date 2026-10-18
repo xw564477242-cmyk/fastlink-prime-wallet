@@ -143,7 +143,13 @@ export function previewProxyHeaders(request: Request, proof: string) {
 }
 export async function previewProxy(request: Request, binding: ReturnType<typeof previewBindings>) {
   const u = new URL(request.url);
-  if (!previewRequestAllowed(u.pathname + u.search, request.method, binding.scope as string | undefined))
+  if (
+    !previewRequestAllowed(
+      u.pathname + u.search,
+      request.method,
+      binding.scope as string | undefined,
+    )
+  )
     return new Response("Request unavailable", { status: 403 });
   const target = new URL(u.pathname + u.search, binding.backend);
   const response = await fetch(target, {

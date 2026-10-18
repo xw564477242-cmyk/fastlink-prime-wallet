@@ -16,6 +16,14 @@ export function previewRequestAllowed(target: string, method = "GET", scope?: st
   );
 }
 
-export function previewBrowserRequestAllowed(target: string, method = "GET", scope?: string): boolean {
-  return previewRequestAllowed(target.startsWith("/api/") ? target : "/api" + target, method, scope);
+export function previewBrowserRequestAllowed(
+  target: string,
+  method = "GET",
+  scope?: string,
+): boolean {
+  return previewRequestAllowed(
+    target.startsWith("/api/") ? target : "/api" + target,
+    method,
+    scope,
+  );
 }

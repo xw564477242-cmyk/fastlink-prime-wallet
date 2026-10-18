@@ -11,7 +11,7 @@
 
 两个现有分支均为`codex/fl-launch-b13-readonly-preview`，PR目标dev、保持Draft，无自动合并。Admin PR #61不变。提交采用普通追加commit，不换基点、不改既有历史；完整新HEAD和自然CI由本批最终HANDOFF给出。
 
-源码逐文件沿用B15已验SHA，不因入库重跑旧验收。原始清单中的root是来源定位信息，便携源码引用按其`backend/wallet.changedSources[].path`解析至上述对应仓库；清单摘要是“基点＋增量”，不是Git HEAD。若自然CI要求最小装配修正，最终HANDOFF另列改动及定向复验，旧云运行证据不证明新改字节。
+首个入库提交的17源码逐项匹配B15已验SHA。自然CI随后发现lint问题，本批仅修正Backend测试Mock参数使用、Wallet路由组件命名及11个原范围文件的Prettier格式；当前源码以[B16最终源码清单](SOURCE-MANIFEST-B16.json)为准。B15原件和原SHA不改写：旧云结果只证明B15快照，新增lint/命名/格式字节仅由本轮定向验证及新HEAD自然CI证明，未重新部署或动态验收。原始清单中的root是来源定位信息，便携源码引用按其`backend/wallet.changedSources[].path`解析至对应仓库；B15清单摘要是“基点＋增量”，不是Git HEAD。
 
 ## 核心原件索引
 

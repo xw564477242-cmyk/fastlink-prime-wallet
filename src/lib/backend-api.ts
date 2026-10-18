@@ -10,7 +10,11 @@ import {
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
 import { resolveFrontendRuntime } from "./frontend-runtime";
-import { clientRequestAllowed, isLaunchReadOnlyPreview, isWalletOnlyPreview } from "./launch-readonly-policy";
+import {
+  clientRequestAllowed,
+  isLaunchReadOnlyPreview,
+  isWalletOnlyPreview,
+} from "./launch-readonly-policy";
 
 function resolveRuntime() {
   return resolveFrontendRuntime(
@@ -951,7 +955,12 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     currency: typeof value.currency === "string" ? value.currency : "—",
     ...(hasAlias ? { alias } : {}),
     // NaN is a non-monetary unavailable sentinel only in this narrow preview.
-    balance: isWalletOnlyPreview() && availableBalanceMinor === undefined ? Number.NaN : Number.isFinite(minor) ? minor / 100 : 0,
+    balance:
+      isWalletOnlyPreview() && availableBalanceMinor === undefined
+        ? Number.NaN
+        : Number.isFinite(minor)
+          ? minor / 100
+          : 0,
     ...(availableBalanceMinor === undefined ? {} : { availableBalanceMinor }),
     ...(createdAt === undefined ? {} : { createdAt }),
     capabilities: {

@@ -1,0 +1,130 @@
+{
+  "batch": "FL-LAUNCH-B16",
+  "meaning": "Final source hashes after scoped lint correction; not a cloud runtime validation or full-tree digest",
+  "firstB16Heads": {
+    "backend": "a6b8ba725da8818dcdf7c912dc742882cd377963",
+    "wallet": "5e5d415a272b032311032869eed94ed788f1d179"
+  },
+  "initialNaturalCI": {
+    "backend": {
+      "runs": [
+        39127495994,
+        39127495996,
+        39127496006
+      ],
+      "failure": "unused Mock argument in wallet-readonly.spec.ts"
+    },
+    "wallet": {
+      "run": 39127520960,
+      "failure": "87 formatting errors + route component hook naming; 12 warnings, preceding tests/typecheck passed"
+    }
+  },
+  "corrections": [
+    "Backend test: explicitly consume variadic Mock arguments without changing call signature or assertions",
+    "Wallet cards route: name CardsRouteComponent without changing authorization or request behavior",
+    "Existing Prettier applied only to the original 11 approved Wallet source files"
+  ],
+  "targetedValidation": {
+    "backend": "Scoped ESLint exit0; 9/9 Jest Mock PASS",
+    "wallet": "ESLint original 11 files exit0, 2 existing hook warnings; scope Mock4/4 (23 assertions); detail mounted Mock3/3 (8 assertions) with explicit synthetic TEST environment",
+    "localInvocationHistory": "Initial Bun command absent from PATH; corrected to existing /Users/ck/.bun/bin/bun. First mounted invocation without explicit synthetic environment failed 0/3; repeated only that affected suite with VITE_FASTLINK_ENVIRONMENT=TEST and /api passed3/3. No database, server or cloud requests."
+  },
+  "cloudRuntimeEvidence": "B15 original snapshot only; modified bytes verified by scoped local tests and next natural CI, not redeployed",
+  "repositories": {
+    "backend": {
+      "previousHead": "5fc1e47fc31b992ee39a4fa7d3223027c91acaec",
+      "sources": [
+        {
+          "path": "src/cards/cards.service.ts",
+          "b15SHA256": "bc93869eaef88856b0db154df526d902e5296142637c62a08c5b5cc7d500feee",
+          "b16SHA256": "bc93869eaef88856b0db154df526d902e5296142637c62a08c5b5cc7d500feee"
+        },
+        {
+          "path": "src/launch/b10-scope.interceptor.ts",
+          "b15SHA256": "a606ade67d72baf0b1011f20a8c038dcd8beb04602f8b7d5a88e883b1423dc9c",
+          "b16SHA256": "a606ade67d72baf0b1011f20a8c038dcd8beb04602f8b7d5a88e883b1423dc9c"
+        },
+        {
+          "path": "src/launch/preview-profile.ts",
+          "b15SHA256": "c623a1a7d34eaabee02ef2d1a4e4191eca412c0995fb9deb3ddfd7ee5bab2df5",
+          "b16SHA256": "c623a1a7d34eaabee02ef2d1a4e4191eca412c0995fb9deb3ddfd7ee5bab2df5"
+        },
+        {
+          "path": "src/launch/preview-readonly-policy.ts",
+          "b15SHA256": "fd202d09caef12cbd0ae39c335179bfceec4c5e1b39a370c5f130a33592ceb5d",
+          "b16SHA256": "fd202d09caef12cbd0ae39c335179bfceec4c5e1b39a370c5f130a33592ceb5d"
+        },
+        {
+          "path": "src/launch/wallet-readonly-scope.ts",
+          "b15SHA256": "2699f403dcc7c55ca00d3974ef1669788ef6224ec478ec179826e8f6d6e8de79",
+          "b16SHA256": "2699f403dcc7c55ca00d3974ef1669788ef6224ec478ec179826e8f6d6e8de79"
+        },
+        {
+          "path": "src/launch/wallet-readonly.spec.ts",
+          "b15SHA256": "2c4ec62d2b771b98c36f0ef421fa0836ba43bcd0bde92cc66be53a2b020008b1",
+          "b16SHA256": "9fd00d715ff480278e3705eaa501180f650d8344a1317b5b8c8e7ec2d69223c3"
+        }
+      ]
+    },
+    "wallet": {
+      "previousHead": "fe212beef9844528c8eab201c69ed40f1464befb",
+      "sources": [
+        {
+          "path": "scripts/build-preview.mjs",
+          "b15SHA256": "3cd7d3f96c3660284cdd88a5bf42d41bd7662842bd3a3460fddc06a057b8fbc1",
+          "b16SHA256": "ec1ea82e0a910d07b61dd331d8cb28dbc6b1a9b4e1ff885cc99b998bb66855f2"
+        },
+        {
+          "path": "src/components/LaunchReadOnlyCards.tsx",
+          "b15SHA256": "bd885ba1f7add0bf44e9b09a91cb5b2b51b06babb4f079d03ef778050b784c6d",
+          "b16SHA256": "2b60862cf9c115c01896de5ab620e0e6f9053ebbf63849cb94c11d1633d84237"
+        },
+        {
+          "path": "src/components/wallet-readonly-detail.mounted.test.tsx",
+          "b15SHA256": "15dba2f46e93446c00893bc90db8cdbe165b1555073a146c8fa2e054d133384e",
+          "b16SHA256": "46573ae825dabbb3840b55f998291bcc8d9a126d3206801f8dbe3ecb855032de"
+        },
+        {
+          "path": "src/hooks/use-card-list-pages.ts",
+          "b15SHA256": "50f69c731e68cde018466cd9e206c85214118091bb32c7f4cfd0489e81650ebe",
+          "b16SHA256": "b3a1181e7199f174b4e0b5b8f4362e63d11e8e60f89df30b48e3178e44fa3f10"
+        },
+        {
+          "path": "src/launch/preview-readonly-policy.ts",
+          "b15SHA256": "fbeae326378522b855bcc21ba1ca194709d8388fb6bfa586720c9ee240718303",
+          "b16SHA256": "47e8f46c704c9d6e2b9f9043faf597fb24ecfc3da8704f585d3eb6a5306d9985"
+        },
+        {
+          "path": "src/lib/backend-api.ts",
+          "b15SHA256": "51049e808b7a813a40bf2ef21b4da6bc4f7e74a962f270b50cbe97c810c2da39",
+          "b16SHA256": "afb7efd0d88364633f5bb185324b6d414d18d47da94fbdded95c19b149e167f3"
+        },
+        {
+          "path": "src/lib/launch-readonly-policy.ts",
+          "b15SHA256": "70c9710f31225db67cd6583b6445f6227623b3f3e5ebed0774f58d214726c295",
+          "b16SHA256": "ecda41142adae7d7f86d3321e5fe0d29009f4ce0bc5a250cbf39407ce187245d"
+        },
+        {
+          "path": "src/lib/wallet-readonly-scope.test.ts",
+          "b15SHA256": "22e39bf014245797e55f37f79955de3c8cd52c8f340258264ee0f864c07bd1dc",
+          "b16SHA256": "f871067868a9f2e31d240144ad264f3abeb4d9d8878ec7491573c3a8f85d28fb"
+        },
+        {
+          "path": "src/preview-gateway.ts",
+          "b15SHA256": "e260b32d0fe5c11e08510f229e18280493d77ac10ef804d7b4d5b0cb954c054f",
+          "b16SHA256": "c2a5be6588cc27ebaf6751bcdb5fc8023d799001c771de363e1d0cf29707f530"
+        },
+        {
+          "path": "src/routes/assets.cards.tsx",
+          "b15SHA256": "e7ff18b76ad2a350fb65ab5a4523d324108382cda06620951713272ca99cb2d0",
+          "b16SHA256": "d098caea6d1a8bf30571a5d3236658fea371de2ef6a314e47411d3dfe283fc91"
+        },
+        {
+          "path": "src/routes/cards.tsx",
+          "b15SHA256": "271593427c0688874809f4ac12115db410f36a1ab8adecd142933db7e4a1cb3b",
+          "b16SHA256": "5075a3d2c078cefcee7fa9438b5bfd24f6b34964a92d9e3472231464eefe071e"
+        }
+      ]
+    }
+  }
+}

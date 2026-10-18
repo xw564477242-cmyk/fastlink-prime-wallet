@@ -49,7 +49,8 @@ function CardAccountsPage() {
   const totals = useMemo(() => {
     const grouped = new Map<string, number>();
     for (const card of cards)
-      if (Number.isFinite(card.balance)) grouped.set(card.currency, (grouped.get(card.currency) ?? 0) + card.balance);
+      if (Number.isFinite(card.balance))
+        grouped.set(card.currency, (grouped.get(card.currency) ?? 0) + card.balance);
     return [...grouped.entries()].sort(([a], [b]) => a.localeCompare(b));
   }, [cards]);
 
@@ -128,7 +129,9 @@ function CardAccountsPage() {
                 </div>
                 <div className="text-right">
                   <p translate="no" className="text-sm font-semibold tabular-nums">
-                    {Number.isFinite(card.balance) ? card.balance.toFixed(2) + " " + card.currency : "Unavailable"}
+                    {Number.isFinite(card.balance)
+                      ? card.balance.toFixed(2) + " " + card.currency
+                      : "Unavailable"}
                   </p>
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     {t("common.available")}

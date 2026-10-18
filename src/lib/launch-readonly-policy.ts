@@ -134,7 +134,10 @@ export function isWalletOnlyPreview(): boolean {
 
 export function launchRequestAllowed(path: string, method = "GET"): boolean {
   if (!walletRequestAllowed(path, method)) return false;
-  return !isLaunchReadOnlyPreview() || previewBrowserRequestAllowed(path, method, import.meta.env.VITE_FASTLINK_PREVIEW_SCOPE);
+  return (
+    !isLaunchReadOnlyPreview() ||
+    previewBrowserRequestAllowed(path, method, import.meta.env.VITE_FASTLINK_PREVIEW_SCOPE)
+  );
 }
 
 export function safeCardFailure(error: unknown): string {
