@@ -11,7 +11,7 @@ import {
   cardListViewForSession,
   initialCardListState,
 } from "@/lib/card-list-state";
-import { safeCardFailure } from "@/lib/launch-readonly-policy";
+import { safeCardFailure, isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 function errorMessage(): string {
@@ -48,7 +48,9 @@ function confirmsExpectedCard(
     candidate.expiry === expected.expiry &&
     /^[A-Z]{3}$/.test(candidate.currency) &&
     candidate.currency === expected.currency &&
-    Number.isFinite(candidate.balance);
+    (Number.isFinite(candidate.balance) || (isWalletOnlyPreview()
+      && candidate.availableBalanceMinor === undefined && expected.availableBalanceMinor === undefined
+      && Number.isNaN(candidate.balance) && Number.isNaN(expected.balance)));
   return (
     confirmsIdentity &&
     (confirmation !== "EXACT_GENERATION" ||

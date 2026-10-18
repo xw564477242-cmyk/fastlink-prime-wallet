@@ -1,0 +1,144 @@
+{
+  "status": "PASS",
+  "layer": "DIRECT_FIXED_BACKEND_NORMAL_SESSION_NOT_ACCESS_E2E",
+  "results": [
+    {
+      "account": "A",
+      "case": "normal_login",
+      "status": 201,
+      "trace": "f0056885-e30b-4e67-b3d0-675accaa88a7",
+      "timeUTC": "2026-10-18T02:53:35.433647+00:00"
+    },
+    {
+      "account": "A",
+      "case": "session_identity",
+      "status": 200,
+      "trace": "82a659cf-a3ae-41f3-b70e-4e7f6d34f5c5",
+      "timeUTC": "2026-10-18T02:53:38.046316+00:00"
+    },
+    {
+      "account": "A",
+      "case": "own_list",
+      "status": 200,
+      "trace": "ad92aa26-d2f2-4775-a187-b10a13e83ace",
+      "timeUTC": "2026-10-18T02:53:40.196940+00:00",
+      "cardIds": [
+        "b10_card_A_20261017"
+      ]
+    },
+    {
+      "account": "A",
+      "case": "own_basic_detail",
+      "status": 200,
+      "trace": "6a1ed5ea-222f-4ec9-9572-09d570f5c1fc",
+      "timeUTC": "2026-10-18T02:53:42.427369+00:00",
+      "baseCardSHA256": "427b4e2bf76ee93e2a6f969be689b6b4f3c1b15e2db6886b8e4cb239552823a5"
+    },
+    {
+      "account": "A",
+      "case": "foreign_detail",
+      "status": 404,
+      "trace": "3d73856f-7b3c-4b69-ab90-e2691c7e92fc",
+      "timeUTC": "2026-10-18T02:53:44.239321+00:00"
+    },
+    {
+      "account": "A",
+      "case": "missing_detail",
+      "status": 404,
+      "trace": "a214aa74-560c-485f-8acd-4d9ea3ea7fb3",
+      "timeUTC": "2026-10-18T02:53:45.902977+00:00",
+      "samePublicErrorAsForeign": true
+    },
+    {
+      "account": "A",
+      "case": "tenant_query_conflict",
+      "status": 403,
+      "trace": "11e02955-68b2-4fa3-b395-5f392c22536c",
+      "timeUTC": "2026-10-18T02:53:46.167301+00:00"
+    },
+    {
+      "account": "A",
+      "case": "normal_logout",
+      "status": 204,
+      "trace": "7b5755ad-52ee-4e02-9f03-2537a2939d1c",
+      "timeUTC": "2026-10-18T02:53:46.987695+00:00"
+    },
+    {
+      "account": "A",
+      "case": "post_logout_session",
+      "status": 401,
+      "trace": "aac67525-145f-49e4-acd3-277e3c840046",
+      "timeUTC": "2026-10-18T02:53:47.375730+00:00"
+    },
+    {
+      "account": "B",
+      "case": "normal_login",
+      "status": 201,
+      "trace": "c34a2731-58e8-45eb-a61f-5261a2dbe944",
+      "timeUTC": "2026-10-18T02:53:48.719537+00:00"
+    },
+    {
+      "account": "B",
+      "case": "session_identity",
+      "status": 200,
+      "trace": "77b7fe2f-bb69-4632-ae72-9df5f57512b4",
+      "timeUTC": "2026-10-18T02:53:52.021138+00:00"
+    },
+    {
+      "account": "B",
+      "case": "own_list",
+      "status": 200,
+      "trace": "303492c8-e1b2-48a9-b86e-a37daf69a410",
+      "timeUTC": "2026-10-18T02:53:55.256602+00:00",
+      "cardIds": [
+        "b10_card_B_20261017"
+      ]
+    },
+    {
+      "account": "B",
+      "case": "own_basic_detail",
+      "status": 200,
+      "trace": "32e0b90c-e722-4ace-877d-b0933f482523",
+      "timeUTC": "2026-10-18T02:53:58.343275+00:00",
+      "baseCardSHA256": "e76e3ac23c536595e7df3a3a18ba3ad368d5583de6ac2aa78868bb6c75a81f6e"
+    },
+    {
+      "account": "B",
+      "case": "foreign_detail",
+      "status": 404,
+      "trace": "ccce2e42-804f-47f5-b979-f1b711af7c31",
+      "timeUTC": "2026-10-18T02:53:59.868745+00:00"
+    },
+    {
+      "account": "B",
+      "case": "missing_detail",
+      "status": 404,
+      "trace": "c7bba706-43b7-4162-9a35-b3e011e654c0",
+      "timeUTC": "2026-10-18T02:54:01.379046+00:00",
+      "samePublicErrorAsForeign": true
+    },
+    {
+      "account": "B",
+      "case": "tenant_query_conflict",
+      "status": 403,
+      "trace": "0bf5b326-ef45-49e8-9354-82b065fe0d62",
+      "timeUTC": "2026-10-18T02:54:01.616689+00:00"
+    },
+    {
+      "account": "B",
+      "case": "normal_logout",
+      "status": 204,
+      "trace": "21600c84-816e-4f17-850c-6dba9ce01de8",
+      "timeUTC": "2026-10-18T02:54:02.440420+00:00"
+    },
+    {
+      "account": "B",
+      "case": "post_logout_session",
+      "status": 401,
+      "trace": "e0753a8a-df55-4b24-b98e-7392953b8c49",
+      "timeUTC": "2026-10-18T02:54:02.722161+00:00"
+    }
+  ],
+  "browserCookiesRead": false,
+  "realProviderCalls": 0
+}

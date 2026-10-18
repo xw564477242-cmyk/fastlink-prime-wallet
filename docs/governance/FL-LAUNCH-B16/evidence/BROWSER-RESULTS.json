@@ -1,0 +1,27 @@
+{
+  "layer": "OWNER_ACCESS_WALLET_WORKER_REAL_BACKEND_DEV_TEST_SYNTHETIC",
+  "status": "PASS",
+  "walletVersion": "1fb40a0d-b9d8-4e28-a6f6-832a339508b5",
+  "cases": [
+    {"case":"A normal form login and own list", "status":"PASS", "card":"b10_card_A_20261017"},
+    {"case":"A logout clears old cards", "status":"PASS"},
+    {"case":"B normal form login and own list", "status":"PASS", "card":"b10_card_B_20261017"},
+    {"case":"B independent base detail on final version", "status":"PASS"},
+    {"case":"B requests A card through /cards?cardId", "status":"PASS", "http":404, "trace":"2a40deae-72ac-472d-995b-043bc4af8be8", "foreignDataDisplayed":false},
+    {"case":"B logout clears old cards", "status":"PASS"},
+    {"case":"A normal login and independent base detail on final version", "status":"PASS"},
+    {"case":"A requests B card through /cards?cardId", "status":"PASS", "http":404, "trace":"4469cd7f-9aa8-4b6b-aac2-dd57f0a21461", "foreignDataDisplayed":false},
+    {"case":"A final normal logout", "status":"PASS"}
+  ],
+  "providerButtonsDisabled": true,
+  "detailScope": "base fields only; no balance/limits/timeline/Provider reads",
+  "accessPolicyChanged": false,
+  "accessIdentity": "existing owner-only Cloudflare identity, normal sign-in",
+  "cookiesOrTokensExported": false,
+  "initialDirectApiNavigation": "browser reported ERR_BLOCKED_BY_CLIENT; not counted as backend refusal; later page path and normal API tests independently proved 404",
+  "firstPublicationDetail": "list snapshot only; corrected in approved second publication",
+  "productionWorkerUrl": "OFF",
+  "previewUrl": "OFF",
+  "backendShutdown": "official deploymentStop ACK plus SIGTERM, PRISMA_DISCONNECT_ACK, LIFECYCLE_COMPLETE, httpListening=false",
+  "temporaryAgentTabs": "closed; user tabs preserved"
+}

@@ -128,9 +128,13 @@ export function isLaunchReadOnlyPreview(): boolean {
   return import.meta.env.VITE_FASTLINK_PREVIEW_MODE === "READ_ONLY";
 }
 
+export function isWalletOnlyPreview(): boolean {
+  return isLaunchReadOnlyPreview() && import.meta.env.VITE_FASTLINK_PREVIEW_SCOPE === "WALLET_ONLY";
+}
+
 export function launchRequestAllowed(path: string, method = "GET"): boolean {
   if (!walletRequestAllowed(path, method)) return false;
-  return !isLaunchReadOnlyPreview() || previewBrowserRequestAllowed(path, method);
+  return !isLaunchReadOnlyPreview() || previewBrowserRequestAllowed(path, method, import.meta.env.VITE_FASTLINK_PREVIEW_SCOPE);
 }
 
 export function safeCardFailure(error: unknown): string {

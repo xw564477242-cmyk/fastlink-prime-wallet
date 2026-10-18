@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 if (process.versions.node !== "22.22.1") throw Error("Fixed Node22.22.1 required");
-const file = path.join(root, ".preview-build/input.json");
+const file = process.env.FASTLINK_PREVIEW_BUILD_INPUT || path.join(root, ".preview-build/input.json");
 if (fs.lstatSync(file).isSymbolicLink()) throw Error("Build input must be a regular file");
 const input = JSON.parse(fs.readFileSync(file, "utf8"));
 if (
@@ -15,6 +15,7 @@ if (
   input.apiUrl !== "/api"
 )
   throw Error("Unbound build input");
+if (input.previewScope !== undefined && input.previewScope !== "WALLET_ONLY") throw Error("Unbound preview scope");
 const env = {};
 for (const k of ["PATH", "LANG", "LC_ALL", "TMPDIR", "NODE_OPTIONS"])
   if (process.env[k]) env[k] = process.env[k];
@@ -25,6 +26,7 @@ Object.assign(env, {
   VITE_FASTLINK_SOURCE_SNAPSHOT: input.sourceSnapshot,
   VITE_FASTLINK_CANDIDATE_ID: input.candidateId,
   VITE_FASTLINK_PREVIEW_MODE: "READ_ONLY",
+  ...(input.previewScope ? { VITE_FASTLINK_PREVIEW_SCOPE: input.previewScope } : {}),
   VITE_FASTLINK_PRODUCT_MODE: "READ_ONLY_PREVIEW",
   WRANGLER_SEND_METRICS: "false",
   CI: "true",

@@ -1,4 +1,4 @@
-import { previewRequestAllowed } from "./launch/preview-readonly-policy";
+import { previewRequestAllowed } from "./launch/preview-readonly-policy.js";
 export type PreviewEnv = Record<string, unknown>;
 function required(env: PreviewEnv, key: string): string {
   const v = env[key];
@@ -28,7 +28,10 @@ export function previewBindings(env: PreviewEnv, origin: string) {
   if (proof.length < 48 || proof.length > 256) throw Error("PREVIEW_GATEWAY");
   const issuer = required(env, "FASTLINK_PREVIEW_ACCESS_ISSUER");
   if (!/^https:\/\/[a-z0-9-]+\.cloudflareaccess\.com$/.test(issuer)) throw Error("PREVIEW_ACCESS");
+  const scope = env.FASTLINK_PREVIEW_SCOPE;
+  if (scope !== undefined && scope !== "WALLET_ONLY") throw Error("PREVIEW_SCOPE");
   return {
+    scope,
     backend,
     buildSha,
     snapshot,
@@ -140,7 +143,7 @@ export function previewProxyHeaders(request: Request, proof: string) {
 }
 export async function previewProxy(request: Request, binding: ReturnType<typeof previewBindings>) {
   const u = new URL(request.url);
-  if (!previewRequestAllowed(u.pathname + u.search, request.method))
+  if (!previewRequestAllowed(u.pathname + u.search, request.method, binding.scope as string | undefined))
     return new Response("Request unavailable", { status: 403 });
   const target = new URL(u.pathname + u.search, binding.backend);
   const response = await fetch(target, {

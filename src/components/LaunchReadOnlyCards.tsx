@@ -1,14 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MobileShell, StatusBar } from "./MobileShell";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
 import { useBackendSession } from "@/lib/backend-session";
-import { supportReference } from "@/lib/launch-readonly-policy";
+import { isWalletOnlyPreview, safeCardFailure, supportReference } from "@/lib/launch-readonly-policy";
+import { backendApi, type WalletCard } from "@/lib/backend-api";
 
-export function LaunchReadOnlyCards() {
+export function LaunchReadOnlyCards({ requestedCardId }: { requestedCardId?: string } = {}) {
   const { session, invalidate, disconnect } = useBackendSession();
   const view = useCardListPages(session, null, invalidate);
   const [copyState, setCopyState] = useState("");
   const selected = view.cards.find((card) => card.cardId === view.activeId);
+  const walletOnly = isWalletOnlyPreview();
+  const detailId = requestedCardId ?? selected?.cardId;
+  const detailKey = session && detailId
+    ? JSON.stringify([session.actorId, session.tenantId, session.customerId, session.expiresAt, detailId])
+    : null;
+  const [detail, setDetail] = useState<{ key: string; card?: WalletCard; error?: string } | null>(null);
+  useEffect(() => {
+    if (!walletOnly || !session || !detailId || !detailKey) return;
+    let active = true;
+    void backendApi.getCard(detailId).then(
+      (card) => { if (active) setDetail({ key: detailKey, card }); },
+      (error) => { if (active) setDetail({ key: detailKey, error: safeCardFailure(error) }); },
+    );
+    return () => { active = false; };
+  }, [walletOnly, session, detailId, detailKey]);
+  const shownCard = walletOnly ? (detail?.key === detailKey ? detail.card : undefined) : selected;
+  const detailError = walletOnly && detail?.key === detailKey ? detail.error : undefined;
   const trace = view.error?.match(/Trace ([A-Za-z0-9._:-]{8,128})$/)?.[1];
   const reference =
     session && trace && trace !== "unavailable"
@@ -78,24 +96,26 @@ export function LaunchReadOnlyCards() {
             {view.loadingMore ? "正在读取…" : "下一页"}
           </button>
         )}
-        {selected && (
+        {walletOnly && detailKey && detail?.key !== detailKey && <p role="status">正在读取卡详情…</p>}
+        {detailError && <p role="alert">{detailError}</p>}
+        {shownCard && (
           <section aria-label="卡状态详情">
             <h2>卡状态详情</h2>
             <dl>
               <dt>卡ID</dt>
-              <dd>{selected.cardId}</dd>
+              <dd>{shownCard.cardId}</dd>
               <dt>状态</dt>
-              <dd>{selected.status}</dd>
+              <dd>{shownCard.status}</dd>
               <dt>类型</dt>
-              <dd>{selected.type}</dd>
+              <dd>{shownCard.type}</dd>
               <dt>尾号</dt>
-              <dd>{selected.last4}</dd>
+              <dd>{shownCard.last4}</dd>
               <dt>有效期</dt>
-              <dd>{selected.expiry}</dd>
+              <dd>{shownCard.expiry}</dd>
               <dt>币种</dt>
-              <dd>{selected.currency}</dd>
+              <dd>{shownCard.currency}</dd>
             </dl>
-            <p>详情来自本次列表快照。刷新失败时不作为最新状态。</p>
+            <p>{walletOnly ? "详情来自本次受授权的独立基础详情请求，不含余额或供应商实时查询。" : "详情来自本次列表快照。刷新失败时不作为最新状态。"}</p>
           </section>
         )}
       </main>

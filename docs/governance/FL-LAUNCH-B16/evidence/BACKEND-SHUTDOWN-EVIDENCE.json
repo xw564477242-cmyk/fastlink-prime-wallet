@@ -1,0 +1,152 @@
+{
+  "scope": "deployment",
+  "deploymentId": "a55b918d-eaa0-4181-892c-cdb6ca91198d",
+  "serviceId": "7ba69560-29ca-48d4-9b72-099d8bbbdf30",
+  "environmentId": "f41a095f-4e34-4ad0-ac03-29d291453f0b",
+  "status": "SUCCESS",
+  "deploy": [
+    {
+      "timestamp": "2026-10-18T02:58:44.798688654Z",
+      "severity": "info",
+      "message": "Stopping Container",
+      "attributes": [
+        {
+          "key": "level",
+          "value": "\"info\""
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-18T02:58:51.507809686Z",
+      "severity": "info",
+      "message": "",
+      "attributes": [
+        {
+          "key": "level",
+          "value": "\"info\""
+        },
+        {
+          "key": "type",
+          "value": "\"PREVIEW_SHUTDOWN_PHASE\""
+        },
+        {
+          "key": "phase",
+          "value": "\"ADMISSION_STOP\""
+        },
+        {
+          "key": "reason",
+          "value": "\"SIGTERM\""
+        },
+        {
+          "key": "pid",
+          "value": "1"
+        },
+        {
+          "key": "pid1",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-18T02:58:51.507811986Z",
+      "severity": "info",
+      "message": "",
+      "attributes": [
+        {
+          "key": "level",
+          "value": "\"info\""
+        },
+        {
+          "key": "type",
+          "value": "\"PREVIEW_SHUTDOWN_PHASE\""
+        },
+        {
+          "key": "phase",
+          "value": "\"PRISMA_DISCONNECT_BEGIN\""
+        },
+        {
+          "key": "reason",
+          "value": "\"SIGTERM\""
+        },
+        {
+          "key": "pid",
+          "value": "1"
+        },
+        {
+          "key": "pid1",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-18T02:58:51.507815146Z",
+      "severity": "info",
+      "message": "",
+      "attributes": [
+        {
+          "key": "level",
+          "value": "\"info\""
+        },
+        {
+          "key": "type",
+          "value": "\"PREVIEW_SHUTDOWN_PHASE\""
+        },
+        {
+          "key": "phase",
+          "value": "\"PRISMA_DISCONNECT_ACK\""
+        },
+        {
+          "key": "reason",
+          "value": "\"SIGTERM\""
+        },
+        {
+          "key": "pid",
+          "value": "1"
+        },
+        {
+          "key": "pid1",
+          "value": "true"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-10-18T02:58:51.507818126Z",
+      "severity": "info",
+      "message": "",
+      "attributes": [
+        {
+          "key": "level",
+          "value": "\"info\""
+        },
+        {
+          "key": "type",
+          "value": "\"PREVIEW_SHUTDOWN_PHASE\""
+        },
+        {
+          "key": "phase",
+          "value": "\"LIFECYCLE_COMPLETE\""
+        },
+        {
+          "key": "reason",
+          "value": "\"SIGTERM\""
+        },
+        {
+          "key": "pid",
+          "value": "1"
+        },
+        {
+          "key": "pid1",
+          "value": "true"
+        },
+        {
+          "key": "prismaDisconnected",
+          "value": "true"
+        },
+        {
+          "key": "httpListening",
+          "value": "false"
+        }
+      ]
+    }
+  ]
+}
