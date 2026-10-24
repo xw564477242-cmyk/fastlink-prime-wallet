@@ -13,12 +13,16 @@ import {
   Loader2,
   AlertTriangle,
   RefreshCw,
+  History,
+  ShieldCheck,
+  Layers,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLang } from "@/lib/i18n";
-import { backendApi, type WalletCard, type WalletCardTransaction } from "@/lib/backend-api";
+import { backendApi, type WalletCardTransaction } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useHomeWalletBalances } from "@/hooks/use-home-wallet-balances";
+import { clientRequestAllowed, isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,21 +36,26 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const [hidden, setHidden] = useState(false);
-  const [cards, setCards] = useState<WalletCard[]>([]);
   const [transactions, setTransactions] = useState<WalletCardTransaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { t } = useLang();
   const { session, invalidate } = useBackendSession();
-  const walletBalances = useHomeWalletBalances(session, invalidate);
+  const walletOnly = isWalletOnlyPreview();
+  const balancesSupported = clientRequestAllowed("/v1/wallet/balances");
+  const walletBalances = useHomeWalletBalances(balancesSupported ? session : null, invalidate);
 
   useEffect(() => {
     let cancelled = false;
     void (async () => {
       setLoading(true);
       setError(null);
-      setCards([]);
       setTransactions([]);
+      // The Wallet-only preview reads wallet history on /history, never card transactions.
+      if (walletOnly) {
+        setLoading(false);
+        return;
+      }
       try {
         if (!session) throw new Error("Authenticated session is required");
         const { cards: rows } = await backendApi.listCards();
@@ -54,7 +63,6 @@ function HomePage() {
           rows.map((card) => backendApi.cardTransactions(session, card.cardId, { limit: 4 })),
         );
         if (cancelled) return;
-        setCards(rows);
         setTransactions(
           groups
             .flatMap((page) => page.transactions)
@@ -63,7 +71,6 @@ function HomePage() {
         );
       } catch (reason) {
         if (!cancelled) {
-          setCards([]);
           setTransactions([]);
           setError(reason instanceof Error ? reason.message : "Railway Backend is unavailable");
         }
@@ -74,22 +81,12 @@ function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, [session]);
-
-  const cardTotals = useMemo(() => {
-    const grouped = new Map<string, number>();
-    for (const card of cards) {
-      grouped.set(card.currency, (grouped.get(card.currency) ?? 0) + card.balance);
-    }
-    return [...grouped.entries()];
-  }, [cards]);
+  }, [session, walletOnly]);
 
   const actions = [
-    { icon: ArrowDownToLine, label: t("home.deposit"), href: "/deposit" as const },
-    { icon: ArrowUpFromLine, label: t("home.withdraw"), href: "/withdraw" as const },
-    { icon: ArrowLeftRight, label: t("home.convert"), href: "/convert" as const },
-    { icon: QrCode, label: t("home.pay"), href: "/pay" as const },
-    { icon: Send, label: t("home.transfer"), href: "/transfer" as const },
+    { icon: Layers, label: t("nav.assets"), href: "/assets/digital" as const },
+    { icon: History, label: t("page.history"), href: "/history" as const },
+    { icon: ShieldCheck, label: t("page.kyc"), href: "/kyc" as const },
     { icon: CreditCard, label: t("home.cards"), href: "/cards" as const },
   ];
 
@@ -167,36 +164,27 @@ function HomePage() {
             {walletBalances.error} · No stale Wallet balance displayed.
           </p>
         )}
+        {walletOnly && !session && (
+          <p className="mt-2 text-[10px] text-muted-foreground">请先登录后查看余额。</p>
+        )}
+        {walletOnly &&
+          session &&
+          !walletBalances.loading &&
+          !walletBalances.error &&
+          walletBalances.accounts.length === 0 && (
+            <p className="mt-2 text-[10px] text-muted-foreground">
+              当前账户未返回钱包账户；这不表示余额为零。
+            </p>
+          )}
         {walletBalances.refreshError && (
           <p className="mt-2 text-[10px] text-destructive">
             {walletBalances.refreshError} · Existing verified balances kept.
           </p>
         )}
         <div className="mt-5 grid grid-cols-3 gap-2">
-          <MiniStat
-            to="/assets/digital"
-            label={t("home.digital")}
-            value={hidden ? "••••" : "Unavailable"}
-          />
-          <MiniStat
-            to="/assets/fiat"
-            label={t("home.fiat")}
-            value={hidden ? "••••" : "Unavailable"}
-          />
-          <MiniStat
-            to="/assets/cards"
-            label={t("home.card")}
-            value={
-              hidden
-                ? "••••"
-                : cardTotals.length
-                  ? cardTotals
-                      .map(([currency, value]) => `${value.toFixed(2)} ${currency}`)
-                      .join(" · ")
-                  : "Unavailable"
-            }
-            tone="accent"
-          />
+          <MiniStat to="/assets/digital" label={t("home.digital")} value="查看明细" />
+          <MiniStat to="/assets/fiat" label={t("home.fiat")} value="查看明细" />
+          <MiniStat to="/cards" label={t("home.card")} value="查看卡状态" tone="accent" />
         </div>
       </div>
 
@@ -254,7 +242,16 @@ function HomePage() {
               </p>
             </div>
           ))}
-          {!loading && !error && transactions.length === 0 && (
+          {walletOnly && (
+            <Link
+              to="/history"
+              className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface p-4 text-xs leading-5 text-muted-foreground"
+            >
+              <History className="h-5 w-5 shrink-0 text-primary" />
+              查看真实钱包交易记录，按币种筛选并展开详情。卡片交易尚未开放。
+            </Link>
+          )}
+          {!walletOnly && !loading && !error && transactions.length === 0 && (
             <div className="rounded-2xl border border-dashed border-border/60 p-6 text-center text-xs text-muted-foreground">
               No transactions returned by Railway Backend.
             </div>
@@ -271,7 +268,7 @@ function MiniStat({
   value,
   tone,
 }: {
-  to: "/assets/digital" | "/assets/fiat" | "/assets/cards";
+  to: "/assets/digital" | "/assets/fiat" | "/cards";
   label: string;
   value: string;
   tone?: "accent";

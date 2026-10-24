@@ -1,0 +1,31 @@
+{
+  "oid": "20090",
+  "role": "fl_preview_runtime_b15w_20261018",
+  "status": "B15W_NARROW_OBSERVATION",
+  "cardRLS": true,
+  "memberships": 0,
+  "nonPrivileged": true,
+  "auditReadPaths": [
+    {
+      "count": 2,
+      "action": "GET /api/v1/cards"
+    },
+    {
+      "count": 1,
+      "action": "GET /api/v1/cards/b10_card_A_20261017"
+    },
+    {
+      "count": 1,
+      "action": "GET /api/v1/cards/b10_card_B_20261017"
+    },
+    {
+      "count": 2,
+      "action": "GET /api/v1/session"
+    }
+  ],
+  "runtimeSessions": 1,
+  "auditForTestTraces": 6,
+  "cardWritePrivileges": false,
+  "businessBeforeFingerprint": "NOT_CAPTURED_NO_RETROSPECTIVE_CLAIM",
+  "timeUTC": "2026-10-18T02:56:06.960343+00:00"
+}

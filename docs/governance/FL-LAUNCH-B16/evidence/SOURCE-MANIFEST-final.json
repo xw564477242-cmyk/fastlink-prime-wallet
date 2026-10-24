@@ -1,0 +1,86 @@
+{
+  "backend": {
+    "root": "/Users/ck/.codex/worktrees/fl-launch-b13/fastlik-backend",
+    "baseHEAD": "5fc1e47fc31b992ee39a4fa7d3223027c91acaec",
+    "sourceSnapshot": "e1c6a9ffd1f8b9bbcab50b86f93c5622fa7886f1f0e6365ba3199425fb75fa5a",
+    "meaning": "derived base plus changed-source manifest, not an uncommitted-HEAD equality claim",
+    "changedSources": [
+      {
+        "path": "src/cards/cards.service.ts",
+        "sha256": "bc93869eaef88856b0db154df526d902e5296142637c62a08c5b5cc7d500feee"
+      },
+      {
+        "path": "src/launch/b10-scope.interceptor.ts",
+        "sha256": "a606ade67d72baf0b1011f20a8c038dcd8beb04602f8b7d5a88e883b1423dc9c"
+      },
+      {
+        "path": "src/launch/preview-profile.ts",
+        "sha256": "c623a1a7d34eaabee02ef2d1a4e4191eca412c0995fb9deb3ddfd7ee5bab2df5"
+      },
+      {
+        "path": "src/launch/preview-readonly-policy.ts",
+        "sha256": "fd202d09caef12cbd0ae39c335179bfceec4c5e1b39a370c5f130a33592ceb5d"
+      },
+      {
+        "path": "src/launch/wallet-readonly-scope.ts",
+        "sha256": "2699f403dcc7c55ca00d3974ef1669788ef6224ec478ec179826e8f6d6e8de79"
+      },
+      {
+        "path": "src/launch/wallet-readonly.spec.ts",
+        "sha256": "2c4ec62d2b771b98c36f0ef421fa0836ba43bcd0bde92cc66be53a2b020008b1"
+      }
+    ]
+  },
+  "wallet": {
+    "root": "/Users/ck/.codex/worktrees/fl-launch-b13/fastlink-prime-wallet",
+    "baseHEAD": "fe212beef9844528c8eab201c69ed40f1464befb",
+    "sourceSnapshot": "3a2cddb8ae9f1d0d012cb24653961669c4f88d80d4c9ba7a3890c5da317837b0",
+    "meaning": "derived base plus changed-source manifest, not an uncommitted-HEAD equality claim",
+    "changedSources": [
+      {
+        "path": "scripts/build-preview.mjs",
+        "sha256": "3cd7d3f96c3660284cdd88a5bf42d41bd7662842bd3a3460fddc06a057b8fbc1"
+      },
+      {
+        "path": "src/components/LaunchReadOnlyCards.tsx",
+        "sha256": "bd885ba1f7add0bf44e9b09a91cb5b2b51b06babb4f079d03ef778050b784c6d"
+      },
+      {
+        "path": "src/components/wallet-readonly-detail.mounted.test.tsx",
+        "sha256": "15dba2f46e93446c00893bc90db8cdbe165b1555073a146c8fa2e054d133384e"
+      },
+      {
+        "path": "src/hooks/use-card-list-pages.ts",
+        "sha256": "50f69c731e68cde018466cd9e206c85214118091bb32c7f4cfd0489e81650ebe"
+      },
+      {
+        "path": "src/launch/preview-readonly-policy.ts",
+        "sha256": "fbeae326378522b855bcc21ba1ca194709d8388fb6bfa586720c9ee240718303"
+      },
+      {
+        "path": "src/lib/backend-api.ts",
+        "sha256": "51049e808b7a813a40bf2ef21b4da6bc4f7e74a962f270b50cbe97c810c2da39"
+      },
+      {
+        "path": "src/lib/launch-readonly-policy.ts",
+        "sha256": "70c9710f31225db67cd6583b6445f6227623b3f3e5ebed0774f58d214726c295"
+      },
+      {
+        "path": "src/lib/wallet-readonly-scope.test.ts",
+        "sha256": "22e39bf014245797e55f37f79955de3c8cd52c8f340258264ee0f864c07bd1dc"
+      },
+      {
+        "path": "src/preview-gateway.ts",
+        "sha256": "e260b32d0fe5c11e08510f229e18280493d77ac10ef804d7b4d5b0cb954c054f"
+      },
+      {
+        "path": "src/routes/assets.cards.tsx",
+        "sha256": "e7ff18b76ad2a350fb65ab5a4523d324108382cda06620951713272ca99cb2d0"
+      },
+      {
+        "path": "src/routes/cards.tsx",
+        "sha256": "271593427c0688874809f4ac12115db410f36a1ab8adecd142933db7e4a1cb3b"
+      }
+    ]
+  }
+}

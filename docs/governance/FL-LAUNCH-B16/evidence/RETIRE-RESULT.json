@@ -1,0 +1,25 @@
+{
+  "execution": {
+    "stage": "retire",
+    "template": "RETIRE.template.sql",
+    "psqlLine": null,
+    "statementLabel": "NOT_AVAILABLE",
+    "exit": 0,
+    "sqlstate": null,
+    "timeout": false,
+    "osErrno": null,
+    "COMMIT_UNKNOWN": false,
+    "category": null
+  },
+  "result": {
+    "status": "B15W_MANAGEMENT_ASSISTED_RETIRED",
+    "expired": true,
+    "noLogin": true,
+    "roleOid": 20090,
+    "sessions": 0,
+    "passwordNull": "COMMAND_ACK_NO_PG_AUTHID_READ",
+    "effectiveTemp": false,
+    "objectsRetained": true,
+    "effectiveConnect": true
+  }
+}

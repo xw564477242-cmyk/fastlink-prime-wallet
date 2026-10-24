@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useReducer, useRef } from "rea
 import {
   CARD_LIST_PAGE_SIZE,
   backendApi,
+  BackendApiError,
   type BackendSession,
   type WalletCard,
 } from "@/lib/backend-api";
@@ -10,6 +11,8 @@ import {
   cardListViewForSession,
   initialCardListState,
 } from "@/lib/card-list-state";
+import { safeCardFailure, isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
+import type { BackendSessionInvalidator } from "@/lib/backend-session-policy";
 
 function errorMessage(): string {
   return "Card list is unavailable";
@@ -45,7 +48,12 @@ function confirmsExpectedCard(
     candidate.expiry === expected.expiry &&
     /^[A-Z]{3}$/.test(candidate.currency) &&
     candidate.currency === expected.currency &&
-    Number.isFinite(candidate.balance);
+    (Number.isFinite(candidate.balance) ||
+      (isWalletOnlyPreview() &&
+        candidate.availableBalanceMinor === undefined &&
+        expected.availableBalanceMinor === undefined &&
+        Number.isNaN(candidate.balance) &&
+        Number.isNaN(expected.balance)));
   return (
     confirmsIdentity &&
     (confirmation !== "EXACT_GENERATION" ||
@@ -76,6 +84,7 @@ function hasStrictlyLaterExpiry(candidate: WalletCard, predecessor: WalletCard):
 export function useCardListPages(
   session: BackendSession | null,
   preferredCardId: string | null = null,
+  invalidateSession?: BackendSessionInvalidator,
 ) {
   const [state, dispatch] = useReducer(cardListReducer, initialCardListState);
   const stateRef = useRef(state);
@@ -114,7 +123,13 @@ export function useCardListPages(
     void backendApi
       .listCards({ limit: CARD_LIST_PAGE_SIZE })
       .then((page) => dispatch({ type: "page", requestId, page, append: false }))
-      .catch(() => dispatch({ type: "failed", requestId, message: errorMessage(), append: false }));
+      .catch((error) => {
+        if (requestSequence.current !== requestId) return;
+        if (error instanceof BackendApiError && error.status === 401) {
+          invalidateSession?.(session, "EXPLICIT_401");
+        }
+        dispatch({ type: "failed", requestId, message: safeCardFailure(error), append: false });
+      });
 
     return () => {
       if (requestSequence.current === requestId) requestSequence.current += 1;
@@ -133,12 +148,56 @@ export function useCardListPages(
         cursor: state.nextCursor,
       });
       dispatch({ type: "page", requestId, page, append: true });
-    } catch {
-      dispatch({ type: "failed", requestId, message: errorMessage(), append: true });
+    } catch (error) {
+      if (requestSequence.current !== requestId) return;
+      if (session && error instanceof BackendApiError && error.status === 401) {
+        invalidateSession?.(session, "EXPLICIT_401");
+      }
+      dispatch({ type: "failed", requestId, message: safeCardFailure(error), append: true });
     } finally {
       if (activePageRequest.current === requestId) activePageRequest.current = null;
     }
   }, [scopeReady, state.loading, state.loadingMore, state.nextCursor]);
+
+  const reloadList = useCallback(async () => {
+    if (
+      !session ||
+      !scopeReady ||
+      state.loading ||
+      state.loadingMore ||
+      activePageRequest.current !== null
+    )
+      return;
+    const requestId = ++requestSequence.current;
+    activePageRequest.current = requestId;
+    dispatch({
+      type: "reset",
+      requestId,
+      sessionKey,
+      preferredCardId: state.activeId,
+      loading: true,
+    });
+    try {
+      const page = await backendApi.listCards({ limit: CARD_LIST_PAGE_SIZE });
+      if (requestSequence.current === requestId)
+        dispatch({ type: "page", requestId, page, append: false });
+    } catch (error) {
+      if (requestSequence.current !== requestId) return;
+      if (error instanceof BackendApiError && error.status === 401)
+        invalidateSession?.(session, "EXPLICIT_401");
+      dispatch({ type: "failed", requestId, message: safeCardFailure(error), append: false });
+    } finally {
+      if (activePageRequest.current === requestId) activePageRequest.current = null;
+    }
+  }, [
+    session,
+    scopeReady,
+    sessionKey,
+    state.activeId,
+    state.loading,
+    state.loadingMore,
+    invalidateSession,
+  ]);
 
   const confirmCreatedCard = useCallback(
     async (
@@ -512,6 +571,7 @@ export function useCardListPages(
     loadMore,
     confirmCreatedCard,
     refreshCards,
+    reloadList,
     confirmReplacement,
     confirmRenewal,
     selectCard,

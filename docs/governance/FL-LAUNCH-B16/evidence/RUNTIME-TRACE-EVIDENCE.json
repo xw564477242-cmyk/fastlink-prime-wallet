@@ -1,0 +1,182 @@
+{
+  "deploymentId": "a55b918d-eaa0-4181-892c-cdb6ca91198d",
+  "status": "SUCCESS",
+  "logs": [
+    {
+      "timestamp": "2026-10-18T02:41:54.711030353Z",
+      "message": "Starting Container"
+    },
+    {
+      "timestamp": "2026-10-18T02:41:56.122100419Z",
+      "type": "\"PREVIEW_PROCESS_BOUNDARY\"",
+      "pid": "1"
+    },
+    {
+      "timestamp": "2026-10-18T02:41:56.122103669Z",
+      "status": "\"PREVIEW_BACKEND_READY\""
+    },
+    {
+      "timestamp": "2026-10-18T02:47:58.965037882Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "401",
+      "traceId": "\"bfa9f715-2a35-4434-bcf8-81931e3e8d06\"",
+      "category": "\"AuthContractException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:48:18.957430013Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"d0c41068-c412-421d-8c66-cf189239a7b3\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:48:38.954922248Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"ae0b9b81-05ba-4c53-b504-5fa8ea3e4618\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:49:49.065945393Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"b69b2c62-bed5-4fa3-a83d-bf9c1991cb5f\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:41.022146672Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"82a659cf-a3ae-41f3-b70e-4e7f6d34f5c5\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:41.022150282Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"ad92aa26-d2f2-4775-a187-b10a13e83ace\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:42.289430155Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"6a1ed5ea-222f-4ec9-9572-09d570f5c1fc\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:44.007860140Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"3d73856f-7b3c-4b69-ab90-e2691c7e92fc\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:45.806458782Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"a214aa74-560c-485f-8acd-4d9ea3ea7fb3\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:47.306341276Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "401",
+      "traceId": "\"aac67525-145f-49e4-acd3-277e3c840046\"",
+      "category": "\"AuthContractException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:50.448472199Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"b3f54a98-51f0-4e20-bb07-af1d1ffbf7c9\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:52.114253621Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"77b7fe2f-bb69-4632-ae72-9df5f57512b4\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:53.523981124Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"04d8c551-0309-4134-9a8b-9fd22d5026b8\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:55.159175923Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"303492c8-e1b2-48a9-b86e-a37daf69a410\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:56.823789706Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"761cfcba-ab25-4fd0-9e88-2814bc40998f\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:58.246996608Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"32e0b90c-e722-4ace-877d-b0933f482523\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:53:59.777892893Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"ccce2e42-804f-47f5-b979-f1b711af7c31\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:54:01.281846694Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"c7bba706-43b7-4162-9a35-b3e011e654c0\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:54:02.627835984Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "401",
+      "traceId": "\"e0753a8a-df55-4b24-b98e-7392953b8c49\"",
+      "category": "\"AuthContractException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:54:07.062985134Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"1d77e2d1-5a19-4ed5-b212-5bd39bb4f444\"",
+      "pid": "329154",
+      "cleared": "true"
+    },
+    {
+      "timestamp": "2026-10-18T02:54:08.765061780Z",
+      "type": "\"B10_LOCAL_ERROR_RECEIPT\"",
+      "status": "404",
+      "traceId": "\"2a40deae-72ac-472d-995b-043bc4af8be8\"",
+      "category": "\"NotFoundException\"",
+      "sqlstate": "null"
+    },
+    {
+      "timestamp": "2026-10-18T02:54:10.290561894Z",
+      "type": "\"PREVIEW_POOL_CONTEXT_CHECK\"",
+      "traceId": "\"eaf3f5f8-dcb8-45d4-b54a-57e49e8430f7\"",
+      "pid": "329154",
+      "cleared": "true"
+    }
+  ]
+}

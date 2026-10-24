@@ -63,7 +63,8 @@
     "lint": "eslint .",
     "audit:production": "node scripts/verify-production-wallet.mjs",
     "format": "prettier --write .",
-    "deploy:cloudflare:dev": "bash scripts/deploy-cloudflare-dev.sh"
+    "deploy:cloudflare:dev": "bash scripts/deploy-cloudflare-dev.sh",
+    "build:preview": "node scripts/build-preview.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

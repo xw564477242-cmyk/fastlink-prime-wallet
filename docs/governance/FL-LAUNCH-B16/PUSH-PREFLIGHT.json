@@ -1,0 +1,103 @@
+{
+  "batch": "FL-LAUNCH-B16",
+  "recordedAtUTC": "2026-10-18T12:28:53.590010+00:00",
+  "approvedRequestSHA256": "ace615c51b0784f224c081ab8e04410d43d7d77ac79a8323723aaff6b8501e88",
+  "branch": "codex/fl-launch-b13-readonly-preview",
+  "prs": [
+    {
+      "repo": "fastlik-backend",
+      "pr": 338,
+      "head": "5fc1e47fc31b992ee39a4fa7d3223027c91acaec",
+      "base": "dev",
+      "draft": true,
+      "autoMerge": null
+    },
+    {
+      "repo": "fastlink-prime-wallet",
+      "pr": 94,
+      "head": "fe212beef9844528c8eab201c69ed40f1464befb",
+      "base": "dev",
+      "draft": true,
+      "autoMerge": null
+    }
+  ],
+  "remoteFeatureHeadsMatched": true,
+  "githubDirectWebhooks": {
+    "fastlik-backend": [],
+    "fastlink-prime-wallet": []
+  },
+  "railway": {
+    "source": "normal readonly CLI GraphQL B16DeploymentPreflight; native output chunk137e00",
+    "projectId": "1392fc08-8b62-424d-a0e4-8b167e75bad0",
+    "prDeploys": false,
+    "botPrEnvironments": false,
+    "environmentTriggerBranches": {
+      "development-A": [
+        "test"
+      ],
+      "production": [
+        "dev",
+        "main",
+        "test"
+      ],
+      "fl-preview-b15-20261017": [],
+      "test": [
+        "dev",
+        "feature/sanlx-readonly-fixture"
+      ]
+    },
+    "matchingFeatureBranchTriggers": 0,
+    "settingsChanged": false,
+    "scope": "only deployment metadata for this project; no database/runtime/secret reads"
+  },
+  "cloudflare": {
+    "account": "af8ac20dee08abe5ec98a892ae83873e",
+    "checkedAtUTC": "2026-10-18T12:27:18.390Z",
+    "scope": "9 observed wallet workers in this account only",
+    "rows": [
+      {
+        "worker": "fastlink-wallet-preview-b13",
+        "git": "unconnected (previously observed)"
+      },
+      {
+        "worker": "fastlink-wallet-pr-70-preview-test",
+        "git": "Git 存储库GitHubGitLabOrigin (full visible settings snapshot)"
+      },
+      {
+        "worker": "fastlink-wallet-pr-70-dev",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-wallet-dev",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-wallet-pr-69-dev",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-wallet-pr-48",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-wallet",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-wallet-test",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      },
+      {
+        "worker": "fastlink-prime-wallet-dev",
+        "git": "Git 存储库GitHubGitLabOrigin"
+      }
+    ],
+    "settingsChanged": false
+  },
+  "workflows": {
+    "backend": "3 Draft lint/offline-schema jobs; complete gates skipped LIMITED",
+    "wallet": "existing PR full verify; deployment workflow_dispatch or test branch conditions not invoked"
+  },
+  "conclusion": "PASS: no deployment path matched the exact two feature-branch pushes within checked known integrations",
+  "limits": "Point-in-time known integrations only; not a universal claim about unrelated cloud accounts. Existing dev/main/test triggers are not modified. No deploy workflow dispatch, branch switch, Ready, merge or setting changes."
+}

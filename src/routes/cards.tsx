@@ -1,3 +1,4 @@
+import { isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import {
@@ -26,6 +27,7 @@ import {
 import { useBackendSession } from "@/lib/backend-session";
 import { useLang } from "@/lib/i18n";
 import { useCardListPages } from "@/hooks/use-card-list-pages";
+import { LaunchReadOnlyCards } from "@/components/LaunchReadOnlyCards";
 import { useCardBalance } from "@/hooks/use-card-balance";
 import { useCardLimits } from "@/hooks/use-card-limits";
 import { useCardTimelinePages } from "@/hooks/use-card-timeline-pages";
@@ -57,7 +59,9 @@ export const Route = createFileRoute("/cards")({
       { name: "description", content: "Cards returned by FastLink Railway Backend." },
     ],
   }),
-  component: CardsPage,
+  component: function CardsRouteComponent() {
+    return <LaunchReadOnlyCards requestedCardId={Route.useSearch().cardId} />;
+  },
 });
 
 const emptyLimitDraft = (): Record<CardLimitField, string> => ({
@@ -78,6 +82,7 @@ function draftFromLimits(limits: WalletCardLimits | null): Record<CardLimitField
 }
 
 export function CardsPage() {
+  const walletOnly = isWalletOnlyPreview();
   const { t } = useLang();
   const { session, invalidate: invalidateSession } = useBackendSession();
   const navigate = useNavigate({ from: "/cards" });
@@ -188,11 +193,19 @@ export function CardsPage() {
     invalidateUnconfirmedReplacement,
     invalidateSession,
   );
-  const cardBalance = useCardBalance(session, current?.cardId ?? null, cardDataGeneration);
-  const cardLimits = useCardLimits(session, current?.cardId ?? null, cardDataGeneration);
+  const cardBalance = useCardBalance(
+    walletOnly ? null : session,
+    walletOnly ? null : (current?.cardId ?? null),
+    cardDataGeneration,
+  );
+  const cardLimits = useCardLimits(
+    walletOnly ? null : session,
+    walletOnly ? null : (current?.cardId ?? null),
+    cardDataGeneration,
+  );
   const cardTimeline = useCardTimelinePages(
-    session,
-    current?.cardId ?? null,
+    walletOnly ? null : session,
+    walletOnly ? null : (current?.cardId ?? null),
     invalidateSession,
     cardDataGeneration,
   );
@@ -469,6 +482,11 @@ export function CardsPage() {
             </div>
 
             <div className="mt-4">
+              {walletOnly && (
+                <p className="text-xs text-muted-foreground">
+                  Balance and limits unavailable in this read-only preview.
+                </p>
+              )}
               {cardBalance.loading && (
                 <div className="flex items-center gap-2 rounded-2xl border border-border/60 bg-surface/60 p-4 text-xs text-muted-foreground">
                   <Loader2 className="h-4 w-4 animate-spin text-primary" /> Loading selected Card
@@ -626,12 +644,14 @@ export function CardsPage() {
               </p>
             </div>
 
-            <CardTimelinePanel
-              timeline={cardTimeline}
-              disabled={busy}
-              onRefresh={() => cardTimeline.refresh()}
-              onLoadMore={() => void cardTimeline.loadMore()}
-            />
+            {!walletOnly && (
+              <CardTimelinePanel
+                timeline={cardTimeline}
+                disabled={busy}
+                onRefresh={() => cardTimeline.refresh()}
+                onLoadMore={() => void cardTimeline.loadMore()}
+              />
+            )}
           </>
         )}
       </div>

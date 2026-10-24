@@ -37,10 +37,10 @@ function AuthPage() {
     try {
       await connect(
         { tenantId: tenantId.trim(), email: email.trim().toLowerCase(), password },
-        mode,
+        "login",
       );
       setStatus("success");
-      setTimeout(() => navigate({ to: "/" }), 600);
+      setTimeout(() => navigate({ to: "/cards" }), 600);
     } catch (e) {
       setStatus("idle");
       setErrorMsg(e instanceof Error ? e.message : t("auth.err.failed"));
@@ -75,7 +75,7 @@ function AuthPage() {
         </div>
 
         <div className="mt-5 grid grid-cols-2 gap-2 rounded-2xl border border-border/60 bg-surface/60 p-1">
-          {(["login", "register"] as const).map((value) => (
+          {(["login"] as const).map((value) => (
             <button
               key={value}
               type="button"

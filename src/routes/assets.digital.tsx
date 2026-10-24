@@ -1,3 +1,5 @@
+import { PreviewAssetsPage } from "@/components/WalletPreviewViews";
+import { isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDownLeft, ArrowUpRight, ChevronLeft, Coins, Loader2, RefreshCw } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -26,6 +28,14 @@ export const Route = createFileRoute("/assets/digital")({
 });
 
 export function DigitalAssetsPage() {
+  return isWalletOnlyPreview() ? (
+    <PreviewAssetsPage kind="digital" />
+  ) : (
+    <ExistingDigitalAssetsPage />
+  );
+}
+
+function ExistingDigitalAssetsPage() {
   const { session, invalidate: invalidateSession } = useBackendSession();
   const [type, setType] = useState<WalletTransactionTypeFilter | undefined>();
   const [status, setStatus] = useState<WalletTransactionStatusFilter | undefined>();

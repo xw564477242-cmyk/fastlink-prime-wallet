@@ -1,3 +1,5 @@
+import { PreviewAssetsPage } from "@/components/WalletPreviewViews";
+import { isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
@@ -37,6 +39,10 @@ export const Route = createFileRoute("/assets/fiat")({
 });
 
 export function WalletAccountsPage() {
+  return isWalletOnlyPreview() ? <PreviewAssetsPage kind="fiat" /> : <ExistingWalletAccountsPage />;
+}
+
+function ExistingWalletAccountsPage() {
   const { session, invalidate: invalidateSession } = useBackendSession();
   const [selectedTransactionId, setSelectedTransactionId] = useState<string | null>(null);
   const [selectedOperationId, setSelectedOperationId] = useState<string | null>(null);

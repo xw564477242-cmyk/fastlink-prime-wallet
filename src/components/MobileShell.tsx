@@ -1,15 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Layers, ArrowLeftRight, QrCode, CreditCard, User } from "lucide-react";
+import { Home, Layers, History, CreditCard, ShieldCheck } from "lucide-react";
 import type { ReactNode } from "react";
 import { useLang } from "@/lib/i18n";
 
 const tabs = [
   { to: "/", key: "nav.home", icon: Home },
   { to: "/assets/digital", key: "nav.assets", icon: Layers },
-  { to: "/convert", key: "nav.convert", icon: ArrowLeftRight },
-  { to: "/pay", key: "nav.pay", icon: QrCode },
+  { to: "/history", key: "page.history", icon: History },
   { to: "/cards", key: "nav.cards", icon: CreditCard },
-  { to: "/profile", key: "nav.profile", icon: User },
+  { to: "/kyc", key: "page.kyc", icon: ShieldCheck },
 ] as const;
 
 export function MobileShell({ children }: { children: ReactNode }) {
@@ -23,10 +22,9 @@ export function MobileShell({ children }: { children: ReactNode }) {
     >
       <div className="flex-1 overflow-y-auto pb-28">{children}</div>
       <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-md -translate-x-1/2 border-t border-border/60 bg-surface/95 backdrop-blur-xl">
-        <div className="grid w-full grid-cols-6">
+        <div className="grid w-full grid-cols-5">
           {tabs.map((tab) => {
-            const active =
-              tab.to === "/assets/digital" ? pathname.startsWith("/assets/") : pathname === tab.to;
+            const active = pathname === tab.to;
             const Icon = tab.icon;
             const label = t(tab.key);
             return (
