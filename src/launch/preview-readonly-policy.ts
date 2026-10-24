@@ -6,7 +6,9 @@ export function previewRequestAllowed(target: string, method = "GET", scope?: st
   if (scope === "WALLET_ONLY") {
     const path = target.split("?")[0];
     return method === "GET"
-      ? /^\/api\/v1\/(?:session|cards(?:\/[A-Za-z0-9._:-]{1,128})?)$/.test(path)
+      ? /^\/api\/v1\/(?:session|cards(?:\/[A-Za-z0-9._:-]{1,128})?|wallet\/(?:assets|balances|transactions(?:\/[A-Za-z0-9._:-]{1,128})?))$/.test(
+          path,
+        )
       : method === "POST" && /^\/api\/v1\/auth\/(?:login|logout|refresh)$/.test(path);
   }
   if (method === "GET") return true;

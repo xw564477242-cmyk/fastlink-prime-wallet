@@ -22,6 +22,7 @@ import { useLang } from "@/lib/i18n";
 import { backendApi, type WalletCardTransaction } from "@/lib/backend-api";
 import { useBackendSession } from "@/lib/backend-session";
 import { useHomeWalletBalances } from "@/hooks/use-home-wallet-balances";
+import { clientRequestAllowed, isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,7 +41,9 @@ function HomePage() {
   const [error, setError] = useState<string | null>(null);
   const { t } = useLang();
   const { session, invalidate } = useBackendSession();
-  const walletBalances = useHomeWalletBalances(session, invalidate);
+  const walletOnly = isWalletOnlyPreview();
+  const balancesSupported = clientRequestAllowed("/v1/wallet/balances");
+  const walletBalances = useHomeWalletBalances(balancesSupported ? session : null, invalidate);
 
   useEffect(() => {
     let cancelled = false;
@@ -48,6 +51,11 @@ function HomePage() {
       setLoading(true);
       setError(null);
       setTransactions([]);
+      // The Wallet-only preview reads wallet history on /history, never card transactions.
+      if (walletOnly) {
+        setLoading(false);
+        return;
+      }
       try {
         if (!session) throw new Error("Authenticated session is required");
         const { cards: rows } = await backendApi.listCards();
@@ -73,7 +81,7 @@ function HomePage() {
     return () => {
       cancelled = true;
     };
-  }, [session]);
+  }, [session, walletOnly]);
 
   const actions = [
     { icon: Layers, label: t("nav.assets"), href: "/assets/digital" as const },
@@ -156,6 +164,18 @@ function HomePage() {
             {walletBalances.error} · No stale Wallet balance displayed.
           </p>
         )}
+        {walletOnly && !session && (
+          <p className="mt-2 text-[10px] text-muted-foreground">请先登录后查看余额。</p>
+        )}
+        {walletOnly &&
+          session &&
+          !walletBalances.loading &&
+          !walletBalances.error &&
+          walletBalances.accounts.length === 0 && (
+            <p className="mt-2 text-[10px] text-muted-foreground">
+              当前账户未返回钱包账户；这不表示余额为零。
+            </p>
+          )}
         {walletBalances.refreshError && (
           <p className="mt-2 text-[10px] text-destructive">
             {walletBalances.refreshError} · Existing verified balances kept.
@@ -222,7 +242,16 @@ function HomePage() {
               </p>
             </div>
           ))}
-          {!loading && !error && transactions.length === 0 && (
+          {walletOnly && (
+            <Link
+              to="/history"
+              className="flex items-center gap-3 rounded-2xl border border-border/50 bg-surface p-4 text-xs leading-5 text-muted-foreground"
+            >
+              <History className="h-5 w-5 shrink-0 text-primary" />
+              查看真实钱包交易记录，按币种筛选并展开详情。卡片交易尚未开放。
+            </Link>
+          )}
+          {!walletOnly && !loading && !error && transactions.length === 0 && (
             <div className="rounded-2xl border border-dashed border-border/60 p-6 text-center text-xs text-muted-foreground">
               No transactions returned by Railway Backend.
             </div>

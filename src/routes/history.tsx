@@ -1,3 +1,5 @@
+import { PreviewHistoryPage } from "@/components/WalletPreviewViews";
+import { isWalletOnlyPreview } from "@/lib/launch-readonly-policy";
 import { createFileRoute } from "@tanstack/react-router";
 import { MobileShell, StatusBar } from "@/components/MobileShell";
 import { AlertTriangle, CreditCard, Loader2, RefreshCw, Search } from "lucide-react";
@@ -24,6 +26,10 @@ export const Route = createFileRoute("/history")({
 });
 
 export function HistoryPage() {
+  return isWalletOnlyPreview() ? <PreviewHistoryPage /> : <ExistingHistoryPage />;
+}
+
+function ExistingHistoryPage() {
   const { lang, t } = useLang();
   const { session } = useBackendSession();
   const { cardId } = Route.useSearch();

@@ -1,0 +1,347 @@
+{
+  "status": "SAFE_TO_PUSH_WITHIN_CHECKED_KNOWN_TRIGGER_SCOPE",
+  "scope": "Read-only push/deployment trigger proof for the exact existing feature branch and Draft PR updates; no deployments, settings changes, variables, logs, runtime/financial data, credentials, Git mutations or CI runs.",
+  "github": {
+    "status": "PASS_NO_MATCHING_DEPLOY_TRIGGER",
+    "prs": [
+      {
+        "repository": "xw564477242-cmyk/fastlik-backend",
+        "number": 338,
+        "state": "open",
+        "draft": true,
+        "head": "d6b56486cda8c70a8d89ed497473314fca369d04",
+        "headBranch": "codex/fl-launch-b13-readonly-preview",
+        "base": "2b120bc18a1e2ef3bb5ae42197c625764441db0c",
+        "baseBranch": "dev",
+        "autoMerge": null
+      },
+      {
+        "repository": "xw564477242-cmyk/fastlink-prime-wallet",
+        "number": 94,
+        "state": "open",
+        "draft": true,
+        "head": "20a1d8731a5a44902a0944434ce70f8c23570189",
+        "headBranch": "codex/fl-launch-b13-readonly-preview",
+        "base": "4140fd3091d64aa7a9b5752d0d789e148b5243f5",
+        "baseBranch": "dev",
+        "autoMerge": null
+      }
+    ],
+    "headWorkflowMetadata": [
+      {
+        "repository": "fastlik-backend",
+        "files": [
+          {
+            "path": ".github/workflows/ci.yml",
+            "blobSHA": "7103ded46d1a2ca6907c04f61a01d1ebae252f4a"
+          },
+          {
+            "path": ".github/workflows/dev-reset-round-trip.yml",
+            "blobSHA": "670f5986a047149d68291910cc0c0c86839ebbdf"
+          },
+          {
+            "path": ".github/workflows/promote-dev-candidate.yml",
+            "blobSHA": "897f578c449f68d0bd3c9d2b9094f930839e46cd"
+          },
+          {
+            "path": ".github/workflows/pull-request.yml",
+            "blobSHA": "19be068d39f206570ce2a7631a80b73c1493275c"
+          },
+          {
+            "path": ".github/workflows/test-environment.yml",
+            "blobSHA": "ca8a3dd1cd5425eaf59cd6637d882da15ed700c0"
+          }
+        ]
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "files": [
+          {
+            "path": ".github/workflows/deploy-cloudflare-dev.yml",
+            "blobSHA": "e60d0a2f9f080015dd4e8a4ded48aa9a088c32a6"
+          },
+          {
+            "path": ".github/workflows/deploy-cloudflare-test.yml",
+            "blobSHA": "0eefe5cbb0b0a00ee278bf2e7bcd2cc336573f07"
+          },
+          {
+            "path": ".github/workflows/prime-wallet-pr.yml",
+            "blobSHA": "f93033cf65e60f4e5a1920039d7557b3b3b47368"
+          }
+        ]
+      }
+    ],
+    "headWorkflowsUnchangedFromEachDevBase": true,
+    "headLocalBlobSHAEqualsRemoteDirectorySHA": true,
+    "defaultBranchWorkflowMetadata": [
+      {
+        "repository": "fastlik-backend",
+        "path": ".github/workflows/promote-dev-candidate.yml",
+        "blobSHA": "3fdf6fb1bc20aaf9dd2534b25656bcee489ac683",
+        "eventHeader": "name: Promote DEV Candidate OCI\n\non:\n  workflow_dispatch:\n    inputs:\n      source_sha:\n        description: Exact reviewed PR Head SHA whose Non-Production Artifact will be promoted\n        required: true\n        type: string\n      source_run_id:\n        description: Exact successful Non-Production CI run ID for source_sha\n        required: true\n        type: string\n      promotion_workflow_sha:\n        description: Exact externally approved dev commit containing this promotion workflow\n        required: true\n        type: string\n      confirmation:\n        description: Type PROMOTE-DEV-CANDIDATE:<source_sha>:<promotion_workflow_sha>\n        required: true\n        type: string\n",
+        "hasAutomaticChainedEvent": false
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "path": ".github/workflows/ci.yml",
+        "blobSHA": "15609b44b3646d14da74239979bd487632f02367",
+        "eventHeader": "name: FastLink Prime Wallet CI\n\non:\n  pull_request:\n    branches: [main]\n  workflow_dispatch:\n",
+        "hasAutomaticChainedEvent": false
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "path": ".github/workflows/deploy-cloudflare-production.yml",
+        "blobSHA": "886c66f1687ed8f309dce33555b20597010f222d",
+        "eventHeader": "name: Deploy Prime Wallet Production to Cloudflare\n\non:\n  push:\n    branches: [main]\n  workflow_dispatch:\n",
+        "hasAutomaticChainedEvent": false
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "path": ".github/workflows/test-manual-approved.yml",
+        "blobSHA": "62857dd24f64b957abfd7af7a2356d2b990c1295",
+        "eventHeader": "# OFFLINE DRAFT ONLY: proposed main .github/workflows/test-manual-approved.yml\n# Requires separately reviewed trusted helpers at scripts/test-entry/.\nname: Approved TEST deployment\nrun-name: 'TEST ${{ inputs.candidate_sha }} / approval ${{ inputs.approval_id }}'\non:\n  workflow_dispatch:\n    inputs:\n      candidate_sha:\n        description: Full approved dev SHA (40 lowercase hex)\n        type: string\n        required: true\n      approval_id:\n        description: Exact separately approved release record identifier\n        type: string\n        required: true",
+        "hasAutomaticChainedEvent": false
+      }
+    ],
+    "noAutomaticChainedEventsInHeadOrCurrentMain": true,
+    "events": [
+      {
+        "repository": "fastlik-backend",
+        "file": ".github/workflows/ci.yml",
+        "lines": "3-9,21-24,50-53",
+        "events": "pull_request base dev/test [opened,reopened,synchronize,ready_for_review]; release published; workflow_dispatch",
+        "thisAction": "PR synchronize to dev -> Draft lint/offline schema only; no push trigger or deploy action"
+      },
+      {
+        "repository": "fastlik-backend",
+        "file": ".github/workflows/dev-reset-round-trip.yml",
+        "lines": "3-10,22-25,51-56",
+        "events": "pull_request base dev [opened,reopened,synchronize,ready_for_review]; release published; workflow_dispatch",
+        "thisAction": "PR synchronize -> Draft lint only; full DB job requires non-Draft"
+      },
+      {
+        "repository": "fastlik-backend",
+        "file": ".github/workflows/pull-request.yml",
+        "lines": "3-10,22-25,51-56",
+        "events": "pull_request base dev [opened,reopened,synchronize,ready_for_review]; release published; workflow_dispatch",
+        "thisAction": "PR synchronize -> Draft lint only; full gate requires non-Draft"
+      },
+      {
+        "repository": "fastlik-backend",
+        "file": ".github/workflows/test-environment.yml",
+        "lines": "2-8",
+        "events": "pull_request base test; release published; workflow_dispatch",
+        "thisAction": "dev PR does not match"
+      },
+      {
+        "repository": "fastlik-backend",
+        "file": ".github/workflows/promote-dev-candidate.yml",
+        "lines": "3-22",
+        "events": "workflow_dispatch only",
+        "thisAction": "no automatic match; source/run/workflow SHA and explicit confirmation required"
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "file": ".github/workflows/prime-wallet-pr.yml",
+        "lines": "3-10,19-22",
+        "events": "push branch dev; pull_request base dev [opened,synchronize,reopened,ready_for_review]",
+        "thisAction": "PR synchronize -> verification/build/artifact, no deploy action"
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "file": ".github/workflows/deploy-cloudflare-dev.yml",
+        "lines": "4-10,20-23",
+        "events": "workflow_dispatch only, job requires refs/heads/dev",
+        "thisAction": "no automatic match"
+      },
+      {
+        "repository": "fastlink-prime-wallet",
+        "file": ".github/workflows/deploy-cloudflare-test.yml",
+        "lines": "3-8,17-20",
+        "events": "push branch test or workflow_dispatch; deployment variable gate",
+        "thisAction": "feature branch does not match irrespective of gate variable value"
+      },
+      {
+        "repository": "fastlink-prime-wallet main",
+        "file": ".github/workflows/deploy-cloudflare-production.yml",
+        "lines": "3-6,17-20",
+        "events": "push branch main or workflow_dispatch; production variable gate",
+        "thisAction": "feature branch does not match; gate variable not queried"
+      },
+      {
+        "repository": "fastlink-prime-wallet main",
+        "file": ".github/workflows/ci.yml",
+        "lines": "3-6",
+        "events": "pull_request base main or workflow_dispatch",
+        "thisAction": "dev PR does not match"
+      },
+      {
+        "repository": "fastlink-prime-wallet main",
+        "file": ".github/workflows/test-manual-approved.yml",
+        "lines": "5-15",
+        "events": "workflow_dispatch only",
+        "thisAction": "no automatic match"
+      }
+    ],
+    "lifecycleSummary": "Exact HEAD package.json has no preinstall/install/postinstall/prepare/prebuild/postbuild/prelint/postlint deployment hooks. Backend lint=eslint, build=nest build; Wallet build=vite build. No tests or scripts executed.",
+    "directRepositoryHooks": {
+      "fastlik-backend": [],
+      "fastlink-prime-wallet": [],
+      "method": "Official gh api exact two repositories; only id/active/events projected. No config URLs or secrets read/retained."
+    }
+  },
+  "railway": {
+    "status": "PASS_NO_MATCHING_TRIGGER",
+    "projectId": "1392fc08-8b62-424d-a0e4-8b167e75bad0",
+    "prDeploys": false,
+    "query": "query FixedPushTriggerRead($id:String!){project(id:$id){id prDeploys deploymentTriggers(first:100){edges{node{repository branch serviceId environmentId}} pageInfo{hasNextPage endCursor}}}}",
+    "repository": "xw564477242-cmyk/fastlik-backend",
+    "triggers": [
+      {
+        "branch": "dev",
+        "environmentId": "8401a856-ac37-4aff-82d0-ed6e307c7bb1",
+        "serviceId": "a6b52269-5f52-446d-bc4e-d3328ee4333b"
+      },
+      {
+        "branch": "dev",
+        "environmentId": "f5c2ebf3-ec31-4748-b202-e557a7afd562",
+        "serviceId": "a6b52269-5f52-446d-bc4e-d3328ee4333b"
+      },
+      {
+        "branch": "test",
+        "environmentId": "3a01b9e0-b7f9-40e4-9a1b-2192cdfdadc8",
+        "serviceId": "cc85aff6-3d5c-4f68-a89a-efe348e89c8a"
+      },
+      {
+        "branch": "main",
+        "environmentId": "8401a856-ac37-4aff-82d0-ed6e307c7bb1",
+        "serviceId": "2e27d78c-daa8-4bcd-bb21-089144aa9685"
+      },
+      {
+        "branch": "feature/sanlx-readonly-fixture",
+        "environmentId": "f5c2ebf3-ec31-4748-b202-e557a7afd562",
+        "serviceId": "cc85aff6-3d5c-4f68-a89a-efe348e89c8a"
+      },
+      {
+        "branch": "test",
+        "environmentId": "8401a856-ac37-4aff-82d0-ed6e307c7bb1",
+        "serviceId": "cc85aff6-3d5c-4f68-a89a-efe348e89c8a"
+      }
+    ],
+    "paginationComplete": true,
+    "matchingFeatureBranchCount": 0,
+    "queryMethod": "Existing authorized official Railway CLI, explicit fixed project; precise Project/DeploymentTrigger metadata only. Default sandbox DNS lookup failed; approved network execution succeeded. No OAuth/credential handling."
+  },
+  "cloudflare": {
+    "status": "PASS_NO_GIT_BUILD_CONNECTION_FOR_KNOWN_WALLET_APPS",
+    "accountId": "af8ac20dee08abe5ec98a892ae83873e",
+    "atUTC": "2026-10-24T18:04:09.655Z",
+    "scope": "Only the nine Wallet applications already named in B16; not an all-account resource inventory",
+    "rows": [
+      {
+        "worker": "fastlink-wallet-preview-b13",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-preview-b13/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-pr-70-preview-test",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-pr-70-preview-test/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-pr-70-dev",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-pr-70-dev/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-dev",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-dev/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-pr-69-dev",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-pr-69-dev/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-pr-48",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-pr-48/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-wallet-test",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-wallet-test/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      },
+      {
+        "worker": "fastlink-prime-wallet-dev",
+        "path": "/af8ac20dee08abe5ec98a892ae83873e/workers/services/view/fastlink-prime-wallet-dev/production/settings",
+        "gitState": "UNCONNECTED_PROVIDER_CHOOSER",
+        "productionBranch": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "previewBranchTrigger": "NOT_APPLICABLE_WITHOUT_GIT_CONNECTION",
+        "observedBuildSection": "构建\nGit 存储库\nGitHub\nGitLab\nOrigin\nAPI token for external CI/CD\n\nCreate an account API token that can deploy only this Worker from GitHub Actions, GitLab CI, or another CI/CD system.\n\nCreate token"
+      }
+    ],
+    "settingsChanged": false,
+    "newCredentialsOrScopes": false,
+    "normalLogin": "Existing saved Google profile continued; no new OAuth permissions or credential extraction",
+    "observationLimitation": "Several initial views showed only loading headings or selector timeouts; no conclusion drawn until the Git provider chooser was actually rendered. No deployment or setting action was clicked."
+  },
+  "priorAcceptedExternalEvidence": {
+    "file": "/Users/ck/.codex/worktrees/35cc/fastlink-prime-wallet-dev-release/deliveries/FL-LAUNCH-B16-20261018/FINAL-HANDOFF.md",
+    "line": 14,
+    "scope": "B16 reported Railway PR auto-deploy off, no matching branch trigger, 9 known current-account Wallet applications without Git build connection, direct GitHub hooks empty. Historical record retained; not used alone as today's proof."
+  },
+  "agents": {
+    "backend": "No AGENTS.md found in exact repository view",
+    "wallet": "Lovable history protection: pushes to a connected branch synchronize its editor. Editor sync is not evidence of deployment; no Lovable messages/history or unrelated integrations queried."
+  },
+  "conditions": [
+    "No workflow or deployment configuration changes in the incoming source-only commits",
+    "Keep both PRs Draft, base dev, auto-merge disabled",
+    "Push only codex/fl-launch-b13-readonly-preview, no dev/test/main/tag/release/dispatch changes",
+    "Do not generalize known account/project proof to unknown accounts/integrations",
+    "Current Cloudflare nine known app views show unconnected Git provider chooser; do not change any integration settings."
+  ],
+  "lovable": {
+    "kind": "Git editor sync, separate from published snapshot release",
+    "status": "NO_PUBLISH_ACTION_IN_THIS_OPERATION",
+    "publicSources": [
+      "https://docs.lovable.dev/integrations/github",
+      "https://docs.lovable.dev/features/publish"
+    ],
+    "sourceBasis": "Official Git sync docs: active-branch changes sync editor; publish docs: later changes require Publish changes. This operation invokes neither Lovable agent nor publish action; repository workflows do not invoke Lovable publish and direct repository hooks are empty.",
+    "projectGitBranchNotQueried": true,
+    "notClaimed": "Universal absence of unknown integrations outside checked known account/project scope."
+  },
+  "atUTC": "2026-10-24T18:05:52.686053+00:00"
+}
