@@ -1,0 +1,120 @@
+{
+  "status": "READONLY_BALANCE_AND_TRANSACTION_CONNECTED_WITH_RECORDED_LIMITATIONS",
+  "timeBeijing": "2026-10-25T01:36:18.447318+08:00",
+  "ownerContinuation": "01a16ee8-5fe1-77d2-a5d2-ca75abbf1554",
+  "backendDeployment": "1cf413e0-1ba1-421a-8246-997980a04d82",
+  "backend": "SUCCESS/RUNNING",
+  "frontendVersion": "33fd892d-2353-40aa-ba50-4fac033a447a",
+  "unchangedCandidateManifest": "59f9702a0c3b1cded18cce6ef2ead7844b4736fc109992132f22e8865fc823b9",
+  "actualRuntime": {
+    "role": "fl_preview_runtime_b17mw_20261019",
+    "oid": 20359,
+    "superuser": false,
+    "bypassRls": false,
+    "createRole": false,
+    "connectionLimit": 1,
+    "strictTLSConfigured": true,
+    "originalMonthEndUTC": "2026-11-23T12:34:22.235Z"
+  },
+  "checks": [
+    {
+      "name": "normal fixed A login",
+      "result": "PASS",
+      "attempts": 1
+    },
+    {
+      "name": "balance API and actual home",
+      "result": "PASS",
+      "http": 200,
+      "currency": "USD",
+      "availableBalance": "0",
+      "ledgerBalance": "0",
+      "pendingBalance": "0",
+      "zeroIsPersistedResponse": true
+    },
+    {
+      "name": "transaction list and detail API/pages",
+      "result": "PASS",
+      "http": [
+        200,
+        200
+      ],
+      "id": "b10_wallet_tx_A_20261017",
+      "amount": "1",
+      "currency": "USD",
+      "persistedBusinessStatus": "FAILED",
+      "businessStatusIsNotTestFailure": true
+    },
+    {
+      "name": "tenant/customer/conflicting detail scope",
+      "result": "PASS",
+      "http": [
+        403,
+        403,
+        403
+      ]
+    },
+    {
+      "name": "out-of-scope-shaped ID and absent ID",
+      "result": "PASS_HTTP_STATUS_BOUNDARY",
+      "http": [
+        404,
+        404
+      ],
+      "otherRecordExistenceNotRequeried": true
+    },
+    {
+      "name": "credential-free request",
+      "result": "LIMITED",
+      "observed": "Access opaque authentication redirect, body unreadable",
+      "notProven": "Direct unauthenticated application/database RLS visibility"
+    },
+    {
+      "name": "transaction context cleanup",
+      "result": "PASS",
+      "source": "existing live interceptor checks",
+      "allRecordedCleared": true,
+      "notProven": "Direct unbound reads of both newly authorized tables"
+    },
+    {
+      "name": "continuation boundaries",
+      "result": "PASS",
+      "permissionSqlReplayed": false,
+      "fixtureExistenceRequeried": false,
+      "fixtureSeeded": false,
+      "newWritePrivileges": false,
+      "newPackageOrSourceRevision": false,
+      "oldTestsRerun": false
+    }
+  ],
+  "retainedFailures": [
+    {
+      "deployment": "f48aea79-d807-411f-8d11-c477e3a84c31",
+      "result": "FAIL",
+      "code": "MODULE_NOT_FOUND",
+      "module": "./dist"
+    },
+    {
+      "deployment": "6860bb02-c2ef-44cd-bdb6-8a20d1cf8fe8",
+      "result": "FAIL",
+      "code": "P2037",
+      "cleanup": "ACK",
+      "oldA292NeverStoppedDuringThatAttempt": true
+    }
+  ],
+  "handover": "a292 normal Prisma disconnect ACK + platform EXITED; exact mw connection count zero; then start existing complete 6860 image as new 1cf, no reupload",
+  "existingAuditBehavior": "Existing auth/request audit mechanism retained; no fixture or financial write performed",
+  "observationLimit": "Negative batch CDP await timed out; requests not replayed, completed five statuses recovered from browser ResourceTiming. No negative response bodies or direct RLS row-count proof claimed.",
+  "stillFrozen": [
+    "funds",
+    "real Provider",
+    "Gate1",
+    "production",
+    "formal baseline"
+  ],
+  "ownerView": {
+    "home": "https://fastlink-wallet-preview-b13.adhesive-snowshoe.workers.dev/",
+    "history": "https://fastlink-wallet-preview-b13.adhesive-snowshoe.workers.dev/history",
+    "currentExecutionTab": "home, marked deliverable"
+  }
+}

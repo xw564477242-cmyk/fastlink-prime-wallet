@@ -10,6 +10,11 @@ import {
 export type FastLinkEnvironment = "LOCAL" | "SANDBOX" | "TEST" | "UAT" | "PRODUCTION";
 
 import { resolveFrontendRuntime } from "./frontend-runtime";
+import {
+  clientRequestAllowed,
+  isLaunchReadOnlyPreview,
+  isWalletOnlyPreview,
+} from "./launch-readonly-policy";
 
 function resolveRuntime() {
   return resolveFrontendRuntime(
@@ -500,6 +505,7 @@ type BackendWalletBalanceRecord = {
 };
 
 type BackendWalletAssetMetadataRecord = {
+  assetId?: unknown;
   assetCode?: unknown;
   assetClass?: unknown;
 };
@@ -817,6 +823,20 @@ async function request<T>(
   responseMode: "json" | "text" = "json",
   maximumResponseBytes?: number,
 ): Promise<T> {
+  if (!clientRequestAllowed(path, (init.method ?? "GET").toUpperCase())) {
+    const providerAction = /^\/v1\/cards\/(?:virtual|[^/]+\/activate)$/.test(path);
+    const readOnlyPreview = isLaunchReadOnlyPreview();
+    throw new BackendApiError(
+      0,
+      "launch-readonly",
+      providerAction
+        ? "卡创建／激活的 Provider 执行未获批准；未发送请求"
+        : readOnlyPreview
+          ? "只读预览未开放此业务操作；未发送请求"
+          : "当前批次未开放此业务操作；未发送请求",
+      readOnlyPreview ? "PREVIEW_REQUEST_BLOCKED" : undefined,
+    );
+  }
   const runtime = requireRuntime();
   const requestTraceId = traceId();
   const headers = new Headers(init.headers);
@@ -934,7 +954,13 @@ function normalizeCard(value: BackendCardRecord): WalletCard {
     expiryYear: expiryValid ? year : undefined,
     currency: typeof value.currency === "string" ? value.currency : "—",
     ...(hasAlias ? { alias } : {}),
-    balance: Number.isFinite(minor) ? minor / 100 : 0,
+    // NaN is a non-monetary unavailable sentinel only in this narrow preview.
+    balance:
+      isWalletOnlyPreview() && availableBalanceMinor === undefined
+        ? Number.NaN
+        : Number.isFinite(minor)
+          ? minor / 100
+          : 0,
     ...(availableBalanceMinor === undefined ? {} : { availableBalanceMinor }),
     ...(createdAt === undefined ? {} : { createdAt }),
     capabilities: {
@@ -2324,10 +2350,15 @@ function cardTransactionMinorUnits(value: unknown): string {
   return value;
 }
 
-function normalizeTransaction(value: unknown): WalletCardTransaction {
+function normalizeTransaction(value: unknown, expectedCardId?: string): WalletCardTransaction {
+  const hasCardScope =
+    value !== null &&
+    typeof value === "object" &&
+    (Object.hasOwn(value, "cardId") || Object.hasOwn(value, "cardType"));
   const record = exactTrustedJsonRecord(
     value,
     [
+      ...(hasCardScope ? ["cardId", "cardType"] : []),
       "id",
       "status",
       "amountMinor",
@@ -2344,6 +2375,15 @@ function normalizeTransaction(value: unknown): WalletCardTransaction {
     ],
     "Backend returned an invalid transaction",
   );
+  if (
+    hasCardScope &&
+    (typeof expectedCardId !== "string" ||
+      !/^[A-Za-z0-9._:-]{2,128}$/.test(expectedCardId) ||
+      record.cardId !== expectedCardId ||
+      (record.cardType !== "VIRTUAL" && record.cardType !== "PHYSICAL"))
+  ) {
+    throw new Error("Backend returned a transaction outside the selected Card");
+  }
   const rawStatus = requiredString(record.status, "status", 32);
   if (
     !["AUTHORIZED", "DECLINED", "CLEARED", "SETTLED", "REVERSED", "REFUNDED"].includes(rawStatus)
@@ -2443,7 +2483,7 @@ export function normalizeCardTransactionDetailResponse(
   } catch {
     throw new Error("Backend returned an invalid transaction detail");
   }
-  const detail = normalizeTransaction(parsed);
+  const detail = normalizeTransaction(parsed, expectation.cardId);
   if (detail.id !== expectation.transactionId) {
     throw new Error("Backend returned a different Card transaction id");
   }
@@ -2457,6 +2497,7 @@ export function normalizeCardTransactionResponse(
   rawJson: string,
   limit = CARD_TRANSACTION_PAGE_SIZE,
   expectedStatus?: CardTransactionStatusFilter,
+  expectedCardId?: string,
 ): WalletCardTransactionPage {
   if (!Number.isInteger(limit) || limit < 1 || limit > CARD_TRANSACTION_PAGE_SIZE) {
     throw new Error(`Card transaction limit must be between 1 and ${CARD_TRANSACTION_PAGE_SIZE}`);
@@ -2486,7 +2527,7 @@ export function normalizeCardTransactionResponse(
   if (page.nextCursor !== null && !isCanonicalCardTransactionCursor(page.nextCursor)) {
     throw new Error("Backend returned an invalid transaction cursor");
   }
-  const normalized = transactions.map(normalizeTransaction);
+  const normalized = transactions.map((value) => normalizeTransaction(value, expectedCardId));
   if (
     expectedStatus !== undefined &&
     normalized.some((transaction) => transaction.status !== expectedStatus.toLowerCase())
@@ -2754,10 +2795,18 @@ export function normalizeWalletAssetCatalogResponse(
   ).map((item): WalletAssetMetadata => {
     const record = exactTrustedJsonRecord(
       item,
-      ["assetCode", "assetClass"],
+      Object.hasOwn(item as object, "assetId")
+        ? ["assetId", "assetCode", "assetClass"]
+        : ["assetCode", "assetClass"],
       errorMessage,
     ) as BackendWalletAssetMetadataRecord;
     const assetCode = walletAssetCode(record.assetCode);
+    if (
+      Object.hasOwn(record, "assetId") &&
+      record.assetId !== `flp_asset_${assetCode.toLowerCase()}`
+    ) {
+      throw new Error(errorMessage);
+    }
     if (record.assetClass !== "FIAT" && record.assetClass !== "DIGITAL") {
       throw new Error(errorMessage);
     }
@@ -3961,7 +4010,7 @@ export const backendApi = {
         { signal },
         "text",
       );
-      return normalizeCardTransactionResponse(result, limit, query.status);
+      return normalizeCardTransactionResponse(result, limit, query.status, cardId);
     } catch (error) {
       if (error instanceof BackendApiError) {
         throw new BackendApiError(

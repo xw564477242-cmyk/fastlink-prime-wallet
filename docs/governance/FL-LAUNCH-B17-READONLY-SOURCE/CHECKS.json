@@ -1,0 +1,325 @@
+{
+  "scope": "This accepted balance/transaction functional source increment only; not the complete B17 deployed UI snapshot",
+  "backend": {
+    "status": "PASS",
+    "scope": [
+      "src/launch/preview-readonly-policy.ts",
+      "src/wallet/wallet-accounting.service.ts",
+      "src/launch/wallet-readonly-data.spec.ts"
+    ],
+    "checks": {
+      "jest": {
+        "suitesPassed": 1,
+        "testsPassed": 4,
+        "testsFailed": 0,
+        "selection": "only new wallet-readonly-data.spec.ts"
+      },
+      "typescriptSemantic": {
+        "mode": "ts-jest strict diagnostics; warnOnly false",
+        "errors": 0,
+        "typescriptVersion": "5.9.3"
+      },
+      "eslint": {
+        "files": 3,
+        "errors": 0,
+        "warnings": 0,
+        "rules": "repository rules, no relaxations"
+      }
+    },
+    "history": [
+      {
+        "status": "FAIL",
+        "item": "initial strict-type candidate validation",
+        "diagnostic": "TS2345 new test omitted required DTO limit; fixed limit:25",
+        "originalLog": "initial-ts2345.stderr.log"
+      },
+      {
+        "status": "LIMITED",
+        "item": "local ESLint wrapper preparation stopped before ESLint",
+        "cause": "package main field absent; Node export resolution used",
+        "log": "eslint-setup-error.log"
+      }
+    ],
+    "sourceSHA256": [
+      {
+        "path": "src/launch/preview-readonly-policy.ts",
+        "sha256": "a24b7962c13baa0dbb10fd4cdd75e31807726c88c131d4ae2dd4d84c32d234ea"
+      },
+      {
+        "path": "src/wallet/wallet-accounting.service.ts",
+        "sha256": "e8894c2efa834bdc7d5a415c04a453b074e86cbc9f578d524335b1b4dc2a918e"
+      },
+      {
+        "path": "src/launch/wallet-readonly-data.spec.ts",
+        "sha256": "da92f5be05b89505cdd6c341818b6a652304bdbd6f4afccc9cedad6b2f8e0af2"
+      }
+    ],
+    "evidence": [
+      {
+        "path": "strict-execution.json",
+        "sha256": "3b2a7f48f3b7bf424898e3b6c7ffab721149907154c3a125ae520f5aff585186"
+      },
+      {
+        "path": "jest-strict-result.json",
+        "sha256": "85b526f92be91ffb66f7457e39ef3357d58f741936fda0e0708c7da29672155e"
+      },
+      {
+        "path": "initial-ts2345.stderr.log",
+        "sha256": "971cc58b421a29b49ed5447909bfa71c06ab897360d6521d44d4ceeccde8fd5b"
+      },
+      {
+        "path": "eslint-result.json",
+        "sha256": "41cfbee26619dcb72c2d123a76083a6d66f9770b557be9934cd19ea613c25894"
+      },
+      {
+        "path": "eslint-setup-error.log",
+        "sha256": "a17e5189b1d51eb7ee64bd030f1bc44f3ab4a2d8c3e0f5620046e803d421b5a3"
+      }
+    ],
+    "preservation": {
+      "originalTemporaryEvidenceRetained": true,
+      "localConfigurationCopied": false,
+      "oldSuitesRepeated": false,
+      "testsRepeatedAfterLint": false,
+      "sourceChangedDuringLint": false,
+      "networkInstallEngineDatabaseResourcesGitWrites": false
+    }
+  },
+  "wallet": {
+    "status": "PASS",
+    "scope": "This batch function source increment only; not complete recovery of deployed B17 UI",
+    "files": [
+      {
+        "path": "src/components/WalletPreviewViews.tsx",
+        "sha256": "a18d87e1783ad14bf4ccbb34f7d412829e9a90832c382544c81c5fb6810b385d"
+      },
+      {
+        "path": "src/routes/index.tsx",
+        "sha256": "99094797473b7fb3e6a3394be46160e3e422155d8c03555c2449a8720763f023"
+      },
+      {
+        "path": "src/hooks/use-preview-wallet-balances.ts",
+        "sha256": "c1a2d7e684e09e51fa0d91ec8c0cb9ff8feb36e32b6de8a34e95b8e937405bad"
+      },
+      {
+        "path": "src/launch/preview-readonly-policy.ts",
+        "sha256": "8c013af6c36c7fa5144505557145fa730baece4591ecc43a4602bc7e44d24fe0"
+      },
+      {
+        "path": "src/routes/assets.digital.tsx",
+        "sha256": "078ac5a85c55f2760e524e5a9f660ca5a79ea6c36fd7468c1f5135737d9ac42a"
+      },
+      {
+        "path": "src/routes/assets.fiat.tsx",
+        "sha256": "4e663f3db69549daf94428f25fbac32e5f20654135eef3c008bbc0e7f414738d"
+      },
+      {
+        "path": "src/routes/history.tsx",
+        "sha256": "0c84ebd6f7aa81982160dfb16787d4b3aa0696982c6873e3ff625ef6171a835b"
+      }
+    ],
+    "assertions": [
+      {
+        "name": "Only accepted asset/history exports recovered",
+        "status": "PASS"
+      },
+      {
+        "name": "Accepted PreviewHistoryPage body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "Accepted transactionTypeLabel body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "Accepted transactionStatusLabel body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "Accepted balances helper byte-exact",
+        "status": "PASS"
+      },
+      {
+        "name": "Accepted policy semantics preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "assets.digital.tsx: non-preview original body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "assets.digital.tsx: preview-only dispatcher",
+        "status": "PASS"
+      },
+      {
+        "name": "assets.fiat.tsx: non-preview original body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "assets.fiat.tsx: preview-only dispatcher",
+        "status": "PASS"
+      },
+      {
+        "name": "history.tsx: non-preview original body preserved",
+        "status": "PASS"
+      },
+      {
+        "name": "history.tsx: preview-only dispatcher",
+        "status": "PASS"
+      },
+      {
+        "name": "Home prevents preview card request before listCards",
+        "status": "PASS"
+      },
+      {
+        "name": "Home original layout classes retained",
+        "status": "PASS"
+      },
+      {
+        "name": "Home has real history link instead of preview empty-card assertion",
+        "status": "PASS"
+      },
+      {
+        "name": "No monetary floating conversion or direct backend writes",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/styles.css unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/routes/auth.tsx unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/lib/backend-session.tsx unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/routes/profile.tsx unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/lib/backend-api.ts unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/hooks/use-home-wallet-balances.ts unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/hooks/use-wallet-account-history.ts unchanged",
+        "status": "PASS"
+      },
+      {
+        "name": "Original src/hooks/use-wallet-transaction-detail.ts unchanged",
+        "status": "PASS"
+      }
+    ],
+    "typescript": {
+      "status": "PASS",
+      "errors": []
+    },
+    "reusedEvidence": "Existing approved 5 mounted Mock cases / 18 assertions; not rerun",
+    "notRun": [
+      "build",
+      "network",
+      "database",
+      "deployment",
+      "existing full test suites"
+    ],
+    "harnessPreparation": [
+      "JSONC tsconfig parser corrected before compile",
+      "Existing routeTree.gen.ts included for TanStack route type registration; no source fix required"
+    ],
+    "temporaryEvidenceOnly": "source-recovery-checks/check.cjs and RESULT.json are local recovery checks; not portable repository business source",
+    "eslint": {
+      "status": "PASS",
+      "exitCode": 0,
+      "files": 7,
+      "errors": 0,
+      "warnings": 0,
+      "newErrors": 0,
+      "existingWarnings": 0,
+      "rulesUnchanged": true,
+      "sourceChangedForLint": false,
+      "fullLintRun": false,
+      "toolchain": "Existing ESLint9/toolchain; task-local module resolver only",
+      "rawResultSHA256": "614266b934438265ab6206305f1a323ea84b74f50461419f0a907520eecf23c6",
+      "commandRecordSHA256": "c8616323acb8f31e76873f6043adef6b6171fa70a019e095ec5e696b5f306f6d"
+    },
+    "scopeContractCorrection": {
+      "firstNaturalCI": {
+        "head": "2fd6d617ac01aeb34f52d2ba1c47c9d2cf410b37",
+        "run": 40120078317,
+        "status": "FAIL",
+        "step": "Test when the branch contains tests",
+        "testsPassed": 2,
+        "testsFailed": 2,
+        "cause": "Two stale assertions denied the already-approved GET wallet/assets; not a newly detected access bypass"
+      },
+      "changedFile": "src/lib/wallet-readonly-scope.test.ts",
+      "sha256": "ceb8491b7d453becb5da8a8e1718137961b2cf556e29b7def40f20e5eb4f6105",
+      "productionSourceChanged": false,
+      "workflowOrSecurityRulesRelaxed": false,
+      "verification": {
+        "command": "/Users/ck/.bun/bin/bun test src/lib/wallet-readonly-scope.test.ts",
+        "testsPassed": 4,
+        "testsFailed": 0,
+        "expectCalls": 61,
+        "fullSuiteRepeated": false
+      },
+      "retainedAndAddedDenials": [
+        "non-approved wallet objects",
+        "tenant/customer/environment query injection",
+        "missing/duplicate assetCode",
+        "POST/PUT/PATCH/DELETE business writes",
+        "Admin",
+        "unknown scope"
+      ]
+    }
+  },
+  "walletESLint": {
+    "status": "PASS",
+    "exitCode": 0,
+    "files": 7,
+    "errors": 0,
+    "warnings": 0,
+    "newErrors": 0,
+    "existingWarnings": 0,
+    "rulesUnchanged": true,
+    "sourceChangedForLint": false,
+    "fullLintRun": false,
+    "toolchain": "Existing ESLint9/toolchain; task-local module resolver only",
+    "rawResultSHA256": "614266b934438265ab6206305f1a323ea84b74f50461419f0a907520eecf23c6",
+    "commandRecordSHA256": "c8616323acb8f31e76873f6043adef6b6171fa70a019e095ec5e696b5f306f6d"
+  },
+  "evidenceReuse": {
+    "previous89And5MockGroupsRepeated": false,
+    "acceptedCloudDataRepeated": false,
+    "permissionSqlRepeated": false,
+    "fixtureRequeriedOrSeeded": false,
+    "fullSuiteOrFullProjectScan": false
+  },
+  "deliveryBoundary": {
+    "draftOnly": true,
+    "base": "dev",
+    "noReadyMergeDeploy": true,
+    "noRuntimeOrPermissionOrSecretChange": true
+  },
+  "naturalCI": {
+    "backend": {
+      "head": "e88c05a4ea55c15ab00cfb7ffbe9f88b66d3b34c",
+      "runs": [
+        40120075718,
+        40120075740,
+        40120075724
+      ],
+      "conclusion": "success",
+      "coverage": "Draft lint/syntax/offline schema only",
+      "fullBackendGates": "LIMITED: skipped because Draft"
+    },
+    "wallet": "Corrective append pending; preserve first failed run; final new-HEAD natural CI will be recorded in PR/HANDOFF",
+    "manualReruns": 0
+  }
+}
