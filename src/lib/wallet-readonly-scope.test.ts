@@ -38,8 +38,16 @@ describe("wallet-only preview request increment", () => {
       else process.env.VITE_FASTLINK_PREVIEW_SCOPE = oldS;
     }
   });
-  it("permits only login/session/cards/basic-detail/refresh/logout", () => {
-    for (const p of ["/api/v1/session", "/api/v1/cards?limit=20", "/api/v1/cards/card_A"])
+  it("permits session, cards and approved wallet reads, with only authentication mutations", () => {
+    for (const p of [
+      "/api/v1/session",
+      "/api/v1/cards?limit=20",
+      "/api/v1/cards/card_A",
+      "/api/v1/wallet/assets",
+      "/api/v1/wallet/balances",
+      "/api/v1/wallet/transactions?assetCode=USD&limit=25",
+      "/api/v1/wallet/transactions/tx_A",
+    ])
       expect(previewRequestAllowed(p, "GET", "WALLET_ONLY")).toBe(true);
     for (const a of ["login", "refresh", "logout"])
       expect(previewRequestAllowed("/api/v1/auth/" + a, "POST", "WALLET_ONLY")).toBe(true);
@@ -50,11 +58,27 @@ describe("wallet-only preview request increment", () => {
       "/api/v1/cards/card_A/limits",
       "/api/v1/cards/card_A/timeline",
       "/api/v1/cards/card_A/transactions",
-      "/api/v1/wallet/assets",
+      "/api/v1/wallet/accounts",
+      "/api/v1/wallet/accounts/account_A/transactions?assetCode=USD",
+      "/api/v1/wallet/operations",
+      "/api/v1/wallet/operations/operation_A",
       "/api/admin/users",
       "/api/v1/cards?tenantId=other",
+      "/api/v1/wallet/balances?tenantId=other",
+      "/api/v1/wallet/transactions?assetCode=USD&customerId=other",
+      "/api/v1/wallet/transactions/tx_A?environment=TEST",
+      "/api/v1/wallet/transactions",
+      "/api/v1/wallet/transactions?assetCode=USD&assetCode=EUR",
     ])
       expect(previewRequestAllowed(p, "GET", "WALLET_ONLY")).toBe(false);
+    for (const method of ["POST", "PUT", "PATCH", "DELETE"])
+      for (const p of [
+        "/api/v1/wallet/balances",
+        "/api/v1/wallet/transactions/tx_A",
+        "/api/v1/wallet/transfers",
+        "/api/v1/wallet/fx/quotes",
+      ])
+        expect(previewRequestAllowed(p, method, "WALLET_ONLY")).toBe(false);
     expect(previewRequestAllowed("/api/v1/cards/virtual", "POST", "WALLET_ONLY")).toBe(false);
     expect(previewRequestAllowed("/api/v1/auth/register", "POST", "WALLET_ONLY")).toBe(false);
     expect(previewRequestAllowed("/api/v1/session", "GET", "OTHER")).toBe(false);
@@ -69,7 +93,26 @@ describe("wallet-only preview request increment", () => {
       process.env.VITE_FASTLINK_PREVIEW_SCOPE = "WALLET_ONLY";
       expect(isWalletOnlyPreview()).toBe(true);
       expect(launchRequestAllowed("/v1/cards/card_A")).toBe(true);
-      expect(launchRequestAllowed("/v1/wallet/assets")).toBe(false);
+      for (const p of [
+        "/v1/wallet/assets",
+        "/v1/wallet/balances",
+        "/v1/wallet/transactions?assetCode=USD&limit=25",
+        "/v1/wallet/transactions/tx_A",
+      ]) {
+        expect(launchRequestAllowed(p)).toBe(true);
+        expect(previewBrowserRequestAllowed(p, "GET", "WALLET_ONLY")).toBe(true);
+      }
+      expect(launchRequestAllowed("/v1/wallet/accounts")).toBe(false);
+      expect(
+        previewBrowserRequestAllowed(
+          "/v1/wallet/transactions?assetCode=USD&tenantId=other",
+          "GET",
+          "WALLET_ONLY",
+        ),
+      ).toBe(false);
+      expect(previewBrowserRequestAllowed("/v1/wallet/transfers", "POST", "WALLET_ONLY")).toBe(
+        false,
+      );
       expect(previewBrowserRequestAllowed("/v1/cards/card_A", "GET", "WALLET_ONLY")).toBe(true);
     } finally {
       for (const [k, v] of Object.entries({

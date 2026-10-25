@@ -247,6 +247,36 @@
       "toolchain": "Existing ESLint9/toolchain; task-local module resolver only",
       "rawResultSHA256": "614266b934438265ab6206305f1a323ea84b74f50461419f0a907520eecf23c6",
       "commandRecordSHA256": "c8616323acb8f31e76873f6043adef6b6171fa70a019e095ec5e696b5f306f6d"
+    },
+    "scopeContractCorrection": {
+      "firstNaturalCI": {
+        "head": "2fd6d617ac01aeb34f52d2ba1c47c9d2cf410b37",
+        "run": 40120078317,
+        "status": "FAIL",
+        "step": "Test when the branch contains tests",
+        "testsPassed": 2,
+        "testsFailed": 2,
+        "cause": "Two stale assertions denied the already-approved GET wallet/assets; not a newly detected access bypass"
+      },
+      "changedFile": "src/lib/wallet-readonly-scope.test.ts",
+      "sha256": "ceb8491b7d453becb5da8a8e1718137961b2cf556e29b7def40f20e5eb4f6105",
+      "productionSourceChanged": false,
+      "workflowOrSecurityRulesRelaxed": false,
+      "verification": {
+        "command": "/Users/ck/.bun/bin/bun test src/lib/wallet-readonly-scope.test.ts",
+        "testsPassed": 4,
+        "testsFailed": 0,
+        "expectCalls": 61,
+        "fullSuiteRepeated": false
+      },
+      "retainedAndAddedDenials": [
+        "non-approved wallet objects",
+        "tenant/customer/environment query injection",
+        "missing/duplicate assetCode",
+        "POST/PUT/PATCH/DELETE business writes",
+        "Admin",
+        "unknown scope"
+      ]
     }
   },
   "walletESLint": {
@@ -277,5 +307,19 @@
     "noReadyMergeDeploy": true,
     "noRuntimeOrPermissionOrSecretChange": true
   },
-  "naturalCI": "Pending new HEAD; old CI is not evidence for this source increment. Draft-skipped backend jobs remain LIMITED."
+  "naturalCI": {
+    "backend": {
+      "head": "e88c05a4ea55c15ab00cfb7ffbe9f88b66d3b34c",
+      "runs": [
+        40120075718,
+        40120075740,
+        40120075724
+      ],
+      "conclusion": "success",
+      "coverage": "Draft lint/syntax/offline schema only",
+      "fullBackendGates": "LIMITED: skipped because Draft"
+    },
+    "wallet": "Corrective append pending; preserve first failed run; final new-HEAD natural CI will be recorded in PR/HANDOFF",
+    "manualReruns": 0
+  }
 }
