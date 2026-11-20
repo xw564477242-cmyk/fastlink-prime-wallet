@@ -2978,3 +2978,12 @@ CardProductTemplate 整表迁移仍待持卡费用、旧 Admin 写入及 RETURNI
 - T2 裁定草案另包独审 `PASS_OFFLINE_ONLY`，真实进场 `BLOCKED_BY_INSERT_BUDGET`。限 1 事务、最多 8 行新增、零重试。沿用历史 B Customer、两套新会话及一只 B 钱包的实际新增下限 19 行；单一受控事务入口仍待证。逐表回滚和干跑硬停已封，三项所有者裁定待办。
 - 未开新窗，0 连库、0 SQL、0 凭据。旧前置卡 `95d1a3fa…` 已耗 1 次且 0 重试，原 SQL／runner 和实际回执保持原 SHA，原目录与队列额度 1 次。T1 后续开窗须 T2 已裁定，且 B 夹具与 A 新会话已有真实就绪回执。
 - [T1 独立封包](/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/G1-07-T1-TIERED-EVIDENCE-OFFLINE-20261113-01/G1-07-T1-TIERED-EVIDENCE-OFFLINE.zip) SHA256 `4784581e6c7088474fdee013a383c884a34901fce750cd1ffc664147c47a7545`。[T2 独立封包](/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/G1-07-T2-TEST-FIXTURE-CARD-OFFLINE-20261113-01/G1-07-T2-TEST-FIXTURE-CARD-OFFLINE.zip) SHA256 `28bb84e2a5bf0668956f12a0f32e26f9628695b4e91fc99c3f7fb399bff0477d`。
+
+### 2026-11-20｜顾问同步入口：状态指针与效率改造包（仅指针，不改结论）
+
+- 本节只登记入口，不新增验收分子、不升级 BASE、不改 Gate1（仍 NOT_PASSED）、不改任何冻结。
+- 状态入口统一读 [状态指针](STATE-POINTER-20261120.md)（单页：阶段/计数/堵点/冻结/仓库事实/证据入口）SHA256 `e9aa143929bb24e333c173be990ef79563c25e17be78be8f2de5029e561dd259`。
+- 工序改造读 [效率改造包](EFFICIENCY-PACKAGE-20261120.md)（Gate1 五行卡点表、批准卡模板 v2、三条刹车规则）SHA256 `86354fa117cb0ba0702eeb347bfc74b28c6de417203c2fb33387b05da8fa41e9`。
+- 顾问侧工作与边界见 [同步简报](HANDOFF-ADVISOR-SYNC-20261120.md)：本轮未连库、未部署、未签授权；B 恢复封包仍未执行，模板三标志位为 false、无有效 permit。
+- 计数保持：表 6/43、调用点 31/47（余 16）、槽 10/16、旧 Admin 0/9、P0 离线 56/90（余 34）；H67/H71/H65/H73 仍 UNKNOWN。
+- 后续"承接/续记/纠正/边界同步"类文档停止产出；"下一步做什么"只从卡点表取，表外事项另立裁定。
