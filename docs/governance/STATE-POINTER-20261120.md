@@ -22,13 +22,13 @@
 
 **坐标提醒**：以上五组全部跑满，Gate1 仍不会通过。Gate1 的卡点是另一套清单，见《效率改造包》第 2 节。
 
-## 三、唯一堵点
+## 三、堵点（2026-11-20 14:10 起已变化）
 
-Admin B 恢复封包已具体可审，技术准备 9/9 闭合，**缺所有者一次终态裁定**（执行 or 否决关闭）。
+**Admin B 访问已恢复**：改密于 2026-11-20 14:10:41 执行完成，结果 `RESET_ACCESS_VERIFIED_VALIDATION_SESSION_REVOKED`——单行改密、原会话撤销、login/me/logout 各 1 通过、私有 0600 凭据落地、3 连接 17 语句预算内。单次锁 `EXECUTION.once.lock` 已耗尽，不可重跑。
 
-- 封包：`docs/work-logs/TEST-ADMIN-B-RESET-FINAL-CANDIDATE-20261120/REVIEW.md` SHA `a1318cb8271dd1f0de3d8987859c9011f3b93b5df9e029b7c663c3985cf9b3b2`
-- 清单：同目录 `SHA256.json` SHA `c79204e1569415aad2f416cdbcae9618c7e0f86321b27b419df6b4d6939d6858`
-- 当前状态：`APPROVAL-TEMPLATE.json` 三标志位全 false，`manifestSha256=UNBOUND_PENDING_OWNER_EXECUTION_APPROVAL`，无有效 permit。
+登记的缺口：执行时的授权卡在用后被删除，事后无可复核凭证；且 CONTROL（14:09）与状态正本仍记"未执行"，记录滞后于事实。事实见 `docs/work-logs/TEST-ADMIN-B-RESET-FINAL-CANDIDATE-20261120/EXECUTION-FACT-20261120.md`。
+
+因此 S11 的"缺 Admin B"前置**事实上已解除**，但仍缺三项：独立修复审批身份、`FASTLINK_LEGACY_CARD_REPAIR_ADMISSION` 裁定、真实历史样本来源。B 恢复本身不增加任何计数分子。
 
 ## 四、冻结清单（不得自行解除）
 
