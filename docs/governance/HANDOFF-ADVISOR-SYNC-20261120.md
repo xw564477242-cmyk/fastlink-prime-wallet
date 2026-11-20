@@ -7,9 +7,9 @@
 ## 一、我做了什么（全部纯文档 / 只读）
 
 1. **全盘资料核对**：治理总表（2980 行）、状态正本（941 行）、L1.5 快照、48 项工单目录、三个本地仓 git 状态、GitHub 远端引用。
-2. **诊断产出**两份文件（当前在 `/Users/ck/Doubao/chats/2026-11-20/new-chat/`）：
-   - `FastLink-总顾问诊断与路径-20261120.md`
-   - `FastLink-效率改造包-20261120.md`（含 Gate1 五行卡点表、批准卡模板 v2、三条刹车规则、入库命令）
+2. **诊断产出**两份文件，已随本分支入库：
+   - `docs/governance/STATE-POINTER-20261120.md`（状态指针，单页入口）SHA256 `e9aa143929bb24e333c173be990ef79563c25e17be78be8f2de5029e561dd259`
+   - `docs/governance/EFFICIENCY-PACKAGE-20261120.md`（Gate1 五行卡点表、批准卡模板 v2、三条刹车规则、入库命令）SHA256 `86354fa117cb0ba0702eeb347bfc74b28c6de417203c2fb33387b05da8fa41e9`
 3. **治理入库**（纯文档、未动 main、可删分支回退）：
    - 治理仓 `docs/governance-20261120` @ `2210417`：总表、状态正本、基线增量、证据索引、ROADMAP，43 文件。
    - 后端仓 `docs/work-logs-20261120` @ `d122527`：48 项工单日志 + `AGENTS.md` 第 6 节三条刹车规则，1542 文件。
