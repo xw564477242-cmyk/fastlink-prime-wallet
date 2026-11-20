@@ -1,0 +1,80 @@
+{
+  "observedAtUTC": "2026-10-31T03:04:27.339832+00:00",
+  "method": "Actual Safari accessibility observations; UI screenshot inspected via tool, no credentials or session secrets exported",
+  "checks": [
+    {
+      "name": "Access",
+      "status": "PASS",
+      "evidence": "User completed normal original Access login; no policy changes."
+    },
+    {
+      "name": "Existing synthetic identity",
+      "status": "PASS_LIMITED",
+      "evidence": "User entered existing A credentials; home displays b10_customer_A_20261017; card b10_card_A_20261017. Fixed tenant b9_tenant_A_20261016 from account handoff and form. Runtime TEST environment validated by sealed session provider; raw session response not exported."
+    },
+    {
+      "name": "C visual",
+      "status": "PASS",
+      "evidence": "Home total-asset frame with three small boxes, six home actions and six footer links observed in actual Safari."
+    },
+    {
+      "name": "Home balance",
+      "status": "PASS",
+      "evidence": "0 USD; aggregate total explicitly Unavailable due missing asset-summary contract."
+    },
+    {
+      "name": "Digital assets",
+      "status": "PASS",
+      "evidence": "No digital account returned; UI explicitly does not equate absent account to zero."
+    },
+    {
+      "name": "Fiat assets",
+      "status": "PASS",
+      "evidence": "0 USD; ledger 0; pending 0; update 2026/10/17 03:02:27 displayed."
+    },
+    {
+      "name": "History list",
+      "status": "PASS",
+      "evidence": "Existing failed transfer +1 USD dated 2026/10/17 03:02:27; no transaction created."
+    },
+    {
+      "name": "History detail",
+      "status": "PASS",
+      "evidence": "b10_wallet_tx_A_20261017; transfer, FAILED, incoming, 1 USD; detail closes."
+    },
+    {
+      "name": "History filtering",
+      "status": "PASS",
+      "evidence": "Deposit filter returns explicit empty state; all filter selectable. No pagination link offered for this one-record dataset; pagination covered offline only."
+    },
+    {
+      "name": "Read-only cards",
+      "status": "PASS",
+      "evidence": "Synthetic A persisted card pending, virtual, tail 0000, USD; create/activate disabled; no provider call initiated."
+    },
+    {
+      "name": "Restricted routes",
+      "status": "PASS",
+      "evidence": "/convert, /pay, /profile each show current business unavailable, preserving route gates."
+    },
+    {
+      "name": "Live fault injection / session switching",
+      "status": "NOT_RUN",
+      "evidence": "No live errors or alternative-account login induced. Offline Mock coverage retained; no production-like manipulation."
+    },
+    {
+      "name": "New version binding",
+      "status": "PASS",
+      "evidence": "Deployment f6ab7c87-43e1-43a2-9ecf-5dd6e171ec5c, version 847b4b7d-7d43-473c-a3b2-f1fabdd33ae2 at 100%; upload annotation binds sealed source/artifact aggregate."
+    },
+    {
+      "name": "Rollback",
+      "status": "READY_NOT_EXERCISED",
+      "evidence": "33fd892d-2353-40aa-ba50-4fac033a447a readable, assets binding/runtime verified, retained old target. No application failure observed, rollback not executed."
+    }
+  ],
+  "businessWritesByAgent": 0,
+  "accountReset": false,
+  "databaseQuery": false,
+  "overall": "PASS_FIXED_C_PREVIEW_BASELINE_WITH_DOCUMENTED_EVIDENCE_LIMITS"
+}

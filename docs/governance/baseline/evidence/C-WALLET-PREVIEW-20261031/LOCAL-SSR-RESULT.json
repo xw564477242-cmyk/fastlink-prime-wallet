@@ -1,0 +1,49 @@
+{
+  "compatibilityDate": "2026-07-25",
+  "syntheticBindingsOnly": true,
+  "externalFetchesBlocked": 0,
+  "rows": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 3707,
+      "catastrophic": false,
+      "html": true
+    },
+    {
+      "path": "/auth",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 10623,
+      "catastrophic": false,
+      "html": true
+    },
+    {
+      "path": "/profile",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "bytes": 3740,
+      "catastrophic": false,
+      "html": true
+    },
+    {
+      "path": "/readyz",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "bytes": 146,
+      "catastrophic": false,
+      "html": false
+    }
+  ],
+  "asset": {
+    "path": "/assets/styles-D8Og2MH7.css",
+    "status": 200,
+    "bytesEqual": true
+  },
+  "denied": {
+    "anonymousStatus": 503,
+    "fundsStatus": 403
+  },
+  "pass": true
+}

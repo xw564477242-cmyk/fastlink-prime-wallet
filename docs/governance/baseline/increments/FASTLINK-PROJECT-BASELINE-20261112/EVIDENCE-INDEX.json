@@ -1,0 +1,405 @@
+{
+  "id": "FASTLINK-PROJECT-BASELINE-20261112",
+  "governanceBaseline": "BASE-V1.8-20261108",
+  "recordedAt": "2026-11-12T12:22:37+08:00",
+  "sources": [
+    {
+      "id": "WORKFLOW",
+      "source": "/Users/ck/Documents/ChatGPT/SaaS金融平台/FastLink-流程固化接入回执-20261101.json",
+      "bytes": 1801,
+      "sha256": "fad2a90685f52089c0e2b7ef87aec4c03e6e0f28cee380a195fe9515a44ff948",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "B17_SEAL",
+      "source": "/Users/ck/Documents/ChatGPT/SaaS金融平台/outputs/01a1970a-7021-7263-9ec7-3448d1950d80/FL-B17-REFERENCE-SEAL-20261102.zip",
+      "bytes": 60766,
+      "sha256": "ffbe595bba8d1e3e9d27a79a187bfb3c85123c936799421d99e4b71468affc00",
+      "historical_sha256": "ffbe595bba8d1e3e9d27a79a187bfb3c85123c936799421d99e4b71468affc00",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/B17_SEAL.zip"
+    },
+    {
+      "id": "P1_PREVIEW",
+      "source": "/Users/ck/Documents/ChatGPT/SaaS金融平台/p1-access-auth-401-preview-20261103/publication/NATIVE-PUBLISH-RECEIPT.json",
+      "bytes": 20590,
+      "sha256": "80f8797d02fb10331204050a3e92e5e0fb13bc950a93edbb773ef320d961b4f0",
+      "historical_sha256": "80f8797d02fb10331204050a3e92e5e0fb13bc950a93edbb773ef320d961b4f0",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "P1_TTL",
+      "source": "/Users/ck/Documents/ChatGPT/SaaS金融平台/backend-scope-metadata-readonly-20261103/A-B-ACTUAL-RESULT.json",
+      "bytes": 5586,
+      "sha256": "81286da72e88e91c878c9de2e8c99e5a7cf8ddbc9eb9d6023c86d2ca3fa4b5fa",
+      "historical_sha256": "81286da72e88e91c878c9de2e8c99e5a7cf8ddbc9eb9d6023c86d2ca3fa4b5fa",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "V15_ACL",
+      "source": "/Users/ck/Doubao/chats/2026-10-20/new-chat/uat-table-privilege-matrix-20261106.md",
+      "bytes": 5623,
+      "sha256": "c2dab8e30ab7353adfd3bd80629a4b101955bda99d25f818f9fb3c428b81d793",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "V16_B1",
+      "source": "/Users/ck/Doubao/chats/2026-10-20/new-chat/b1-acceptance-record-20261107.md",
+      "bytes": 7064,
+      "sha256": "f549a3672b95c6a22d0b8f79d16783d07ff8c9bfa96f5c57b020c426f7e29711",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "SUPPORTCASE",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SUPPORTCASE-DATA-LAYER-20261107-1794057519/CONTROLLER-RESULT.json",
+      "bytes": 4015,
+      "sha256": "a8f27c1469bdffea5317c7aa12e6473b4544e80d4d945ec4aa3755e506fff718",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "V17_IDENTITY",
+      "source": "/Users/ck/Doubao/chats/2026-10-20/new-chat/tenant-align-execution-acceptance-20261108.md",
+      "bytes": 5656,
+      "sha256": "6dd845339d21ddb74268bf9a167ee908fd6d8f29817e6558c463ba1bded84c01",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "V18_PILOT",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-NATIVE-PACK-20261108/native/receipts/D3-NATIVE-20261108-01/RESULT.json",
+      "bytes": 7349,
+      "sha256": "8e03e69a2de7428158fed84d92467aefd3d50815484b6595679b1687f959636a",
+      "historical_sha256": "8e03e69a2de7428158fed84d92467aefd3d50815484b6595679b1687f959636a",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/V18_PILOT.json"
+    },
+    {
+      "id": "V18_DEPLOY",
+      "source": "/Users/ck/Doubao/chats/2026-10-20/new-chat/d3-deploy-acceptance-20261108.md",
+      "bytes": 2144,
+      "sha256": "fb5447a3c4cd944d40fc2e8fe04ecec8bb912a473977da973aa7eb995fd21fab",
+      "historical_sha256": "fb5447a3c4cd944d40fc2e8fe04ecec8bb912a473977da973aa7eb995fd21fab",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "V18_REVIEW",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/G3/BASELINE-PROMOTION-AND-TRACKER-REVIEW.json",
+      "bytes": 5700,
+      "sha256": "b4ae582964097638b1c63b3208f4ab452e88e3f95981ef4f508d58d2df58c6f6",
+      "historical_sha256": "b4ae582964097638b1c63b3208f4ab452e88e3f95981ef4f508d58d2df58c6f6",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "AUTOENROLL_ABI",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/ROOT/NATIVE-20261109-01/FINAL-RESULT.json",
+      "bytes": 9797,
+      "sha256": "8320299481239c5b806aa136dff2649e05e3520608cca9333608153aabcae502",
+      "historical_sha256": "8320299481239c5b806aa136dff2649e05e3520608cca9333608153aabcae502",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/AUTOENROLL_ABI.json"
+    },
+    {
+      "id": "R4_BOUND",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/R4-LIVE-20261110-01/ACTIVE-SOURCE-BOUND.json",
+      "bytes": 2349,
+      "sha256": "7975cb63a0eacfc393a824d5223db07b5b6f6aa0c7d473701bbd950c8bd0a4d2",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": "evidence/R4_BOUND.json"
+    },
+    {
+      "id": "R4_SOURCE_MANIFEST",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/SOURCE-MANIFEST.json",
+      "bytes": 243187,
+      "sha256": "f6b51762873c92a21b900253c3e79da267aff34321be4717a0e9b71e98f6338a",
+      "historical_sha256": "f6b51762873c92a21b900253c3e79da267aff34321be4717a0e9b71e98f6338a",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/R4_SOURCE_MANIFEST.json"
+    },
+    {
+      "id": "R4_SOURCE_ZIP",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/backend-http-diagnostic-candidate.zip",
+      "bytes": 1515003,
+      "sha256": "9c6eeea5e6ebda308b361112ed1cacff2021459608a323304bc1eb158771ae95",
+      "historical_sha256": "9c6eeea5e6ebda308b361112ed1cacff2021459608a323304bc1eb158771ae95",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/R4_SOURCE_ZIP.zip"
+    },
+    {
+      "id": "H05_LAYER1",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER1-RETEST-PREP-20261111-01/ROOT/LIVE/FINAL-ACTUAL-RESULT.json",
+      "bytes": 5779,
+      "sha256": "69058740c744d99fccae247aed2cc02f1444f97e5916b07d1f6669cd1e979b59",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "H05_LAYER2",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/FINAL-ACTUAL-RESULT.json",
+      "bytes": 14934,
+      "sha256": "40076c38e326902ba49966e9b62a7834ea7900e0daeabd5e4ef9fb07f27085c3",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "C_CLOSURE",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/FINAL-ACTUAL-RESULT.json",
+      "bytes": 6794,
+      "sha256": "edf20f6e7f6c2553f920281e2ab75a853bf28c2c829647d800b9d83b657b2e30",
+      "historical_sha256": "edf20f6e7f6c2553f920281e2ab75a853bf28c2c829647d800b9d83b657b2e30",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/C_CLOSURE.json"
+    },
+    {
+      "id": "C_MATRIX",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/C-COMPOSITE-COVERAGE-FINAL.json",
+      "bytes": 33017,
+      "sha256": "102920f4f744da6fd927b029e7668059d838389c0bdffb732d48baf568f5d2a1",
+      "historical_sha256": "102920f4f744da6fd927b029e7668059d838389c0bdffb732d48baf568f5d2a1",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/C_MATRIX.json"
+    },
+    {
+      "id": "C_SEAL",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/H15-C-COMPOSITE-ACTUAL-20261111.zip",
+      "bytes": 45054,
+      "sha256": "f591cb115c762617e61f54c3350c2922f296dc47038807613573d8750cf0c28a",
+      "historical_sha256": "f591cb115c762617e61f54c3350c2922f296dc47038807613573d8750cf0c28a",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/C_SEAL.zip"
+    },
+    {
+      "id": "D_NATIVE",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-NATIVE-CLOSEOUT-20261111-01/FINAL-RESULT.json",
+      "bytes": 6075,
+      "sha256": "a4084751147f8a9949545e8870bd6f409cfa3f0bb39dc9b5c8d3736d6dbc1dce",
+      "historical_sha256": "a4084751147f8a9949545e8870bd6f409cfa3f0bb39dc9b5c8d3736d6dbc1dce",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/D_NATIVE.json"
+    },
+    {
+      "id": "D_HTTP",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-HTTP-ACCEPTANCE-PREP-20261111-01/LIVE-20261111-01/RESULT.json",
+      "bytes": 1528,
+      "sha256": "0dcf93e9db3f015b7238b0871555975b49b1a0270e55f6c1bd0cb06d4d3845a3",
+      "historical_sha256": "0dcf93e9db3f015b7238b0871555975b49b1a0270e55f6c1bd0cb06d4d3845a3",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/D_HTTP.json"
+    },
+    {
+      "id": "D_REPLAY_7",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-READER-REPLAY-PREP-20261111-01/LIVE-20261111-01/RESULT.json",
+      "bytes": 2463,
+      "sha256": "155a02416684dd7bfb479422fc68db133c859ecb0011351a81e6e895bae23f94",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "D_REPLAY_L04",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-READER-REPLAY-L04-RI-NATIVE-20261112-02/ACTUAL/RESULT.json",
+      "bytes": 1249,
+      "sha256": "6e75f2a90bd4d88a4ba9ee8b769a6fccc3a1e920abc9e3734e1afe580c4e8dd7",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "D_REPLAY_L01",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-READER-REPLAY-L01-C05-NATIVE-20261112-01/L01.RESULT.json",
+      "bytes": 1838,
+      "sha256": "c45e9e90ef6fe635ad4b2f5b0b54c1e30cd1f4df72738a91070337550c0c8f30",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "D_REPLAY_C06",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-READER-REPLAY-C05-C06-PREP-20261112-01/C06-NATIVE-20261112-01/C06.RESULT.json",
+      "bytes": 906,
+      "sha256": "46f5264627b92f060cf8cb1c96d9f00189c9159c317b68ccbe9d6ffac4a7fbe4",
+      "historical_sha256": "46f5264627b92f060cf8cb1c96d9f00189c9159c317b68ccbe9d6ffac4a7fbe4",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D_REPLAY_L02",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-READER-REPLAY-L02-NATIVE-20261112-01/L02.RESULT.json",
+      "bytes": 2026,
+      "sha256": "ba596f01e4f0c0477dc4da010640a70e3ddb4d35fc0a2cfc98a8935892a1d73f",
+      "historical_sha256": "ba596f01e4f0c0477dc4da010640a70e3ddb4d35fc0a2cfc98a8935892a1d73f",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D3_MATRIX",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/G1-TABLE-MATRIX.json",
+      "bytes": 56503,
+      "sha256": "ed9b03fb7d51333ec2a442a00d2fe6b731bf8cd75aba1bf6bd09767a7a33ed6d",
+      "historical_sha256": "ed9b03fb7d51333ec2a442a00d2fe6b731bf8cd75aba1bf6bd09767a7a33ed6d",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/D3_MATRIX.json"
+    },
+    {
+      "id": "D3_ENTRY",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/ENTRY-MANIFEST.json",
+      "bytes": 3183,
+      "sha256": "429bc2618d715a5423d2e19ce16a80ec11693d036f7ec43d14632fc9cba47d6e",
+      "historical_sha256": "429bc2618d715a5423d2e19ce16a80ec11693d036f7ec43d14632fc9cba47d6e",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/D3_ENTRY.json"
+    },
+    {
+      "id": "CPT_DELTA",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-CARD-PRODUCT-CONTEXT-WIRING-20261112-01/SEALED-MANIFEST.json",
+      "bytes": 5498,
+      "sha256": "6435fad209f33cebf40c8db4b03887dc7ce190aeaf5c2a3e638411d1728ee455",
+      "historical_sha256": "6435fad209f33cebf40c8db4b03887dc7ce190aeaf5c2a3e638411d1728ee455",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/CPT_DELTA.json"
+    },
+    {
+      "id": "CPT_SEAL",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-CARD-PRODUCT-CONTEXT-WIRING-20261112-01/CARD-PRODUCT-CONTEXT-OFFLINE-20261112.zip",
+      "bytes": 61403,
+      "sha256": "fdc47b3e75fe7183389ee86ceceb1d82c8307916fb737adf0ca4944ddfbc7fef",
+      "historical_sha256": "fdc47b3e75fe7183389ee86ceceb1d82c8307916fb737adf0ca4944ddfbc7fef",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/CPT_SEAL.zip"
+    },
+    {
+      "id": "CPT_LOCAL_TEST",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-CARD-PRODUCT-CONTEXT-WIRING-20261112-01/LOCAL-VALIDATION.json",
+      "bytes": 3202,
+      "sha256": "502fe1b235d6ed13a9cc4f923b13ccf3cf274031d4baf7b1cabd92a6fbe6ce9b",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": "evidence/CPT_LOCAL_TEST.json"
+    },
+    {
+      "id": "CPT_REVIEW",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-CARD-PRODUCT-CONTEXT-WIRING-20261112-01/G3-INDEPENDENT-REVIEW.md",
+      "bytes": 3620,
+      "sha256": "f1f0fb84849b2e4b9b38886a6040de6ca2ffb653c22c49f34449bbc3b380fda7",
+      "historical_sha256": "f1f0fb84849b2e4b9b38886a6040de6ca2ffb653c22c49f34449bbc3b380fda7",
+      "verification": "matches_historical_sha256",
+      "archive_member": "evidence/CPT_REVIEW.md"
+    },
+    {
+      "id": "D3_FWD",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/forward.candidate.sql",
+      "bytes": 11123,
+      "sha256": "6b1a81e1f16a696a4c33bbc9c3287cf8ecb6d0de7bea85612ae221c664a098cd",
+      "historical_sha256": "6b1a81e1f16a696a4c33bbc9c3287cf8ecb6d0de7bea85612ae221c664a098cd",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D3_ROLLBACK",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/rollback.candidate.sql",
+      "bytes": 10484,
+      "sha256": "6e91ffee9998d07fd9f16289857bd402d2d6af0afbecbc6c71b8de92b5216fbb",
+      "historical_sha256": "6e91ffee9998d07fd9f16289857bd402d2d6af0afbecbc6c71b8de92b5216fbb",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D3_OFFLINE_ACCEPTANCE",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/ACCEPTANCE-CONTRACT.json",
+      "bytes": 5630,
+      "sha256": "176b803c4e5cec858f8821c28d8288e90f4c041536d6c3c186dbc668b9aa2193",
+      "historical_sha256": "176b803c4e5cec858f8821c28d8288e90f4c041536d6c3c186dbc668b9aa2193",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D3_OFFLINE_ENTRY",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/verify-first-domain.py",
+      "bytes": 4324,
+      "sha256": "3908e66aa5d6b88f0202ebb2ce756a0e4e9deb0400ea14901e07f4bd8d727aa8",
+      "historical_sha256": "3908e66aa5d6b88f0202ebb2ce756a0e4e9deb0400ea14901e07f4bd8d727aa8",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "D3_R2_DIRECTORY",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DIRECTORY-READ-20261108/FINAL-RESULT.json",
+      "bytes": 3445,
+      "sha256": "a7f37b7fb8b9289655f7fc4804dd625f3a01bd764c144d96ee5a9ff5458986eb",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "AUTOENROLL_INSTALL",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-INSTALLATION-20261108-02/ROOT/NATIVE-INSTALLATION-FINAL-20261109.json",
+      "bytes": 3296,
+      "sha256": "f7223d5b0264bd6b2280047eae5704ad2fd36d5f4e786094f860a271071489ee",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "B17_PLAN",
+      "source": "/Users/ck/Documents/ChatGPT/SaaS金融平台/FastLink-B17-当前剩余差额执行单-20261101.md",
+      "bytes": 89512,
+      "sha256": "ecfda24212a62886621df80c21cd36cdffbaeff8decea46b19e8850d08b7fe76",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "LAUNCH_WORKFLOW",
+      "source": "/Users/ck/Developer/FastLink/fastlink-prime-wallet/docs/governance/DEVELOPMENT-TO-LAUNCH-WORKFLOW.md",
+      "bytes": 8478,
+      "sha256": "9201d4aaafdacb7deba33b175b13cd9408e5ae8d5c16fb04ff820fcd464fd568",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "C_RETRO",
+      "source": "/Users/ck/Developer/FastLink/fastlink-prime-wallet/docs/governance/baseline/B2-FULL-CHAIN-RETROSPECTIVE-20261111.md",
+      "bytes": 9559,
+      "sha256": "3a9d81b02c688989649028149890ecc8e59b1524b6e2580268cb8c444893a564",
+      "historical_sha256": null,
+      "verification": "sha256_recorded_at_freeze",
+      "archive_member": null
+    },
+    {
+      "id": "UAT_F0",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-20261104/F0-ACTUAL-RESULT.json",
+      "bytes": 3119,
+      "sha256": "3728dd27db9a3c69f7a21b2d76b9f77afcd0db1cefab7f6411efb4404d0660cf",
+      "historical_sha256": "3728dd27db9a3c69f7a21b2d76b9f77afcd0db1cefab7f6411efb4404d0660cf",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    },
+    {
+      "id": "UAT_F1",
+      "source": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-20261104/F1-ACTUAL-RESULT.json",
+      "bytes": 2703,
+      "sha256": "644ce55e65b26be3420373a880a8e73633bb6dffddcec702ef5cbfcffa43e3c8",
+      "historical_sha256": "644ce55e65b26be3420373a880a8e73633bb6dffddcec702ef5cbfcffa43e3c8",
+      "verification": "matches_historical_sha256",
+      "archive_member": null
+    }
+  ],
+  "copiedArtifactCount": 17,
+  "r4SourceMembersVerified": 758
+}

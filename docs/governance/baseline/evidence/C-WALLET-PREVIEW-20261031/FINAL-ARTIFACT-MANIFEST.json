@@ -1,0 +1,359 @@
+{
+  "observedAtUTC": "2026-10-31T01:12:55.826445+00:00",
+  "scope": "clean final candidate output including explicitly inherited five wrappers and compiled identical policy",
+  "rule": "UTF-8 path TAB lowercase SHA256 TAB decimal byte-length LF; lexicographic path order; self excluded; SHA256 of concatenated rows",
+  "count": 70,
+  "aggregateSHA256": "39a54a050b18c7d9856ab405fde31c099c5b920798f074c716713c8f09d793dd",
+  "files": [
+    {
+      "path": "b17-paused.mjs",
+      "sha256": "b8952830716846e58db585e6e8ad2442235524d111a0fb4894481e733777487d",
+      "bytes": 2030
+    },
+    {
+      "path": "launch/b10-policy.js",
+      "sha256": "b5ab9d7c340c7044290f5319dce9346e7aa610c5acbbdaa12fab06d2c911d8e2",
+      "bytes": 4282
+    },
+    {
+      "path": "launch/preview-readonly-policy.js",
+      "sha256": "f6b5057a517c3cd6897a27138ca9f102f9b377a1a6066b810e17a3bc8e2ec070",
+      "bytes": 1009
+    },
+    {
+      "path": "nitro.json",
+      "sha256": "d40a08a6cc6bede2fc3e4f46038912c389b5b41131cdb053e85ec1ac5ae1a5e6",
+      "bytes": 471
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "04aa29e6ad5c6ce21c2c76c03e58fed8fabb50302c681bcb87d5d2f2952ac079",
+      "bytes": 26
+    },
+    {
+      "path": "package.json",
+      "sha256": "f8ac46a1418fb2a7fd30470a75cbf5778f782f7c9803432bae7ec61a2d745d9e",
+      "bytes": 53
+    },
+    {
+      "path": "preview-gateway.js",
+      "sha256": "2e2bc52c2b670138a001567feea90c8b544c4ec3b10df862a5b6c61c5d8459bc",
+      "bytes": 6176
+    },
+    {
+      "path": "public/_headers",
+      "sha256": "8986b1072b0e2a0646b4787388991bb50bc2b87b69a037d8531a62ff4d2c2ff3",
+      "bytes": 62
+    },
+    {
+      "path": "public/assets/UnavailableFeature-C4YWBxPX.js",
+      "sha256": "1db5d925f632207175229e1ad71bb4261639e437bd8de274720ecda4d61738cc",
+      "bytes": 1107
+    },
+    {
+      "path": "public/assets/assets.cards-B0MNb9Ez.js",
+      "sha256": "6d0eac3b1896dedb5892f3e288c2abd91f5112a31f1d24de0c081b0a0f4ad35d",
+      "bytes": 4683
+    },
+    {
+      "path": "public/assets/auth-6BU3vp5y.js",
+      "sha256": "62a745799c2e1934a3692a78163c6c058079202b86d0f3dcbb3505bab6e860a8",
+      "bytes": 4065
+    },
+    {
+      "path": "public/assets/backend-api-BrrmwZLH.js",
+      "sha256": "e08bbb2ed23a8f5ce8a181a0236f1d848accf1cc773c893ad4c5d9114e6fcb81",
+      "bytes": 214778
+    },
+    {
+      "path": "public/assets/backend-session-DTzfh6gq.js",
+      "sha256": "c5156b8a7ec8e3681530a1fd9d10dc9ffba16a5aaa9e1da88d53e8eb57707c7a",
+      "bytes": 2919
+    },
+    {
+      "path": "public/assets/card-pay-DxvLeoJ6.js",
+      "sha256": "91a239a4ef22df6f8bfc4a0d0dcbb06a9116282c7ab6a105f0d189fb76a6c8c6",
+      "bytes": 170
+    },
+    {
+      "path": "public/assets/cards-3eannKSy.js",
+      "sha256": "e2f3c0425524db7536bc1e0baed5578b479cf72abf73bc263f9015ad8468f2e5",
+      "bytes": 6724
+    },
+    {
+      "path": "public/assets/cards-DIpYmCFe.js",
+      "sha256": "7b0ee3db7692781c85a030266191010fe5c64519d965ea30b35f2429911401ab",
+      "bytes": 66898
+    },
+    {
+      "path": "public/assets/chevron-left-BTNiP9qO.js",
+      "sha256": "ea7a9fde5a6d239b3f675e094acd78e53af52e6965743cbc5b0c908b96ddeedd",
+      "bytes": 125
+    },
+    {
+      "path": "public/assets/connect-RsiRgJaE.js",
+      "sha256": "5fa63ec3567e1af83214e59f9fd174c151de7aa8c1ac8ddc66a893557d92587a",
+      "bytes": 282
+    },
+    {
+      "path": "public/assets/deposit-Caf1ypzn.js",
+      "sha256": "f941d437fc12d2fd2ecd12c9a5d22da73ed546389545bc422ab2c3e0b8fd652a",
+      "bytes": 165
+    },
+    {
+      "path": "public/assets/index-BMDskey2.js",
+      "sha256": "f995b3bb116e15098b8976339f109caf06674bff12234adcf114d3fe0f69bd31",
+      "bytes": 521215
+    },
+    {
+      "path": "public/assets/merchant-pay-DhQ9ATSz.js",
+      "sha256": "50c19b87c42929e3cd72cd76d414fbfc3ebf03543676cd0335e8e2871a6062cc",
+      "bytes": 174
+    },
+    {
+      "path": "public/assets/pay-BksCp2oU.js",
+      "sha256": "1b8b1496dc8d4917ed3b4bc15cd332b536adc031fa00e1265c8fe5979ed4e79c",
+      "bytes": 161
+    },
+    {
+      "path": "public/assets/plus-CkT5K5aK.js",
+      "sha256": "92f615be929ab083918ec2dbefb9238f8dbefc6b545a50b0c8ac9d58c1c2e5e3",
+      "bytes": 148
+    },
+    {
+      "path": "public/assets/styles-D8Og2MH7.css",
+      "sha256": "4c6b53dc380aed359ebc78bec6325735a20b4962e3dcae8c0ee8d2d9d0cd80c5",
+      "bytes": 88782
+    },
+    {
+      "path": "public/assets/triangle-alert-BaF_zdRk.js",
+      "sha256": "e3662d4869f2ca9adabea02e231235a69a59c23a87260bbf298812cbce796db4",
+      "bytes": 260
+    },
+    {
+      "path": "public/assets/use-card-list-pages-4M3QRFxt.js",
+      "sha256": "1c7ef5e801ce990ee6cda37d9baa8b74efd57d0e43faa9f028b2218a3b74118d",
+      "bytes": 10408
+    },
+    {
+      "path": "public/assets/useNavigate-C9_62YHF.js",
+      "sha256": "f4c18b0968b8691886211f0edb57b05d30d48590fb85be844864664691c91154",
+      "bytes": 194
+    },
+    {
+      "path": "public/assets/wallet-BNQCpMgL.js",
+      "sha256": "c6e1852576862fba1764a3244ae4f53f4ac840ee867a7002690d5eac54a4213f",
+      "bytes": 722
+    },
+    {
+      "path": "public/assets/withdraw-Dj1CCH3B.js",
+      "sha256": "38f8638ea6a03a01f007918ba6ae8b7cc1ce358d9753f1c50d1619b94796867d",
+      "bytes": 168
+    },
+    {
+      "path": "public/favicon.ico",
+      "sha256": "dd821076a9b03adc2173c93956226aea3d92482d7578fc4339c5d3a2e9c24586",
+      "bytes": 20373
+    },
+    {
+      "path": "safe-preview-diagnostics.mjs",
+      "sha256": "9e13c721c008c10807108054d1abbb72b1987870dd822bb0d9e534434a00e40f",
+      "bytes": 3629
+    },
+    {
+      "path": "server/_chunks/ssr-renderer.mjs",
+      "sha256": "165eba7c2dfd9a72c15fad24414a8c4c3185b91f59dc506c741c9efe7fd84133",
+      "bytes": 720
+    },
+    {
+      "path": "server/_libs/@radix-ui/react-alert-dialog+[...].mjs",
+      "sha256": "63a27bb059c9ee63c5cddfd64713ae34322320cf8121dc3fec0fe67c318a2142",
+      "bytes": 110665
+    },
+    {
+      "path": "server/_libs/@tanstack/react-router+[...].mjs",
+      "sha256": "668303bbd4f9285cae69ab274eff19c20231674ab342c555f69c60589818ed6d",
+      "bytes": 659748
+    },
+    {
+      "path": "server/_libs/@tanstack/router-core+[...].mjs",
+      "sha256": "dd8328567a00a3c0c055b143ec332be509d8554008a399fce68205853987cfd0",
+      "bytes": 80303
+    },
+    {
+      "path": "server/_libs/class-variance-authority+clsx.mjs",
+      "sha256": "946f1c486f4236f0b343bcc09dbf606f416decf7861758ad39ded223537449d8",
+      "bytes": 3291
+    },
+    {
+      "path": "server/_libs/h3+rou3+srvx.mjs",
+      "sha256": "e3cd1232bf5c6f76a4911e40d5c392f290b37e6072b9391733da7a0ce2d9a440",
+      "bytes": 14390
+    },
+    {
+      "path": "server/_libs/h3-v2+srvx.mjs",
+      "sha256": "0f4b493748a380ed9e021814b0e6908dd3340470ba1a27c98da1b451b13e0a19",
+      "bytes": 9846
+    },
+    {
+      "path": "server/_libs/hookable.mjs",
+      "sha256": "431774cbbed15366f75e1b0a51fcc5ce785c48cd2155689ce6d022fd85f4ebf7",
+      "bytes": 1224
+    },
+    {
+      "path": "server/_libs/lucide-react.mjs",
+      "sha256": "4496b0db86a0c0c3b9c554d5497539e1bd5b63f8ed7f44549b26361e675ffe19",
+      "bytes": 26773
+    },
+    {
+      "path": "server/_libs/radix-ui__primitive.mjs",
+      "sha256": "d2d77851ab55aad5fe3aceb521531ad2ff5aa9ebd291432596c0a82d9140c376",
+      "bytes": 426
+    },
+    {
+      "path": "server/_libs/tailwind-merge.mjs",
+      "sha256": "459e75340e4c351b45e0167001ca45e2b3cd99fda076d57b71e4fba41f0bdac1",
+      "bytes": 85709
+    },
+    {
+      "path": "server/_libs/tanstack__history.mjs",
+      "sha256": "0190f6be78ed54035f060099b233a5d919f27f8a1fb1496cd672c5a35c8a760c",
+      "bytes": 12154
+    },
+    {
+      "path": "server/_libs/tanstack__query-core.mjs",
+      "sha256": "541fc15c13a69a9761133363c7bb0f521a31805c533724d980b9f2ff3485c431",
+      "bytes": 48908
+    },
+    {
+      "path": "server/_libs/tanstack__react-query.mjs",
+      "sha256": "9d6172e729c73a791041d029894744053f34f3cdc71a0b6936079d903a84e303",
+      "bytes": 797
+    },
+    {
+      "path": "server/_runtime.mjs",
+      "sha256": "a63738ecd14b9fa2e2eb84e6c9379106087a8f18a9993efb330a3846e685fe12",
+      "bytes": 1142
+    },
+    {
+      "path": "server/_ssr/UnavailableFeature-bdRgjGsc.mjs",
+      "sha256": "883f64f610708e82f64aa04a2cdeb23464efc0370e6d74cd788c56e7533e1053",
+      "bytes": 2055
+    },
+    {
+      "path": "server/_ssr/assets.cards-BsfC0V70.mjs",
+      "sha256": "84be0c03731e02e2ab42421ed4ece6f3c95eb6acc61f902e2e7b4ca63e9053de",
+      "bytes": 7509
+    },
+    {
+      "path": "server/_ssr/auth-Oxw3rmid.mjs",
+      "sha256": "20b8da457f37ec629b0f139dbc5a041075f8f70545b95c72a207b149255bc4d1",
+      "bytes": 7542
+    },
+    {
+      "path": "server/_ssr/backend-api-gBzMqe0M.mjs",
+      "sha256": "1efbcb0a45c23f6c6e527c778f0a2fda8a1ecb0f51b87d42330544171abb6f42",
+      "bytes": 242818
+    },
+    {
+      "path": "server/_ssr/backend-session-C5IyACSt.mjs",
+      "sha256": "42d2765cee10ed6809dba9cae726adade6d4a3a742c1923ab1e688811e90e5ff",
+      "bytes": 7738
+    },
+    {
+      "path": "server/_ssr/card-pay-CPKpYNKB.mjs",
+      "sha256": "c492d778c1a83e622432e845131d5979d8d574c83c72e600c28800ef34e91e36",
+      "bytes": 465
+    },
+    {
+      "path": "server/_ssr/cards-Dz8ul7hF.mjs",
+      "sha256": "9bdd101cfd6a97f3ec05a2d208608ed9d75468a6231bfca5ec1244840df72918",
+      "bytes": 753
+    },
+    {
+      "path": "server/_ssr/cards-IIia2MU4.mjs",
+      "sha256": "606b87d484290f2787cba63915ee1f551593e3018b12b4962e60ce6e69f71fd9",
+      "bytes": 126499
+    },
+    {
+      "path": "server/_ssr/connect-CoXne1e4.mjs",
+      "sha256": "59f97e18a393045ba3ab7c89b2100493c340838f436840070cb523a7f4b68a26",
+      "bytes": 580
+    },
+    {
+      "path": "server/_ssr/createMiddleware-Hwwn4d73.mjs",
+      "sha256": "4204148085aa62b3c3c551ddbd44697ec8221f7256f13f7614dec79821847dd7",
+      "bytes": 836
+    },
+    {
+      "path": "server/_ssr/deposit-aeHX-8jF.mjs",
+      "sha256": "92ac055cbf5676477c25ecf0670b06f6af6761d2c988453bf2dd4be4aa966348",
+      "bytes": 459
+    },
+    {
+      "path": "server/_ssr/empty-plugin-adapters-BwDq6YvB.mjs",
+      "sha256": "fa025da740c49ebb5b4ada59e79572b492b82a46e73d619f8862d445a403c672",
+      "bytes": 230
+    },
+    {
+      "path": "server/_ssr/merchant-pay--whxq476.mjs",
+      "sha256": "1ca7b04ab33d68ea5ada46ffc6e9ab11344765cf33eba3eb07ded276a2c33df9",
+      "bytes": 473
+    },
+    {
+      "path": "server/_ssr/pay-DPQW7Qi8.mjs",
+      "sha256": "2b7bd6692e4aba8fa49669e579db5a851f33011550685d07f89255be82cfb93a",
+      "bytes": 451
+    },
+    {
+      "path": "server/_ssr/router-hEkInlmD.mjs",
+      "sha256": "3a71a0d6dab5ed30110b352e65cb190e2b2cb49e432065264bca3be31ad4ea72",
+      "bytes": 282173
+    },
+    {
+      "path": "server/_ssr/server-B4asNCUw.mjs",
+      "sha256": "6835d0891a9c3ee904324ea86d5fce89011214ba8153afd9d8afe180ca4af05a",
+      "bytes": 56931
+    },
+    {
+      "path": "server/_ssr/ssr.mjs",
+      "sha256": "727bc81242fc34d4e6957c0d2943c182f1b37f0650f2a3bdcbddf4303c7b4126",
+      "bytes": 6766
+    },
+    {
+      "path": "server/_ssr/start-Bn_a-A2c.mjs",
+      "sha256": "25a6002d65e5a3026793bd53a11b6cbce621d4c3bc404bf7bca5c3711b7f0fb4",
+      "bytes": 1393
+    },
+    {
+      "path": "server/_ssr/use-card-list-pages-DS34rBl9.mjs",
+      "sha256": "d33f5db81bd58b3d57fed57511a34f984c0fdb6a3f2fae8af32a8d1b9d357a33",
+      "bytes": 21053
+    },
+    {
+      "path": "server/_ssr/withdraw-DoN5PfQ-.mjs",
+      "sha256": "bb9c5a78446ec7934562d17283027e38b935f83929c7de593ca6b60ec5e9518a",
+      "bytes": 463
+    },
+    {
+      "path": "server/_tanstack-start-manifest_v-DzKaTYs-.mjs",
+      "sha256": "68e16c10819a73e8e2b06a4d030a44f65c72049e67316f48243913bd4673e015",
+      "bytes": 3118
+    },
+    {
+      "path": "server/index.mjs",
+      "sha256": "1547f0c2424391b2b87e16b107335046f170b227fd9c1f9245ec991a44f6b0e5",
+      "bytes": 14061
+    },
+    {
+      "path": "server/wrangler.json",
+      "sha256": "941da6db2f7733bf550a0c505624d3c606c2bfe2cc5d46759ee3411b5baa877b",
+      "bytes": 359
+    },
+    {
+      "path": "worker.js",
+      "sha256": "0fd7a8f00ae7ef99b75283315c691c7793204b427bc5967bcb551b8e4f594ee9",
+      "bytes": 958
+    }
+  ]
+}

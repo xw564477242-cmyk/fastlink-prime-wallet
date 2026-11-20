@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-10-31T02:36:37.787348+00:00",
+  "worker": "fastlink-wallet-preview-b13",
+  "newVersion": "847b4b7d-7d43-473c-a3b2-f1fabdd33ae2",
+  "trafficPercent": 100,
+  "rollbackVersion": "33fd892d-2353-40aa-ba50-4fac033a447a",
+  "sourceManifestSha256": "da462915869632ff5cac988eac7c4df70cc7198337bd9ef8ec3345fe10fe17d0",
+  "artifactManifestSha256": "39a54a050b18c7d9856ab405fde31c099c5b920798f074c716713c8f09d793dd",
+  "uploadExit": 0,
+  "activationExit": 0,
+  "localRuntimeCheck": "PASS",
+  "liveReadOnlyTest": "PASS_LIMITED_SYNTHETIC_TEST_UI",
+  "accessPolicyChanged": false,
+  "backendChanged": false,
+  "accountsChanged": false,
+  "liveAccess": "PASS_USER_COMPLETED_NORMAL_LOGIN",
+  "livePage": "C auth page rendered with six navigation items",
+  "deploymentId": "f6ab7c87-43e1-43a2-9ecf-5dd6e171ec5c",
+  "activatedAt": "2026-10-31T02:36:04.053526Z",
+  "acceptanceObservedAtUTC": "2026-10-31T03:04:27.339832+00:00",
+  "rollbackExecuted": false,
+  "businessWritesByAgent": 0
+}

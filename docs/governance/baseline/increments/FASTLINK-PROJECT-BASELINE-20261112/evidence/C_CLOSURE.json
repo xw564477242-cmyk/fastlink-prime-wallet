@@ -1,0 +1,121 @@
+{
+  "status": "C_COMPOSITE_PASS",
+  "baseline": "BASE-V1.8",
+  "baselineUpgraded": false,
+  "completedAtUTC": "2026-11-11T03:32:30.421439+00:00",
+  "method": "Named-case composite acceptance across separately approved and independently reviewed batches; no prior tests or successful cases rerun",
+  "HTTP": {
+    "passed": 15,
+    "total": 15,
+    "inherited": 14,
+    "currentH15": 1
+  },
+  "context": {
+    "passed": 21,
+    "total": 21,
+    "inherited": 21,
+    "newCasesRun": 0
+  },
+  "H15": {
+    "status": "H15_ORIGIN_DENIAL_PASS",
+    "startedAtUTC": "2026-11-11T03:28:33.348Z",
+    "finishedAtUTC": "2026-11-11T03:28:33.851Z",
+    "responseEvidence": {
+      "httpStatus": 403,
+      "contentType": "JSON",
+      "redirected": false,
+      "responseShapeInvalid": false,
+      "responseBodyType": "OBJECT",
+      "schemaKeys": [
+        "error",
+        "message",
+        "statusCode"
+      ],
+      "unknownKeyCount": 0,
+      "allowedFields": {
+        "statusCode": 403,
+        "message": "Origin is not allowed by FastLink CORS policy",
+        "error": "Forbidden"
+      },
+      "responseTraceId": "H15-ORIGIN-DENIAL-20261111-01-H15_ORIGIN_DENIED",
+      "traceEvidencePassed": true,
+      "setCookiePresent": false,
+      "matchedContract": "CORS_MIDDLEWARE_FORBIDDEN",
+      "rawBodySaved": false,
+      "unknownValuesSaved": false
+    },
+    "counts": {
+      "httpRequests": 1,
+      "credentialSourceReads": 0,
+      "directSQL": 0,
+      "retries": 0
+    },
+    "outerExitCode": 0,
+    "innerExitCode": 0,
+    "SQLSTATE": null,
+    "criterion": "Owner explicitly accepted either of two existing exact source-defined origin denial contracts; this response matched the CORS_MIDDLEWARE_FORBIDDEN contract; no independent internal execution-path trace was collected",
+    "result": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/execution/RESULT.json",
+      "sha256": "5e276c32e038965a34498270e4a9871dc2649ca21a4ce157d6a399ab0fa2ae03"
+    },
+    "events": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/execution/events.jsonl",
+      "sha256": "a77ab62353a36ed620cc2723866c523501ec0e544be344eb3ed94407ee3271c2"
+    },
+    "independentReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/G3-H15-ACTUAL-REVIEW.json",
+      "sha256": "c6bd115e5570d524a81e3c4c3bc296e36d0592b22a47321d7df0fe09e540a22b"
+    }
+  },
+  "coverage": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/C-COMPOSITE-COVERAGE-FINAL.json",
+    "sha256": "102920f4f744da6fd927b029e7668059d838389c0bdffb732d48baf568f5d2a1"
+  },
+  "nativeTool": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/C-NATIVE-TOOL-RECEIPT.json",
+    "sha256": "7925f79ee34a951185b1560d7989883e440d059ec91c27dcf5e4f06178146070"
+  },
+  "ownerAuthorization": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/AUTHORIZATION.json",
+    "sha256": "d52a10097a6af9d2101d8e5e326a579626bc2be5e39d22e37099c28abe36c07c"
+  },
+  "windowClosed": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/WINDOW-CLOSED.json",
+    "sha256": "7c64bb5c2747e9b43aebc892ed5eeff058296f15f4718fa1fd2895f5d55e23db"
+  },
+  "inheritedEvidence": {
+    "priorCMainResult": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/FINAL-ACTUAL-RESULT.json",
+      "sha256": "40cf87728e203720dccf3fe7dbf392e973c5da737d1998c837871ad416b65813"
+    },
+    "priorCompositePartial": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/C-COMPOSITE-COVERAGE-ACTUAL.json",
+      "sha256": "63b66918c98dc93879d15fa5798a52c8e3cae9a45ae420fca9b2403ac6d436eb"
+    },
+    "priorIndependentReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+      "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+    },
+    "priorActualArchive": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/C-CLOSEOUT-ACTUAL-20261111.zip",
+      "sha256": "9e80d8025dc395ea83beb28bf74faac7c3736204e2248c991ea25da282b28468"
+    }
+  },
+  "originalFailures": "Retained unchanged; old H15 response body remains unknown; later pass does not prove which branch produced old failure",
+  "evidenceLimits": [
+    "H08-H14 pass evidence remains sealed sequential assertions and safe events, not independently retained cookie/body copies",
+    "Context outcomes remain transaction promise/dispatcher evidence, not wire COMMIT/ROLLBACK capture",
+    "No claim original137tx/287dispatcher suite reran in one process or pool",
+    "Historical pools/windows closed and not reused",
+    "Current pass does not overwrite prior H15 failure or infer its missing response body",
+    "Current H15 matched the CORS contract; no separate live OriginGuard-only request or independent internal branch trace was collected",
+    "Server-internal SQL and audit/other rows remain unobserved, not assumed zero"
+  ],
+  "frozen": {
+    "D": "NOT_EXECUTED_OR_AUTHORIZED",
+    "remaining43TablesMigrated": 0,
+    "B_API": "NO_OPERATION",
+    "ACL_RLS_deployment_credentials_logs_funds_realProvider_production_Gate1": "NO_NEW_OPERATIONS"
+  },
+  "additionalExecutionAuthorized": false
+}

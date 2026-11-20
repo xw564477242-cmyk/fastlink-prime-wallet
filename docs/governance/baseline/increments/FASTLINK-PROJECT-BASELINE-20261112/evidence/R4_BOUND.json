@@ -1,0 +1,40 @@
+{
+  "status": "ACTIVE_SOURCE_CONFIRMED",
+  "target": {
+    "projectId": "e054e776-f835-44bd-bb73-60c1934ea892",
+    "environmentId": "6402810d-ccf5-41b7-9ee1-5b7487644198",
+    "serviceId": "56e65dc8-7b32-47d7-8323-1c1f5c775a74"
+  },
+  "observedAtUTC": "2026-11-10T06:32:45.429Z",
+  "startCommand": "node dist/src/main.js",
+  "preDeployCommand": [],
+  "pendingChangesCount": 0,
+  "active": true,
+  "deploymentStatus": "SUCCESS",
+  "deploymentId": "c51ef268-88b2-4596-80c7-0c10638eef29",
+  "artifactDigest": "sha256:494e577d87abc1e5f14c0fd5d86067ce4f89c47eb660cb2587b3d935edf523ba",
+  "artifactDigestKind": "RAILWAY_BUILD_CONTAINER_IMAGE_DIGEST",
+  "imageDigest": "sha256:494e577d87abc1e5f14c0fd5d86067ce4f89c47eb660cb2587b3d935edf523ba",
+  "sourceArchiveSHA256": "9c6eeea5e6ebda308b361112ed1cacff2021459608a323304bc1eb158771ae95",
+  "sourceManifestSHA256": "f6b51762873c92a21b900253c3e79da267aff34321be4717a0e9b71e98f6338a",
+  "rawEvidence": [
+    {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/R4-LIVE-20261110-01/POST-DESCRIBE-SAFE.json",
+      "sha256": "72aa79802f59f6985de4d7b3e1e6c70706be2af807a5a4ab0241d062bd323f21"
+    },
+    {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/release-and-bind/execution/DEPLOY/RESULT.json",
+      "sha256": "ce0393d58b510a58baccbcd81a644199718393bb4b270c347405088c7b7e29d8"
+    },
+    {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/release-and-bind/execution/DEPLOY/SOURCE-EXTRACTION.json",
+      "sha256": "5e6606e0f3be0496ed931c61dde425eadeb1d276bbf4b33b0b739f5d047123b5"
+    }
+  ],
+  "cliRawStdout": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/release-and-bind/execution/DEPLOY/stdout.txt",
+    "sha256": "08cc10f73d5ab42b9cd3afc20bc1d924eeac26265831bc4a0f30c9067b065e97"
+  },
+  "windowSHA256": "9e8825af0378cec22284134f2628b9fed7bd73c0a6820e2761a5faa73d211f79",
+  "configurationWritesThisBatch": 0
+}

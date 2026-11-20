@@ -1,0 +1,515 @@
+{
+  "status": "C_COMPOSITE_NAMED_CASES_PASS",
+  "method": "Named-case evidence mapping, not quota subtraction. Historical Layer2 setup has no additional case credit.",
+  "http": [
+    {
+      "caseId": "H01_LOGIN_A",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/C-resume/G1/INHERITED-HTTP-PROOF.json",
+        "sha256": "b7d440ab041f8e8c6ec6d7474e2b3419bd7a99315155665956f0d9fd5d6540fe"
+      },
+      "domain": "INHERITED",
+      "historicalFailureRetained": false
+    },
+    {
+      "caseId": "H02_LOGIN_B",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/C-resume/G1/INHERITED-HTTP-PROOF.json",
+        "sha256": "b7d440ab041f8e8c6ec6d7474e2b3419bd7a99315155665956f0d9fd5d6540fe"
+      },
+      "domain": "INHERITED",
+      "historicalFailureRetained": false
+    },
+    {
+      "caseId": "H03_SESSION_A",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/C-resume/G1/INHERITED-HTTP-PROOF.json",
+        "sha256": "b7d440ab041f8e8c6ec6d7474e2b3419bd7a99315155665956f0d9fd5d6540fe"
+      },
+      "domain": "INHERITED",
+      "historicalFailureRetained": false
+    },
+    {
+      "caseId": "H04_CREATE_API_A",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/EXECUTION-PACK/C-resume/G1/INHERITED-HTTP-PROOF.json",
+        "sha256": "b7d440ab041f8e8c6ec6d7474e2b3419bd7a99315155665956f0d9fd5d6540fe"
+      },
+      "domain": "INHERITED",
+      "historicalFailureRetained": false
+    },
+    {
+      "caseId": "H05_API_PING",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_API_EXPLICIT_UNFREEZE_REQUIRED",
+      "historicalFailureRetained": true,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H06_LOGOUT_B",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H07_REVOKE_API_A",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H08_REFRESH_A",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H09_OLD_A_COOKIE",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H10_LOGOUT_A",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H11_REVOKED_A",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H12_REVOKED_B",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H13_REVOKED_API",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_API_EXPLICIT_UNFREEZE_REQUIRED",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H14_FORGED_API",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS_WITH_RETAINED_EVIDENCE_LIMITS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/events.jsonl",
+        "sha256": "aefce5ce5dc9929e86a9319ffeb938f62ca51e1a6815d5dd0d606dc5a1d6d7b9"
+      },
+      "domain": "HTTP_API_EXPLICIT_UNFREEZE_REQUIRED",
+      "historicalFailureRetained": false,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      },
+      "assertionBasis": "Sealed sequential assertions reached later case; safe event/status/trace plus retained H05 and revoke proofs; no independently retained cookie/body copy"
+    },
+    {
+      "caseId": "H15_ORIGIN_DENIED",
+      "status": "CURRENT_H15_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/execution/RESULT.json",
+        "sha256": "5e276c32e038965a34498270e4a9871dc2649ca21a4ce157d6a399ab0fa2ae03"
+      },
+      "domain": "HTTP_AUTH",
+      "historicalFailureRetained": true,
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/G3-H15-ACTUAL-REVIEW.json",
+        "sha256": "c6bd115e5570d524a81e3c4c3bc296e36d0592b22a47321d7df0fe09e540a22b"
+      },
+      "assertionBasis": "Owner-approved exact CORS_MIDDLEWARE_FORBIDDEN JSON403; exact trace; no Set-Cookie or redirect; outer/inner exit0",
+      "events": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/execution/events.jsonl",
+        "sha256": "a77ab62353a36ed620cc2723866c523501ec0e544be344eb3ed94407ee3271c2"
+      },
+      "priorFailureRetained": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/FINAL-ACTUAL-RESULT.json",
+        "sha256": "40cf87728e203720dccf3fe7dbf392e973c5da737d1998c837871ad416b65813"
+      },
+      "priorBodyStillUnknown": true
+    }
+  ],
+  "context": [
+    {
+      "canonicalCase": "API_CLIENT_PRODUCTION_CHAIN",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER1-RETEST-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER1-REVIEW.json",
+        "sha256": "df0056b254b39932c6449a6c6c4d77cb7aa32ee0b4b19323fe3b9149090e7200"
+      }
+    },
+    {
+      "canonicalCase": "API_CLIENT_POOL_REUSE",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_POOL_REUSE"
+    },
+    {
+      "canonicalCase": "API_CLIENT_FOREIGN_TENANT_CLAIM",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_FOREIGN_TENANT_CLAIM"
+    },
+    {
+      "canonicalCase": "API_CLIENT_FORGED_HANDLE",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_FORGED_HANDLE"
+    },
+    {
+      "canonicalCase": "API_CLIENT_CROSS_PID",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_CROSS_PID"
+    },
+    {
+      "canonicalCase": "API_CLIENT_CROSS_XID",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_CROSS_XID"
+    },
+    {
+      "canonicalCase": "API_CLIENT_EXPIRED",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_EXPIRED"
+    },
+    {
+      "canonicalCase": "API_CLIENT_REPLAY",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_REPLAY"
+    },
+    {
+      "canonicalCase": "API_CLIENT_CLOSED",
+      "status": "INHERITED_ACTUAL_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/H05-LAYER2-OFFLINE-PREP-20261111-01/ROOT/LIVE/G3-ACTUAL-LAYER2-REVIEW.json",
+        "sha256": "6bdd8caee9b173dfb21d41406854fb9db433112119f63d7e9e41216e828d7b4f"
+      },
+      "nativeCaseId": "API_CLIENT_CLOSED"
+    },
+    {
+      "canonicalCase": "END_USER_PRODUCTION_CHAIN",
+      "candidateCaseId": "END_USER_PRODUCTION_A",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_PRODUCTION_B",
+      "candidateCaseId": "END_USER_PRODUCTION_B",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_POOL_REUSE",
+      "candidateCaseId": "END_USER_POOL_REUSE",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_FOREIGN_TENANT_CLAIM",
+      "candidateCaseId": "END_USER_FOREIGN_TENANT_CLAIM",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_FORGED_HANDLE",
+      "candidateCaseId": "END_USER_FORGED_HANDLE",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_CROSS_PID",
+      "candidateCaseId": "END_USER_CROSS_PID",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_CROSS_XID",
+      "candidateCaseId": "END_USER_CROSS_XID",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_EXPIRED",
+      "candidateCaseId": "END_USER_EXPIRED",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_REPLAY",
+      "candidateCaseId": "END_USER_REPLAY",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_CLOSED",
+      "candidateCaseId": "END_USER_CLOSED",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "END_USER_REVOKED",
+      "candidateCaseId": "END_USER_REVOKED",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    },
+    {
+      "canonicalCase": "API_CLIENT_REVOKED",
+      "candidateCaseId": "API_CLIENT_REVOKED",
+      "status": "INHERITED_PRIOR_C_MAIN_PASS",
+      "evidence": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/execution/CONTEXT-RESULT.json",
+        "sha256": "41d28f5740e684dcd26adadab916f6d32b922ebe92cc7da8dd70baab26545f48"
+      },
+      "independentReview": {
+        "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/G3-MAIN-ACTUAL-REVIEW.json",
+        "sha256": "2b1588b4e16b5fabf061f4e93449ed0afd56b4668889593913c04c931d5dd115"
+      }
+    }
+  ],
+  "possibleFutureDecision": {
+    "status": "MET_NAMED_C_COMPOSITE_ONLY_NO_D_OR_RLS_AUTHORITY",
+    "requirements": [
+      "Every new named HTTP assertion and context case/hook actually completes under approved scoped cards.",
+      "Separate HTTP_API card explicitly lifts the frozen three ping calls before complete C entry can start.",
+      "New H05 precedes A-client revocation; no key recreation/rotation fallback.",
+      "New current controlled principal plus first reader binds each revocation object.",
+      "Expected native rejections match exact designated operation and SQLSTATE; other errors/UNKNOWN stop.",
+      "Nonsecret actual receipts bind deployed source selection, installed patch, target, credentials provenance, window, and actual dispatch/source counts."
+    ],
+    "notClaimed": [
+      "Original137transaction/287dispatcher full suite rerun in one process",
+      "Same live pool carried between historical batches",
+      "A total inferred wire SQL or global row count",
+      "D readiness or authorization"
+    ]
+  },
+  "versionAndWindowBoundaries": {
+    "sourceArchiveSHA256": "9c6eeea5e6ebda308b361112ed1cacff2021459608a323304bc1eb158771ae95",
+    "historicalWindows": "Individually closed; inherited evidence only, not current authority or reusable quota",
+    "originalFailures": "Preserved, not overwritten by later limited acceptance",
+    "installedPatch": "Current stats helper/issuer proof inherited; no new installation/catalog recheck",
+    "priorCMain_newActualWindow": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/COMMON-WINDOW.json",
+      "sha256": "34129be940316eeec56a523acb5bfbcbdcc6e6c4fd16dbc8de9b9ebe0d59bef5"
+    },
+    "priorCMain_newActualAuthorization": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/G2/AUTHORIZATION.json",
+      "sha256": "cb6542d413cc2f3c511e6846b251a2de257b3dc7fd1236df8b82894493cd73f1"
+    },
+    "priorCMain_closure": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/WINDOW-CLOSED.json",
+      "sha256": "a7d07777403efceca57cd61247603b6ce6c6626f77d45f937aad723a3ac8699e"
+    },
+    "H15SupplementActualBinding": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/ACTUAL-BINDING-RECEIPT.json",
+      "sha256": "8d74d93a15c337c5b7fe502fb6a8c5132aec2278069be4a5e8ab32f65d7e9483"
+    },
+    "H15SupplementClosure": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/C-CLOSEOUT-OFFLINE-20261111-01/ROOT/LIVE/H15-NEXT-OFFLINE/WINDOW-CLOSED.json",
+      "sha256": "7c64bb5c2747e9b43aebc892ed5eeff058296f15f4718fa1fd2895f5d55e23db"
+    },
+    "oldH15Failure": "Preserved as dated failure; missing body not retroactively inferred"
+  },
+  "currentSummary": {
+    "HTTPInheritedActualPass": 14,
+    "HTTPNewActualPass": 1,
+    "HTTPPassedTotal": 15,
+    "HTTPTotal": 15,
+    "HTTPUnpassed": [],
+    "contextInheritedActualCasePass": 21,
+    "contextNewActualCasePass": 0,
+    "contextPassedTotal": 21,
+    "contextTotal": 21,
+    "compositePass": true,
+    "D": "FROZEN_NOT_EXECUTED"
+  }
+}

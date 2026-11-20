@@ -1,0 +1,1569 @@
+{
+  "batch": "3.3",
+  "baseline": "BASE-V1.8",
+  "asOfDateAsiaShanghai": "2026-11-12",
+  "status": "PARTIAL_2_OF_43",
+  "count": {
+    "total": 43,
+    "remaining": 41,
+    "accepted": 2
+  },
+  "countRule": "Only count a table in the original 43 with committed policy migration, independent readback, and native acceptance of its approved runtime scope. Both API tables were already in the historical denominator; two earlier pilot tables are outside it.",
+  "actualScopeLimit": "D API tables cover TEST Admin reads, native bilateral cross-tenant denial, blocked direct app writes, and controlled issuer lifecycle. The three HTTP GET cases supplement that scope. Outstanding D HTTP cases and L03 are tracked independently.",
+  "pendingDHttpCaseIds": [
+    "HTTP-ADMIN-CONTEXT-401",
+    "HTTP-ADMIN-FOREIGN-403",
+    "HTTP-ADMIN-SCOPE-403",
+    "HTTP-ADMIN-CLIENT-404",
+    "HTTP-ISSUER-28000-401",
+    "HTTP-ISSUER-42501-403"
+  ],
+  "l03": "DEFERRED_WAITING_FOR_ENVIRONMENT_EVIDENCE",
+  "sources": {
+    "original43": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/G1/REMAINING-43-DELTA.json",
+      "sha256": "d28d8ec693d60b556482248e1755a0607682936a26ad7d4514e350b2a67edeb2"
+    },
+    "historicalDirectory": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/DIRECTORY-BASELINE.json",
+      "sha256": "5e2523a4290900a37b3d60cfc2aaaa8acc702777b9fe3efca00a2ebd69200f7e"
+    },
+    "domainCandidates": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/DOMAIN-CANDIDATES-RESULT.json",
+      "sha256": "c5f5657b80cee34e5cfa51a7dc68f51fb896758b4bbe5501ac432a2d96201e9a"
+    },
+    "closeout": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-NATIVE-CLOSEOUT-20261111-01/FINAL-RESULT.json",
+      "sha256": "a4084751147f8a9949545e8870bd6f409cfa3f0bb39dc9b5c8d3736d6dbc1dce"
+    },
+    "migration": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/FINAL-RESULT.json",
+      "sha256": "ebe59f1a0464d7a905052ea08627111719bf2adaa7ad2a02abe1982978269f51"
+    },
+    "forwardResult": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/execution/forward/RESULT.json",
+      "sha256": "76cafcfc5f7f6ab57515562719082cccbc45ff68c3864ce448de2f6feb561796"
+    },
+    "readbackResult": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/execution/readback/RESULT.json",
+      "sha256": "7c0d092412f7fc82c4556e6cfcc9be2df12d256319c5554375e81410f1f92cff"
+    },
+    "readbackMetadata": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/execution/readback/METADATA.json",
+      "sha256": "28ec4fe61ccaf3c263e113f238d53a62d033562b1c8ecc3cf6af61d6a7510870"
+    },
+    "readbackIndependentReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/READBACK-INDEPENDENT-REVIEW.json",
+      "sha256": "514f02df06cc83a20c943a007a96203ca6cee7a4b68e01f901865fec76a28809"
+    },
+    "layer1Stages": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER1-KEY-LIFECYCLE-OFFLINE-20261111-01/LAYER1-LIVE-20261111-02/execution/RESULT.json",
+      "sha256": "0c7661f55d21292e3d5696aefa4165eb8d627d4d9afcb3f375653045c6f774df"
+    },
+    "layer1IndependentReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER1-KEY-LIFECYCLE-OFFLINE-20261111-01/LAYER1-LIVE-20261111-02/G3-LAYER1-ACTUAL-REVIEW.json",
+      "sha256": "f61e5f6535cc015c1046bb05637dc1e465909e17edd690db7c735d93e641b8a2"
+    },
+    "layer2Result": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/RESULT.json",
+      "sha256": "ff43f8673ee7b634b3fbc61588ee079b7bf377357c9e2e0c045b447e1e3923d9"
+    },
+    "layer2Runner": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/run-layer2-once.py",
+      "sha256": "720232dd99794fde8175426cc55b8f2a9eb0cf8dac7df7e44f91bfd74ddc7388"
+    },
+    "layer2OwnReadSql": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/ownPair.sql",
+      "sha256": "0919cdb3a1d4f136a616e6906007f409b7603e9a515e66a0bb43525d3cb2c448"
+    },
+    "layer2CrossReadSql": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/crossByIds.sql",
+      "sha256": "3d7a9bb81a9f5d7fa27b37995411095a35c709be8360ea178ceb1177a1c5a936"
+    },
+    "layer2FinalObservationSql": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/finalObservation.sql",
+      "sha256": "0ec98426e85a949b927e8ffbf8fca846045e9069313daec9b5fcf5a64eb10b66"
+    },
+    "httpResult": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-HTTP-ACCEPTANCE-PREP-20261111-01/LIVE-20261111-01/RESULT.json",
+      "sha256": "0dcf93e9db3f015b7238b0871555975b49b1a0270e55f6c1bd0cb06d4d3845a3"
+    },
+    "httpCard": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-HTTP-ACCEPTANCE-PREP-20261111-01/D-HTTP-ACCEPTANCE-CARD.DRAFT.json",
+      "sha256": "99f35f8857d6fc4869bff40c848119aff57487982010c260f928807e4e1b69b6"
+    },
+    "httpResponseValidator": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-HTTP-ACCEPTANCE-PREP-20261111-01/check-response.py",
+      "sha256": "2684b1cebc4f1653870ba9a36591dd80865bcc0df69b8039a46aea0b8843e393"
+    }
+  },
+  "rows": [
+    {
+      "table": "public.WalletAccount",
+      "historicalOrdinal": 3,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "WalletAccount.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_WalletAccount",
+          "fl_uat_sel_WalletAccount",
+          "fl_uat_upd_WalletAccount"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.WalletTransaction",
+      "historicalOrdinal": 4,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "WalletTransaction.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_WalletTransaction",
+          "fl_uat_sel_WalletTransaction",
+          "fl_uat_upd_WalletTransaction"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.WalletOperation",
+      "historicalOrdinal": 5,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "WalletOperation.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_WalletOperation",
+          "fl_uat_sel_WalletOperation",
+          "fl_uat_upd_WalletOperation"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.CardApplication",
+      "historicalOrdinal": 6,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardApplication.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardApplication",
+          "fl_uat_sel_CardApplication",
+          "fl_uat_upd_CardApplication"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardHolder",
+      "historicalOrdinal": 7,
+      "domain": "card-holder",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardHolder.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardHolder",
+          "fl_uat_sel_CardHolder"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对持卡人 Admin/EndUser/Provider 读写合同和卡父链，明确所有正常路径的事务上下文。"
+    },
+    {
+      "table": "public.CardProductTemplate",
+      "historicalOrdinal": 8,
+      "domain": "admin-product-catalog",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardProductTemplate.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardProductTemplate",
+          "fl_uat_sel_CardProductTemplate",
+          "fl_uat_upd_CardProductTemplate"
+        ]
+      },
+      "status": "OFFLINE_FIRST_CANDIDATE_PENDING",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "首域离线准备。核对 Admin/EndUser 的产品目录、费用与发卡调用，以及 SELECT 对 UPDATE 和 INSERT RETURNING 的约束。"
+    },
+    {
+      "table": "public.CardBalance",
+      "historicalOrdinal": 9,
+      "domain": "funds-accounting",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "CardBalance.cardId -> Card.id -> Card.tenantId/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardBalance",
+          "fl_uat_sel_CardBalance",
+          "fl_uat_upd_CardBalance"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.CardEvent",
+      "historicalOrdinal": 10,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardEvent.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardEvent",
+          "fl_uat_sel_CardEvent"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardLifecycleEvent",
+      "historicalOrdinal": 11,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardLifecycleEvent.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardLifecycleEvent",
+          "fl_uat_sel_CardLifecycleEvent"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardLimit",
+      "historicalOrdinal": 12,
+      "domain": "funds-accounting",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "CardLimit.cardId -> Card.id -> Card.tenantId/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_sel_CardLimit",
+          "fl_uat_upd_CardLimit"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.CardFeeOverride",
+      "historicalOrdinal": 13,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardFeeOverride.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "DELETE",
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 4,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_del_CardFeeOverride",
+          "fl_uat_ins_CardFeeOverride",
+          "fl_uat_sel_CardFeeOverride",
+          "fl_uat_upd_CardFeeOverride"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.CardRenewal",
+      "historicalOrdinal": 14,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardRenewal.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardRenewal",
+          "fl_uat_sel_CardRenewal"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardReplacement",
+      "historicalOrdinal": 15,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardReplacement.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardReplacement",
+          "fl_uat_sel_CardReplacement"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardRestriction",
+      "historicalOrdinal": 16,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CardRestriction.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CardRestriction",
+          "fl_uat_sel_CardRestriction",
+          "fl_uat_upd_CardRestriction"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.CardSecurityProfile",
+      "historicalOrdinal": 17,
+      "domain": "provider-card-lifecycle",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "CardSecurityProfile.cardId -> Card.id -> Card.tenantId/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_sel_CardSecurityProfile",
+          "fl_uat_upd_CardSecurityProfile"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.ProviderOperation",
+      "historicalOrdinal": 18,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "ProviderOperation.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_ProviderOperation",
+          "fl_uat_sel_ProviderOperation",
+          "fl_uat_upd_ProviderOperation"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.TenantCardProviderConfig",
+      "historicalOrdinal": 19,
+      "domain": "provider-card-lifecycle",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "TenantCardProviderConfig.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_sel_TenantCardProviderConfig",
+          "fl_uat_upd_TenantCardProviderConfig"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核对 Provider/System/EndUser 路径和卡父链。先补可信主体与所有调用路径，再准备逐表正反例。"
+    },
+    {
+      "table": "public.AdminSession",
+      "historicalOrdinal": 20,
+      "domain": "identity",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "AdminSession.tenantUserId -> TenantUser.id -> TenantUser.tenantId -> Tenant.id/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 5,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_adminsession",
+          "fl_identity_write_adminsession",
+          "fl_uat_ins_AdminSession",
+          "fl_uat_sel_AdminSession",
+          "fl_uat_upd_AdminSession"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.TenantUser",
+      "historicalOrdinal": 21,
+      "domain": "identity",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "TenantUser.tenantId -> Tenant.id/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_tenantuser",
+          "fl_uat_ins_TenantUser",
+          "fl_uat_sel_TenantUser"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.TenantUserRole",
+      "historicalOrdinal": 22,
+      "domain": "identity",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "TenantUserRole.tenantUserId -> TenantUser.id -> TenantUser.tenantId -> Tenant.id/environment",
+        "TenantUserRole.roleId -> Role.id (global dictionary, not a tenant root)"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_tenantuserrole",
+          "fl_uat_ins_TenantUserRole",
+          "fl_uat_sel_TenantUserRole"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.Role",
+      "historicalOrdinal": 23,
+      "domain": "identity",
+      "classification": "GLOBAL_DICTIONARY",
+      "ownershipPaths": [
+        "Global dictionary: Role/Permission graph; no tenant key"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_role",
+          "fl_uat_sel_Role",
+          "fl_uat_upd_Role"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.Permission",
+      "historicalOrdinal": 24,
+      "domain": "identity",
+      "classification": "GLOBAL_DICTIONARY",
+      "ownershipPaths": [
+        "Global dictionary: Role/Permission graph; no tenant key"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_permission",
+          "fl_uat_sel_Permission",
+          "fl_uat_upd_Permission"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.RolePermission",
+      "historicalOrdinal": 25,
+      "domain": "identity",
+      "classification": "GLOBAL_DICTIONARY",
+      "ownershipPaths": [
+        "Global dictionary: Role/Permission graph; no tenant key"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_identity_sel_rolepermission",
+          "fl_uat_sel_RolePermission",
+          "fl_uat_upd_RolePermission"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定平台与租户的角色字典可见范围，复核认证、既有身份角色和 Tenant 父链后，再限定策略变更。"
+    },
+    {
+      "table": "public.ApiClient",
+      "historicalOrdinal": 26,
+      "domain": "api-credentials",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "ApiClient.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_ApiClient",
+          "fl_uat_sel_ApiClient",
+          "fl_uat_upd_ApiClient"
+        ]
+      },
+      "status": "MIGRATED_AND_NATIVE_ACCEPTED_IN_BOUND_SCOPE",
+      "countsToward3_3": true,
+      "actualSourceRefs": [
+        "migration",
+        "forwardResult",
+        "readbackResult",
+        "readbackMetadata",
+        "readbackIndependentReview",
+        "layer1Stages",
+        "layer1IndependentReview",
+        "layer2Result",
+        "layer2Runner",
+        "layer2OwnReadSql",
+        "layer2CrossReadSql",
+        "layer2FinalObservationSql",
+        "httpResult",
+        "httpCard",
+        "httpResponseValidator",
+        "closeout"
+      ],
+      "actualPolicy": {
+        "scope": "Fixed UAT, TEST data environment",
+        "committedAndReadBack": true,
+        "poststateSHA256": "6f8a00849e23ebacea33151cb0924adec15b99e3c8d6eb2e697b0961357d11d5",
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appPolicyNames": [
+          "d_rls_deny_ins_ApiClient_r",
+          "d_rls_deny_upd_ApiClient_r",
+          "d_rls_sel_ApiClient_p",
+          "d_rls_sel_ApiClient_r"
+        ],
+        "preservedIdentityPolicies": 6,
+        "appSelectPredicate": "Admin TEST context matches row tenant/environment",
+        "tableAndColumnAclChanges": 0
+      },
+      "actualAcceptance": {
+        "nativeSelect": {
+          "AOwnRows": 1,
+          "BOwnRows": 1,
+          "AToBRows": 0,
+          "BToARows": 0,
+          "evidence": "Sealed runner asserts per-table counts and a valid TEST parent pair before/after cross-read; Layer2 result reached PASS."
+        },
+        "appDirectInsert": "Named table RLS WITH CHECK denial 42501; savepoint rolled back",
+        "appDirectUpdate": "UPDATE 0 with unchanged row version; savepoint and app write transaction rolled back",
+        "issuerLifecycle": "Created and eventually inactive disposable ApiClient; same client bound to rotation and revoke",
+        "httpListSupplement": "Admin A own-client witness in GET 200; exact unauthenticated 401 and environment 403 also passed"
+      },
+      "nextAction": "继承已提交迁移、独立读回、原生用例及首批 HTTP 回执。其余 HTTP 场景继续按 D 域的独立验收卡处理。"
+    },
+    {
+      "table": "public.ApiKey",
+      "historicalOrdinal": 27,
+      "domain": "api-credentials",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "ApiKey.apiClientId -> ApiClient.id -> ApiClient.tenantId/environment"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_ApiKey",
+          "fl_uat_sel_ApiKey",
+          "fl_uat_upd_ApiKey"
+        ]
+      },
+      "status": "MIGRATED_AND_NATIVE_ACCEPTED_IN_BOUND_SCOPE",
+      "countsToward3_3": true,
+      "actualSourceRefs": [
+        "migration",
+        "forwardResult",
+        "readbackResult",
+        "readbackMetadata",
+        "readbackIndependentReview",
+        "layer1Stages",
+        "layer1IndependentReview",
+        "layer2Result",
+        "layer2Runner",
+        "layer2OwnReadSql",
+        "layer2CrossReadSql",
+        "layer2FinalObservationSql",
+        "httpResult",
+        "httpCard",
+        "httpResponseValidator",
+        "closeout"
+      ],
+      "actualPolicy": {
+        "scope": "Fixed UAT, TEST data environment",
+        "committedAndReadBack": true,
+        "poststateSHA256": "6f8a00849e23ebacea33151cb0924adec15b99e3c8d6eb2e697b0961357d11d5",
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appPolicyNames": [
+          "d_rls_deny_ins_ApiKey_r",
+          "d_rls_deny_upd_ApiKey_r",
+          "d_rls_sel_ApiKey_p",
+          "d_rls_sel_ApiKey_r"
+        ],
+        "preservedIdentityPolicies": 6,
+        "appSelectPredicate": "ApiKey.apiClientId resolves to ApiClient visible under its TEST Admin RLS",
+        "tableAndColumnAclChanges": 0
+      },
+      "actualAcceptance": {
+        "nativeSelect": {
+          "AOwnRows": 1,
+          "BOwnRows": 1,
+          "AToBRows": 0,
+          "BToARows": 0,
+          "evidence": "Sealed runner asserts per-table counts and a valid TEST parent pair before/after cross-read; Layer2 result reached PASS."
+        },
+        "appDirectInsert": "Named table RLS WITH CHECK denial 42501; savepoint rolled back",
+        "appDirectUpdate": "UPDATE 0 with unchanged row version; savepoint and app write transaction rolled back",
+        "issuerLifecycle": "Created key active, rotated prior key lookup null, replacement active, revoked key lookup null; final two keys revoked",
+        "httpListSupplement": "GET 200 included nonempty, shape-checked key summaries for the Admin A witness client"
+      },
+      "nextAction": "继承已提交迁移、独立读回、原生用例及首批 HTTP 回执。其余 HTTP 场景继续按 D 域的独立验收卡处理。"
+    },
+    {
+      "table": "public.OnchainDepositAddress",
+      "historicalOrdinal": 28,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "OnchainDepositAddress.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_OnchainDepositAddress",
+          "fl_uat_sel_OnchainDepositAddress",
+          "fl_uat_upd_OnchainDepositAddress"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.OnchainTransfer",
+      "historicalOrdinal": 29,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "OnchainTransfer.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_OnchainTransfer",
+          "fl_uat_sel_OnchainTransfer",
+          "fl_uat_upd_OnchainTransfer"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.OnchainTransferEvent",
+      "historicalOrdinal": 30,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "OnchainTransferEvent.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_OnchainTransferEvent",
+          "fl_uat_sel_OnchainTransferEvent"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.OnchainFxQuote",
+      "historicalOrdinal": 31,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "OnchainFxQuote.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_OnchainFxQuote",
+          "fl_uat_sel_OnchainFxQuote"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.WithdrawalAddress",
+      "historicalOrdinal": 32,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "WithdrawalAddress.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "DELETE",
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 4,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_del_WithdrawalAddress",
+          "fl_uat_ins_WithdrawalAddress",
+          "fl_uat_sel_WithdrawalAddress",
+          "fl_uat_upd_WithdrawalAddress"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.Journal",
+      "historicalOrdinal": 33,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "Journal.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_Journal",
+          "fl_uat_sel_Journal"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.JournalEntry",
+      "historicalOrdinal": 34,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "JournalEntry.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_JournalEntry",
+          "fl_uat_sel_JournalEntry"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.SettlementBatch",
+      "historicalOrdinal": 35,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "SettlementBatch.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_SettlementBatch",
+          "fl_uat_sel_SettlementBatch"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.SettlementItem",
+      "historicalOrdinal": 36,
+      "domain": "funds-accounting",
+      "classification": "PARENT_CHAIN",
+      "ownershipPaths": [
+        "SettlementItem.settlementBatchId -> SettlementBatch.id -> SettlementBatch.tenantId/environment",
+        "optional merchantPaymentId -> MerchantPayment.id must agree with batch tenant/environment; journalId has no schema FK"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_SettlementItem",
+          "fl_uat_sel_SettlementItem"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.Merchant",
+      "historicalOrdinal": 37,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "Merchant.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_Merchant",
+          "fl_uat_sel_Merchant"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.MerchantPayment",
+      "historicalOrdinal": 38,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "MerchantPayment.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_MerchantPayment",
+          "fl_uat_sel_MerchantPayment",
+          "fl_uat_upd_MerchantPayment"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.MerchantQrCode",
+      "historicalOrdinal": 39,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "MerchantQrCode.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_MerchantQrCode",
+          "fl_uat_sel_MerchantQrCode",
+          "fl_uat_upd_MerchantQrCode"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.FxConversion",
+      "historicalOrdinal": 40,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "FxConversion.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_FxConversion",
+          "fl_uat_sel_FxConversion"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.FxOrder",
+      "historicalOrdinal": 41,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "FxOrder.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_FxOrder",
+          "fl_uat_sel_FxOrder"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.FxRate",
+      "historicalOrdinal": 42,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "FxRate.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "SELECT"
+        ],
+        "policies": 1,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_sel_FxRate"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.TenantFeePolicy",
+      "historicalOrdinal": 43,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "TenantFeePolicy.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_TenantFeePolicy",
+          "fl_uat_sel_TenantFeePolicy",
+          "fl_uat_upd_TenantFeePolicy"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.FeeAssessment",
+      "historicalOrdinal": 44,
+      "domain": "funds-accounting",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "FeeAssessment.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT"
+        ],
+        "policies": 2,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_FeeAssessment",
+          "fl_uat_sel_FeeAssessment"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "保留资金范围的离线差额。先绑定授权的资金 actor、命令、跨表事务以及所需父链，再拟定逐表策略和验收。"
+    },
+    {
+      "table": "public.CustomerReferral",
+      "historicalOrdinal": 45,
+      "domain": "customer-referral",
+      "classification": "DIRECT_TENANT",
+      "ownershipPaths": [
+        "CustomerReferral.tenantId/environment -> authenticated context"
+      ],
+      "historicalSourceRefs": [
+        "original43",
+        "historicalDirectory"
+      ],
+      "historicalDirectorySnapshot": {
+        "rlsEnabled": true,
+        "forceRls": true,
+        "appCommands": [
+          "INSERT",
+          "SELECT",
+          "UPDATE"
+        ],
+        "policies": 3,
+        "restrictivePolicies": 0,
+        "permissiveLiteralTruePolicies": [
+          "fl_uat_ins_CustomerReferral",
+          "fl_uat_sel_CustomerReferral",
+          "fl_uat_upd_CustomerReferral"
+        ]
+      },
+      "status": "AWAITING_DOMAIN_MIGRATION_AND_NATIVE_ACCEPTANCE",
+      "countsToward3_3": false,
+      "actualSourceRefs": [],
+      "nextAction": "核定推荐写入、费率调用方与 Customer 的双父链权限，准备有数据的同租户和跨租户用例。"
+    }
+  ]
+}

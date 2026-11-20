@@ -1,0 +1,16 @@
+{
+  "id": "f6ab7c87-43e1-43a2-9ecf-5dd6e171ec5c",
+  "source": "wrangler",
+  "strategy": "percentage",
+  "annotations": {
+    "workers/message": "Activate sealed Lovable C e8ccb6a candidate; retain API TEST gates and vars; rollback 33fd892d",
+    "workers/triggered_by": "deployment"
+  },
+  "versions": [
+    {
+      "version_id": "847b4b7d-7d43-473c-a3b2-f1fabdd33ae2",
+      "percentage": 100
+    }
+  ],
+  "created_on": "2026-10-31T02:36:04.053526Z"
+}

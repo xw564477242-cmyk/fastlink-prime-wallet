@@ -1,0 +1,17 @@
+{
+  "observedAt": "2026-10-31T02:38:37.328240+00:00",
+  "results": [
+    {
+      "manifest": "FINAL-SOURCE-MANIFEST.json",
+      "count": 251,
+      "aggregate": "da462915869632ff5cac988eac7c4df70cc7198337bd9ef8ec3345fe10fe17d0",
+      "mismatches": []
+    },
+    {
+      "manifest": "FINAL-ARTIFACT-MANIFEST.json",
+      "count": 70,
+      "aggregate": "39a54a050b18c7d9856ab405fde31c099c5b920798f074c716713c8f09d793dd",
+      "mismatches": []
+    }
+  ]
+}

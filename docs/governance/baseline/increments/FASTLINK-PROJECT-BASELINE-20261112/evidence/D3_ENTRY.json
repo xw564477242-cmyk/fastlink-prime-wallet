@@ -1,0 +1,48 @@
+{
+  "id": "D3-FIRST-DOMAIN-OFFLINE-20261112-01",
+  "status": "OFFLINE_ONLY_NOT_READY",
+  "baseline": "BASE-V1.8-20261108",
+  "table": "public.CardProductTemplate",
+  "forwardDisposition": "INHERITED_HARD_STOP",
+  "rollbackDisposition": "INHERITED_HARD_STOP_COMMITTED_POSTSTATE_UNBOUND",
+  "acceptanceDisposition": "OFFLINE_CHECK_AND_CASE_CONTRACT",
+  "liveEntrySHA256": null,
+  "files": {
+    "forward": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/forward.candidate.sql",
+      "sha256": "6b1a81e1f16a696a4c33bbc9c3287cf8ecb6d0de7bea85612ae221c664a098cd"
+    },
+    "rollback": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/rollback.candidate.sql",
+      "sha256": "6e91ffee9998d07fd9f16289857bd402d2d6af0afbecbc6c71b8de92b5216fbb"
+    },
+    "originalPolicies": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/original-app-policies.sql",
+      "sha256": "5e7b0ea4f8aadf8eb6a68ac8d51f69a190f399c73d9f7ae5df2f802be3e76d6d"
+    },
+    "historicalReadiness": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/READINESS.json",
+      "sha256": "72ff56df126476d1ad036544fa2f819e67d4ed199f15745a211ce67394790b60"
+    },
+    "contract": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/ACCEPTANCE-CONTRACT.json",
+      "sha256": "176b803c4e5cec858f8821c28d8288e90f4c041536d6c3c186dbc668b9aa2193"
+    },
+    "offlineEntry": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/verify-first-domain.py",
+      "sha256": "3908e66aa5d6b88f0202ebb2ce756a0e4e9deb0400ea14901e07f4bd8d727aa8"
+    },
+    "tableMatrix": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/G1-TABLE-MATRIX.json",
+      "sha256": "ed9b03fb7d51333ec2a442a00d2fe6b731bf8cd75aba1bf6bd09767a7a33ed6d"
+    },
+    "callerAudit": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/G2-CALLER-AUDIT.md",
+      "sha256": "70fccb0fc987c5760b3a7522ffe49bc7b36a7acd5ce2c2fadd5454dd9d2e212f"
+    },
+    "baselineReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/G3-BASELINE-REVIEW.md",
+      "sha256": "e5a8f8ddc23e69d9eaf75ac4c050c900b0211aff410fb94c78c0112c2f75d513"
+    }
+  }
+}

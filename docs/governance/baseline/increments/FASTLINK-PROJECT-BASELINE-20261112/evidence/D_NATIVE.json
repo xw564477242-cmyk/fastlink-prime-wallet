@@ -1,0 +1,138 @@
+{
+  "status": "D_NATIVE_ACCEPTANCE_CLOSED",
+  "recordedAtUTC": "2026-11-11T15:29:00.214411+00:00",
+  "baseline": "BASE-V1.8",
+  "scope": {
+    "environment": "fastlink-backend-uat",
+    "dataEnvironment": "TEST",
+    "tables": [
+      "public.ApiClient",
+      "public.ApiKey"
+    ]
+  },
+  "policyMigration": {
+    "committed": true,
+    "readbackVerified": true,
+    "poststateSHA256": "6f8a00849e23ebacea33151cb0924adec15b99e3c8d6eb2e697b0961357d11d5",
+    "originalPolicies": 18,
+    "removedAppWide": 6,
+    "newAppPolicies": 8,
+    "identityPoliciesExact": 12,
+    "finalPolicies": 20,
+    "tableAndColumnACLChanges": 0,
+    "rlsAndForcePreserved": true
+  },
+  "layer1": {
+    "status": "D_LAYER1_NATIVE_PASS",
+    "committedStages": 9,
+    "createRotateRevokeVerified": true,
+    "oldAndRevokedKeyLookupNull": true,
+    "poststate": {
+      "rowCount": 1,
+      "inactive_clients": 1,
+      "total_client_keys": 2,
+      "exact_revoked_keys": 2,
+      "revoked_credentials": 2,
+      "revoked_unattested_receipts": 2,
+      "lookup_nonce_rows": 2,
+      "disabled_base_signers": 2,
+      "closed_commands": 3
+    }
+  },
+  "layer2": {
+    "status": "LAYER2_TEN_CASES_PASS",
+    "casesPassed": 10,
+    "bothCrossTenantReadsZero": true,
+    "probes": [
+      {
+        "table": "ApiClient",
+        "verb": "INSERT",
+        "sqlstate": "42501",
+        "rlsWithCheck": true,
+        "savepointRolledBack": true
+      },
+      {
+        "table": "ApiKey",
+        "verb": "INSERT",
+        "sqlstate": "42501",
+        "rlsWithCheck": true,
+        "savepointRolledBack": true
+      },
+      {
+        "table": "ApiClient",
+        "verb": "UPDATE",
+        "sqlstate": null,
+        "updateZero": true,
+        "savepointRolledBack": true
+      },
+      {
+        "table": "ApiKey",
+        "verb": "UPDATE",
+        "sqlstate": null,
+        "updateZero": true,
+        "savepointRolledBack": true
+      }
+    ],
+    "businessNetWrites": 0,
+    "unchangedSamples": true,
+    "sentinelsAbsent": true,
+    "closedContexts": 3,
+    "liveContexts": 0,
+    "existingBApiOperations": 0,
+    "http": 0
+  },
+  "separateAcceptance": [
+    "D HTTP route and response contract",
+    "additional reader/replay cases outside the native Layer2 card",
+    "43-table migration and acceptance batch"
+  ],
+  "closeoutExecution": {
+    "databaseConnections": 0,
+    "sql": 0,
+    "http": 0,
+    "deployments": 0,
+    "credentialReads": 0
+  },
+  "evidence": {
+    "catalog": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-CATALOG-READ-20261111-01/D-CATALOG-DELIVERY-RECEIPT.json",
+      "sha256": "55c8a48f3a1ae2782ca93c3d089c7702042986ce2a01b6d7415356e35b79ce8b"
+    },
+    "migration": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/FINAL-RESULT.json",
+      "sha256": "ebe59f1a0464d7a905052ea08627111719bf2adaa7ad2a02abe1982978269f51"
+    },
+    "layer1": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER1-KEY-LIFECYCLE-OFFLINE-20261111-01/LAYER1-LIVE-20261111-02/FINAL-RESULT.json",
+      "sha256": "1e4df9ae469cedfd4174f7a1dc6212d7166301e340a0bf8a0d5711d36a094128"
+    },
+    "layer1Stages": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER1-KEY-LIFECYCLE-OFFLINE-20261111-01/LAYER1-LIVE-20261111-02/execution/RESULT.json",
+      "sha256": "0c7661f55d21292e3d5696aefa4165eb8d627d4d9afcb3f375653045c6f774df"
+    },
+    "tunnel": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/RESULT.json",
+      "sha256": "6f38b91049a7959a57a7be8545e60293e761b9682ba5739fa09fd4b0935d0f0a"
+    },
+    "layer2": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/RESULT.json",
+      "sha256": "ff43f8673ee7b634b3fbc61588ee079b7bf377357c9e2e0c045b447e1e3923d9"
+    },
+    "layer2Seal": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/BOUND-NATIVE-ISSUER-PROFILE-FIX-20261111-03/SEALED-REVIEW.json",
+      "sha256": "429ee5a84e840cd5f11afa7a2398588885b32b6da2d43ad9a8dcff1726770cf8"
+    },
+    "migrationReadbackReview": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-RLS-OFFLINE-DESIGN-20261111-01/LIVE-20261111-01/READBACK-INDEPENDENT-REVIEW.json",
+      "sha256": "514f02df06cc83a20c943a007a96203ca6cee7a4b68e01f901865fec76a28809"
+    },
+    "layer1Review": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER1-KEY-LIFECYCLE-OFFLINE-20261111-01/LAYER1-LIVE-20261111-02/G3-LAYER1-ACTUAL-REVIEW.json",
+      "sha256": "f61e5f6535cc015c1046bb05637dc1e465909e17edd690db7c735d93e641b8a2"
+    },
+    "layer2RunManifest": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/D-LAYER2-NEGATIVE-OFFLINE-20261111-01/TUNNEL-CONNECTIVITY-DIAGNOSTIC-20261111-01/LAYER2-RESUME-ONCE/SHA256SUMS",
+      "sha256": "77fb35549257b868319c43375e7f177fbb14e70dd7dea2596b3b507fd3ce912b"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "baseline": "BASE-V1.8-20261108",
+  "scope": "Fixed UAT AppModule source candidate; local synthetic only",
+  "typecheck": {
+    "exitCode": 0,
+    "diagnostics": 0,
+    "stdout": ""
+  },
+  "targetedJest": {
+    "exitCode": 0,
+    "testsPassed": 22,
+    "outOfScopeTestsSkipped": 23,
+    "output": "PASS src/cards/cards.service.spec.ts\nPASS src/fees/fee-policy.service.spec.ts\nPASS src/cards/card-product-context-wiring.spec.ts\n\nTest Suites: 3 passed, 3 total\nTests:       23 skipped, 22 passed, 45 total\nSnapshots:   0 total\nTime:        5.793 s\nRan all test suites within paths \"src/cards/card-product-context-wiring.spec.ts\", \"src/cards/cards.service.spec.ts\", \"src/fees/fee-policy.service.spec.ts\".\n"
+  },
+  "syntheticLoopbackHttp": {
+    "exitCode": 0,
+    "testsPassed": 5,
+    "bind": "127.0.0.1:ephemeral",
+    "realSharedContextService": true,
+    "stubbedSessionLookupAndSharedRuntime": true,
+    "output": "[Nest] 94612  - 11/12/2026, 12:03:51 PM   ERROR [AuditInterceptor] {\"logType\":\"AuditWriteUnsupported\",\"requestId\":\"trace-card-products-http-0001\",\"code\":\"ADMIN_TEST_CONTEXT_REQUIRED\"}\n[Nest] 94612  - 11/12/2026, 12:03:51 PM   ERROR [AuditInterceptor] {\"logType\":\"AuditWriteUnsupported\",\"requestId\":\"trace-card-products-http-0001\",\"code\":\"ADMIN_TEST_CONTEXT_REQUIRED\"}\n[Nest] 94612  - 11/12/2026, 12:03:51 PM   ERROR [AuditExceptionFilter] {\"logType\":\"AuditWriteUnsupported\",\"requestId\":\"trace-card-products-http-0001\",\"code\":\"ADMIN_TEST_CONTEXT_REQUIRED\"}\n[Nest] 94612  - 11/12/2026, 12:03:51 PM   ERROR [AuditExceptionFilter] {\"logType\":\"AuditWriteUnsupported\",\"requestId\":\"trace-card-products-http-0001\",\"code\":\"ADMIN_TEST_CONTEXT_REQUIRED\"}\n[Nest] 94612  - 11/12/2026, 12:03:51 PM   ERROR [AuditInterceptor] {\"logType\":\"AuditWriteUnsupported\",\"requestId\":\"trace-card-products-http-0001\",\"code\":\"ADMIN_TEST_CONTEXT_REQUIRED\"}\nPASS test/card-products-read-contract.integration.e2e-spec.ts (5.102 s)\n  Card-product read HTTP safety contract\n    ✓ returns one verified real product with the exact persisted template identity (19 ms)\n    ✓ returns an honest empty 200 catalog without synthesizing a product (3 ms)\n    ✓ returns a traceable 503 for a database error without leaking database or scope details (3 ms)\n    ✓ closes the context and preserves the filter's generic 500 without exposing the cause (4 ms)\n    ✓ keeps the opening quote at 201 with valid Origin and CSRF and rejects both missing checks (12 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       5 passed, 5 total\nSnapshots:   0 total\nTime:        5.534 s\nRan all test suites within paths \"test/card-products-read-contract.integration.e2e-spec.ts\".\n"
+  },
+  "realOperations": {
+    "databaseConnections": 0,
+    "sqlExecutions": 0,
+    "uatHttpRequests": 0,
+    "credentialReads": 0,
+    "deployments": 0
+  },
+  "previousLocalVerificationIssues": [
+    "The sandbox blocked opening a local HTTP listener. The final suite used an approved listener bound to loopback only.",
+    "A test-only missing Prisma type import and an opening-quote test field mismatch were corrected before the final passing checks."
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "id": "33fd892d-2353-40aa-ba50-4fac033a447a",
+  "number": 15,
+  "metadata": {
+    "created_on": "2026-10-24T17:06:19.760374Z",
+    "source": "wrangler",
+    "author_id": "3ba6b11b892be55e47ac14ae35e825f2",
+    "author_email": "xw1134315560@gmail.com",
+    "has_preview": true
+  },
+  "annotations": {
+    "workers/triggered_by": "version_upload"
+  },
+  "script": {
+    "etag": "f4e401b021679df03e207c9183eb04414c802366dc734bab1747974a6bd4d128",
+    "handlers": [
+      "fetch"
+    ],
+    "last_deployed_from": "wrangler",
+    "compatibility_date": null,
+    "compatibility_flags": null
+  },
+  "bindings": [
+    {
+      "name": "ASSETS",
+      "type": "assets"
+    },
+    {
+      "name": "B10_DEADLINE",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_MAXIMUM_MONTH_END_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_MINIMUM_MONTH_END_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PAID_START_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PAID_STOP_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PREPARATION_DEADLINE_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_QUALIFY_UNTIL_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_RETENTION_UNTIL_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_TX_ALLOWANCE_BYTES",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_CLOSE_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_OPEN_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_PHASE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_BACKEND_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_BUILD_SHA",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_CANDIDATE_ID",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_AUDIENCE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_ISSUER",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_JWKS_JSON",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ALLOWED_EMAILS_JSON",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_DEPLOYMENT_PROFILE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_EXPIRES_AT",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_GATEWAY_PROOF",
+      "type": "secret_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_SCOPE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_STATUS",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_SOURCE_SNAPSHOT",
+      "type": "plain_text"
+    }
+  ],
+  "resourceKeys": [
+    "script",
+    "script_runtime",
+    "bindings"
+  ],
+  "safePlainBindings": {
+    "FASTLINK_BACKEND_ORIGIN": "https://fastlink-wallet-preview-b17-fl-preview-b15-20261017.up.railway.app",
+    "FASTLINK_PREVIEW_DEPLOYMENT_PROFILE": "B17_READONLY_MONTH_V1",
+    "FASTLINK_PREVIEW_ORIGIN": "https://fastlink-wallet-preview-b13.adhesive-snowshoe.workers.dev",
+    "FASTLINK_PREVIEW_SCOPE": "WALLET_ONLY",
+    "FASTLINK_PREVIEW_STATUS": "OWNER_APPROVED"
+  }
+}

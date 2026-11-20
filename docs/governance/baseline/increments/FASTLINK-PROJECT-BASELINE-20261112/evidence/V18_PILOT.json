@@ -1,0 +1,331 @@
+{
+  "status": "NATIVE_TWO_TABLE_CONTEXT_PASS_ONLY",
+  "exitCode": 0,
+  "results": [
+    {
+      "type": "CASE_COMPLETED",
+      "id": "N00",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "catalogSHA256": "fdf76ab25f56d5b51923f845f22b2d2aaaa1c9947ef2ffbcda15a0f560ba9d41",
+      "witnessCollisionCount": 0,
+      "dedicatedSessionActiveCapabilities": 0,
+      "time": "2026-11-08T04:48:05.868Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUTH_A",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "sessionMatched": true,
+      "normalLogins": 0,
+      "time": "2026-11-08T04:48:07.054Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUTH_B",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "sessionMatched": true,
+      "normalLogins": 0,
+      "time": "2026-11-08T04:48:07.630Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "N01",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "readOnlyXidVerified": true,
+      "time": "2026-11-08T04:48:11.724Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "SEED_A",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "committedWitnessRows": 2,
+      "time": "2026-11-08T04:48:15.101Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "SEED_B",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "committedWitnessRows": 2,
+      "time": "2026-11-08T04:48:18.087Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "READ_A",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "ownAuditCount": 1,
+      "foreignAuditCount": 0,
+      "ownEvidenceCount": 1,
+      "foreignEvidenceCount": 0,
+      "time": "2026-11-08T04:48:21.393Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "READ_B",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "ownAuditCount": 1,
+      "foreignAuditCount": 0,
+      "ownEvidenceCount": 1,
+      "foreignEvidenceCount": 0,
+      "time": "2026-11-08T04:48:24.718Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "NO_CONTEXT_AuditLog",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "businessRowsWritten": 0,
+      "time": "2026-11-08T04:48:25.716Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "NO_CONTEXT_EvidenceArtifact",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "businessRowsWritten": 0,
+      "time": "2026-11-08T04:48:26.392Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUDIT_TENANT",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:28.481Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUDIT_ENV",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:30.304Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUDIT_SOURCE",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:32.070Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "AUDIT_ACTOR",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:34.067Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "EVIDENCE_TENANT",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:35.904Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "EVIDENCE_CREATOR",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "42501"
+      ],
+      "negativeInsertAttempts": 1,
+      "committedBusinessRows": 0,
+      "automaticCloseCompensation": 0,
+      "time": "2026-11-08T04:48:37.833Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "FORGED",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "time": "2026-11-08T04:48:38.870Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "CROSS_PID",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "time": "2026-11-08T04:48:41.586Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "CROSS_XID",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "time": "2026-11-08T04:48:44.022Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "EXPIRED",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "28000"
+      ],
+      "naturalExpiryObserved": true,
+      "time": "2026-11-08T04:49:45.460Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "REPLAY",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000",
+        "28000"
+      ],
+      "time": "2026-11-08T04:49:47.644Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "CLOSED",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000",
+        "28000"
+      ],
+      "time": "2026-11-08T04:49:49.995Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "SESSION_REVOKED",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000",
+        "28000"
+      ],
+      "dedicatedSessionBRevoked": true,
+      "time": "2026-11-08T04:49:52.412Z"
+    },
+    {
+      "type": "CASE_COMPLETED",
+      "id": "N_FINAL",
+      "status": "PASS",
+      "exitCode": 0,
+      "pass": true,
+      "sqlstates": [
+        "00000"
+      ],
+      "catalogSHA256": "fdf76ab25f56d5b51923f845f22b2d2aaaa1c9947ef2ffbcda15a0f560ba9d41",
+      "committedWitnessRows": 4,
+      "logicalActiveCapabilities": 0,
+      "time": "2026-11-08T04:50:52.226Z"
+    }
+  ],
+  "counts": {
+    "issue": 17,
+    "consume": 19,
+    "close": 6,
+    "revoke": 1,
+    "profile": 12,
+    "issuerTx": 50,
+    "businessTx": 22,
+    "observerTx": 2,
+    "auditInsert": 2,
+    "evidenceInsert": 2,
+    "negativeInsert": 6,
+    "login": 0
+  },
+  "finishAt": "2026-11-08T04:50:52.230Z"
+}

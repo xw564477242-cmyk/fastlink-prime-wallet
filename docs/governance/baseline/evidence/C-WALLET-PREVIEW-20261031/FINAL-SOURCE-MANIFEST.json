@@ -1,0 +1,1264 @@
+{
+  "observedAtUTC": "2026-10-31T01:12:55.826445+00:00",
+  "scope": "C candidate application, tests and reviewed validation/configuration input files; no dependencies/env/generated output",
+  "rule": "UTF-8 path TAB lowercase SHA256 TAB decimal byte-length LF; lexicographic path order; self excluded; SHA256 of concatenated rows",
+  "count": 251,
+  "aggregateSHA256": "da462915869632ff5cac988eac7c4df70cc7198337bd9ef8ec3345fe10fe17d0",
+  "files": [
+    {
+      "path": ".github/workflows/deploy-cloudflare-dev.yml",
+      "sha256": "f385b1735690011abe0dcfed3abec2b1841cb908440c5878d35873ac5d3b6d83",
+      "bytes": 2054
+    },
+    {
+      "path": ".github/workflows/deploy-cloudflare-test.yml",
+      "sha256": "b47cf908624a4ab2466c9c330caf3b44b0c715fedf8d3241f8544a2921f00a6b",
+      "bytes": 2217
+    },
+    {
+      "path": ".github/workflows/prime-wallet-pr.yml",
+      "sha256": "73fb45b877d932c92f708738be1dd2b7386b16a4e7b52bfa21f563c9756393b2",
+      "bytes": 39503
+    },
+    {
+      "path": ".prettierignore",
+      "sha256": "52c7c767ff0615eec4eb64cc71265877f7f423eb597d665b5e439f337c661a5a",
+      "bytes": 92
+    },
+    {
+      "path": ".prettierrc",
+      "sha256": "1ed88d3b99eced8dc3b6f58f26645466dd1ceaca6c5a9b818531c941ac28e55b",
+      "bytes": 90
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "4e96b38f10a0bbf0f105f51e6d2c39a889baec12b3386ae3facec4f076714d60",
+      "bytes": 480
+    },
+    {
+      "path": "bun.lock",
+      "sha256": "b82083e44516830eac8b9eeb369e9d800148a4c53a9062bd487ac5684f5f8112",
+      "bytes": 161123
+    },
+    {
+      "path": "bunfig.toml",
+      "sha256": "35a26fbb5070677407a15a302833b57f9eefa2eb7feea1c1a20f87828cf75e64",
+      "bytes": 363
+    },
+    {
+      "path": "components.json",
+      "sha256": "37c484818824d2521eee3367e7aa2c2abbd19635d8103d19734b6e24603d0292",
+      "bytes": 443
+    },
+    {
+      "path": "eslint.config.js",
+      "sha256": "3266245a1ff610a0b37dbb8b8c77b93a125e0d8758b9838cfd04b2e0a1397d56",
+      "bytes": 1250
+    },
+    {
+      "path": "package.json",
+      "sha256": "7c97a58c9984461b947d2fb7ef14c4780f85ffb3c0706b466d4bb33be29cecb3",
+      "bytes": 13966
+    },
+    {
+      "path": "public/favicon.ico",
+      "sha256": "dd821076a9b03adc2173c93956226aea3d92482d7578fc4339c5d3a2e9c24586",
+      "bytes": 20373
+    },
+    {
+      "path": "scripts/build-cloudflare-dev.sh",
+      "sha256": "c91a4dba1558fb031f81fb3e651ff605600b8c76e9cdac7f1807b3273f8f611e",
+      "bytes": 165
+    },
+    {
+      "path": "scripts/deploy-cloudflare-dev.sh",
+      "sha256": "867d32218938cd4e0098335990d79f942c65575141047c677448319cb638223a",
+      "bytes": 1606
+    },
+    {
+      "path": "scripts/readiness-deployment-contract.test.mjs",
+      "sha256": "4b6bdf9179e7eefe9804a5a6db750418d04dbf4306d3bc65e8e3b397f8eaa3a2",
+      "bytes": 7636
+    },
+    {
+      "path": "scripts/verify-prime-wallet-readiness.mjs",
+      "sha256": "212b05b162eecb53f986bbcb060c02f6d61c110919d62a3ccaa23723c7c58127",
+      "bytes": 5451
+    },
+    {
+      "path": "scripts/verify-production-wallet.mjs",
+      "sha256": "8843c0aaecc7201bf8a9724a930efdfae942c84090167aa7c42e1e265dc1fddb",
+      "bytes": 6844
+    },
+    {
+      "path": "src/components/ActionModal.tsx",
+      "sha256": "194ccb8337661577ede0fa9df3e518d781e353c19e440d88059603089d816312",
+      "bytes": 3711
+    },
+    {
+      "path": "src/components/FrontendScope.test.tsx",
+      "sha256": "7ecdbaa23c9f36624561a8043fa1dd25cb14f18e9c349cb8fef84e535578a2ea",
+      "bytes": 2391
+    },
+    {
+      "path": "src/components/FrontendScope.tsx",
+      "sha256": "01b79bfe986f0e7ccb0272d363ec183187e859e0833ecbf8080f5f8e10b24f4d",
+      "bytes": 1773
+    },
+    {
+      "path": "src/components/LaunchReadOnlyCards.tsx",
+      "sha256": "2b60862cf9c115c01896de5ab620e0e6f9053ebbf63849cb94c11d1633d84237",
+      "bytes": 5724
+    },
+    {
+      "path": "src/components/MobileShell.tsx",
+      "sha256": "1f53ab65bf01b50282f0faa9dbedaacaf250d6f73db29d6e09f4ae33926c413f",
+      "bytes": 2988
+    },
+    {
+      "path": "src/components/PublicErrorProvider.tsx",
+      "sha256": "be43eb9c31e46c7ad7862851c24c2a8eea224eb67a3441ce7e77307e06fc415c",
+      "bytes": 3854
+    },
+    {
+      "path": "src/components/UnavailableFeature.tsx",
+      "sha256": "e77e7e978f31730808786812f8974e41b39cafb40bd3fb22ac4ae29bc6ccb185",
+      "bytes": 1315
+    },
+    {
+      "path": "src/components/WalletAuthForm.tsx",
+      "sha256": "aad42db997de0beb5c935ddb194a8bc8065b2c1acb8a79c39c64621405ebc7c8",
+      "bytes": 5721
+    },
+    {
+      "path": "src/components/WalletPreviewViews.tsx",
+      "sha256": "a4dd5c5e6dba557a1f4081e61f0c06419ef1d64b249c3e0ea08794fcb001aaf7",
+      "bytes": 18931
+    },
+    {
+      "path": "src/components/WalletSessionActions.tsx",
+      "sha256": "604c4b59a117c9bc1aa94f5e5a265666e63af35f452338e44a1a034633f03a25",
+      "bytes": 2226
+    },
+    {
+      "path": "src/components/launch-readonly.mounted.test.tsx",
+      "sha256": "027cb3ceaea525e61c2606223432eb95eed63cbe1e3739120018b8a96f310c05",
+      "bytes": 6613
+    },
+    {
+      "path": "src/components/ui/accordion.tsx",
+      "sha256": "0903efcd7b746eef0a10c954a541b0dfa7aa1172f3c380a1a88f4e19a317fda3",
+      "bytes": 2015
+    },
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "sha256": "ee4d7f3341a1e5592787b7dac8e924bd226189492819f6704d8a7faf8fe64d20",
+      "bytes": 4183
+    },
+    {
+      "path": "src/components/ui/alert.tsx",
+      "sha256": "e7f4c2e6f78c59270905b4152b7d3ef4d5c6b9e3b2d370daa7b301aa7cbd27b3",
+      "bytes": 1589
+    },
+    {
+      "path": "src/components/ui/aspect-ratio.tsx",
+      "sha256": "d72c73d629e37995a0a71647d851d68d6fdcd7ec120797f36ab83a8ee89f2cab",
+      "bytes": 143
+    },
+    {
+      "path": "src/components/ui/avatar.tsx",
+      "sha256": "0326c9041c5a0b1ba31ff29822c51950b6aeac485cd0985e7df714741a54e7f4",
+      "bytes": 1413
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "sha256": "6519775252fe729f21c60b92c7c9feefd1fe7d0a8c2cf16d6f1c2fa7e153fe75",
+      "bytes": 1123
+    },
+    {
+      "path": "src/components/ui/breadcrumb.tsx",
+      "sha256": "d5224e87344b3ac0f8b002e5dda6a71ff8fee296db8a5fbe6b034d06bd5c2ae1",
+      "bytes": 2749
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "sha256": "e39813b666ba434660ec088356a0349246b6803a4e99961295d0c82bab1ab862",
+      "bytes": 1894
+    },
+    {
+      "path": "src/components/ui/calendar.tsx",
+      "sha256": "3205837b76f652de06126eb65ab7af601013ca989025cd21ed4cda33bd780b46",
+      "bytes": 7210
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "sha256": "f13878a0078a5ef9f3e92af29259fc1e93ea56ea80cb992e0c4dea4e35396459",
+      "bytes": 1817
+    },
+    {
+      "path": "src/components/ui/carousel.tsx",
+      "sha256": "568e00e8edbfab8af67ee902ca9ef5ceb6d5ed6f3045e7f9b3c15b4f7ef9e974",
+      "bytes": 6200
+    },
+    {
+      "path": "src/components/ui/chart.tsx",
+      "sha256": "81b1f692f9334ba3030213ff37eeaf2dd762b644e5d96e51ada7072109f07430",
+      "bytes": 10570
+    },
+    {
+      "path": "src/components/ui/checkbox.tsx",
+      "sha256": "c44d02535d5c9c92807576804407dd63d01e7189dbde526e925b53885e645fd4",
+      "bytes": 1043
+    },
+    {
+      "path": "src/components/ui/collapsible.tsx",
+      "sha256": "5f0a45d8f6ca72d37ed10bf0a85306158b67d7cbc386319186ce013ead9bc0a6",
+      "bytes": 335
+    },
+    {
+      "path": "src/components/ui/command.tsx",
+      "sha256": "ba8c0f8b23044ce9a5066e66d7ab7be3a3c79bfc4a0ab7dfae6ffafe439145a3",
+      "bytes": 4876
+    },
+    {
+      "path": "src/components/ui/context-menu.tsx",
+      "sha256": "9ba8c0fc29c25f440a1d8806e16d42c1083e9909e7ed1f1b9b0deb2ae00e1d13",
+      "bytes": 7391
+    },
+    {
+      "path": "src/components/ui/dialog.tsx",
+      "sha256": "e3a6de153fb15597ea95be9c4549211a297c060267787915599e3d680d476bd9",
+      "bytes": 3648
+    },
+    {
+      "path": "src/components/ui/drawer.tsx",
+      "sha256": "478c487f66245641d5fa0f0d1c53a07d68bd60c4b3c497ec4c41ce08b482e14b",
+      "bytes": 2973
+    },
+    {
+      "path": "src/components/ui/dropdown-menu.tsx",
+      "sha256": "c6eb5ff28e5bc3cdbe38a11d680aae56d885285e4aca7c8288609811effc04cb",
+      "bytes": 7596
+    },
+    {
+      "path": "src/components/ui/form.tsx",
+      "sha256": "1ed53d4ab564a64708938643de590f2bef3718b0b2a309c1019c57e9c1fde23f",
+      "bytes": 4201
+    },
+    {
+      "path": "src/components/ui/hover-card.tsx",
+      "sha256": "69dc172ece56ac77bf3a044a1cd60ed601b0041945d16b5da4c6cc4f42116988",
+      "bytes": 1246
+    },
+    {
+      "path": "src/components/ui/input-otp.tsx",
+      "sha256": "9b94ff8e296ba320ebec6550e0fd1a9763132d7edfa4cac842d4ca926dd5f2e3",
+      "bytes": 2161
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "sha256": "92debb7d6d2d96d9e607a42d5ce8f37b2d63384ae5dd9ffbbf5f047b680ffb85",
+      "bytes": 776
+    },
+    {
+      "path": "src/components/ui/label.tsx",
+      "sha256": "9f72e2ecf16206593aa9e3c4fbc14cd8e81aa8488d57d92d4a950b30935a9fa9",
+      "bytes": 716
+    },
+    {
+      "path": "src/components/ui/menubar.tsx",
+      "sha256": "e8a3269de7348e04dc1335cf6227bdcdaf2649484da4654f6a6b20f1c8423a84",
+      "bytes": 8546
+    },
+    {
+      "path": "src/components/ui/navigation-menu.tsx",
+      "sha256": "755aecc77b7911ab61159c9fbb9b25254009eb4c32c95b1430b6b5b7d37ed8f0",
+      "bytes": 5152
+    },
+    {
+      "path": "src/components/ui/pagination.tsx",
+      "sha256": "cbe8559c578ee2d34c7daef5ee75dc3afeb795851e294b111dec375ba44a9a2d",
+      "bytes": 2739
+    },
+    {
+      "path": "src/components/ui/popover.tsx",
+      "sha256": "861c18577ea5988c6f5ca00d1c677200319fd427cf8b424e59a5cca6ff24f830",
+      "bytes": 1352
+    },
+    {
+      "path": "src/components/ui/progress.tsx",
+      "sha256": "418f612946a520d1380b7a0d058185bb6a6d09846846dd6d6904a0016152dd4a",
+      "bytes": 781
+    },
+    {
+      "path": "src/components/ui/radio-group.tsx",
+      "sha256": "8c55aa0496b00a27fc4f609ca8b43a7e82c6802f6bf613998438b7632899fa96",
+      "bytes": 1405
+    },
+    {
+      "path": "src/components/ui/resizable.tsx",
+      "sha256": "f0399fec7bc334f06433b41b6ebf34255942ce4916b99173898893fa7fcc8281",
+      "bytes": 1552
+    },
+    {
+      "path": "src/components/ui/scroll-area.tsx",
+      "sha256": "b607f562455152a079d70a22538c95072b0267e0d59a1a1cf16a905a2e373a6f",
+      "bytes": 1635
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "sha256": "6d4deee18cf7ced0354eb719300833a83caf46400de6ee9c3d1942fa4c579ad4",
+      "bytes": 5749
+    },
+    {
+      "path": "src/components/ui/separator.tsx",
+      "sha256": "bf5838b692e5f74fde7083280b99492dd402bce6966e912e79f5e23f14bc98eb",
+      "bytes": 723
+    },
+    {
+      "path": "src/components/ui/sheet.tsx",
+      "sha256": "a82f9341962e766ee925a2fe883b0a9ab5d5dd8475c402ac8e491ee37dc95fde",
+      "bytes": 4248
+    },
+    {
+      "path": "src/components/ui/sidebar.tsx",
+      "sha256": "9f44f4523271f965adec608ae1c3b8a2f350f2f45ba1401a2c7ee33bc5eda238",
+      "bytes": 23975
+    },
+    {
+      "path": "src/components/ui/skeleton.tsx",
+      "sha256": "f4c42257d73925b0b856a3500e2cbdd918fe6744fcd6be87ef28bb88e7eb7366",
+      "bytes": 239
+    },
+    {
+      "path": "src/components/ui/slider.tsx",
+      "sha256": "d307cf3ff05b54be4a04389ef4379f9e8b4dc49720197937991ce843a8d4b5ec",
+      "bytes": 1025
+    },
+    {
+      "path": "src/components/ui/sonner.tsx",
+      "sha256": "3ad40f66c339e799b1a57c00e10b4627294c7d580d99d8a48ae0d8d4c13cf931",
+      "bytes": 734
+    },
+    {
+      "path": "src/components/ui/switch.tsx",
+      "sha256": "c3c298df4ffb56695e4a8f0ff3e37eee08437dec542a677153ec16bed0820107",
+      "bytes": 1156
+    },
+    {
+      "path": "src/components/ui/table.tsx",
+      "sha256": "1e945e564c2cc5ca3ef33019ba7da7a8b94cbc73feb3cbc2b7b33c36ea648d92",
+      "bytes": 2820
+    },
+    {
+      "path": "src/components/ui/tabs.tsx",
+      "sha256": "e9b454d2f987c83b36cc8870bba47d9355db4e8f5c733b310dbc1119a7d27654",
+      "bytes": 1934
+    },
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "sha256": "35617a2cf053e52c9e56983bde82d556861d38e462f9e578876c8e99a0432687",
+      "bytes": 677
+    },
+    {
+      "path": "src/components/ui/toggle-group.tsx",
+      "sha256": "d59cd3937c967a3e221fdfcfe4ea5cd57eb97cbe37e1ac98126664c9c7db49c1",
+      "bytes": 1752
+    },
+    {
+      "path": "src/components/ui/toggle.tsx",
+      "sha256": "62e6e21993f1ab633b9f830cbbf0c181f3d161bae3a7792dbf2d842d42a2f09c",
+      "bytes": 1534
+    },
+    {
+      "path": "src/components/ui/tooltip.tsx",
+      "sha256": "9682690fc3755d0f4b8684f2d7b1f77945876d41a45b723d0761b26804ad5010",
+      "bytes": 1278
+    },
+    {
+      "path": "src/components/wallet-account-actions.test.tsx",
+      "sha256": "f8ada70d7bd82a0702f5d1af22acefc17f79a043bb5ff81d5092fca5a4835de0",
+      "bytes": 7059
+    },
+    {
+      "path": "src/components/wallet-auth-integration.test.tsx",
+      "sha256": "1e70fc6a8ffd3bbe147daaf7227689bea423efff6dba81a23e054577e3d63a6e",
+      "bytes": 3294
+    },
+    {
+      "path": "src/components/wallet-query-completion.test.tsx",
+      "sha256": "0c3a369ca248f16b79be0837513aeb12685f5c952b5b01a0f8aec0c5e3167a44",
+      "bytes": 15511
+    },
+    {
+      "path": "src/components/wallet-readonly-detail.mounted.test.tsx",
+      "sha256": "46573ae825dabbb3840b55f998291bcc8d9a126d3206801f8dbe3ecb855032de",
+      "bytes": 4111
+    },
+    {
+      "path": "src/hooks/use-card-activation.ts",
+      "sha256": "f6544b4d4d2ec33d1e4f2926c8bd4ce97ad147d12c208fd69fdb2b4acf1dee44",
+      "bytes": 5976
+    },
+    {
+      "path": "src/hooks/use-card-balance.ts",
+      "sha256": "6fbec62c4eed3432395fa4f6e2412ca9d63b74b4fcbe46993da06fd7750f6447",
+      "bytes": 2200
+    },
+    {
+      "path": "src/hooks/use-card-limits-mutation.ts",
+      "sha256": "674182ffe1443ecd35ff21ea1bcc18ac61d8ce51c2789d96e17936531e109350",
+      "bytes": 6503
+    },
+    {
+      "path": "src/hooks/use-card-limits.ts",
+      "sha256": "8c19951403073d37ae3c0ea0e5c26e7ef104af42955a7b97bc945a0673735858",
+      "bytes": 2476
+    },
+    {
+      "path": "src/hooks/use-card-list-pages.ts",
+      "sha256": "b3a1181e7199f174b4e0b5b8f4362e63d11e8e60f89df30b48e3178e44fa3f10",
+      "bytes": 20988
+    },
+    {
+      "path": "src/hooks/use-card-renew.ts",
+      "sha256": "e5f297fbe0c260f37ca3651120068523638e02c3c9b51fa097939762dcd49085",
+      "bytes": 5048
+    },
+    {
+      "path": "src/hooks/use-card-replace.ts",
+      "sha256": "9b2a9f43466161edb0acf8d677a9ecc8fa99f07e72a12fcbaa1567b5cb21cfea",
+      "bytes": 5308
+    },
+    {
+      "path": "src/hooks/use-card-status-mutation.ts",
+      "sha256": "6634f8986fbd6ae8ef649f6a1a1338ff47dc6267d4cb9f51a8a1deeeea4d9185",
+      "bytes": 6597
+    },
+    {
+      "path": "src/hooks/use-card-timeline-pages.test.tsx",
+      "sha256": "1b4437a3e384cad42eeac52264f87ed9e1a213310f569f144d65cc7f052d62d0",
+      "bytes": 12505
+    },
+    {
+      "path": "src/hooks/use-card-timeline-pages.ts",
+      "sha256": "351a04c7fd183a3db03405e2613b369839a1311b1a749ecdfac73311438aed90",
+      "bytes": 9757
+    },
+    {
+      "path": "src/hooks/use-card-transaction-detail.test.tsx",
+      "sha256": "41341b259f346976c169bf4ac822d1ada52f0f0e59b421ee29040b100444aa1a",
+      "bytes": 11037
+    },
+    {
+      "path": "src/hooks/use-card-transaction-detail.ts",
+      "sha256": "0b520db1e0eaa7d5524dd66da761334062f6f02997136e797369951b026197c8",
+      "bytes": 3648
+    },
+    {
+      "path": "src/hooks/use-card-transaction-pages.test.tsx",
+      "sha256": "7208ceb4af9f95d37a49af3cbada86f785f0bd24870432876f19354612b09ad5",
+      "bytes": 23888
+    },
+    {
+      "path": "src/hooks/use-card-transaction-pages.ts",
+      "sha256": "cd1624078d22fdc6bc6201e54edf1f614c2381b3b4d027ebbed54dd12fbb8a78",
+      "bytes": 7398
+    },
+    {
+      "path": "src/hooks/use-digital-asset-history.test.tsx",
+      "sha256": "77ad077c4ecd6098a38478b494f164273718ab497bef64075c94625fb85ee0ce",
+      "bytes": 15323
+    },
+    {
+      "path": "src/hooks/use-digital-asset-history.ts",
+      "sha256": "5217e05599346949cf9252c3d2bf1b4d84a66d27d32cfeddaaa3d5a006b8950a",
+      "bytes": 14949
+    },
+    {
+      "path": "src/hooks/use-fx-quote.ts",
+      "sha256": "dab1b6eebdd0eebad03bfb09b27b705a79f16b3adfa6a7d33569c64adad05030",
+      "bytes": 3544
+    },
+    {
+      "path": "src/hooks/use-home-wallet-balances.test.tsx",
+      "sha256": "6cd6614582d1613a7bbeec70de35810f38c6ec6fa6f5d4e9e59ffc5efbbb05e2",
+      "bytes": 12908
+    },
+    {
+      "path": "src/hooks/use-home-wallet-balances.ts",
+      "sha256": "49ed4035810653c4c3c543e5299fb524812171042e23809aeb79a338120a0c5b",
+      "bytes": 4864
+    },
+    {
+      "path": "src/hooks/use-kyc-status.test.tsx",
+      "sha256": "673f7cc8810f8eb80af7716f5bc82b168007adaa3eb39c1ccf59cfa31a87811d",
+      "bytes": 13842
+    },
+    {
+      "path": "src/hooks/use-kyc-status.ts",
+      "sha256": "2e5ca8dd154de8379a110e641b2012b2dd12d82552518a190dc8640f7b3c303d",
+      "bytes": 3856
+    },
+    {
+      "path": "src/hooks/use-mobile.tsx",
+      "sha256": "21eff740f9e5c965c7f0782925a7e8f67ddfcdf0f58b6613550f99c3e1c454e9",
+      "bytes": 576
+    },
+    {
+      "path": "src/hooks/use-preview-wallet-balances.ts",
+      "sha256": "61abab34e612f0a4195bec70afb472ab52b985c3fb08e4b9a8e642c523fb5070",
+      "bytes": 3632
+    },
+    {
+      "path": "src/hooks/use-virtual-card-create.ts",
+      "sha256": "f07be48634fd66fb099cb341a1233d49bcabd35a0d70e01cab6c6595890e36cd",
+      "bytes": 5818
+    },
+    {
+      "path": "src/hooks/use-wallet-account-history.test.tsx",
+      "sha256": "48e8dae1e9386cb2e6e4ad90e3a9bbced4b2ebb9471f7bebe5488d49cf6af94f",
+      "bytes": 22489
+    },
+    {
+      "path": "src/hooks/use-wallet-account-history.ts",
+      "sha256": "82940af2231631be07ca10af7eff075fb46513c9abeba269d3756afbd41afef9",
+      "bytes": 11924
+    },
+    {
+      "path": "src/hooks/use-wallet-operation-detail.ts",
+      "sha256": "7a1efeda71e563b7d4a63735f3d5ca5bbda1b4f92dfde83b14527cfb7daeec8b",
+      "bytes": 1756
+    },
+    {
+      "path": "src/hooks/use-wallet-operations.test.tsx",
+      "sha256": "f507be8c8f5870dce51abe3eaed81a273be4f799f562436e4e03bbbc4836c4db",
+      "bytes": 13328
+    },
+    {
+      "path": "src/hooks/use-wallet-operations.ts",
+      "sha256": "9543bae116ea32796ec520181deebc4b292a055111e10fb7b899fe76552b1f99",
+      "bytes": 10638
+    },
+    {
+      "path": "src/hooks/use-wallet-transaction-detail-refresh.test.tsx",
+      "sha256": "54d7384f672da7df89140397e99548372935070292a116c27226a3494f401e9b",
+      "bytes": 8915
+    },
+    {
+      "path": "src/hooks/use-wallet-transaction-detail.ts",
+      "sha256": "ca953dc0f212012276fafb580baae1022d80a382901ba0039ee87243f9c18f90",
+      "bytes": 3038
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-accounts.test.tsx",
+      "sha256": "ef46c150c46ad35f259c7e9bee9b939ef9b7ee999fdb1abc2d1d94ea3b0ac57d",
+      "bytes": 11459
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-accounts.ts",
+      "sha256": "7dcd00eee3786eb817345ff61d5e0c6e60f636e5e7fcb6783928b3dfa94c37b6",
+      "bytes": 5101
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-mutation.ts",
+      "sha256": "1ccbea6597c6d48c5fcb74f22e39f89e414ba20b6482d57071bd1608210b9454",
+      "bytes": 9373
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-status-refresh.ts",
+      "sha256": "c977bcc195592533ff28aad2a68e92f9edf3e71a68b3ac2a7ef112f3a00f509b",
+      "bytes": 4629
+    },
+    {
+      "path": "src/launch/b10-policy.ts",
+      "sha256": "af3de0bb7b5d506014e8e3238ebdb926c9f4ebbc69d5b764c05a1c8401fb074f",
+      "bytes": 4574
+    },
+    {
+      "path": "src/launch/preview-readonly-policy.ts",
+      "sha256": "8c013af6c36c7fa5144505557145fa730baece4591ecc43a4602bc7e44d24fe0",
+      "bytes": 1056
+    },
+    {
+      "path": "src/lib/backend-api.test.ts",
+      "sha256": "6f671bfefda0c894a004a4dbdfc62dbe2870747e95cb1200f2111eaec3e3afa4",
+      "bytes": 39946
+    },
+    {
+      "path": "src/lib/backend-api.ts",
+      "sha256": "afb7efd0d88364633f5bb185324b6d414d18d47da94fbdded95c19b149e167f3",
+      "bytes": 146217
+    },
+    {
+      "path": "src/lib/backend-session-policy.test.ts",
+      "sha256": "023848e4d2f644bc83d240392c651bcc221c755f48bac83143c20e1dc14f512d",
+      "bytes": 4420
+    },
+    {
+      "path": "src/lib/backend-session-policy.ts",
+      "sha256": "56cec9a750bdeb5dc7249235a3996f1013f32d4a258da1af910393c808b5a5a7",
+      "bytes": 2047
+    },
+    {
+      "path": "src/lib/backend-session.test.tsx",
+      "sha256": "bced66c643cef6bd3e8882da046e66a0c7092bc07625179e690bf285a618dcf6",
+      "bytes": 7598
+    },
+    {
+      "path": "src/lib/backend-session.tsx",
+      "sha256": "9d917873d1481857c9a1a87757152311efb7391eee519693497e974d4cc4a431",
+      "bytes": 7683
+    },
+    {
+      "path": "src/lib/card-action-state.test.ts",
+      "sha256": "568fb5ba24ca6bd41b5058ee962e05ff66a253c96b85062697d94c7be512784e",
+      "bytes": 4248
+    },
+    {
+      "path": "src/lib/card-action-state.ts",
+      "sha256": "84817a4a9c3b126e77f8c84b51ab949a360fabdb1bfa381a894a9806f2e48e75",
+      "bytes": 2327
+    },
+    {
+      "path": "src/lib/card-activation-adversarial.test.ts",
+      "sha256": "80888296f7146fb0fb7702e9233aa7093364805b737844926ed0f45ed974ed0e",
+      "bytes": 9676
+    },
+    {
+      "path": "src/lib/card-activation-state.ts",
+      "sha256": "eef9655b34354ca278f42887994422f5d6748fd7b00dc4e447721210562dddca",
+      "bytes": 8464
+    },
+    {
+      "path": "src/lib/card-balance-state.test.ts",
+      "sha256": "2554d4d2ecf5fe747125fcfc45a142fdb475ec429718001ab78c2e7903263c57",
+      "bytes": 3198
+    },
+    {
+      "path": "src/lib/card-balance-state.ts",
+      "sha256": "9dda862b407b927226b252dd123a51ba11adbd0bf53b50123f27baee8e52a8f8",
+      "bytes": 1986
+    },
+    {
+      "path": "src/lib/card-limits-mutation-adversarial.test.ts",
+      "sha256": "3a434d08c0abba0e8344225cd3587466e3882fbabf431896f789b55120dbc740",
+      "bytes": 20721
+    },
+    {
+      "path": "src/lib/card-limits-mutation-state.ts",
+      "sha256": "4cd27a4f3d3ad645c4af07013c38d8198e3d6418b19f282bcd3ae149254b240e",
+      "bytes": 11905
+    },
+    {
+      "path": "src/lib/card-limits-state.test.ts",
+      "sha256": "d082f64712153bda78b174fb0a26d7fd903b7f47b6971d4798262227c481ec8b",
+      "bytes": 3138
+    },
+    {
+      "path": "src/lib/card-limits-state.ts",
+      "sha256": "691b8b8f04528ad8bef9a8aae6d127bfea929c9fa3d5c573c651628eeb78634f",
+      "bytes": 2302
+    },
+    {
+      "path": "src/lib/card-list-state.test.ts",
+      "sha256": "cbbfc44046c3635ccbd0c7b0276aeb6076880de78f3cfa16b950566ef058c234",
+      "bytes": 5438
+    },
+    {
+      "path": "src/lib/card-list-state.ts",
+      "sha256": "4b28d6b85d6bff545057ccc16a5c416f4c4785efbd59ba0f6cdd585bbd88f215",
+      "bytes": 5288
+    },
+    {
+      "path": "src/lib/card-read-adversarial.test.ts",
+      "sha256": "8e59aac0e9cf07090359cb34c845ce390920b0becebc37fcb77d54d4eae39d67",
+      "bytes": 8867
+    },
+    {
+      "path": "src/lib/card-renew-adversarial.test.ts",
+      "sha256": "3ef3751d57dc9be212b90bfba4aa5b61068fe2f1e4ed6ea23ae704f5b0f3b263",
+      "bytes": 16765
+    },
+    {
+      "path": "src/lib/card-renew-state.ts",
+      "sha256": "8b67788fa7f735091db1e6970bcdc56cc5c9e4f9b9758bf57ec65999ae1148c1",
+      "bytes": 6504
+    },
+    {
+      "path": "src/lib/card-replace-adversarial.test.ts",
+      "sha256": "d65fcbfef424c55bda471fce7f22bbfe45ee3c30ba18e60251a7a44f01715e06",
+      "bytes": 19580
+    },
+    {
+      "path": "src/lib/card-replace-state.ts",
+      "sha256": "3f17115c5535ba472e7edfdbc48c9bfee68cb1dc4695c7395042e8eb36eb6470",
+      "bytes": 7694
+    },
+    {
+      "path": "src/lib/card-status-mutation-adversarial.test.ts",
+      "sha256": "fd9e20cc90b9664a588baa12ae811707864305837bc30548b574a148f9ed2ffb",
+      "bytes": 12486
+    },
+    {
+      "path": "src/lib/card-status-mutation-state.ts",
+      "sha256": "f5d060e7217f94a93d804cdb250ebf2958f9a1b74789aaae3ea98d48ecb35396",
+      "bytes": 8900
+    },
+    {
+      "path": "src/lib/card-timeline-state.test.ts",
+      "sha256": "44f23eb2570d1a37b4241a6b5b2319a994964a76336c6086c0d36cfe029a2734",
+      "bytes": 5802
+    },
+    {
+      "path": "src/lib/card-timeline-state.ts",
+      "sha256": "646dfcba368f049af3f736c612c246dc215d9a2970f7e60af4c354f19ed26eeb",
+      "bytes": 7396
+    },
+    {
+      "path": "src/lib/card-transaction-adversarial.test.ts",
+      "sha256": "3c92c2db5d6f3bee3c85efe179b02b3a8b577837724f89b0015a2cd7fda280bf",
+      "bytes": 12590
+    },
+    {
+      "path": "src/lib/card-transaction-detail-refresh-adversarial.test.ts",
+      "sha256": "09283dafd897adfc83ed05e46b0614c412f030a1c641926259628d1f6f92a927",
+      "bytes": 4285
+    },
+    {
+      "path": "src/lib/card-transaction-detail-state.test.ts",
+      "sha256": "8b529a1bb4aaa0296c21787d12c9127d0807715f0b04dd74994a35e1e186d552",
+      "bytes": 5364
+    },
+    {
+      "path": "src/lib/card-transaction-detail-state.ts",
+      "sha256": "f0d31de541874ac64648b56d2d77a4b72ed1c473305d9e8a671d3ac1cd7a0c30",
+      "bytes": 3165
+    },
+    {
+      "path": "src/lib/card-transaction-history.integration.ts",
+      "sha256": "1510934d77ceedf73f2eb6d287e6fa5aaffdb35a43ae628079e9712d69922f1c",
+      "bytes": 9694
+    },
+    {
+      "path": "src/lib/card-transaction-pagination-adversarial.test.ts",
+      "sha256": "bf519e05e5d5b13926314fa5d78568b7ead776f6968da978fece2d7e8d480745",
+      "bytes": 8667
+    },
+    {
+      "path": "src/lib/card-transaction-state.test.ts",
+      "sha256": "162ec5ea63327d97c850f37c9918d8b0c7d5a8af4975691b33c391659ef2464f",
+      "bytes": 9864
+    },
+    {
+      "path": "src/lib/card-transaction-state.ts",
+      "sha256": "7bfbf944ec6dd919f1a6ecd991d61de2a82a95d963b97be2e7a6f831251b5474",
+      "bytes": 6223
+    },
+    {
+      "path": "src/lib/digital-asset-state.test.ts",
+      "sha256": "b9e38f27acfa5d6c3aacf265f1d12ea40cacb99b7c0e0bfac051fd58335c4be3",
+      "bytes": 3094
+    },
+    {
+      "path": "src/lib/digital-asset-state.ts",
+      "sha256": "720cb0a739a70ab80721036b502f4e66c8f8b7fff9ab9ec39175f081c6cb8391",
+      "bytes": 3314
+    },
+    {
+      "path": "src/lib/error-capture.ts",
+      "sha256": "adc4f6f1c8bdae036c9605b2db8372f2c6ed9fa037487ce288e2947472cfc568",
+      "bytes": 906
+    },
+    {
+      "path": "src/lib/error-page.ts",
+      "sha256": "635915886f5d44a18b6add2a53959dbe2e8ba1bb3f7e597fc714650e74157bb6",
+      "bytes": 1371
+    },
+    {
+      "path": "src/lib/frontend-request.test.ts",
+      "sha256": "92c4a4b77351199869646be9547bac681561988f90bd8048a0818cc322d9b1f4",
+      "bytes": 1935
+    },
+    {
+      "path": "src/lib/frontend-runtime.test.ts",
+      "sha256": "1781bf4dd274f0a9c64e515038e98053edb2252bf35d8bfaa4ca4409cf5fb300",
+      "bytes": 760
+    },
+    {
+      "path": "src/lib/frontend-runtime.ts",
+      "sha256": "7c6d70b66ce6c74fddf2724fddbad2b47ab7f254e0352e46ecf3ad29f6e47d2a",
+      "bytes": 544
+    },
+    {
+      "path": "src/lib/fx-quote-adversarial.test.ts",
+      "sha256": "7d82b4a689e2a6ade2e286702bf9072e2cc67e5ce75f829b415250ced76adf9a",
+      "bytes": 10932
+    },
+    {
+      "path": "src/lib/fx-quote-contract.ts",
+      "sha256": "6e6a9152fe9f0c3c48ef80637d48c773e3afe2dc6aab9429ef0cbd006966e355",
+      "bytes": 10586
+    },
+    {
+      "path": "src/lib/fx-quote-state.ts",
+      "sha256": "26c10a278218f74f1cf2e9bb1cb909cc8e475df27e14b01ae30d6562bf9233c3",
+      "bytes": 4693
+    },
+    {
+      "path": "src/lib/home-wallet-balance-state.test.ts",
+      "sha256": "900ff09d9c1fdd57f3abef19dcfd457bfa898a992509f708727ad8b48576ffab",
+      "bytes": 4528
+    },
+    {
+      "path": "src/lib/home-wallet-balance-state.ts",
+      "sha256": "3635baa9be666d9925a1d284deab48685fdf175b9ddf7c95fab8a16f19e0f732",
+      "bytes": 3607
+    },
+    {
+      "path": "src/lib/i18n.tsx",
+      "sha256": "7cd321cfcbf8df67b6403b22761ecb08d9a3ad7b5d5fa7537ddbe12f4c2fa267",
+      "bytes": 113071
+    },
+    {
+      "path": "src/lib/kyc-status-state.test.ts",
+      "sha256": "08046f4673f8afc610832d213d38735941fbb916f2e47ed3c232e944caf5acb0",
+      "bytes": 6705
+    },
+    {
+      "path": "src/lib/kyc-status-state.ts",
+      "sha256": "514db66cdc07b258a7501e6a9fd2c86b515834aa3917282cdbd9e292eff3ed8c",
+      "bytes": 6548
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.b1.ts",
+      "sha256": "27b246b46dea74b6635961c9b87a41074349e904dd99ec9501fc6a1ec1d129b5",
+      "bytes": 1715
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.test.ts",
+      "sha256": "1bace3b243193a7db35cce67e6c741f0dd4f73bf19f6f574609c5d3bc57b7a65",
+      "bytes": 2075
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.ts",
+      "sha256": "ecda41142adae7d7f86d3321e5fe0d29009f4ce0bc5a250cbf39407ce187245d",
+      "bytes": 7121
+    },
+    {
+      "path": "src/lib/lovable-error-reporting.ts",
+      "sha256": "ff65950d5e47a0ee77eb0ca989ca86a6749703afb56e464f5eaeaf313405321e",
+      "bytes": 830
+    },
+    {
+      "path": "src/lib/preview-readonly-policy.test.ts",
+      "sha256": "fca4e43b71059fc7ec6b308b2deb4f6858bebd77224562c5d2f2767733085833",
+      "bytes": 2135
+    },
+    {
+      "path": "src/lib/prime-wallet-readiness.test.ts",
+      "sha256": "b359fe9f399d42a50e0c550a2a225da669bd6996ee6e332f13ae543bc82367f6",
+      "bytes": 2664
+    },
+    {
+      "path": "src/lib/prime-wallet-readiness.ts",
+      "sha256": "d6ca9a357e519a880e296ba887f4ae34dc24c6a5fb395f9385b226c918913b48",
+      "bytes": 1739
+    },
+    {
+      "path": "src/lib/public-errors.test.ts",
+      "sha256": "562221d69470dfbf5da98665e46a598b0d98cfaaf3cb9e6dbe23b65363120597",
+      "bytes": 11672
+    },
+    {
+      "path": "src/lib/public-errors.ts",
+      "sha256": "4b6176c48d8975b64aab4d7e8720372253d799b67350ecc9cecfe9d331d113bf",
+      "bytes": 8111
+    },
+    {
+      "path": "src/lib/sdk-product-mode.test.ts",
+      "sha256": "c205fb99a6cce2b6fbad2242bd2d841764503c608a23b343abee2790b333f280",
+      "bytes": 10707
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "sha256": "d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27",
+      "bytes": 169
+    },
+    {
+      "path": "src/lib/virtual-card-create-adversarial.test.ts",
+      "sha256": "ecc31e6db9cc5c34b6af809ec2e748a72aa8ccaa9731c47b0b9917ed7c86084b",
+      "bytes": 15175
+    },
+    {
+      "path": "src/lib/virtual-card-create-state.ts",
+      "sha256": "9e5dfb3ebe7c2261d93590254cc7be164e9c6028e355d4908038756e5573ee8b",
+      "bytes": 6302
+    },
+    {
+      "path": "src/lib/wallet-account-state.ts",
+      "sha256": "a78278a436a75f2d2cb59cb2e00dfc69e8f4efb51119489b36d21943f234ae2a",
+      "bytes": 4147
+    },
+    {
+      "path": "src/lib/wallet-balance-summary-adversarial.test.ts",
+      "sha256": "125464a4b066ef64142f5582d42e28e1df9fb3a0f34c0cb483e633b62fdcd26c",
+      "bytes": 8852
+    },
+    {
+      "path": "src/lib/wallet-digital-assets-adversarial.test.ts",
+      "sha256": "0acfc709378a43b3c91371d0792ca7739d020576cd761cc9f609b61b98ab00e3",
+      "bytes": 6862
+    },
+    {
+      "path": "src/lib/wallet-history-state.test.ts",
+      "sha256": "f3e2a242766776d6a1f7b529455cf3231ab90b44a9f6f38706d5a9e9f2560019",
+      "bytes": 8381
+    },
+    {
+      "path": "src/lib/wallet-operation-adversarial.test.ts",
+      "sha256": "61646f33c8139fca5456f1cf758c9f0e04f2ef129e8a5771bc70c26fc8a03f9c",
+      "bytes": 12812
+    },
+    {
+      "path": "src/lib/wallet-operation-detail-state.test.ts",
+      "sha256": "acef77605846317ffccb1671c0b35cbee7e6f25f095b835d06be02c7d3750920",
+      "bytes": 3662
+    },
+    {
+      "path": "src/lib/wallet-operation-detail-state.ts",
+      "sha256": "65dd5f50f36507ebfd2bcd8c8b6613e3e4067451d11b72602922d075417001f9",
+      "bytes": 2145
+    },
+    {
+      "path": "src/lib/wallet-operation-state.test.ts",
+      "sha256": "7f6ca6edf687192acff9cbdf21791686a0f454c48b242a352e970bea9a859cbd",
+      "bytes": 6150
+    },
+    {
+      "path": "src/lib/wallet-operation-state.ts",
+      "sha256": "5bb8b0f6c4c207c9d1a0ead16aec86dfa27f9f5311ae03382fcbe0bd0a14a2c8",
+      "bytes": 6417
+    },
+    {
+      "path": "src/lib/wallet-readonly-scope.test.ts",
+      "sha256": "ceb8491b7d453becb5da8a8e1718137961b2cf556e29b7def40f20e5eb4f6105",
+      "bytes": 5200
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-refresh-adversarial.test.ts",
+      "sha256": "56ea4183dd6023505eb2a460bd9998a817a6676216d124be917052e5844f3341",
+      "bytes": 3821
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-state.test.ts",
+      "sha256": "068a8c8f2b0cee3f37bec9e87e4797e8cd2095cb0f943419cd3f87cf7fc94746",
+      "bytes": 5468
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-state.ts",
+      "sha256": "e9b05761bfee144bd9ca6b19cef2622b214ce3d89fd9c60793341831be8a1f3b",
+      "bytes": 3373
+    },
+    {
+      "path": "src/lib/wallet-transaction-filter-adversarial.test.ts",
+      "sha256": "bfa4ac53b26d5934ff75e0e6a8b0fc648d65506fb663b910d5a3d64cac5bf4e6",
+      "bytes": 6596
+    },
+    {
+      "path": "src/lib/wallet-transaction-refresh-adversarial.test.ts",
+      "sha256": "92c07740db786e26311a979bb2e4ae573f67d2b69a57a8c7d97b766ea09ac03e",
+      "bytes": 6274
+    },
+    {
+      "path": "src/lib/wallet-transaction-selection-adversarial.test.ts",
+      "sha256": "dea6f194ad1e5cf959859e654e554ce485ecb1c8eedfe7a9c8c6221cfc47f67a",
+      "bytes": 2421
+    },
+    {
+      "path": "src/lib/wallet-transaction-selection-state.ts",
+      "sha256": "989b14fbcb7c3257ef98c6db9546dffcf78e1d0b1ee2034b59411050b6d093e9",
+      "bytes": 735
+    },
+    {
+      "path": "src/lib/wallet-transaction-state.ts",
+      "sha256": "dde436d74b40ca064785e01e59a8f3e5a9c61457af0526ba0bde3b53ebe17709",
+      "bytes": 5939
+    },
+    {
+      "path": "src/lib/wallet-transfer-account-state.test.ts",
+      "sha256": "35e088ca0614c2c1d2215244a16f55a39db0d3492f22061683ee97abd18556f6",
+      "bytes": 5170
+    },
+    {
+      "path": "src/lib/wallet-transfer-account-state.ts",
+      "sha256": "c769759e8a26d00f7961d1cace5b0ac3e4d3b83adff58bf311ad99c09a8d9d1a",
+      "bytes": 2699
+    },
+    {
+      "path": "src/lib/wallet-transfer-consumer.integration.ts",
+      "sha256": "9c152bbf64a03105170fbc8dbe611f560cf79cec662d88ac519d16a11780ff9e",
+      "bytes": 11866
+    },
+    {
+      "path": "src/lib/wallet-transfer-mutation-adversarial.test.ts",
+      "sha256": "c06a980d024826ccbf204ae5202a460c6b92d212c1d3e58d82c8fedb2c95beb2",
+      "bytes": 27994
+    },
+    {
+      "path": "src/lib/wallet-transfer-mutation-state.ts",
+      "sha256": "313a475aa0cf8261169316bd4733ebe7f696ad6325e753e18666de5c8af24bc7",
+      "bytes": 9918
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh-adversarial.test.ts",
+      "sha256": "789f1d4469e9d474f244944cccd463af624c20718f5f7fe73a83f0f2bde05c4c",
+      "bytes": 13816
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh-state.ts",
+      "sha256": "fb73ef4ca43a7a97e21c2dbf5d3d1941554e42396dfa8d8f4b7f6790640efe4b",
+      "bytes": 6573
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh.integration.ts",
+      "sha256": "5751848b93ce4db50f2d11f07fcad14c28f31251915639cf2e2642b9a4fc9329",
+      "bytes": 11987
+    },
+    {
+      "path": "src/preview-gateway.ts",
+      "sha256": "c2a5be6588cc27ebaf6751bcdb5fc8023d799001c771de363e1d0cf29707f530",
+      "bytes": 6450
+    },
+    {
+      "path": "src/routeTree.gen.ts",
+      "sha256": "83182fbd9e5024718cbbde99aa02fd933b1eeb1f87d03da5a7735cb77df2d18e",
+      "bytes": 11708
+    },
+    {
+      "path": "src/router.tsx",
+      "sha256": "282f1e9561d53125bd878262ad764601aa61608f89b5b72089c4c4e148374024",
+      "bytes": 269
+    },
+    {
+      "path": "src/routes/-assets-fiat.mounted-refresh-selection.test.tsx",
+      "sha256": "4d478a551aa74d6568420eb9b96b993d0c00fad6b3f14bfc58c4c2ec5cd3fc77",
+      "bytes": 13421
+    },
+    {
+      "path": "src/routes/-cards.mounted-activation.test.tsx",
+      "sha256": "4c7784a7a4a77d69c5fba1dbe52cb6a44b5750244a7dee072afbe0123250e39d",
+      "bytes": 32120
+    },
+    {
+      "path": "src/routes/-cards.mounted-virtual-create.test.tsx",
+      "sha256": "fa291ab83287c5556d1e5c3bec69e0b3acf3e4d09ee91d4f6cdb6b96d554b071",
+      "bytes": 108020
+    },
+    {
+      "path": "src/routes/-convert.mounted-quote.test.tsx",
+      "sha256": "f7eb4819e76bbd2a19ccab44aff6d573ed23b090bb7c0b3165ac87e2f8b8a5ca",
+      "bytes": 12272
+    },
+    {
+      "path": "src/routes/-history.mounted-selection.test.tsx",
+      "sha256": "dc719e2d8cbc07dbca67c7801fc812ea5a5a1cf210515cd73cf36b3a6f1c9d7f",
+      "bytes": 18597
+    },
+    {
+      "path": "src/routes/README.md",
+      "sha256": "edbd5d3cd5a427882c60b7b7dcdd12c7031f2f8ac0c085d20d2f6abec719e95d",
+      "bytes": 1235
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "sha256": "2253f5888453c9952839ccbbc3262e17c57f97fa4abd107ba3db34bcaaef6514",
+      "bytes": 8243
+    },
+    {
+      "path": "src/routes/assets.cards.tsx",
+      "sha256": "d098caea6d1a8bf30571a5d3236658fea371de2ef6a314e47411d3dfe283fc91",
+      "bytes": 6507
+    },
+    {
+      "path": "src/routes/assets.digital.tsx",
+      "sha256": "078ac5a85c55f2760e524e5a9f660ca5a79ea6c36fd7468c1f5135737d9ac42a",
+      "bytes": 13592
+    },
+    {
+      "path": "src/routes/assets.fiat.tsx",
+      "sha256": "4e663f3db69549daf94428f25fbac32e5f20654135eef3c008bbc0e7f414738d",
+      "bytes": 23901
+    },
+    {
+      "path": "src/routes/auth.tsx",
+      "sha256": "ce8c60b348e4347611f1594490f3787488e4df64f7e1f92a934b2a1c88d6c215",
+      "bytes": 1474
+    },
+    {
+      "path": "src/routes/card-pay.tsx",
+      "sha256": "6f6c3c4e59a62f5334834be228606f1c5b19b27d330ce286a9bb5d5b3190fa19",
+      "bytes": 249
+    },
+    {
+      "path": "src/routes/cards.tsx",
+      "sha256": "5075a3d2c078cefcee7fa9438b5bfd24f6b34964a92d9e3472231464eefe071e",
+      "bytes": 35843
+    },
+    {
+      "path": "src/routes/connect.tsx",
+      "sha256": "a1fda1ef67c65eed83248e2bf4f4e58619f734ad769cf494a4dcbf693b01f938",
+      "bytes": 386
+    },
+    {
+      "path": "src/routes/convert.tsx",
+      "sha256": "51615b8d5931ba902b2dbd15523bc90f4d130edd9e789daac9a5d1643c4ecc6a",
+      "bytes": 9145
+    },
+    {
+      "path": "src/routes/deposit.tsx",
+      "sha256": "507632aa59ea27285d7479012eb6732c5853b8385e7e3f5711e4b05a7ea7696b",
+      "bytes": 243
+    },
+    {
+      "path": "src/routes/history.mounted-detail-refresh.test.tsx",
+      "sha256": "1fa4bbcafbbff12c41fd846d7456af8ecbddb28f62bab8089eef32b0b652a8c4",
+      "bytes": 8004
+    },
+    {
+      "path": "src/routes/history.mounted-pagination.test.tsx",
+      "sha256": "2d80217353bf7db4b7d265a3e763a927102326e1cd8d171b124acf5b4ff55cb9",
+      "bytes": 25326
+    },
+    {
+      "path": "src/routes/history.tsx",
+      "sha256": "0c84ebd6f7aa81982160dfb16787d4b3aa0696982c6873e3ff625ef6171a835b",
+      "bytes": 13500
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "sha256": "6f8a1062839c376512067e2d6299e93c518588689e8b7d277a0574df20b31526",
+      "bytes": 9913
+    },
+    {
+      "path": "src/routes/kyc.tsx",
+      "sha256": "22aacbb34ab94c2046d3cec8e4d08b3f4ecb583ed2fc189d5a19c4f1870eaa00",
+      "bytes": 4488
+    },
+    {
+      "path": "src/routes/merchant-pay.tsx",
+      "sha256": "5edaa46fcb948f18f38ddea75fcf359b3255d98fdbaa68861fa97608bf42469d",
+      "bytes": 257
+    },
+    {
+      "path": "src/routes/pay.tsx",
+      "sha256": "043cbe252c5db0318a331119c7b16a9272d84b61ef9492028731ef24cd360466",
+      "bytes": 235
+    },
+    {
+      "path": "src/routes/profile.tsx",
+      "sha256": "28f840c00e67ab14e2c28952880335fe59694de3c71bd9cea482f57403c21d54",
+      "bytes": 13178
+    },
+    {
+      "path": "src/routes/transfer.mounted-safety.test.tsx",
+      "sha256": "95b7e261400290d2cf7a64cf5d2339485211ebc382cb57182c0bcc8d0de89f8e",
+      "bytes": 44866
+    },
+    {
+      "path": "src/routes/transfer.tsx",
+      "sha256": "3260672cc643a2f8a624a16d673a741699d82580285f50d7142d7ff1d1460ad7",
+      "bytes": 16190
+    },
+    {
+      "path": "src/routes/withdraw.tsx",
+      "sha256": "d1b639147d73e7709c13e6e493353d2c767950b367ebcf58aeb5862d322ecf83",
+      "bytes": 247
+    },
+    {
+      "path": "src/server.proxy.test.ts",
+      "sha256": "f79905029bed2832e2c2e8ec3ee657b5e310ab0917e9b46751de49ca1c1535ae",
+      "bytes": 7972
+    },
+    {
+      "path": "src/server.ts",
+      "sha256": "336fd0b5f655360ce822453553dd73855d04ddd6d01ecf34dbfa905e0789008c",
+      "bytes": 4742
+    },
+    {
+      "path": "src/start.ts",
+      "sha256": "7b2a35cfb8f08b2db762d78245ee906491a22bd807066ef40bb21bb080e68c20",
+      "bytes": 619
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "df34492ab56cb47577ed59a6254df672cbe78a87603ad8593d0643b74c89fd87",
+      "bytes": 3864
+    },
+    {
+      "path": "tests/account-query-browser/app.tsx",
+      "sha256": "b7d2a15fe4b4424d0c9f32a118856d689201b1bdab55caaab0ba50d7b09f4d3b",
+      "bytes": 6935
+    },
+    {
+      "path": "tests/account-query-browser/index.html",
+      "sha256": "3787d1799a2a9eb4481950ea6b802ae3cf4b95b1e10a2fc5e13e202af8c4acb0",
+      "bytes": 606
+    },
+    {
+      "path": "tests/account-query-browser/isolation.test.ts",
+      "sha256": "cc826588ffedf561ad24cd000890cd985646cf3ed207b8d316ed563b868dc17d",
+      "bytes": 2602
+    },
+    {
+      "path": "tests/account-query-browser/main.ts",
+      "sha256": "1d1796f5d0edc9b0b0dcdc4d73adb80f0bffefd6ae96a868f78957b894a1dcaa",
+      "bytes": 1448
+    },
+    {
+      "path": "tests/account-query-browser/mock-network.ts",
+      "sha256": "0a9902f6ff1355a1af758921647a0717dd4cc41a490aeeecc1e947456098e308",
+      "bytes": 8017
+    },
+    {
+      "path": "tests/account-query-browser/tsconfig.json",
+      "sha256": "0f77907d6116feb1ba07d199c2b32b40fc3d3310df9649879fc52637c0084f64",
+      "bytes": 111
+    },
+    {
+      "path": "tests/account-query-browser/vite.config.mjs",
+      "sha256": "55b0f5414e5166d61a00c13e54b8c665184c61793218b303cfc64b3c39a6956e",
+      "bytes": 2135
+    },
+    {
+      "path": "tests/account-query-browser/vite.config.ts",
+      "sha256": "55b0f5414e5166d61a00c13e54b8c665184c61793218b303cfc64b3c39a6956e",
+      "bytes": 2135
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "798818d5c43bf9b645e9f9ae5f3e058d227115724110f780ae46e19aa0cb5ce4",
+      "bytes": 679
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "cc2f1169758af08cec6454d83465334fc6345922ab98fc2170486f35aed59170",
+      "bytes": 2194
+    },
+    {
+      "path": "vite.offline.config.mjs",
+      "sha256": "7bd7c3b2df601ec4cff708278b03f292cefe58371fb71985b296d810d38b6e8d",
+      "bytes": 1004
+    },
+    {
+      "path": "wrangler.dev.jsonc",
+      "sha256": "1f369728acc78f6381503da90bf7df7340368e29a2c36adf453c9e29e3a0795b",
+      "bytes": 599
+    },
+    {
+      "path": "wrangler.test.jsonc",
+      "sha256": "4f43724e37d44c25f49b6a7c6a796f3cd0a347a4a7f74e0d4fc6e38566c97382",
+      "bytes": 521
+    }
+  ]
+}

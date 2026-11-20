@@ -1,0 +1,125 @@
+{
+  "baseline": "BASE-V1.8-20261108",
+  "status": "PASS_OFFLINE_ONLY_FIXED_UAT_APPMODULE",
+  "tableMigration": "BLOCKED",
+  "tableProgress": {
+    "passed": 2,
+    "total": 43
+  },
+  "activeSourceManifest": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/SHARED-API-DIAGNOSTICS-OFFLINE-20261110-01/SOURCE-MANIFEST.json",
+    "sha256": "f6b51762873c92a21b900253c3e79da267aff34321be4717a0e9b71e98f6338a"
+  },
+  "originalMigrationManifest": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/ENTRY-MANIFEST.json",
+    "sha256": "429bc2618d715a5423d2e19ce16a80ec11693d036f7ec43d14632fc9cba47d6e"
+  },
+  "originalMigrationAnchors": {
+    "forward": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/forward.candidate.sql",
+      "sha256": "6b1a81e1f16a696a4c33bbc9c3287cf8ecb6d0de7bea85612ae221c664a098cd"
+    },
+    "rollback": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-REMAINING43-20261108/DOMAIN-MIGRATIONS-20261108/G1/domains/admin-product-catalog/rollback.candidate.sql",
+      "sha256": "6e91ffee9998d07fd9f16289857bd402d2d6af0afbecbc6c71b8de92b5216fbb"
+    },
+    "offlineEntry": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/verify-first-domain.py",
+      "sha256": "3908e66aa5d6b88f0202ebb2ce756a0e4e9deb0400ea14901e07f4bd8d727aa8"
+    },
+    "contract": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/D3-FIRST-DOMAIN-OFFLINE-20261112-01/ACCEPTANCE-CONTRACT.json",
+      "sha256": "176b803c4e5cec858f8821c28d8288e90f4c041536d6c3c186dbc668b9aa2193"
+    }
+  },
+  "realAcceptanceEntrySHA256": null,
+  "sourceCounts": {
+    "inheritedUnchanged": 750,
+    "modified": 8,
+    "added": 1,
+    "total": 759
+  },
+  "changedSource": [
+    {
+      "path": "backend/src/cards/card-product-context-wiring.spec.ts",
+      "kind": "test",
+      "classification": "ADDED",
+      "sha256": "2c8c30a2e211247397d29f6e0e5e2811dbcf22b9e7dc2495b8f930eb00d23e12",
+      "previousSha256": null
+    },
+    {
+      "path": "backend/src/cards/cards.controller.ts",
+      "kind": "production",
+      "classification": "MODIFIED",
+      "sha256": "3cf434c507f613d21741ef029a32a5d3430cd12c5ac98f506be9c37227bb8f7a",
+      "previousSha256": "d25a360fe8da36d137c753547ac349b29ce0701de7cb225db17e825eefcd0643"
+    },
+    {
+      "path": "backend/src/cards/cards.module.ts",
+      "kind": "production",
+      "classification": "MODIFIED",
+      "sha256": "81b9ef4a4f06ad2db28b44b4977cbb7c9aaf69332976ab4591ddb93f47420aa8",
+      "previousSha256": "b5fb7a521d00341bc138ac2a712984de58f3afd343ffe8f009d20a144779dffa"
+    },
+    {
+      "path": "backend/src/cards/cards.service.spec.ts",
+      "kind": "test",
+      "classification": "MODIFIED",
+      "sha256": "f675fef8f8fd1bad307e4af8f56ea3d29b357700dccdef3d3eedd2784616a085",
+      "previousSha256": "f837fbf5cfc9efc1d1cbb06731362958201bf23c6d367bf549f012c35b03c7b3"
+    },
+    {
+      "path": "backend/src/cards/cards.service.ts",
+      "kind": "production",
+      "classification": "MODIFIED",
+      "sha256": "8b6704fbf257ba41046101ccc4564b6ff78c784c45b5e77c21fc652a9f44e9e2",
+      "previousSha256": "bc93869eaef88856b0db154df526d902e5296142637c62a08c5b5cc7d500feee"
+    },
+    {
+      "path": "backend/src/fees/fee-policy.service.spec.ts",
+      "kind": "test",
+      "classification": "MODIFIED",
+      "sha256": "15ccc654f96214b1d0d71ea3f48221bb839653bc5f7d7da12fad09b34c54800b",
+      "previousSha256": "f0c0b2e183df38c9b9bc48d19930b678498c55a229fd4958c97c1c17728a899c"
+    },
+    {
+      "path": "backend/src/fees/fee-policy.service.ts",
+      "kind": "production",
+      "classification": "MODIFIED",
+      "sha256": "bb67da2515e99103e6f82bd3d79080ea8d7fd78d39361eac70fb71b452e89e47",
+      "previousSha256": "30604afbd874ae54b1a96086bd54a02b7e0a7438efe0f9d6f285befcc2149acf"
+    },
+    {
+      "path": "backend/src/shared-context/shared-context.service.ts",
+      "kind": "production",
+      "classification": "MODIFIED",
+      "sha256": "78f89b67837ffbb354672d0e219e0f44082be2d6076876fb8eec20f510188bcc",
+      "previousSha256": "a77ee186890cd1bf13b6c942979693f316543cac756ccb8e5db8776b04e8600d"
+    },
+    {
+      "path": "backend/test/card-products-read-contract.integration.e2e-spec.ts",
+      "kind": "test",
+      "classification": "MODIFIED",
+      "sha256": "ab8962ca543c98c165c15591bc65822afab81c5c7bcfd5d5a4be4d9c5d05525b",
+      "previousSha256": "191ada9599949cecb9ad968b7c088966271d9d4f031145aba53b737e9dcb7ff7"
+    }
+  ],
+  "files": [
+    {
+      "path": "G3-INDEPENDENT-REVIEW.md",
+      "sha256": "f1f0fb84849b2e4b9b38886a6040de6ca2ffb653c22c49f34449bbc3b380fda7"
+    },
+    {
+      "path": "LOCAL-VALIDATION.json",
+      "sha256": "502fe1b235d6ed13a9cc4f923b13ccf3cf274031d4baf7b1cabd92a6fbe6ce9b"
+    },
+    {
+      "path": "STATUS.md",
+      "sha256": "14269b2ca5955c479c34d4df9bb111b4f84b8eb3828696c992c0672161d6faaf"
+    },
+    {
+      "path": "SOURCE-DELTA.patch",
+      "sha256": "1e9a7627c8aa3cd463fe7a73f917ca7ed5192f592400212f186189ddc1f2b34c"
+    }
+  ]
+}

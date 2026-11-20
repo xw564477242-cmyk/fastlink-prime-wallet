@@ -1,0 +1,58 @@
+{
+  "status": "D_HTTP_INITIAL_THREE_PASS",
+  "phase": "COMPLETE",
+  "startedAtUTC": "2026-11-11T15:48:28.484225+00:00",
+  "railwayMetadataCalls": 1,
+  "httpGetAttempts": 3,
+  "adminHandoffMemoryReads": 1,
+  "directSql": 0,
+  "existingBApiOperations": 0,
+  "retries": 0,
+  "responses": [
+    {
+      "case": "HTTP-ADMIN-401",
+      "status": 401,
+      "statusMatches": true,
+      "traceMatches": true,
+      "jsonContentType": true,
+      "noRedirectOrCookie": true,
+      "payloadMatches": true,
+      "pass": true
+    },
+    {
+      "case": "HTTP-ADMIN-ENV-403",
+      "status": 403,
+      "statusMatches": true,
+      "traceMatches": true,
+      "jsonContentType": true,
+      "noRedirectOrCookie": true,
+      "payloadMatches": true,
+      "pass": true
+    },
+    {
+      "case": "HTTP-ADMIN-A-LIST-200",
+      "status": 200,
+      "statusMatches": true,
+      "traceMatches": true,
+      "jsonContentType": true,
+      "noRedirectOrCookie": true,
+      "payloadMatches": true,
+      "pass": true
+    }
+  ],
+  "railwayExitCode": 0,
+  "runtimeChecks": {
+    "projectId": true,
+    "environmentId": true,
+    "serviceId": true,
+    "deploymentId": true,
+    "domain": true,
+    "test": true,
+    "mode": true
+  },
+  "deploymentId": "c51ef268-88b2-4596-80c7-0c10638eef29",
+  "boundImageDigest": "sha256:494e577d87abc1e5f14c0fd5d86067ce4f89c47eb660cb2587b3d935edf523ba",
+  "windowEndsAtUTC": "2026-11-11T15:50:59.518417+00:00",
+  "adminAWindowCoveredByBoundProof": true,
+  "finishedAtUTC": "2026-11-11T15:49:07.153097+00:00"
+}

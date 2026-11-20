@@ -1,0 +1,137 @@
+{
+  "id": "847b4b7d-7d43-473c-a3b2-f1fabdd33ae2",
+  "runtime": {
+    "assets": {
+      "headers": {
+        "version": 2,
+        "rules": {
+          "/assets/*": {
+            "set": {
+              "cache-control": "public, max-age=31536000, immutable"
+            },
+            "unset": []
+          }
+        }
+      },
+      "raw_headers": "/assets/*\n  cache-control: public, max-age=31536000, immutable",
+      "serve_directly": false,
+      "raw_run_worker_first": true,
+      "base_path": "/"
+    },
+    "compatibility_date": "2026-07-25",
+    "compatibility_flags": [
+      "nodejs_compat"
+    ],
+    "usage_model": "standard"
+  },
+  "bindings": [
+    {
+      "name": "ASSETS",
+      "type": "assets"
+    },
+    {
+      "name": "B10_DEADLINE",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_MAXIMUM_MONTH_END_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_MINIMUM_MONTH_END_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PAID_START_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PAID_STOP_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_PREPARATION_DEADLINE_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_QUALIFY_UNTIL_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_RETENTION_UNTIL_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_TX_ALLOWANCE_BYTES",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_CLOSE_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_OPEN_UTC",
+      "type": "plain_text"
+    },
+    {
+      "name": "B17_WINDOW_PHASE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_BACKEND_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_BUILD_SHA",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_CANDIDATE_ID",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_AUDIENCE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_ISSUER",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ACCESS_JWKS_JSON",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ALLOWED_EMAILS_JSON",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_DEPLOYMENT_PROFILE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_EXPIRES_AT",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_GATEWAY_PROOF",
+      "type": "secret_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_ORIGIN",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_SCOPE",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_PREVIEW_STATUS",
+      "type": "plain_text"
+    },
+    {
+      "name": "FASTLINK_SOURCE_SNAPSHOT",
+      "type": "plain_text"
+    }
+  ]
+}

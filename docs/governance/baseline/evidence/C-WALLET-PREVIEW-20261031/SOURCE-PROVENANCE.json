@@ -1,0 +1,1416 @@
+{
+  "CBase": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+  "adapterBase": "304f959d705c9f712abd30262ee0c7f2465a85d2",
+  "accountQueryCommitted": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+  "noDirtyWorktreeBytesRead": true,
+  "imports": [
+    {
+      "path": "AGENTS.md",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "4e96b38f10a0bbf0f105f51e6d2c39a889baec12b3386ae3facec4f076714d60"
+    },
+    {
+      "path": "bun.lock",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "858fc09d09668b2d2166f9304d369efd7f8758ac7afb095f3612adc51a468c1a"
+    },
+    {
+      "path": "components.json",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "37c484818824d2521eee3367e7aa2c2abbd19635d8103d19734b6e24603d0292"
+    },
+    {
+      "path": "eslint.config.js",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "3266245a1ff610a0b37dbb8b8c77b93a125e0d8758b9838cfd04b2e0a1397d56"
+    },
+    {
+      "path": "package.json",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e8814bb27d1597275207b5361215c61dd610b2b81467655eacb3a49052dfad01"
+    },
+    {
+      "path": "public/favicon.ico",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "dd821076a9b03adc2173c93956226aea3d92482d7578fc4339c5d3a2e9c24586"
+    },
+    {
+      "path": "src/components/ActionModal.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "194ccb8337661577ede0fa9df3e518d781e353c19e440d88059603089d816312"
+    },
+    {
+      "path": "src/components/MobileShell.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "1f53ab65bf01b50282f0faa9dbedaacaf250d6f73db29d6e09f4ae33926c413f"
+    },
+    {
+      "path": "src/components/UnavailableFeature.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e77e7e978f31730808786812f8974e41b39cafb40bd3fb22ac4ae29bc6ccb185"
+    },
+    {
+      "path": "src/components/ui/accordion.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "0903efcd7b746eef0a10c954a541b0dfa7aa1172f3c380a1a88f4e19a317fda3"
+    },
+    {
+      "path": "src/components/ui/alert-dialog.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "ee4d7f3341a1e5592787b7dac8e924bd226189492819f6704d8a7faf8fe64d20"
+    },
+    {
+      "path": "src/components/ui/alert.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e7f4c2e6f78c59270905b4152b7d3ef4d5c6b9e3b2d370daa7b301aa7cbd27b3"
+    },
+    {
+      "path": "src/components/ui/aspect-ratio.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d72c73d629e37995a0a71647d851d68d6fdcd7ec120797f36ab83a8ee89f2cab"
+    },
+    {
+      "path": "src/components/ui/avatar.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "0326c9041c5a0b1ba31ff29822c51950b6aeac485cd0985e7df714741a54e7f4"
+    },
+    {
+      "path": "src/components/ui/badge.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "6519775252fe729f21c60b92c7c9feefd1fe7d0a8c2cf16d6f1c2fa7e153fe75"
+    },
+    {
+      "path": "src/components/ui/breadcrumb.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d5224e87344b3ac0f8b002e5dda6a71ff8fee296db8a5fbe6b034d06bd5c2ae1"
+    },
+    {
+      "path": "src/components/ui/button.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e39813b666ba434660ec088356a0349246b6803a4e99961295d0c82bab1ab862"
+    },
+    {
+      "path": "src/components/ui/calendar.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "3205837b76f652de06126eb65ab7af601013ca989025cd21ed4cda33bd780b46"
+    },
+    {
+      "path": "src/components/ui/card.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "f13878a0078a5ef9f3e92af29259fc1e93ea56ea80cb992e0c4dea4e35396459"
+    },
+    {
+      "path": "src/components/ui/carousel.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "568e00e8edbfab8af67ee902ca9ef5ceb6d5ed6f3045e7f9b3c15b4f7ef9e974"
+    },
+    {
+      "path": "src/components/ui/chart.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "81b1f692f9334ba3030213ff37eeaf2dd762b644e5d96e51ada7072109f07430"
+    },
+    {
+      "path": "src/components/ui/checkbox.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "c44d02535d5c9c92807576804407dd63d01e7189dbde526e925b53885e645fd4"
+    },
+    {
+      "path": "src/components/ui/collapsible.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "5f0a45d8f6ca72d37ed10bf0a85306158b67d7cbc386319186ce013ead9bc0a6"
+    },
+    {
+      "path": "src/components/ui/command.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "ba8c0f8b23044ce9a5066e66d7ab7be3a3c79bfc4a0ab7dfae6ffafe439145a3"
+    },
+    {
+      "path": "src/components/ui/context-menu.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9ba8c0fc29c25f440a1d8806e16d42c1083e9909e7ed1f1b9b0deb2ae00e1d13"
+    },
+    {
+      "path": "src/components/ui/dialog.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e3a6de153fb15597ea95be9c4549211a297c060267787915599e3d680d476bd9"
+    },
+    {
+      "path": "src/components/ui/drawer.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "478c487f66245641d5fa0f0d1c53a07d68bd60c4b3c497ec4c41ce08b482e14b"
+    },
+    {
+      "path": "src/components/ui/dropdown-menu.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "c6eb5ff28e5bc3cdbe38a11d680aae56d885285e4aca7c8288609811effc04cb"
+    },
+    {
+      "path": "src/components/ui/form.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "1ed53d4ab564a64708938643de590f2bef3718b0b2a309c1019c57e9c1fde23f"
+    },
+    {
+      "path": "src/components/ui/hover-card.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "69dc172ece56ac77bf3a044a1cd60ed601b0041945d16b5da4c6cc4f42116988"
+    },
+    {
+      "path": "src/components/ui/input-otp.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9b94ff8e296ba320ebec6550e0fd1a9763132d7edfa4cac842d4ca926dd5f2e3"
+    },
+    {
+      "path": "src/components/ui/input.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "92debb7d6d2d96d9e607a42d5ce8f37b2d63384ae5dd9ffbbf5f047b680ffb85"
+    },
+    {
+      "path": "src/components/ui/label.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9f72e2ecf16206593aa9e3c4fbc14cd8e81aa8488d57d92d4a950b30935a9fa9"
+    },
+    {
+      "path": "src/components/ui/menubar.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e8a3269de7348e04dc1335cf6227bdcdaf2649484da4654f6a6b20f1c8423a84"
+    },
+    {
+      "path": "src/components/ui/navigation-menu.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "755aecc77b7911ab61159c9fbb9b25254009eb4c32c95b1430b6b5b7d37ed8f0"
+    },
+    {
+      "path": "src/components/ui/pagination.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "cbe8559c578ee2d34c7daef5ee75dc3afeb795851e294b111dec375ba44a9a2d"
+    },
+    {
+      "path": "src/components/ui/popover.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "861c18577ea5988c6f5ca00d1c677200319fd427cf8b424e59a5cca6ff24f830"
+    },
+    {
+      "path": "src/components/ui/progress.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "418f612946a520d1380b7a0d058185bb6a6d09846846dd6d6904a0016152dd4a"
+    },
+    {
+      "path": "src/components/ui/radio-group.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "8c55aa0496b00a27fc4f609ca8b43a7e82c6802f6bf613998438b7632899fa96"
+    },
+    {
+      "path": "src/components/ui/resizable.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "f0399fec7bc334f06433b41b6ebf34255942ce4916b99173898893fa7fcc8281"
+    },
+    {
+      "path": "src/components/ui/scroll-area.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "b607f562455152a079d70a22538c95072b0267e0d59a1a1cf16a905a2e373a6f"
+    },
+    {
+      "path": "src/components/ui/select.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "6d4deee18cf7ced0354eb719300833a83caf46400de6ee9c3d1942fa4c579ad4"
+    },
+    {
+      "path": "src/components/ui/separator.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "bf5838b692e5f74fde7083280b99492dd402bce6966e912e79f5e23f14bc98eb"
+    },
+    {
+      "path": "src/components/ui/sheet.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "a82f9341962e766ee925a2fe883b0a9ab5d5dd8475c402ac8e491ee37dc95fde"
+    },
+    {
+      "path": "src/components/ui/sidebar.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9f44f4523271f965adec608ae1c3b8a2f350f2f45ba1401a2c7ee33bc5eda238"
+    },
+    {
+      "path": "src/components/ui/skeleton.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "f4c42257d73925b0b856a3500e2cbdd918fe6744fcd6be87ef28bb88e7eb7366"
+    },
+    {
+      "path": "src/components/ui/slider.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d307cf3ff05b54be4a04389ef4379f9e8b4dc49720197937991ce843a8d4b5ec"
+    },
+    {
+      "path": "src/components/ui/sonner.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "3ad40f66c339e799b1a57c00e10b4627294c7d580d99d8a48ae0d8d4c13cf931"
+    },
+    {
+      "path": "src/components/ui/switch.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "c3c298df4ffb56695e4a8f0ff3e37eee08437dec542a677153ec16bed0820107"
+    },
+    {
+      "path": "src/components/ui/table.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "1e945e564c2cc5ca3ef33019ba7da7a8b94cbc73feb3cbc2b7b33c36ea648d92"
+    },
+    {
+      "path": "src/components/ui/tabs.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "e9b454d2f987c83b36cc8870bba47d9355db4e8f5c733b310dbc1119a7d27654"
+    },
+    {
+      "path": "src/components/ui/textarea.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "35617a2cf053e52c9e56983bde82d556861d38e462f9e578876c8e99a0432687"
+    },
+    {
+      "path": "src/components/ui/toggle-group.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d59cd3937c967a3e221fdfcfe4ea5cd57eb97cbe37e1ac98126664c9c7db49c1"
+    },
+    {
+      "path": "src/components/ui/toggle.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "62e6e21993f1ab633b9f830cbbf0c181f3d161bae3a7792dbf2d842d42a2f09c"
+    },
+    {
+      "path": "src/components/ui/tooltip.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9682690fc3755d0f4b8684f2d7b1f77945876d41a45b723d0761b26804ad5010"
+    },
+    {
+      "path": "src/hooks/use-mobile.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "21eff740f9e5c965c7f0782925a7e8f67ddfcdf0f58b6613550f99c3e1c454e9"
+    },
+    {
+      "path": "src/lib/backend-api.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "4e6fb86af9978a47f6e524de0e802e47276b6e17dc1a3fe52b01bcf656298bea"
+    },
+    {
+      "path": "src/lib/backend-session.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "a131aea75d3164b135b5d49be9f18632917c278f1d55717bb73894887b258272"
+    },
+    {
+      "path": "src/lib/error-capture.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "adc4f6f1c8bdae036c9605b2db8372f2c6ed9fa037487ce288e2947472cfc568"
+    },
+    {
+      "path": "src/lib/error-page.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "635915886f5d44a18b6add2a53959dbe2e8ba1bb3f7e597fc714650e74157bb6"
+    },
+    {
+      "path": "src/lib/i18n.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "7cd321cfcbf8df67b6403b22761ecb08d9a3ad7b5d5fa7537ddbe12f4c2fa267"
+    },
+    {
+      "path": "src/lib/lovable-error-reporting.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "ff65950d5e47a0ee77eb0ca989ca86a6749703afb56e464f5eaeaf313405321e"
+    },
+    {
+      "path": "src/lib/utils.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d1f1e0d62cb8d8d1e04c26e14de842d8a151f75812d81b046c65b5d1fe8e4b27"
+    },
+    {
+      "path": "src/routeTree.gen.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "83182fbd9e5024718cbbde99aa02fd933b1eeb1f87d03da5a7735cb77df2d18e"
+    },
+    {
+      "path": "src/router.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "72b68964d3f55ba4f7dcf2a04aad9d97d7c61fabad13aec1d298f1e39ee59fcc"
+    },
+    {
+      "path": "src/routes/README.md",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "edbd5d3cd5a427882c60b7b7dcdd12c7031f2f8ac0c085d20d2f6abec719e95d"
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "040f7de9df5a5e630a2c7a72bf4a34ffca50139b118b5dd6f994e8b8a43e9235"
+    },
+    {
+      "path": "src/routes/assets.cards.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9c399cec92dddfd3b2600af4bf519e8f4140b050d1318b1099a7e34fcae99f05"
+    },
+    {
+      "path": "src/routes/assets.digital.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "f102d9f31def64a6bf3a83b3378b71229275a9b0c015fd4e77ca1a3b253a7f5f"
+    },
+    {
+      "path": "src/routes/assets.fiat.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "ab8eaa53ece8791b593945d5de6d5dab6a743251a2f59c9761a532c98c0782ff"
+    },
+    {
+      "path": "src/routes/auth.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "83411a5c8cf079f220ea9636de017967e2d9718eee7353819c231b4735c06699"
+    },
+    {
+      "path": "src/routes/card-pay.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "6f6c3c4e59a62f5334834be228606f1c5b19b27d330ce286a9bb5d5b3190fa19"
+    },
+    {
+      "path": "src/routes/cards.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "b7290f609f118501531c936d99c96090a039bf9b7d5ec8a19149a1041e41dedb"
+    },
+    {
+      "path": "src/routes/connect.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "a1fda1ef67c65eed83248e2bf4f4e58619f734ad769cf494a4dcbf693b01f938"
+    },
+    {
+      "path": "src/routes/convert.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "646b072b6573cc3db8e9aa6430e709e213d832276cb3664da3d210da85114206"
+    },
+    {
+      "path": "src/routes/deposit.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "507632aa59ea27285d7479012eb6732c5853b8385e7e3f5711e4b05a7ea7696b"
+    },
+    {
+      "path": "src/routes/history.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "9d4730894f776921c59c3d5c344f474790b1ee2ce11a5b8c1646e91af5837028"
+    },
+    {
+      "path": "src/routes/index.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "619e774cd5f0eb53c28f17372b1f638ecf7ed7f1a20c687c3d8b5c338049121c"
+    },
+    {
+      "path": "src/routes/kyc.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "0b8df6b0d9074248aea3017bba049af31f4f2e166e306fb0775d121a752ff8e5"
+    },
+    {
+      "path": "src/routes/merchant-pay.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "5edaa46fcb948f18f38ddea75fcf359b3255d98fdbaa68861fa97608bf42469d"
+    },
+    {
+      "path": "src/routes/pay.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "043cbe252c5db0318a331119c7b16a9272d84b61ef9492028731ef24cd360466"
+    },
+    {
+      "path": "src/routes/profile.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "f9cef4bf4fc078c9d8b8a6e1c8c92c8492e572dbd604accf39c8b731485623e7"
+    },
+    {
+      "path": "src/routes/transfer.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "13149ba2c1c0bbc7e0e014854426f610fcc7accab6e0508ddf1091c63792b2de"
+    },
+    {
+      "path": "src/routes/withdraw.tsx",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "d1b639147d73e7709c13e6e493353d2c767950b367ebcf58aeb5862d322ecf83"
+    },
+    {
+      "path": "src/server.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "0018f6b6a63ff5949957a7ac184a0aa31bc07956ae0a0680f06ebd4916bb9dc2"
+    },
+    {
+      "path": "src/start.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "7b2a35cfb8f08b2db762d78245ee906491a22bd807066ef40bb21bb080e68c20"
+    },
+    {
+      "path": "src/styles.css",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "df34492ab56cb47577ed59a6254df672cbe78a87603ad8593d0643b74c89fd87"
+    },
+    {
+      "path": "tsconfig.json",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "8f085c1d4841928370f6922fc9b8cabe3dfe84d266fc734a08d3e0dc3f92490d"
+    },
+    {
+      "path": "vite.config.ts",
+      "source": "e8ccb6a508f478d7a948f4ccebaa3d73dcbbfe18",
+      "sha256": "cc2f1169758af08cec6454d83465334fc6345922ab98fc2170486f35aed59170"
+    },
+    {
+      "path": "src/components/FrontendScope.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7ecdbaa23c9f36624561a8043fa1dd25cb14f18e9c349cb8fef84e535578a2ea"
+    },
+    {
+      "path": "src/components/FrontendScope.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "01b79bfe986f0e7ccb0272d363ec183187e859e0833ecbf8080f5f8e10b24f4d"
+    },
+    {
+      "path": "src/components/LaunchReadOnlyCards.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "2b60862cf9c115c01896de5ab620e0e6f9053ebbf63849cb94c11d1633d84237"
+    },
+    {
+      "path": "src/components/PublicErrorProvider.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "be43eb9c31e46c7ad7862851c24c2a8eea224eb67a3441ce7e77307e06fc415c"
+    },
+    {
+      "path": "src/components/WalletAuthForm.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "aad42db997de0beb5c935ddb194a8bc8065b2c1acb8a79c39c64621405ebc7c8"
+    },
+    {
+      "path": "src/components/WalletPreviewViews.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "a4dd5c5e6dba557a1f4081e61f0c06419ef1d64b249c3e0ea08794fcb001aaf7"
+    },
+    {
+      "path": "src/components/WalletSessionActions.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "604c4b59a117c9bc1aa94f5e5a265666e63af35f452338e44a1a034633f03a25"
+    },
+    {
+      "path": "src/components/launch-readonly.mounted.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "027cb3ceaea525e61c2606223432eb95eed63cbe1e3739120018b8a96f310c05"
+    },
+    {
+      "path": "src/components/wallet-account-actions.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f8ada70d7bd82a0702f5d1af22acefc17f79a043bb5ff81d5092fca5a4835de0"
+    },
+    {
+      "path": "src/components/wallet-auth-integration.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1e70fc6a8ffd3bbe147daaf7227689bea423efff6dba81a23e054577e3d63a6e"
+    },
+    {
+      "path": "src/components/wallet-query-completion.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "0c3a369ca248f16b79be0837513aeb12685f5c952b5b01a0f8aec0c5e3167a44"
+    },
+    {
+      "path": "src/components/wallet-readonly-detail.mounted.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "46573ae825dabbb3840b55f998291bcc8d9a126d3206801f8dbe3ecb855032de"
+    },
+    {
+      "path": "src/hooks/use-card-activation.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f6544b4d4d2ec33d1e4f2926c8bd4ce97ad147d12c208fd69fdb2b4acf1dee44"
+    },
+    {
+      "path": "src/hooks/use-card-balance.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "6fbec62c4eed3432395fa4f6e2412ca9d63b74b4fcbe46993da06fd7750f6447"
+    },
+    {
+      "path": "src/hooks/use-card-limits-mutation.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "674182ffe1443ecd35ff21ea1bcc18ac61d8ce51c2789d96e17936531e109350"
+    },
+    {
+      "path": "src/hooks/use-card-limits.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "8c19951403073d37ae3c0ea0e5c26e7ef104af42955a7b97bc945a0673735858"
+    },
+    {
+      "path": "src/hooks/use-card-list-pages.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "b3a1181e7199f174b4e0b5b8f4362e63d11e8e60f89df30b48e3178e44fa3f10"
+    },
+    {
+      "path": "src/hooks/use-card-renew.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "e5f297fbe0c260f37ca3651120068523638e02c3c9b51fa097939762dcd49085"
+    },
+    {
+      "path": "src/hooks/use-card-replace.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9b2a9f43466161edb0acf8d677a9ecc8fa99f07e72a12fcbaa1567b5cb21cfea"
+    },
+    {
+      "path": "src/hooks/use-card-status-mutation.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "6634f8986fbd6ae8ef649f6a1a1338ff47dc6267d4cb9f51a8a1deeeea4d9185"
+    },
+    {
+      "path": "src/hooks/use-card-timeline-pages.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1b4437a3e384cad42eeac52264f87ed9e1a213310f569f144d65cc7f052d62d0"
+    },
+    {
+      "path": "src/hooks/use-card-timeline-pages.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "351a04c7fd183a3db03405e2613b369839a1311b1a749ecdfac73311438aed90"
+    },
+    {
+      "path": "src/hooks/use-card-transaction-detail.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "41341b259f346976c169bf4ac822d1ada52f0f0e59b421ee29040b100444aa1a"
+    },
+    {
+      "path": "src/hooks/use-card-transaction-detail.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "0b520db1e0eaa7d5524dd66da761334062f6f02997136e797369951b026197c8"
+    },
+    {
+      "path": "src/hooks/use-card-transaction-pages.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7208ceb4af9f95d37a49af3cbada86f785f0bd24870432876f19354612b09ad5"
+    },
+    {
+      "path": "src/hooks/use-card-transaction-pages.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "cd1624078d22fdc6bc6201e54edf1f614c2381b3b4d027ebbed54dd12fbb8a78"
+    },
+    {
+      "path": "src/hooks/use-digital-asset-history.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "77ad077c4ecd6098a38478b494f164273718ab497bef64075c94625fb85ee0ce"
+    },
+    {
+      "path": "src/hooks/use-digital-asset-history.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "5217e05599346949cf9252c3d2bf1b4d84a66d27d32cfeddaaa3d5a006b8950a"
+    },
+    {
+      "path": "src/hooks/use-fx-quote.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "dab1b6eebdd0eebad03bfb09b27b705a79f16b3adfa6a7d33569c64adad05030"
+    },
+    {
+      "path": "src/hooks/use-home-wallet-balances.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "6cd6614582d1613a7bbeec70de35810f38c6ec6fa6f5d4e9e59ffc5efbbb05e2"
+    },
+    {
+      "path": "src/hooks/use-home-wallet-balances.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "49ed4035810653c4c3c543e5299fb524812171042e23809aeb79a338120a0c5b"
+    },
+    {
+      "path": "src/hooks/use-kyc-status.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "673f7cc8810f8eb80af7716f5bc82b168007adaa3eb39c1ccf59cfa31a87811d"
+    },
+    {
+      "path": "src/hooks/use-kyc-status.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "2e5ca8dd154de8379a110e641b2012b2dd12d82552518a190dc8640f7b3c303d"
+    },
+    {
+      "path": "src/hooks/use-preview-wallet-balances.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "61abab34e612f0a4195bec70afb472ab52b985c3fb08e4b9a8e642c523fb5070"
+    },
+    {
+      "path": "src/hooks/use-virtual-card-create.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f07be48634fd66fb099cb341a1233d49bcabd35a0d70e01cab6c6595890e36cd"
+    },
+    {
+      "path": "src/hooks/use-wallet-account-history.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "48e8dae1e9386cb2e6e4ad90e3a9bbced4b2ebb9471f7bebe5488d49cf6af94f"
+    },
+    {
+      "path": "src/hooks/use-wallet-account-history.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "82940af2231631be07ca10af7eff075fb46513c9abeba269d3756afbd41afef9"
+    },
+    {
+      "path": "src/hooks/use-wallet-operation-detail.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7a1efeda71e563b7d4a63735f3d5ca5bbda1b4f92dfde83b14527cfb7daeec8b"
+    },
+    {
+      "path": "src/hooks/use-wallet-operations.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f507be8c8f5870dce51abe3eaed81a273be4f799f562436e4e03bbbc4836c4db"
+    },
+    {
+      "path": "src/hooks/use-wallet-operations.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9543bae116ea32796ec520181deebc4b292a055111e10fb7b899fe76552b1f99"
+    },
+    {
+      "path": "src/hooks/use-wallet-transaction-detail-refresh.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "54d7384f672da7df89140397e99548372935070292a116c27226a3494f401e9b"
+    },
+    {
+      "path": "src/hooks/use-wallet-transaction-detail.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "ca953dc0f212012276fafb580baae1022d80a382901ba0039ee87243f9c18f90"
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-accounts.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "ef46c150c46ad35f259c7e9bee9b939ef9b7ee999fdb1abc2d1d94ea3b0ac57d"
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-accounts.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7dcd00eee3786eb817345ff61d5e0c6e60f636e5e7fcb6783928b3dfa94c37b6"
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-mutation.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1ccbea6597c6d48c5fcb74f22e39f89e414ba20b6482d57071bd1608210b9454"
+    },
+    {
+      "path": "src/hooks/use-wallet-transfer-status-refresh.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "c977bcc195592533ff28aad2a68e92f9edf3e71a68b3ac2a7ef112f3a00f509b"
+    },
+    {
+      "path": "src/launch/b10-policy.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "af3de0bb7b5d506014e8e3238ebdb926c9f4ebbc69d5b764c05a1c8401fb074f"
+    },
+    {
+      "path": "src/launch/preview-readonly-policy.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "8c013af6c36c7fa5144505557145fa730baece4591ecc43a4602bc7e44d24fe0"
+    },
+    {
+      "path": "src/lib/backend-api.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "6f671bfefda0c894a004a4dbdfc62dbe2870747e95cb1200f2111eaec3e3afa4"
+    },
+    {
+      "path": "src/lib/backend-api.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "afb7efd0d88364633f5bb185324b6d414d18d47da94fbdded95c19b149e167f3"
+    },
+    {
+      "path": "src/lib/backend-session-policy.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "023848e4d2f644bc83d240392c651bcc221c755f48bac83143c20e1dc14f512d"
+    },
+    {
+      "path": "src/lib/backend-session-policy.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "56cec9a750bdeb5dc7249235a3996f1013f32d4a258da1af910393c808b5a5a7"
+    },
+    {
+      "path": "src/lib/backend-session.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "bced66c643cef6bd3e8882da046e66a0c7092bc07625179e690bf285a618dcf6"
+    },
+    {
+      "path": "src/lib/backend-session.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9d917873d1481857c9a1a87757152311efb7391eee519693497e974d4cc4a431"
+    },
+    {
+      "path": "src/lib/card-action-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "568fb5ba24ca6bd41b5058ee962e05ff66a253c96b85062697d94c7be512784e"
+    },
+    {
+      "path": "src/lib/card-action-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "84817a4a9c3b126e77f8c84b51ab949a360fabdb1bfa381a894a9806f2e48e75"
+    },
+    {
+      "path": "src/lib/card-activation-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "80888296f7146fb0fb7702e9233aa7093364805b737844926ed0f45ed974ed0e"
+    },
+    {
+      "path": "src/lib/card-activation-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "eef9655b34354ca278f42887994422f5d6748fd7b00dc4e447721210562dddca"
+    },
+    {
+      "path": "src/lib/card-balance-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "2554d4d2ecf5fe747125fcfc45a142fdb475ec429718001ab78c2e7903263c57"
+    },
+    {
+      "path": "src/lib/card-balance-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9dda862b407b927226b252dd123a51ba11adbd0bf53b50123f27baee8e52a8f8"
+    },
+    {
+      "path": "src/lib/card-limits-mutation-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3a434d08c0abba0e8344225cd3587466e3882fbabf431896f789b55120dbc740"
+    },
+    {
+      "path": "src/lib/card-limits-mutation-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4cd27a4f3d3ad645c4af07013c38d8198e3d6418b19f282bcd3ae149254b240e"
+    },
+    {
+      "path": "src/lib/card-limits-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "d082f64712153bda78b174fb0a26d7fd903b7f47b6971d4798262227c481ec8b"
+    },
+    {
+      "path": "src/lib/card-limits-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "691b8b8f04528ad8bef9a8aae6d127bfea929c9fa3d5c573c651628eeb78634f"
+    },
+    {
+      "path": "src/lib/card-list-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "cbbfc44046c3635ccbd0c7b0276aeb6076880de78f3cfa16b950566ef058c234"
+    },
+    {
+      "path": "src/lib/card-list-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4b28d6b85d6bff545057ccc16a5c416f4c4785efbd59ba0f6cdd585bbd88f215"
+    },
+    {
+      "path": "src/lib/card-read-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "8e59aac0e9cf07090359cb34c845ce390920b0becebc37fcb77d54d4eae39d67"
+    },
+    {
+      "path": "src/lib/card-renew-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3ef3751d57dc9be212b90bfba4aa5b61068fe2f1e4ed6ea23ae704f5b0f3b263"
+    },
+    {
+      "path": "src/lib/card-renew-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "8b67788fa7f735091db1e6970bcdc56cc5c9e4f9b9758bf57ec65999ae1148c1"
+    },
+    {
+      "path": "src/lib/card-replace-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "d65fcbfef424c55bda471fce7f22bbfe45ee3c30ba18e60251a7a44f01715e06"
+    },
+    {
+      "path": "src/lib/card-replace-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3f17115c5535ba472e7edfdbc48c9bfee68cb1dc4695c7395042e8eb36eb6470"
+    },
+    {
+      "path": "src/lib/card-status-mutation-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "fd9e20cc90b9664a588baa12ae811707864305837bc30548b574a148f9ed2ffb"
+    },
+    {
+      "path": "src/lib/card-status-mutation-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f5d060e7217f94a93d804cdb250ebf2958f9a1b74789aaae3ea98d48ecb35396"
+    },
+    {
+      "path": "src/lib/card-timeline-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "44f23eb2570d1a37b4241a6b5b2319a994964a76336c6086c0d36cfe029a2734"
+    },
+    {
+      "path": "src/lib/card-timeline-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "646dfcba368f049af3f736c612c246dc215d9a2970f7e60af4c354f19ed26eeb"
+    },
+    {
+      "path": "src/lib/card-transaction-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3c92c2db5d6f3bee3c85efe179b02b3a8b577837724f89b0015a2cd7fda280bf"
+    },
+    {
+      "path": "src/lib/card-transaction-detail-refresh-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "09283dafd897adfc83ed05e46b0614c412f030a1c641926259628d1f6f92a927"
+    },
+    {
+      "path": "src/lib/card-transaction-detail-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "8b529a1bb4aaa0296c21787d12c9127d0807715f0b04dd74994a35e1e186d552"
+    },
+    {
+      "path": "src/lib/card-transaction-detail-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f0d31de541874ac64648b56d2d77a4b72ed1c473305d9e8a671d3ac1cd7a0c30"
+    },
+    {
+      "path": "src/lib/card-transaction-history.integration.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1510934d77ceedf73f2eb6d287e6fa5aaffdb35a43ae628079e9712d69922f1c"
+    },
+    {
+      "path": "src/lib/card-transaction-pagination-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "bf519e05e5d5b13926314fa5d78568b7ead776f6968da978fece2d7e8d480745"
+    },
+    {
+      "path": "src/lib/card-transaction-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "162ec5ea63327d97c850f37c9918d8b0c7d5a8af4975691b33c391659ef2464f"
+    },
+    {
+      "path": "src/lib/card-transaction-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7bfbf944ec6dd919f1a6ecd991d61de2a82a95d963b97be2e7a6f831251b5474"
+    },
+    {
+      "path": "src/lib/digital-asset-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "b9e38f27acfa5d6c3aacf265f1d12ea40cacb99b7c0e0bfac051fd58335c4be3"
+    },
+    {
+      "path": "src/lib/digital-asset-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "720cb0a739a70ab80721036b502f4e66c8f8b7fff9ab9ec39175f081c6cb8391"
+    },
+    {
+      "path": "src/lib/frontend-request.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "92c4a4b77351199869646be9547bac681561988f90bd8048a0818cc322d9b1f4"
+    },
+    {
+      "path": "src/lib/frontend-runtime.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1781bf4dd274f0a9c64e515038e98053edb2252bf35d8bfaa4ca4409cf5fb300"
+    },
+    {
+      "path": "src/lib/frontend-runtime.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7c6d70b66ce6c74fddf2724fddbad2b47ab7f254e0352e46ecf3ad29f6e47d2a"
+    },
+    {
+      "path": "src/lib/fx-quote-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7d82b4a689e2a6ade2e286702bf9072e2cc67e5ce75f829b415250ced76adf9a"
+    },
+    {
+      "path": "src/lib/fx-quote-contract.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "6e6a9152fe9f0c3c48ef80637d48c773e3afe2dc6aab9429ef0cbd006966e355"
+    },
+    {
+      "path": "src/lib/fx-quote-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "26c10a278218f74f1cf2e9bb1cb909cc8e475df27e14b01ae30d6562bf9233c3"
+    },
+    {
+      "path": "src/lib/home-wallet-balance-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "900ff09d9c1fdd57f3abef19dcfd457bfa898a992509f708727ad8b48576ffab"
+    },
+    {
+      "path": "src/lib/home-wallet-balance-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3635baa9be666d9925a1d284deab48685fdf175b9ddf7c95fab8a16f19e0f732"
+    },
+    {
+      "path": "src/lib/kyc-status-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "08046f4673f8afc610832d213d38735941fbb916f2e47ed3c232e944caf5acb0"
+    },
+    {
+      "path": "src/lib/kyc-status-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "514db66cdc07b258a7501e6a9fd2c86b515834aa3917282cdbd9e292eff3ed8c"
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.b1.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "27b246b46dea74b6635961c9b87a41074349e904dd99ec9501fc6a1ec1d129b5"
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1bace3b243193a7db35cce67e6c741f0dd4f73bf19f6f574609c5d3bc57b7a65"
+    },
+    {
+      "path": "src/lib/launch-readonly-policy.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "ecda41142adae7d7f86d3321e5fe0d29009f4ce0bc5a250cbf39407ce187245d"
+    },
+    {
+      "path": "src/lib/preview-readonly-policy.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "fca4e43b71059fc7ec6b308b2deb4f6858bebd77224562c5d2f2767733085833"
+    },
+    {
+      "path": "src/lib/prime-wallet-readiness.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "b359fe9f399d42a50e0c550a2a225da669bd6996ee6e332f13ae543bc82367f6"
+    },
+    {
+      "path": "src/lib/prime-wallet-readiness.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "d6ca9a357e519a880e296ba887f4ae34dc24c6a5fb395f9385b226c918913b48"
+    },
+    {
+      "path": "src/lib/public-errors.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "562221d69470dfbf5da98665e46a598b0d98cfaaf3cb9e6dbe23b65363120597"
+    },
+    {
+      "path": "src/lib/public-errors.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4b6176c48d8975b64aab4d7e8720372253d799b67350ecc9cecfe9d331d113bf"
+    },
+    {
+      "path": "src/lib/sdk-product-mode.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "c205fb99a6cce2b6fbad2242bd2d841764503c608a23b343abee2790b333f280"
+    },
+    {
+      "path": "src/lib/virtual-card-create-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "ecc31e6db9cc5c34b6af809ec2e748a72aa8ccaa9731c47b0b9917ed7c86084b"
+    },
+    {
+      "path": "src/lib/virtual-card-create-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9e5dfb3ebe7c2261d93590254cc7be164e9c6028e355d4908038756e5573ee8b"
+    },
+    {
+      "path": "src/lib/wallet-account-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "a78278a436a75f2d2cb59cb2e00dfc69e8f4efb51119489b36d21943f234ae2a"
+    },
+    {
+      "path": "src/lib/wallet-balance-summary-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "125464a4b066ef64142f5582d42e28e1df9fb3a0f34c0cb483e633b62fdcd26c"
+    },
+    {
+      "path": "src/lib/wallet-digital-assets-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "0acfc709378a43b3c91371d0792ca7739d020576cd761cc9f609b61b98ab00e3"
+    },
+    {
+      "path": "src/lib/wallet-history-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f3e2a242766776d6a1f7b529455cf3231ab90b44a9f6f38706d5a9e9f2560019"
+    },
+    {
+      "path": "src/lib/wallet-operation-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "61646f33c8139fca5456f1cf758c9f0e04f2ef129e8a5771bc70c26fc8a03f9c"
+    },
+    {
+      "path": "src/lib/wallet-operation-detail-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "acef77605846317ffccb1671c0b35cbee7e6f25f095b835d06be02c7d3750920"
+    },
+    {
+      "path": "src/lib/wallet-operation-detail-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "65dd5f50f36507ebfd2bcd8c8b6613e3e4067451d11b72602922d075417001f9"
+    },
+    {
+      "path": "src/lib/wallet-operation-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7f6ca6edf687192acff9cbdf21791686a0f454c48b242a352e970bea9a859cbd"
+    },
+    {
+      "path": "src/lib/wallet-operation-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "5bb8b0f6c4c207c9d1a0ead16aec86dfa27f9f5311ae03382fcbe0bd0a14a2c8"
+    },
+    {
+      "path": "src/lib/wallet-readonly-scope.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "ceb8491b7d453becb5da8a8e1718137961b2cf556e29b7def40f20e5eb4f6105"
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-refresh-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "56ea4183dd6023505eb2a460bd9998a817a6676216d124be917052e5844f3341"
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "068a8c8f2b0cee3f37bec9e87e4797e8cd2095cb0f943419cd3f87cf7fc94746"
+    },
+    {
+      "path": "src/lib/wallet-transaction-detail-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "e9b05761bfee144bd9ca6b19cef2622b214ce3d89fd9c60793341831be8a1f3b"
+    },
+    {
+      "path": "src/lib/wallet-transaction-filter-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "bfa4ac53b26d5934ff75e0e6a8b0fc648d65506fb663b910d5a3d64cac5bf4e6"
+    },
+    {
+      "path": "src/lib/wallet-transaction-refresh-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "92c07740db786e26311a979bb2e4ae573f67d2b69a57a8c7d97b766ea09ac03e"
+    },
+    {
+      "path": "src/lib/wallet-transaction-selection-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "dea6f194ad1e5cf959859e654e554ce485ecb1c8eedfe7a9c8c6221cfc47f67a"
+    },
+    {
+      "path": "src/lib/wallet-transaction-selection-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "989b14fbcb7c3257ef98c6db9546dffcf78e1d0b1ee2034b59411050b6d093e9"
+    },
+    {
+      "path": "src/lib/wallet-transaction-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "dde436d74b40ca064785e01e59a8f3e5a9c61457af0526ba0bde3b53ebe17709"
+    },
+    {
+      "path": "src/lib/wallet-transfer-account-state.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "35e088ca0614c2c1d2215244a16f55a39db0d3492f22061683ee97abd18556f6"
+    },
+    {
+      "path": "src/lib/wallet-transfer-account-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "c769759e8a26d00f7961d1cace5b0ac3e4d3b83adff58bf311ad99c09a8d9d1a"
+    },
+    {
+      "path": "src/lib/wallet-transfer-consumer.integration.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "9c152bbf64a03105170fbc8dbe611f560cf79cec662d88ac519d16a11780ff9e"
+    },
+    {
+      "path": "src/lib/wallet-transfer-mutation-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "c06a980d024826ccbf204ae5202a460c6b92d212c1d3e58d82c8fedb2c95beb2"
+    },
+    {
+      "path": "src/lib/wallet-transfer-mutation-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "313a475aa0cf8261169316bd4733ebe7f696ad6325e753e18666de5c8af24bc7"
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh-adversarial.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "789f1d4469e9d474f244944cccd463af624c20718f5f7fe73a83f0f2bde05c4c"
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh-state.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "fb73ef4ca43a7a97e21c2dbf5d3d1941554e42396dfa8d8f4b7f6790640efe4b"
+    },
+    {
+      "path": "src/lib/wallet-transfer-status-refresh.integration.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "5751848b93ce4db50f2d11f07fcad14c28f31251915639cf2e2642b9a4fc9329"
+    },
+    {
+      "path": "src/preview-gateway.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "c2a5be6588cc27ebaf6751bcdb5fc8023d799001c771de363e1d0cf29707f530"
+    },
+    {
+      "path": "src/router.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "282f1e9561d53125bd878262ad764601aa61608f89b5b72089c4c4e148374024"
+    },
+    {
+      "path": "src/routes/-assets-fiat.mounted-refresh-selection.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4d478a551aa74d6568420eb9b96b993d0c00fad6b3f14bfc58c4c2ec5cd3fc77"
+    },
+    {
+      "path": "src/routes/-cards.mounted-activation.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4c7784a7a4a77d69c5fba1dbe52cb6a44b5750244a7dee072afbe0123250e39d"
+    },
+    {
+      "path": "src/routes/-cards.mounted-virtual-create.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "fa291ab83287c5556d1e5c3bec69e0b3acf3e4d09ee91d4f6cdb6b96d554b071"
+    },
+    {
+      "path": "src/routes/-convert.mounted-quote.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f7eb4819e76bbd2a19ccab44aff6d573ed23b090bb7c0b3165ac87e2f8b8a5ca"
+    },
+    {
+      "path": "src/routes/-history.mounted-selection.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "dc719e2d8cbc07dbca67c7801fc812ea5a5a1cf210515cd73cf36b3a6f1c9d7f"
+    },
+    {
+      "path": "src/routes/__root.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "7346034a3e8079e89875a4ee6c9f26a8b0b79dd75e2940c75e56ee325a1bed46"
+    },
+    {
+      "path": "src/routes/assets.cards.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "d098caea6d1a8bf30571a5d3236658fea371de2ef6a314e47411d3dfe283fc91"
+    },
+    {
+      "path": "src/routes/assets.digital.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "078ac5a85c55f2760e524e5a9f660ca5a79ea6c36fd7468c1f5135737d9ac42a"
+    },
+    {
+      "path": "src/routes/assets.fiat.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "4e663f3db69549daf94428f25fbac32e5f20654135eef3c008bbc0e7f414738d"
+    },
+    {
+      "path": "src/routes/auth.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f3949bb12b40ca3b09ff0d920ba31dcb70cdd3f53ba7fac8a905a7eb23a64509"
+    },
+    {
+      "path": "src/routes/cards.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "5075a3d2c078cefcee7fa9438b5bfd24f6b34964a92d9e3472231464eefe071e"
+    },
+    {
+      "path": "src/routes/convert.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "51615b8d5931ba902b2dbd15523bc90f4d130edd9e789daac9a5d1643c4ecc6a"
+    },
+    {
+      "path": "src/routes/history.mounted-detail-refresh.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "1fa4bbcafbbff12c41fd846d7456af8ecbddb28f62bab8089eef32b0b652a8c4"
+    },
+    {
+      "path": "src/routes/history.mounted-pagination.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "2d80217353bf7db4b7d265a3e763a927102326e1cd8d171b124acf5b4ff55cb9"
+    },
+    {
+      "path": "src/routes/history.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "0c84ebd6f7aa81982160dfb16787d4b3aa0696982c6873e3ff625ef6171a835b"
+    },
+    {
+      "path": "src/routes/kyc.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "22aacbb34ab94c2046d3cec8e4d08b3f4ecb583ed2fc189d5a19c4f1870eaa00"
+    },
+    {
+      "path": "src/routes/profile.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "28f840c00e67ab14e2c28952880335fe59694de3c71bd9cea482f57403c21d54"
+    },
+    {
+      "path": "src/routes/transfer.mounted-safety.test.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "95b7e261400290d2cf7a64cf5d2339485211ebc382cb57182c0bcc8d0de89f8e"
+    },
+    {
+      "path": "src/routes/transfer.tsx",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "3260672cc643a2f8a624a16d673a741699d82580285f50d7142d7ff1d1460ad7"
+    },
+    {
+      "path": "src/server.proxy.test.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "f79905029bed2832e2c2e8ec3ee657b5e310ab0917e9b46751de49ca1c1535ae"
+    },
+    {
+      "path": "src/server.ts",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "committed adapter/query migration; routes require C review",
+      "sha256": "336fd0b5f655360ce822453553dd73855d04ddd6d01ecf34dbfa905e0789008c"
+    },
+    {
+      "path": "package.json",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "validated tooling configuration",
+      "sha256": "7c97a58c9984461b947d2fb7ef14c4780f85ffb3c0706b466d4bb33be29cecb3"
+    },
+    {
+      "path": "bun.lock",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "validated tooling configuration",
+      "sha256": "b82083e44516830eac8b9eeb369e9d800148a4c53a9062bd487ac5684f5f8112"
+    },
+    {
+      "path": "tsconfig.json",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "validated tooling configuration",
+      "sha256": "798818d5c43bf9b645e9f9ae5f3e058d227115724110f780ae46e19aa0cb5ce4"
+    },
+    {
+      "path": "eslint.config.js",
+      "source": "95973e23db35e893df3a66eb4a00caf5561c5ed7",
+      "kind": "validated tooling configuration",
+      "sha256": "3266245a1ff610a0b37dbb8b8c77b93a125e0d8758b9838cfd04b2e0a1397d56"
+    }
+  ],
+  "handAdapted": [
+    "src/routes/index.tsx",
+    "src/routes/auth.tsx",
+    "src/routes/__root.tsx"
+  ],
+  "unchangedCVisual": [
+    "src/styles.css",
+    "src/components/MobileShell.tsx"
+  ]
+}

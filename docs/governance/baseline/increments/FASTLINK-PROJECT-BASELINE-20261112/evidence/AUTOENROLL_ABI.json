@@ -1,0 +1,292 @@
+{
+  "recordType": "ROOT_FOUR_STEP_NATIVE_ACCEPTANCE_RESULT",
+  "status": "PASS_NATIVE_DIRECT_ABI_ONLY",
+  "sealedAtUTC": "2026-11-09T14:35:19.778401+00:00",
+  "baseline": "BASE-V1.8",
+  "baselineUpgrade": false,
+  "ownerDecisionCard": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/ROOT/OWNER-DECISION-CARD.json",
+    "sha256": "0d80afaeceb95b2591b702b8cd144b15502e8f88e49c9e447e923ac072ef79a5"
+  },
+  "ownerDirectInstruction": {
+    "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/ROOT/NATIVE-20261109-01/OWNER-INSTRUCTION.json",
+    "sha256": "ef0a6d60126a63afec44e6ce4ac4d5060e3cf9af3e10e63dc0f22f98d01f0d8f"
+  },
+  "window": {
+    "startsAtUTC": "2026-11-09T14:26:41.645Z",
+    "expiresAtUTC": "2026-11-09T15:26:41.645Z",
+    "maximumSeconds": 3600,
+    "ownerAuthorizationSHA256": "62212680ec84a30f7250d863d06cfe3e0d95755ab1ab6e67f058eab7b4581e05",
+    "createdBy": "FORWARD"
+  },
+  "windowBeijing": {
+    "startsAt": "2026-11-09 22:26:41.645+08:00",
+    "authorizedExpiresAt": "2026-11-09 23:26:41.645+08:00",
+    "nativeFinishedAt": "2026-11-09 22:30:02.498+08:00"
+  },
+  "nativeExecutionClosed": true,
+  "remainingAllowance": {
+    "transactions": 0,
+    "explicitSQL": 0,
+    "sourceReads": 0
+  },
+  "steps": [
+    {
+      "order": 1,
+      "name": "two helper repair",
+      "status": "PASS",
+      "exitCode": 0,
+      "sqlSHA256": "09c38bc47294aaedf43c8e893ef0100dc1a9173479a43b8f3411809b4ca5d7b2",
+      "rawCOMMITObserved": true
+    },
+    {
+      "order": 2,
+      "name": "independent two-function readback",
+      "status": "PASS",
+      "exitCode": 0,
+      "sqlSHA256": "a6cbb59f9162a1dbdc8c1e4d3b4a7cdbf8de9994454c24a06acdf6be94b4bdf5",
+      "rawCOMMITObserved": true
+    },
+    {
+      "order": 3,
+      "name": "two existing TEST Customer credential update",
+      "status": "PASS",
+      "exitCode": 0,
+      "rowsUpdated": 2,
+      "newCustomers": 0,
+      "authVersion": 2,
+      "commitEvidence": "Prisma transaction resolved; strict same-transaction readback; wire COMMIT ACK unobserved"
+    },
+    {
+      "order": 4,
+      "name": "C01-C20 direct ABI + M99",
+      "status": "PASS",
+      "exitCode": 0,
+      "businessCasesPassed": 20,
+      "businessCasesFailed": 0,
+      "unexpectedSQLStates": [],
+      "countedDerivedRows": 50
+    }
+  ],
+  "actualBudget": {
+    "transactions": 27,
+    "explicitSQLExcludingTransactionControl": 66,
+    "secretSourceFileReads": 6
+  },
+  "transactionEvidence": {
+    "psqlExplicitCOMMITObserved": 2,
+    "credentialUpdatePrismaPromiseResolved": 1,
+    "COREPrismaPromisesResolved": 18,
+    "COREExpectedRejectedPromises": 6,
+    "totalSuccessfulTransactionsByThoseObservations": 21,
+    "rawPrismaCommitACK": "UNOBSERVED",
+    "rawNegativeRollbackACK": "UNOBSERVED",
+    "driverCOMMIT_CONFIRMEDLabel": "Interpreted as resolved Prisma transaction promise, not captured wire ACK."
+  },
+  "negativeCaseEvidence": [
+    {
+      "caseId": "C06_ISSUE_PROOF_REPLAY_A",
+      "nativeSQLSTATE": "28000",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    },
+    {
+      "caseId": "C07_OLD_REFRESH_REPLAY_A",
+      "nativeSQLSTATE": "28000",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    },
+    {
+      "caseId": "C08_FORGED_SESSION",
+      "nativeSQLSTATE": "28000",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    },
+    {
+      "caseId": "C11_API_CROSS_TENANT",
+      "nativeSQLSTATE": "42501",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    },
+    {
+      "caseId": "C18_REVOKED_ENDUSER_B",
+      "nativeSQLSTATE": "28000",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    },
+    {
+      "caseId": "C20_REVOKED_ENDUSER_A",
+      "nativeSQLSTATE": "28000",
+      "clientCode": "P2010",
+      "functionQueryAndTransactionRejectedLogsMatch": true,
+      "nativeRollbackACK": "UNOBSERVED"
+    }
+  ],
+  "NULLNegatives": [
+    {
+      "caseId": "C13_OLD_API_KEY_LOOKUP",
+      "assertion": "value=null AND proof_ref=null",
+      "SQLSTATE": null
+    },
+    {
+      "caseId": "C16_REVOKED_API_KEY_LOOKUP",
+      "assertion": "value=null AND proof_ref=null",
+      "SQLSTATE": null
+    }
+  ],
+  "newFunctionDefinitions": [
+    {
+      "signature": "fl_identity.auto_fixture_check(text,text,text,text)",
+      "bodySHA256": "dd8f305f87fe819dfc6e73359ebc9dc292580a49c8c930350cf2481e745e5349",
+      "nativeDefinitionSHA256": "56ab6eb575bffb2f27c7c9d7d934a499c3460d35cf24c894607bca76286d3c09",
+      "owner": "fastlink_identity",
+      "securityDefiner": true,
+      "configuration": [
+        "search_path=pg_catalog, pg_temp",
+        "TimeZone=UTC"
+      ],
+      "effectiveACL": [
+        {
+          "grantee": "fastlink_identity",
+          "grantor": "fastlink_identity",
+          "grantable": false,
+          "privilege": "EXECUTE"
+        }
+      ],
+      "reverseMappedOriginalNativeSHA256": "55f2ebae7b4de14e0bdc82bd61a8a8bb328a9e3c63c0f599af61552492e398c4"
+    },
+    {
+      "signature": "fl_identity.auto_rule(text,text,text[],text[],text[],text,boolean)",
+      "bodySHA256": "46bf3223f5ed61d86f969ff3f7771ef51c96801f22440b98fbbb92df65f87917",
+      "nativeDefinitionSHA256": "9b5661ec76dc54bbed0f5aef48ced05035ac11a34b2aa1839f7d8eced58f34c9",
+      "owner": "fastlink_identity",
+      "securityDefiner": true,
+      "configuration": [
+        "search_path=pg_catalog, pg_temp",
+        "TimeZone=UTC"
+      ],
+      "effectiveACL": [
+        {
+          "grantee": "fastlink_identity",
+          "grantor": "fastlink_identity",
+          "grantable": false,
+          "privilege": "EXECUTE"
+        }
+      ],
+      "reverseMappedOriginalNativeSHA256": "0b623e071a398aa9afdb1fd8896e4cdd1979513519d32f2f1cebf894add176b2"
+    }
+  ],
+  "finalSummary": {
+    "nonces": 1,
+    "apiKeys": 3,
+    "signers": 6,
+    "commands": 13,
+    "contexts": 0,
+    "receipts": 1,
+    "sessions": 2,
+    "auditRows": 5,
+    "apiClients": 2,
+    "challenges": 2,
+    "credentials": 6,
+    "enrollments": 6,
+    "auditActions": {
+      "END_USER_LOGIN": 2,
+      "END_USER_LOGOUT": 1,
+      "END_USER_REFRESH": 1,
+      "END_USER_REVOKE_ALL": 1
+    },
+    "refreshTokens": 3,
+    "apiRevokedKeys": 2,
+    "commandsClosed": 13,
+    "refreshRevoked": 3,
+    "signersEnabled": 0,
+    "receiptsRevoked": 1,
+    "refreshConsumed": 1,
+    "sessionsRevoked": 2,
+    "apiActiveClients": 1,
+    "receiptsAttested": 0,
+    "challengesConsumed": 2,
+    "credentialsEnabled": 1
+  },
+  "credentialHandoff": {
+    "path": "/private/tmp/fl-uat-work/autoenroll-repair-20261109/customer-credentials.json",
+    "mode": "0600",
+    "parentMode": "0700",
+    "regularFile": true,
+    "symlink": false,
+    "parentSymlink": false,
+    "nlink": 1,
+    "ownerUID": 501,
+    "bytes": 448,
+    "retained": true,
+    "contentReadByG3": false,
+    "contentHashedByG3": false,
+    "evidence": "lstat only and matching non-secret runner handoff receipt; content/credentials were never read or printed by G3."
+  },
+  "preserved": {
+    "directoriesAndV1Key": "Inherited; not rerun",
+    "twoCustomerSampleIdentity": "Inherited; not reinserted",
+    "ACLAndRLS": "Not changed",
+    "BApiClient": "active retained; inherited seven-day key issuance contract",
+    "privateCredentialFile": "Retained; no content/digest exposed or cleanup",
+    "oldFailureReceipts": "Retained unchanged"
+  },
+  "scopeStillUnverified": [
+    {
+      "id": "D01_V2_KEY_ROTATION",
+      "status": "NOT_INCLUDED"
+    },
+    {
+      "id": "D02_NATURAL_EXPIRY",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "D03_CONCURRENT_REFRESH",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "D04_WRONG_PASSWORD_LOCKOUT",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "D05_SHARED_CONTEXT_ENDUSER_API",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "D06_REAL_APPLICATION_HTTP",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "D07_MUTATION_TRIGGER_DELETE_TRUNCATE",
+      "status": "EXCLUDED_FROZEN"
+    },
+    {
+      "id": "D08_MULTI_SESSION_REVOKE_ALL",
+      "status": "UNVERIFIED"
+    }
+  ],
+  "remaining43TableIsolation": "0/43 unchanged",
+  "progress3_3": "partial, not checked complete",
+  "noRetryOrRollback": true,
+  "deployment": 0,
+  "teamEvidence": {
+    "G1": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/G1/native-review/FINAL-ACTUAL-LEDGER.json",
+      "sha256": "e184a53dfbe64efdec3eb13532b56de8e1b718c58eaeb19dbc98143652137048"
+    },
+    "C": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/G2/FOUR-STEP-NATIVE-RECEIPT.json",
+      "sha256": "e15f7b7ecd664ff1515de95c4ef93b11069ac93222f0e43a3cbcba56233c4367"
+    },
+    "G3": {
+      "path": "/Users/ck/.codex/visualizations/2026/11/01/01a1970a-7021-7263-9ec7-3448d1950d80/UAT-PROGRESS-20261106/AUTOENROLL-CHALLENGE-REPAIR-20261109-01/G3/native/FOUR-STEP-NATIVE-INDEPENDENT-REVIEW.json",
+      "sha256": "7fc1cb778c8b8d739bf367d3f27e97745b6dea839e64aaf619e181f0a1a227e9"
+    }
+  },
+  "completion": "Four authorized steps executed, machine receipts present and independently reviewed; no further native operation authorized by the exhausted batch."
+}
